@@ -5,7 +5,7 @@ void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final appTitle = 'Form Styling Demo';
+    final appTitle = 'Цехомат';
     return MaterialApp(
       title: appTitle,
       home: Scaffold(
