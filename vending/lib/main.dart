@@ -40,19 +40,13 @@ class _LoginPageState extends State<LoginPage> {
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           children: <Widget>[
             SizedBox(height: 80.0),
-            Column(
-              children: <Widget>[
-                Image.asset('assets/splash.png'),
-                SizedBox(height: 16.0),
-                Text('SHRINE'),
-              ],
-            ),
-            SizedBox(height: 120.0),
+            Image.asset('assets/splash.png'),
+            SizedBox(height: 40.0),
             TextField(
               controller: _usernameController,
               decoration: InputDecoration(
                 filled: true,
-                labelText: 'Username',
+                labelText: 'Логин',
               ),
             ),
             SizedBox(height: 12.0),
@@ -60,21 +54,21 @@ class _LoginPageState extends State<LoginPage> {
               controller: _passwordController,
               decoration: InputDecoration(
                 filled: true,
-                labelText: 'Password',
+                labelText: 'Пароль',
               ),
               obscureText: true,
             ),
             ButtonBar(
               children: <Widget>[
                 TextButton(
-                  child: Text('CANCEL'),
+                  child: Text('ОЧИСТИТЬ'),
                   onPressed: () {
                     _usernameController.clear();
                     _passwordController.clear();
                   },
                 ),
                 TextButton(
-                  child: Text('NEXT'),
+                  child: Text('ВХОД'),
                   onPressed: () {
                     Navigator.pop(context);
                   },
