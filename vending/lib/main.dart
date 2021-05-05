@@ -70,7 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   child: Text('ВХОД'),
                   onPressed: () {
-                    Navigator.pop(context);
+                    print('user ${_usernameController.text}');
+                    print('pass ${_passwordController.text}');
+                    //Navigator.pop(context);
                   },
                 ),
               ],
