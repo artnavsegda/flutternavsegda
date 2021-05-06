@@ -72,9 +72,6 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   child: Text('ВХОД'),
                   onPressed: () {
-                    print('user ${_usernameController.text}');
-                    print('pass ${_passwordController.text}');
-
                     var url = Uri.parse(
                         'https://app.tseh85.com/DemoService/api/AuthenticateVending');
                     post(url,
@@ -83,8 +80,9 @@ class _LoginPageState extends State<LoginPage> {
                           'Login': _usernameController.text,
                           'Password': _passwordController.text
                         })).then((response) {
-                      print('Response status: ${response.statusCode}');
-                      print('Response body: ${response.body}');
+                      print('Status: ${response.statusCode}');
+                      print('Name: ${jsonDecode(response.body)["Name"]}');
+                      print('Token: ${response.headers["token"]}');
                     });
 
                     //Navigator.pop(context);
