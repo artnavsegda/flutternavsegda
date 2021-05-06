@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'dart:convert';
 
 void main() {
   runApp(VendingApp());
@@ -76,10 +77,12 @@ class _LoginPageState extends State<LoginPage> {
 
                     var url = Uri.parse(
                         'https://app.tseh85.com/DemoService/api/AuthenticateVending');
-                    post(url, body: {
-                      'Login': _usernameController.text,
-                      'Password': _passwordController.text
-                    }).then((response) {
+                    post(url,
+                        headers: {"Content-Type": "application/json"},
+                        body: json.encode({
+                          'Login': _usernameController.text,
+                          'Password': _passwordController.text
+                        })).then((response) {
                       print('Response status: ${response.statusCode}');
                       print('Response body: ${response.body}');
                     });
