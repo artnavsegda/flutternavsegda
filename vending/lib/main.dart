@@ -73,6 +73,14 @@ class _LoginPageState extends State<LoginPage> {
                   onPressed: () {
                     print('user ${_usernameController.text}');
                     print('pass ${_passwordController.text}');
+
+                    var url = Uri.parse(
+                        'app.tseh85.com/DemoService/api/AuthenticateVending');
+                    post(url, body: {
+                      'Login': _usernameController.text,
+                      'Password': _passwordController.text
+                    }).then((response) => {});
+
                     //Navigator.pop(context);
                   },
                 ),
