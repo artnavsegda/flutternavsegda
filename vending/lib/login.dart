@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
-import 'dart:convert';
+import 'package:provider/provider.dart';
 import 'vending.dart';
+import 'main.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -62,18 +62,9 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   child: Text('ВХОД'),
                   onPressed: () {
-                    var url = Uri.parse(
-                        'https://app.tseh85.com/DemoService/api/AuthenticateVending');
-                    post(url,
-                        headers: {"Content-Type": "application/json"},
-                        body: json.encode({
-                          'Login': _usernameController.text,
-                          'Password': _passwordController.text
-                        })).then((response) {
-                      print('Status: ${response.statusCode}');
-                      print('Name: ${jsonDecode(response.body)["Name"]}');
-                      print('Token: ${response.headers["token"]}');
-                    });
+                    var appState = context.read<AppState>();
+                    appState.login(
+                        _usernameController.text, _passwordController.text);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => VendingPage()));
                   },
