@@ -3,6 +3,10 @@
    <application
         android:label="vending"
         android:icon="@mipmap/ic_launcher">
+
+        <meta-data android:name="com.google.android.geo.API_KEY"
+               android:value="AIzaSyArLAGgB0ve7ZZ3yxdbNyHVGl0HCq16kFQ"/>
+
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTop"
