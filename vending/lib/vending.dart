@@ -18,6 +18,7 @@ class VendingPage extends StatelessWidget {
             title: Text('Your Name'),
           ),
           body: TabBarView(
+            physics: NeverScrollableScrollPhysics(),
             children: [MapPage(), Icon(Icons.directions_car)],
           ),
         ),
