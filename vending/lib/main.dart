@@ -75,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                     print('pass ${_passwordController.text}');
 
                     var url = Uri.parse(
-                        'app.tseh85.com/DemoService/api/AuthenticateVending');
+                        'https://app.tseh85.com/DemoService/api/AuthenticateVending');
                     post(url, body: {
                       'Login': _usernameController.text,
                       'Password': _passwordController.text
