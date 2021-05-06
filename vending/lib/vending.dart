@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'map.dart';
 
 class VendingPage extends StatelessWidget {
   @override
@@ -17,10 +18,7 @@ class VendingPage extends StatelessWidget {
             title: Text('Your Name'),
           ),
           body: TabBarView(
-            children: [
-              Icon(Icons.directions_car),
-              Icon(Icons.directions_transit),
-            ],
+            children: [MapPage(), Icon(Icons.directions_car)],
           ),
         ),
       ),
