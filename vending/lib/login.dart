@@ -74,8 +74,8 @@ class _LoginPageState extends State<LoginPage> {
                       print('Name: ${jsonDecode(response.body)["Name"]}');
                       print('Token: ${response.headers["token"]}');
                     });
-
-                    Navigator.push(context, VendingPage);
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => VendingPage()));
                   },
                 ),
               ],
