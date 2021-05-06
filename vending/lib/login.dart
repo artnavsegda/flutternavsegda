@@ -62,7 +62,7 @@ class _LoginPageState extends State<LoginPage> {
                 TextButton(
                   child: Text('ВХОД'),
                   onPressed: () {
-                    var appState = context.read<AppState>();
+                    var appState = context.read<AppModel>();
                     appState.login(
                         _usernameController.text, _passwordController.text);
                     Navigator.push(context,

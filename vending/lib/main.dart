@@ -7,13 +7,13 @@ import 'login.dart';
 void main() {
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AppState(),
+      create: (context) => AppModel(),
       child: VendingApp(),
     ),
   );
 }
 
-class AppState with ChangeNotifier {
+class AppModel with ChangeNotifier {
   String token = "";
   String userName = "";
 
