@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'vending.dart';
 import 'main.dart';
+import 'vending.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);

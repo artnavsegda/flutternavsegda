@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'main.dart';
 import 'map.dart';
 
 class VendingPage extends StatelessWidget {
@@ -15,7 +17,11 @@ class VendingPage extends StatelessWidget {
                 Tab(text: "Склад"),
               ],
             ),
-            title: Text('Your Name'),
+            title: Consumer<AppModel>(
+              builder: (context, appState, child) {
+                return Text(appState.userName);
+              },
+            ),
           ),
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
