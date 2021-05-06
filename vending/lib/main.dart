@@ -79,7 +79,10 @@ class _LoginPageState extends State<LoginPage> {
                     post(url, body: {
                       'Login': _usernameController.text,
                       'Password': _passwordController.text
-                    }).then((response) => {});
+                    }).then((response) {
+                      print('Response status: ${response.statusCode}');
+                      print('Response body: ${response.body}');
+                    });
 
                     //Navigator.pop(context);
                   },
