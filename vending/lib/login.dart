@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'vending.dart';
 
 class LoginPage extends StatefulWidget {
   LoginPage({Key key, this.title}) : super(key: key);
@@ -74,7 +75,7 @@ class _LoginPageState extends State<LoginPage> {
                       print('Token: ${response.headers["token"]}');
                     });
 
-                    //Navigator.pop(context);
+                    Navigator.push(context, VendingPage);
                   },
                 ),
               ],
