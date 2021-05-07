@@ -8,10 +8,13 @@ PODS:
   - GoogleMaps/Base (3.9.0)
   - GoogleMaps/Maps (3.9.0):
     - GoogleMaps/Base
+  - "permission_handler (5.1.0+2)":
+    - Flutter
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
   - google_maps_flutter (from `.symlinks/plugins/google_maps_flutter/ios`)
+  - permission_handler (from `.symlinks/plugins/permission_handler/ios`)
 
 SPEC REPOS:
   trunk:
@@ -22,11 +25,14 @@ EXTERNAL SOURCES:
     :path: Flutter
   google_maps_flutter:
     :path: ".symlinks/plugins/google_maps_flutter/ios"
+  permission_handler:
+    :path: ".symlinks/plugins/permission_handler/ios"
 
 SPEC CHECKSUMS:
   Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
   google_maps_flutter: c7f9c73576de1fbe152a227bfd6e6c4ae8088619
   GoogleMaps: 4b5346bddfe6911bb89155d43c903020170523ac
+  permission_handler: ccb20a9fad0ee9b1314a52b70b76b473c5f8dab0
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
 
