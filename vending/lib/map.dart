@@ -18,6 +18,7 @@ class _MapPageState extends State<MapPage> {
   @override
   Widget build(BuildContext context) {
     return GoogleMap(
+      myLocationEnabled: true,
       onMapCreated: _onMapCreated,
       initialCameraPosition: CameraPosition(
         target: _center,
