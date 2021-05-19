@@ -27,6 +27,9 @@ class _MapPageState extends State<MapPage> {
             zoom: 11.0,
           ),
         ),
+        Card(
+          child: Text('Hello World'),
+        ),
       ],
     );
   }
