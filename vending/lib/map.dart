@@ -10,6 +10,7 @@ class _MapPageState extends State<MapPage> {
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
+  //Future<Data> futureData;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
@@ -18,6 +19,7 @@ class _MapPageState extends State<MapPage> {
   @override
   void initState() {
     super.initState();
+    //futureData = fetchData();
   }
 
   @override
