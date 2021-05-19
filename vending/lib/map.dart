@@ -27,8 +27,12 @@ class _MapPageState extends State<MapPage> {
             zoom: 11.0,
           ),
         ),
-        Card(
-          child: Text('Hello World'),
+        SizedBox(
+          width: 210,
+          height: 210,
+          child: Card(
+            child: Text('Hello World'),
+          ),
         ),
       ],
     );
