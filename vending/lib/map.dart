@@ -27,12 +27,22 @@ class _MapPageState extends State<MapPage> {
             zoom: 11.0,
           ),
         ),
-        SizedBox(
-          width: 210,
-          height: 210,
-          child: Card(
-            child: Text('Hello World'),
-          ),
+        Container(
+          height: 200.0,
+          child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
+            SizedBox(
+              width: 210,
+              child: Card(
+                child: Text('Hello World'),
+              ),
+            ),
+            SizedBox(
+              width: 210,
+              child: Card(
+                child: Text('Hello World'),
+              ),
+            ),
+          ]),
         ),
       ],
     );
