@@ -6,27 +6,18 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
-Future<Machines> fetchMachines() async {
-  final response = await http
+List<Machine> parseMachines(String responseBody) {
+  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+  return parsed.map<Machine>((json) => Machine.fromJson(json)).toList();
+}
+
+Future<List<Machine>> fetchMachines(http.Client client) async {
+  final response = await client
       .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
-
-  if (response.statusCode == 200) {
-    // If the server did return a 200 OK response,
-    // then parse the JSON.
-    return Machines.fromJson(jsonDecode(response.body));
-  } else {
-    // If the server did not return a 200 OK response,
-    // then throw an exception.
-    throw Exception('Failed to load machines');
-  }
+  return parseMachines(response.body);
 }
 
-class MapPage extends StatefulWidget {
-  @override
-  _MapPageState createState() => _MapPageState();
-}
-
-class Machines {
+class Machine {
   String gUID;
   String name;
   String address;
@@ -34,9 +25,11 @@ class Machines {
   double longitude;
   String iBeaconUDID;
   String mACAddress;
+  String start;
+  String finish;
   int serviceDate;
 
-  Machines(
+  Machine(
       {this.gUID,
       this.name,
       this.address,
@@ -44,9 +37,11 @@ class Machines {
       this.longitude,
       this.iBeaconUDID,
       this.mACAddress,
+      this.start,
+      this.finish,
       this.serviceDate});
 
-  Machines.fromJson(Map<String, dynamic> json) {
+  Machine.fromJson(Map<String, dynamic> json) {
     gUID = json['GUID'];
     name = json['Name'];
     address = json['Address'];
@@ -54,6 +49,8 @@ class Machines {
     longitude = json['Longitude'];
     iBeaconUDID = json['IBeaconUDID'];
     mACAddress = json['MACAddress'];
+    start = json['Start'];
+    finish = json['Finish'];
     serviceDate = json['ServiceDate'];
   }
 
@@ -66,9 +63,16 @@ class Machines {
     data['Longitude'] = this.longitude;
     data['IBeaconUDID'] = this.iBeaconUDID;
     data['MACAddress'] = this.mACAddress;
+    data['Start'] = this.start;
+    data['Finish'] = this.finish;
     data['ServiceDate'] = this.serviceDate;
     return data;
   }
+}
+
+class MapPage extends StatefulWidget {
+  @override
+  _MapPageState createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
