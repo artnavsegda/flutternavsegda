@@ -11,8 +11,8 @@ List<Machine> parseMachines(String responseBody) {
   return parsed.map<Machine>((json) => Machine.fromJson(json)).toList();
 }
 
-Future<List<Machine>> fetchMachines(http.Client client) async {
-  final response = await client
+Future<List<Machine>> fetchMachines() async {
+  final response = await http
       .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
   return parseMachines(response.body);
 }
@@ -79,7 +79,7 @@ class _MapPageState extends State<MapPage> {
   GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
-  Future<Machines> futureMachines;
+  Future<List<Machine>> futureMachines;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
