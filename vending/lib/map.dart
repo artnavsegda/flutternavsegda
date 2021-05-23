@@ -8,7 +8,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 Future<Machines> fetchMachines() async {
   final response = await http
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/albums/1'));
+      .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
 
   if (response.statusCode == 200) {
     // If the server did return a 200 OK response,
