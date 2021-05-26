@@ -16,7 +16,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'src/locations.dart' as locations;
+import 'src/locations.dart';
 
 void main() {
   runApp(MyApp());
@@ -29,11 +29,13 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   final Map<String, Marker> _markers = {};
+  List<Machine> _machines = [];
+
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    final machines = await locations.getMachines();
+    _machines = await getMachines();
     setState(() {
       _markers.clear();
-      for (final machine in machines) {
+      for (final machine in _machines) {
         final marker = Marker(
           markerId: MarkerId(machine.Name),
           position: LatLng(machine.Latitude, machine.Longitude),
