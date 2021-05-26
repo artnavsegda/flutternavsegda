@@ -129,9 +129,13 @@ class _MapPageState extends State<MapPage> {
                     zoom: 11.0,
                   ),
                 ),
-                SizedBox(
-                  height: 210,
-                  child: MachinesList(Machines: snapshot.data!),
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    padding: const EdgeInsets.all(8.0),
+                    height: 210,
+                    child: MachinesList(Machines: snapshot.data!),
+                  ),
                 ),
               ])
             : Center(child: CircularProgressIndicator());
