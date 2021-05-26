@@ -28,11 +28,11 @@ class Photo {
   final String thumbnailUrl;
 
   Photo({
-    this.albumId,
-    this.id,
-    this.title,
-    this.url,
-    this.thumbnailUrl,
+    required this.albumId,
+    required this.id,
+    required this.title,
+    required this.url,
+    required this.thumbnailUrl,
   });
 
   factory Photo.fromJson(Map<String, dynamic> json) {
@@ -63,7 +63,7 @@ class MyApp extends StatelessWidget {
 class MyHomePage extends StatelessWidget {
   final String title;
 
-  MyHomePage({Key key, this.title}) : super(key: key);
+  MyHomePage({Key? key, required this.title}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +77,7 @@ class MyHomePage extends StatelessWidget {
           if (snapshot.hasError) print(snapshot.error);
 
           return snapshot.hasData
-              ? PhotosList(photos: snapshot.data)
+              ? PhotosList(photos: snapshot.data!)
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -88,7 +88,7 @@ class MyHomePage extends StatelessWidget {
 class PhotosList extends StatelessWidget {
   final List<Photo> photos;
 
-  PhotosList({Key key, this.photos}) : super(key: key);
+  PhotosList({Key? key, required this.photos}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
