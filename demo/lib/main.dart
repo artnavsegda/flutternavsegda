@@ -6,8 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
 Future<List<Machine>> fetchMachines(http.Client client) async {
-  final response = await client
-      .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
+  final response = await client.get(
+      Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
+      headers: {
+        'Token':
+            'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
+      });
 
   // Use the compute function to run parseMachines in a separate isolate.
   return compute(parseMachines, response.body);
@@ -30,7 +34,6 @@ class Machine {
   final String mACAddress;
   final String start;
   final String finish;
-  final int serviceDate;
 
   Machine(
       {required this.gUID,
@@ -41,8 +44,7 @@ class Machine {
       required this.iBeaconUDID,
       required this.mACAddress,
       required this.start,
-      required this.finish,
-      required this.serviceDate});
+      required this.finish});
 
   factory Machine.fromJson(Map<String, dynamic> json) {
     return Machine(
@@ -55,7 +57,6 @@ class Machine {
       mACAddress: json['MACAddress'] as String,
       start: json['Start'] as String,
       finish: json['Finish'] as String,
-      serviceDate: json['ServiceDate'] as int,
     );
   }
 }
