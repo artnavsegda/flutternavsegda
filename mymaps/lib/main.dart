@@ -22,6 +22,26 @@ void main() {
   runApp(MyApp());
 }
 
+class MachinesList extends StatelessWidget {
+  MachinesList({Key? key, required this.Machines}) : super(key: key);
+
+  final List<Machine> Machines;
+
+  @override
+  Widget build(BuildContext context) {
+    return PageView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: Machines.length,
+      itemBuilder: (context, index) {
+        return Card(
+          child: Text(Machines[index].Name),
+        );
+        //Image.network(Machines[index].thumbnailUrl);
+      },
+    );
+  }
+}
+
 class MyApp extends StatefulWidget {
   @override
   _MyAppState createState() => _MyAppState();
@@ -65,6 +85,14 @@ class _MyAppState extends State<MyApp> {
               zoom: 2,
             ),
             markers: _markers.values.toSet(),
+          ),
+          Align(
+            alignment: Alignment.bottomCenter,
+            child: Container(
+              padding: const EdgeInsets.all(8.0),
+              height: 210,
+              child: MachinesList(Machines: _machines),
+            ),
           ),
         ]),
       ),
