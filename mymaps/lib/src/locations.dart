@@ -22,6 +22,34 @@ import 'package:json_annotation/json_annotation.dart';
 part 'locations.g.dart';
 
 @JsonSerializable()
+class Machine {
+  Machine(
+      {required this.gUID,
+      required this.name,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.iBeaconUDID,
+      required this.mACAddress,
+      required this.start,
+      required this.finish});
+
+  factory Machine.fromJson(Map<String, dynamic> json) =>
+      _$MachineFromJson(json);
+  Map<String, dynamic> toJson() => _$MachineToJson(this);
+
+  final String gUID;
+  final String name;
+  final String address;
+  final double latitude;
+  final double longitude;
+  final String iBeaconUDID;
+  final String mACAddress;
+  final String start;
+  final String finish;
+}
+
+@JsonSerializable()
 class LatLng {
   LatLng({
     required this.lat,

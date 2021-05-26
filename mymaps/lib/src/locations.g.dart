@@ -6,6 +6,32 @@ part of 'locations.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
+Machine _$MachineFromJson(Map<String, dynamic> json) {
+  return Machine(
+    gUID: json['gUID'] as String,
+    name: json['name'] as String,
+    address: json['address'] as String,
+    latitude: (json['latitude'] as num).toDouble(),
+    longitude: (json['longitude'] as num).toDouble(),
+    iBeaconUDID: json['iBeaconUDID'] as String,
+    mACAddress: json['mACAddress'] as String,
+    start: json['start'] as String,
+    finish: json['finish'] as String,
+  );
+}
+
+Map<String, dynamic> _$MachineToJson(Machine instance) => <String, dynamic>{
+      'gUID': instance.gUID,
+      'name': instance.name,
+      'address': instance.address,
+      'latitude': instance.latitude,
+      'longitude': instance.longitude,
+      'iBeaconUDID': instance.iBeaconUDID,
+      'mACAddress': instance.mACAddress,
+      'start': instance.start,
+      'finish': instance.finish,
+    };
+
 LatLng _$LatLngFromJson(Map<String, dynamic> json) {
   return LatLng(
     lat: (json['lat'] as num).toDouble(),
