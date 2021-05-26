@@ -62,22 +62,6 @@ class Machine {
   }
 }
 
-/* class MapPage extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return FutureBuilder<List<Machine>>(
-      future: fetchMachines(http.Client()),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
-
-        return snapshot.hasData
-            ? MachinesList(Machines: snapshot.data!)
-            : Center(child: CircularProgressIndicator());
-      },
-    );
-  }
-} */
-
 class MachinesList extends StatelessWidget {
   final List<Machine> Machines;
 
