@@ -1,45 +1,9 @@
-/*
- * Copyright 2019 Google LLC
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- *     https://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'src/locations.dart';
 
 void main() {
   runApp(MyApp());
-}
-
-class MachinesList extends StatelessWidget {
-  MachinesList({Key? key, required this.Machines}) : super(key: key);
-
-  final List<Machine> Machines;
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: Machines.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: Text(Machines[index].Name),
-        );
-        //Image.network(Machines[index].thumbnailUrl);
-      },
-    );
-  }
 }
 
 class MyApp extends StatefulWidget {
@@ -57,16 +21,33 @@ class _MyAppState extends State<MyApp> {
       _markers.clear();
       for (final machine in _machines) {
         final marker = Marker(
-          markerId: MarkerId(machine.Name),
-          position: LatLng(machine.Latitude, machine.Longitude),
-          infoWindow: InfoWindow(
-            title: machine.Name,
-            snippet: machine.Address,
-          ),
-        );
+            markerId: MarkerId(machine.Name),
+            position: LatLng(machine.Latitude, machine.Longitude),
+            infoWindow: InfoWindow(
+              title: machine.Name,
+              snippet: machine.Address,
+            ),
+            onTap: () {
+              print(machine.Name);
+              if (_pageController.hasClients) {
+                _pageController.animateToPage(
+                  1,
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                );
+              }
+            });
         _markers[machine.Name] = marker;
       }
     });
+  }
+
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
@@ -89,10 +70,18 @@ class _MyAppState extends State<MyApp> {
           Align(
             alignment: Alignment.bottomCenter,
             child: Container(
-              padding: const EdgeInsets.all(8.0),
-              height: 210,
-              child: MachinesList(Machines: _machines),
-            ),
+                padding: const EdgeInsets.all(8.0),
+                height: 210,
+                child: PageView.builder(
+                  controller: _pageController,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _machines.length,
+                  itemBuilder: (context, index) {
+                    return Card(
+                      child: Text(_machines[index].Name),
+                    );
+                  },
+                )),
           ),
         ]),
       ),
