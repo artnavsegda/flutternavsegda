@@ -1,86 +1,7 @@
 import 'dart:async';
-import 'dart:convert';
-
-import 'package:http/http.dart' as http;
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-
-Future<List<Machine>> fetchMachines(http.Client client) async {
-  final response = await client.get(
-      Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
-      headers: {
-        'Token':
-            'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
-      });
-
-  // Use the compute function to run parseMachines in a separate isolate.
-  return compute(parseMachines, response.body);
-}
-
-// A function that converts a response body into a List<Machine>.
-List<Machine> parseMachines(String responseBody) {
-  final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
-
-  return parsed.map<Machine>((json) => Machine.fromJson(json)).toList();
-}
-
-class Machine {
-  final String gUID;
-  final String name;
-  final String address;
-  final double latitude;
-  final double longitude;
-  final String iBeaconUDID;
-  final String mACAddress;
-  final String start;
-  final String finish;
-
-  Machine(
-      {required this.gUID,
-      required this.name,
-      required this.address,
-      required this.latitude,
-      required this.longitude,
-      required this.iBeaconUDID,
-      required this.mACAddress,
-      required this.start,
-      required this.finish});
-
-  factory Machine.fromJson(Map<String, dynamic> json) {
-    return Machine(
-      gUID: json['GUID'] as String,
-      name: json['Name'] as String,
-      address: json['Address'] as String,
-      latitude: json['Latitude'] as double,
-      longitude: json['Longitude'] as double,
-      iBeaconUDID: json['IBeaconUDID'] as String,
-      mACAddress: json['MACAddress'] as String,
-      start: json['Start'] as String,
-      finish: json['Finish'] as String,
-    );
-  }
-}
-
-class MachinesList extends StatelessWidget {
-  final List<Machine> Machines;
-
-  MachinesList({Key? key, required this.Machines}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return PageView.builder(
-      scrollDirection: Axis.horizontal,
-      itemCount: Machines.length,
-      itemBuilder: (context, index) {
-        return Card(
-          child: Text(Machines[index].name),
-        );
-        //Image.network(Machines[index].thumbnailUrl);
-      },
-    );
-  }
-}
+import 'src/locations.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -88,42 +9,72 @@ class MapPage extends StatefulWidget {
 }
 
 class _MapPageState extends State<MapPage> {
-  late GoogleMapController mapController;
+  final Map<String, Marker> _markers = {};
+  List<Machine> _machines = [];
 
-  final LatLng _center = const LatLng(45.521563, -122.677433);
+  Future<void> _onMapCreated(GoogleMapController controller) async {
+    _machines = await getMachines();
+    setState(() {
+      _markers.clear();
+      for (final machine in _machines) {
+        final marker = Marker(
+            markerId: MarkerId(machine.Name),
+            position: LatLng(machine.Latitude, machine.Longitude),
+            infoWindow: InfoWindow(
+              title: machine.Name,
+              snippet: machine.Address,
+            ),
+            onTap: () {
+              print(machine.Name);
+              if (_pageController.hasClients) {
+                _pageController.animateToPage(
+                  _machines.indexOf(machine),
+                  duration: const Duration(milliseconds: 400),
+                  curve: Curves.easeInOut,
+                );
+              }
+            });
+        _markers[machine.Name] = marker;
+      }
+    });
+  }
 
-  void _onMapCreated(GoogleMapController controller) {
-    mapController = controller;
+  final PageController _pageController = PageController();
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<Machine>>(
-      future: fetchMachines(http.Client()),
-      builder: (context, snapshot) {
-        if (snapshot.hasError) print(snapshot.error);
-
-        return snapshot.hasData
-            ? Stack(children: [
-                GoogleMap(
-                  myLocationEnabled: true,
-                  onMapCreated: _onMapCreated,
-                  initialCameraPosition: CameraPosition(
-                    target: _center,
-                    zoom: 11.0,
-                  ),
-                ),
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    padding: const EdgeInsets.all(8.0),
-                    height: 210,
-                    child: MachinesList(Machines: snapshot.data!),
-                  ),
-                ),
-              ])
-            : Center(child: CircularProgressIndicator());
-      },
-    );
+    return Stack(children: [
+      GoogleMap(
+        myLocationEnabled: true,
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: const LatLng(0, 0),
+          zoom: 2,
+        ),
+        markers: _markers.values.toSet(),
+      ),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+            padding: const EdgeInsets.all(8.0),
+            height: 210,
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: _machines.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Text(_machines[index].Name),
+                );
+              },
+            )),
+      ),
+    ]);
   }
 }

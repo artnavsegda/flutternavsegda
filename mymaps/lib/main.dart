@@ -52,39 +52,31 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Google Office Locations'),
-          backgroundColor: Colors.green[700],
+    return Stack(children: [
+      GoogleMap(
+        onMapCreated: _onMapCreated,
+        initialCameraPosition: CameraPosition(
+          target: const LatLng(0, 0),
+          zoom: 2,
         ),
-        body: Stack(children: [
-          GoogleMap(
-            onMapCreated: _onMapCreated,
-            initialCameraPosition: CameraPosition(
-              target: const LatLng(0, 0),
-              zoom: 2,
-            ),
-            markers: _markers.values.toSet(),
-          ),
-          Align(
-            alignment: Alignment.bottomCenter,
-            child: Container(
-                padding: const EdgeInsets.all(8.0),
-                height: 210,
-                child: PageView.builder(
-                  controller: _pageController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: _machines.length,
-                  itemBuilder: (context, index) {
-                    return Card(
-                      child: Text(_machines[index].Name),
-                    );
-                  },
-                )),
-          ),
-        ]),
+        markers: _markers.values.toSet(),
       ),
-    );
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+            padding: const EdgeInsets.all(8.0),
+            height: 210,
+            child: PageView.builder(
+              controller: _pageController,
+              scrollDirection: Axis.horizontal,
+              itemCount: _machines.length,
+              itemBuilder: (context, index) {
+                return Card(
+                  child: Text(_machines[index].Name),
+                );
+              },
+            )),
+      ),
+    ]);
   }
 }
