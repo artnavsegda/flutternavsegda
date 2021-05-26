@@ -6,67 +6,59 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+Future<List<Machine>> fetchMachines(http.Client client) async {
+  final response = await client.get(
+      Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
+      headers: {
+        'Token':
+            'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
+      });
+
+  // Use the compute function to run parseMachines in a separate isolate.
+  return compute(parseMachines, response.body);
+}
+
+// A function that converts a response body into a List<Machine>.
 List<Machine> parseMachines(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
+
   return parsed.map<Machine>((json) => Machine.fromJson(json)).toList();
 }
 
-Future<List<Machine>> fetchMachines() async {
-  final response = await http
-      .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
-  return parseMachines(response.body);
-}
-
 class Machine {
-  String gUID;
-  String name;
-  String address;
-  double latitude;
-  double longitude;
-  String iBeaconUDID;
-  String mACAddress;
-  String start;
-  String finish;
-  int serviceDate;
+  final String gUID;
+  final String name;
+  final String address;
+  final double latitude;
+  final double longitude;
+  final String iBeaconUDID;
+  final String mACAddress;
+  final String start;
+  final String finish;
 
   Machine(
-      {this.gUID,
-      this.name,
-      this.address,
-      this.latitude,
-      this.longitude,
-      this.iBeaconUDID,
-      this.mACAddress,
-      this.start,
-      this.finish,
-      this.serviceDate});
+      {required this.gUID,
+      required this.name,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.iBeaconUDID,
+      required this.mACAddress,
+      required this.start,
+      required this.finish});
 
-  Machine.fromJson(Map<String, dynamic> json) {
-    gUID = json['GUID'];
-    name = json['Name'];
-    address = json['Address'];
-    latitude = json['Latitude'];
-    longitude = json['Longitude'];
-    iBeaconUDID = json['IBeaconUDID'];
-    mACAddress = json['MACAddress'];
-    start = json['Start'];
-    finish = json['Finish'];
-    serviceDate = json['ServiceDate'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['GUID'] = this.gUID;
-    data['Name'] = this.name;
-    data['Address'] = this.address;
-    data['Latitude'] = this.latitude;
-    data['Longitude'] = this.longitude;
-    data['IBeaconUDID'] = this.iBeaconUDID;
-    data['MACAddress'] = this.mACAddress;
-    data['Start'] = this.start;
-    data['Finish'] = this.finish;
-    data['ServiceDate'] = this.serviceDate;
-    return data;
+  factory Machine.fromJson(Map<String, dynamic> json) {
+    return Machine(
+      gUID: json['GUID'] as String,
+      name: json['Name'] as String,
+      address: json['Address'] as String,
+      latitude: json['Latitude'] as double,
+      longitude: json['Longitude'] as double,
+      iBeaconUDID: json['IBeaconUDID'] as String,
+      mACAddress: json['MACAddress'] as String,
+      start: json['Start'] as String,
+      finish: json['Finish'] as String,
+    );
   }
 }
 
