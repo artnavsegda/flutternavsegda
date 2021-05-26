@@ -85,13 +85,13 @@ class MachinesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
+    return PageView.builder(
+      scrollDirection: Axis.horizontal,
       itemCount: Machines.length,
       itemBuilder: (context, index) {
-        return Text(Machines[index].name);
+        return Card(
+          child: Text(Machines[index].name),
+        );
         //Image.network(Machines[index].thumbnailUrl);
       },
     );
@@ -129,7 +129,10 @@ class _MapPageState extends State<MapPage> {
                     zoom: 11.0,
                   ),
                 ),
-                MachinesList(Machines: snapshot.data!),
+                SizedBox(
+                  height: 210,
+                  child: MachinesList(Machines: snapshot.data!),
+                ),
               ])
             : Center(child: CircularProgressIndicator());
       },
