@@ -5,19 +5,19 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
-Future<List<Photo>> fetchPhotos(http.Client client) async {
+Future<List<Machine>> fetchMachines(http.Client client) async {
   final response = await client
       .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
 
-  // Use the compute function to run parsePhotos in a separate isolate.
-  return compute(parsePhotos, response.body);
+  // Use the compute function to run parseMachines in a separate isolate.
+  return compute(parseMachines, response.body);
 }
 
-// A function that converts a response body into a List<Photo>.
-List<Photo> parsePhotos(String responseBody) {
+// A function that converts a response body into a List<Machine>.
+List<Machine> parseMachines(String responseBody) {
   final parsed = jsonDecode(responseBody).cast<Map<String, dynamic>>();
 
-  return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
+  return parsed.map<Machine>((json) => Machine.fromJson(json)).toList();
 }
 
 class Machine {
@@ -98,13 +98,13 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: Text(title),
       ),
-      body: FutureBuilder<List<Photo>>(
-        future: fetchPhotos(http.Client()),
+      body: FutureBuilder<List<Machine>>(
+        future: fetchMachines(http.Client()),
         builder: (context, snapshot) {
           if (snapshot.hasError) print(snapshot.error);
 
           return snapshot.hasData
-              ? PhotosList(photos: snapshot.data!)
+              ? MachinesList(Machines: snapshot.data!)
               : Center(child: CircularProgressIndicator());
         },
       ),
@@ -112,10 +112,10 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
-class PhotosList extends StatelessWidget {
-  final List<Photo> photos;
+class MachinesList extends StatelessWidget {
+  final List<Machine> Machines;
 
-  PhotosList({Key? key, required this.photos}) : super(key: key);
+  MachinesList({Key? key, required this.Machines}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -123,9 +123,9 @@ class PhotosList extends StatelessWidget {
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
       ),
-      itemCount: photos.length,
+      itemCount: Machines.length,
       itemBuilder: (context, index) {
-        return Image.network(photos[index].thumbnailUrl);
+        return Image.network(Machines[index].thumbnailUrl);
       },
     );
   }
