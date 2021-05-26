@@ -15,7 +15,17 @@ class Machine {
   final String finish;
   final Int? serviceDate;
 
-  Machine({required this.firstName, required this.lastName, this.dateOfBirth});
+  Machine(
+      {required this.gUID,
+      required this.name,
+      required this.address,
+      required this.latitude,
+      required this.longitude,
+      required this.iBeaconUDID,
+      required this.mACAddress,
+      required this.start,
+      required this.finish,
+      this.serviceDate});
   factory Machine.fromJson(Map<String, dynamic> json) =>
       _$MachineFromJson(json);
   Map<String, dynamic> toJson() => _$MachineToJson(this);
