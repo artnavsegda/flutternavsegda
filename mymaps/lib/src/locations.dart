@@ -133,7 +133,8 @@ Future<List<Machine>> getMachines() async {
             'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
       });
   if (response.statusCode == 200) {
-    return Locations.fromJson(json.decode(response.body));
+    Iterable l = json.decode(response.body);
+    return List<Machine>.from(l.map((model) => Machine.fromJson(model)));
   } else {
     throw HttpException(
         'Unexpected status code ${response.statusCode}:'
