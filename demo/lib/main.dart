@@ -108,7 +108,7 @@ class MachinesList extends StatelessWidget {
       itemCount: Machines.length,
       itemBuilder: (context, index) {
         return Card(
-          child: Text(Machines[index].name),
+          child: Text(Machines[index].Name),
         );
         //Image.network(Machines[index].thumbnailUrl);
       },
