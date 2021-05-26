@@ -122,6 +122,24 @@ class Locations {
   final List<Region> regions;
 }
 
+Future<List<Machine>> getMachines() async {
+  // Retrieve the locations of Google offices
+  final response = await http.get(
+      Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
+      headers: {
+        'Token':
+            'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
+      });
+  if (response.statusCode == 200) {
+    return Locations.fromJson(json.decode(response.body));
+  } else {
+    throw HttpException(
+        'Unexpected status code ${response.statusCode}:'
+        ' ${response.reasonPhrase}',
+        uri: Uri.parse(googleLocationsURL));
+  }
+}
+
 Future<Locations> getGoogleOffices() async {
   const googleLocationsURL = 'https://about.google/static/data/locations.json';
 
