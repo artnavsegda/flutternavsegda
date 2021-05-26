@@ -141,35 +141,5 @@ class _MapPageState extends State<MapPage> {
             : Center(child: CircularProgressIndicator());
       },
     );
-
-/*     return Stack(
-      children: [
-        GoogleMap(
-          myLocationEnabled: true,
-          onMapCreated: _onMapCreated,
-          initialCameraPosition: CameraPosition(
-            target: _center,
-            zoom: 11.0,
-          ),
-        ),
-        Container(
-          height: 200.0,
-          child: ListView(scrollDirection: Axis.horizontal, children: <Widget>[
-            SizedBox(
-              width: 210,
-              child: Card(
-                child: Text('Hello World'),
-              ),
-            ),
-            SizedBox(
-              width: 210,
-              child: Card(
-                child: Text('Hello World'),
-              ),
-            ),
-          ]),
-        ),
-      ],
-    ); */
   }
 }
