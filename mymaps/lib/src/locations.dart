@@ -139,7 +139,7 @@ Future<List<Machine>> getMachines() async {
     throw HttpException(
         'Unexpected status code ${response.statusCode}:'
         ' ${response.reasonPhrase}',
-        uri: Uri.parse(googleLocationsURL));
+        uri: Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
   }
 }
 
