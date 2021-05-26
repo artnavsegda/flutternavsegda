@@ -5,7 +5,7 @@ import 'main.dart';
 import 'vending.dart';
 
 class LoginPage extends StatefulWidget {
-  LoginPage({Key key, this.title}) : super(key: key);
+  LoginPage({required this.title});
   final String title;
   @override
   _LoginPageState createState() => _LoginPageState();

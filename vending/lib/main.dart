@@ -29,7 +29,7 @@ class AppModel with ChangeNotifier {
       print('Name: ${jsonDecode(response.body)["Name"]}');
       userName = jsonDecode(response.body)["Name"];
       print('Token: ${response.headers["token"]}');
-      token = response.headers["token"];
+      token = response.headers["token"]!;
       notifyListeners();
     });
   }

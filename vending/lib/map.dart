@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
-
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
@@ -62,30 +62,80 @@ class Machine {
   }
 }
 
+/* class MapPage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return FutureBuilder<List<Machine>>(
+      future: fetchMachines(http.Client()),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) print(snapshot.error);
+
+        return snapshot.hasData
+            ? MachinesList(Machines: snapshot.data!)
+            : Center(child: CircularProgressIndicator());
+      },
+    );
+  }
+} */
+
+class MachinesList extends StatelessWidget {
+  final List<Machine> Machines;
+
+  MachinesList({Key? key, required this.Machines}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 2,
+      ),
+      itemCount: Machines.length,
+      itemBuilder: (context, index) {
+        return Text(Machines[index].name);
+        //Image.network(Machines[index].thumbnailUrl);
+      },
+    );
+  }
+}
+
 class MapPage extends StatefulWidget {
   @override
   _MapPageState createState() => _MapPageState();
 }
 
 class _MapPageState extends State<MapPage> {
-  GoogleMapController mapController;
+  late GoogleMapController mapController;
 
   final LatLng _center = const LatLng(45.521563, -122.677433);
-  Future<List<Machine>> futureMachines;
 
   void _onMapCreated(GoogleMapController controller) {
     mapController = controller;
   }
 
   @override
-  void initState() {
-    super.initState();
-    futureMachines = fetchMachines();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Stack(
+    return FutureBuilder<List<Machine>>(
+      future: fetchMachines(http.Client()),
+      builder: (context, snapshot) {
+        if (snapshot.hasError) print(snapshot.error);
+
+        return snapshot.hasData
+            ? Stack(children: [
+                GoogleMap(
+                  myLocationEnabled: true,
+                  onMapCreated: _onMapCreated,
+                  initialCameraPosition: CameraPosition(
+                    target: _center,
+                    zoom: 11.0,
+                  ),
+                ),
+                MachinesList(Machines: snapshot.data!),
+              ])
+            : Center(child: CircularProgressIndicator());
+      },
+    );
+
+/*     return Stack(
       children: [
         GoogleMap(
           myLocationEnabled: true,
@@ -113,6 +163,6 @@ class _MapPageState extends State<MapPage> {
           ]),
         ),
       ],
-    );
+    ); */
   }
 }
