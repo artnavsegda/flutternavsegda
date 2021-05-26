@@ -30,13 +30,10 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   final Map<String, Marker> _markers = {};
   Future<void> _onMapCreated(GoogleMapController controller) async {
-    print('Getting machines');
     final machines = await locations.getMachines();
-    print('Machines got');
     setState(() {
       _markers.clear();
       for (final machine in machines) {
-        print(machine.Name);
         final marker = Marker(
           markerId: MarkerId(machine.Name),
           position: LatLng(machine.Latitude, machine.Longitude),
