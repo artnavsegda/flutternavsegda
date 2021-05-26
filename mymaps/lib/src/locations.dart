@@ -24,29 +24,31 @@ part 'locations.g.dart';
 @JsonSerializable()
 class Machine {
   Machine(
-      {required this.gUID,
-      required this.name,
-      required this.address,
-      required this.latitude,
-      required this.longitude,
-      required this.iBeaconUDID,
-      required this.mACAddress,
-      required this.start,
-      required this.finish});
+      {required this.GUID,
+      required this.Name,
+      required this.Address,
+      required this.Latitude,
+      required this.Longitude,
+      required this.IBeaconUDID,
+      required this.MACAddress,
+      required this.Start,
+      required this.Finish,
+      this.ServiceDate});
 
   factory Machine.fromJson(Map<String, dynamic> json) =>
       _$MachineFromJson(json);
   Map<String, dynamic> toJson() => _$MachineToJson(this);
 
-  final String gUID;
-  final String name;
-  final String address;
-  final double latitude;
-  final double longitude;
-  final String iBeaconUDID;
-  final String mACAddress;
-  final String start;
-  final String finish;
+  final String GUID;
+  final String Name;
+  final String Address;
+  final double Latitude;
+  final double Longitude;
+  final String IBeaconUDID;
+  final String MACAddress;
+  final String Start;
+  final String Finish;
+  final int? ServiceDate;
 }
 
 @JsonSerializable()

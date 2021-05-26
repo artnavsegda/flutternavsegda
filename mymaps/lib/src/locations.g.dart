@@ -8,28 +8,30 @@ part of 'locations.dart';
 
 Machine _$MachineFromJson(Map<String, dynamic> json) {
   return Machine(
-    gUID: json['gUID'] as String,
-    name: json['name'] as String,
-    address: json['address'] as String,
-    latitude: (json['latitude'] as num).toDouble(),
-    longitude: (json['longitude'] as num).toDouble(),
-    iBeaconUDID: json['iBeaconUDID'] as String,
-    mACAddress: json['mACAddress'] as String,
-    start: json['start'] as String,
-    finish: json['finish'] as String,
+    GUID: json['GUID'] as String,
+    Name: json['Name'] as String,
+    Address: json['Address'] as String,
+    Latitude: (json['Latitude'] as num).toDouble(),
+    Longitude: (json['Longitude'] as num).toDouble(),
+    IBeaconUDID: json['IBeaconUDID'] as String,
+    MACAddress: json['MACAddress'] as String,
+    Start: json['Start'] as String,
+    Finish: json['Finish'] as String,
+    ServiceDate: json['ServiceDate'] as int?,
   );
 }
 
 Map<String, dynamic> _$MachineToJson(Machine instance) => <String, dynamic>{
-      'gUID': instance.gUID,
-      'name': instance.name,
-      'address': instance.address,
-      'latitude': instance.latitude,
-      'longitude': instance.longitude,
-      'iBeaconUDID': instance.iBeaconUDID,
-      'mACAddress': instance.mACAddress,
-      'start': instance.start,
-      'finish': instance.finish,
+      'GUID': instance.GUID,
+      'Name': instance.Name,
+      'Address': instance.Address,
+      'Latitude': instance.Latitude,
+      'Longitude': instance.Longitude,
+      'IBeaconUDID': instance.IBeaconUDID,
+      'MACAddress': instance.MACAddress,
+      'Start': instance.Start,
+      'Finish': instance.Finish,
+      'ServiceDate': instance.ServiceDate,
     };
 
 LatLng _$LatLngFromJson(Map<String, dynamic> json) {
