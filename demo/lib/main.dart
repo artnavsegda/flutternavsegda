@@ -7,7 +7,7 @@ import 'package:http/http.dart' as http;
 
 Future<List<Photo>> fetchPhotos(http.Client client) async {
   final response = await client
-      .get(Uri.parse('https://jsonplaceholder.typicode.com/photos'));
+      .get(Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
 
   // Use the compute function to run parsePhotos in a separate isolate.
   return compute(parsePhotos, response.body);
@@ -20,29 +20,56 @@ List<Photo> parsePhotos(String responseBody) {
   return parsed.map<Photo>((json) => Photo.fromJson(json)).toList();
 }
 
-class Photo {
-  final int albumId;
-  final int id;
-  final String title;
-  final String url;
-  final String thumbnailUrl;
+class Machine {
+  String gUID;
+  String name;
+  String address;
+  double latitude;
+  double longitude;
+  String iBeaconUDID;
+  String mACAddress;
+  String start;
+  String finish;
+  int serviceDate;
 
-  Photo({
-    required this.albumId,
-    required this.id,
-    required this.title,
-    required this.url,
-    required this.thumbnailUrl,
-  });
+  Machine(
+      {this.gUID,
+      this.name,
+      this.address,
+      this.latitude,
+      this.longitude,
+      this.iBeaconUDID,
+      this.mACAddress,
+      this.start,
+      this.finish,
+      this.serviceDate});
 
-  factory Photo.fromJson(Map<String, dynamic> json) {
-    return Photo(
-      albumId: json['albumId'] as int,
-      id: json['id'] as int,
-      title: json['title'] as String,
-      url: json['url'] as String,
-      thumbnailUrl: json['thumbnailUrl'] as String,
-    );
+  Machine.fromJson(Map<String, dynamic> json) {
+    gUID = json['GUID'];
+    name = json['Name'];
+    address = json['Address'];
+    latitude = json['Latitude'];
+    longitude = json['Longitude'];
+    iBeaconUDID = json['IBeaconUDID'];
+    mACAddress = json['MACAddress'];
+    start = json['Start'];
+    finish = json['Finish'];
+    serviceDate = json['ServiceDate'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['GUID'] = this.gUID;
+    data['Name'] = this.name;
+    data['Address'] = this.address;
+    data['Latitude'] = this.latitude;
+    data['Longitude'] = this.longitude;
+    data['IBeaconUDID'] = this.iBeaconUDID;
+    data['MACAddress'] = this.mACAddress;
+    data['Start'] = this.start;
+    data['Finish'] = this.finish;
+    data['ServiceDate'] = this.serviceDate;
+    return data;
   }
 }
 
