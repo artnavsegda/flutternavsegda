@@ -107,13 +107,13 @@ class MachinesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GridView.builder(
-      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-      ),
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
       itemCount: Machines.length,
       itemBuilder: (context, index) {
-        return Text(Machines[index].name);
+        return Card(
+          child: Text(Machines[index].name),
+        );
         //Image.network(Machines[index].thumbnailUrl);
       },
     );
