@@ -31,7 +31,7 @@ class _MyAppState extends State<MyApp> {
               print(machine.Name);
               if (_pageController.hasClients) {
                 _pageController.animateToPage(
-                  1,
+                  _machines.indexOf(machine),
                   duration: const Duration(milliseconds: 400),
                   curve: Curves.easeInOut,
                 );
