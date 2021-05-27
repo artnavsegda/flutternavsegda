@@ -82,21 +82,19 @@ class _MapPageState extends State<MapPage> {
                       alignment: MainAxisAlignment.start,
                       children: [
                         TextButton(
-                          textColor: const Color(0xFF6200EE),
                           onPressed: () {
                             // Perform some action
                           },
-                          child: const Text('ACTION 1'),
+                          child: const Text('НАВИГАЦИЯ'),
                         ),
                         TextButton(
-                          textColor: const Color(0xFF6200EE),
                           onPressed: () {
                             // Perform some action
                           },
-                          child: const Text('ACTION 2'),
+                          child: const Text('НАЙТИ АВТОМАТ'),
                         ),
                       ],
-                    ),
+                    )
                   ]),
                 );
               },
