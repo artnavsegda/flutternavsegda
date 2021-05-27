@@ -71,7 +71,32 @@ class _MapPageState extends State<MapPage> {
               itemBuilder: (context, index) {
                 return Card(
                   child: Column(children: [
-                    Text(_machines[index].Name),
+                    ListTile(
+                      title: Text(_machines[index].Name),
+                      subtitle: Text(
+                        'Время работы: 10:00:00 - 22:00:00',
+                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
+                      ),
+                    ),
+                    ButtonBar(
+                      alignment: MainAxisAlignment.start,
+                      children: [
+                        TextButton(
+                          textColor: const Color(0xFF6200EE),
+                          onPressed: () {
+                            // Perform some action
+                          },
+                          child: const Text('ACTION 1'),
+                        ),
+                        TextButton(
+                          textColor: const Color(0xFF6200EE),
+                          onPressed: () {
+                            // Perform some action
+                          },
+                          child: const Text('ACTION 2'),
+                        ),
+                      ],
+                    ),
                   ]),
                 );
               },
