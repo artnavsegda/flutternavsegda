@@ -70,7 +70,9 @@ class _MapPageState extends State<MapPage> {
               itemCount: _machines.length,
               itemBuilder: (context, index) {
                 return Card(
-                  child: Text(_machines[index].Name),
+                  child: Column(children: [
+                    Text(_machines[index].Name),
+                  ]),
                 );
               },
             )),
