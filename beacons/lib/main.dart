@@ -1,4 +1,6 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 
 void main() {
   runApp(MyApp());
@@ -47,8 +49,28 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  late StreamSubscription<RangingResult> _streamRanging;
 
-  void _incrementCounter() {
+  void _scanForBeacon() async {
+    await flutterBeacon.initializeScanning;
+
+    final regions = <Region>[
+      Region(
+        identifier: 'Fridge',
+        proximityUUID: 'C7C1A1BF-BB00-4CAD-8704-9F2D2917DED3',
+      ),
+    ];
+
+    if (_streamRanging.isPaused) {
+      _streamRanging.resume();
+      return;
+    }
+
+    _streamRanging =
+        flutterBeacon.ranging(regions).listen((RangingResult result) {
+      print(result);
+    });
+
     setState(() {
       // This call to setState tells the Flutter framework that something has
       // changed in this State, which causes it to rerun the build method below
@@ -104,7 +126,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
+        onPressed: _scanForBeacon,
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
