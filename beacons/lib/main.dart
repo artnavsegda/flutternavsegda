@@ -49,7 +49,6 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
-  late StreamSubscription<RangingResult> _streamRanging;
 
   void _scanForBeacon() async {
     await flutterBeacon.initializeScanning;
@@ -61,14 +60,11 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     ];
 
-    if (_streamRanging.isPaused) {
-      _streamRanging.resume();
-      return;
-    }
-
-    _streamRanging =
+    late StreamSubscription<RangingResult> streamRanging;
+    streamRanging =
         flutterBeacon.ranging(regions).listen((RangingResult result) {
       print(result);
+      streamRanging.cancel();
     });
 
     setState(() {
