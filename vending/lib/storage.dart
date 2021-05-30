@@ -7,8 +7,16 @@ class StoragePage extends StatelessWidget {
       ListTile(
         title: Text('Получение'),
         leading: Icon(Icons.add_shopping_cart),
-        subtitle: Text('Metadata'),
-        onTap: () {},
+        subtitle: Text('Получение товара по накладной'),
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute<void>(
+              builder: (BuildContext context) => FullScreenDialog(),
+              fullscreenDialog: true,
+            ),
+          );
+        },
       ),
       ListTile(
         title: Text('Сдача'),
@@ -23,5 +31,20 @@ class StoragePage extends StatelessWidget {
         onTap: () {},
       ),
     ]);
+  }
+}
+
+class FullScreenDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Color(0xFF6200EE),
+        title: Text('Full-screen Dialog'),
+      ),
+      body: Center(
+        child: Text("Full-screen dialog"),
+      ),
+    );
   }
 }
