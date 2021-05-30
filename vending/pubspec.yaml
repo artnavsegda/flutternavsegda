@@ -32,6 +32,7 @@ dependencies:
   google_maps_flutter: ^2.0.3
   provider: ^5.0.0
   permission_handler: ^7.1.0
+  flutter_beacon: ^0.5.0
 
 dev_dependencies:
   flutter_test:

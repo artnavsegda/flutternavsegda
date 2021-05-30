@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:flutter_beacon/flutter_beacon.dart';
 import 'src/locations.dart';
 
 class MapPage extends StatefulWidget {
@@ -88,8 +89,19 @@ class _MapPageState extends State<MapPage> {
                           child: const Text('НАВИГАЦИЯ'),
                         ),
                         TextButton(
-                          onPressed: () {
-                            // Perform some action
+                          onPressed: () async {
+                            await flutterBeacon.initializeScanning;
+                            final regions = <Region>[
+                              Region(
+                                identifier: 'Fridge',
+                                proximityUUID: _machines[index].IBeaconUDID,
+                              ),
+                            ];
+
+                            Timer(Duration(seconds: 3), () {
+                              print(
+                                  "Yeah, this line is printed after 3 seconds");
+                            });
                           },
                           child: const Text('НАЙТИ АВТОМАТ'),
                         ),
