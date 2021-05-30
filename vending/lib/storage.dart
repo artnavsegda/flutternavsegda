@@ -38,10 +38,13 @@ class FullScreenDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Color(0xFF6200EE),
-        title: Text('Full-screen Dialog'),
-      ),
+      appBar: AppBar(title: Text("Получение"), actions: <Widget>[
+        FlatButton(
+          textColor: Colors.white,
+          onPressed: () {},
+          child: Text("Сдать"),
+        ),
+      ]),
       body: Center(
         child: Text("Full-screen dialog"),
       ),
