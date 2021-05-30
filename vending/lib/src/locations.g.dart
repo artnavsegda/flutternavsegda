@@ -15,8 +15,8 @@ Machine _$MachineFromJson(Map<String, dynamic> json) {
     Longitude: (json['Longitude'] as num).toDouble(),
     IBeaconUDID: json['IBeaconUDID'] as String,
     MACAddress: json['MACAddress'] as String,
-    Start: json['Start'] as String,
-    Finish: json['Finish'] as String,
+    Start: json['Start'] as String?,
+    Finish: json['Finish'] as String?,
     ServiceDate: json['ServiceDate'] as int?,
   );
 }

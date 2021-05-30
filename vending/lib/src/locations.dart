@@ -15,8 +15,8 @@ class Machine {
       required this.Longitude,
       required this.IBeaconUDID,
       required this.MACAddress,
-      required this.Start,
-      required this.Finish,
+      this.Start,
+      this.Finish,
       this.ServiceDate});
 
   factory Machine.fromJson(Map<String, dynamic> json) =>
@@ -30,8 +30,8 @@ class Machine {
   final double Longitude;
   final String IBeaconUDID;
   final String MACAddress;
-  final String Start;
-  final String Finish;
+  final String? Start;
+  final String? Finish;
   final int? ServiceDate;
 }
 

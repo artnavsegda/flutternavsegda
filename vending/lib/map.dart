@@ -105,6 +105,10 @@ class _MapPageState extends State<MapPage> {
                           },
                           child: const Text('НАЙТИ АВТОМАТ'),
                         ),
+                        Visibility(
+                          child: CircularProgressIndicator(),
+                          visible: false,
+                        )
                       ],
                     )
                   ]),
