@@ -13,6 +13,7 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   final Map<String, Marker> _markers = {};
   List<Machine> _machines = [];
+  bool _scanning = false;
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _machines = await getMachines();
@@ -93,6 +94,9 @@ class _MapPageState extends State<MapPage> {
                         ),
                         TextButton(
                           onPressed: () async {
+                            setState(() {
+                              _scanning = true;
+                            });
                             await flutterBeacon.initializeScanning;
                             final regions = <Region>[
                               Region(
