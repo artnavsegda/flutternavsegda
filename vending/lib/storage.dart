@@ -16,7 +16,7 @@ class StoragePage extends StatelessWidget {
       ),
       ListTile(
         title: Text('Сумка'),
-        leading: Icon(Icons.backpack),
+        leading: Icon(Icons.backpack_outlined),
         subtitle: Text('Cписок товаров по аппаратам для загрузки'),
       ),
     ]);
