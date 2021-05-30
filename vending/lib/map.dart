@@ -105,16 +105,17 @@ class _MapPageState extends State<MapPage> {
                               ),
                             ];
 
-                            Timer(Duration(seconds: 3), () {
-                              print(
-                                  "Yeah, this line is printed after 3 seconds");
+                            Timer(Duration(seconds: 10), () {
+                              setState(() {
+                                _scanning = false;
+                              });
                             });
                           },
                           child: const Text('НАЙТИ АВТОМАТ'),
                         ),
                         Visibility(
                           child: CircularProgressIndicator(),
-                          visible: false,
+                          visible: _scanning,
                         )
                       ],
                     )
