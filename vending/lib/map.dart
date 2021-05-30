@@ -13,7 +13,6 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   final Map<String, Marker> _markers = {};
   List<Machine> _machines = [];
-  bool _scanning = false;
 
   Future<void> _onMapCreated(GoogleMapController controller) async {
     _machines = await getMachines();
@@ -72,58 +71,79 @@ class _MapPageState extends State<MapPage> {
               scrollDirection: Axis.horizontal,
               itemCount: _machines.length,
               itemBuilder: (context, index) {
-                return Card(
-                  child: Column(children: [
-                    ListTile(
-                      title: Text(_machines[index].Name),
-                      subtitle: Text(
-                        'Время работы: 10:00:00 - 22:00:00',
-                        style: TextStyle(color: Colors.black.withOpacity(0.6)),
-                      ),
-                    ),
-                    ButtonBar(
-                      alignment: MainAxisAlignment.start,
-                      children: [
-                        TextButton(
-                          onPressed: () {
-                            MapsLauncher.launchCoordinates(
-                                _machines[index].Latitude,
-                                _machines[index].Longitude);
-                          },
-                          child: const Text('НАВИГАЦИЯ'),
-                        ),
-                        TextButton(
-                          onPressed: () async {
-                            setState(() {
-                              _scanning = true;
-                            });
-                            await flutterBeacon.initializeScanning;
-                            final regions = <Region>[
-                              Region(
-                                identifier: 'Fridge',
-                                proximityUUID: _machines[index].IBeaconUDID,
-                              ),
-                            ];
-
-                            Timer(Duration(seconds: 10), () {
-                              setState(() {
-                                _scanning = false;
-                              });
-                            });
-                          },
-                          child: const Text('НАЙТИ АВТОМАТ'),
-                        ),
-                        Visibility(
-                          child: CircularProgressIndicator(),
-                          visible: _scanning,
-                        )
-                      ],
-                    )
-                  ]),
-                );
+                return MachineCard(machine: _machines[index]);
               },
             )),
       ),
     ]);
+  }
+}
+
+class MachineCard extends StatefulWidget {
+  const MachineCard({
+    Key? key,
+    required Machine machine,
+  })  : _machine = machine,
+        super(key: key);
+
+  final Machine _machine;
+
+  @override
+  _MachineCardState createState() => _MachineCardState();
+}
+
+class _MachineCardState extends State<MachineCard> {
+  bool _scanning = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(children: [
+        ListTile(
+          title: Text(widget._machine.Name),
+          subtitle: Text(
+            'Время работы: 10:00:00 - 22:00:00',
+            style: TextStyle(color: Colors.black.withOpacity(0.6)),
+          ),
+        ),
+        ButtonBar(
+          alignment: MainAxisAlignment.start,
+          children: [
+            TextButton(
+              onPressed: () {
+                MapsLauncher.launchCoordinates(
+                    widget._machine.Latitude, widget._machine.Longitude);
+              },
+              child: const Text('НАВИГАЦИЯ'),
+            ),
+            TextButton(
+              onPressed: () async {
+                setState(() {
+                  _scanning = true;
+                });
+                await flutterBeacon.initializeScanning;
+                final regions = <Region>[
+                  Region(
+                    identifier: 'Fridge',
+                    proximityUUID: widget._machine.IBeaconUDID,
+                  ),
+                ];
+
+                Timer(Duration(seconds: 10), () {
+                  setState(() {
+                    _scanning = false;
+                  });
+                });
+              },
+              child: const Text('НАЙТИ АВТОМАТ'),
+            ),
+            Visibility(
+              child: CircularProgressIndicator(),
+              visible: _scanning,
+            )
+          ],
+        )
+      ]),
+    );
   }
 }
