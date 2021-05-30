@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 import 'src/locations.dart';
 
 class MapPage extends StatefulWidget {
@@ -84,7 +85,9 @@ class _MapPageState extends State<MapPage> {
                       children: [
                         TextButton(
                           onPressed: () {
-                            // Perform some action
+                            MapsLauncher.launchCoordinates(
+                                _machines[index].Latitude,
+                                _machines[index].Longitude);
                           },
                           child: const Text('НАВИГАЦИЯ'),
                         ),

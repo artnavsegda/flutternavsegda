@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'main.dart';
 import 'map.dart';
+import 'storage.dart';
 
 class VendingPage extends StatelessWidget {
   @override
@@ -25,7 +26,7 @@ class VendingPage extends StatelessWidget {
           ),
           body: TabBarView(
             physics: NeverScrollableScrollPhysics(),
-            children: [MapPage(), Icon(Icons.directions_car)],
+            children: [MapPage(), StoragePage()],
           ),
         ),
       ),
