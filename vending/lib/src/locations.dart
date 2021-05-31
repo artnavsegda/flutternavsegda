@@ -35,13 +35,13 @@ class Machine {
   final int? ServiceDate;
 }
 
-Future<List<Machine>> getMachines() async {
+Future<List<Machine>> getMachines(String token) async {
+  print("Request token: " + token);
   // Retrieve the locations of Google offices
   final response = await http.get(
       Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
       headers: {
-        'Token':
-            'I9AHcsqu+0q4LsfEyDPrk7giWL1B4TEVTXu4XWTZyGzEgneula0iinS4C6L7bds2',
+        'Token': token,
       });
   if (response.statusCode == 200) {
     Iterable l = json.decode(response.body);

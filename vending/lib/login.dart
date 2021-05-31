@@ -68,9 +68,9 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextButton(
                   child: Text('ВХОД'),
-                  onPressed: () {
+                  onPressed: () async {
                     var appState = context.read<AppModel>();
-                    appState.login(
+                    await appState.login(
                         _usernameController.text, _passwordController.text);
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => VendingPage()));

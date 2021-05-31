@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'main.dart';
 import 'src/locations.dart';
 import 'service.dart';
 
@@ -14,33 +16,6 @@ class MapPage extends StatefulWidget {
 class _MapPageState extends State<MapPage> {
   final Map<String, Marker> _markers = {};
   List<Machine> _machines = [];
-
-  Future<void> _onMapCreated(GoogleMapController controller) async {
-    _machines = await getMachines();
-    setState(() {
-      _markers.clear();
-      for (final machine in _machines) {
-        final marker = Marker(
-            markerId: MarkerId(machine.Name),
-            position: LatLng(machine.Latitude, machine.Longitude),
-            infoWindow: InfoWindow(
-              title: machine.Name,
-              snippet: machine.Address,
-            ),
-            onTap: () {
-              print(machine.Name);
-              if (_pageController.hasClients) {
-                _pageController.animateToPage(
-                  _machines.indexOf(machine),
-                  duration: const Duration(milliseconds: 400),
-                  curve: Curves.easeInOut,
-                );
-              }
-            });
-        _markers[machine.Name] = marker;
-      }
-    });
-  }
 
   final PageController _pageController = PageController();
 
@@ -55,7 +30,32 @@ class _MapPageState extends State<MapPage> {
     return Stack(children: [
       GoogleMap(
         myLocationEnabled: true,
-        onMapCreated: _onMapCreated,
+        onMapCreated: (GoogleMapController controller) async {
+          _machines = await getMachines(context.read<AppModel>().token);
+          setState(() {
+            _markers.clear();
+            for (final machine in _machines) {
+              final marker = Marker(
+                  markerId: MarkerId(machine.Name),
+                  position: LatLng(machine.Latitude, machine.Longitude),
+                  infoWindow: InfoWindow(
+                    title: machine.Name,
+                    snippet: machine.Address,
+                  ),
+                  onTap: () {
+                    print(machine.Name);
+                    if (_pageController.hasClients) {
+                      _pageController.animateToPage(
+                        _machines.indexOf(machine),
+                        duration: const Duration(milliseconds: 400),
+                        curve: Curves.easeInOut,
+                      );
+                    }
+                  });
+              _markers[machine.Name] = marker;
+            }
+          });
+        },
         initialCameraPosition: CameraPosition(
           target: const LatLng(0, 0),
           zoom: 2,

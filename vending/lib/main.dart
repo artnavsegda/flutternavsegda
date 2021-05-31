@@ -17,11 +17,11 @@ class AppModel with ChangeNotifier {
   String token = "";
   String userName = "";
 
-  void login(String login, String password) {
+  Future login(String login, String password) {
     print('login $login pass $password');
     var url =
-        Uri.parse('https://app.tseh85.com/DemoService/api/AuthenticateVending');
-    post(url,
+        Uri.parse('https://app.tseh85.com/service/api/AuthenticateVending');
+    return post(url,
             headers: {"Content-Type": "application/json"},
             body: json.encode({'Login': login, 'Password': password}))
         .then((response) {
