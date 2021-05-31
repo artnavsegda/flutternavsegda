@@ -21,7 +21,9 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
 /*     return Text(widget._product.Name); */
     return ListTile(
-      leading: FlutterLogo(),
+      leading: Image.network(
+          'https://app.tseh85.com/service/api/image?PictureId=' +
+              widget._product.PictureID.toString()),
       title: Text(widget._product.Name),
       trailing: Container(
         width: 112,
