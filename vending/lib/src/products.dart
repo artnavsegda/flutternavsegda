@@ -22,7 +22,7 @@ class Product {
   final int PictureID;
 }
 
-Future<List<Product>> getProducts(String token) async {
+Future<List<Product>> getProducts(String token, String machineGUID) async {
   print("Request token: " + token);
   // Retrieve the locations of Google offices
   final response = await http.get(
