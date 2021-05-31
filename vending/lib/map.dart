@@ -131,7 +131,8 @@ class _MachineCardState extends State<MachineCard> {
                         Navigator.pushReplacement(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => ServiceScreen()));
+                                builder: (context) =>
+                                    ServiceScreen(products: products)));
                       } else {
                         setState(() {
                           _scanning = true;

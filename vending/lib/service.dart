@@ -1,6 +1,15 @@
 import 'package:flutter/material.dart';
+import 'src/products.dart';
 
 class ServiceScreen extends StatefulWidget {
+  const ServiceScreen({
+    Key? key,
+    required List<Product> products,
+  })  : _products = products,
+        super(key: key);
+
+  final List<Product> _products;
+
   @override
   _ServiceScreenState createState() => _ServiceScreenState();
 }
