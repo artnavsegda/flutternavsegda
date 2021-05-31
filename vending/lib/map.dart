@@ -94,6 +94,7 @@ class MachineCard extends StatefulWidget {
 
 class _MachineCardState extends State<MachineCard> {
   bool _scanning = false;
+  bool _found = false;
 
   @override
   Widget build(BuildContext context) {
@@ -117,25 +118,32 @@ class _MachineCardState extends State<MachineCard> {
               child: const Text('НАВИГАЦИЯ'),
             ),
             TextButton(
-              onPressed: () async {
-                setState(() {
-                  _scanning = true;
-                });
-                await flutterBeacon.initializeScanning;
-                final regions = <Region>[
-                  Region(
-                    identifier: 'Fridge',
-                    proximityUUID: widget._machine.IBeaconUDID,
-                  ),
-                ];
+              onPressed: _scanning
+                  ? null
+                  : () async {
+                      if (_found) {
+                        print("Knock-knock");
+                      } else {
+                        setState(() {
+                          _scanning = true;
+                        });
+                        await flutterBeacon.initializeScanning;
+                        final regions = <Region>[
+                          Region(
+                            identifier: 'Fridge',
+                            proximityUUID: widget._machine.IBeaconUDID,
+                          ),
+                        ];
 
-                Timer(Duration(seconds: 10), () {
-                  setState(() {
-                    _scanning = false;
-                  });
-                });
-              },
-              child: const Text('НАЙТИ АВТОМАТ'),
+                        Timer(Duration(seconds: 10), () {
+                          setState(() {
+                            _scanning = false;
+                            _found = true;
+                          });
+                        });
+                      }
+                    },
+              child: Text(_found ? 'ОТКРЫТЬ ЗАМОК' : 'НАЙТИ АВТОМАТ'),
             ),
             Visibility(
               child: CircularProgressIndicator(),
