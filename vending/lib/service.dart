@@ -21,9 +21,12 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
 /*     return Text(widget._product.Name); */
     return ListTile(
-      leading: Image.network(
-          'https://app.tseh85.com/service/api/image?PictureId=' +
-              widget._product.PictureID.toString()),
+      leading: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: Image.network(
+            'https://app.tseh85.com/service/api/image?PictureId=' +
+                widget._product.PictureID.toString()),
+      ),
       title: Text(widget._product.Name),
       trailing: Container(
         width: 112,
@@ -61,11 +64,13 @@ class _ServiceScreenState extends State<ServiceScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Обслуживание")),
-        body: ListView.builder(
+        body: ListView.separated(
           itemCount: widget._products.length,
           itemBuilder: (context, index) {
-/*             return Text(widget._products[index].Name); */
             return ProductItem(product: widget._products[index]);
+          },
+          separatorBuilder: (context, index) {
+            return Divider();
           },
         ));
   }
