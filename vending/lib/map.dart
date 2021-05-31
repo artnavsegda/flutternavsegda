@@ -126,7 +126,7 @@ class _MachineCardState extends State<MachineCard> {
                       if (_found) {
                         var products = await getProducts(
                             context.read<AppModel>().token,
-                            widget._machine.IBeaconUDID);
+                            widget._machine.GUID);
                         print("Knock-knock");
                         Navigator.pushReplacement(
                             context,

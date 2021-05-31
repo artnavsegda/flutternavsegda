@@ -18,10 +18,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Обслуживание")),
-      body: Center(
-        child: Text("Full-screen dialog"),
-      ),
-    );
+        appBar: AppBar(title: Text("Обслуживание")),
+        body: ListView.builder(
+          itemCount: widget._products.length,
+          itemBuilder: (context, index) {
+            return Text(widget._products[index].Name);
+          },
+        ));
   }
 }
