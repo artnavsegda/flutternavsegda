@@ -62,6 +62,22 @@ class ServiceScreen extends StatefulWidget {
 class _ServiceScreenState extends State<ServiceScreen> {
   @override
   Widget build(BuildContext context) {
+    final AlertDialog dialog = AlertDialog(
+      title: Text('Уверены ?'),
+      actions: [
+        TextButton(
+          onPressed: () {
+            Navigator.of(context, rootNavigator: true).pop();
+          },
+          child: Text('ДА'),
+        ),
+        TextButton(
+          onPressed: () => Navigator.of(context, rootNavigator: true).pop(),
+          child: Text('НЕТ'),
+        ),
+      ],
+    );
+
     return Scaffold(
         appBar: AppBar(title: Text("Обслуживание")),
         body: ListView.separated(
@@ -75,7 +91,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
         ),
         bottomNavigationBar: TextButton(
           child: Text('ДАЛЕЕ'),
-          onPressed: () {},
+          onPressed: () {
+            showDialog<void>(context: context, builder: (context) => dialog);
+          },
         ));
   }
 }
