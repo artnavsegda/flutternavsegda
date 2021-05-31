@@ -21,6 +21,7 @@ class _ProductItemState extends State<ProductItem> {
   Widget build(BuildContext context) {
 /*     return Text(widget._product.Name); */
     return ListTile(
+      leading: FlutterLogo(),
       title: Text(widget._product.Name),
       trailing: Container(
         width: 112,
