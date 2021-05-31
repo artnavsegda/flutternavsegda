@@ -26,7 +26,9 @@ Future<List<Product>> getProducts(String token, String machineGUID) async {
   print("Request token: " + token);
   // Retrieve the locations of Google offices
   final response = await http.get(
-      Uri.parse('https://app.tseh85.com/service/api/vending/machines'),
+      Uri.parse(
+          'https://app.tseh85.com/service/api/vending/products?MachineGUID=' +
+              machineGUID),
       headers: {
         'Token': token,
       });
@@ -37,6 +39,6 @@ Future<List<Product>> getProducts(String token, String machineGUID) async {
     throw HttpException(
         'Unexpected status code ${response.statusCode}:'
         ' ${response.reasonPhrase}',
-        uri: Uri.parse('https://app.tseh85.com/service/api/vending/machines'));
+        uri: Uri.parse('https://app.tseh85.com/service/api/vending/products'));
   }
 }
