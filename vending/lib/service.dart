@@ -8,6 +8,11 @@ class ServiceScreen extends StatefulWidget {
 class _ServiceScreenState extends State<ServiceScreen> {
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: AppBar(title: Text("Обслуживание")),
+      body: Center(
+        child: Text("Full-screen dialog"),
+      ),
+    );
   }
 }

@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'src/locations.dart';
+import 'service.dart';
 
 class MapPage extends StatefulWidget {
   @override
@@ -123,6 +124,10 @@ class _MachineCardState extends State<MachineCard> {
                   : () async {
                       if (_found) {
                         print("Knock-knock");
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ServiceScreen()));
                       } else {
                         setState(() {
                           _scanning = true;
