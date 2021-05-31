@@ -72,6 +72,10 @@ class _ServiceScreenState extends State<ServiceScreen> {
           separatorBuilder: (context, index) {
             return Divider();
           },
+        ),
+        bottomNavigationBar: TextButton(
+          child: Text('ДАЛЕЕ'),
+          onPressed: () {},
         ));
   }
 }
