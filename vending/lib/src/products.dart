@@ -39,6 +39,7 @@ Future<List<Product>> getProducts(String token, String machineGUID) async {
     throw HttpException(
         'Unexpected status code ${response.statusCode}:'
         ' ${response.reasonPhrase}',
-        uri: Uri.parse('https://app.tseh85.com/service/api/vending/products'));
+        uri: Uri.parse('https://app.tseh85.com/service/api/vending/products' +
+            machineGUID));
   }
 }
