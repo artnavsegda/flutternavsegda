@@ -6,6 +6,7 @@ import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:maps_launcher/maps_launcher.dart';
 import 'main.dart';
 import 'src/locations.dart';
+import 'src/products.dart';
 import 'service.dart';
 
 class MapPage extends StatefulWidget {
@@ -123,6 +124,8 @@ class _MachineCardState extends State<MachineCard> {
                   ? null
                   : () async {
                       if (_found) {
+                        await getProducts(context.read<AppModel>().token,
+                            widget._machine.IBeaconUDID);
                         print("Knock-knock");
                         Navigator.pushReplacement(
                             context,
