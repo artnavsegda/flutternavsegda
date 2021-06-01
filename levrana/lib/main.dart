@@ -23,11 +23,19 @@ void main() async {
     ),
   );
 
-  runApp(MyApp());
+  runApp(MyApp(client: client));
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  const MyApp({
+    Key? key,
+    required this.client,
+  }) : super(key: key);
+
+  final ValueNotifier<GraphQLClient> client;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
