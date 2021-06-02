@@ -105,10 +105,9 @@ class CatalogPage extends StatelessWidget {
   const CatalogPage({
     Key? key,
     required List catalog,
-  })  : _catalog = catalog,
-        super(key: key);
+  }) : super(key: key);
 
-  final List _catalog;
+  final List catalog;
 
   @override
   Widget build(BuildContext context) {
@@ -121,9 +120,9 @@ class CatalogPage extends StatelessWidget {
             )),
       ),
       body: ListView.separated(
-        itemCount: _catalog.length,
+        itemCount: catalog.length,
         itemBuilder: (context, index) {
-          final section = _catalog[index];
+          final section = catalog[index];
 
           return ListTile(
             dense: true,
