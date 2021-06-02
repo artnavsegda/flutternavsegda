@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 /* String getCatalog = """
 query getCatalog {
@@ -156,7 +157,12 @@ class _MyHomePageState extends State<MyHomePage> {
             itemBuilder: (context, index) {
               final section = catalog[index];
 
-              return ListTile(title: Text(section['name']));
+              return ListTile(
+                title: Text(
+                  section['name'],
+                  style: GoogleFonts.montserrat(),
+                ),
+              );
             },
             separatorBuilder: (context, index) {
               return Divider();
