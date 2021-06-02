@@ -158,14 +158,18 @@ class _MyHomePageState extends State<MyHomePage> {
               final section = catalog[index];
 
               return ListTile(
+                dense: true,
                 title: Text(
                   section['name'],
-                  style: GoogleFonts.montserrat(),
+                  style: GoogleFonts.montserrat(fontSize: 16),
                 ),
               );
             },
             separatorBuilder: (context, index) {
-              return Divider();
+              return Divider(
+                indent: 20,
+                endIndent: 20,
+              );
             },
           );
         },
