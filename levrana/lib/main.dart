@@ -160,37 +160,59 @@ class _MyHomePageState extends State<MyHomePage> {
               });
         },
       )),
-      floatingActionButton: FloatingActionButton(
+/*       floatingActionButton: FloatingActionButton(
         onPressed: _incrementCounter,
         tooltip: 'Increment',
         child: Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-      bottomNavigationBar: BottomNavigationBar(
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-            label: 'User',
-          ),
-          BottomNavigationBarItem(
-            icon:
-                Image(image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
-            label: 'Business',
-          ),
-          BottomNavigationBarItem(
-            icon: Image(image: AssetImage('assets/ic-24/icon-24-shopping.png')),
-            label: 'School',
-          ),
-          BottomNavigationBarItem(
-            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-            label: 'School',
-          ),
-          BottomNavigationBarItem(
-            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-            label: 'School',
-          ),
-        ],
+      ),  */ // This trailing comma makes auto-formatting nicer for build methods.
+      bottomNavigationBar: Container(
+        decoration: BoxDecoration(
+          boxShadow: <BoxShadow>[
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.07),
+              blurRadius: 100.0,
+              offset: Offset(0.0, -27),
+            ),
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.0417275),
+              blurRadius: 22.3363,
+              offset: Offset(0.0, -6.0308),
+            ),
+            BoxShadow(
+              color: Color.fromRGBO(0, 0, 0, 0.0282725),
+              blurRadius: 6.6501,
+              offset: Offset(0.0, -1.79553),
+            )
+          ],
+        ),
+        child: BottomNavigationBar(
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
+              label: 'User',
+            ),
+            BottomNavigationBarItem(
+              icon: Image(
+                  image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
+              label: 'Business',
+            ),
+            BottomNavigationBarItem(
+              icon:
+                  Image(image: AssetImage('assets/ic-24/icon-24-shopping.png')),
+              label: 'School',
+            ),
+            BottomNavigationBarItem(
+              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
+              label: 'School',
+            ),
+            BottomNavigationBarItem(
+              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
+              label: 'School',
+            ),
+          ],
+        ),
       ),
     );
   }
