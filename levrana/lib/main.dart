@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-/* String getCatalog = """
+const String getCatalog = """
 query getCatalog {
   getCatalog {
     iD
@@ -10,16 +10,16 @@ query getCatalog {
     picture
     childs {
       name
+      iD
+      childs {
+        name
+        iD
+        childs {
+          name
+          iD
+        }
+      }
     }
-  }
-}
-"""; */
-
-const String getCatalog = """
-query getCatalog {
-  getCatalog {
-    iD
-    name
   }
 }
 """;
@@ -129,6 +129,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text("Каталог",
             style: GoogleFonts.montserrat(
+              fontSize: 16,
               fontWeight: FontWeight.w700,
             )),
       ),
@@ -166,10 +167,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   section['name'],
                   style: GoogleFonts.montserrat(fontSize: 16),
                 ),
+                trailing: Icon(Icons.navigate_next),
               );
             },
             separatorBuilder: (context, index) {
               return Divider(
+                height: 1,
                 indent: 20,
                 endIndent: 20,
               );
