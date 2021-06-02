@@ -101,6 +101,15 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+class CatalogPage extends StatelessWidget {
+  const CatalogPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class _MyHomePageState extends State<MyHomePage> {
   int _catalogID = 0;
   List _catalog = [];
