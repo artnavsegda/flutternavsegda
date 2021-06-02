@@ -1,6 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+String getCatalog = """
+query getCatalog {
+  getCatalog {
+    iD
+    name
+    picture
+    childs {
+      name
+    }
+  }
+}
+""";
+
 void main() async {
   await initHiveForFlutter();
 
