@@ -151,13 +151,17 @@ class _MyHomePageState extends State<MyHomePage> {
           print(result);
           List catalog = result.data!['getCatalog'];
 
-          return ListView.builder(
-              itemCount: catalog.length,
-              itemBuilder: (context, index) {
-                final section = catalog[index];
+          return ListView.separated(
+            itemCount: catalog.length,
+            itemBuilder: (context, index) {
+              final section = catalog[index];
 
-                return ListTile(title: Text(section['name']));
-              });
+              return ListTile(title: Text(section['name']));
+            },
+            separatorBuilder: (context, index) {
+              return Divider();
+            },
+          );
         },
       )),
 /*       floatingActionButton: FloatingActionButton(
