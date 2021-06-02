@@ -144,7 +144,7 @@ class _MyHomePageState extends State<MyHomePage> {
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Image(image: AssetImage('assets/ic-24/icon-24-basket.png')),
+            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
             label: 'Home',
           ),
           BottomNavigationBarItem(
