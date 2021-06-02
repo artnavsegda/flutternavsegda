@@ -112,30 +112,44 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.separated(
-      itemCount: _catalog.length,
-      itemBuilder: (context, index) {
-        final section = _catalog[index];
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Каталог",
+            style: GoogleFonts.montserrat(
+              fontSize: 16,
+              fontWeight: FontWeight.w700,
+            )),
+      ),
+      body: ListView.separated(
+        itemCount: _catalog.length,
+        itemBuilder: (context, index) {
+          final section = _catalog[index];
 
-        return ListTile(
-          dense: true,
-          title: Text(
-            section['name'],
-            style: GoogleFonts.montserrat(fontSize: 16),
-          ),
-          trailing: Icon(Icons.navigate_next),
-          onTap: () {
-            print(section['iD']);
-          },
-        );
-      },
-      separatorBuilder: (context, index) {
-        return Divider(
-          height: 1,
-          indent: 20,
-          endIndent: 20,
-        );
-      },
+          return ListTile(
+            dense: true,
+            title: Text(
+              section['name'],
+              style: GoogleFonts.montserrat(fontSize: 16),
+            ),
+            trailing: Icon(Icons.navigate_next),
+            onTap: () {
+              print(section['iD']);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          CatalogPage(catalog: section['childs'])));
+            },
+          );
+        },
+        separatorBuilder: (context, index) {
+          return Divider(
+            height: 1,
+            indent: 20,
+            endIndent: 20,
+          );
+        },
+      ),
     );
   }
 }
@@ -153,15 +167,6 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("Каталог",
-            style: GoogleFonts.montserrat(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            )),
-      ),
       body: Center(
           // Center is a layout widget. It takes a single child and positions it
           // in the middle of the parent.
