@@ -102,18 +102,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  int _catalogID = 0;
+  List _catalog = [];
 
   @override
   Widget build(BuildContext context) {
@@ -153,8 +143,9 @@ class _MyHomePageState extends State<MyHomePage> {
           }
 
           // it can be either Map or List
-          print(result);
+          print(result.data!['getCatalog']);
           List catalog = result.data!['getCatalog'];
+          if (_catalog.length != 0) catalog = _catalog;
 
           return ListView.separated(
             itemCount: catalog.length,
@@ -168,6 +159,12 @@ class _MyHomePageState extends State<MyHomePage> {
                   style: GoogleFonts.montserrat(fontSize: 16),
                 ),
                 trailing: Icon(Icons.navigate_next),
+                onTap: () {
+                  print(section['iD']);
+                  setState(() {
+                    _catalog = section['childs'];
+                  });
+                },
               );
             },
             separatorBuilder: (context, index) {
