@@ -142,21 +142,31 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
       bottomNavigationBar: BottomNavigationBar(
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-            label: 'Home',
+            label: 'User',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
+            icon:
+                Image(image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
             label: 'Business',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.school),
+            icon: Image(image: AssetImage('assets/ic-24/icon-24-shopping.png')),
+            label: 'School',
+          ),
+          BottomNavigationBarItem(
+            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
+            label: 'School',
+          ),
+          BottomNavigationBarItem(
+            icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
             label: 'School',
           ),
         ],
-        selectedItemColor: Colors.amber[800],
       ),
     );
   }
