@@ -104,16 +104,18 @@ class MyHomePage extends StatefulWidget {
 class CatalogPage extends StatelessWidget {
   const CatalogPage({
     Key? key,
-    required List catalog,
+    required this.catalog,
+    required this.title,
   }) : super(key: key);
 
   final List catalog;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Каталог",
+        title: Text(title,
             style: GoogleFonts.montserrat(
               fontSize: 16,
               fontWeight: FontWeight.w700,
@@ -136,8 +138,10 @@ class CatalogPage extends StatelessWidget {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          CatalogPage(catalog: section['childs'])));
+                      builder: (context) => CatalogPage(
+                            catalog: section['childs'],
+                            title: section['name'],
+                          )));
             },
           );
         },
@@ -190,7 +194,10 @@ class _MyHomePageState extends State<MyHomePage> {
           List catalog = result.data!['getCatalog'];
           if (_catalog.length != 0) catalog = _catalog;
 
-          return CatalogPage(catalog: catalog);
+          return CatalogPage(
+            catalog: catalog,
+            title: "Каталог",
+          );
 
 /*           return ListView.separated(
             itemCount: catalog.length,
