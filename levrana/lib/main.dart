@@ -102,11 +102,41 @@ class MyHomePage extends StatefulWidget {
 }
 
 class CatalogPage extends StatelessWidget {
-  const CatalogPage({Key? key}) : super(key: key);
+  const CatalogPage({
+    Key? key,
+    required List catalog,
+  })  : _catalog = catalog,
+        super(key: key);
+
+  final List _catalog;
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return ListView.separated(
+      itemCount: _catalog.length,
+      itemBuilder: (context, index) {
+        final section = _catalog[index];
+
+        return ListTile(
+          dense: true,
+          title: Text(
+            section['name'],
+            style: GoogleFonts.montserrat(fontSize: 16),
+          ),
+          trailing: Icon(Icons.navigate_next),
+          onTap: () {
+            print(section['iD']);
+          },
+        );
+      },
+      separatorBuilder: (context, index) {
+        return Divider(
+          height: 1,
+          indent: 20,
+          endIndent: 20,
+        );
+      },
+    );
   }
 }
 
@@ -156,7 +186,9 @@ class _MyHomePageState extends State<MyHomePage> {
           List catalog = result.data!['getCatalog'];
           if (_catalog.length != 0) catalog = _catalog;
 
-          return ListView.separated(
+          return CatalogPage(catalog: catalog);
+
+/*           return ListView.separated(
             itemCount: catalog.length,
             itemBuilder: (context, index) {
               final section = catalog[index];
@@ -183,7 +215,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 endIndent: 20,
               );
             },
-          );
+          ); */
         },
       )),
 /*       floatingActionButton: FloatingActionButton(
