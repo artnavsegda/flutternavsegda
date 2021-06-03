@@ -184,6 +184,7 @@ class MainPage extends StatelessWidget {
           ],
         ),
         child: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           items: const <BottomNavigationBarItem>[
