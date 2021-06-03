@@ -78,18 +78,24 @@ class MyApp extends StatelessWidget {
 }
 
 class CatalogPage extends StatelessWidget {
-  const CatalogPage({
-    Key? key,
-    required this.catalog,
-    required this.title,
-  }) : super(key: key);
+  CatalogPage(
+      {Key? key,
+      required this.catalog,
+      required this.title,
+      this.id = 0,
+      this.totalCount = 0})
+      : super(key: key);
 
   final List catalog;
   final String title;
+  int id;
+  int totalCount;
 
   @override
   Widget build(BuildContext context) {
     print(catalog);
+    print(id);
+    print(totalCount);
     return Scaffold(
       appBar: AppBar(
         title: Text(title,
@@ -116,15 +122,16 @@ class CatalogPage extends StatelessWidget {
             onTap: () {
               //print(section['childs']);
               //print(section['iD']);
-              print(section['totalCount']);
+              //print(section['totalCount']);
               if (section['childs'] != null)
                 Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => CatalogPage(
-                              catalog: section['childs'],
-                              title: section['name'],
-                            )));
+                            catalog: section['childs'],
+                            title: section['name'],
+                            id: section['iD'],
+                            totalCount: section['totalCount'])));
             },
           );
         },
