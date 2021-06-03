@@ -66,8 +66,17 @@ class Welcome extends StatelessWidget {
         body: Stack(children: [
       Image(image: AssetImage('assets/Приветствие@2x.png')),
       Center(
+        child: Text("Привет!"),
+      ),
+      Center(
         child: Text(
             "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+      ),
+      Center(
+        child: TextButton(
+          child: Text("ДАЛЬШЕ"),
+          onPressed: () {},
+        ),
       )
     ]));
     //
