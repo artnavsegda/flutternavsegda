@@ -109,7 +109,8 @@ class CatalogPage extends StatelessWidget {
               style: GoogleFonts.montserrat(fontSize: 16),
             ),
             trailing: (section['childs'] == null)
-                ? Text(section['totalCount'].toString())
+                ? Text(section['totalCount'].toString(),
+                    style: GoogleFonts.montserrat(fontSize: 16))
                 : Icon(Icons.navigate_next),
             onTap: () {
               //print(section['childs']);
