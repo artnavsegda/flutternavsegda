@@ -89,6 +89,7 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print(catalog);
     return Scaffold(
       appBar: AppBar(
         title: Text(title,
@@ -161,7 +162,7 @@ class MainPage extends StatelessWidget {
                     }
 
                     // it can be either Map or List
-                    print(result.data!['getCatalog']);
+                    //print(result.data!['getCatalog']);
                     List catalog = result.data!['getCatalog'];
 
                     return CatalogPage(
