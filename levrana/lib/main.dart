@@ -63,7 +63,13 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Image(image: AssetImage('assets/Приветствие@2x.png')));
-    //Center(child: Text("Hello")));
+        body: Stack(children: [
+      Image(image: AssetImage('assets/Приветствие@2x.png')),
+      Center(
+        child: Text(
+            "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+      )
+    ]));
+    //
   }
 }
