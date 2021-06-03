@@ -51,8 +51,17 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: MainPage(),
+        home: Welcome(),
       ),
     );
+  }
+}
+
+class Welcome extends StatelessWidget {
+  const Welcome({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(body: Center(child: Text("Hello")));
   }
 }
