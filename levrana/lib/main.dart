@@ -107,14 +107,17 @@ class CatalogPage extends StatelessWidget {
             ),
             trailing: Icon(Icons.navigate_next),
             onTap: () {
-              print(section['iD']);
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => CatalogPage(
-                            catalog: section['childs'],
-                            title: section['name'],
-                          )));
+/*               print(section['childs']);
+              if (section['childs'] == null) print("Empty !");
+              print(section['iD']); */
+              if (section['childs'] != null)
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => CatalogPage(
+                              catalog: section['childs'],
+                              title: section['name'],
+                            )));
             },
           );
         },
