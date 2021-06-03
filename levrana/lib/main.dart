@@ -109,20 +109,22 @@ class CatalogPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ListTile(
-            title: Text(
-              "Вся продукция раздела",
-              style: TextStyle(
-                color: Colors.green,
+          if (id != 0)
+            ListTile(
+              title: Text(
+                "Вся продукция раздела",
+                style: TextStyle(
+                  color: Colors.green,
+                ),
               ),
-            ),
-            trailing: Text(
-              totalCount.toString(),
-              style: TextStyle(
-                color: Colors.green,
+              trailing: Text(
+                totalCount.toString(),
+                style: TextStyle(
+                  color: Colors.green,
+                ),
               ),
+              onTap: () {},
             ),
-          ),
           Expanded(
             child: ListView.separated(
               itemCount: catalog.length,
