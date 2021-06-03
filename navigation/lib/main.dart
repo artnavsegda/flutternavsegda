@@ -22,12 +22,15 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      initialRoute: '/',
+/*       initialRoute: '/',
       routes: <String, WidgetBuilder>{
         '/': (BuildContext context) => const Scaffold(
               body: Center(child: Text("Hello")),
             ),
-      },
+      }, */
+      home: Scaffold(
+        body: Center(child: Text("Hello")),
+      ),
     );
   }
 }
