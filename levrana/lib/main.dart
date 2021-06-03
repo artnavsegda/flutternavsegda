@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.green,
-          textTheme: GoogleFonts.latoTextTheme(
+          textTheme: GoogleFonts.montserratTextTheme(
             Theme.of(context).textTheme,
           ),
         ),
