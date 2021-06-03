@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.green,
         ),
-        home: MyHomePage(title: "hello"),
+        home: MainPage(),
       ),
     );
   }
@@ -134,125 +134,34 @@ class MainPage extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      home: Scaffold(
-        body: Navigator(
-          onGenerateRoute: (settings) => MaterialPageRoute<void>(
-              builder: (BuildContext context) => Scaffold(
-                    body: Center(
-                      child: TextButton(
-                        child: Text("Helloaa"),
-                        onPressed: () => Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => Scaffold(
-                              body: Center(
-                                child: Text("Hello"),
-                              ),
-                              appBar: AppBar(
-                                title: Text("Hello"),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    appBar: AppBar(
-                      title: Text("Hello"),
-                    ),
-                  ),
-              settings: settings),
-        ),
-        bottomNavigationBar: Container(
-          decoration: BoxDecoration(
-            boxShadow: <BoxShadow>[
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.07),
-                blurRadius: 100.0,
-                offset: Offset(0.0, -27),
-              ),
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.0417275),
-                blurRadius: 22.3363,
-                offset: Offset(0.0, -6.0308),
-              ),
-              BoxShadow(
-                color: Color.fromRGBO(0, 0, 0, 0.0282725),
-                blurRadius: 6.6501,
-                offset: Offset(0.0, -1.79553),
-              )
-            ],
-          ),
-          child: BottomNavigationBar(
-            showSelectedLabels: false,
-            showUnselectedLabels: false,
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-                label: 'User',
-              ),
-              BottomNavigationBarItem(
-                icon: Image(
-                    image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
-                label: 'Business',
-              ),
-              BottomNavigationBarItem(
-                icon: Image(
-                    image: AssetImage('assets/ic-24/icon-24-shopping.png')),
-                label: 'School',
-              ),
-              BottomNavigationBarItem(
-                icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-                label: 'School',
-              ),
-              BottomNavigationBarItem(
-                icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-                label: 'School',
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key? key, required this.title}) : super(key: key);
-
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
-      body: Query(
-        options: QueryOptions(
-          document:
-              gql(getCatalog), // this is the query string you just created
-        ),
-        builder: (result, {fetchMore, refetch}) {
-          if (result.hasException) {
-            return Text(result.exception.toString());
-          }
+      body: Navigator(
+        onGenerateRoute: (settings) => MaterialPageRoute<void>(
+            builder: (BuildContext context) => Query(
+                  options: QueryOptions(
+                    document: gql(
+                        getCatalog), // this is the query string you just created
+                  ),
+                  builder: (result, {fetchMore, refetch}) {
+                    if (result.hasException) {
+                      return Text(result.exception.toString());
+                    }
 
-          if (result.isLoading) {
-            return Text('Loading');
-          }
+                    if (result.isLoading) {
+                      return Text('Loading');
+                    }
 
-          // it can be either Map or List
-          print(result.data!['getCatalog']);
-          List catalog = result.data!['getCatalog'];
+                    // it can be either Map or List
+                    print(result.data!['getCatalog']);
+                    List catalog = result.data!['getCatalog'];
 
-          return CatalogPage(
-            catalog: catalog,
-            title: "Каталог",
-          );
-        },
+                    return CatalogPage(
+                      catalog: catalog,
+                      title: "Каталог",
+                    );
+                  },
+                ),
+            settings: settings),
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
