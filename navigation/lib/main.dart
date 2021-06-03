@@ -29,7 +29,19 @@ class MyApp extends StatelessWidget {
             ),
       }, */
       home: Scaffold(
-        body: Center(child: Text("Hello")),
+        body: Navigator(
+          onGenerateRoute: (settings) {
+            return MaterialPageRoute<void>(
+                builder: (BuildContext context) => Scaffold(
+                      body: Center(child: Text("Hello")),
+                      appBar: AppBar(
+                        title: Text("Hello"),
+                      ),
+                    ),
+                settings: settings);
+          },
+        ), //Center(child: Text("Hello")),
+        bottomNavigationBar: Text("Hello"),
       ),
     );
   }
