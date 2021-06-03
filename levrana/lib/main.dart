@@ -104,41 +104,51 @@ class CatalogPage extends StatelessWidget {
               fontWeight: FontWeight.w700,
             )),
       ),
-      body: ListView.separated(
-        itemCount: catalog.length,
-        itemBuilder: (context, index) {
-          final section = catalog[index];
+      body: Column(
+        children: [
+          ListTile(
+            title: Text("Вся продукция раздела"),
+            trailing: Text(totalCount.toString()),
+          ),
+          Expanded(
+            child: ListView.separated(
+              itemCount: catalog.length,
+              itemBuilder: (context, index) {
+                final section = catalog[index];
 
-          return ListTile(
-            dense: true,
-            title: Text(
-              section['name'],
-              style: GoogleFonts.montserrat(fontSize: 16),
+                return ListTile(
+                  dense: true,
+                  title: Text(
+                    section['name'],
+                    style: GoogleFonts.montserrat(fontSize: 16),
+                  ),
+                  trailing: (section['childs'] == null)
+                      ? Text(section['totalCount'].toString(),
+                          style: GoogleFonts.montserrat(fontSize: 16))
+                      : Icon(Icons.navigate_next),
+                  onTap: () {
+                    if (section['childs'] != null)
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => CatalogPage(
+                                  catalog: section['childs'],
+                                  title: section['name'],
+                                  id: section['iD'],
+                                  totalCount: section['totalCount'])));
+                  },
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider(
+                  height: 1,
+                  indent: 20,
+                  endIndent: 20,
+                );
+              },
             ),
-            trailing: (section['childs'] == null)
-                ? Text(section['totalCount'].toString(),
-                    style: GoogleFonts.montserrat(fontSize: 16))
-                : Icon(Icons.navigate_next),
-            onTap: () {
-              if (section['childs'] != null)
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => CatalogPage(
-                            catalog: section['childs'],
-                            title: section['name'],
-                            id: section['iD'],
-                            totalCount: section['totalCount'])));
-            },
-          );
-        },
-        separatorBuilder: (context, index) {
-          return Divider(
-            height: 1,
-            indent: 20,
-            endIndent: 20,
-          );
-        },
+          )
+        ],
       ),
     );
   }
