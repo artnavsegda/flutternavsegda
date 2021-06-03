@@ -7,16 +7,19 @@ query getCatalog {
   getCatalog {
     iD
     name
-    picture
+    totalCount
     childs {
       name
       iD
+      totalCount
       childs {
         name
         iD
+        totalCount
         childs {
           name
           iD
+          totalCount
         }
       }
     }
@@ -105,11 +108,12 @@ class CatalogPage extends StatelessWidget {
               section['name'],
               style: GoogleFonts.montserrat(fontSize: 16),
             ),
-            trailing: Icon(Icons.navigate_next),
+            trailing: Text(
+                section['totalCount'].toString()), //Icon(Icons.navigate_next),
             onTap: () {
-/*               print(section['childs']);
-              if (section['childs'] == null) print("Empty !");
-              print(section['iD']); */
+              //print(section['childs']);
+              //print(section['iD']);
+              print(section['totalCount']);
               if (section['childs'] != null)
                 Navigator.push(
                     context,
