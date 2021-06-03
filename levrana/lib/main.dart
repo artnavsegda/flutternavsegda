@@ -123,7 +123,9 @@ class CatalogPage extends StatelessWidget {
                   color: Colors.green,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                print(id);
+              },
             ),
           Expanded(
             child: ListView.separated(
