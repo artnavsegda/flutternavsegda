@@ -65,26 +65,32 @@ class Welcome extends StatelessWidget {
     return Scaffold(
         body: Stack(children: [
       Image(image: AssetImage('assets/Приветствие@2x.png')),
-      Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("Привет!",
-                  style: GoogleFonts.montserrat(
-                    fontSize: 28,
-                    fontWeight: FontWeight.w700,
-                  )),
-              Text(
-                  "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
-            ],
-          ),
-          TextButton(
-            child: Text("ДАЛЬШЕ"),
-            onPressed: () {},
-          ),
-        ],
+      Container(
+        padding: const EdgeInsets.all(15.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text("Привет!",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                ),
+                Text(
+                    "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+              ],
+            ),
+            TextButton(
+              child: Text("ДАЛЬШЕ"),
+              onPressed: () {},
+            ),
+          ],
+        ),
       ),
     ]));
     //
