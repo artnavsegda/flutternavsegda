@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: Welcome(),
+        home: Notifications(),
       ),
     );
   }
@@ -87,6 +87,56 @@ class Welcome extends StatelessWidget {
                   ),
                   child: Text(
                       "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+                ),
+              ],
+            ),
+            ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+              ))),
+              child: Text("ДАЛЬШЕ"),
+              onPressed: () {},
+            ),
+          ],
+        ),
+      ),
+    ]));
+    //
+  }
+}
+
+class Notifications extends StatelessWidget {
+  const Notifications({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Stack(children: [
+      Image(image: AssetImage('assets/Включить оповещения@2x.png')),
+      Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text("Будьте на связи",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                ),
+                ConstrainedBox(
+                  constraints: new BoxConstraints(
+                    minHeight: 150.0,
+                  ),
+                  child: Text(
+                      "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках"),
                 ),
               ],
             ),
