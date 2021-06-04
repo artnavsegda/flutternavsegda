@@ -145,11 +145,20 @@ class Login extends StatelessWidget {
       onConfirm: () {
         showModalBottomSheet(
           context: context,
+          shape: RoundedRectangleBorder(
+            borderRadius:
+                BorderRadius.vertical(top: const Radius.circular(16.0)),
+          ),
           builder: (context) {
             // Using Wrap makes the bottom sheet height the height of the content.
             // Otherwise, the height will be half the height of the screen.
             return Wrap(
               children: [
+                Text("Вход",
+                    style: GoogleFonts.montserrat(
+                      fontSize: 28,
+                      fontWeight: FontWeight.w700,
+                    )),
                 ListTile(
                   leading: Icon(Icons.share),
                   title: Text('Share'),
