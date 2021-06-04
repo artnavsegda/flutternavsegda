@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'catalog.dart';
 
 class Welcome extends StatelessWidget {
@@ -96,8 +97,8 @@ class Login extends StatelessWidget {
                 BorderRadius.vertical(top: const Radius.circular(16.0)),
           ),
           builder: (context) {
-            // Using Wrap makes the bottom sheet height the height of the content.
-            // Otherwise, the height will be half the height of the screen.
+            var maskFormatter = new MaskTextInputFormatter(
+                mask: '+# (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
             return Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: Wrap(
@@ -108,6 +109,7 @@ class Login extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       )),
                   TextField(
+                    inputFormatters: [maskFormatter],
                     keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                         border: OutlineInputBorder(),
@@ -129,7 +131,11 @@ class Login extends StatelessWidget {
                     controlAffinity: ListTileControlAffinity
                         .leading, //  <-- leading Checkbox
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text("ВОЙТИ")),
+                  ElevatedButton(
+                      onPressed: () {
+                        //print();
+                      },
+                      child: Text("ВОЙТИ")),
                 ],
               ),
             );
