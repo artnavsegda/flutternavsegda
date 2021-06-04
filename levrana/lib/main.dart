@@ -72,7 +72,8 @@ class Welcome extends StatelessWidget {
         child: Text(
             "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
       ),
-      Center(
+      Align(
+        alignment: Alignment.bottomCenter,
         child: TextButton(
           child: Text("ДАЛЬШЕ"),
           onPressed: () {},
