@@ -68,9 +68,18 @@ class Welcome extends StatelessWidget {
       Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Text("Привет!"),
-          Text(
-              "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text("Привет!",
+                  style: GoogleFonts.montserrat(
+                    fontSize: 28,
+                    fontWeight: FontWeight.w700,
+                  )),
+              Text(
+                  "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+            ],
+          ),
           TextButton(
             child: Text("ДАЛЬШЕ"),
             onPressed: () {},
