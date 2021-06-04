@@ -81,11 +81,21 @@ class Welcome extends StatelessWidget {
                         fontWeight: FontWeight.w700,
                       )),
                 ),
-                Text(
-                    "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+                ConstrainedBox(
+                  constraints: new BoxConstraints(
+                    minHeight: 150.0,
+                  ),
+                  child: Text(
+                      "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
+                ),
               ],
             ),
-            TextButton(
+            ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+              ))),
               child: Text("ДАЛЬШЕ"),
               onPressed: () {},
             ),
