@@ -65,7 +65,8 @@ class Welcome extends StatelessWidget {
     return Scaffold(
         body: Stack(children: [
       Image(image: AssetImage('assets/Приветствие@2x.png')),
-/*       Column(
+      Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
           Text("Привет!"),
           Text(
@@ -75,21 +76,7 @@ class Welcome extends StatelessWidget {
             onPressed: () {},
           ),
         ],
-      ), */
-/*       Center(
-        child: Text("Привет!"),
-      ), */
-      Center(
-        child: Text(
-            "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
       ),
-      Align(
-        alignment: Alignment.bottomCenter,
-        child: TextButton(
-          child: Text("ДАЛЬШЕ"),
-          onPressed: () {},
-        ),
-      )
     ]));
     //
   }
