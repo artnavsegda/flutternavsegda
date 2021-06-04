@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: Login(),
+        home: Welcome(),
       ),
     );
   }
@@ -97,7 +97,12 @@ class Welcome extends StatelessWidget {
                 borderRadius: BorderRadius.circular(24.0),
               ))),
               child: Text("ДАЛЬШЕ"),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => Login()),
+                );
+              },
             ),
           ],
         ),
