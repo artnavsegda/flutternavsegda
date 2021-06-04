@@ -177,7 +177,7 @@ class MainPage extends StatelessWidget {
           showUnselectedLabels: false,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/icons home.png')),
+              icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
               label: 'Home',
             ),
             BottomNavigationBarItem(
@@ -195,7 +195,7 @@ class MainPage extends StatelessWidget {
               label: 'User',
             ),
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/icons more.png')),
+              icon: Image(image: AssetImage('assets/ic-24/icons-more.png')),
               label: 'More',
             ),
           ],
