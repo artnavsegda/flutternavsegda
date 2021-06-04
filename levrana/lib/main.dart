@@ -168,14 +168,23 @@ class Login extends StatelessWidget {
                         border: OutlineInputBorder(),
                         hintText: '+7(___) ___-__-__'),
                   ),
-                  ListTile(
-                    leading: Icon(Icons.share),
-                    title: Text('Share'),
+                  CheckboxListTile(
+                    title: Text(
+                        "Ознакомлен с условиями положения о защите персональных данных"),
+                    value: false,
+                    onChanged: (newValue) {},
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
                   ),
-                  ListTile(
-                    leading: Icon(Icons.link),
-                    title: Text('Get link'),
+                  CheckboxListTile(
+                    title: Text(
+                        "Даю свое согласие на обработку персональных данных"),
+                    value: false,
+                    onChanged: (newValue) {},
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
                   ),
+                  ElevatedButton(onPressed: () {}, child: Text("ВОЙТИ")),
                 ],
               ),
             );
