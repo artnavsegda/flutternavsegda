@@ -142,7 +142,35 @@ class Login extends StatelessWidget {
           "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
       confirm: "ВОЙТИ",
       cancel: "ПОЗЖЕ",
-      onConfirm: () {},
+      onConfirm: () {
+        showModalBottomSheet(
+          context: context,
+          builder: (context) {
+            // Using Wrap makes the bottom sheet height the height of the content.
+            // Otherwise, the height will be half the height of the screen.
+            return Wrap(
+              children: [
+                ListTile(
+                  leading: Icon(Icons.share),
+                  title: Text('Share'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.link),
+                  title: Text('Get link'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.edit),
+                  title: Text('Edit name'),
+                ),
+                ListTile(
+                  leading: Icon(Icons.delete),
+                  title: Text('Delete collection'),
+                ),
+              ],
+            );
+          },
+        );
+      },
       onCancel: () {},
     );
   }
@@ -206,7 +234,7 @@ class Dialog extends StatelessWidget {
                     borderRadius: BorderRadius.circular(24.0),
                   ))),
                   child: Text(confirm),
-                  onPressed: () {},
+                  onPressed: onConfirm,
                 ),
                 TextButton(onPressed: () {}, child: Text(cancel)),
               ],
