@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'catalog.dart';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -135,7 +136,12 @@ class Login extends StatelessWidget {
           },
         );
       },
-      onCancel: () {},
+      onCancel: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => MainPage()),
+        );
+      },
     );
   }
 }
@@ -200,7 +206,7 @@ class Dialog extends StatelessWidget {
                   child: Text(confirm),
                   onPressed: onConfirm,
                 ),
-                TextButton(onPressed: () {}, child: Text(cancel)),
+                TextButton(onPressed: onCancel, child: Text(cancel)),
               ],
             )
           ],
