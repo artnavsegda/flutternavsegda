@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: Notifications(),
+        home: Login(),
       ),
     );
   }
@@ -125,6 +125,24 @@ class Notifications extends StatelessWidget {
   }
 }
 
+class Login extends StatelessWidget {
+  const Login({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+      image: AssetImage('assets/Включить оповещения@2x.png'),
+      title: "Войти",
+      body:
+          "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
+      confirm: "ВОЙТИ",
+      cancel: "ПОЗЖЕ",
+      onConfirm: () {},
+      onCancel: () {},
+    );
+  }
+}
+
 class Dialog extends StatelessWidget {
   const Dialog(
       {Key? key,
@@ -132,7 +150,7 @@ class Dialog extends StatelessWidget {
       required this.title,
       required this.body,
       required this.confirm,
-      this.cancel,
+      this.cancel = "ПОЗЖЕ",
       required this.onConfirm,
       this.onCancel})
       : super(key: key);
@@ -141,7 +159,7 @@ class Dialog extends StatelessWidget {
   final String title;
   final String body;
   final String confirm;
-  final String? cancel;
+  final String cancel;
   final VoidCallback onConfirm;
   final VoidCallback? onCancel;
 
@@ -182,10 +200,10 @@ class Dialog extends StatelessWidget {
                           RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(24.0),
                   ))),
-                  child: Text("РАЗРЕШИТЬ"),
+                  child: Text(confirm),
                   onPressed: () {},
                 ),
-                TextButton(onPressed: () {}, child: Text("ПОЗЖЕ")),
+                TextButton(onPressed: () {}, child: Text(cancel)),
               ],
             )
           ],
