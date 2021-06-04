@@ -140,15 +140,20 @@ class Notifications extends StatelessWidget {
                 ),
               ],
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24.0),
-              ))),
-              child: Text("ДАЛЬШЕ"),
-              onPressed: () {},
-            ),
+            Row(
+              children: [
+                ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ))),
+                  child: Text("РАЗРЕШИТЬ"),
+                  onPressed: () {},
+                ),
+                TextButton(onPressed: () {}, child: Text("ПОЗЖЕ")),
+              ],
+            )
           ],
         ),
       ),
