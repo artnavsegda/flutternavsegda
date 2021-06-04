@@ -112,6 +112,15 @@ class Notifications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return Dialog();
+  }
+}
+
+class Dialog extends StatelessWidget {
+  const Dialog({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
       Image(image: AssetImage('assets/Включить оповещения@2x.png')),
