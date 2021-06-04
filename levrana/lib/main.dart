@@ -112,18 +112,44 @@ class Notifications extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog();
+    return Dialog(
+      image: AssetImage('assets/Включить оповещения@2x.png'),
+      title: "Будьте на связи",
+      body:
+          "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках",
+      confirm: "РАЗРЕШИТЬ",
+      cancel: "ПОЗЖЕ",
+      onConfirm: () {},
+      onCancel: () {},
+    );
   }
 }
 
 class Dialog extends StatelessWidget {
-  const Dialog({Key? key}) : super(key: key);
+  const Dialog(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.body,
+      required this.confirm,
+      this.cancel,
+      required this.onConfirm,
+      this.onCancel})
+      : super(key: key);
+
+  final ImageProvider image;
+  final String title;
+  final String body;
+  final String confirm;
+  final String? cancel;
+  final VoidCallback onConfirm;
+  final VoidCallback? onCancel;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      Image(image: AssetImage('assets/Включить оповещения@2x.png')),
+      Image(image: image),
       Container(
         padding: const EdgeInsets.all(20.0),
         child: Column(
@@ -134,7 +160,7 @@ class Dialog extends StatelessWidget {
               children: [
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text("Будьте на связи",
+                  child: Text(title,
                       style: GoogleFonts.montserrat(
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
@@ -144,8 +170,7 @@ class Dialog extends StatelessWidget {
                   constraints: new BoxConstraints(
                     minHeight: 150.0,
                   ),
-                  child: Text(
-                      "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках"),
+                  child: Text(body),
                 ),
               ],
             ),
