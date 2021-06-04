@@ -145,6 +145,7 @@ class Login extends StatelessWidget {
       onConfirm: () {
         showModalBottomSheet(
           context: context,
+          isScrollControlled: true,
           shape: RoundedRectangleBorder(
             borderRadius:
                 BorderRadius.vertical(top: const Radius.circular(16.0)),
@@ -152,30 +153,31 @@ class Login extends StatelessWidget {
           builder: (context) {
             // Using Wrap makes the bottom sheet height the height of the content.
             // Otherwise, the height will be half the height of the screen.
-            return Wrap(
-              children: [
-                Text("Вход",
-                    style: GoogleFonts.montserrat(
-                      fontSize: 28,
-                      fontWeight: FontWeight.w700,
-                    )),
-                ListTile(
-                  leading: Icon(Icons.share),
-                  title: Text('Share'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.link),
-                  title: Text('Get link'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.edit),
-                  title: Text('Edit name'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.delete),
-                  title: Text('Delete collection'),
-                ),
-              ],
+            return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: Wrap(
+                children: [
+                  Text("Вход",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                  TextField(
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: '+7(___) ___-__-__'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.share),
+                    title: Text('Share'),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.link),
+                    title: Text('Get link'),
+                  ),
+                ],
+              ),
             );
           },
         );
