@@ -66,7 +66,7 @@ class Welcome extends StatelessWidget {
         body: Stack(children: [
       Image(image: AssetImage('assets/Приветствие@2x.png')),
       Container(
-        padding: const EdgeInsets.all(15.0),
+        padding: const EdgeInsets.all(20.0),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.end,
           children: [
