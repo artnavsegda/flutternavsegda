@@ -177,26 +177,26 @@ class MainPage extends StatelessWidget {
           showUnselectedLabels: false,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-              label: 'User',
+              icon: Image(image: AssetImage('assets/icons home.png')),
+              label: 'Home',
             ),
             BottomNavigationBarItem(
               icon: Image(
                   image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
-              label: 'Business',
+              label: 'Catalog',
             ),
             BottomNavigationBarItem(
               icon:
                   Image(image: AssetImage('assets/ic-24/icon-24-shopping.png')),
-              label: 'School',
+              label: 'Shopping',
             ),
             BottomNavigationBarItem(
               icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-              label: 'School',
+              label: 'User',
             ),
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
-              label: 'School',
+              icon: Image(image: AssetImage('assets/icons more.png')),
+              label: 'More',
             ),
           ],
         ),
