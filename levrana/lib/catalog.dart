@@ -175,6 +175,9 @@ class MainPage extends StatelessWidget {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
+          onTap: (index) {
+            print(index);
+          },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
