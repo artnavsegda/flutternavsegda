@@ -73,7 +73,12 @@ class _MapPageState extends State<MapPage> {
               scrollDirection: Axis.horizontal,
               itemCount: _machines.length,
               itemBuilder: (context, index) {
-                return MachineCard(machine: _machines[index]);
+                return MachineCard(
+                    machine: _machines[index],
+                    onTap: () {
+                      print(
+                          "${_machines[index].Latitude} ${_machines[index].Longitude}");
+                    });
               },
             )),
       ),
@@ -82,13 +87,11 @@ class _MapPageState extends State<MapPage> {
 }
 
 class MachineCard extends StatefulWidget {
-  const MachineCard({
-    Key? key,
-    required Machine machine,
-  })  : _machine = machine,
-        super(key: key);
+  const MachineCard({Key? key, required this.machine, required this.onTap})
+      : super(key: key);
 
-  final Machine _machine;
+  final Machine machine;
+  final VoidCallback onTap;
 
   @override
   _MachineCardState createState() => _MachineCardState();
@@ -103,19 +106,19 @@ class _MachineCardState extends State<MachineCard> {
     return Card(
       child: Column(children: [
         ListTile(
-          title: Text(widget._machine.Name),
-          subtitle: Text(
-            'Время работы: 10:00:00 - 22:00:00',
-            style: TextStyle(color: Colors.black.withOpacity(0.6)),
-          ),
-        ),
+            title: Text(widget.machine.Name),
+            subtitle: Text(
+              'Время работы: 10:00:00 - 22:00:00',
+              style: TextStyle(color: Colors.black.withOpacity(0.6)),
+            ),
+            onTap: widget.onTap),
         ButtonBar(
           alignment: MainAxisAlignment.start,
           children: [
             TextButton(
               onPressed: () {
                 MapsLauncher.launchCoordinates(
-                    widget._machine.Latitude, widget._machine.Longitude);
+                    widget.machine.Latitude, widget.machine.Longitude);
               },
               child: const Text('НАВИГАЦИЯ'),
             ),
@@ -126,7 +129,7 @@ class _MachineCardState extends State<MachineCard> {
                       if (_found) {
                         var products = await getProducts(
                             context.read<AppModel>().token,
-                            widget._machine.GUID);
+                            widget.machine.GUID);
                         print("Knock-knock");
                         Navigator.pushReplacement(
                             context,
@@ -141,7 +144,7 @@ class _MachineCardState extends State<MachineCard> {
                         final regions = <Region>[
                           Region(
                             identifier: 'Fridge',
-                            proximityUUID: widget._machine.IBeaconUDID,
+                            proximityUUID: widget.machine.IBeaconUDID,
                           ),
                         ];
 
