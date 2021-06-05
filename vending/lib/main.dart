@@ -18,10 +18,13 @@ class AppModel with ChangeNotifier {
   String token = "";
   String userName = "";
 
-  Future login(String login, String password) {
+  Future login(String login, String password) async {
     print('login $login pass $password');
     var url =
         Uri.parse('https://app.tseh85.com/service/api/AuthenticateVending');
+
+    final prefs = await SharedPreferences.getInstance();
+
     return post(url,
             headers: {"Content-Type": "application/json"},
             body: json.encode({'Login': login, 'Password': password}))
@@ -29,10 +32,10 @@ class AppModel with ChangeNotifier {
       print('Status: ${response.statusCode}');
       print('Name: ${jsonDecode(response.body)["Name"]}');
       userName = jsonDecode(response.body)["Name"];
-
+      prefs.setString('username', userName);
       print('Token: ${response.headers["token"]}');
       token = response.headers["token"]!;
-
+      prefs.setString('token', token);
       notifyListeners();
       return token;
     });
