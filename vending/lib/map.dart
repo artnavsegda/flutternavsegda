@@ -19,6 +19,7 @@ class _MapPageState extends State<MapPage> {
   List<Machine> _machines = [];
 
   final PageController _pageController = PageController();
+  late GoogleMapController _mapController;
 
   @override
   void dispose() {
@@ -32,6 +33,7 @@ class _MapPageState extends State<MapPage> {
       GoogleMap(
         myLocationEnabled: true,
         onMapCreated: (GoogleMapController controller) async {
+          _mapController = controller;
           _machines = await getMachines(context.read<AppModel>().token);
           setState(() {
             _markers.clear();
@@ -76,6 +78,12 @@ class _MapPageState extends State<MapPage> {
                 return MachineCard(
                     machine: _machines[index],
                     onTap: () {
+                      final pos = CameraPosition(
+                          target: LatLng(_machines[index].Latitude,
+                              _machines[index].Longitude),
+                          zoom: 14.4746);
+                      _mapController
+                          .animateCamera(CameraUpdate.newCameraPosition(pos));
                       print(
                           "${_machines[index].Latitude} ${_machines[index].Longitude}");
                     });
