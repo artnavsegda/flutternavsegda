@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
@@ -28,9 +29,20 @@ class AppModel with ChangeNotifier {
       print('Status: ${response.statusCode}');
       print('Name: ${jsonDecode(response.body)["Name"]}');
       userName = jsonDecode(response.body)["Name"];
+
       print('Token: ${response.headers["token"]}');
       token = response.headers["token"]!;
+
       notifyListeners();
+      return token;
+    });
+  }
+
+  Future startup() {
+    return SharedPreferences.getInstance().then((prefs) {
+      userName = prefs.getString('username') ?? "";
+      token = prefs.getString('token') ?? "";
+      return token;
     });
   }
 }
