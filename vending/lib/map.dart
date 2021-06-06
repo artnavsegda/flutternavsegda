@@ -66,15 +66,6 @@ class _MapPageState extends State<MapPage> {
   }
 
   @override
-  void initState() async {
-    super.initState();
-    final loc = await _determinePosition();
-    final pos = CameraPosition(
-        target: LatLng(loc.latitude, loc.longitude), zoom: 14.4746);
-    _mapController.animateCamera(CameraUpdate.newCameraPosition(pos));
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Stack(children: [
       GoogleMap(
@@ -105,6 +96,11 @@ class _MapPageState extends State<MapPage> {
               _markers[machine.Name] = marker;
             }
           });
+
+          final loc = await _determinePosition();
+          final pos = CameraPosition(
+              target: LatLng(loc.latitude, loc.longitude), zoom: 14.4746);
+          _mapController.animateCamera(CameraUpdate.newCameraPosition(pos));
         },
         initialCameraPosition: CameraPosition(
           target: const LatLng(0, 0),
