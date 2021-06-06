@@ -54,12 +54,6 @@ class _LoginPageState extends State<LoginPage> {
             ButtonBar(
               children: <Widget>[
                 TextButton(
-                  child: Text('PERMISSIONS'),
-                  onPressed: () async {
-                    var status = await Permission.location.request();
-                  },
-                ),
-                TextButton(
                   child: Text('ОЧИСТИТЬ'),
                   onPressed: () {
                     _usernameController.clear();

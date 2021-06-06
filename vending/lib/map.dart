@@ -4,6 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:flutter_beacon/flutter_beacon.dart';
 import 'package:maps_launcher/maps_launcher.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'main.dart';
 import 'src/locations.dart';
 import 'src/products.dart';
@@ -20,6 +21,12 @@ class _MapPageState extends State<MapPage> {
 
   final PageController _pageController = PageController();
   late GoogleMapController _mapController;
+
+  @override
+  void initState() {
+    Permission.location.request();
+    super.initState();
+  }
 
   @override
   void dispose() {

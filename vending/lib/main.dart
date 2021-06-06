@@ -26,28 +26,26 @@ class AppModel with ChangeNotifier {
 
     final prefs = await SharedPreferences.getInstance();
 
-    return post(url,
-            headers: {"Content-Type": "application/json"},
-            body: json.encode({'Login': login, 'Password': password}))
-        .then((response) {
-      print('Status: ${response.statusCode}');
-      print('Name: ${jsonDecode(response.body)["Name"]}');
-      userName = jsonDecode(response.body)["Name"];
-      prefs.setString('username', userName);
-      print('Token: ${response.headers["token"]}');
-      token = response.headers["token"]!;
-      prefs.setString('token', token);
-      notifyListeners();
-      return token;
-    });
+    var response = await post(url,
+        headers: {"Content-Type": "application/json"},
+        body: json.encode({'Login': login, 'Password': password}));
+
+    print('Status: ${response.statusCode}');
+    print('Name: ${jsonDecode(response.body)["Name"]}');
+    userName = jsonDecode(response.body)["Name"];
+    prefs.setString('username', userName);
+    print('Token: ${response.headers["token"]}');
+    token = response.headers["token"]!;
+    prefs.setString('token', token);
+    notifyListeners();
+    return token;
   }
 
-  Future<String> startup() {
-    return SharedPreferences.getInstance().then((prefs) {
-      userName = prefs.getString('username') ?? "";
-      token = prefs.getString('token') ?? "";
-      return token;
-    });
+  Future<String> startup() async {
+    final prefs = await SharedPreferences.getInstance();
+    userName = prefs.getString('username') ?? "";
+    token = prefs.getString('token') ?? "";
+    return token;
   }
 }
 
