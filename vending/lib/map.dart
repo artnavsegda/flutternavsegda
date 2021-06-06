@@ -112,7 +112,7 @@ class _MapPageState extends State<MapPage> {
         alignment: Alignment.bottomCenter,
         child: Container(
             padding: const EdgeInsets.all(8.0),
-            height: 210,
+            height: 160,
             child: PageView.builder(
               controller: _pageController,
               scrollDirection: Axis.horizontal,
