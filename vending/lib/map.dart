@@ -23,12 +23,6 @@ class _MapPageState extends State<MapPage> {
   late GoogleMapController _mapController;
 
   @override
-  void initState() {
-    Permission.location.request();
-    super.initState();
-  }
-
-  @override
   void dispose() {
     _pageController.dispose();
     super.dispose();

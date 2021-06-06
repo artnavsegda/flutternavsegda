@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'dart:convert';
 import 'login.dart';
 import 'vending.dart';
@@ -45,6 +46,7 @@ class AppModel with ChangeNotifier {
     final prefs = await SharedPreferences.getInstance();
     userName = prefs.getString('username') ?? "";
     token = prefs.getString('token') ?? "";
+    await Permission.location.request();
     return token;
   }
 }
