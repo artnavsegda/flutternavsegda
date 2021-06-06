@@ -81,6 +81,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
     return Scaffold(
         appBar: AppBar(title: Text("Обслуживание")),
         body: ListView.separated(
+          padding: EdgeInsets.symmetric(vertical: 10.0),
           itemCount: widget._products.length,
           itemBuilder: (context, index) {
             return ProductItem(product: widget._products[index]);

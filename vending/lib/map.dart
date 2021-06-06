@@ -199,7 +199,7 @@ class _MachineCardState extends State<MachineCard> {
                           ),
                         ];
 
-                        Timer(Duration(seconds: 10), () {
+                        Timer(Duration(seconds: 2), () {
                           setState(() {
                             _scanning = false;
                             _found = true;
