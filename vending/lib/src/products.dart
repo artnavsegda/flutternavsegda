@@ -22,6 +22,21 @@ class Product {
   final int PictureID;
 }
 
+@JsonSerializable()
+class ServiceRow {
+  ServiceRow({
+    required this.ProductID,
+    required this.Quantity,
+  });
+
+  factory ServiceRow.fromJson(Map<String, dynamic> json) =>
+      _$ServiceRowFromJson(json);
+  Map<String, dynamic> toJson() => _$ServiceRowToJson(this);
+
+  final int ProductID;
+  final int Quantity;
+}
+
 Future<List<Product>> getProducts(String token, String machineGUID) async {
   print("Request token: " + token);
   // Retrieve the locations of Google offices

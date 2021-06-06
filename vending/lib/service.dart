@@ -4,11 +4,10 @@ import 'src/products.dart';
 class ProductItem extends StatefulWidget {
   const ProductItem({
     Key? key,
-    required Product product,
-  })  : _product = product,
-        super(key: key);
+    required this.product,
+  }) : super(key: key);
 
-  final Product _product;
+  final Product product;
 
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -25,9 +24,9 @@ class _ProductItemState extends State<ProductItem> {
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(
             'https://app.tseh85.com/service/api/image?PictureId=' +
-                widget._product.PictureID.toString()),
+                widget.product.PictureID.toString()),
       ),
-      title: Text(widget._product.Name),
+      title: Text(widget.product.Name),
       trailing: Container(
         width: 112,
         child: Row(
@@ -49,11 +48,10 @@ class _ProductItemState extends State<ProductItem> {
 class ServiceScreen extends StatefulWidget {
   const ServiceScreen({
     Key? key,
-    required List<Product> products,
-  })  : _products = products,
-        super(key: key);
+    required this.products,
+  }) : super(key: key);
 
-  final List<Product> _products;
+  final List<Product> products;
 
   @override
   _ServiceScreenState createState() => _ServiceScreenState();
@@ -82,9 +80,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
         appBar: AppBar(title: Text("Обслуживание")),
         body: ListView.separated(
           padding: EdgeInsets.symmetric(vertical: 10.0),
-          itemCount: widget._products.length,
+          itemCount: widget.products.length,
           itemBuilder: (context, index) {
-            return ProductItem(product: widget._products[index]);
+            return ProductItem(product: widget.products[index]);
           },
           separatorBuilder: (context, index) {
             return Divider();

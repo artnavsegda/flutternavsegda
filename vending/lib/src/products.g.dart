@@ -19,3 +19,16 @@ Map<String, dynamic> _$ProductToJson(Product instance) => <String, dynamic>{
       'Name': instance.Name,
       'PictureID': instance.PictureID,
     };
+
+ServiceRow _$ServiceRowFromJson(Map<String, dynamic> json) {
+  return ServiceRow(
+    ProductID: json['ProductID'] as int,
+    Quantity: json['Quantity'] as int,
+  );
+}
+
+Map<String, dynamic> _$ServiceRowToJson(ServiceRow instance) =>
+    <String, dynamic>{
+      'ProductID': instance.ProductID,
+      'Quantity': instance.Quantity,
+    };
