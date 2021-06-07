@@ -58,6 +58,8 @@ class ServiceScreen extends StatefulWidget {
 }
 
 class _ServiceScreenState extends State<ServiceScreen> {
+  List<ServiceRow> serviceRows = [];
+
   @override
   Widget build(BuildContext context) {
     final AlertDialog dialog = AlertDialog(
