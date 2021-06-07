@@ -61,6 +61,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
   List<ServiceRow> serviceRows = [];
 
   @override
+  void initState() {
+    super.initState();
+    //serviceRows = widget.products;
+  }
+
+  @override
   Widget build(BuildContext context) {
     final AlertDialog dialog = AlertDialog(
       title: Text('Уверены ?'),
