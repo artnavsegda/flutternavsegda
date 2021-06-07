@@ -5,9 +5,11 @@ class ProductItem extends StatefulWidget {
   const ProductItem({
     Key? key,
     required this.product,
+    required this.quantity,
   }) : super(key: key);
 
   final Product product;
+  final int quantity;
 
   @override
   _ProductItemState createState() => _ProductItemState();
@@ -15,6 +17,12 @@ class ProductItem extends StatefulWidget {
 
 class _ProductItemState extends State<ProductItem> {
   int _counter = 0;
+
+  @override
+  void initState() {
+    _counter = widget.quantity;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -93,7 +101,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
           padding: EdgeInsets.symmetric(vertical: 10.0),
           itemCount: widget.products.length,
           itemBuilder: (context, index) {
-            return ProductItem(product: widget.products[index]);
+            return ProductItem(
+                product: widget.products[index],
+                quantity: serviceRows[index].Quantity);
           },
           separatorBuilder: (context, index) {
             return Divider();
