@@ -34,7 +34,7 @@ class ServiceRow {
   Map<String, dynamic> toJson() => _$ServiceRowToJson(this);
 
   final int ProductID;
-  final int Quantity;
+  int Quantity;
 }
 
 Future<List<Product>> getProducts(String token, String machineGUID) async {

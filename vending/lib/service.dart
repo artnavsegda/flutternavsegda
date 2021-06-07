@@ -6,10 +6,14 @@ class ProductItem extends StatelessWidget {
     Key? key,
     required this.product,
     required this.quantity,
+    required this.minus,
+    required this.plus,
   }) : super(key: key);
 
   final Product product;
   final int quantity;
+  final VoidCallback plus;
+  final VoidCallback minus;
 
   @override
   Widget build(BuildContext context) {
@@ -24,14 +28,15 @@ class ProductItem extends StatelessWidget {
       trailing: Container(
         width: 112,
         child: Row(
-          children: <Widget>[
-            IconButton(
-              icon: new Icon(Icons.remove),
-              onPressed: () {},
-            ),
-            Text(quantity.toString()),
-            IconButton(icon: new Icon(Icons.add), onPressed: () => {})
-          ],
+          children: et >
+              [
+                IconButton(
+                  icon: new Icon(Icons.remove),
+                  onPressed: minus,
+                ),
+                Text(quantity.toString()),
+                IconButton(icon: new Icon(Icons.add), onPressed: plus)
+              ],
         ),
       ),
     );
@@ -87,8 +92,11 @@ class _ServiceScreenState extends State<ServiceScreen> {
           itemCount: widget.products.length,
           itemBuilder: (context, index) {
             return ProductItem(
-                product: widget.products[index],
-                quantity: serviceRows[index].Quantity);
+              product: widget.products[index],
+              quantity: serviceRows[index].Quantity,
+              minus: () {},
+              plus: () {},
+            );
           },
           separatorBuilder: (context, index) {
             return Divider();
