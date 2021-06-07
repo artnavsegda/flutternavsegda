@@ -64,6 +64,9 @@ class _ServiceScreenState extends State<ServiceScreen> {
   void initState() {
     super.initState();
     //serviceRows = widget.products;
+    serviceRows = widget.products
+        .map((e) => ServiceRow(Quantity: 0, ProductID: e.ID))
+        .toList();
   }
 
   @override
