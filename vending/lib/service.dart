@@ -20,7 +20,7 @@ class ProductItem extends StatelessWidget {
             'https://app.tseh85.com/service/api/image?PictureId=' +
                 product.PictureID.toString()),
       ),
-      title: Text(widget.product.Name),
+      title: Text(product.Name),
       trailing: Container(
         width: 112,
         child: Row(
