@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'src/products.dart';
 
-class ProductItem extends StatefulWidget {
+class ProductItem extends StatelessWidget {
   const ProductItem({
     Key? key,
     required this.product,
@@ -12,27 +12,13 @@ class ProductItem extends StatefulWidget {
   final int quantity;
 
   @override
-  _ProductItemState createState() => _ProductItemState();
-}
-
-class _ProductItemState extends State<ProductItem> {
-  int _counter = 0;
-
-  @override
-  void initState() {
-    _counter = widget.quantity;
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-/*     return Text(widget._product.Name); */
     return ListTile(
       leading: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Image.network(
             'https://app.tseh85.com/service/api/image?PictureId=' +
-                widget.product.PictureID.toString()),
+                product.PictureID.toString()),
       ),
       title: Text(widget.product.Name),
       trailing: Container(
@@ -40,12 +26,11 @@ class _ProductItemState extends State<ProductItem> {
         child: Row(
           children: <Widget>[
             IconButton(
-                icon: new Icon(Icons.remove),
-                onPressed: () => setState(() => _counter--)),
-            Text(_counter.toString()),
-            IconButton(
-                icon: new Icon(Icons.add),
-                onPressed: () => setState(() => _counter++))
+              icon: new Icon(Icons.remove),
+              onPressed: () {},
+            ),
+            Text(quantity.toString()),
+            IconButton(icon: new Icon(Icons.add), onPressed: () => {})
           ],
         ),
       ),
