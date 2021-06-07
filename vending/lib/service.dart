@@ -93,7 +93,12 @@ class _ServiceScreenState extends State<ServiceScreen> {
             return ProductItem(
               product: widget.products[index],
               quantity: serviceRows[index].Quantity,
-              minus: () {},
+              minus: () {
+                serviceRows[index].Quantity--;
+                setState(() {
+                  serviceRows = serviceRows;
+                });
+              },
               plus: () {
                 serviceRows[index].Quantity++;
                 setState(() {
