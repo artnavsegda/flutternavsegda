@@ -99,73 +99,86 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Dialog2(
+    return Dialog(
       image: AssetImage('assets/Включить оповещения@2x.png'),
       title: "Войти",
       body:
           "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
-      confirm: "ВОЙТИ",
-      cancel: "ПОЗЖЕ",
-      onConfirm: () {
-        showModalBottomSheet(
-          context: context,
-          isScrollControlled: true,
-          shape: RoundedRectangleBorder(
-            borderRadius:
-                BorderRadius.vertical(top: const Radius.circular(16.0)),
+      child: Row(
+        children: [
+          ElevatedButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ))),
+            child: Text("РАЗРЕШИТЬ"),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                shape: RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: const Radius.circular(16.0)),
+                ),
+                builder: (context) {
+                  var maskFormatter = new MaskTextInputFormatter(
+                      mask: '+# (###) ###-##-##',
+                      filter: {"#": RegExp(r'[0-9]')});
+                  return Padding(
+                    padding: MediaQuery.of(context).viewInsets,
+                    child: Wrap(
+                      children: [
+                        Text("Вход",
+                            style: GoogleFonts.montserrat(
+                              fontSize: 28,
+                              fontWeight: FontWeight.w700,
+                            )),
+                        TextField(
+                          inputFormatters: [maskFormatter],
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                              border: OutlineInputBorder(),
+                              hintText: '+7(___) ___-__-__'),
+                        ),
+                        CheckboxListTile(
+                          title: Text(
+                              "Ознакомлен с условиями положения о защите персональных данных"),
+                          value: false,
+                          onChanged: (newValue) {},
+                          controlAffinity: ListTileControlAffinity
+                              .leading, //  <-- leading Checkbox
+                        ),
+                        CheckboxListTile(
+                          title: Text(
+                              "Даю свое согласие на обработку персональных данных"),
+                          value: false,
+                          onChanged: (newValue) {},
+                          controlAffinity: ListTileControlAffinity
+                              .leading, //  <-- leading Checkbox
+                        ),
+                        ElevatedButton(
+                            onPressed: () {
+                              //print();
+                            },
+                            child: Text("ВОЙТИ")),
+                      ],
+                    ),
+                  );
+                },
+              );
+            },
           ),
-          builder: (context) {
-            var maskFormatter = new MaskTextInputFormatter(
-                mask: '+# (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Wrap(
-                children: [
-                  Text("Вход",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      )),
-                  TextField(
-                    inputFormatters: [maskFormatter],
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '+7(___) ___-__-__'),
-                  ),
-                  CheckboxListTile(
-                    title: Text(
-                        "Ознакомлен с условиями положения о защите персональных данных"),
-                    value: false,
-                    onChanged: (newValue) {},
-                    controlAffinity: ListTileControlAffinity
-                        .leading, //  <-- leading Checkbox
-                  ),
-                  CheckboxListTile(
-                    title: Text(
-                        "Даю свое согласие на обработку персональных данных"),
-                    value: false,
-                    onChanged: (newValue) {},
-                    controlAffinity: ListTileControlAffinity
-                        .leading, //  <-- leading Checkbox
-                  ),
-                  ElevatedButton(
-                      onPressed: () {
-                        //print();
-                      },
-                      child: Text("ВОЙТИ")),
-                ],
-              ),
-            );
-          },
-        );
-      },
-      onCancel: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => MainPage()),
-        );
-      },
+          TextButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                );
+              },
+              child: Text("ПОЗЖЕ")),
+        ],
+      ),
     );
   }
 }
