@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'src/products.dart';
 
@@ -74,6 +76,7 @@ class _ServiceScreenState extends State<ServiceScreen> {
         TextButton(
           onPressed: () {
             Navigator.of(context, rootNavigator: true).pop();
+            print(jsonEncode(serviceRows));
           },
           child: Text('ДА'),
         ),
