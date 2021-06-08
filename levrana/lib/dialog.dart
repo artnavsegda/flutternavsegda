@@ -172,9 +172,11 @@ class _LoginState extends State<Login> {
                                 .leading, //  <-- leading Checkbox
                           ),
                           ElevatedButton(
-                              onPressed: () {
-                                //print();
-                              },
+                              onPressed: isAgreed && isFamiliarized
+                                  ? () {
+                                      //print();
+                                    }
+                                  : null,
                               child: Text("ВОЙТИ")),
                         ],
                       ),
