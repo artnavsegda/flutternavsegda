@@ -123,7 +123,7 @@ class Login extends StatelessWidget {
                 ),
                 builder: (context) {
                   var maskFormatter = new MaskTextInputFormatter(
-                      mask: '+# (###) ###-##-##',
+                      mask: '+7 (###) ###-##-##',
                       filter: {"#": RegExp(r'[0-9]')});
                   return Padding(
                     padding: MediaQuery.of(context).viewInsets,
