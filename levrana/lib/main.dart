@@ -6,7 +6,6 @@ import 'catalog.dart';
 import 'dialog.dart';
 
 void main() async {
-  await initHiveForFlutter();
   runApp(MyApp());
 }
 
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
         link: link,
-        cache: GraphQLCache(store: HiveStore()),
+        cache: GraphQLCache(),
       ),
     );
 
