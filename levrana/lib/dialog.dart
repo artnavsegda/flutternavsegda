@@ -87,12 +87,12 @@ class Welcome extends StatelessWidget {
   }
 }
 
-class Notifications extends StatelessWidget {
-  const Notifications({Key? key}) : super(key: key);
+class Notifications2 extends StatelessWidget {
+  const Notifications2({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return Dialog2(
       image: AssetImage('assets/Включить оповещения@2x.png'),
       title: "Будьте на связи",
       body:
@@ -105,12 +105,46 @@ class Notifications extends StatelessWidget {
   }
 }
 
+class Notifications extends StatelessWidget {
+  const Notifications({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Dialog(
+        image: AssetImage('assets/Включить оповещения@2x.png'),
+        title: "Будьте на связи",
+        body:
+            "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках",
+        child: Row(
+          children: [
+            ElevatedButton(
+              style: ButtonStyle(
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                      RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+              ))),
+              child: Text("РАЗРЕШИТЬ"),
+              onPressed: () {},
+            ),
+            TextButton(
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => MainPage()),
+                  );
+                },
+                child: Text("ПОЗЖЕ")),
+          ],
+        ));
+  }
+}
+
 class Login extends StatelessWidget {
   const Login({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Dialog(
+    return Dialog2(
       image: AssetImage('assets/Включить оповещения@2x.png'),
       title: "Войти",
       body:
@@ -181,8 +215,8 @@ class Login extends StatelessWidget {
   }
 }
 
-class Dialog extends StatelessWidget {
-  const Dialog(
+class Dialog2 extends StatelessWidget {
+  const Dialog2(
       {Key? key,
       required this.image,
       required this.title,
@@ -244,6 +278,58 @@ class Dialog extends StatelessWidget {
                 TextButton(onPressed: onCancel, child: Text(cancel)),
               ],
             )
+          ],
+        ),
+      ),
+    ]));
+    //
+  }
+}
+
+class Dialog extends StatelessWidget {
+  const Dialog(
+      {Key? key,
+      required this.image,
+      required this.title,
+      required this.body,
+      required this.child})
+      : super(key: key);
+
+  final ImageProvider image;
+  final String title;
+  final String body;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        body: Stack(children: [
+      Image(image: image),
+      Container(
+        padding: const EdgeInsets.all(20.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.end,
+          children: [
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Text(title,
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                ),
+                ConstrainedBox(
+                  constraints: new BoxConstraints(
+                    minHeight: 150.0,
+                  ),
+                  child: Text(body),
+                ),
+              ],
+            ),
+            child
           ],
         ),
       ),
