@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
-import 'package:graphql/client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'catalog.dart';
 
 const String authenticate = r'''
@@ -46,6 +46,39 @@ class Welcome extends StatelessWidget {
                 ),
               ],
             ),
+            Mutation(
+              options: MutationOptions(
+                document: gql(authenticate),
+                onCompleted: (dynamic resultData) {
+                  print(resultData);
+                },
+              ),
+              builder: (
+                RunMutation runMutation,
+                QueryResult? result,
+              ) {
+                return ElevatedButton(
+                  style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ))),
+                  child: Text("ДАЛЬШЕ"),
+                  onPressed: () {
+                    runMutation({
+                      'gUID': "hello",
+                      'bundleID': "ru.levrana.mobile",
+                      'oSType': "IOS",
+                    });
+
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => Login()),
+                    );
+                  },
+                );
+              },
+            ),
             ElevatedButton(
               style: ButtonStyle(
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
@@ -54,15 +87,6 @@ class Welcome extends StatelessWidget {
               ))),
               child: Text("ДАЛЬШЕ"),
               onPressed: () {
-                final MutationOptions options = MutationOptions(
-                  document: gql(authenticate),
-                  variables: <String, dynamic>{
-                    'starrableId': repositoryID,
-                    'starrableId': repositoryID,
-                    'starrableId': repositoryID,
-                  },
-                );
-
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Login()),
