@@ -94,8 +94,16 @@ class Notifications extends StatelessWidget {
   }
 }
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
+
+  @override
+  _LoginState createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
+  bool isAgreed = false;
+  bool isFamiliarized = false;
 
   @override
   Widget build(BuildContext context) {
@@ -122,49 +130,56 @@ class Login extends StatelessWidget {
                       BorderRadius.vertical(top: const Radius.circular(16.0)),
                 ),
                 builder: (context) {
-                  var maskFormatter = new MaskTextInputFormatter(
-                      mask: '+7 (###) ###-##-##',
-                      filter: {"#": RegExp(r'[0-9]')});
-                  return Padding(
-                    padding: MediaQuery.of(context).viewInsets,
-                    child: Wrap(
-                      children: [
-                        Text("Вход",
-                            style: GoogleFonts.montserrat(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w700,
-                            )),
-                        TextField(
-                          inputFormatters: [maskFormatter],
-                          keyboardType: TextInputType.number,
-                          decoration: InputDecoration(
-                              border: OutlineInputBorder(),
-                              hintText: '+7(___) ___-__-__'),
-                        ),
-                        CheckboxListTile(
-                          title: Text(
-                              "Ознакомлен с условиями положения о защите персональных данных"),
-                          value: false,
-                          onChanged: (newValue) {},
-                          controlAffinity: ListTileControlAffinity
-                              .leading, //  <-- leading Checkbox
-                        ),
-                        CheckboxListTile(
-                          title: Text(
-                              "Даю свое согласие на обработку персональных данных"),
-                          value: false,
-                          onChanged: (newValue) {},
-                          controlAffinity: ListTileControlAffinity
-                              .leading, //  <-- leading Checkbox
-                        ),
-                        ElevatedButton(
-                            onPressed: () {
-                              //print();
-                            },
-                            child: Text("ВОЙТИ")),
-                      ],
-                    ),
-                  );
+                  return StatefulBuilder(
+                      builder: (context, StateSetter setModalState) {
+                    var maskFormatter = new MaskTextInputFormatter(
+                        mask: '+7 (###) ###-##-##',
+                        filter: {"#": RegExp(r'[0-9]')});
+                    return Padding(
+                      padding: MediaQuery.of(context).viewInsets,
+                      child: Wrap(
+                        children: [
+                          Text("Вход",
+                              style: GoogleFonts.montserrat(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                              )),
+                          TextField(
+                            inputFormatters: [maskFormatter],
+                            keyboardType: TextInputType.number,
+                            decoration: InputDecoration(
+                                border: OutlineInputBorder(),
+                                hintText: '+7(___) ___-__-__'),
+                          ),
+                          CheckboxListTile(
+                            title: Text(
+                                "Ознакомлен с условиями положения о защите персональных данных"),
+                            value: isFamiliarized,
+                            onChanged: (newValue) => setModalState(() {
+                              isFamiliarized = newValue!;
+                            }),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+                          CheckboxListTile(
+                            title: Text(
+                                "Даю свое согласие на обработку персональных данных"),
+                            value: isAgreed,
+                            onChanged: (newValue) => setModalState(() {
+                              isAgreed = newValue!;
+                            }),
+                            controlAffinity: ListTileControlAffinity
+                                .leading, //  <-- leading Checkbox
+                          ),
+                          ElevatedButton(
+                              onPressed: () {
+                                //print();
+                              },
+                              child: Text("ВОЙТИ")),
+                        ],
+                      ),
+                    );
+                  });
                 },
               );
             },
