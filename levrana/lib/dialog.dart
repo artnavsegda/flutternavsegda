@@ -79,20 +79,6 @@ class Welcome extends StatelessWidget {
                 );
               },
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                      RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(24.0),
-              ))),
-              child: Text("ДАЛЬШЕ"),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => Login()),
-                );
-              },
-            ),
           ],
         ),
       ),
