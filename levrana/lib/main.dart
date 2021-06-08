@@ -6,8 +6,8 @@ import 'catalog.dart';
 import 'dialog.dart';
 
 String authenticate = """
-mutation authenticate(\$gUID: ID!, bundleID: ID!, oSType: ID!) {
-  authenticate(device: {gUID: "hello", bundleID: "ru.levrana.mobile", oSType: IOS}) 
+mutation authenticate(\$gUID: String!, \$bundleID: String!, \$oSType: graphOSTypeEnum!) {
+  authenticate(device: {gUID: \$gUID, bundleID: \$bundleID, oSType: \$oSType}) 
   {
     token
   }
