@@ -5,6 +5,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'catalog.dart';
 import 'dialog.dart';
 
+String authenticate = """
+mutation authenticate(\$gUID: ID!, bundleID: ID!, oSType: ID!) {
+  authenticate(device: {gUID: "hello", bundleID: "ru.levrana.mobile", oSType: IOS}) 
+  {
+    token
+  }
+}
+""";
+
 void main() async {
   runApp(MyApp());
 }
