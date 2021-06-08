@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:graphql/client.dart';
 import 'catalog.dart';
 
-String authenticate = """
-mutation authenticate(\$gUID: String!, \$bundleID: String!, \$oSType: graphOSTypeEnum!) {
-  authenticate(device: {gUID: \$gUID, bundleID: \$bundleID, oSType: \$oSType}) 
+const String authenticate = r'''
+mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEnum!) {
+  authenticate(device: {gUID: $gUID, bundleID: $bundleID, oSType: $oSType}) 
   {
     token
   }
 }
-""";
+''';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
@@ -53,6 +54,15 @@ class Welcome extends StatelessWidget {
               ))),
               child: Text("ДАЛЬШЕ"),
               onPressed: () {
+                final MutationOptions options = MutationOptions(
+                  document: gql(authenticate),
+                  variables: <String, dynamic>{
+                    'starrableId': repositoryID,
+                    'starrableId': repositoryID,
+                    'starrableId': repositoryID,
+                  },
+                );
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => Login()),
