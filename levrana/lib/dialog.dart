@@ -3,6 +3,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'catalog.dart';
 
+String authenticate = """
+mutation authenticate(\$gUID: String!, \$bundleID: String!, \$oSType: graphOSTypeEnum!) {
+  authenticate(device: {gUID: \$gUID, bundleID: \$bundleID, oSType: \$oSType}) 
+  {
+    token
+  }
+}
+""";
+
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
 
