@@ -18,89 +18,44 @@ class Welcome extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
-      Image(image: AssetImage('assets/Приветствие@2x.png')),
-      Container(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text("Привет!",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      )),
-                ),
-                ConstrainedBox(
-                  constraints: new BoxConstraints(
-                    minHeight: 150.0,
-                  ),
-                  child: Text(
-                      "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас."),
-                ),
-              ],
-            ),
-            Mutation(
-              options: MutationOptions(
-                document: gql(authenticate),
-                onCompleted: (dynamic resultData) {
-                  print(resultData);
-                },
-              ),
-              builder: (
-                RunMutation runMutation,
-                QueryResult? result,
-              ) {
-                return ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                  ))),
-                  child: Text("ДАЛЬШЕ"),
-                  onPressed: () {
-                    runMutation({
-                      'gUID': "hello",
-                      'bundleID': "ru.levrana.mobile",
-                      'oSType': "IOS",
-                    });
-
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => Login()),
-                    );
-                  },
-                );
-              },
-            ),
-          ],
-        ),
-      ),
-    ]));
-    //
-  }
-}
-
-class Notifications2 extends StatelessWidget {
-  const Notifications2({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Dialog2(
-      image: AssetImage('assets/Включить оповещения@2x.png'),
-      title: "Будьте на связи",
+    return Dialog(
+      image: AssetImage('assets/Приветствие@2x.png'),
+      title: "Привет!",
       body:
-          "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках",
-      confirm: "РАЗРЕШИТЬ",
-      cancel: "ПОЗЖЕ",
-      onConfirm: () {},
-      onCancel: () {},
+          "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас.",
+      child: Mutation(
+        options: MutationOptions(
+          document: gql(authenticate),
+          onCompleted: (dynamic resultData) {
+            print(resultData);
+          },
+        ),
+        builder: (
+          RunMutation runMutation,
+          QueryResult? result,
+        ) {
+          return ElevatedButton(
+            style: ButtonStyle(
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ))),
+            child: Text("ДАЛЬШЕ"),
+            onPressed: () {
+              runMutation({
+                'gUID': "hello",
+                'bundleID': "ru.levrana.mobile",
+                'oSType': "IOS",
+              });
+
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => Login()),
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
@@ -212,77 +167,6 @@ class Login extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class Dialog2 extends StatelessWidget {
-  const Dialog2(
-      {Key? key,
-      required this.image,
-      required this.title,
-      required this.body,
-      required this.confirm,
-      this.cancel = "ПОЗЖЕ",
-      required this.onConfirm,
-      this.onCancel})
-      : super(key: key);
-
-  final ImageProvider image;
-  final String title;
-  final String body;
-  final String confirm;
-  final String cancel;
-  final VoidCallback onConfirm;
-  final VoidCallback? onCancel;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: Stack(children: [
-      Image(image: image),
-      Container(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
-                  child: Text(title,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      )),
-                ),
-                ConstrainedBox(
-                  constraints: new BoxConstraints(
-                    minHeight: 150.0,
-                  ),
-                  child: Text(body),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                ElevatedButton(
-                  style: ButtonStyle(
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                  ))),
-                  child: Text(confirm),
-                  onPressed: onConfirm,
-                ),
-                TextButton(onPressed: onCancel, child: Text(cancel)),
-              ],
-            )
-          ],
-        ),
-      ),
-    ]));
-    //
   }
 }
 
