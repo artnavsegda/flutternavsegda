@@ -118,8 +118,13 @@ class CatalogPage extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _MainPageState createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
