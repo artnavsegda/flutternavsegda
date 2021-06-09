@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:phone_number/phone_number.dart';
 import 'catalog.dart';
 
 const String authenticate = r'''
@@ -184,8 +185,11 @@ class _LoginState extends State<Login> {
                             ),
                             ElevatedButton(
                                 onPressed: isAgreed && isFamiliarized
-                                    ? () {
-                                        print(textController.text);
+                                    ? () async {
+                                        PhoneNumber phoneNumber =
+                                            await PhoneNumberUtil()
+                                                .parse(textController.text);
+                                        print(phoneNumber.nationalNumber);
                                       }
                                     : null,
                                 child: Text("ВОЙТИ")),

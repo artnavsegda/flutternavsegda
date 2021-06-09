@@ -32,6 +32,7 @@ dependencies:
   google_fonts: ^2.1.0
   mask_text_input_formatter: ^2.0.0
   graphql: ^5.0.0
+  phone_number: ^0.11.0
 
 dev_dependencies:
   flutter_test:
