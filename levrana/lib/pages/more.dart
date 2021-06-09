@@ -5,6 +5,13 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Column(
+      children: [
+        Text("Служба поддержки"),
+        Text("Справка"),
+        Text("Уведомления"),
+        Text("Оценить приложение"),
+      ],
+    );
   }
 }
