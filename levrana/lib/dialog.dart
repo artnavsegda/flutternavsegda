@@ -104,6 +104,14 @@ class Login extends StatefulWidget {
 class _LoginState extends State<Login> {
   bool isAgreed = false;
   bool isFamiliarized = false;
+  final TextEditingController textController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -145,6 +153,7 @@ class _LoginState extends State<Login> {
                                 fontWeight: FontWeight.w700,
                               )),
                           TextField(
+                            controller: textController,
                             inputFormatters: [maskFormatter],
                             keyboardType: TextInputType.number,
                             decoration: InputDecoration(
@@ -174,7 +183,7 @@ class _LoginState extends State<Login> {
                           ElevatedButton(
                               onPressed: isAgreed && isFamiliarized
                                   ? () {
-                                      //print();
+                                      print(textController.value);
                                     }
                                   : null,
                               child: Text("ВОЙТИ")),
