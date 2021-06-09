@@ -3,7 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:phone_number/phone_number.dart';
-import 'catalog.dart';
+import 'main.dart';
 
 const String authenticate = r'''
 mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEnum!) {
