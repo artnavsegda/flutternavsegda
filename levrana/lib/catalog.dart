@@ -130,33 +130,23 @@ class _MainPageState extends State<MainPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Navigator(
-        onGenerateRoute: (settings) => MaterialPageRoute<void>(
-            builder: (BuildContext context) => Query(
-                  options: QueryOptions(
-                    document: gql(
-                        getCatalog), // this is the query string you just created
-                  ),
-                  builder: (result, {fetchMore, refetch}) {
-                    if (result.hasException) {
-                      return Text(result.exception.toString());
-                    }
-
-                    if (result.isLoading) {
-                      return Text('Loading');
-                    }
-
-                    // it can be either Map or List
-                    //print(result.data!['getCatalog']);
-                    List catalog = result.data!['getCatalog'];
-
-                    return CatalogPage(
-                      catalog: catalog,
-                      title: "Каталог",
-                    );
-                  },
-                ),
-            settings: settings),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: <Widget>[
+          Text(
+            'Index 0: Home',
+          ),
+          CatalogNavigator(),
+          Text(
+            'Index 2: Shopping',
+          ),
+          Text(
+            'Index 3: User',
+          ),
+          Text(
+            'Index 3: More',
+          ),
+        ],
       ),
       bottomNavigationBar: Container(
         decoration: BoxDecoration(
@@ -184,6 +174,9 @@ class _MainPageState extends State<MainPage> {
           showUnselectedLabels: false,
           onTap: (index) {
             print(index);
+            setState(() {
+              _selectedIndex = index;
+            });
           },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -211,6 +204,42 @@ class _MainPageState extends State<MainPage> {
           ],
         ),
       ),
+    );
+  }
+}
+
+class CatalogNavigator extends StatelessWidget {
+  const CatalogNavigator({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Navigator(
+      onGenerateRoute: (settings) => MaterialPageRoute<void>(
+          builder: (BuildContext context) => Query(
+                options: QueryOptions(
+                  document: gql(
+                      getCatalog), // this is the query string you just created
+                ),
+                builder: (result, {fetchMore, refetch}) {
+                  if (result.hasException) {
+                    return Text(result.exception.toString());
+                  }
+
+                  if (result.isLoading) {
+                    return Text('Loading');
+                  }
+
+                  List catalog = result.data!['getCatalog'];
+
+                  return CatalogPage(
+                    catalog: catalog,
+                    title: "Каталог",
+                  );
+                },
+              ),
+          settings: settings),
     );
   }
 }
