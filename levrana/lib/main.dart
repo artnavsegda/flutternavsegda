@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-import 'catalog.dart';
+import 'pages/catalog.dart';
+import 'pages/home.dart';
+import 'pages/more.dart';
+import 'pages/shopping.dart';
+import 'pages/user.dart';
 import 'dialog.dart';
 
 void main() async {
@@ -73,19 +77,11 @@ class _MainPageState extends State<MainPage> {
       body: IndexedStack(
         index: _selectedIndex,
         children: <Widget>[
-          Text(
-            'Index 0: Home',
-          ),
+          HomePage(),
           CatalogNavigator(),
-          Text(
-            'Index 2: Shopping',
-          ),
-          Text(
-            'Index 3: User',
-          ),
-          Text(
-            'Index 4: More',
-          ),
+          ShoppingPage(),
+          UserPage(),
+          MorePage(),
         ],
       ),
       bottomNavigationBar: Container(
