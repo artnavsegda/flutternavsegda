@@ -125,6 +125,8 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+  int _selectedIndex = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
