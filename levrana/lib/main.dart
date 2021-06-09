@@ -84,7 +84,7 @@ class _MainPageState extends State<MainPage> {
             'Index 3: User',
           ),
           Text(
-            'Index 3: More',
+            'Index 4: More',
           ),
         ],
       ),
