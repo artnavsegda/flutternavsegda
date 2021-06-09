@@ -14,6 +14,18 @@ mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEn
 }
 ''';
 
+const String loginClient = r'''
+mutation loginClient($clientPhone: Long!) {
+  loginClient(clientPhone: $clientPhone) {
+    result
+    errorMessage
+    clientGUID
+    token
+    nextStep
+  }
+}
+''';
+
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
 
@@ -51,7 +63,7 @@ class Welcome extends StatelessWidget {
 
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => Login()),
+                MaterialPageRoute(builder: (context) => LoginPage()),
               );
             },
           );
@@ -95,14 +107,14 @@ class Notifications extends StatelessWidget {
   }
 }
 
-class Login extends StatefulWidget {
-  const Login({Key? key}) : super(key: key);
+class LoginPage extends StatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  _LoginState createState() => _LoginState();
+  _LoginPageState createState() => _LoginPageState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginPageState extends State<LoginPage> {
   bool isAgreed = false;
   bool isFamiliarized = false;
   final TextEditingController textController = TextEditingController();
@@ -183,7 +195,35 @@ class _LoginState extends State<Login> {
                               controlAffinity: ListTileControlAffinity
                                   .leading, //  <-- leading Checkbox
                             ),
-                            ElevatedButton(
+                            Mutation(
+                              options: MutationOptions(
+                                document: gql(
+                                    loginClient), // this is the mutation string you just created
+                                // or do something with the result.data on completion
+                                onCompleted: (dynamic resultData) {
+                                  print(resultData);
+                                },
+                              ),
+                              builder: (
+                                RunMutation runMutation,
+                                QueryResult? result,
+                              ) {
+                                return ElevatedButton(
+                                    onPressed: isAgreed && isFamiliarized
+                                        ? () async {
+                                            PhoneNumber phoneNumber =
+                                                await PhoneNumberUtil()
+                                                    .parse(textController.text);
+                                            print(phoneNumber.nationalNumber);
+                                            runMutation({
+                                              'clientPhone': 79627130250,
+                                            });
+                                          }
+                                        : null,
+                                    child: Text("ВОЙТИ"));
+                              },
+                            ),
+/*                             ElevatedButton(
                                 onPressed: isAgreed && isFamiliarized
                                     ? () async {
                                         PhoneNumber phoneNumber =
@@ -192,7 +232,7 @@ class _LoginState extends State<Login> {
                                         print(phoneNumber.nationalNumber);
                                       }
                                     : null,
-                                child: Text("ВОЙТИ")),
+                                child: Text("ВОЙТИ")), */
                           ],
                         ),
                       ),
