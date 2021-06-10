@@ -8,7 +8,7 @@ import 'pages/home.dart';
 import 'pages/more.dart';
 import 'pages/shopping.dart';
 import 'pages/user.dart';
-import 'dialog.dart';
+import 'pages/dialog.dart';
 
 void main() async {
   await initHiveForFlutter();
