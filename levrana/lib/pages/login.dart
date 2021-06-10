@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
                     RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24.0),
             ))),
-            child: Text("РАЗРЕШИТЬ"),
+            child: Text("ВОЙТИ"),
             onPressed: () {
               showModalBottomSheet(
                 context: context,
