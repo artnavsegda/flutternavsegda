@@ -20,6 +20,16 @@ mutation loginClient($clientPhone: Long!) {
 }
 ''';
 
+const String checkClient = r'''
+mutation checkClient($code: String!){
+  checkClient(checkUser: {step: SMS_CONFIRMED_PHONE, code: $code}) {
+    result
+    errorMessage
+    token
+  }
+}
+''';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -30,13 +40,150 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isAgreed = false;
   bool isFamiliarized = false;
-  final TextEditingController textController = TextEditingController();
+  final TextEditingController phoneNumberController = TextEditingController();
+  final TextEditingController smsCodeController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    textController.dispose();
+    phoneNumberController.dispose();
+    smsCodeController.dispose();
     super.dispose();
+  }
+
+  void _userLogin(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(builder: (context, StateSetter setModalState) {
+          var maskFormatter = new MaskTextInputFormatter(
+              mask: '+7 (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
+          return Padding(
+            padding: MediaQuery.of(context).viewInsets,
+            child: Padding(
+              padding: const EdgeInsets.all(15.0),
+              child: Wrap(
+                children: [
+                  Text("Вход",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                  TextField(
+                    controller: phoneNumberController,
+                    inputFormatters: [maskFormatter],
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(),
+                        hintText: '+7(___) ___-__-__'),
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                        "Ознакомлен с условиями положения о защите персональных данных"),
+                    value: isFamiliarized,
+                    onChanged: (newValue) => setModalState(() {
+                      isFamiliarized = newValue!;
+                    }),
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
+                  ),
+                  CheckboxListTile(
+                    title: Text(
+                        "Даю свое согласие на обработку персональных данных"),
+                    value: isAgreed,
+                    onChanged: (newValue) => setModalState(() {
+                      isAgreed = newValue!;
+                    }),
+                    controlAffinity: ListTileControlAffinity
+                        .leading, //  <-- leading Checkbox
+                  ),
+                  Mutation(
+                    options: MutationOptions(
+                      document: gql(
+                          loginClient), // this is the mutation string you just created
+                      // or do something with the result.data on completion
+                      onCompleted: (dynamic resultData) async {
+                        print(resultData);
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setString(
+                            'token', resultData['loginClient']['token']);
+                        Navigator.pop(context);
+                        _confirmSMS(context);
+                      },
+                    ),
+                    builder: (
+                      RunMutation runMutation,
+                      QueryResult? result,
+                    ) {
+                      return ElevatedButton(
+                          onPressed: isAgreed && isFamiliarized
+                              ? () async {
+                                  PhoneNumber phoneNumber =
+                                      await PhoneNumberUtil()
+                                          .parse(phoneNumberController.text);
+                                  print('7' + phoneNumber.nationalNumber);
+                                  runMutation({
+                                    'clientPhone': int.parse(
+                                        '7' + phoneNumber.nationalNumber),
+                                  });
+                                }
+                              : null,
+                          child: Text("ВОЙТИ"));
+                    },
+                  ),
+                ],
+              ),
+            ),
+          );
+        });
+      },
+    );
+  }
+
+  void _confirmSMS(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return StatefulBuilder(
+          builder: (context, StateSetter setModalState) {
+            return Padding(
+              padding: MediaQuery.of(context).viewInsets,
+              child: Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: Wrap(children: [
+                  Text("Код",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 28,
+                        fontWeight: FontWeight.w700,
+                      )),
+                  TextField(
+                    controller: smsCodeController,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                        border: OutlineInputBorder(), hintText: '12345'),
+                  ),
+                  Mutation(options: options, builder: builder),
+                  ElevatedButton(
+                    child: Text("ПОДТВЕРДИТЬ"),
+                    onPressed: () {
+                      print("SMS NOW PLZ " + smsCodeController.text);
+                    },
+                  ),
+                ]),
+              ),
+            );
+          },
+        );
+      },
+    );
   }
 
   @override
@@ -55,112 +202,7 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(24.0),
             ))),
             child: Text("ВОЙТИ"),
-            onPressed: () {
-              showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                shape: RoundedRectangleBorder(
-                  borderRadius:
-                      BorderRadius.vertical(top: const Radius.circular(16.0)),
-                ),
-                builder: (context) {
-                  return StatefulBuilder(
-                      builder: (context, StateSetter setModalState) {
-                    var maskFormatter = new MaskTextInputFormatter(
-                        mask: '+7 (###) ###-##-##',
-                        filter: {"#": RegExp(r'[0-9]')});
-                    return Padding(
-                      padding: MediaQuery.of(context).viewInsets,
-                      child: Padding(
-                        padding: const EdgeInsets.all(15.0),
-                        child: Wrap(
-                          children: [
-                            Text("Вход",
-                                style: GoogleFonts.montserrat(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.w700,
-                                )),
-                            TextField(
-                              controller: textController,
-                              inputFormatters: [maskFormatter],
-                              keyboardType: TextInputType.number,
-                              decoration: InputDecoration(
-                                  border: OutlineInputBorder(),
-                                  hintText: '+7(___) ___-__-__'),
-                            ),
-                            CheckboxListTile(
-                              title: Text(
-                                  "Ознакомлен с условиями положения о защите персональных данных"),
-                              value: isFamiliarized,
-                              onChanged: (newValue) => setModalState(() {
-                                isFamiliarized = newValue!;
-                              }),
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            CheckboxListTile(
-                              title: Text(
-                                  "Даю свое согласие на обработку персональных данных"),
-                              value: isAgreed,
-                              onChanged: (newValue) => setModalState(() {
-                                isAgreed = newValue!;
-                              }),
-                              controlAffinity: ListTileControlAffinity
-                                  .leading, //  <-- leading Checkbox
-                            ),
-                            Mutation(
-                              options: MutationOptions(
-                                document: gql(
-                                    loginClient), // this is the mutation string you just created
-                                // or do something with the result.data on completion
-                                onCompleted: (dynamic resultData) async {
-                                  print(resultData);
-                                  final prefs =
-                                      await SharedPreferences.getInstance();
-                                  prefs.setString('token',
-                                      resultData['loginClient']['token']);
-                                  Navigator.pop(context);
-                                },
-                              ),
-                              builder: (
-                                RunMutation runMutation,
-                                QueryResult? result,
-                              ) {
-                                return ElevatedButton(
-                                    onPressed: isAgreed && isFamiliarized
-                                        ? () async {
-                                            PhoneNumber phoneNumber =
-                                                await PhoneNumberUtil()
-                                                    .parse(textController.text);
-                                            print('7' +
-                                                phoneNumber.nationalNumber);
-                                            runMutation({
-                                              'clientPhone': int.parse('7' +
-                                                  phoneNumber.nationalNumber),
-                                            });
-                                          }
-                                        : null,
-                                    child: Text("ВОЙТИ"));
-                              },
-                            ),
-/*                             ElevatedButton(
-                                onPressed: isAgreed && isFamiliarized
-                                    ? () async {
-                                        PhoneNumber phoneNumber =
-                                            await PhoneNumberUtil()
-                                                .parse(textController.text);
-                                        print(phoneNumber.nationalNumber);
-                                      }
-                                    : null,
-                                child: Text("ВОЙТИ")), */
-                          ],
-                        ),
-                      ),
-                    );
-                  });
-                },
-              );
-            },
+            onPressed: () => _userLogin(context),
           ),
           TextButton(
               onPressed: () {
