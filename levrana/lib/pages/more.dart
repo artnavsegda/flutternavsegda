@@ -7,10 +7,22 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        ListTile(title: Text("Служба поддержки")),
-        ListTile(title: Text("Справка")),
-        ListTile(title: Text("Уведомления")),
-        ListTile(title: Text("Оценить приложение")),
+        ListTile(
+          title: Text("Служба поддержки"),
+          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+        ),
+        ListTile(
+          title: Text("Справка"),
+          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+        ),
+        ListTile(
+          title: Text("Уведомления"),
+          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+        ),
+        ListTile(
+          title: Text("Оценить приложение"),
+          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+        ),
       ],
     );
   }
