@@ -170,9 +170,12 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Mutation(
                     options: MutationOptions(
-                        document: gql(loginClient),
+                        document: gql(checkClient),
                         onCompleted: (dynamic resultData) async {
-                          print("result" + resultData);
+                          print(resultData);
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.setString(
+                              'token', resultData['checkClient']['token']);
                         }),
                     builder: (
                       RunMutation runMutation,
@@ -183,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
                           onPressed: () {
                             print("SMS NOW PLZ " + smsCodeController.text);
                             runMutation({
-                              'checkClient': "12345" //smsCodeController.text,
+                              'code': smsCodeController.text,
                             });
                           });
                     },
