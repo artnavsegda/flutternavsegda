@@ -5,12 +5,12 @@ class MorePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
+    return ListView(
       children: [
-        Text("Служба поддержки"),
-        Text("Справка"),
-        Text("Уведомления"),
-        Text("Оценить приложение"),
+        ListTile(title: Text("Служба поддержки")),
+        ListTile(title: Text("Справка")),
+        ListTile(title: Text("Уведомления")),
+        ListTile(title: Text("Оценить приложение")),
       ],
     );
   }
