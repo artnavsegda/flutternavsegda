@@ -46,6 +46,11 @@ class MyApp extends StatelessWidget {
 
   final ValueNotifier<GraphQLClient> client;
 
+  Future<String> getToken() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString('token') ?? "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
@@ -58,7 +63,20 @@ class MyApp extends StatelessWidget {
             Theme.of(context).textTheme,
           ),
         ),
-        home: MainPage(),
+        home: FutureBuilder<String>(
+          future: getToken(),
+          builder: (buildContext, snapshot) {
+            if (snapshot.hasData) {
+              if (snapshot.data == "") {
+                return Welcome();
+              } else {
+                return MainPage();
+              }
+            } else {
+              return Center(child: CircularProgressIndicator());
+            }
+          },
+        ),
       ),
     );
   }
