@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'main.dart';
 
 const String authenticate = r'''
@@ -39,8 +40,10 @@ class Welcome extends StatelessWidget {
       child: Mutation(
         options: MutationOptions(
           document: gql(authenticate),
-          onCompleted: (dynamic resultData) {
+          onCompleted: (dynamic resultData) async {
             print(resultData);
+            final prefs = await SharedPreferences.getInstance();
+            prefs.setString('token', resultData['authenticate']['token']);
           },
         ),
         builder: (

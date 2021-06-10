@@ -11,7 +11,6 @@ import 'pages/user.dart';
 import 'dialog.dart';
 
 void main() async {
-  final prefs = await SharedPreferences.getInstance();
   await initHiveForFlutter();
 
   final HttpLink httpLink = HttpLink(
@@ -70,7 +69,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.data == "") {
                 return Welcome();
               } else {
-                return MainPage();
+                return LoginPage();
               }
             } else {
               return Center(child: CircularProgressIndicator());
