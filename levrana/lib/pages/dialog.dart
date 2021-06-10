@@ -28,10 +28,17 @@ class Welcome extends StatelessWidget {
       child: Mutation(
         options: MutationOptions(
           document: gql(authenticate),
+          onError: (error) {
+            print(error);
+          },
           onCompleted: (dynamic resultData) async {
             print(resultData);
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('token', resultData['authenticate']['token']);
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => LoginPage()),
+            );
           },
         ),
         builder: (
@@ -51,11 +58,6 @@ class Welcome extends StatelessWidget {
                 'bundleID': "ru.levrana.mobile",
                 'oSType': "IOS",
               });
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
             },
           );
         },

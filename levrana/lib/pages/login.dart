@@ -104,13 +104,34 @@ class _LoginPageState extends State<LoginPage> {
                   Mutation(
                     options: MutationOptions(
                       document: gql(loginClient),
+                      onError: (error) {
+                        print("ERROR");
+                        print(error);
+                      },
                       onCompleted: (dynamic resultData) async {
                         print(resultData);
-                        final prefs = await SharedPreferences.getInstance();
-                        prefs.setString(
-                            'token', resultData['loginClient']['token']);
-                        Navigator.pop(context);
-                        _confirmSMS(context);
+                        if (resultData['loginClient']['result'] == 0) {
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.setString(
+                              'token', resultData['loginClient']['token']);
+                          Navigator.pop(context);
+                          _confirmSMS(context);
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Ошибка'),
+                              content: Text(
+                                  resultData['loginClient']['errorMessage']),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
                       },
                     ),
                     builder: (
@@ -171,11 +192,54 @@ class _LoginPageState extends State<LoginPage> {
                   Mutation(
                     options: MutationOptions(
                         document: gql(checkClient),
+                        onError: (error) {
+                          print("ERROR");
+                          print(error!.graphqlErrors[0].message);
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Ошибка'),
+                              content: Text(error!.graphqlErrors[0].message),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
                         onCompleted: (dynamic resultData) async {
                           print(resultData);
-                          final prefs = await SharedPreferences.getInstance();
-                          prefs.setString(
-                              'token', resultData['checkClient']['token']);
+                          if (resultData != null) {
+                            if (resultData['checkClient']['result'] == 0) {
+                              final prefs =
+                                  await SharedPreferences.getInstance();
+                              prefs.setString(
+                                  'token', resultData['checkClient']['token']);
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => MainPage()),
+                              );
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) => AlertDialog(
+                                  title: const Text('Ошибка'),
+                                  content: Text(resultData['checkClient']
+                                      ['errorMessage']),
+                                  actions: <Widget>[
+                                    TextButton(
+                                      onPressed: () =>
+                                          Navigator.pop(context, 'OK'),
+                                      child: const Text('OK'),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          }
                         }),
                     builder: (
                       RunMutation runMutation,

@@ -90,7 +90,7 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  int _selectedIndex = 4;
+  int _selectedIndex = 3;
 
   @override
   Widget build(BuildContext context) {
