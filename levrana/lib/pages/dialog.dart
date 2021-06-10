@@ -15,18 +15,6 @@ mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEn
 }
 ''';
 
-const String loginClient = r'''
-mutation loginClient($clientPhone: Long!) {
-  loginClient(clientPhone: $clientPhone) {
-    result
-    errorMessage
-    clientGUID
-    token
-    nextStep
-  }
-}
-''';
-
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);
 

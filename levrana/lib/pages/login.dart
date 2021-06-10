@@ -8,6 +8,18 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dialog.dart';
 import '../main.dart';
 
+const String loginClient = r'''
+mutation loginClient($clientPhone: Long!) {
+  loginClient(clientPhone: $clientPhone) {
+    result
+    errorMessage
+    clientGUID
+    token
+    nextStep
+  }
+}
+''';
+
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
 
@@ -106,7 +118,8 @@ class _LoginPageState extends State<LoginPage> {
                                   final prefs =
                                       await SharedPreferences.getInstance();
                                   prefs.setString('token',
-                                      resultData['authenticate']['token']);
+                                      resultData['loginClient']['token']);
+                                  Navigator.pop(context);
                                 },
                               ),
                               builder: (
