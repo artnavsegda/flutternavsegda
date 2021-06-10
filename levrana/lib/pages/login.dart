@@ -199,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
                             context: context,
                             builder: (BuildContext context) => AlertDialog(
                               title: const Text('Ошибка'),
-                              content: Text(error!.graphqlErrors[0].message),
+                              content: Text(error.graphqlErrors[0].message),
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () => Navigator.pop(context, 'OK'),
