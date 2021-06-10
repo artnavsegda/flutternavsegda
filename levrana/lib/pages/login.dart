@@ -103,9 +103,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   Mutation(
                     options: MutationOptions(
-                      document: gql(
-                          loginClient), // this is the mutation string you just created
-                      // or do something with the result.data on completion
+                      document: gql(loginClient),
                       onCompleted: (dynamic resultData) async {
                         print(resultData);
                         final prefs = await SharedPreferences.getInstance();
@@ -170,11 +168,24 @@ class _LoginPageState extends State<LoginPage> {
                     decoration: InputDecoration(
                         border: OutlineInputBorder(), hintText: '12345'),
                   ),
-                  Mutation(options: options, builder: builder),
-                  ElevatedButton(
-                    child: Text("ПОДТВЕРДИТЬ"),
-                    onPressed: () {
-                      print("SMS NOW PLZ " + smsCodeController.text);
+                  Mutation(
+                    options: MutationOptions(
+                        document: gql(loginClient),
+                        onCompleted: (dynamic resultData) async {
+                          print("result" + resultData);
+                        }),
+                    builder: (
+                      RunMutation runMutation,
+                      QueryResult? result,
+                    ) {
+                      return ElevatedButton(
+                          child: Text("ПОДТВЕРДИТЬ"),
+                          onPressed: () {
+                            print("SMS NOW PLZ " + smsCodeController.text);
+                            runMutation({
+                              'checkClient': "12345" //smsCodeController.text,
+                            });
+                          });
                     },
                   ),
                 ]),
