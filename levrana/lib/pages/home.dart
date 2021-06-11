@@ -30,13 +30,13 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Query(
+    //return Column(children: [
+/*       Query(
           options: QueryOptions(document: gql(getClientInfo)),
           builder: (result, {fetchMore, refetch}) {
             return Text(result.data!['getClientInfo']['points'].toString());
-          }),
-      Query(
+          }), */
+/*       Query(
           options: QueryOptions(document: gql(getActions)),
           builder: (result, {fetchMore, refetch}) {
             print(result.data);
@@ -51,12 +51,25 @@ class HomePage extends StatelessWidget {
                 },
               ),
             );
-          }),
-      Query(
-          options: QueryOptions(document: gql(getTopBlocks)),
-          builder: (result, {fetchMore, refetch}) {
-            print(result.data);
-          })
-    ]);
+          }), */
+    return Query(
+        options: QueryOptions(document: gql(getTopBlocks)),
+        builder: (result, {fetchMore, refetch}) {
+          print(result.data);
+          return ListView.separated(
+            itemCount: result.data!['getTopBlocks'].length,
+            itemBuilder: (context, index) {
+              return Text(result.data!['getTopBlocks'][index]['name']);
+            },
+            separatorBuilder: (context, index) {
+              return Divider(
+                height: 1,
+                indent: 20,
+                endIndent: 20,
+              );
+            },
+          );
+        });
+    //]);
   }
 }
