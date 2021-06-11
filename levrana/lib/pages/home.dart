@@ -35,17 +35,10 @@ class HomePage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           print(result.data);
-          return ListView.separated(
+          return PageView.builder(
             itemCount: result.data!['getActions'].length,
             itemBuilder: (context, index) {
               return Text(result.data!['getActions'][index]['name']);
-            },
-            separatorBuilder: (context, index) {
-              return Divider(
-                height: 1,
-                indent: 20,
-                endIndent: 20,
-              );
             },
           );
         });
