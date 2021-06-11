@@ -32,18 +32,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(children: [
       Query(
-          options: QueryOptions(
-            document:
-                gql(getClientInfo), // this is the query string you just created
-          ),
+          options: QueryOptions(document: gql(getClientInfo)),
           builder: (result, {fetchMore, refetch}) {
             return Text(result.data!['getClientInfo']['points'].toString());
           }),
       Query(
-          options: QueryOptions(
-            document:
-                gql(getActions), // this is the query string you just created
-          ),
+          options: QueryOptions(document: gql(getActions)),
           builder: (result, {fetchMore, refetch}) {
             print(result.data);
             return Container(
@@ -58,6 +52,11 @@ class HomePage extends StatelessWidget {
               ),
             );
           }),
+      Query(
+          options: QueryOptions(document: gql(getTopBlocks)),
+          builder: (result, {fetchMore, refetch}) {
+            print(result.data);
+          })
     ]);
   }
 }

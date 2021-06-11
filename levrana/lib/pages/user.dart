@@ -25,10 +25,7 @@ class UserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Query(
-        options: QueryOptions(
-          document:
-              gql(getClientInfo), // this is the query string you just created
-        ),
+        options: QueryOptions(document: gql(getClientInfo)),
         builder: (result, {fetchMore, refetch}) {
           return Column(
             children: [
