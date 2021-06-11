@@ -38,7 +38,9 @@ class HomePage extends StatelessWidget {
           return PageView.builder(
             itemCount: result.data!['getActions'].length,
             itemBuilder: (context, index) {
-              return Text(result.data!['getActions'][index]['name']);
+              //return Text(result.data!['getActions'][index]['name']);
+              return Image.network(
+                  result.data!['getActions'][index]['picture']);
             },
           );
         });
