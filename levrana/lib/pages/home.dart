@@ -35,13 +35,16 @@ class HomePage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           print(result.data);
-          return PageView.builder(
-            itemCount: result.data!['getActions'].length,
-            itemBuilder: (context, index) {
-              //return Text(result.data!['getActions'][index]['name']);
-              return Image.network(
-                  result.data!['getActions'][index]['picture']);
-            },
+          return Container(
+            height: 160,
+            child: PageView.builder(
+              itemCount: result.data!['getActions'].length,
+              itemBuilder: (context, index) {
+                //return Text(result.data!['getActions'][index]['name']);
+                return Image.network(
+                    result.data!['getActions'][index]['picture']);
+              },
+            ),
           );
         });
   }
