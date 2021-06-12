@@ -65,17 +65,20 @@ class HomePage extends StatelessWidget {
               builder: (result, {fetchMore, refetch}) {
                 print(result.data);
                 return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: result.data!['getTopBlocks']
                         .map(
-                          (section) => Column(children: [
-                            Text(section['name']),
-                            Wrap(
-                                children: section['products']
-                                    .map((product) => Text(product['name']))
-                                    .toList()
-                                    .cast<Widget>()),
-                            Text("Something")
-                          ]),
+                          (section) => Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(section['name']),
+                                Wrap(
+                                    children: section['products']
+                                        .map((product) => Text(product['name']))
+                                        .toList()
+                                        .cast<Widget>()),
+                                Text("Something")
+                              ]),
                         )
                         .toList()
                         .cast<Widget>());
