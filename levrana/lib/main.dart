@@ -65,10 +65,11 @@ class MyApp extends StatelessWidget {
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
+                    minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ))))),
+                      borderRadius: BorderRadius.circular(24.0),
+                    ))))),
         home: FutureBuilder<String>(
           future: getToken(),
           builder: (buildContext, snapshot) {
