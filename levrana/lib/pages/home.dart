@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'user.dart';
 
@@ -19,7 +20,9 @@ query getTopBlocks {
   {
     name
     products {
+      iD
       name
+      picture
     }
   }
 }
@@ -71,10 +74,24 @@ class HomePage extends StatelessWidget {
                           (section) => Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                Text(section['name']),
+                                Text(section['name'],
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w700,
+                                    )),
                                 Wrap(
                                     children: section['products']
-                                        .map((product) => Text(product['name']))
+                                        .map((product) => SizedBox(
+                                              width: 150.0,
+                                              height: 150.0,
+                                              child: GridTile(
+                                                child: Image.network(
+                                                    product['picture']),
+                                                footer: GridTileBar(
+                                                    title:
+                                                        Text(product['name'])),
+                                              ),
+                                            ))
                                         .toList()
                                         .cast<Widget>()),
                                 Text("Something")
