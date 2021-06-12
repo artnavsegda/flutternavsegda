@@ -26,10 +26,44 @@ query getTopBlocks {
 """;
 
 class HomePage extends StatelessWidget {
-  const HomePage({Key? key}) : super(key: key);
+  HomePage({Key? key}) : super(key: key);
+
+  final _controller = PageController(viewportFraction: 0.9);
 
   @override
   Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Query(
+              options: QueryOptions(document: gql(getClientInfo)),
+              builder: (result, {fetchMore, refetch}) {
+                return Text(result.data!['getClientInfo']['points'].toString());
+              }),
+          Query(
+              options: QueryOptions(document: gql(getActions)),
+              builder: (result, {fetchMore, refetch}) {
+                print(result.data);
+                return Container(
+                  height: 160,
+                  child: PageView.builder(
+                    controller: _controller,
+                    itemCount: result.data!['getActions'].length,
+                    itemBuilder: (context, index) {
+                      //return Text(result.data!['getActions'][index]['name']);
+                      return Padding(
+                        padding: const EdgeInsets.only(right: 10.0),
+                        child: Image.network(
+                            result.data!['getActions'][index]['picture']),
+                      );
+                    },
+                  ),
+                );
+              }),
+          Text("Hello")
+        ],
+      ),
+    );
     //return Column(children: [
 /*       Query(
           options: QueryOptions(document: gql(getClientInfo)),
@@ -52,7 +86,7 @@ class HomePage extends StatelessWidget {
               ),
             );
           }), */
-    return Query(
+/*     return Query(
         options: QueryOptions(document: gql(getTopBlocks)),
         builder: (result, {fetchMore, refetch}) {
           print(result.data);
@@ -69,7 +103,7 @@ class HomePage extends StatelessWidget {
               );
             },
           );
-        });
+        }); */
     //]);
   }
 }
