@@ -43,9 +43,9 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(catalog);
-    print(id);
-    print(totalCount);
+    //print(catalog);
+    //print(id);
+    //print(totalCount);
     return Scaffold(
       appBar: AppBar(
         title: Text(title,
@@ -71,7 +71,7 @@ class CatalogPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                print(id);
+                //print(id);
               },
             ),
           Expanded(

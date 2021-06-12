@@ -41,12 +41,13 @@ class HomePage extends StatelessWidget {
           Query(
               options: QueryOptions(document: gql(getClientInfo)),
               builder: (result, {fetchMore, refetch}) {
+                print(result.data);
                 return Text(result.data!['getClientInfo']['points'].toString());
               }),
           Query(
               options: QueryOptions(document: gql(getActions)),
               builder: (result, {fetchMore, refetch}) {
-                print(result.data);
+                //print(result.data);
                 return Container(
                   height: 160,
                   child: PageView.builder(
@@ -66,7 +67,7 @@ class HomePage extends StatelessWidget {
           Query(
               options: QueryOptions(document: gql(getTopBlocks)),
               builder: (result, {fetchMore, refetch}) {
-                print(result.data);
+                //print(result.data);
                 return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: result.data!['getTopBlocks']
