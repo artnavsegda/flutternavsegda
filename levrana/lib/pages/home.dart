@@ -67,10 +67,10 @@ class HomePage extends StatelessWidget {
                 return Column(
                     children: result.data!['getTopBlocks']
                         .map(
-                          (item) => Column(children: [
-                            Text(item['name']),
+                          (section) => Column(children: [
+                            Text(section['name']),
                             Wrap(
-                                children: item['products']
+                                children: section['products']
                                     .map((product) => Text(product['name']))
                                     .toList()
                                     .cast<Widget>()),
