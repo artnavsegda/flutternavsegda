@@ -40,7 +40,21 @@ class HomePage extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            TextField(),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                decoration: InputDecoration(
+                    isDense: true,
+                    contentPadding: EdgeInsets.all(10),
+                    border: new OutlineInputBorder(
+                      borderSide: BorderSide.none,
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(12.0),
+                      ),
+                    ),
+                    filled: true),
+              ),
+            ),
             Query(
                 options: QueryOptions(document: gql(getClientInfo)),
                 builder: (result, {fetchMore, refetch}) {
