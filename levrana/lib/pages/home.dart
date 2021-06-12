@@ -60,50 +60,28 @@ class HomePage extends StatelessWidget {
                   ),
                 );
               }),
-          Text("Hello")
+          Query(
+              options: QueryOptions(document: gql(getTopBlocks)),
+              builder: (result, {fetchMore, refetch}) {
+                print(result.data);
+                return Column(
+                    children: result.data!['getTopBlocks']
+                        .map(
+                          (item) => Column(children: [
+                            Text(item['name']),
+                            Wrap(
+                                children: item['products']
+                                    .map((product) => Text(product['name']))
+                                    .toList()
+                                    .cast<Widget>()),
+                            Text("Something")
+                          ]),
+                        )
+                        .toList()
+                        .cast<Widget>());
+              })
         ],
       ),
     );
-    //return Column(children: [
-/*       Query(
-          options: QueryOptions(document: gql(getClientInfo)),
-          builder: (result, {fetchMore, refetch}) {
-            return Text(result.data!['getClientInfo']['points'].toString());
-          }), */
-/*       Query(
-          options: QueryOptions(document: gql(getActions)),
-          builder: (result, {fetchMore, refetch}) {
-            print(result.data);
-            return Container(
-              height: 160,
-              child: PageView.builder(
-                itemCount: result.data!['getActions'].length,
-                itemBuilder: (context, index) {
-                  //return Text(result.data!['getActions'][index]['name']);
-                  return Image.network(
-                      result.data!['getActions'][index]['picture']);
-                },
-              ),
-            );
-          }), */
-/*     return Query(
-        options: QueryOptions(document: gql(getTopBlocks)),
-        builder: (result, {fetchMore, refetch}) {
-          print(result.data);
-          return ListView.separated(
-            itemCount: result.data!['getTopBlocks'].length,
-            itemBuilder: (context, index) {
-              return Text(result.data!['getTopBlocks'][index]['name']);
-            },
-            separatorBuilder: (context, index) {
-              return Divider(
-                height: 1,
-                indent: 20,
-                endIndent: 20,
-              );
-            },
-          );
-        }); */
-    //]);
   }
 }
