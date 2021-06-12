@@ -59,11 +59,16 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          primarySwatch: Colors.green,
-          textTheme: GoogleFonts.montserratTextTheme(
-            Theme.of(context).textTheme,
-          ),
-        ),
+            primarySwatch: Colors.green,
+            textTheme: GoogleFonts.montserratTextTheme(
+              Theme.of(context).textTheme,
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+                style: ButtonStyle(
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ))))),
         home: FutureBuilder<String>(
           future: getToken(),
           builder: (buildContext, snapshot) {

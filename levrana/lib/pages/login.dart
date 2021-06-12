@@ -274,11 +274,6 @@ class _LoginPageState extends State<LoginPage> {
       child: Row(
         children: [
           ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ))),
             child: Text("ВОЙТИ"),
             onPressed: () => _userLogin(context),
           ),
