@@ -55,13 +55,15 @@ class HomePage extends StatelessWidget {
                     filled: true),
               ),
             ),
-            Query(
-                options: QueryOptions(document: gql(getClientInfo)),
-                builder: (result, {fetchMore, refetch}) {
-                  print(result.data);
-                  return Text(
-                      result.data!['getClientInfo']['points'].toString());
-                }),
+            Card(
+              child: Query(
+                  options: QueryOptions(document: gql(getClientInfo)),
+                  builder: (result, {fetchMore, refetch}) {
+                    print(result.data);
+                    return Text(
+                        result.data!['getClientInfo']['points'].toString());
+                  }),
+            ),
             Query(
                 options: QueryOptions(document: gql(getActions)),
                 builder: (result, {fetchMore, refetch}) {
