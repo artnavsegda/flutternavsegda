@@ -60,7 +60,7 @@ class HomePage extends StatelessWidget {
                   gradient: LinearGradient(
                       begin: Alignment.centerLeft,
                       end: Alignment.centerRight,
-                      colors: <Color>[Color(0xffee0000), Color(0xffeeee00)])),
+                      colors: <Color>[Color(0xff76B36D), Color(0xffCCED89)])),
               child: Query(
                   options: QueryOptions(document: gql(getClientInfo)),
                   builder: (result, {fetchMore, refetch}) {
