@@ -55,7 +55,12 @@ class HomePage extends StatelessWidget {
                     filled: true),
               ),
             ),
-            Card(
+            Container(
+              decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: <Color>[Color(0xffee0000), Color(0xffeeee00)])),
               child: Query(
                   options: QueryOptions(document: gql(getClientInfo)),
                   builder: (result, {fetchMore, refetch}) {
