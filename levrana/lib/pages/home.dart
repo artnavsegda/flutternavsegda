@@ -66,7 +66,11 @@ class HomePage extends StatelessWidget {
                   builder: (result, {fetchMore, refetch}) {
                     print(result.data);
                     return Text(
-                        result.data!['getClientInfo']['points'].toString());
+                        result.data!['getClientInfo']['points'].toString(),
+                        style: GoogleFonts.montserrat(
+                            fontSize: 40,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white));
                   }),
             ),
             Query(
