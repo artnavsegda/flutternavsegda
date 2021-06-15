@@ -59,6 +59,8 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
+                width: 288,
+                height: 164,
                 decoration: BoxDecoration(
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
