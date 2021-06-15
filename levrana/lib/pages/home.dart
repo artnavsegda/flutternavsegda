@@ -203,6 +203,10 @@ class ProductCard extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print(product['iD']);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => Query()),
+                  );
                 },
                 child: Image.network(
                   product['picture'],
