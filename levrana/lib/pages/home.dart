@@ -44,7 +44,7 @@ class HomePage extends StatelessWidget {
           Column(
             children: [
               Container(
-                //margin: EdgeInsets.fromLTRB(16, 21, 16, 21),
+                margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
                 child: TextField(
                   decoration: InputDecoration(
                       isDense: true,
@@ -59,7 +59,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
-                //margin: EdgeInsets.fromLTRB(16, 21, 16, 21),
+                margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
                 width: 288,
                 height: 164,
                 decoration: BoxDecoration(
@@ -84,6 +84,7 @@ class HomePage extends StatelessWidget {
                   builder: (result, {fetchMore, refetch}) {
                     //print(result.data);
                     return Container(
+                      margin: EdgeInsets.fromLTRB(0, 21, 0, 0),
                       height: 160,
                       child: PageView.builder(
                         controller: _controller,
