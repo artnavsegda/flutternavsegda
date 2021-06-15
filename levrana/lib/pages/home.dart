@@ -65,9 +65,19 @@ class HomePage extends StatelessWidget {
                     context,
                     MaterialPageRoute(
                         builder: (context) => Scaffold(
-                              body: Center(
-                                child: Text("Hello"),
+                              extendBodyBehindAppBar: true,
+                              appBar: AppBar(
+                                iconTheme: IconThemeData(
+                                  color: Colors.black, //change your color here
+                                ),
+                                title: Text("Бонусная карта",
+                                    style: TextStyle(color: Colors.black)),
+                                backgroundColor: Colors.transparent,
+                                elevation: 0.0,
                               ),
+                              body: Image(
+                                  image: AssetImage(
+                                      'assets/Сканировать QR код.png')),
                             )),
                   );
                 },
