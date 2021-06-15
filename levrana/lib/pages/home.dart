@@ -164,17 +164,19 @@ class HomePage extends StatelessWidget {
                                         )),
                                     Wrap(
                                         children: section['products']
-                                            .map((product) => SizedBox(
-                                                  width: 200.0,
-                                                  height: 200.0,
-                                                  child: GridTile(
-                                                    child: Image.network(
-                                                        product['picture']),
-                                                    footer: GridTileBar(
-                                                        title: Text(
-                                                            product['name'])),
-                                                  ),
-                                                ))
+                                            .map(
+                                              (product) => Container(
+                                                width: 136,
+                                                child: Column(
+                                                  children: [
+                                                    Image.network(
+                                                      product['picture'],
+                                                    ),
+                                                    Text(product['name']),
+                                                  ],
+                                                ),
+                                              ),
+                                            )
                                             .toList()
                                             .cast<Widget>()),
                                     Text("Something")
