@@ -92,10 +92,13 @@ class HomePage extends StatelessWidget {
                         itemCount: result.data!['getActions'].length,
                         itemBuilder: (context, index) {
                           //return Text(result.data!['getActions'][index]['name']);
-                          return Padding(
-                            padding: const EdgeInsets.only(right: 10.0),
-                            child: Image.network(
-                                result.data!['getActions'][index]['picture']),
+                          return Container(
+                            padding: const EdgeInsets.only(right: 16.0),
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(6.0),
+                              child: Image.network(
+                                  result.data!['getActions'][index]['picture']),
+                            ),
                           );
                         },
                       ),
