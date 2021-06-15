@@ -169,8 +169,21 @@ class HomePage extends StatelessWidget {
                                                 width: 136,
                                                 child: Column(
                                                   children: [
-                                                    Image.network(
-                                                      product['picture'],
+                                                    Stack(
+                                                      children: [
+                                                        Image.network(
+                                                          product['picture'],
+                                                        ),
+                                                        Positioned(
+                                                          bottom: 0,
+                                                          right: 0,
+                                                          child: Image.asset(
+                                                            'assets/ic-24/icon-24-shopping.png',
+                                                            width: 40,
+                                                            height: 40,
+                                                          ),
+                                                        )
+                                                      ],
                                                     ),
                                                     Text(product['name']),
                                                   ],
