@@ -71,18 +71,28 @@ class HomePage extends StatelessWidget {
                 child: ListTile(
                   title:
                       Image(image: AssetImage('assets/logotype-levrana.png')),
-                  subtitle: Query(
-                      options: QueryOptions(document: gql(getClientInfo)),
-                      builder: (result, {fetchMore, refetch}) {
-                        print(result.data);
-                        return Text(
-                            result.data!['getClientInfo']['points'].toString(),
-                            style: GoogleFonts.montserrat(
-                                fontSize: 40,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.white));
-                      }),
-                  trailing: Image(image: AssetImage('assets/Union.png')),
+                  subtitle: Row(children: [
+                    Query(
+                        options: QueryOptions(document: gql(getClientInfo)),
+                        builder: (result, {fetchMore, refetch}) {
+                          print(result.data);
+                          return Text(
+                              result.data!['getClientInfo']['points']
+                                  .toString(),
+                              style: GoogleFonts.montserrat(
+                                  fontSize: 40,
+                                  fontWeight: FontWeight.w700,
+                                  color: Colors.white));
+                        }),
+                    Image(
+                        image: AssetImage('assets/ic-24/icon-24-bonus@2x.png'))
+                  ]),
+                  trailing: Column(
+                    children: [
+                      Image(image: AssetImage('assets/Union.png')),
+                      Image(image: AssetImage('assets/Group 145.png')),
+                    ],
+                  ),
                 ),
               ),
               Query(
