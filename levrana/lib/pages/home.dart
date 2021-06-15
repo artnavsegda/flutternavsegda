@@ -58,54 +58,64 @@ class HomePage extends StatelessWidget {
                       filled: true),
                 ),
               ),
-              Container(
-                margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
-                width: 288,
-                height: 164,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.all(Radius.circular(16)),
-                    gradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: <Color>[Color(0xff76B36D), Color(0xffCCED89)])),
-                child: Stack(children: [
-                  Positioned(
-                      top: 20,
-                      left: 20,
-                      child: Image(
-                          image: AssetImage('assets/logotype-levrana.png'))),
-                  Positioned(
-                    left: 16,
-                    bottom: 10,
-                    child: Row(
-                      children: [
-                        Query(
-                            options: QueryOptions(document: gql(getClientInfo)),
-                            builder: (result, {fetchMore, refetch}) {
-                              print(result.data);
-                              return Text(
-                                  result.data!['getClientInfo']['points']
-                                      .toString(),
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 40,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.white));
-                            }),
-                        Image(
-                            image:
-                                AssetImage('assets/ic-24/icon-24-bonus@2x.png'))
-                      ],
+              GestureDetector(
+                onTap: () {
+                  print("Hello");
+                },
+                child: Container(
+                  margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
+                  width: 288,
+                  height: 164,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: <Color>[
+                            Color(0xff76B36D),
+                            Color(0xffCCED89)
+                          ])),
+                  child: Stack(children: [
+                    Positioned(
+                        top: 20,
+                        left: 20,
+                        child: Image(
+                            image: AssetImage('assets/logotype-levrana.png'))),
+                    Positioned(
+                      left: 16,
+                      bottom: 10,
+                      child: Row(
+                        children: [
+                          Query(
+                              options:
+                                  QueryOptions(document: gql(getClientInfo)),
+                              builder: (result, {fetchMore, refetch}) {
+                                print(result.data);
+                                return Text(
+                                    result.data!['getClientInfo']['points']
+                                        .toString(),
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 40,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white));
+                              }),
+                          Image(
+                              image: AssetImage(
+                                  'assets/ic-24/icon-24-bonus@2x.png'))
+                        ],
+                      ),
                     ),
-                  ),
-                  Positioned(
-                      top: 22,
-                      right: 16,
-                      child: Image(image: AssetImage('assets/Union.png'))),
-                  Positioned(
-                      right: 16,
-                      bottom: 37,
-                      child: Image(image: AssetImage('assets/Group 145.png'))),
-                ]),
+                    Positioned(
+                        top: 22,
+                        right: 16,
+                        child: Image(image: AssetImage('assets/Union.png'))),
+                    Positioned(
+                        right: 16,
+                        bottom: 37,
+                        child:
+                            Image(image: AssetImage('assets/Group 145.png'))),
+                  ]),
+                ),
               ),
               Query(
                   options: QueryOptions(document: gql(getActions)),
