@@ -68,32 +68,44 @@ class HomePage extends StatelessWidget {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: <Color>[Color(0xff76B36D), Color(0xffCCED89)])),
-                child: ListTile(
-                  title:
-                      Image(image: AssetImage('assets/logotype-levrana.png')),
-                  subtitle: Row(children: [
-                    Query(
-                        options: QueryOptions(document: gql(getClientInfo)),
-                        builder: (result, {fetchMore, refetch}) {
-                          print(result.data);
-                          return Text(
-                              result.data!['getClientInfo']['points']
-                                  .toString(),
-                              style: GoogleFonts.montserrat(
-                                  fontSize: 40,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white));
-                        }),
-                    Image(
-                        image: AssetImage('assets/ic-24/icon-24-bonus@2x.png'))
-                  ]),
-                  trailing: Column(
-                    children: [
-                      Image(image: AssetImage('assets/Union.png')),
-                      Image(image: AssetImage('assets/Group 145.png')),
-                    ],
+                child: Stack(children: [
+                  Positioned(
+                      top: 20,
+                      left: 20,
+                      child: Image(
+                          image: AssetImage('assets/logotype-levrana.png'))),
+                  Positioned(
+                    left: 16,
+                    bottom: 10,
+                    child: Row(
+                      children: [
+                        Query(
+                            options: QueryOptions(document: gql(getClientInfo)),
+                            builder: (result, {fetchMore, refetch}) {
+                              print(result.data);
+                              return Text(
+                                  result.data!['getClientInfo']['points']
+                                      .toString(),
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.white));
+                            }),
+                        Image(
+                            image:
+                                AssetImage('assets/ic-24/icon-24-bonus@2x.png'))
+                      ],
+                    ),
                   ),
-                ),
+                  Positioned(
+                      top: 22,
+                      right: 16,
+                      child: Image(image: AssetImage('assets/Union.png'))),
+                  Positioned(
+                      right: 16,
+                      bottom: 37,
+                      child: Image(image: AssetImage('assets/Group 145.png'))),
+                ]),
               ),
               Query(
                   options: QueryOptions(document: gql(getActions)),
