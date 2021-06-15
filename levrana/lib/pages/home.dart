@@ -63,6 +63,7 @@ class HomePage extends StatelessWidget {
                 width: 288,
                 height: 164,
                 decoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(16)),
                     gradient: LinearGradient(
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
