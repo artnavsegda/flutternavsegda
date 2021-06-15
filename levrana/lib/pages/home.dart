@@ -63,22 +63,7 @@ class HomePage extends StatelessWidget {
                   print("Hello");
                   Navigator.push(
                     context,
-                    MaterialPageRoute(
-                        builder: (context) => Scaffold(
-                              extendBodyBehindAppBar: true,
-                              appBar: AppBar(
-                                iconTheme: IconThemeData(
-                                  color: Colors.black, //change your color here
-                                ),
-                                title: Text("Бонусная карта",
-                                    style: TextStyle(color: Colors.black)),
-                                backgroundColor: Colors.transparent,
-                                elevation: 0.0,
-                              ),
-                              body: Image(
-                                  image: AssetImage(
-                                      'assets/Сканировать QR код.png')),
-                            )),
+                    MaterialPageRoute(builder: (context) => QrPage()),
                   );
                 },
                 child: Container(
@@ -201,6 +186,28 @@ class HomePage extends StatelessWidget {
           ),
         ],
       )),
+    );
+  }
+}
+
+class QrPage extends StatelessWidget {
+  const QrPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text("Бонусная карта", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+      ),
+      body: Image(image: AssetImage('assets/Сканировать QR код.png')),
     );
   }
 }
