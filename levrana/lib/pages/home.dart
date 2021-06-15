@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 
 import 'user.dart';
 
@@ -207,7 +208,40 @@ class QrPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Image(image: AssetImage('assets/Сканировать QR код.png')),
+      body: Stack(
+        children: [
+          Image(image: AssetImage('assets/Сканировать QR код.png')),
+          Center(
+            child: Container(
+              decoration: BoxDecoration(
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.1696),
+                      blurRadius: 0.0,
+                      offset: Offset(0.0, 2),
+                    ),
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.250),
+                      blurRadius: 15.11,
+                      offset: Offset(0.0, 12.02),
+                    ),
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.250),
+                      blurRadius: 80,
+                      offset: Offset(0.0, 42),
+                    )
+                  ],
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(20))),
+              child: QrImage(
+                data: "1234567890",
+                version: QrVersions.auto,
+                size: 200.0,
+              ),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
