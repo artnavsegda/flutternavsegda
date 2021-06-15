@@ -68,17 +68,22 @@ class HomePage extends StatelessWidget {
                         begin: Alignment.centerLeft,
                         end: Alignment.centerRight,
                         colors: <Color>[Color(0xff76B36D), Color(0xffCCED89)])),
-                child: Query(
-                    options: QueryOptions(document: gql(getClientInfo)),
-                    builder: (result, {fetchMore, refetch}) {
-                      print(result.data);
-                      return Text(
-                          result.data!['getClientInfo']['points'].toString(),
-                          style: GoogleFonts.montserrat(
-                              fontSize: 40,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white));
-                    }),
+                child: ListTile(
+                  title:
+                      Image(image: AssetImage('assets/logotype-levrana.png')),
+                  subtitle: Query(
+                      options: QueryOptions(document: gql(getClientInfo)),
+                      builder: (result, {fetchMore, refetch}) {
+                        print(result.data);
+                        return Text(
+                            result.data!['getClientInfo']['points'].toString(),
+                            style: GoogleFonts.montserrat(
+                                fontSize: 40,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white));
+                      }),
+                  trailing: Image(image: AssetImage('assets/Union.png')),
+                ),
               ),
               Query(
                   options: QueryOptions(document: gql(getActions)),
