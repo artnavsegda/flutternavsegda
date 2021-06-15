@@ -61,6 +61,15 @@ class HomePage extends StatelessWidget {
               GestureDetector(
                 onTap: () {
                   print("Hello");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              body: Center(
+                                child: Text("Hello"),
+                              ),
+                            )),
+                  );
                 },
                 child: Container(
                   margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
