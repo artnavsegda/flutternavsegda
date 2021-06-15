@@ -41,8 +41,7 @@ class HomePage extends StatelessWidget {
           child: Stack(
         children: [
           Image(image: AssetImage('assets/background.png')),
-          Wrap(
-            runSpacing: 24.0,
+          Column(
             children: [
               Container(
                 //margin: EdgeInsets.fromLTRB(16, 21, 16, 21),
