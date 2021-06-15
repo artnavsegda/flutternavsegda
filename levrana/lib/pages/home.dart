@@ -43,8 +43,8 @@ class HomePage extends StatelessWidget {
           Image(image: AssetImage('assets/background.png')),
           Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(8.0),
+              Container(
+                margin: EdgeInsets.fromLTRB(16, 21, 16, 21),
                 child: TextField(
                   decoration: InputDecoration(
                       isDense: true,
@@ -59,6 +59,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
               Container(
+                margin: EdgeInsets.fromLTRB(16, 21, 16, 21),
                 width: 288,
                 height: 164,
                 decoration: BoxDecoration(
