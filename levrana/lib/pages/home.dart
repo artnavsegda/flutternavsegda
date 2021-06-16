@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
 import 'user.dart';
+import 'product.dart';
 
 const String getActions = """
 query getActions {
@@ -203,10 +204,11 @@ class ProductCard extends StatelessWidget {
               InkWell(
                 onTap: () {
                   print(product['iD']);
-                  //Navigator.push(
-                  //  context,
-                  //  MaterialPageRoute(builder: (context) => Query()),
-                  //);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ProductPage(id: product['iD'])),
+                  );
                 },
                 child: Image.network(
                   product['picture'],
