@@ -9,19 +9,20 @@ class MorePage extends StatelessWidget {
       children: [
         ListTile(
           title: Text("Служба поддержки"),
-          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
         ),
         ListTile(
           title: Text("Справка"),
-          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+          leading: Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
         ),
         ListTile(
           title: Text("Уведомления"),
-          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
         ),
         ListTile(
           title: Text("Оценить приложение"),
-          trailing: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+          leading:
+              Image(image: AssetImage('assets/ic-24/icon-24-feedback.png')),
         ),
       ],
     );
