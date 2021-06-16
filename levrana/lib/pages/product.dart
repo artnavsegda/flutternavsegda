@@ -1,6 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+const String getProduct = """
+query getProduct {
+  getProduct(productID: 2)
+  {
+    name
+    stickerPictures
+    comment
+  }
+}
+""";
+
 class ProductPage extends StatelessWidget {
   const ProductPage({Key? key, this.id = 0}) : super(key: key);
 
@@ -8,13 +19,17 @@ class ProductPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Text"),
-      ),
-      body: Center(
-        child: Text("$id"),
-      ),
-    );
+    return Query(
+        options: QueryOptions(document: gql(getProduct)),
+        builder: (result, {fetchMore, refetch}) {
+          return Scaffold(
+            appBar: AppBar(
+              title: Text("Text"),
+            ),
+            body: Center(
+              child: Text("$id"),
+            ),
+          );
+        });
   }
 }
