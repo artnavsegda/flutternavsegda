@@ -29,7 +29,13 @@ class ProductPage extends StatelessWidget {
         builder: (result, {fetchMore, refetch}) {
           return Scaffold(
             appBar: AppBar(
-              title: Text(result.data!['getProduct']['name']),
+              iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+              ),
+              title: Text(result.data!['getProduct']['name'],
+                  style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
             ),
             body: Center(
               child: Text("$id"),
