@@ -24,7 +24,7 @@ class ProductPage extends StatelessWidget {
         builder: (result, {fetchMore, refetch}) {
           return Scaffold(
             appBar: AppBar(
-              title: Text("Text"),
+              title: Text(result.data!['getProduct']['name']),
             ),
             body: Center(
               child: Text("$id"),
