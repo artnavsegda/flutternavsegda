@@ -6,7 +6,8 @@ class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Image(image: AssetImage('assets/Корзина пуста.png')),
+      body: Center(
+          child: Image(image: AssetImage('assets/Корзина пуста@2x.png'))),
     );
   }
 }
