@@ -28,7 +28,41 @@ class UserPage extends StatelessWidget {
       body: Stack(
         children: [
           Image(image: AssetImage('assets/Личный кабинет@2x.png')),
-          Query(
+          ListView(
+            children: [
+              ListTile(
+                title: Text("Подарки"),
+                leading:
+                    Image(image: AssetImage('assets/ic-24/icon-24-gift.png')),
+              ),
+              ListTile(
+                title: Text("Активировать промокод"),
+                leading:
+                    Image(image: AssetImage('assets/ic-24/icon-24-promo.png')),
+              ),
+              ListTile(
+                title: Text("История заказов"),
+                leading: Image(
+                    image: AssetImage('assets/ic-24/icon-24-history.png')),
+              ),
+              ListTile(
+                title: Text("Адреса доставки"),
+                leading: Image(
+                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+              ),
+              ListTile(
+                title: Text("Смена пароля"),
+                leading: Image(
+                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+              ),
+              ListTile(
+                title: Text("Выйти"),
+                leading: Image(
+                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+              ),
+            ],
+          ),
+          /* Query(
               options: QueryOptions(document: gql(getClientInfo)),
               builder: (result, {fetchMore, refetch}) {
                 return Column(
@@ -50,7 +84,7 @@ class UserPage extends StatelessWidget {
                         ""),
                   ],
                 );
-              }),
+              }), */
         ],
       ),
     );
