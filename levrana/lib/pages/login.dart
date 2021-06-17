@@ -279,7 +279,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
           TextButton(
               onPressed: () {
-                Navigator.push(
+                Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => MainPage()),
                 );
