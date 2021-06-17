@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const String getClientInfo = """
 query getClientInfo {
@@ -39,6 +40,14 @@ class UserPage extends StatelessWidget {
           Image(image: AssetImage('assets/Личный кабинет@2x.png')),
           ListView(
             children: [
+              ListTile(
+                  title: Text("Михаил Сунцов",
+                      style: GoogleFonts.montserrat(fontSize: 28)),
+                  leading: CircleAvatar(
+                    radius: 40,
+                    backgroundImage:
+                        AssetImage('assets/ic-24/icon-24-gift@3x.png'),
+                  )),
               ListTile(
                 title: Text("Подарки"),
                 leading:
