@@ -47,18 +47,18 @@ class UserPage extends StatelessWidget {
               ),
               ListTile(
                 title: Text("Адреса доставки"),
-                leading: Image(
-                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+                leading:
+                    Image(image: AssetImage('assets/ic-24/icon-24-adress.png')),
               ),
               ListTile(
                 title: Text("Смена пароля"),
-                leading: Image(
-                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+                leading:
+                    Image(image: AssetImage('assets/ic-24/icon-24-pass.png')),
               ),
               ListTile(
                 title: Text("Выйти"),
-                leading: Image(
-                    image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+                leading:
+                    Image(image: AssetImage('assets/ic-24/icon-24-exit.png')),
               ),
             ],
           ),
