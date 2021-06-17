@@ -27,6 +27,7 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
+          Image(image: AssetImage('assets/Личный кабинет@2x.png')),
           Query(
               options: QueryOptions(document: gql(getClientInfo)),
               builder: (result, {fetchMore, refetch}) {
