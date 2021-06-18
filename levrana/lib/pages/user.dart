@@ -48,6 +48,18 @@ class UserPage extends StatelessWidget {
                     backgroundImage:
                         AssetImage('assets/ic-24/icon-24-gift@3x.png'),
                   )),
+              Container(
+                child: Column(
+                  children: [
+                    Text("Доступно бонусов"),
+                    Text("943"),
+                    ElevatedButton(
+                        onPressed: () {}, child: Text("Пригласить друга")),
+                    ElevatedButton(
+                        onPressed: () {}, child: Text("Подарить бонусы")),
+                  ],
+                ),
+              ),
               ListTile(
                 title: Text("Подарки"),
                 leading:
