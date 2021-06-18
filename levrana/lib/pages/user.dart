@@ -28,6 +28,17 @@ class UserPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: const Image(
+                image: AssetImage('assets/ic-24/icon-24-edit-profile.png')),
+            tooltip: 'Show Snackbar',
+            onPressed: () {
+              ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('This is a snackbar')));
+            },
+          ),
+        ],
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
