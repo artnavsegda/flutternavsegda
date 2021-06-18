@@ -34,8 +34,10 @@ class UserPage extends StatelessWidget {
                 image: AssetImage('assets/ic-24/icon-24-edit-profile.png')),
             tooltip: 'Show Snackbar',
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                  const SnackBar(content: Text('This is a snackbar')));
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => EditUserPage()),
+              );
             },
           ),
         ],
@@ -127,6 +129,22 @@ class UserPage extends StatelessWidget {
                 );
               }), */
         ],
+      ),
+    );
+  }
+}
+
+class EditUserPage extends StatelessWidget {
+  const EditUserPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Редактирование профиля"),
+      ),
+      body: Center(
+        child: Text("Hello"),
       ),
     );
   }
