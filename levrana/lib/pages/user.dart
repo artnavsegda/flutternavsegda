@@ -150,9 +150,9 @@ class EditUserPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Center(
-        child: Text("Hello"),
-      ),
+      body: Image(
+          image: AssetImage(
+              'assets/Личный кабинет • Редактирование профиля@2x.png')),
     );
   }
 }
