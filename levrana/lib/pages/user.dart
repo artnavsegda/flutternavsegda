@@ -140,8 +140,15 @@ class EditUserPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Редактирование профиля"),
+        title: Text("Редактирование профиля",
+            style: TextStyle(color: Colors.black)),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
       ),
       body: Center(
         child: Text("Hello"),
