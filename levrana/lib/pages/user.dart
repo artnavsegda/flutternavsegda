@@ -150,9 +150,21 @@ class EditUserPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Image(
-          image: AssetImage(
-              'assets/Личный кабинет • Редактирование профиля@2x.png')),
+      body: Stack(
+        children: [
+          Image(
+              image: AssetImage(
+                  'assets/Личный кабинет • Редактирование профиля@2x.png')),
+          ListView(
+            children: [
+              CircleAvatar(
+                radius: 86,
+                backgroundImage: AssetImage('assets/ic-24/icon-24-gift@3x.png'),
+              ),
+            ],
+          )
+        ],
+      ),
     );
   }
 }
