@@ -28,19 +28,38 @@ class ProductPage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           return Scaffold(
-            appBar: AppBar(
-              iconTheme: IconThemeData(
-                color: Colors.black, //change your color here
+              appBar: AppBar(
+                iconTheme: IconThemeData(
+                  color: Colors.black, //change your color here
+                ),
+                title: Text(result.data!['getProduct']['name'],
+                    style: TextStyle(color: Colors.black)),
+                backgroundColor: Colors.transparent,
+                elevation: 0.0,
               ),
-              title: Text(result.data!['getProduct']['name'],
-                  style: TextStyle(color: Colors.black)),
-              backgroundColor: Colors.transparent,
-              elevation: 0.0,
-            ),
-            body: Center(
+              body: Column(
+                children: [
+                  ExpansionTile(
+                    leading: Icon(Icons.favorite),
+                    trailing: Icon(Icons.favorite),
+                    title: Text("Характеристики"),
+                  ),
+                  ExpansionTile(
+                    title: Text("Описание"),
+                  ),
+                  ExpansionTile(
+                    title: Text("Состав"),
+                  ),
+                  ExpansionTile(
+                    title: Text("Отзывы"),
+                  ),
+                ],
+              )
+
+/*             Center(
               child: Text("$id"),
-            ),
-          );
+            ), */
+              );
         });
   }
 }
