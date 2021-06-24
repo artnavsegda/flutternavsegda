@@ -42,7 +42,11 @@ class HomePage extends StatelessWidget {
       child: SingleChildScrollView(
           child: Stack(
         children: [
-          Image(image: AssetImage('assets/background.png')),
+          Image(
+            image: AssetImage('assets/background.png'),
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Column(
             children: [
               Container(
