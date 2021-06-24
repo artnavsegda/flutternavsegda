@@ -118,7 +118,11 @@ class DialogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Stack(children: [
-      Image(image: image),
+      Image(
+        image: image,
+        width: double.infinity,
+        fit: BoxFit.cover,
+      ),
       Container(
         padding: const EdgeInsets.all(20.0),
         child: Column(
