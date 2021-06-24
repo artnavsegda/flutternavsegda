@@ -71,7 +71,18 @@ class CatalogPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                //print(id);
+                print(id);
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => Scaffold(
+                              appBar: AppBar(
+                                title: Text("Test"),
+                              ),
+                              body: Center(
+                                child: Text("$id"),
+                              ),
+                            )));
               },
             ),
           Expanded(
