@@ -163,14 +163,8 @@ class ProductsListPage extends StatelessWidget {
             icon: const Image(
                 image: AssetImage('assets/ic-24/icon-24-filter-menu.png')),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => Scaffold(
-                            appBar: AppBar(
-                              title: Text("Фильтры"),
-                            ),
-                          )));
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => FiltersPage()));
             },
           ),
         ],
@@ -179,6 +173,34 @@ class ProductsListPage extends StatelessWidget {
         child: Text("$catalogId"),
       ),
     );
+  }
+}
+
+class FiltersPage extends StatelessWidget {
+  const FiltersPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(
+          title: Text("Фильтры"),
+          actions: <Widget>[
+            TextButton(
+              onPressed: () {},
+              child: const Text(
+                'Сбросить',
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            ),
+          ],
+        ),
+        body: Center(
+          child: Text("Hello"),
+        ));
   }
 }
 
