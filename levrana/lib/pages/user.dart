@@ -49,7 +49,11 @@ class UserPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Image(image: AssetImage('assets/Личный кабинет.png')),
+          Image(
+            image: AssetImage('assets/Личный кабинет.png'),
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           ListView(
             children: [
               ListTile(
