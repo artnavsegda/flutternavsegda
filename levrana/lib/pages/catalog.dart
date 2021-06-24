@@ -28,8 +28,8 @@ query getCatalog {
 ''';
 
 const String getProducts = r'''
-query getProducts {
-  getProducts(catalogID: 1, first: 5)
+query getProducts($catalogID: Int!) {
+  getProducts(catalogID: $catalogID, first: 5)
   {
     totalCount
     items {
