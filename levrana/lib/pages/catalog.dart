@@ -118,6 +118,15 @@ class CatalogPage extends StatelessWidget {
                                   title: section['name'],
                                   id: section['iD'],
                                   totalCount: section['totalCount'])));
+                    else {
+                      print(section['iD'].toString());
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProductsListPage(
+                                  catalogId: section['iD'],
+                                  title: section['name'])));
+                    }
                   },
                 );
               },
