@@ -32,7 +32,6 @@ class UserPage extends StatelessWidget {
           IconButton(
             icon: const Image(
                 image: AssetImage('assets/ic-24/icon-24-edit-profile.png')),
-            tooltip: 'Show Snackbar',
             onPressed: () {
               Navigator.push(
                 context,

@@ -147,7 +147,24 @@ class ProductsListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("$title"),
+        iconTheme: IconThemeData(
+          color: Colors.black, //change your color here
+        ),
+        title: Text("$title", style: TextStyle(color: Colors.black)),
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        actions: <Widget>[
+          IconButton(
+            icon: const Image(
+                image: AssetImage('assets/ic-24/icon-24-search.png')),
+            onPressed: () {},
+          ),
+          IconButton(
+            icon: const Image(
+                image: AssetImage('assets/ic-24/icon-24-filter-menu.png')),
+            onPressed: () {},
+          ),
+        ],
       ),
       body: Center(
         child: Text("$catalogId"),
