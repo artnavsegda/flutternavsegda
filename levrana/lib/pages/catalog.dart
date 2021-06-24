@@ -147,7 +147,7 @@ class ProductsListPage extends StatelessWidget {
         title: Text("Test"),
       ),
       body: Center(
-        child: Text("hello"),
+        child: Text("$catalogId"),
       ),
     );
   }
