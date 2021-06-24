@@ -267,7 +267,7 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-      image: AssetImage('assets/Войти в ЛК@2x.png'),
+      image: AssetImage('assets/Войти в ЛК.png'),
       title: "Войти",
       body:
           "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",

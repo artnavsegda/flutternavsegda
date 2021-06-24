@@ -21,7 +21,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-      image: AssetImage('assets/Приветствие@2x.png'),
+      image: AssetImage('assets/Приветствие.png'),
       title: "Привет!",
       body:
           "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас.",
@@ -72,7 +72,7 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-        image: AssetImage('assets/Включить оповещения@2x.png'),
+        image: AssetImage('assets/Включить оповещения.png'),
         title: "Будьте на связи",
         body:
             "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках",

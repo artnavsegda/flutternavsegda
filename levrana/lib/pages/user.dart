@@ -49,7 +49,7 @@ class UserPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Image(image: AssetImage('assets/Личный кабинет@2x.png')),
+          Image(image: AssetImage('assets/Личный кабинет.png')),
           ListView(
             children: [
               ListTile(
@@ -58,7 +58,7 @@ class UserPage extends StatelessWidget {
                   leading: CircleAvatar(
                     radius: 40,
                     backgroundImage:
-                        AssetImage('assets/ic-24/icon-24-gift@3x.png'),
+                        AssetImage('assets/ic-24/icon-24-gift.png'),
                   )),
               Container(
                 child: Column(
