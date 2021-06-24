@@ -261,33 +261,46 @@ class QrPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Center(
-            child: Container(
-              decoration: BoxDecoration(
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.1696),
-                      blurRadius: 0.0,
-                      offset: Offset(0.0, 2),
+            child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.1696),
+                            blurRadius: 0.0,
+                            offset: Offset(0.0, 2),
+                          ),
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.250),
+                            blurRadius: 15.11,
+                            offset: Offset(0.0, 12.02),
+                          ),
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.250),
+                            blurRadius: 80,
+                            offset: Offset(0.0, 42),
+                          )
+                        ],
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(20))),
+                    child: QrImage(
+                      data: "1234567890",
+                      version: QrVersions.auto,
+                      size: 200.0,
                     ),
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.250),
-                      blurRadius: 15.11,
-                      offset: Offset(0.0, 12.02),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.250),
-                      blurRadius: 80,
-                      offset: Offset(0.0, 42),
-                    )
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(20))),
-              child: QrImage(
-                data: "1234567890",
-                version: QrVersions.auto,
-                size: 200.0,
-              ),
-            ),
+                  ),
+                  Text("Показать на кассе"),
+                  Text("+7 921 939 49 40"),
+                  Text(
+                      "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
+                  ElevatedButton(
+                    child: Text("Добавить в Wallet"),
+                    onPressed: () {},
+                  ),
+                ]),
           ),
         ],
       ),
