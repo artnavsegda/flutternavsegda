@@ -162,7 +162,16 @@ class ProductsListPage extends StatelessWidget {
           IconButton(
             icon: const Image(
                 image: AssetImage('assets/ic-24/icon-24-filter-menu.png')),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text("Фильтры"),
+                            ),
+                          )));
+            },
           ),
         ],
       ),
