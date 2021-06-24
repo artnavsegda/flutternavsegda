@@ -88,7 +88,8 @@ class CatalogPage extends StatelessWidget {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => ProductsListPage(catalogId: id)));
+                        builder: (context) =>
+                            ProductsListPage(catalogId: id, title: title)));
               },
             ),
           Expanded(
@@ -136,15 +137,17 @@ class CatalogPage extends StatelessWidget {
 }
 
 class ProductsListPage extends StatelessWidget {
-  const ProductsListPage({Key? key, this.catalogId = 0}) : super(key: key);
+  const ProductsListPage({Key? key, this.catalogId = 0, this.title = "Каталог"})
+      : super(key: key);
 
   final int catalogId;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Test"),
+        title: Text("$title"),
       ),
       body: Center(
         child: Text("$catalogId"),
