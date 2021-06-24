@@ -255,7 +255,11 @@ class QrPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          Image(image: AssetImage('assets/Сканировать QR код.png')),
+          Image(
+            image: AssetImage('assets/Сканировать QR код.png'),
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ),
           Center(
             child: Container(
               decoration: BoxDecoration(
