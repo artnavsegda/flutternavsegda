@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-const String getCatalog = """
+const String getCatalog = r'''
 query getCatalog {
   getCatalog {
     iD
@@ -25,7 +25,20 @@ query getCatalog {
     }
   }
 }
-""";
+''';
+
+const String getProducts = r'''
+query getProducts {
+  getProducts(catalogID: 1, first: 5)
+  {
+    totalCount
+    items {
+      iD
+      name
+    }
+  }
+}
+''';
 
 class CatalogPage extends StatelessWidget {
   CatalogPage(
