@@ -186,7 +186,16 @@ class ProductsListPage extends StatelessWidget {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          return Text("Hello");
+          print(result);
+          //eturn Text("Hello");
+          return ListView.builder(
+              itemCount: 5,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  title:
+                      Text(result.data!['getProducts']['items'][index]['name']),
+                );
+              });
         },
       ),
     );
