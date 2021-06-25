@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import '../main.dart';
 import 'login.dart';
@@ -52,12 +54,23 @@ class Welcome extends StatelessWidget {
               borderRadius: BorderRadius.circular(24.0),
             ))),
             child: Text("ДАЛЬШЕ"),
-            onPressed: () {
-              runMutation({
-                'gUID': "hello",
-                'bundleID': "ru.levrana.mobile",
-                'oSType': "IOS",
-              });
+            onPressed: () async {
+              DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+              if (Platform.isAndroid) {
+                var build = await deviceInfo.androidInfo;
+                runMutation({
+                  'gUID': build.androidId,
+                  'bundleID': "ru.levrana.mobile",
+                  'oSType': "ANDROID",
+                });
+              } else if (Platform.isIOS) {
+                var data = await deviceInfo.iosInfo;
+                runMutation({
+                  'gUID': data.identifierForVendor,
+                  'bundleID': "ru.levrana.mobile",
+                  'oSType': "IOS",
+                });
+              }
             },
           );
         },
