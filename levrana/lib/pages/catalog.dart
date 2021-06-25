@@ -194,7 +194,7 @@ class ProductsListPage extends StatelessWidget {
               itemCount: 5,
               itemBuilder: (context, index) {
                 return GridTile(
-                  title:
+                  child:
                       Text(result.data!['getProducts']['items'][index]['name']),
                 );
               });
