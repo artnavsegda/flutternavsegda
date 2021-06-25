@@ -187,11 +187,13 @@ class ProductsListPage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           print(result);
-          //eturn Text("Hello");
-          return ListView.builder(
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+              ),
               itemCount: 5,
               itemBuilder: (context, index) {
-                return ListTile(
+                return GridTile(
                   title:
                       Text(result.data!['getProducts']['items'][index]['name']),
                 );
