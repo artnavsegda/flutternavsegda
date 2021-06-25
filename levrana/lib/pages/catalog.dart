@@ -29,9 +29,15 @@ query getCatalog {
 
 const String getProducts = r'''
 query getProducts($catalogID: Int!, $cursor: String) {
-  getProducts(catalogID: $catalogID, first: 5, after: $cursor)
+  getProducts(catalogID: $catalogID, first: 2, after: $cursor)
   {
     totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
     items {
       iD
       name
@@ -181,21 +187,22 @@ class ProductsListPage extends StatelessWidget {
       body: Query(
         options: QueryOptions(
           document: gql(getProducts),
-          variables: {
-            'catalogID': catalogId,
-          },
+          variables: {'catalogID': catalogId, 'cursor': null},
         ),
-        builder: (result, {fetchMore, refetch}) {
+        builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
           print(result);
 
-          if (result.isLoading) {
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading && result.data == null) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
-          final List<dynamic> items =
-              (result.data!['getProducts']['items'] as List<dynamic>);
+          final items = (result.data!['getProducts']['items'] as List<dynamic>);
 
           final Map pageInfo = result.data!['getProducts']['pageInfo'];
           final String fetchMoreCursor = pageInfo['endCursor'];
@@ -217,18 +224,13 @@ class ProductsListPage extends StatelessWidget {
             },
           );
 
-          return Column(children: [
-            ElevatedButton(onPressed: () {}, child: Text("Fetch more")),
-            GridView.builder(
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                ),
-                itemCount: items.length,
-                itemBuilder: (context, index) {
-                  return GridTile(
-                    child: Text(items[index]['name']),
-                  );
-                })
+          return ListView(children: [
+            ElevatedButton(
+                onPressed: () {
+                  fetchMore!(opts);
+                },
+                child: Text("More")),
+            for (var item in items) ListTile(title: Text(item['name']))
           ]);
 
           /*return GridView.builder(
