@@ -29,7 +29,7 @@ query getCatalog {
 
 const String getProducts = r'''
 query getProducts($catalogID: Int!, $cursor: String) {
-  getProducts(catalogID: $catalogID, first: 2, after: $cursor)
+  getProducts(catalogID: $catalogID, first: 1, after: $cursor)
   {
     totalCount
     pageInfo {
