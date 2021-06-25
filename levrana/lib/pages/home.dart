@@ -175,7 +175,6 @@ class HomePage extends StatelessWidget {
                                             )
                                             .toList()
                                             .cast<Widget>()),
-                                    Text("Something")
                                   ]),
                             )
                             .toList()
