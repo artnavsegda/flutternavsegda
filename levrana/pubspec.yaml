@@ -35,6 +35,7 @@ dependencies:
   phone_number: ^0.11.0
   shared_preferences: ^2.0.6
   qr_flutter: ^4.0.0
+  device_info_plus: ^2.0.1
 
 dev_dependencies:
   flutter_test:
