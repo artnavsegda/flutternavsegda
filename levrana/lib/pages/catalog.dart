@@ -178,8 +178,16 @@ class ProductsListPage extends StatelessWidget {
           ),
         ],
       ),
-      body: Center(
-        child: Text("$catalogId"),
+      body: Query(
+        options: QueryOptions(
+          document: gql(getProducts),
+          variables: {
+            'catalogID': catalogId,
+          },
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          return Text("Hello");
+        },
       ),
     );
   }
