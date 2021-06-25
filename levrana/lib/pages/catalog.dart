@@ -28,8 +28,8 @@ query getCatalog {
 ''';
 
 const String getProducts = r'''
-query getProducts($catalogID: Int!) {
-  getProducts(catalogID: $catalogID, first: 5)
+query getProducts($catalogID: Int!, $cursor: String) {
+  getProducts(catalogID: $catalogID, first: 5, after: $cursor)
   {
     totalCount
     items {
@@ -187,7 +187,51 @@ class ProductsListPage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           print(result);
-          return GridView.builder(
+
+          if (result.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          final List<dynamic> items =
+              (result.data!['getProducts']['items'] as List<dynamic>);
+
+          final Map pageInfo = result.data!['getProducts']['pageInfo'];
+          final String fetchMoreCursor = pageInfo['endCursor'];
+
+          FetchMoreOptions opts = FetchMoreOptions(
+            variables: {'cursor': fetchMoreCursor},
+            updateQuery: (previousResultData, fetchMoreResultData) {
+              final List<dynamic> items = [
+                ...previousResultData!['getProducts']['items'] as List<dynamic>,
+                ...fetchMoreResultData!['getProducts']['items'] as List<dynamic>
+              ];
+
+              // to avoid a lot of work, lets just update the list of repos in returned
+              // data with new data, this also ensures we have the endCursor already set
+              // correctly
+              fetchMoreResultData['getProducts']['items'] = items;
+
+              return fetchMoreResultData;
+            },
+          );
+
+          return Column(children: [
+            ElevatedButton(onPressed: () {}, child: Text("Fetch more")),
+            GridView.builder(
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                ),
+                itemCount: items.length,
+                itemBuilder: (context, index) {
+                  return GridTile(
+                    child: Text(items[index]['name']),
+                  );
+                })
+          ]);
+
+          /*return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
@@ -197,7 +241,7 @@ class ProductsListPage extends StatelessWidget {
                   child:
                       Text(result.data!['getProducts']['items'][index]['name']),
                 );
-              });
+              });*/
         },
       ),
     );
