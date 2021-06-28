@@ -5,6 +5,7 @@ const String getProduct = r'''
 query getProduct($productID: Int!) {
   getProduct(productID: $productID)
   {
+    iD
     name
     stickerPictures
     comment
@@ -33,7 +34,6 @@ class CharacteristicsElement extends StatelessWidget {
       //case 'TEXT':
       //  return Text(element['name']);
       case 'VOLUME':
-        //return Text(element['name']);
         return Row(
             children: element['values']
                 .map((e) => ChoiceChip(
@@ -43,7 +43,7 @@ class CharacteristicsElement extends StatelessWidget {
                 .toList()
                 .cast<Widget>());
       default:
-        return Text("null");
+        return Text(element['name']);
     }
   }
 }
