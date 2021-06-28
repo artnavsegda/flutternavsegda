@@ -95,12 +95,7 @@ class ProductPage extends StatelessWidget {
                   ),
                   ElevatedButton(onPressed: () {}, child: Text("Купи")),
                 ],
-              )
-
-/*             Center(
-              child: Text("$id"),
-            ), */
-              );
+              ));
         });
   }
 }
