@@ -20,6 +20,14 @@ class ShoppingPage extends StatelessWidget {
             options: QueryOptions(document: gql(getCart)),
             builder: (result, {refetch, fetchMore}) {
               print(result);
+              return ListView.builder(
+                  itemCount: result.data!['getCart'].length,
+                  itemBuilder: (context, index) {
+                    return ListTile(
+                        title: Text(
+                            result.data!['getCart'][index]['productName']));
+                  });
+
               return Center(
                   child: Image(
                 image: AssetImage('assets/Корзина пуста.png'),
