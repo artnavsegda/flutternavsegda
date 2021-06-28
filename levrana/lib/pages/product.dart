@@ -8,6 +8,14 @@ query getProduct($productID: Int!) {
     name
     stickerPictures
     comment
+    characteristics {
+      name
+      isPrice
+      values {
+        iD
+        value
+      }
+    }
   }
 }
 ''';
@@ -27,6 +35,7 @@ class ProductPage extends StatelessWidget {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
+          print(result);
           return Scaffold(
               appBar: AppBar(
                 iconTheme: IconThemeData(
