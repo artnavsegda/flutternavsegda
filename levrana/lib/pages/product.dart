@@ -29,7 +29,14 @@ class CharacteristicsElement extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Text(element['name']);
+    switch (element['type']) {
+      //case 'TEXT':
+      //  return Text(element['name']);
+      case 'VOLUME':
+        return Text(element['name']);
+      default:
+        return Text("null");
+    }
   }
 }
 
