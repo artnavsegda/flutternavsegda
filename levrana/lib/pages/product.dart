@@ -39,6 +39,24 @@ class ProductPage extends StatelessWidget {
               ),
               body: Column(
                 children: [
+                  Row(children: [
+                    ChoiceChip(
+                      label: Text('15ML'),
+                      selected: true,
+                    ),
+                    ChoiceChip(
+                      label: Text('50ML'),
+                      selected: false,
+                    ),
+                    ChoiceChip(
+                      label: Text('75ML'),
+                      selected: false,
+                    ),
+                    ChoiceChip(
+                      label: Text('150ML'),
+                      selected: false,
+                    ),
+                  ]),
                   ExpansionTile(
                     leading: Icon(Icons.favorite),
                     trailing: Icon(Icons.favorite),
