@@ -9,7 +9,9 @@ query getProduct($productID: Int!) {
     stickerPictures
     comment
     characteristics {
+      iD
       name
+      type
       isPrice
       values {
         iD
@@ -47,7 +49,12 @@ class ProductPage extends StatelessWidget {
                 elevation: 0.0,
               ),
               body: Column(
-                children: [
+                  children: result.data!['getProduct']['characteristics']
+                      .map((e) => Text(e['name']))
+                      .toList()
+                      .cast<Widget>()
+
+                  /* [
                   Row(children: [
                     ChoiceChip(
                       label: Text('15ML'),
@@ -80,8 +87,8 @@ class ProductPage extends StatelessWidget {
                   ExpansionTile(
                     title: Text("Отзывы"),
                   ),
-                ],
-              )
+                ], */
+                  )
 
 /*             Center(
               child: Text("$id"),
