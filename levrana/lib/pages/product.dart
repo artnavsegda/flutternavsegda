@@ -76,46 +76,51 @@ class ProductPage extends StatelessWidget {
                 elevation: 0.0,
               ),
               body: Column(
-                  children: result.data!['getProduct']['characteristics']
-                      .map((e) => CharacteristicsElement(element: e))
-                      .toList()
-                      .cast<Widget>()
+                children: [
+                  Column(
+                      children: result.data!['getProduct']['characteristics']
+                          .map((e) => CharacteristicsElement(element: e))
+                          .toList()
+                          .cast<Widget>()
 
-                  /* [
-                  Row(children: [
-                    ChoiceChip(
-                      label: Text('15ML'),
-                      selected: true,
-                    ),
-                    ChoiceChip(
-                      label: Text('50ML'),
-                      selected: false,
-                    ),
-                    ChoiceChip(
-                      label: Text('75ML'),
-                      selected: false,
-                    ),
-                    ChoiceChip(
-                      label: Text('150ML'),
-                      selected: false,
-                    ),
-                  ]),
-                  ExpansionTile(
-                    leading: Icon(Icons.favorite),
-                    trailing: Icon(Icons.favorite),
-                    title: Text("Характеристики"),
-                  ),
-                  ExpansionTile(
-                    title: Text("Описание"),
-                  ),
-                  ExpansionTile(
-                    title: Text("Состав"),
-                  ),
-                  ExpansionTile(
-                    title: Text("Отзывы"),
-                  ),
-                ], */
-                  )
+                      /* [
+                      Row(children: [
+                        ChoiceChip(
+                          label: Text('15ML'),
+                          selected: true,
+                        ),
+                        ChoiceChip(
+                          label: Text('50ML'),
+                          selected: false,
+                        ),
+                        ChoiceChip(
+                          label: Text('75ML'),
+                          selected: false,
+                        ),
+                        ChoiceChip(
+                          label: Text('150ML'),
+                          selected: false,
+                        ),
+                      ]),
+                      ExpansionTile(
+                        leading: Icon(Icons.favorite),
+                        trailing: Icon(Icons.favorite),
+                        title: Text("Характеристики"),
+                      ),
+                      ExpansionTile(
+                        title: Text("Описание"),
+                      ),
+                      ExpansionTile(
+                        title: Text("Состав"),
+                      ),
+                      ExpansionTile(
+                        title: Text("Отзывы"),
+                      ),
+                    ], */
+                      ),
+                  ElevatedButton(onPressed: () {}, child: Text("Купи")),
+                ],
+              )
 
 /*             Center(
               child: Text("$id"),
