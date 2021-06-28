@@ -22,6 +22,17 @@ query getProduct($productID: Int!) {
 }
 ''';
 
+class CharacteristicsElement extends StatelessWidget {
+  const CharacteristicsElement({Key? key, this.element}) : super(key: key);
+
+  final element;
+
+  @override
+  Widget build(BuildContext context) {
+    return Text(element['name']);
+  }
+}
+
 class ProductPage extends StatelessWidget {
   const ProductPage({Key? key, this.id = 0}) : super(key: key);
 
@@ -50,7 +61,7 @@ class ProductPage extends StatelessWidget {
               ),
               body: Column(
                   children: result.data!['getProduct']['characteristics']
-                      .map((e) => Text(e['name']))
+                      .map((e) => CharacteristicsElement(element: e))
                       .toList()
                       .cast<Widget>()
 
