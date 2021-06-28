@@ -81,44 +81,10 @@ class ProductPage extends StatelessWidget {
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(element: e))
                           .toList()
-                          .cast<Widget>()
-
-                      /* [
-                      Row(children: [
-                        ChoiceChip(
-                          label: Text('15ML'),
-                          selected: true,
-                        ),
-                        ChoiceChip(
-                          label: Text('50ML'),
-                          selected: false,
-                        ),
-                        ChoiceChip(
-                          label: Text('75ML'),
-                          selected: false,
-                        ),
-                        ChoiceChip(
-                          label: Text('150ML'),
-                          selected: false,
-                        ),
-                      ]),
-                      ExpansionTile(
-                        leading: Icon(Icons.favorite),
-                        trailing: Icon(Icons.favorite),
-                        title: Text("Характеристики"),
-                      ),
-                      ExpansionTile(
-                        title: Text("Описание"),
-                      ),
-                      ExpansionTile(
-                        title: Text("Состав"),
-                      ),
-                      ExpansionTile(
-                        title: Text("Отзывы"),
-                      ),
-                    ], */
-                      ),
+                          .cast<Widget>()),
                   ExpansionTile(
+                    leading: Icon(Icons.favorite),
+                    trailing: Icon(Icons.favorite),
                     title: Text("Описание"),
                   ),
                   ExpansionTile(
