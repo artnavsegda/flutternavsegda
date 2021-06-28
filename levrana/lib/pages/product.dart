@@ -23,6 +23,14 @@ query getProduct($productID: Int!) {
 }
 ''';
 
+const String cartAdd = r'''
+mutation cartAdd($productID: Int!) {
+  cartAdd(cartItem: {productID: $productID, quantity: 1}) {
+    result
+  }
+}
+''';
+
 class CharacteristicsElement extends StatelessWidget {
   const CharacteristicsElement({Key? key, this.element}) : super(key: key);
 
