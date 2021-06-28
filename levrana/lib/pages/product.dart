@@ -118,6 +118,15 @@ class ProductPage extends StatelessWidget {
                       ),
                     ], */
                       ),
+                  ExpansionTile(
+                    title: Text("Описание"),
+                  ),
+                  ExpansionTile(
+                    title: Text("Состав"),
+                  ),
+                  ExpansionTile(
+                    title: Text("Отзывы"),
+                  ),
                   ElevatedButton(onPressed: () {}, child: Text("Купи")),
                 ],
               )
