@@ -101,7 +101,23 @@ class ProductPage extends StatelessWidget {
                   ExpansionTile(
                     title: Text("Отзывы"),
                   ),
-                  ElevatedButton(onPressed: () {}, child: Text("Купи")),
+                  Mutation(
+                    options: MutationOptions(
+                      document: gql(cartAdd),
+                      onCompleted: (resultData) {
+                        print(resultData);
+                      },
+                    ),
+                    builder: (runMutation, result) {
+                      return ElevatedButton(
+                          onPressed: () {
+                            runMutation({
+                              'productID': id,
+                            });
+                          },
+                          child: Text("Купи"));
+                    },
+                  )
                 ],
               ));
         });
