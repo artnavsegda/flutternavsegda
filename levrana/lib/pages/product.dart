@@ -34,6 +34,7 @@ class CharacteristicsElement extends StatelessWidget {
       //case 'TEXT':
       //  return Text(element['name']);
       case 'VOLUME':
+      case 'SIZE':
         return Row(
             children: element['values']
                 .map((e) => ChoiceChip(
