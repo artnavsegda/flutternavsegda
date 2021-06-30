@@ -159,6 +159,28 @@ class ProductCard extends StatelessWidget {
                 child: InkWell(
                   onTap: () {
                     print(product['iD']);
+                    showModalBottomSheet(
+                      context: context,
+                      builder: (context) {
+                        return Container(
+                          height: 200,
+                          color: Colors.amber,
+                          child: Center(
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.min,
+                              children: <Widget>[
+                                const Text('Modal BottomSheet'),
+                                ElevatedButton(
+                                  child: const Text('Close BottomSheet'),
+                                  onPressed: () => Navigator.pop(context),
+                                )
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    );
                   },
                   child: Image.asset(
                     'assets/ic-24/icon-24-shopping.png',
