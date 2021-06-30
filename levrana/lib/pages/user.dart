@@ -164,33 +164,34 @@ class EditUserPage extends StatelessWidget {
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
-      body: Stack(
-        children: [
-          Image(
-              image: AssetImage(
-                  'assets/Личный кабинет • Редактирование профиля.png')),
-          ListView(
-            children: [
-              CircleAvatar(
-                radius: 86,
-                backgroundImage: AssetImage('assets/ic-24/icon-24-gift.png'),
-              ),
-              Text("Label text1"),
-              TextField(decoration: InputDecoration(labelText: 'Label text2')),
-              Text(""),
-              TextField(),
-              Text(""),
-              TextField(),
-              Text(""),
-              TextField(),
-              Text(""),
-              TextField(),
-              Text(""),
-              TextField(),
-              ElevatedButton(onPressed: () {}, child: Text("Сохранить"))
-            ],
-          )
-        ],
+      body: SingleChildScrollView(
+        child: Stack(
+          children: [
+            Image(
+                image: AssetImage(
+                    'assets/Личный кабинет • Редактирование профиля.png')),
+            Column(
+              children: [
+                SizedBox(height: 100.0),
+                CircleAvatar(
+                  radius: 86,
+                  backgroundImage: AssetImage('assets/ic-24/icon-24-gift.png'),
+                ),
+                TextField(decoration: InputDecoration(labelText: 'Имя')),
+                TextField(decoration: InputDecoration(labelText: 'E-mail')),
+                TextField(decoration: InputDecoration(labelText: 'Телефон')),
+                TextField(
+                    decoration: InputDecoration(labelText: 'Дата рождения')),
+                TextField(decoration: InputDecoration(labelText: 'Пол')),
+                TextField(
+                    decoration: InputDecoration(labelText: 'Размер одежды')),
+                TextField(
+                    decoration: InputDecoration(labelText: 'Размер обуви')),
+                ElevatedButton(onPressed: () {}, child: Text("Сохранить"))
+              ],
+            )
+          ],
+        ),
       ),
     );
   }
