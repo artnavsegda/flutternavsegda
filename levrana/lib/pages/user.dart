@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 const String getClientInfo = """
 query getClientInfo {
@@ -102,6 +103,10 @@ class UserPage extends StatelessWidget {
                     Image(image: AssetImage('assets/ic-24/icon-24-pass.png')),
               ),
               ListTile(
+                onTap: () async {
+                  final prefs = await SharedPreferences.getInstance();
+                  prefs.setString('token', '');
+                },
                 title: Text("Выйти"),
                 leading:
                     Image(image: AssetImage('assets/ic-24/icon-24-exit.png')),
