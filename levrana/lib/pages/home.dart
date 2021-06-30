@@ -188,58 +188,6 @@ class HomePage extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  const ProductCard({
-    Key? key,
-    this.product,
-  }) : super(key: key);
-
-  final product;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 136,
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              InkWell(
-                onTap: () {
-                  print(product['iD']);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductPage(id: product['iD'])),
-                  );
-                },
-                child: Image.network(
-                  product['picture'],
-                ),
-              ),
-              Positioned(
-                bottom: 0,
-                right: 0,
-                child: InkWell(
-                  onTap: () {
-                    print(product['iD']);
-                  },
-                  child: Image.asset(
-                    'assets/ic-24/icon-24-shopping.png',
-                    width: 40,
-                    height: 40,
-                  ),
-                ),
-              )
-            ],
-          ),
-          Text(product['name']),
-        ],
-      ),
-    );
-  }
-}
-
 class QrPage extends StatelessWidget {
   const QrPage({
     Key? key,
