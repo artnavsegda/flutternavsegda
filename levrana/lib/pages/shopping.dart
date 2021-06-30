@@ -10,6 +10,15 @@ query getCart {
 }
 ''';
 
+const String getFavoritesProducts = r'''
+query getFavoritesProducts {
+  getFavoritesProducts {
+    iD
+    name
+  }
+}
+''';
+
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
 
@@ -43,7 +52,25 @@ class ShoppingPage extends StatelessWidget {
                     fit: BoxFit.cover,
                   ));
                 }),
-            Text("Hello")
+            Query(
+                options: QueryOptions(document: gql(getFavoritesProducts)),
+                builder: (result, {refetch, fetchMore}) {
+                  print(result);
+                  return ListView.builder(
+                      itemCount: result.data!['getFavoritesProducts'].length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            title: Text(result.data!['getFavoritesProducts']
+                                [index]['name']));
+                      });
+
+                  return Center(
+                      child: Image(
+                    image: AssetImage('assets/Корзина пуста.png'),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ));
+                }),
           ],
         ),
       ),
