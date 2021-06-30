@@ -170,7 +170,10 @@ class HomePage extends StatelessWidget {
                                             fontSize: 28,
                                             fontWeight: FontWeight.w700,
                                           )),
+                                      SizedBox(height: 16),
                                       Wrap(
+                                          spacing: 16,
+                                          runSpacing: 16,
                                           children: section['products']
                                               .map(
                                                 (product) => ProductCard(
