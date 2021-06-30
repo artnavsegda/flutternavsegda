@@ -3,6 +3,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'dialog.dart';
+
 const String getClientInfo = """
 query getClientInfo {
   getClientInfo {
@@ -106,6 +108,10 @@ class UserPage extends StatelessWidget {
                 onTap: () async {
                   final prefs = await SharedPreferences.getInstance();
                   prefs.setString('token', '');
+                  Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(builder: (context) => Welcome()),
+                  );
                 },
                 title: Text("Выйти"),
                 leading:
@@ -162,7 +168,7 @@ class EditUserPage extends StatelessWidget {
         children: [
           Image(
               image: AssetImage(
-                  'assets/Личный кабинет • Редактирование профиля@2x.png')),
+                  'assets/Личный кабинет • Редактирование профиля.png')),
           ListView(
             children: [
               CircleAvatar(
