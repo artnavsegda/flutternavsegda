@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:levrana/pages/product.dart';
 
 const String getCatalog = r'''
 query getCatalog {
@@ -41,6 +42,7 @@ query getProducts($catalogID: Int!, $cursor: String) {
     items {
       iD
       name
+      picture
     }
   }
 }
@@ -224,14 +226,20 @@ class ProductsListPage extends StatelessWidget {
             },
           );
 
-          return ListView(children: [
-            ElevatedButton(
-                onPressed: () {
-                  fetchMore!(opts);
-                },
-                child: Text("More")),
-            for (var item in items) ListTile(title: Text(item['name']))
-          ]);
+          return GridView.count(
+              crossAxisCount: 2,
+              childAspectRatio: 0.8,
+              children: [
+/*                 ElevatedButton(
+                    onPressed: () {
+                      fetchMore!(opts);
+                    },
+                    child: Text("More")), */
+                for (var item in items)
+                  ProductCard(
+                    product: item,
+                  )
+              ]);
 
           /*return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
