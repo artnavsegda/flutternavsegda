@@ -206,8 +206,6 @@ class ProductBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      //height: 200,
-      color: Colors.amber,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -246,10 +244,22 @@ class ProductBottomSheet extends StatelessWidget {
                         .toList()
                         .cast<Widget>());
               }),
-          Text('Modal BottomSheet'),
-          ElevatedButton(
-            child: const Text('Close BottomSheet'),
-            onPressed: () => Navigator.pop(context),
+          Mutation(
+            options: MutationOptions(
+              document: gql(cartAdd),
+              onCompleted: (resultData) {
+                print(resultData);
+              },
+            ),
+            builder: (runMutation, result) {
+              return ElevatedButton(
+                  onPressed: () {
+                    runMutation({
+                      'productID': id,
+                    });
+                  },
+                  child: Text("Купи"));
+            },
           )
         ],
       ),
