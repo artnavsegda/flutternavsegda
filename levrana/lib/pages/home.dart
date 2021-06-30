@@ -159,23 +159,27 @@ class HomePage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: result.data!['getTopBlocks']
                             .map(
-                              (section) => Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(section['name'],
-                                        style: GoogleFonts.montserrat(
-                                          fontSize: 28,
-                                          fontWeight: FontWeight.w700,
-                                        )),
-                                    Wrap(
-                                        children: section['products']
-                                            .map(
-                                              (product) =>
-                                                  ProductCard(product: product),
-                                            )
-                                            .toList()
-                                            .cast<Widget>()),
-                                  ]),
+                              (section) => Container(
+                                margin: EdgeInsets.fromLTRB(0, 33, 0, 0),
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(section['name'],
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w700,
+                                          )),
+                                      Wrap(
+                                          children: section['products']
+                                              .map(
+                                                (product) => ProductCard(
+                                                    product: product),
+                                              )
+                                              .toList()
+                                              .cast<Widget>()),
+                                    ]),
+                              ),
                             )
                             .toList()
                             .cast<Widget>());
