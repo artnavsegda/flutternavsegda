@@ -31,6 +31,14 @@ mutation cartAdd($productID: Int!) {
 }
 ''';
 
+const String setFavoritesProduct = r'''
+mutation setFavoritesProduct($productID: Int!) {
+  setFavoritesProduct(productId: $productID) {
+    result
+  }
+}
+''';
+
 Color hexToColor(String code) {
   return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
@@ -114,22 +122,49 @@ class ProductPage extends StatelessWidget {
                   ExpansionTile(
                     title: Text("Отзывы"),
                   ),
-                  Mutation(
-                    options: MutationOptions(
-                      document: gql(cartAdd),
-                      onCompleted: (resultData) {
-                        print(resultData);
-                      },
-                    ),
-                    builder: (runMutation, result) {
-                      return ElevatedButton(
-                          onPressed: () {
-                            runMutation({
-                              'productID': id,
-                            });
+                  Row(
+                    children: [
+                      Mutation(
+                        options: MutationOptions(
+                          document: gql(cartAdd),
+                          onCompleted: (resultData) {
+                            print(resultData);
                           },
-                          child: Text("Купи"));
-                    },
+                        ),
+                        builder: (runMutation, result) {
+                          return ElevatedButton(
+                              onPressed: () {
+                                runMutation({
+                                  'productID': id,
+                                });
+                              },
+                              child: Text("Купи"));
+                        },
+                      ),
+                      Mutation(
+                        options: MutationOptions(
+                          document: gql(setFavoritesProduct),
+                          onCompleted: (resultData) {
+                            print(resultData);
+                          },
+                        ),
+                        builder: (runMutation, result) {
+                          return ElevatedButton(
+                            onPressed: () {
+                              runMutation({
+                                'productID': id,
+                              });
+                            },
+                            child: Icon(
+                              Icons.favorite_border_outlined,
+                            ),
+                            style: ElevatedButton.styleFrom(
+                              shape: CircleBorder(),
+                            ),
+                          );
+                        },
+                      )
+                    ],
                   )
                 ],
               ));

@@ -15,25 +15,38 @@ class ShoppingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: Query(
-            options: QueryOptions(document: gql(getCart)),
-            builder: (result, {refetch, fetchMore}) {
-              print(result);
-              return ListView.builder(
-                  itemCount: result.data!['getCart'].length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                        title: Text(
-                            result.data!['getCart'][index]['productName']));
-                  });
+    return DefaultTabController(
+      length: 2,
+      child: Scaffold(
+        appBar: TabBar(labelColor: Colors.black, tabs: [
+          Tab(text: "Корзина"),
+          Tab(text: "Отложенные"),
+        ]),
+        body: TabBarView(
+          children: [
+            Query(
+                options: QueryOptions(document: gql(getCart)),
+                builder: (result, {refetch, fetchMore}) {
+                  print(result);
+                  return ListView.builder(
+                      itemCount: result.data!['getCart'].length,
+                      itemBuilder: (context, index) {
+                        return ListTile(
+                            title: Text(
+                                result.data!['getCart'][index]['productName']));
+                      });
 
-              return Center(
-                  child: Image(
-                image: AssetImage('assets/Корзина пуста.png'),
-                width: double.infinity,
-                fit: BoxFit.cover,
-              ));
-            }));
+                  return Center(
+                      child: Image(
+                    image: AssetImage('assets/Корзина пуста.png'),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ));
+                }),
+            Text("Hello")
+          ],
+        ),
+      ),
+    );
   }
 }
