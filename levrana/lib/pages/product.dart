@@ -31,6 +31,10 @@ mutation cartAdd($productID: Int!) {
 }
 ''';
 
+Color hexToColor(String code) {
+  return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
+
 class CharacteristicsElement extends StatelessWidget {
   const CharacteristicsElement({Key? key, this.element}) : super(key: key);
 
@@ -49,6 +53,15 @@ class CharacteristicsElement extends StatelessWidget {
                       label: Text(e['value']),
                       selected: false,
                     ))
+                .toList()
+                .cast<Widget>());
+      case 'COLOR':
+        return Row(
+            children: element['values']
+                .map((e) => ChoiceChip(
+                    label: Text(e['value']),
+                    selected: false,
+                    disabledColor: hexToColor(e['value'])))
                 .toList()
                 .cast<Widget>());
       default:
