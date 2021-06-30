@@ -162,30 +162,8 @@ class ProductCard extends StatelessWidget {
                     showModalBottomSheet(
                       context: context,
                       builder: (context) {
-                        return Container(
-                          height: 200,
-                          color: Colors.amber,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            mainAxisSize: MainAxisSize.min,
-                            children: <Widget>[
-                              Row(
-                                children: [
-                                  Image.network(
-                                    product['picture'],
-                                    width: 80,
-                                  ),
-                                  Flexible(child: Text(product['name'])),
-                                ],
-                              ),
-                              Text('Modal BottomSheet'),
-                              ElevatedButton(
-                                child: const Text('Close BottomSheet'),
-                                onPressed: () => Navigator.pop(context),
-                              )
-                            ],
-                          ),
-                        );
+                        return ProductBottomSheet(
+                            product: product, id: product['iD']);
                       },
                     );
                   },
@@ -199,6 +177,67 @@ class ProductCard extends StatelessWidget {
             ],
           ),
           Text(product['name']),
+        ],
+      ),
+    );
+  }
+}
+
+class ProductBottomSheet extends StatelessWidget {
+  const ProductBottomSheet({Key? key, this.id = 0, this.product})
+      : super(key: key);
+
+  final int id;
+  final product;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 200,
+      color: Colors.amber,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Row(
+            children: [
+              Image.network(
+                product['picture'],
+                width: 80,
+              ),
+              Flexible(child: Text(product['name'])),
+            ],
+          ),
+          Query(
+              options: QueryOptions(
+                document: gql(getProduct),
+                variables: {
+                  'productID': id,
+                },
+              ),
+              builder: (result, {fetchMore, refetch}) {
+                print(result);
+                if (result.hasException) {
+                  return Text(result.exception.toString());
+                }
+
+                if (result.isLoading) {
+                  return Text('Loading');
+                }
+
+                return Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisSize: MainAxisSize.min,
+                    children: result.data!['getProduct']['characteristics']
+                        .map((e) => CharacteristicsElement(element: e))
+                        .toList()
+                        .cast<Widget>());
+              }),
+          Text('Modal BottomSheet'),
+          ElevatedButton(
+            child: const Text('Close BottomSheet'),
+            onPressed: () => Navigator.pop(context),
+          )
         ],
       ),
     );
