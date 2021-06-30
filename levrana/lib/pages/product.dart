@@ -202,6 +202,14 @@ class ProductCard extends StatelessWidget {
                 ),
               ),
               Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    color: Colors.white,
+                    width: 40,
+                    height: 40,
+                  )),
+              Positioned(
                 bottom: 0,
                 right: 0,
                 child: InkWell(
