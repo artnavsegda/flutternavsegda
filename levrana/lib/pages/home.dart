@@ -220,10 +220,15 @@ class ProductCard extends StatelessWidget {
               Positioned(
                 bottom: 0,
                 right: 0,
-                child: Image.asset(
-                  'assets/ic-24/icon-24-shopping.png',
-                  width: 40,
-                  height: 40,
+                child: InkWell(
+                  onTap: () {
+                    print(product['iD']);
+                  },
+                  child: Image.asset(
+                    'assets/ic-24/icon-24-shopping.png',
+                    width: 40,
+                    height: 40,
+                  ),
                 ),
               )
             ],
