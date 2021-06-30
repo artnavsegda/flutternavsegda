@@ -104,19 +104,23 @@ class UserPage extends StatelessWidget {
                 leading:
                     Image(image: AssetImage('assets/ic-24/icon-24-pass.png')),
               ),
-              ListTile(
-                onTap: () async {
-                  final prefs = await SharedPreferences.getInstance();
-                  prefs.setString('token', '');
-                  Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(builder: (context) => Welcome()),
-                  );
-                },
-                title: Text("Выйти"),
-                leading:
-                    Image(image: AssetImage('assets/ic-24/icon-24-exit.png')),
-              ),
+              GraphQLConsumer(builder: (GraphQLClient client) {
+                return ListTile(
+                  onTap: () async {
+                    final prefs = await SharedPreferences.getInstance();
+                    prefs.setString('token', '');
+                    client.cache.store.reset(); // empty the hash map
+                    //await client.cache.save();
+                    Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(builder: (context) => Welcome()),
+                    );
+                  },
+                  title: Text("Выйти"),
+                  leading:
+                      Image(image: AssetImage('assets/ic-24/icon-24-exit.png')),
+                );
+              }),
             ],
           ),
           /* Query(
