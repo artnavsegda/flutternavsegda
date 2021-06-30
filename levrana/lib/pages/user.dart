@@ -173,7 +173,7 @@ class EditUserPage extends StatelessWidget {
             children: [
               CircleAvatar(
                 radius: 86,
-                backgroundImage: AssetImage('assets/ic-24/icon-24-gift@3x.png'),
+                backgroundImage: AssetImage('assets/ic-24/icon-24-gift.png'),
               ),
               Text(""),
               TextField(),
