@@ -138,8 +138,15 @@ class UserPage extends StatelessWidget {
   }
 }
 
-class EditUserPage extends StatelessWidget {
+class EditUserPage extends StatefulWidget {
   const EditUserPage({Key? key}) : super(key: key);
+
+  @override
+  _EditUserPageState createState() => _EditUserPageState();
+}
+
+class _EditUserPageState extends State<EditUserPage> {
+  final _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
@@ -172,30 +179,42 @@ class EditUserPage extends StatelessWidget {
                   child: Query(
                       options: QueryOptions(document: gql(getClientInfo)),
                       builder: (result, {fetchMore, refetch}) {
-                        return Column(
-                          children: [
-                            TextFormField(
-                                initialValue:
-                                    result.data!['getClientInfo']['name'] ?? "",
-                                decoration: InputDecoration(labelText: 'Имя')),
-                            TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'E-mail')),
-                            TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'Телефон')),
-                            TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: 'Дата рождения')),
-                            TextFormField(
-                                decoration: InputDecoration(labelText: 'Пол')),
-                            TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: 'Размер одежды')),
-                            TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'Размер обуви')),
-                          ],
+                        return Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите имя';
+                                    }
+                                    return null;
+                                  },
+                                  initialValue: result.data!['getClientInfo']
+                                          ['name'] ??
+                                      "",
+                                  decoration:
+                                      InputDecoration(labelText: 'Имя')),
+                              TextFormField(
+                                  decoration:
+                                      InputDecoration(labelText: 'E-mail')),
+                              TextFormField(
+                                  decoration:
+                                      InputDecoration(labelText: 'Телефон')),
+                              TextFormField(
+                                  decoration: InputDecoration(
+                                      labelText: 'Дата рождения')),
+                              TextFormField(
+                                  decoration:
+                                      InputDecoration(labelText: 'Пол')),
+                              TextFormField(
+                                  decoration: InputDecoration(
+                                      labelText: 'Размер одежды')),
+                              TextFormField(
+                                  decoration: InputDecoration(
+                                      labelText: 'Размер обуви')),
+                            ],
+                          ),
                         );
 
                         return Column(
@@ -227,6 +246,12 @@ class EditUserPage extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {
                       print("Magic !");
+                      if (_formKey.currentState!.validate()) {
+                        // If the form is valid, display a snackbar. In the real world,
+                        // you'd often call a server or save the information in a database.
+                        ScaffoldMessenger.of(context).showSnackBar(
+                            SnackBar(content: Text('Processing Data')));
+                      }
                     },
                     child: Text("Сохранить"))
               ],
