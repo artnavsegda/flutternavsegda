@@ -42,9 +42,15 @@ class ShoppingPage extends StatelessWidget {
                   return ListView.builder(
                       itemCount: result.data!['getCart'].length,
                       itemBuilder: (context, index) {
-                        return ListTile(
-                            title: Text(
-                                result.data!['getCart'][index]['productName']));
+                        return Container(
+                          child: Column(
+                            children: [
+                              Checkbox(value: false, onChanged: (newValue) {}),
+                              Text(result.data!['getCart'][index]
+                                  ['productName']),
+                            ],
+                          ),
+                        );
                       });
 
                   return Center(
