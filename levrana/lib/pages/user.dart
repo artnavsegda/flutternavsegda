@@ -77,6 +77,8 @@ class UserPage extends StatelessWidget {
                         AssetImage('assets/ic-24/icon-24-gift.png'),
                   )),
               Container(
+                color: Colors.pink,
+                margin: EdgeInsets.all(16),
                 child: Column(
                   children: [
                     Text("Доступно бонусов"),
