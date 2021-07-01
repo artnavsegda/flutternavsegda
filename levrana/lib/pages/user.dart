@@ -147,6 +147,14 @@ class EditUserPage extends StatefulWidget {
 
 class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -179,20 +187,21 @@ class _EditUserPageState extends State<EditUserPage> {
                   child: Query(
                       options: QueryOptions(document: gql(getClientInfo)),
                       builder: (result, {fetchMore, refetch}) {
+                        myController.text =
+                            result.data!['getClientInfo']['name'] ?? "";
+
                         return Form(
                           key: _formKey,
                           child: Column(
                             children: [
                               TextFormField(
+                                  controller: myController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Введите имя';
                                     }
                                     return null;
                                   },
-                                  initialValue: result.data!['getClientInfo']
-                                          ['name'] ??
-                                      "",
                                   decoration:
                                       InputDecoration(labelText: 'Имя')),
                               TextFormField(
@@ -247,8 +256,7 @@ class _EditUserPageState extends State<EditUserPage> {
                     onPressed: () {
                       print("Magic !");
                       if (_formKey.currentState!.validate()) {
-                        // If the form is valid, display a snackbar. In the real world,
-                        // you'd often call a server or save the information in a database.
+                        print(myController.text);
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Processing Data')));
                       }
