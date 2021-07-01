@@ -285,8 +285,16 @@ class FiltersPage extends StatelessWidget {
             ),
           ],
         ),
-        body: Center(
-          child: Text("Hello"),
+        body: Column(
+          children: [
+            SizedBox(
+              height: 92,
+              child: Container(
+                color: Colors.red,
+              ),
+            ),
+            Text("Hello"),
+          ],
         ));
   }
 }
