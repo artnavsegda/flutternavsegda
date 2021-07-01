@@ -7,6 +7,7 @@ query getCart {
   getCart {
     productID
     productName
+    picture
   }
 }
 ''';
@@ -46,6 +47,8 @@ class ShoppingPage extends StatelessWidget {
                           child: Column(
                             children: [
                               Checkbox(value: false, onChanged: (newValue) {}),
+                              Image.network(
+                                  result.data!['getCart'][index]['picture']),
                               Text(result.data!['getCart'][index]
                                   ['productName']),
                             ],
