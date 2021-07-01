@@ -25,8 +25,8 @@ query getClientInfo {
 ''';
 
 const String editClient = r'''
-mutation editClient {
-  editClient(clientInfo: { clientGUID: "afd3512a-0782-4728-b8bd-691b331615f2", name: "hello" }) {
+mutation editClient($clientGUID: String!, $name: String!) {
+  editClient(clientInfo: { clientGUID: $clientGUID, name: $name }) {
     result
   }
 }
