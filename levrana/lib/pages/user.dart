@@ -5,9 +5,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dialog.dart';
 
-const String getClientInfo = """
+const String getClientInfo = r'''
 query getClientInfo {
   getClientInfo {
+    clientGUID,
     name,
     phone,
     dateOfBirth,
@@ -21,7 +22,11 @@ query getClientInfo {
     codeInviteFriend
   }
 }
-""";
+''';
+
+const String editClient = r'''
+mutation editClient
+''';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
