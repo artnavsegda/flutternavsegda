@@ -222,6 +222,24 @@ class _EditUserPageState extends State<EditUserPage> {
                               TextFormField(
                                   decoration: InputDecoration(
                                       labelText: 'Размер обуви')),
+                              SizedBox(
+                                height: 32,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: ElevatedButton(
+                                    onPressed: () {
+                                      print("Magic !");
+                                      if (_formKey.currentState!.validate()) {
+                                        print(nameController.text);
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(SnackBar(
+                                                content:
+                                                    Text('Processing Data')));
+                                      }
+                                    },
+                                    child: Text("Сохранить")),
+                              )
                             ],
                           ),
                         );
@@ -252,16 +270,6 @@ class _EditUserPageState extends State<EditUserPage> {
                         );
                       }),
                 ),
-                ElevatedButton(
-                    onPressed: () {
-                      print("Magic !");
-                      if (_formKey.currentState!.validate()) {
-                        print(nameController.text);
-                        ScaffoldMessenger.of(context).showSnackBar(
-                            SnackBar(content: Text('Processing Data')));
-                      }
-                    },
-                    child: Text("Сохранить"))
               ],
             )
           ],
