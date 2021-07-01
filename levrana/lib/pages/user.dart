@@ -103,8 +103,14 @@ class UserPage extends StatelessWidget {
                   children: [
                     Text("Доступно бонусов"),
                     Text("943"),
-                    ElevatedButton(
-                        onPressed: () {}, child: Text("Пригласить друга")),
+                    TextButton(
+                        style: ButtonStyle(
+                            shape: MaterialStateProperty.all<
+                                RoundedRectangleBorder>(RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(18.0),
+                        ))),
+                        onPressed: () {},
+                        child: Text("Пригласить друга")),
                     ElevatedButton(
                         onPressed: () {}, child: Text("Подарить бонусы")),
                   ],
