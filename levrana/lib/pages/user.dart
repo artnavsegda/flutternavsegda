@@ -77,7 +77,27 @@ class UserPage extends StatelessWidget {
                         AssetImage('assets/ic-24/icon-24-gift.png'),
                   )),
               Container(
-                color: Colors.pink,
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  boxShadow: <BoxShadow>[
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.0525),
+                      blurRadius: 3.13,
+                      offset: Offset(0.0, 2.19),
+                    ),
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.0775),
+                      blurRadius: 10.5,
+                      offset: Offset(0.0, 7.37),
+                    ),
+                    BoxShadow(
+                      color: Color.fromRGBO(85, 146, 80, 0.13),
+                      blurRadius: 47,
+                      offset: Offset(0.0, 33),
+                    )
+                  ],
+                ),
                 margin: EdgeInsets.all(16),
                 child: Column(
                   children: [
