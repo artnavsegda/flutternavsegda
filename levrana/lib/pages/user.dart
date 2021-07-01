@@ -98,11 +98,21 @@ class UserPage extends StatelessWidget {
                     )
                   ],
                 ),
+                padding: EdgeInsets.all(16),
                 margin: EdgeInsets.all(16),
                 child: Column(
                   children: [
                     Text("Доступно бонусов"),
-                    Text("943"),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text("943",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 40, fontWeight: FontWeight.w700)),
+                        Image(
+                            image: AssetImage('assets/ic-24/icon-24-bonus.png'))
+                      ],
+                    ),
                     TextButton(
                         style: ButtonStyle(
                             minimumSize:
