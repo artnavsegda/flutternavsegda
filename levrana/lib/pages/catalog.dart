@@ -290,8 +290,18 @@ class FiltersPage extends StatelessWidget {
             SizedBox(
               height: 92,
               child: Container(
-                color: Colors.red,
-              ),
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                        begin: Alignment.centerLeft,
+                        end: Alignment.centerRight,
+                        colors: <Color>[
+                          Color.fromRGBO(255, 162, 76, 0.22),
+                          Color.fromRGBO(255, 162, 76, 0)
+                        ]),
+                    color: Color(0xffFFF2C4),
+                  ),
+                  child: Center(
+                      child: Text("Подобрать косметику в конфигураторе"))),
             ),
             Text("Hello"),
           ],
