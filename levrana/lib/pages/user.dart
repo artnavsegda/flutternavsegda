@@ -147,12 +147,12 @@ class EditUserPage extends StatefulWidget {
 
 class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
-  final myController = TextEditingController();
+  final nameController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    myController.dispose();
+    nameController.dispose();
     super.dispose();
   }
 
@@ -187,7 +187,7 @@ class _EditUserPageState extends State<EditUserPage> {
                   child: Query(
                       options: QueryOptions(document: gql(getClientInfo)),
                       builder: (result, {fetchMore, refetch}) {
-                        myController.text =
+                        nameController.text =
                             result.data!['getClientInfo']['name'] ?? "";
 
                         return Form(
@@ -195,7 +195,7 @@ class _EditUserPageState extends State<EditUserPage> {
                           child: Column(
                             children: [
                               TextFormField(
-                                  controller: myController,
+                                  controller: nameController,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Введите имя';
@@ -256,7 +256,7 @@ class _EditUserPageState extends State<EditUserPage> {
                     onPressed: () {
                       print("Magic !");
                       if (_formKey.currentState!.validate()) {
-                        print(myController.text);
+                        print(nameController.text);
                         ScaffoldMessenger.of(context).showSnackBar(
                             SnackBar(content: Text('Processing Data')));
                       }
