@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:levrana/pages/product.dart';
 
 const String getCart = r'''
 query getCart {
@@ -15,6 +16,7 @@ query getFavoritesProducts {
   getFavoritesProducts {
     iD
     name
+    picture
   }
 }
 ''';
@@ -56,9 +58,17 @@ class ShoppingPage extends StatelessWidget {
                 options: QueryOptions(document: gql(getFavoritesProducts)),
                 builder: (result, {refetch, fetchMore}) {
                   print(result);
-                  return ListView.builder(
+                  return GridView.builder(
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        childAspectRatio: 0.8,
+                      ),
                       itemCount: result.data!['getFavoritesProducts'].length,
                       itemBuilder: (context, index) {
+                        return ProductCard(
+                            product: result.data!['getFavoritesProducts']
+                                [index]);
                         return ListTile(
                             title: Text(result.data!['getFavoritesProducts']
                                 [index]['name']));
