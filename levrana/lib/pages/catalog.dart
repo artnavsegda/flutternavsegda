@@ -238,7 +238,12 @@ class ProductsListPage extends StatelessWidget {
                 for (var item in items)
                   ProductCard(
                     product: item,
-                  )
+                  ),
+                TextButton(
+                    onPressed: () {
+                      fetchMore!(opts);
+                    },
+                    child: Text("More")),
               ]);
 
           /*return GridView.builder(
