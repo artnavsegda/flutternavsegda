@@ -181,16 +181,28 @@ class EditUserPage extends StatelessWidget {
                   radius: 86,
                   backgroundImage: AssetImage('assets/ic-24/icon-24-gift.png'),
                 ),
-                TextField(decoration: InputDecoration(labelText: 'Имя')),
-                TextField(decoration: InputDecoration(labelText: 'E-mail')),
-                TextField(decoration: InputDecoration(labelText: 'Телефон')),
-                TextField(
-                    decoration: InputDecoration(labelText: 'Дата рождения')),
-                TextField(decoration: InputDecoration(labelText: 'Пол')),
-                TextField(
-                    decoration: InputDecoration(labelText: 'Размер одежды')),
-                TextField(
-                    decoration: InputDecoration(labelText: 'Размер обуви')),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      TextField(decoration: InputDecoration(labelText: 'Имя')),
+                      TextField(
+                          decoration: InputDecoration(labelText: 'E-mail')),
+                      TextField(
+                          decoration: InputDecoration(labelText: 'Телефон')),
+                      TextField(
+                          decoration:
+                              InputDecoration(labelText: 'Дата рождения')),
+                      TextField(decoration: InputDecoration(labelText: 'Пол')),
+                      TextField(
+                          decoration:
+                              InputDecoration(labelText: 'Размер одежды')),
+                      TextField(
+                          decoration:
+                              InputDecoration(labelText: 'Размер обуви')),
+                    ],
+                  ),
+                ),
                 ElevatedButton(onPressed: () {}, child: Text("Сохранить"))
               ],
             )
