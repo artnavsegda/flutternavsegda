@@ -238,7 +238,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                                     Text('Processing Data')));
                                       }
                                     },
-                                    child: Text("Сохранить")),
+                                    child: Text("СОХРАНИТЬ",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16))),
                               )
                             ],
                           ),
