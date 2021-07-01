@@ -224,7 +224,11 @@ class EditUserPage extends StatelessWidget {
                         );
                       }),
                 ),
-                ElevatedButton(onPressed: () {}, child: Text("Сохранить"))
+                ElevatedButton(
+                    onPressed: () {
+                      print("Magic !");
+                    },
+                    child: Text("Сохранить"))
               ],
             )
           ],
