@@ -123,29 +123,6 @@ class UserPage extends StatelessWidget {
               }),
             ],
           ),
-          /* Query(
-              options: QueryOptions(document: gql(getClientInfo)),
-              builder: (result, {fetchMore, refetch}) {
-                return Column(
-                  children: [
-                    Text(result.data!['getClientInfo']['name'] ?? ""),
-                    Text(result.data!['getClientInfo']['phone'].toString()),
-                    Text(result.data!['getClientInfo']['dateOfBirth'] ?? ""),
-                    Text(result.data!['getClientInfo']['gender'] ?? ""),
-                    Text(result.data!['getClientInfo']['eMail'] ?? ""),
-                    Text(result.data!['getClientInfo']['confirmedPhone']
-                        .toString()),
-                    Text(result.data!['getClientInfo']['confirmedEMail']
-                        .toString()),
-                    Text(
-                        result.data!['getClientInfo']['isPassword'].toString()),
-                    Text(result.data!['getClientInfo']['points'].toString()),
-                    Text(result.data!['getClientInfo']['picture'] ?? ""),
-                    Text(result.data!['getClientInfo']['codeInviteFriend'] ??
-                        ""),
-                  ],
-                );
-              }), */
         ],
       ),
     );
@@ -183,25 +160,60 @@ class EditUserPage extends StatelessWidget {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      TextField(decoration: InputDecoration(labelText: 'Имя')),
-                      TextField(
-                          decoration: InputDecoration(labelText: 'E-mail')),
-                      TextField(
-                          decoration: InputDecoration(labelText: 'Телефон')),
-                      TextField(
-                          decoration:
-                              InputDecoration(labelText: 'Дата рождения')),
-                      TextField(decoration: InputDecoration(labelText: 'Пол')),
-                      TextField(
-                          decoration:
-                              InputDecoration(labelText: 'Размер одежды')),
-                      TextField(
-                          decoration:
-                              InputDecoration(labelText: 'Размер обуви')),
-                    ],
-                  ),
+                  child: Query(
+                      options: QueryOptions(document: gql(getClientInfo)),
+                      builder: (result, {fetchMore, refetch}) {
+                        return Column(
+                          children: [
+                            TextFormField(
+                                initialValue:
+                                    result.data!['getClientInfo']['name'] ?? "",
+                                decoration: InputDecoration(labelText: 'Имя')),
+                            TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'E-mail')),
+                            TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Телефон')),
+                            TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Дата рождения')),
+                            TextFormField(
+                                decoration: InputDecoration(labelText: 'Пол')),
+                            TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Размер одежды')),
+                            TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Размер обуви')),
+                          ],
+                        );
+
+                        return Column(
+                          children: [
+                            Text(result.data!['getClientInfo']['name'] ?? ""),
+                            Text(result.data!['getClientInfo']['phone']
+                                .toString()),
+                            Text(result.data!['getClientInfo']['dateOfBirth'] ??
+                                ""),
+                            Text(result.data!['getClientInfo']['gender'] ?? ""),
+                            Text(result.data!['getClientInfo']['eMail'] ?? ""),
+                            Text(result.data!['getClientInfo']['confirmedPhone']
+                                .toString()),
+                            Text(result.data!['getClientInfo']['confirmedEMail']
+                                .toString()),
+                            Text(result.data!['getClientInfo']['isPassword']
+                                .toString()),
+                            Text(result.data!['getClientInfo']['points']
+                                .toString()),
+                            Text(
+                                result.data!['getClientInfo']['picture'] ?? ""),
+                            Text(result.data!['getClientInfo']
+                                    ['codeInviteFriend'] ??
+                                ""),
+                          ],
+                        );
+                      }),
                 ),
                 ElevatedButton(onPressed: () {}, child: Text("Сохранить"))
               ],
