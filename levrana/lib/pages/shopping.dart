@@ -44,14 +44,16 @@ class ShoppingPage extends StatelessWidget {
                       itemCount: result.data!['getCart'].length,
                       itemBuilder: (context, index) {
                         return Container(
-                          child: Column(
+                          child: Row(
                             children: [
                               Checkbox(value: false, onChanged: (newValue) {}),
                               Image.network(
                                   result.data!['getCart'][index]['picture'],
                                   width: 80),
-                              Text(result.data!['getCart'][index]
-                                  ['productName']),
+                              Flexible(
+                                child: Text(result.data!['getCart'][index]
+                                    ['productName']),
+                              ),
                             ],
                           ),
                         );
