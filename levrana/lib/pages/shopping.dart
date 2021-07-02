@@ -40,6 +40,28 @@ class ShoppingPage extends StatelessWidget {
                 options: QueryOptions(document: gql(getCart)),
                 builder: (result, {refetch, fetchMore}) {
                   print(result);
+
+                  return ListView(children: [
+                    Text("Hello"),
+                    for (var item in result.data!['getCart'])
+                      Container(
+                        child: Row(
+                          children: [
+                            Stack(
+                              children: [
+                                Image.network(item['picture'], width: 80),
+                                Checkbox(
+                                    value: false, onChanged: (newValue) {}),
+                              ],
+                            ),
+                            Flexible(
+                              child: Text(item['productName']),
+                            ),
+                          ],
+                        ),
+                      ),
+                  ]);
+
                   return ListView.builder(
                       itemCount: result.data!['getCart'].length,
                       itemBuilder: (context, index) {
