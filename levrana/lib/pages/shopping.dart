@@ -42,7 +42,15 @@ class ShoppingPage extends StatelessWidget {
                   print(result);
 
                   return ListView(children: [
-                    Text("Hello"),
+                    ListTile(
+                        leading:
+                            Checkbox(value: false, onChanged: (newValue) {}),
+                        title: Text("Выбрано:4 "),
+                        trailing: Wrap(spacing: 12, // space between two icons
+                            children: <Widget>[
+                              Icon(Icons.delete_outlined), // icon-1
+                              Icon(Icons.favorite_outline), // icon-2
+                            ])),
                     for (var item in result.data!['getCart'])
                       Container(
                         child: Row(
