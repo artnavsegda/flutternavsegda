@@ -46,10 +46,15 @@ class ShoppingPage extends StatelessWidget {
                         return Container(
                           child: Row(
                             children: [
-                              Checkbox(value: false, onChanged: (newValue) {}),
-                              Image.network(
-                                  result.data!['getCart'][index]['picture'],
-                                  width: 80),
+                              Stack(
+                                children: [
+                                  Image.network(
+                                      result.data!['getCart'][index]['picture'],
+                                      width: 80),
+                                  Checkbox(
+                                      value: false, onChanged: (newValue) {}),
+                                ],
+                              ),
                               Flexible(
                                 child: Text(result.data!['getCart'][index]
                                     ['productName']),
