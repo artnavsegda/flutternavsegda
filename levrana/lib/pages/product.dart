@@ -79,18 +79,23 @@ class CharacteristicsElement extends StatelessWidget {
   }
 }
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({Key? key, this.id = 0}) : super(key: key);
 
   final int id;
 
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
   @override
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
           document: gql(getProduct),
           variables: {
-            'productID': id,
+            'productID': widget.id,
           },
         ),
         builder: (result, {fetchMore, refetch}) {
@@ -146,7 +151,7 @@ class ProductPage extends StatelessWidget {
                           return ElevatedButton(
                               onPressed: () {
                                 runMutation({
-                                  'productID': id,
+                                  'productID': widget.id,
                                 });
                               },
                               child: Text("Купи"));
@@ -163,7 +168,7 @@ class ProductPage extends StatelessWidget {
                           return ElevatedButton(
                             onPressed: () {
                               runMutation({
-                                'productID': id,
+                                'productID': widget.id,
                               });
                             },
                             child: Icon(
