@@ -157,6 +157,7 @@ class _ProductPageState extends State<ProductPage> {
                           .cast<Widget>()),
                   ExpandablePanel(
                     theme: ExpandableThemeData(
+                        headerAlignment: ExpandablePanelHeaderAlignment.center,
                         iconPlacement: ExpandablePanelIconPlacement.left,
                         iconRotationAngle: pi / 2,
                         expandIcon: Icons.chevron_right,
