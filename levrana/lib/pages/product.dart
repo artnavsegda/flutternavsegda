@@ -329,7 +329,13 @@ class ProductBottomSheet extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: result.data!['getProduct']['characteristics']
-                        .map((e) => CharacteristicsElement(element: e))
+                        .map((e) => CharacteristicsElement(
+                              element: e,
+                              selected: 0,
+                              onSelected: (index) {
+                                print(index);
+                              },
+                            ))
                         .toList()
                         .cast<Widget>());
               }),
