@@ -155,22 +155,37 @@ class _ProductPageState extends State<ProductPage> {
                               ))
                           .toList()
                           .cast<Widget>()),
-                  ExpandablePanel(
-                    theme: ExpandableThemeData(
+                  ExpandableTheme(
+                    data: ExpandableThemeData(
                         headerAlignment: ExpandablePanelHeaderAlignment.center,
                         iconPlacement: ExpandablePanelIconPlacement.left,
                         iconRotationAngle: pi / 2,
                         expandIcon: Icons.chevron_right,
                         collapseIcon: Icons.chevron_right),
-                    header: Text("Описание"),
-                    collapsed: SizedBox.shrink(),
-                    expanded: Text("Описание"),
-                  ),
-                  ExpansionTile(
-                    title: Text("Состав"),
-                  ),
-                  ExpansionTile(
-                    title: Text("Отзывы"),
+                    child: Column(
+                      children: [
+                        ExpandablePanel(
+                          header: Text("Характеристики"),
+                          collapsed: SizedBox.shrink(),
+                          expanded: Text("1234234234"),
+                        ),
+                        ExpandablePanel(
+                          header: Text("Описание"),
+                          collapsed: SizedBox.shrink(),
+                          expanded: Text("1234234234"),
+                        ),
+                        ExpandablePanel(
+                          header: Text("Состав"),
+                          collapsed: SizedBox.shrink(),
+                          expanded: Text("1234234234"),
+                        ),
+                        ExpandablePanel(
+                          header: Text("Отзывы"),
+                          collapsed: SizedBox.shrink(),
+                          expanded: Text("1234234234"),
+                        ),
+                      ],
+                    ),
                   ),
                   Row(
                     children: [
