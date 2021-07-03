@@ -46,9 +46,11 @@ Color hexToColor(String code) {
 }
 
 class CharacteristicsElement extends StatelessWidget {
-  const CharacteristicsElement({Key? key, this.element}) : super(key: key);
+  const CharacteristicsElement({Key? key, this.element, this.selected = 0})
+      : super(key: key);
 
   final element;
+  final int selected;
 
   @override
   Widget build(BuildContext context) {
@@ -57,14 +59,13 @@ class CharacteristicsElement extends StatelessWidget {
       //  return Text(element['name']);
       case 'VOLUME':
       case 'SIZE':
-        return Row(
-            children: element['values']
-                .map((e) => ChoiceChip(
-                      label: Text(e['value']),
-                      selected: false,
-                    ))
-                .toList()
-                .cast<Widget>());
+        return Row(children: [
+          for (int index = 0; index < element['values'].length; index++)
+            ChoiceChip(
+              label: Text(element['values'][index]['value']),
+              selected: selected == index,
+            )
+        ]);
       case 'COLOR':
         return Row(
             children: element['values']
