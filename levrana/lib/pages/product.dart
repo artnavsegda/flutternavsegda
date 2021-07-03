@@ -89,6 +89,8 @@ class ProductPage extends StatefulWidget {
 }
 
 class _ProductPageState extends State<ProductPage> {
+  int picturePage = 0;
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -115,6 +117,9 @@ class _ProductPageState extends State<ProductPage> {
                   Container(
                     height: 292,
                     child: PageView.builder(
+                        onPageChanged: (pageNum) => setState(() {
+                              picturePage = pageNum;
+                            }),
                         itemCount:
                             result.data!['getProduct']['pictures'].length,
                         itemBuilder: (context, index) {

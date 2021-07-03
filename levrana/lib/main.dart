@@ -136,12 +136,9 @@ class _MainPageState extends State<MainPage> {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          onTap: (index) {
-            print(index);
-            setState(() {
-              _selectedIndex = index;
-            });
-          },
+          onTap: (index) => setState(() {
+            _selectedIndex = index;
+          }),
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
