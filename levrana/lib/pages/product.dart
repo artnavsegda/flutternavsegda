@@ -127,6 +127,7 @@ class _ProductPageState extends State<ProductPage> {
                               result.data!['getProduct']['pictures'][index]);
                         }),
                   ),
+                  Text("$picturePage"),
                   Column(
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(element: e))
