@@ -62,9 +62,11 @@ class CharacteristicsElement extends StatelessWidget {
         return Row(children: [
           for (int index = 0; index < element['values'].length; index++)
             ChoiceChip(
-              label: Text(element['values'][index]['value']),
-              selected: selected == index,
-            )
+                label: Text(element['values'][index]['value']),
+                selected: selected == index,
+                onSelected: (bool newValue) {
+                  print("$index $newValue");
+                })
         ]);
       case 'COLOR':
         return Row(
