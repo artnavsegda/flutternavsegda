@@ -37,6 +37,7 @@ dependencies:
   qr_flutter: ^4.0.0
   device_info_plus: ^2.0.1
   firebase_messaging: ^10.0.2
+  dots_indicator: ^2.0.0
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
 const String getProduct = r'''
 query getProduct($productID: Int!) {
@@ -127,7 +128,14 @@ class _ProductPageState extends State<ProductPage> {
                               result.data!['getProduct']['pictures'][index]);
                         }),
                   ),
-                  Text("$picturePage"),
+                  new DotsIndicator(
+                    dotsCount: result.data!['getProduct']['pictures'].length,
+                    position: picturePage.toDouble(),
+                    decorator: DotsDecorator(
+                      color: Colors.lightGreen, // Inactive color
+                      activeColor: Colors.green,
+                    ),
+                  ),
                   Column(
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(element: e))
