@@ -46,11 +46,13 @@ Color hexToColor(String code) {
 }
 
 class CharacteristicsElement extends StatelessWidget {
-  const CharacteristicsElement({Key? key, this.element, this.selected = 0})
+  const CharacteristicsElement(
+      {Key? key, this.element, this.selected = 0, this.onSelected})
       : super(key: key);
 
   final element;
   final int selected;
+  final Function(int)? onSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +66,7 @@ class CharacteristicsElement extends StatelessWidget {
             ChoiceChip(
                 label: Text(element['values'][index]['value']),
                 selected: selected == index,
-                onSelected: (bool newValue) {
-                  print("$index $newValue");
-                })
+                onSelected: (bool newValue) => onSelected!(index))
         ]);
       case 'COLOR':
         return Row(
@@ -141,7 +141,13 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Column(
                       children: result.data!['getProduct']['characteristics']
-                          .map((e) => CharacteristicsElement(element: e))
+                          .map((e) => CharacteristicsElement(
+                                element: e,
+                                selected: 0,
+                                onSelected: (index) {
+                                  print(index);
+                                },
+                              ))
                           .toList()
                           .cast<Widget>()),
                   ExpansionTile(
