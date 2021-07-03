@@ -7,6 +7,7 @@ query getProduct($productID: Int!) {
   {
     iD
     name
+    pictures
     stickerPictures
     comment
     characteristics {
@@ -104,8 +105,18 @@ class ProductPage extends StatelessWidget {
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
               ),
-              body: Column(
+              body: ListView(
                 children: [
+                  Container(
+                    height: 292,
+                    child: PageView.builder(
+                        itemCount:
+                            result.data!['getProduct']['pictures'].length,
+                        itemBuilder: (context, index) {
+                          return Image.network(
+                              result.data!['getProduct']['pictures'][index]);
+                        }),
+                  ),
                   Column(
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(element: e))
