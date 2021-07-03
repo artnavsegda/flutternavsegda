@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
+import 'package:expandable/expandable.dart';
+import 'dart:math';
 
 const String getProduct = r'''
 query getProduct($productID: Int!) {
@@ -153,10 +155,15 @@ class _ProductPageState extends State<ProductPage> {
                               ))
                           .toList()
                           .cast<Widget>()),
-                  ExpansionTile(
-                    leading: Icon(Icons.favorite),
-                    trailing: Icon(Icons.favorite),
-                    title: Text("Описание"),
+                  ExpandablePanel(
+                    theme: ExpandableThemeData(
+                        iconPlacement: ExpandablePanelIconPlacement.left,
+                        iconRotationAngle: pi / 2,
+                        expandIcon: Icons.chevron_right,
+                        collapseIcon: Icons.chevron_right),
+                    header: Text("Описание"),
+                    collapsed: SizedBox.shrink(),
+                    expanded: Text("Описание"),
                   ),
                   ExpansionTile(
                     title: Text("Состав"),
