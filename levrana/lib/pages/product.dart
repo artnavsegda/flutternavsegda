@@ -78,6 +78,7 @@ class CharacteristicsElement extends StatelessWidget {
                 .toList()
                 .cast<Widget>());
       default:
+        return SizedBox.shrink();
         return Text(element['name']);
     }
   }
@@ -145,6 +146,7 @@ class _ProductPageState extends State<ProductPage> {
                                 element: e,
                                 selected: 0,
                                 onSelected: (index) {
+                                  print(e['iD']);
                                   print(index);
                                   print(e['values'][index]);
                                 },
