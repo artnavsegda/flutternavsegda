@@ -146,6 +146,7 @@ class _ProductPageState extends State<ProductPage> {
                                 selected: 0,
                                 onSelected: (index) {
                                   print(index);
+                                  print(e['values'][index]);
                                 },
                               ))
                           .toList()
