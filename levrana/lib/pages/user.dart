@@ -37,39 +37,41 @@ class UserPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        actions: <Widget>[
-          IconButton(
-            icon: const Image(
-                image: AssetImage('assets/ic-24/icon-24-edit-profile.png')),
-            onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => EditUserPage()),
-              );
-            },
-          ),
-        ],
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        title: Text("Профиль", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-      ),
-      body: Stack(
-        children: [
-          Image(
-            image: AssetImage('assets/Личный кабинет.png'),
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-          Query(
-              options: QueryOptions(document: gql(getClientInfo)),
-              builder: (result, {fetchMore, refetch}) {
-                return ListView(
+    return Query(
+        options: QueryOptions(document: gql(getClientInfo)),
+        builder: (result, {fetchMore, refetch}) {
+          return Scaffold(
+            extendBodyBehindAppBar: true,
+            appBar: AppBar(
+              actions: <Widget>[
+                IconButton(
+                  icon: const Image(
+                      image:
+                          AssetImage('assets/ic-24/icon-24-edit-profile.png')),
+                  onPressed: () async {
+                    await Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => EditUserPage()),
+                    );
+                    refetch!();
+                  },
+                ),
+              ],
+              iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+              ),
+              title: Text("Профиль", style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+            ),
+            body: Stack(
+              children: [
+                Image(
+                  image: AssetImage('assets/Личный кабинет.png'),
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+                ListView(
                   children: [
                     ListTile(
                         title: Text(result.data!['getClientInfo']['name'],
@@ -193,11 +195,11 @@ class UserPage extends StatelessWidget {
                       );
                     }),
                   ],
-                );
-              }),
-        ],
-      ),
-    );
+                )
+              ],
+            ),
+          );
+        });
   }
 }
 
