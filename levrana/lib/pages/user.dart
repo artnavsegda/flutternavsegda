@@ -295,10 +295,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                       print("Magic !");
                                       if (_formKey.currentState!.validate()) {
                                         print(nameController.text);
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(SnackBar(
-                                                content:
-                                                    Text('Processing Data')));
+                                        Navigator.pop(context);
                                       }
                                     },
                                     child: Text("СОХРАНИТЬ",
