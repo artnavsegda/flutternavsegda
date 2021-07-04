@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
 
 const String getProduct = r'''
@@ -115,7 +116,10 @@ class _ProductPageState extends State<ProductPage> {
                   color: Colors.black, //change your color here
                 ),
                 title: Text(result.data!['getProduct']['name'],
-                    style: TextStyle(color: Colors.black)),
+                    style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.black)),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
               ),
