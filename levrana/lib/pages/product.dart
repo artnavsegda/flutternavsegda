@@ -110,6 +110,13 @@ class _ProductPageState extends State<ProductPage> {
         ),
         builder: (result, {fetchMore, refetch}) {
           print(result);
+
+          if (result.isLoading && result.data == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
           return Scaffold(
               appBar: AppBar(
                 iconTheme: IconThemeData(
@@ -354,8 +361,10 @@ class ProductBottomSheet extends StatelessWidget {
                   return Text(result.exception.toString());
                 }
 
-                if (result.isLoading) {
-                  return Text('Loading');
+                if (result.isLoading && result.data == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
                 }
 
                 return Column(

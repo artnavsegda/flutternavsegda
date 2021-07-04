@@ -101,6 +101,13 @@ class HomePage extends StatelessWidget {
                                   QueryOptions(document: gql(getClientInfo)),
                               builder: (result, {fetchMore, refetch}) {
                                 print(result.data);
+
+                                if (result.isLoading && result.data == null) {
+                                  return const Center(
+                                    child: CircularProgressIndicator(),
+                                  );
+                                }
+
                                 return Text(
                                     result.data!['getClientInfo']['points']
                                         .toString(),
@@ -131,6 +138,13 @@ class HomePage extends StatelessWidget {
                   options: QueryOptions(document: gql(getActions)),
                   builder: (result, {fetchMore, refetch}) {
                     //print(result.data);
+
+                    if (result.isLoading && result.data == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
                     return Container(
                       margin: EdgeInsets.fromLTRB(0, 21, 0, 0),
                       height: 160,
@@ -155,6 +169,13 @@ class HomePage extends StatelessWidget {
                   options: QueryOptions(document: gql(getTopBlocks)),
                   builder: (result, {fetchMore, refetch}) {
                     //print(result.data);
+
+                    if (result.isLoading && result.data == null) {
+                      return const Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+
                     return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: result.data!['getTopBlocks']

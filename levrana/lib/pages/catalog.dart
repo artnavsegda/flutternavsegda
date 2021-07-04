@@ -328,8 +328,10 @@ class CatalogNavigator extends StatelessWidget {
                     return Text(result.exception.toString());
                   }
 
-                  if (result.isLoading) {
-                    return Text('Loading');
+                  if (result.isLoading && result.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
                   }
 
                   List catalog = result.data!['getCatalog'];

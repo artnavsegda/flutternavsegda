@@ -40,6 +40,12 @@ class UserPage extends StatelessWidget {
     return Query(
         options: QueryOptions(document: gql(getClientInfo)),
         builder: (result, {fetchMore, refetch}) {
+          if (result.isLoading && result.data == null) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -268,6 +274,12 @@ class _EditUserPageState extends State<EditUserPage> {
                   child: Query(
                       options: QueryOptions(document: gql(getClientInfo)),
                       builder: (result, {fetchMore, refetch}) {
+                        if (result.isLoading && result.data == null) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
                         nameController.text =
                             result.data!['getClientInfo']['name'] ?? "";
 

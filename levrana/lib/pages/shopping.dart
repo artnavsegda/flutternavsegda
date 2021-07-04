@@ -41,6 +41,12 @@ class ShoppingPage extends StatelessWidget {
                 builder: (result, {refetch, fetchMore}) {
                   print(result);
 
+                  if (result.isLoading && result.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
                   return ListView(children: [
                     ListTile(
                         leading:
@@ -105,6 +111,13 @@ class ShoppingPage extends StatelessWidget {
                 options: QueryOptions(document: gql(getFavoritesProducts)),
                 builder: (result, {refetch, fetchMore}) {
                   print(result);
+
+                  if (result.isLoading && result.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
                   return GridView.builder(
                       gridDelegate:
                           const SliverGridDelegateWithFixedCrossAxisCount(
