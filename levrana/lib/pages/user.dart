@@ -109,7 +109,9 @@ class UserPage extends StatelessWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                              Text("943",
+                              Text(
+                                  result.data!['getClientInfo']['points']
+                                      .toString(),
                                   style: GoogleFonts.montserrat(
                                       fontSize: 40,
                                       fontWeight: FontWeight.w700)),
