@@ -146,6 +146,9 @@ class _ProductPageState extends State<ProductPage> {
                       activeColor: Colors.green,
                     ),
                   ),
+                  Text(result.data!['getProduct']['name'],
+                      style: GoogleFonts.montserrat(fontSize: 20)),
+                  Text(result.data!['getProduct']['comment']),
                   Column(
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(
