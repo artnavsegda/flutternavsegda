@@ -72,14 +72,14 @@ class CharacteristicsElement extends StatelessWidget {
                 onSelected: (bool newValue) => onSelected!(index))
         ]);
       case 'COLOR':
-        return Row(
-            children: element['values']
-                .map((e) => ChoiceChip(
-                    label: Text(e['value']),
-                    selected: false,
-                    disabledColor: hexToColor(e['value'])))
-                .toList()
-                .cast<Widget>());
+        return Row(children: [
+          for (int index = 0; index < element['values'].length; index++)
+            ChoiceChip(
+                label: Text(element['values'][index]['value']),
+                selected: selected == index,
+                disabledColor: hexToColor(element['values'][index]['value']),
+                onSelected: (bool newValue) => onSelected!(index))
+        ]);
       default:
         return SizedBox.shrink();
         return Text(element['name']);
@@ -148,7 +148,7 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Text(result.data!['getProduct']['name'],
                       style: GoogleFonts.montserrat(fontSize: 20)),
-                  Text(result.data!['getProduct']['comment']),
+                  Text(result.data!['getProduct']['comment'] ?? "null"),
                   Column(
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(
