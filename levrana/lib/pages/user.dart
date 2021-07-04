@@ -160,7 +160,7 @@ class UserPage extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.center,
                                         mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
+                                        children: [
                                           Text("Hello"),
                                         ],
                                       ),
