@@ -66,123 +66,133 @@ class UserPage extends StatelessWidget {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          ListView(
-            children: [
-              ListTile(
-                  title: Text("Михаил Сунцов",
-                      style: GoogleFonts.montserrat(fontSize: 28)),
-                  leading: CircleAvatar(
-                    radius: 40,
-                    backgroundImage:
-                        AssetImage('assets/ic-24/icon-24-gift.png'),
-                  )),
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
-                  boxShadow: <BoxShadow>[
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.0525),
-                      blurRadius: 3.13,
-                      offset: Offset(0.0, 2.19),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.0775),
-                      blurRadius: 10.5,
-                      offset: Offset(0.0, 7.37),
-                    ),
-                    BoxShadow(
-                      color: Color.fromRGBO(85, 146, 80, 0.13),
-                      blurRadius: 47,
-                      offset: Offset(0.0, 33),
-                    )
-                  ],
-                ),
-                padding: EdgeInsets.all(16),
-                margin: EdgeInsets.all(16),
-                child: Column(
+          Query(
+              options: QueryOptions(document: gql(getClientInfo)),
+              builder: (result, {fetchMore, refetch}) {
+                return ListView(
                   children: [
-                    Text("Доступно бонусов"),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text("943",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 40, fontWeight: FontWeight.w700)),
-                        Image(
-                            image: AssetImage('assets/ic-24/icon-24-bonus.png'))
-                      ],
-                    ),
-                    TextButton(
-                        style: ButtonStyle(
-                            minimumSize:
-                                MaterialStateProperty.all(Size(223.0, 36.0)),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
+                    ListTile(
+                        title: Text(result.data!['getClientInfo']['name'],
+                            style: GoogleFonts.montserrat(fontSize: 28)),
+                        leading: CircleAvatar(
+                          radius: 40,
+                          backgroundImage:
+                              AssetImage('assets/ic-24/icon-24-gift.png'),
+                        )),
+                    Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        boxShadow: <BoxShadow>[
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.0525),
+                            blurRadius: 3.13,
+                            offset: Offset(0.0, 2.19),
+                          ),
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.0775),
+                            blurRadius: 10.5,
+                            offset: Offset(0.0, 7.37),
+                          ),
+                          BoxShadow(
+                            color: Color.fromRGBO(85, 146, 80, 0.13),
+                            blurRadius: 47,
+                            offset: Offset(0.0, 33),
+                          )
+                        ],
+                      ),
+                      padding: EdgeInsets.all(16),
+                      margin: EdgeInsets.all(16),
+                      child: Column(
+                        children: [
+                          Text("Доступно бонусов"),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text("943",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 40,
+                                      fontWeight: FontWeight.w700)),
+                              Image(
+                                  image: AssetImage(
+                                      'assets/ic-24/icon-24-bonus.png'))
+                            ],
+                          ),
+                          TextButton(
+                              style: ButtonStyle(
+                                  minimumSize: MaterialStateProperty.all(
+                                      Size(223.0, 36.0)),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(18.0),
+                                          side: BorderSide(
+                                              color: Colors.green)))),
+                              onPressed: () {},
+                              child: Text("ПРИГЛАСИТЬ ДРУГА",
+                                  style: GoogleFonts.montserrat(fontSize: 16))),
+                          ElevatedButton(
+                              style: ButtonStyle(
+                                  minimumSize: MaterialStateProperty.all(
+                                      Size(223.0, 36.0)),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
-                                    side: BorderSide(color: Colors.green)))),
-                        onPressed: () {},
-                        child: Text("ПРИГЛАСИТЬ ДРУГА",
-                            style: GoogleFonts.montserrat(fontSize: 16))),
-                    ElevatedButton(
-                        style: ButtonStyle(
-                            minimumSize:
-                                MaterialStateProperty.all(Size(223.0, 36.0)),
-                            shape: MaterialStateProperty.all<
-                                RoundedRectangleBorder>(RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(18.0),
-                            ))),
-                        onPressed: () {},
-                        child: Text("ПОДАРИТЬ БОНУСЫ",
-                            style: GoogleFonts.montserrat(fontSize: 16))),
+                                  ))),
+                              onPressed: () {},
+                              child: Text("ПОДАРИТЬ БОНУСЫ",
+                                  style: GoogleFonts.montserrat(fontSize: 16))),
+                        ],
+                      ),
+                    ),
+                    ListTile(
+                      title: Text("Подарки"),
+                      leading: Image(
+                          image: AssetImage('assets/ic-24/icon-24-gift.png')),
+                    ),
+                    ListTile(
+                      title: Text("Активировать промокод"),
+                      leading: Image(
+                          image: AssetImage('assets/ic-24/icon-24-promo.png')),
+                    ),
+                    ListTile(
+                      title: Text("История заказов"),
+                      leading: Image(
+                          image:
+                              AssetImage('assets/ic-24/icon-24-history.png')),
+                    ),
+                    ListTile(
+                      title: Text("Адреса доставки"),
+                      leading: Image(
+                          image: AssetImage('assets/ic-24/icon-24-adress.png')),
+                    ),
+                    ListTile(
+                      title: Text("Смена пароля"),
+                      leading: Image(
+                          image: AssetImage('assets/ic-24/icon-24-pass.png')),
+                    ),
+                    GraphQLConsumer(builder: (GraphQLClient client) {
+                      return ListTile(
+                        onTap: () async {
+                          final prefs = await SharedPreferences.getInstance();
+                          prefs.setString('token', '');
+                          client.cache.store.reset(); // empty the hash map
+                          //await client.cache.save();
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => Welcome()),
+                          );
+                        },
+                        title: Text("Выйти"),
+                        leading: Image(
+                            image: AssetImage('assets/ic-24/icon-24-exit.png')),
+                      );
+                    }),
                   ],
-                ),
-              ),
-              ListTile(
-                title: Text("Подарки"),
-                leading:
-                    Image(image: AssetImage('assets/ic-24/icon-24-gift.png')),
-              ),
-              ListTile(
-                title: Text("Активировать промокод"),
-                leading:
-                    Image(image: AssetImage('assets/ic-24/icon-24-promo.png')),
-              ),
-              ListTile(
-                title: Text("История заказов"),
-                leading: Image(
-                    image: AssetImage('assets/ic-24/icon-24-history.png')),
-              ),
-              ListTile(
-                title: Text("Адреса доставки"),
-                leading:
-                    Image(image: AssetImage('assets/ic-24/icon-24-adress.png')),
-              ),
-              ListTile(
-                title: Text("Смена пароля"),
-                leading:
-                    Image(image: AssetImage('assets/ic-24/icon-24-pass.png')),
-              ),
-              GraphQLConsumer(builder: (GraphQLClient client) {
-                return ListTile(
-                  onTap: () async {
-                    final prefs = await SharedPreferences.getInstance();
-                    prefs.setString('token', '');
-                    client.cache.store.reset(); // empty the hash map
-                    //await client.cache.save();
-                    Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(builder: (context) => Welcome()),
-                    );
-                  },
-                  title: Text("Выйти"),
-                  leading:
-                      Image(image: AssetImage('assets/ic-24/icon-24-exit.png')),
                 );
               }),
-            ],
-          ),
         ],
       ),
     );
