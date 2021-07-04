@@ -145,7 +145,23 @@ class UserPage extends StatelessWidget {
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                   ))),
-                              onPressed: () {},
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  context: context,
+                                  builder: (context) {
+                                    return Container(
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.center,
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                          Text("Hello"),
+                                        ],
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
                               child: Text("ПОДАРИТЬ БОНУСЫ",
                                   style: GoogleFonts.montserrat(fontSize: 16))),
                         ],
