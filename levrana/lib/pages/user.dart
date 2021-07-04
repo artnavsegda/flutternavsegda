@@ -161,7 +161,14 @@ class UserPage extends StatelessWidget {
                                             MainAxisAlignment.center,
                                         mainAxisSize: MainAxisSize.min,
                                         children: [
-                                          Text("Hello"),
+                                          Text("Подарить бонусы"),
+                                          Text("Укажите количество бонусов"),
+                                          Text("По номеру телефона"),
+                                          Text("По QR коду"),
+                                          Text("Введите телефон"),
+                                          ElevatedButton(
+                                              onPressed: () {},
+                                              child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
                                         ],
                                       ),
                                     );
