@@ -253,6 +253,9 @@ class _EditUserPageState extends State<EditUserPage> {
                         nameController.text =
                             result.data!['getClientInfo']['name'] ?? "";
 
+                        var clientGUID =
+                            result.data!['getClientInfo']['clientGUID'];
+
                         return Form(
                           key: _formKey,
                           child: Column(
@@ -290,17 +293,33 @@ class _EditUserPageState extends State<EditUserPage> {
                               ),
                               SizedBox(
                                 width: double.infinity,
-                                child: ElevatedButton(
-                                    onPressed: () {
-                                      print("Magic !");
-                                      if (_formKey.currentState!.validate()) {
-                                        print(nameController.text);
-                                        Navigator.pop(context);
-                                      }
+                                child: Mutation(
+                                  options: MutationOptions(
+                                    document: gql(editClient),
+                                    onCompleted: (resultData) {
+                                      print(resultData);
+                                      Navigator.pop(context);
                                     },
-                                    child: Text("СОХРАНИТЬ",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 16))),
+                                  ),
+                                  builder: (runMutation, result) {
+                                    return ElevatedButton(
+                                        onPressed: () {
+                                          print("Magic !");
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            print(nameController.text);
+                                            runMutation({
+                                              'clientGUID': clientGUID,
+                                              'name': nameController.text,
+                                            });
+                                            //Navigator.pop(context);
+                                          }
+                                        },
+                                        child: Text("СОХРАНИТЬ",
+                                            style: GoogleFonts.montserrat(
+                                                fontSize: 16)));
+                                  },
+                                ),
                               )
                             ],
                           ),
