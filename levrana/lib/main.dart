@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 
 import 'pages/catalog.dart';
 import 'pages/home.dart';
@@ -12,7 +13,8 @@ import 'pages/dialog.dart';
 import 'pages/login.dart';
 
 void main() async {
-  await initHiveForFlutter();
+  //await initHiveForFlutter();
+  await FlutterLibphonenumber().init();
 
   final HttpLink httpLink = HttpLink(
     'https://demo.cyberiasoft.com/levranaservice/graphql',

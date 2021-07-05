@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
 
 import 'user.dart';
 import 'product.dart';
@@ -66,7 +67,6 @@ class HomePage extends StatelessWidget {
               ),
               GestureDetector(
                 onTap: () {
-                  print("Hello");
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => QrPage()),
@@ -217,9 +217,7 @@ class HomePage extends StatelessWidget {
 }
 
 class QrPage extends StatelessWidget {
-  const QrPage({
-    Key? key,
-  }) : super(key: key);
+  const QrPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -241,60 +239,86 @@ class QrPage extends StatelessWidget {
             fit: BoxFit.cover,
           ),
           Center(
-            child: Column(
-                //mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Container(
-                    decoration: BoxDecoration(
-                        boxShadow: <BoxShadow>[
-                          BoxShadow(
-                            color: Color.fromRGBO(85, 146, 80, 0.1696),
-                            blurRadius: 0.0,
-                            offset: Offset(0.0, 2),
-                          ),
-                          BoxShadow(
-                            color: Color.fromRGBO(85, 146, 80, 0.250),
-                            blurRadius: 15.11,
-                            offset: Offset(0.0, 12.02),
-                          ),
-                          BoxShadow(
-                            color: Color.fromRGBO(85, 146, 80, 0.250),
-                            blurRadius: 80,
-                            offset: Offset(0.0, 42),
-                          )
-                        ],
-                        color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(20))),
-                    child: QrImage(
-                      data: "1234567890",
-                      version: QrVersions.auto,
-                      size: 200.0,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: Wrap(
-                      runSpacing: 8,
+            child: Query(
+                options: QueryOptions(document: gql(getClientInfo)),
+                builder: (result, {fetchMore, refetch}) {
+                  print(result.data);
+
+                  if (result.isLoading && result.data == null) {
+                    return const Center(
+                      child: CircularProgressIndicator(),
+                    );
+                  }
+
+                  String phone =
+                      "+" + result.data!['getClientInfo']['phone'].toString();
+
+                  String formattedPhone =
+                      FlutterLibphonenumber().formatNumberSync(phone);
+
+                  final rawNumber = '+14145556666';
+                  final formattedNumber =
+                      FlutterLibphonenumber().formatNumberSync(rawNumber);
+
+                  print("phone: " + formattedNumber);
+
+                  return Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Показать на кассе",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 28, fontWeight: FontWeight.w700)),
-                        Text("+7 921 939 49 40",
-                            style: GoogleFonts.montserrat(
-                                fontSize: 28,
-                                fontWeight: FontWeight.w700,
-                                color: Colors.green)),
-                        Text(
-                            "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
-                      ],
-                    ),
-                  ),
-                  ElevatedButton(
-                    child: Text("Добавить в Wallet"),
-                    onPressed: () {},
-                  ),
-                ]),
+                        Container(
+                          decoration: BoxDecoration(
+                              boxShadow: <BoxShadow>[
+                                BoxShadow(
+                                  color: Color.fromRGBO(85, 146, 80, 0.1696),
+                                  blurRadius: 0.0,
+                                  offset: Offset(0.0, 2),
+                                ),
+                                BoxShadow(
+                                  color: Color.fromRGBO(85, 146, 80, 0.250),
+                                  blurRadius: 15.11,
+                                  offset: Offset(0.0, 12.02),
+                                ),
+                                BoxShadow(
+                                  color: Color.fromRGBO(85, 146, 80, 0.250),
+                                  blurRadius: 80,
+                                  offset: Offset(0.0, 42),
+                                )
+                              ],
+                              color: Colors.white,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(20))),
+                          child: QrImage(
+                            data: "1234567890",
+                            version: QrVersions.auto,
+                            size: 200.0,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(24.0),
+                          child: Wrap(
+                            runSpacing: 8,
+                            children: [
+                              Text("Показать на кассе",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w700)),
+                              Text("+7 921 939 49 40 $phone",
+                                  style: GoogleFonts.montserrat(
+                                      fontSize: 28,
+                                      fontWeight: FontWeight.w700,
+                                      color: Colors.green)),
+                              Text(
+                                  "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
+                            ],
+                          ),
+                        ),
+                        ElevatedButton(
+                          child: Text("Добавить в Wallet"),
+                          onPressed: () {},
+                        ),
+                      ]);
+                }),
           ),
         ],
       ),
