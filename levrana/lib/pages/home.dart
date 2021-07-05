@@ -272,20 +272,23 @@ class QrPage extends StatelessWidget {
                       size: 200.0,
                     ),
                   ),
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Показать на кассе",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 28, fontWeight: FontWeight.w700)),
-                      Text("+7 921 939 49 40",
-                          style: GoogleFonts.montserrat(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.green)),
-                      Text(
-                          "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
-                    ],
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Wrap(
+                      runSpacing: 8,
+                      children: [
+                        Text("Показать на кассе",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 28, fontWeight: FontWeight.w700)),
+                        Text("+7 921 939 49 40",
+                            style: GoogleFonts.montserrat(
+                                fontSize: 28,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.green)),
+                        Text(
+                            "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
+                      ],
+                    ),
                   ),
                   ElevatedButton(
                     child: Text("Добавить в Wallet"),
