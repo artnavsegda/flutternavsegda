@@ -272,8 +272,14 @@ class QrPage extends StatelessWidget {
                       size: 200.0,
                     ),
                   ),
-                  Text("Показать на кассе"),
-                  Text("+7 921 939 49 40"),
+                  Text("Показать на кассе",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 28, fontWeight: FontWeight.w700)),
+                  Text("+7 921 939 49 40",
+                      style: GoogleFonts.montserrat(
+                          fontSize: 28,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.green)),
                   Text(
                       "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
                   ElevatedButton(
