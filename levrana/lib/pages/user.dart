@@ -25,8 +25,8 @@ query getClientInfo {
 ''';
 
 const String editClient = r'''
-mutation editClient($clientGUID: String!, $name: String!) {
-  editClient(clientInfo: { clientGUID: $clientGUID, name: $name }) {
+mutation editClient($clientGUID: String!, $name: String, $eMail: String) {
+  editClient(clientInfo: { clientGUID: $clientGUID, name: $name, eMail: $eMail }) {
     result
   }
 }
@@ -242,11 +242,13 @@ class EditUserPage extends StatefulWidget {
 class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
+  final emailController = TextEditingController();
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     nameController.dispose();
+    emailController.dispose();
     super.dispose();
   }
 
@@ -290,6 +292,9 @@ class _EditUserPageState extends State<EditUserPage> {
                         nameController.text =
                             result.data!['getClientInfo']['name'] ?? "";
 
+                        emailController.text =
+                            result.data!['getClientInfo']['eMail'] ?? "";
+
                         var clientGUID =
                             result.data!['getClientInfo']['clientGUID'];
 
@@ -308,6 +313,13 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration:
                                       InputDecoration(labelText: 'Имя')),
                               TextFormField(
+                                  controller: emailController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите E-Mail';
+                                    }
+                                    return null;
+                                  },
                                   decoration:
                                       InputDecoration(labelText: 'E-mail')),
                               TextFormField(
@@ -348,6 +360,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                             runMutation({
                                               'clientGUID': clientGUID,
                                               'name': nameController.text,
+                                              'eMail': emailController.text,
                                             });
                                             //Navigator.pop(context);
                                           }
