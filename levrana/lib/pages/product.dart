@@ -65,7 +65,7 @@ class CharacteristicsElement extends StatefulWidget {
 }
 
 class _CharacteristicsElementState extends State<CharacteristicsElement> {
-  int selected = 0;
+  int selected = -1;
 
   @override
   Widget build(BuildContext context) {
