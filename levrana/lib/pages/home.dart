@@ -102,8 +102,17 @@ class HomePage extends StatelessWidget {
                               builder: (result, {fetchMore, refetch}) {
                                 print(result.data);
 
-                                if (result.isLoading && result.data == null) {
-                                  return const Center(
+                                if (result.hasException) {
+                                  return Text("0",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 40,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.white));
+                                  return Text(result.exception.toString());
+                                }
+
+                                if (result.isLoading) {
+                                  return Center(
                                     child: CircularProgressIndicator(),
                                   );
                                 }
@@ -139,8 +148,12 @@ class HomePage extends StatelessWidget {
                   builder: (result, {fetchMore, refetch}) {
                     //print(result.data);
 
-                    if (result.isLoading && result.data == null) {
-                      return const Center(
+                    if (result.hasException) {
+                      return Text(result.exception.toString());
+                    }
+
+                    if (result.isLoading) {
+                      return Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -170,8 +183,12 @@ class HomePage extends StatelessWidget {
                   builder: (result, {fetchMore, refetch}) {
                     //print(result.data);
 
-                    if (result.isLoading && result.data == null) {
-                      return const Center(
+                    if (result.hasException) {
+                      return Text(result.exception.toString());
+                    }
+
+                    if (result.isLoading) {
+                      return Center(
                         child: CircularProgressIndicator(),
                       );
                     }
@@ -244,8 +261,12 @@ class QrPage extends StatelessWidget {
                 builder: (result, {fetchMore, refetch}) {
                   print(result.data);
 
-                  if (result.isLoading && result.data == null) {
-                    return const Center(
+                  if (result.hasException) {
+                    return Text(result.exception.toString());
+                  }
+
+                  if (result.isLoading) {
+                    return Center(
                       child: CircularProgressIndicator(),
                     );
                   }
