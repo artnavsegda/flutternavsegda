@@ -128,6 +128,8 @@ class _ProductPageState extends State<ProductPage> {
 
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
+  Map<int, int> charMap = {};
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -194,6 +196,9 @@ class _ProductPageState extends State<ProductPage> {
                           .map((e) => CharacteristicsElement(
                                 element: e,
                                 onSelected: (index) {
+                                  charMap[e['iD']] = e['values'][index]['iD'];
+                                  print(charMap);
+
                                   if (e['isPrice']) {
                                     var price = getPrice(
                                         result.data!['getProduct']['prices'],
