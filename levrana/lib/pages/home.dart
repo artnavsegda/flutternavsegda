@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:flutter_libphonenumber/flutter_libphonenumber.dart';
+import 'package:phone_number/phone_number.dart';
 
 import 'user.dart';
 import 'product.dart';
@@ -253,14 +253,8 @@ class QrPage extends StatelessWidget {
                   String phone =
                       "+" + result.data!['getClientInfo']['phone'].toString();
 
-                  String formattedPhone =
-                      FlutterLibphonenumber().formatNumberSync(phone);
-
-                  final rawNumber = '+14145556666';
-                  final formattedNumber =
-                      FlutterLibphonenumber().formatNumberSync(rawNumber);
-
-                  print("phone: " + formattedNumber);
+                  Future<PhoneNumber> futurePhone =
+                      PhoneNumberUtil().parse(phone);
 
                   return Column(
                       //mainAxisAlignment: MainAxisAlignment.center,
@@ -303,11 +297,22 @@ class QrPage extends StatelessWidget {
                                   style: GoogleFonts.montserrat(
                                       fontSize: 28,
                                       fontWeight: FontWeight.w700)),
-                              Text("+7 921 939 49 40 $phone",
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w700,
-                                      color: Colors.green)),
+                              FutureBuilder<Object>(
+                                  future: futurePhone,
+                                  builder: (context, snapshot) {
+                                    if (snapshot.hasData) {
+                                      var phoneNumber =
+                                          snapshot.data as PhoneNumber;
+
+                                      return Text(phoneNumber.international,
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 28,
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.green));
+                                    } else
+                                      return Center(
+                                          child: CircularProgressIndicator());
+                                  }),
                               Text(
                                   "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
                             ],
