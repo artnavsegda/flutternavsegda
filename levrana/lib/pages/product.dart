@@ -24,6 +24,11 @@ query getProduct($productID: Int!) {
         value
       }
     }
+    prices {
+      price
+      oldPrice
+      characteristicValueID
+    }
   }
 }
 ''';
