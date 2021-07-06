@@ -120,7 +120,6 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
-  //double productPrice = 0;
   Map<String, dynamic> productPrice = {'price': 0.0};
 
   dynamic _getPrice(priceList, priceID) {
