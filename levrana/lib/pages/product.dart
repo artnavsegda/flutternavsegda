@@ -120,7 +120,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
-  Map<String, dynamic> productPrice = {'price': 0.0};
+  Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
   dynamic _getPrice(priceList, priceID) {
     var priceMap = Map.fromIterable(priceList,
@@ -182,7 +182,10 @@ class _ProductPageState extends State<ProductPage> {
                       activeColor: Colors.green,
                     ),
                   ),
-                  Text(productPrice['price'].toString()),
+                  Text(productPrice['price'].toString(),
+                      style: GoogleFonts.montserrat(fontSize: 32)),
+                  Text(productPrice['oldPrice'].toString(),
+                      style: GoogleFonts.montserrat(fontSize: 32)),
                   Text(result.data!['getProduct']['name'],
                       style: GoogleFonts.montserrat(fontSize: 20)),
                   Text(result.data!['getProduct']['comment'] ?? "null"),
