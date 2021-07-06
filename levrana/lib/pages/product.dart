@@ -117,16 +117,16 @@ class ProductPage extends StatefulWidget {
   _ProductPageState createState() => _ProductPageState();
 }
 
+dynamic getPrice(priceList, priceID) {
+  var priceMap = Map.fromIterable(priceList,
+      key: (e) => e['characteristicValueID'], value: (e) => e);
+  return priceMap[priceID];
+}
+
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
-
-  dynamic _getPrice(priceList, priceID) {
-    var priceMap = Map.fromIterable(priceList,
-        key: (e) => e['characteristicValueID'], value: (e) => e);
-    return priceMap[priceID];
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +195,7 @@ class _ProductPageState extends State<ProductPage> {
                                 element: e,
                                 onSelected: (index) {
                                   if (e['isPrice']) {
-                                    var price = _getPrice(
+                                    var price = getPrice(
                                         result.data!['getProduct']['prices'],
                                         e['values'][index]['iD']);
                                     setState(() {
@@ -364,12 +364,19 @@ class ProductCard extends StatelessWidget {
   }
 }
 
-class ProductBottomSheet extends StatelessWidget {
+class ProductBottomSheet extends StatefulWidget {
   const ProductBottomSheet({Key? key, this.id = 0, this.product})
       : super(key: key);
 
   final int id;
   final product;
+
+  @override
+  _ProductBottomSheetState createState() => _ProductBottomSheetState();
+}
+
+class _ProductBottomSheetState extends State<ProductBottomSheet> {
+  Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
   @override
   Widget build(BuildContext context) {
@@ -381,17 +388,17 @@ class ProductBottomSheet extends StatelessWidget {
           Row(
             children: [
               Image.network(
-                product['picture'],
+                widget.product['picture'],
                 width: 80,
               ),
-              Flexible(child: Text(product['name'])),
+              Flexible(child: Text(widget.product['name'])),
             ],
           ),
           Query(
               options: QueryOptions(
                 document: gql(getProduct),
                 variables: {
-                  'productID': id,
+                  'productID': widget.id,
                 },
               ),
               builder: (result, {fetchMore, refetch}) {
@@ -413,7 +420,15 @@ class ProductBottomSheet extends StatelessWidget {
                         .map((e) => CharacteristicsElement(
                               element: e,
                               onSelected: (index) {
-                                print(index);
+                                if (e['isPrice']) {
+                                  var price = getPrice(
+                                      result.data!['getProduct']['prices'],
+                                      e['values'][index]['iD']);
+                                  setState(() {
+                                    productPrice =
+                                        Map<String, dynamic>.from(price);
+                                  });
+                                }
                               },
                             ))
                         .toList()
@@ -427,13 +442,14 @@ class ProductBottomSheet extends StatelessWidget {
               },
             ),
             builder: (runMutation, result) {
+              var price = productPrice['price'];
               return ElevatedButton(
                   onPressed: () {
                     runMutation({
-                      'productID': id,
+                      'productID': widget.id,
                     });
                   },
-                  child: Text("Купи"));
+                  child: Text("Купи $price"));
             },
           )
         ],
