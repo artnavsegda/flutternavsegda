@@ -120,6 +120,9 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
+  //double productPrice = 0;
+  Map<String, dynamic> productPrice = {'price': 0.0};
+
   dynamic _getPrice(priceList, priceID) {
     var priceMap = Map.fromIterable(priceList,
         key: (e) => e['characteristicValueID'], value: (e) => e);
@@ -143,6 +146,8 @@ class _ProductPageState extends State<ProductPage> {
               child: CircularProgressIndicator(),
             );
           }
+
+          print(productPrice);
 
           return Scaffold(
               appBar: AppBar(
@@ -180,6 +185,7 @@ class _ProductPageState extends State<ProductPage> {
                       activeColor: Colors.green,
                     ),
                   ),
+                  Text(productPrice['price'].toString()),
                   Text(result.data!['getProduct']['name'],
                       style: GoogleFonts.montserrat(fontSize: 20)),
                   Text(result.data!['getProduct']['comment'] ?? "null"),
@@ -193,6 +199,13 @@ class _ProductPageState extends State<ProductPage> {
                                         result.data!['getProduct']['prices'],
                                         e['values'][index]['iD']);
                                     print(price);
+                                    //setState(() {
+                                    //  productPrice = price['price'];
+                                    //});
+                                    setState(() {
+                                      productPrice =
+                                          Map<String, dynamic>.from(price);
+                                    });
                                   }
                                 },
                               ))
