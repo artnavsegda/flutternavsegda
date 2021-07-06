@@ -120,9 +120,10 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
-  void _getPrice(priceList, priceID) {
-    print(priceList);
-    print(priceID);
+  dynamic _getPrice(priceList, priceID) {
+    var priceMap = Map.fromIterable(priceList,
+        key: (e) => e['characteristicValueID'], value: (e) => e);
+    return priceMap[priceID];
   }
 
   @override
@@ -187,14 +188,11 @@ class _ProductPageState extends State<ProductPage> {
                           .map((e) => CharacteristicsElement(
                                 element: e,
                                 onSelected: (index) {
-                                  //print(e['iD']);
-                                  //print(index);
-                                  //print(e['values'][index]);
                                   if (e['isPrice']) {
-                                    print("calculate");
-                                    _getPrice(
+                                    var price = _getPrice(
                                         result.data!['getProduct']['prices'],
                                         e['values'][index]['iD']);
+                                    print(price);
                                   }
                                 },
                               ))
