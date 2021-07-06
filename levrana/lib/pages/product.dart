@@ -249,13 +249,14 @@ class _ProductPageState extends State<ProductPage> {
                           },
                         ),
                         builder: (runMutation, result) {
+                          var price = productPrice['price'];
                           return ElevatedButton(
                               onPressed: () {
                                 runMutation({
                                   'productID': widget.id,
                                 });
                               },
-                              child: Text("Купи"));
+                              child: Text("Купи $price"));
                         },
                       ),
                       Mutation(
