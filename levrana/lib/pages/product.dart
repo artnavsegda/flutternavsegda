@@ -120,6 +120,11 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
+  void _getPrice(priceList, priceID) {
+    print(priceList);
+    print(priceID);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -182,9 +187,15 @@ class _ProductPageState extends State<ProductPage> {
                           .map((e) => CharacteristicsElement(
                                 element: e,
                                 onSelected: (index) {
-                                  print(e['iD']);
-                                  print(index);
-                                  print(e['values'][index]);
+                                  //print(e['iD']);
+                                  //print(index);
+                                  //print(e['values'][index]);
+                                  if (e['isPrice']) {
+                                    print("calculate");
+                                    _getPrice(
+                                        result.data!['getProduct']['prices'],
+                                        e['values'][index]['iD']);
+                                  }
                                 },
                               ))
                           .toList()
