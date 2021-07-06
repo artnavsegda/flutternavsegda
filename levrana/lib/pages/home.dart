@@ -165,13 +165,13 @@ class HomePage extends StatelessWidget {
                         controller: _controller,
                         itemCount: result.data!['getActions'].length,
                         itemBuilder: (context, index) {
-                          //return Text(result.data!['getActions'][index]['name']);
                           return Container(
                             padding: const EdgeInsets.only(right: 16.0),
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(6.0),
                               child: Image.network(
-                                  result.data!['getActions'][index]['picture']),
+                                  result.data!['getActions'][index]['picture'],
+                                  fit: BoxFit.fill),
                             ),
                           );
                         },
