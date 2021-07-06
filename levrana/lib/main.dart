@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
+                    elevation: MaterialStateProperty.all(0.0),
                     minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
