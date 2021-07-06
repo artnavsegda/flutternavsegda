@@ -197,8 +197,6 @@ class _ProductPageState extends State<ProductPage> {
                                 element: e,
                                 onSelected: (index) {
                                   charMap[e['iD']] = e['values'][index]['iD'];
-                                  print(charMap);
-
                                   if (e['isPrice']) {
                                     var price = getPrice(
                                         result.data!['getProduct']['prices'],
@@ -387,6 +385,7 @@ class ProductBottomSheet extends StatefulWidget {
 
 class _ProductBottomSheetState extends State<ProductBottomSheet> {
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
+  Map<int, int> charMap = {};
 
   @override
   Widget build(BuildContext context) {
@@ -430,6 +429,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                         .map((e) => CharacteristicsElement(
                               element: e,
                               onSelected: (index) {
+                                charMap[e['iD']] = e['values'][index]['iD'];
                                 if (e['isPrice']) {
                                   var price = getPrice(
                                       result.data!['getProduct']['prices'],
@@ -455,8 +455,12 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
               var price = productPrice['price'];
               return ElevatedButton(
                   onPressed: () {
+                    List<int> charList =
+                        charMap.entries.map((entry) => entry.value).toList();
+                    print(charList);
                     runMutation({
                       'productID': widget.id,
+                      'characteristicValueIds': charList
                     });
                   },
                   child: Text("Купи $price"));
