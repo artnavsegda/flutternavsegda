@@ -23,7 +23,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-      image: AssetImage('assets/Приветствие.png'),
+      image: AssetImage('assets/Welcome.png'),
       title: "Привет!",
       body:
           "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас.",
