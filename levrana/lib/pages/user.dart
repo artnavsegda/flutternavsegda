@@ -40,6 +40,11 @@ class UserPage extends StatelessWidget {
     return Query(
         options: QueryOptions(document: gql(getClientInfo)),
         builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Center(child: Text("Профиль пользователя недоступен"));
+            return Center(child: Text(result.exception.toString()));
+          }
+
           if (result.isLoading && result.data == null) {
             return const Center(
               child: CircularProgressIndicator(),
