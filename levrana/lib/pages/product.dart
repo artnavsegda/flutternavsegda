@@ -48,41 +48,57 @@ Color hexToColor(String code) {
   return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
 
-class CharacteristicsElement extends StatelessWidget {
-  const CharacteristicsElement(
-      {Key? key, this.element, this.selected = 0, this.onSelected})
+class CharacteristicsElement extends StatefulWidget {
+  const CharacteristicsElement({Key? key, this.element, this.onSelected})
       : super(key: key);
 
   final element;
-  final int selected;
   final Function(int)? onSelected;
 
   @override
+  _CharacteristicsElementState createState() => _CharacteristicsElementState();
+}
+
+class _CharacteristicsElementState extends State<CharacteristicsElement> {
+  int selected = 0;
+
+  @override
   Widget build(BuildContext context) {
-    switch (element['type']) {
+    switch (widget.element['type']) {
       //case 'TEXT':
       //  return Text(element['name']);
       case 'VOLUME':
       case 'SIZE':
         return Row(children: [
-          for (int index = 0; index < element['values'].length; index++)
+          for (int index = 0; index < widget.element['values'].length; index++)
             ChoiceChip(
-                label: Text(element['values'][index]['value']),
+                label: Text(widget.element['values'][index]['value']),
                 selected: selected == index,
-                onSelected: (bool newValue) => onSelected!(index))
+                onSelected: (bool newValue) {
+                  widget.onSelected!(index);
+                  setState(() {
+                    selected = index;
+                  });
+                })
         ]);
       case 'COLOR':
         return Row(children: [
-          for (int index = 0; index < element['values'].length; index++)
+          for (int index = 0; index < widget.element['values'].length; index++)
             ChoiceChip(
-                label: Text(element['values'][index]['value']),
+                label: Text(widget.element['values'][index]['value']),
                 selected: selected == index,
-                disabledColor: hexToColor(element['values'][index]['value']),
-                onSelected: (bool newValue) => onSelected!(index))
+                disabledColor:
+                    hexToColor(widget.element['values'][index]['value']),
+                onSelected: (bool newValue) {
+                  widget.onSelected!(index);
+                  setState(() {
+                    selected = index;
+                  });
+                })
         ]);
       default:
         return SizedBox.shrink();
-        return Text(element['name']);
+        return Text(widget.element['name']);
     }
   }
 }
@@ -160,7 +176,6 @@ class _ProductPageState extends State<ProductPage> {
                       children: result.data!['getProduct']['characteristics']
                           .map((e) => CharacteristicsElement(
                                 element: e,
-                                selected: 0,
                                 onSelected: (index) {
                                   print(e['iD']);
                                   print(index);
@@ -373,7 +388,6 @@ class ProductBottomSheet extends StatelessWidget {
                     children: result.data!['getProduct']['characteristics']
                         .map((e) => CharacteristicsElement(
                               element: e,
-                              selected: 0,
                               onSelected: (index) {
                                 print(index);
                               },
