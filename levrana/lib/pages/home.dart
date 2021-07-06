@@ -251,7 +251,7 @@ class QrPage extends StatelessWidget {
       body: Stack(
         children: [
           Image(
-            image: AssetImage('assets/Сканировать QR код.png'),
+            image: AssetImage('assets/QR.png'),
             width: double.infinity,
             fit: BoxFit.cover,
           ),
@@ -262,6 +262,7 @@ class QrPage extends StatelessWidget {
                   print(result.data);
 
                   if (result.hasException) {
+                    return Text("Карта недоступна");
                     return Text(result.exception.toString());
                   }
 
