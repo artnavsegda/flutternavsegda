@@ -139,15 +139,13 @@ class _ProductPageState extends State<ProductPage> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
+          //print(result);
 
           if (result.isLoading && result.data == null) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
-
-          print(productPrice);
 
           return Scaffold(
               appBar: AppBar(
@@ -198,10 +196,6 @@ class _ProductPageState extends State<ProductPage> {
                                     var price = _getPrice(
                                         result.data!['getProduct']['prices'],
                                         e['values'][index]['iD']);
-                                    print(price);
-                                    //setState(() {
-                                    //  productPrice = price['price'];
-                                    //});
                                     setState(() {
                                       productPrice =
                                           Map<String, dynamic>.from(price);
