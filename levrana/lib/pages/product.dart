@@ -34,8 +34,8 @@ query getProduct($productID: Int!) {
 ''';
 
 const String cartAdd = r'''
-mutation cartAdd($productID: Int!) {
-  cartAdd(cartItem: {productID: $productID, quantity: 1}) {
+mutation cartAdd($productID: Int!, $characteristicValueIds: [Int]) {
+  cartAdd(cartItem: {productID: $productID, quantity: 1, characteristicValueIds: $characteristicValueIds}) {
     result
   }
 }
@@ -257,8 +257,13 @@ class _ProductPageState extends State<ProductPage> {
                           var price = productPrice['price'];
                           return ElevatedButton(
                               onPressed: () {
+                                List<int> charList = charMap.entries
+                                    .map((entry) => entry.value)
+                                    .toList();
+                                print(charList);
                                 runMutation({
                                   'productID': widget.id,
+                                  'characteristicValueIds': charList
                                 });
                               },
                               child: Text("Купи $price"));
