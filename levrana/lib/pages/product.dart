@@ -184,125 +184,138 @@ class _ProductPageState extends State<ProductPage> {
                       activeColor: Colors.green,
                     ),
                   ),
-                  productPrice['price'] == null
-                      ? SizedBox.shrink()
-                      : Text(productPrice['price'].toStringAsFixed(0),
-                          style: GoogleFonts.montserrat(fontSize: 32)),
-                  productPrice['oldPrice'] == null
-                      ? SizedBox.shrink()
-                      : Text(productPrice['oldPrice'].toStringAsFixed(0),
-                          style: GoogleFonts.montserrat(fontSize: 32)),
-                  Text(result.data!['getProduct']['name'],
-                      style: GoogleFonts.montserrat(fontSize: 20)),
-                  Text(result.data!['getProduct']['comment'] ?? "null"),
-                  Column(
-                      children: result.data!['getProduct']['characteristics']
-                          .map((e) => CharacteristicsElement(
-                                element: e,
-                                onSelected: (index) {
-                                  charMap[e['iD']] = e['values'][index]['iD'];
-                                  if (e['isPrice']) {
-                                    var price = getPrice(
-                                        result.data!['getProduct']['prices'],
-                                        e['values'][index]['iD']);
-                                    if (price != null)
-                                      setState(() {
-                                        productPrice =
-                                            Map<String, dynamic>.from(price);
-                                      });
-                                  }
-                                },
-                              ))
-                          .toList()
-                          .cast<Widget>()),
-                  ExpandableTheme(
-                    data: ExpandableThemeData(
-                        headerAlignment: ExpandablePanelHeaderAlignment.center,
-                        iconPlacement: ExpandablePanelIconPlacement.left,
-                        iconRotationAngle: pi / 2,
-                        expandIcon: Icons.chevron_right,
-                        collapseIcon: Icons.chevron_right),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
                     child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        ExpandablePanel(
-                          header: Text("Характеристики"),
-                          collapsed: SizedBox.shrink(),
-                          expanded: Text("1234234234"),
+                        productPrice['price'] == null
+                            ? SizedBox.shrink()
+                            : Text(productPrice['price'].toStringAsFixed(0),
+                                style: GoogleFonts.montserrat(fontSize: 32)),
+                        productPrice['oldPrice'] == null
+                            ? SizedBox.shrink()
+                            : Text(productPrice['oldPrice'].toStringAsFixed(0),
+                                style: GoogleFonts.montserrat(fontSize: 32)),
+                        Text(result.data!['getProduct']['name'],
+                            style: GoogleFonts.montserrat(fontSize: 20)),
+                        Text(result.data!['getProduct']['comment'] ?? "null"),
+                        Column(
+                            children:
+                                result.data!['getProduct']['characteristics']
+                                    .map((e) => CharacteristicsElement(
+                                          element: e,
+                                          onSelected: (index) {
+                                            charMap[e['iD']] =
+                                                e['values'][index]['iD'];
+                                            if (e['isPrice']) {
+                                              var price = getPrice(
+                                                  result.data!['getProduct']
+                                                      ['prices'],
+                                                  e['values'][index]['iD']);
+                                              if (price != null)
+                                                setState(() {
+                                                  productPrice =
+                                                      Map<String, dynamic>.from(
+                                                          price);
+                                                });
+                                            }
+                                          },
+                                        ))
+                                    .toList()
+                                    .cast<Widget>()),
+                        ExpandableTheme(
+                          data: ExpandableThemeData(
+                              headerAlignment:
+                                  ExpandablePanelHeaderAlignment.center,
+                              iconPlacement: ExpandablePanelIconPlacement.left,
+                              iconRotationAngle: pi / 2,
+                              expandIcon: Icons.chevron_right,
+                              collapseIcon: Icons.chevron_right),
+                          child: Column(
+                            children: [
+                              ExpandablePanel(
+                                header: Text("Характеристики"),
+                                collapsed: SizedBox.shrink(),
+                                expanded: Text("1234234234"),
+                              ),
+                              ExpandablePanel(
+                                header: Text("Описание"),
+                                collapsed: SizedBox.shrink(),
+                                expanded: Text("1234234234"),
+                              ),
+                              ExpandablePanel(
+                                header: Text("Состав"),
+                                collapsed: SizedBox.shrink(),
+                                expanded: Text("1234234234"),
+                              ),
+                              ExpandablePanel(
+                                header: Text("Отзывы"),
+                                collapsed: SizedBox.shrink(),
+                                expanded: Text("1234234234"),
+                              ),
+                            ],
+                          ),
                         ),
-                        ExpandablePanel(
-                          header: Text("Описание"),
-                          collapsed: SizedBox.shrink(),
-                          expanded: Text("1234234234"),
-                        ),
-                        ExpandablePanel(
-                          header: Text("Состав"),
-                          collapsed: SizedBox.shrink(),
-                          expanded: Text("1234234234"),
-                        ),
-                        ExpandablePanel(
-                          header: Text("Отзывы"),
-                          collapsed: SizedBox.shrink(),
-                          expanded: Text("1234234234"),
+                        Row(
+                          children: [
+                            Expanded(
+                              child: Mutation(
+                                options: MutationOptions(
+                                  document: gql(cartAdd),
+                                  onCompleted: (resultData) {
+                                    print(resultData);
+                                  },
+                                ),
+                                builder: (runMutation, result) {
+                                  var price = productPrice['price'];
+                                  return ElevatedButton(
+                                      onPressed: () {
+                                        List<int> charList = charMap.entries
+                                            .map((entry) => entry.value)
+                                            .toList();
+                                        print(charList);
+                                        runMutation({
+                                          'productID': widget.id,
+                                          'characteristicValueIds': charList
+                                        });
+                                      },
+                                      child: Text("В КОРЗИНУ • $price₽",
+                                          style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w400,
+                                          )));
+                                },
+                              ),
+                            ),
+                            Mutation(
+                              options: MutationOptions(
+                                document: gql(setFavoritesProduct),
+                                onCompleted: (resultData) {
+                                  print(resultData);
+                                },
+                              ),
+                              builder: (runMutation, result) {
+                                return ElevatedButton(
+                                  onPressed: () {
+                                    runMutation({
+                                      'productID': widget.id,
+                                    });
+                                  },
+                                  child: Icon(
+                                    Icons.favorite_border_outlined,
+                                  ),
+                                  style: ElevatedButton.styleFrom(
+                                    minimumSize: Size(48, 48),
+                                    shape: CircleBorder(),
+                                  ),
+                                );
+                              },
+                            )
+                          ],
                         ),
                       ],
                     ),
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: Mutation(
-                          options: MutationOptions(
-                            document: gql(cartAdd),
-                            onCompleted: (resultData) {
-                              print(resultData);
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            var price = productPrice['price'];
-                            return ElevatedButton(
-                                onPressed: () {
-                                  List<int> charList = charMap.entries
-                                      .map((entry) => entry.value)
-                                      .toList();
-                                  print(charList);
-                                  runMutation({
-                                    'productID': widget.id,
-                                    'characteristicValueIds': charList
-                                  });
-                                },
-                                child: Text("В КОРЗИНУ • $price₽",
-                                    style: GoogleFonts.montserrat(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w400,
-                                    )));
-                          },
-                        ),
-                      ),
-                      Mutation(
-                        options: MutationOptions(
-                          document: gql(setFavoritesProduct),
-                          onCompleted: (resultData) {
-                            print(resultData);
-                          },
-                        ),
-                        builder: (runMutation, result) {
-                          return ElevatedButton(
-                            onPressed: () {
-                              runMutation({
-                                'productID': widget.id,
-                              });
-                            },
-                            child: Icon(
-                              Icons.favorite_border_outlined,
-                            ),
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(48, 48),
-                              shape: CircleBorder(),
-                            ),
-                          );
-                        },
-                      )
-                    ],
                   )
                 ],
               ));
