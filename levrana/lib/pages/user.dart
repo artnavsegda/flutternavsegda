@@ -78,7 +78,7 @@ class UserPage extends StatelessWidget {
             body: Stack(
               children: [
                 Image(
-                  image: AssetImage('assets/Личный кабинет.png'),
+                  image: AssetImage('assets/UserPage.png'),
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
@@ -274,8 +274,8 @@ class _EditUserPageState extends State<EditUserPage> {
         child: Stack(
           children: [
             Image(
-                image: AssetImage(
-                    'assets/Личный кабинет • Редактирование профиля.png')),
+                image: AssetImage('assets/EditUser.png'),
+                width: double.infinity),
             Column(
               children: [
                 SizedBox(height: 100.0),
