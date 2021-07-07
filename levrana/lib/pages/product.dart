@@ -249,28 +249,34 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                   Row(
                     children: [
-                      Mutation(
-                        options: MutationOptions(
-                          document: gql(cartAdd),
-                          onCompleted: (resultData) {
-                            print(resultData);
+                      Expanded(
+                        child: Mutation(
+                          options: MutationOptions(
+                            document: gql(cartAdd),
+                            onCompleted: (resultData) {
+                              print(resultData);
+                            },
+                          ),
+                          builder: (runMutation, result) {
+                            var price = productPrice['price'];
+                            return ElevatedButton(
+                                onPressed: () {
+                                  List<int> charList = charMap.entries
+                                      .map((entry) => entry.value)
+                                      .toList();
+                                  print(charList);
+                                  runMutation({
+                                    'productID': widget.id,
+                                    'characteristicValueIds': charList
+                                  });
+                                },
+                                child: Text("В КОРЗИНУ • $price₽",
+                                    style: GoogleFonts.montserrat(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w400,
+                                    )));
                           },
                         ),
-                        builder: (runMutation, result) {
-                          var price = productPrice['price'];
-                          return ElevatedButton(
-                              onPressed: () {
-                                List<int> charList = charMap.entries
-                                    .map((entry) => entry.value)
-                                    .toList();
-                                print(charList);
-                                runMutation({
-                                  'productID': widget.id,
-                                  'characteristicValueIds': charList
-                                });
-                              },
-                              child: Text("Купи $price"));
-                        },
                       ),
                       Mutation(
                         options: MutationOptions(
@@ -290,6 +296,7 @@ class _ProductPageState extends State<ProductPage> {
                               Icons.favorite_border_outlined,
                             ),
                             style: ElevatedButton.styleFrom(
+                              minimumSize: Size(48, 48),
                               shape: CircleBorder(),
                             ),
                           );
