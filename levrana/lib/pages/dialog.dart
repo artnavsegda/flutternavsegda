@@ -60,7 +60,7 @@ class Welcome extends StatelessWidget {
                 var build = await deviceInfo.androidInfo;
                 runMutation({
                   'gUID': build.androidId,
-                  'bundleID': "ru.levrana.mobile",
+                  'bundleID': "com.levrana",
                   'oSType': "ANDROID",
                 });
               } else if (Platform.isIOS) {
