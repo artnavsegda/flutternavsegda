@@ -166,15 +166,11 @@ class HomePage extends StatelessWidget {
                       itemBuilder: (BuildContext context, int itemIndex,
                               int pageViewIndex) =>
                           Container(
-                        child: Container(
-                          padding: const EdgeInsets.fromLTRB(0, 21, 16, 0),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(6.0),
-                            child: Image.network(
-                                result.data!['getActions'][itemIndex]
-                                    ['picture'],
-                                fit: BoxFit.fill),
-                          ),
+                        child: ClipRRect(
+                          borderRadius: BorderRadius.circular(6.0),
+                          child: Image.network(
+                              result.data!['getActions'][itemIndex]['picture'],
+                              fit: BoxFit.fill),
                         ),
                       ),
                     );
