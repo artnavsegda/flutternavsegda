@@ -89,9 +89,18 @@ class ShoppingPage extends StatelessWidget {
                                       value: false, onChanged: (newValue) {}),
                                 ],
                               ),
-                              Flexible(
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(item['amount'].toString()),
+                                    Text(item['productName']),
+                                  ],
+                                ),
+                              )
+                              /* Flexible(
                                 child: Text(item['productName']),
-                              ),
+                              ), */
                             ],
                           ),
                         ),
