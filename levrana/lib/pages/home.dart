@@ -161,11 +161,15 @@ class HomePage extends StatelessWidget {
 
                     return CarouselSlider.builder(
                       options: CarouselOptions(
-                          height: 160.0, enableInfiniteScroll: false),
+                          height: 180.0,
+                          enableInfiniteScroll: false,
+                          disableCenter: true,
+                          viewportFraction: 0.9),
                       itemCount: result.data!['getActions'].length,
                       itemBuilder: (BuildContext context, int itemIndex,
                               int pageViewIndex) =>
                           Container(
+                        padding: const EdgeInsets.fromLTRB(0, 21, 16, 0),
                         child: ClipRRect(
                           borderRadius: BorderRadius.circular(6.0),
                           child: Image.network(
