@@ -375,6 +375,10 @@ class ProductCard extends StatelessWidget {
                   onTap: () {
                     print(product['iD']);
                     showModalBottomSheet(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.vertical(
+                            top: const Radius.circular(16.0)),
+                      ),
                       context: context,
                       builder: (context) {
                         return ProductBottomSheet(
@@ -416,6 +420,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
   @override
   Widget build(BuildContext context) {
     return Container(
+      padding: EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -426,7 +431,12 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                 widget.product['picture'],
                 width: 80,
               ),
-              Flexible(child: Text(widget.product['name'])),
+              Flexible(
+                  child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(widget.product['name'],
+                    style: GoogleFonts.montserrat(fontSize: 16)),
+              )),
             ],
           ),
           Query(
