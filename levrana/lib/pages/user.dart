@@ -274,8 +274,10 @@ class _EditUserPageState extends State<EditUserPage> {
         child: Stack(
           children: [
             Image(
-                image: AssetImage('assets/EditUser.png'),
-                width: double.infinity),
+              image: AssetImage('assets/EditUser.png'),
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ),
             Column(
               children: [
                 SizedBox(height: 100.0),
