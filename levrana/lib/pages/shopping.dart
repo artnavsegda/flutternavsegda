@@ -35,8 +35,15 @@ query getFavoritesProducts {
 }
 ''';
 
-class ShoppingCartPage extends StatelessWidget {
+class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({Key? key}) : super(key: key);
+
+  @override
+  _ShoppingCartPageState createState() => _ShoppingCartPageState();
+}
+
+class _ShoppingCartPageState extends State<ShoppingCartPage> {
+  var selected = <int>{};
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +68,7 @@ class ShoppingCartPage extends StatelessWidget {
           return ListView(children: [
             ListTile(
                 leading: Checkbox(value: false, onChanged: (newValue) {}),
-                title: Text("Выбрано:4 "),
+                title: Text('Выбрано: ${selected.length}'),
                 trailing: Wrap(spacing: 12, // space between two icons
                     children: <Widget>[
                       Icon(Icons.delete_outlined), // icon-1
@@ -74,7 +81,19 @@ class ShoppingCartPage extends StatelessWidget {
                     Stack(
                       children: [
                         Image.network(item['picture'], width: 80),
-                        Checkbox(value: false, onChanged: (newValue) {}),
+                        Checkbox(
+                            value: selected.contains(item['rowID']),
+                            onChanged: (newValue) {
+                              if (newValue == true) {
+                                setState(() {
+                                  selected.add(item['rowID']);
+                                });
+                              } else {
+                                setState(() {
+                                  selected.remove(item['rowID']);
+                                });
+                              }
+                            }),
                       ],
                     ),
                     Expanded(
