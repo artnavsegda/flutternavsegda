@@ -5,9 +5,22 @@ import 'package:levrana/pages/product.dart';
 const String getCart = r'''
 query getCart {
   getCart {
+    rowID
     productID
     productName
+    quantity
+    amount
+    oldAmount
+    modifiers
+    comment
     picture
+    message
+    characteristics {
+      type
+      name
+      value
+    }
+    modifiers
   }
 }
 ''';
