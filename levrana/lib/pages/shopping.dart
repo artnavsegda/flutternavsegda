@@ -71,8 +71,16 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 title: Text('Выбрано: ${selected.length}'),
                 trailing: Wrap(spacing: 12, // space between two icons
                     children: <Widget>[
-                      Icon(Icons.delete_outlined), // icon-1
-                      Icon(Icons.favorite_outline), // icon-2
+                      IconButton(
+                        constraints: BoxConstraints(maxWidth: 36),
+                        icon: Icon(Icons.delete_outlined),
+                        onPressed: () {},
+                      ),
+                      IconButton(
+                        constraints: BoxConstraints(maxWidth: 36),
+                        icon: Icon(Icons.favorite_outline),
+                        onPressed: () {},
+                      )
                     ])),
             for (var item in result.data!['getCart'])
               Container(
