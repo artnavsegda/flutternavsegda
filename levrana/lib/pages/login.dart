@@ -216,11 +216,20 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
                       )),
-                  TextField(
-                    controller: smsCodeController,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: '12345'),
+                  Container(
+                    margin: EdgeInsets.only(top: 8.0),
+                    height: 48,
+                    child: TextField(
+                      controller: smsCodeController,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(24.0),
+                            ),
+                          ),
+                          hintText: '12345'),
+                    ),
                   ),
                   Mutation(
                     options: MutationOptions(
@@ -278,14 +287,21 @@ class _LoginPageState extends State<LoginPage> {
                       RunMutation runMutation,
                       QueryResult? result,
                     ) {
-                      return ElevatedButton(
-                          child: Text("ПОДТВЕРДИТЬ"),
-                          onPressed: () {
-                            print("SMS NOW PLZ " + smsCodeController.text);
-                            runMutation({
-                              'code': smsCodeController.text,
-                            });
-                          });
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity,
+                                  48), // double.infinity is the width and 30 is the height
+                            ),
+                            child: Text("ПОДТВЕРДИТЬ"),
+                            onPressed: () {
+                              print("SMS NOW PLZ " + smsCodeController.text);
+                              runMutation({
+                                'code': smsCodeController.text,
+                              });
+                            }),
+                      );
                     },
                   ),
                 ]),
