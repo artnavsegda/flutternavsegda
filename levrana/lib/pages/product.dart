@@ -201,10 +201,11 @@ class _ProductPageState extends State<ProductPage> {
                                     var price = getPrice(
                                         result.data!['getProduct']['prices'],
                                         e['values'][index]['iD']);
-                                    setState(() {
-                                      productPrice =
-                                          Map<String, dynamic>.from(price);
-                                    });
+                                    if (price != null)
+                                      setState(() {
+                                        productPrice =
+                                            Map<String, dynamic>.from(price);
+                                      });
                                   }
                                 },
                               ))
