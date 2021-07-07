@@ -90,8 +90,8 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
         return Row(children: [
           for (int index = 0; index < widget.element['values'].length; index++)
             ChoiceChip(
-                label:
-                    Text("0"), //Text(widget.element['values'][index]['value']),
+                label: Text(
+                    "XX"), //Text(widget.element['values'][index]['value']),
                 selected: selected == index,
                 backgroundColor:
                     hexToColor(widget.element['values'][index]['value']),
