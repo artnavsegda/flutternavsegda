@@ -184,10 +184,14 @@ class _ProductPageState extends State<ProductPage> {
                       activeColor: Colors.green,
                     ),
                   ),
-                  Text(productPrice['price'].toString(),
-                      style: GoogleFonts.montserrat(fontSize: 32)),
-                  Text(productPrice['oldPrice'].toString(),
-                      style: GoogleFonts.montserrat(fontSize: 32)),
+                  productPrice['price'] == null
+                      ? SizedBox.shrink()
+                      : Text(productPrice['price'].toStringAsFixed(0),
+                          style: GoogleFonts.montserrat(fontSize: 32)),
+                  productPrice['oldPrice'] == null
+                      ? SizedBox.shrink()
+                      : Text(productPrice['oldPrice'].toStringAsFixed(0),
+                          style: GoogleFonts.montserrat(fontSize: 32)),
                   Text(result.data!['getProduct']['name'],
                       style: GoogleFonts.montserrat(fontSize: 20)),
                   Text(result.data!['getProduct']['comment'] ?? "null"),
