@@ -73,17 +73,42 @@ class _LoginPageState extends State<LoginPage> {
                         fontSize: 28,
                         fontWeight: FontWeight.w700,
                       )),
-                  TextField(
-                    controller: phoneNumberController,
-                    inputFormatters: [maskFormatter],
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(),
-                        hintText: '+7(___) ___-__-__'),
+                  Container(
+                    margin: EdgeInsets.only(top: 8.0),
+                    height: 48,
+                    child: TextField(
+                      controller: phoneNumberController,
+                      inputFormatters: [maskFormatter],
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: const BorderRadius.all(
+                              const Radius.circular(24.0),
+                            ),
+                          ),
+                          hintText: '+7(___) ___-__-__'),
+                    ),
                   ),
-                  CheckboxListTile(
+                  CheckboxTitle(
+                    title:
+                        "Ознакомлен с условиями положения о защите персональных данных",
+                    value: isFamiliarized,
+                    onChanged: (newValue) => setModalState(() {
+                      isFamiliarized = newValue!;
+                    }),
+                  ),
+                  CheckboxTitle(
+                    title: "Даю свое согласие на обработку персональных данных",
+                    value: isAgreed,
+                    onChanged: (newValue) => setModalState(() {
+                      isAgreed = newValue!;
+                    }),
+                  ),
+/*                   CheckboxListTile(
+                    dense: true,
                     title: Text(
-                        "Ознакомлен с условиями положения о защите персональных данных"),
+                        "Ознакомлен с условиями положения о защите персональных данных",
+                        style: GoogleFonts.montserrat(fontSize: 14)),
                     value: isFamiliarized,
                     onChanged: (newValue) => setModalState(() {
                       isFamiliarized = newValue!;
@@ -93,14 +118,15 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                   CheckboxListTile(
                     title: Text(
-                        "Даю свое согласие на обработку персональных данных"),
+                        "Даю свое согласие на обработку персональных данных",
+                        style: GoogleFonts.montserrat(fontSize: 14)),
                     value: isAgreed,
                     onChanged: (newValue) => setModalState(() {
                       isAgreed = newValue!;
                     }),
                     controlAffinity: ListTileControlAffinity
                         .leading, //  <-- leading Checkbox
-                  ),
+                  ), */
                   Mutation(
                     options: MutationOptions(
                       document: gql(loginClient),
@@ -138,20 +164,27 @@ class _LoginPageState extends State<LoginPage> {
                       RunMutation runMutation,
                       QueryResult? result,
                     ) {
-                      return ElevatedButton(
-                          onPressed: isAgreed && isFamiliarized
-                              ? () async {
-                                  PhoneNumber phoneNumber =
-                                      await PhoneNumberUtil()
-                                          .parse(phoneNumberController.text);
-                                  print('7' + phoneNumber.nationalNumber);
-                                  runMutation({
-                                    'clientPhone': int.parse(
-                                        '7' + phoneNumber.nationalNumber),
-                                  });
-                                }
-                              : null,
-                          child: Text("ВОЙТИ"));
+                      return Padding(
+                        padding: const EdgeInsets.only(top: 16.0),
+                        child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: Size(double.infinity,
+                                  48), // double.infinity is the width and 30 is the height
+                            ),
+                            onPressed: isAgreed && isFamiliarized
+                                ? () async {
+                                    PhoneNumber phoneNumber =
+                                        await PhoneNumberUtil()
+                                            .parse(phoneNumberController.text);
+                                    print('7' + phoneNumber.nationalNumber);
+                                    runMutation({
+                                      'clientPhone': int.parse(
+                                          '7' + phoneNumber.nationalNumber),
+                                    });
+                                  }
+                                : null,
+                            child: Text("ВОЙТИ")),
+                      );
                     },
                   ),
                 ],
@@ -285,6 +318,44 @@ class _LoginPageState extends State<LoginPage> {
                 );
               },
               child: Text("ПОЗЖЕ")),
+        ],
+      ),
+    );
+  }
+}
+
+class CheckboxTitle extends StatelessWidget {
+  const CheckboxTitle(
+      {Key? key, this.title = "", required this.value, required this.onChanged})
+      : super(key: key);
+
+  final String title;
+  final bool value;
+  final void Function(bool?) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 24.0,
+            width: 32.0,
+            child: Checkbox(
+              value: value,
+              onChanged: onChanged,
+            ),
+          ),
+          Flexible(
+            child: InkWell(
+                onTap: () {
+                  onChanged(!value);
+                },
+                child:
+                    Text(title, style: GoogleFonts.montserrat(fontSize: 14))),
+          )
         ],
       ),
     );
