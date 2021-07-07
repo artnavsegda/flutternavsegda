@@ -35,6 +35,98 @@ query getFavoritesProducts {
 }
 ''';
 
+class ShoppingCartPage extends StatelessWidget {
+  const ShoppingCartPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Query(
+        options: QueryOptions(document: gql(getCart)),
+        builder: (result, {refetch, fetchMore}) {
+          print(result);
+
+          if (result.hasException) {
+            return Center(
+              child: Text("Корзина недоступна"),
+            );
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return ListView(children: [
+            ListTile(
+                leading: Checkbox(value: false, onChanged: (newValue) {}),
+                title: Text("Выбрано:4 "),
+                trailing: Wrap(spacing: 12, // space between two icons
+                    children: <Widget>[
+                      Icon(Icons.delete_outlined), // icon-1
+                      Icon(Icons.favorite_outline), // icon-2
+                    ])),
+            for (var item in result.data!['getCart'])
+              Container(
+                child: Row(
+                  children: [
+                    Stack(
+                      children: [
+                        Image.network(item['picture'], width: 80),
+                        Checkbox(value: false, onChanged: (newValue) {}),
+                      ],
+                    ),
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(item['amount'].toString()),
+                          Text(item['productName']),
+                        ],
+                      ),
+                    )
+                    /* Flexible(
+                                child: Text(item['productName']),
+                              ), */
+                  ],
+                ),
+              ),
+          ]);
+
+          return ListView.builder(
+              itemCount: result.data!['getCart'].length,
+              itemBuilder: (context, index) {
+                return Container(
+                  child: Row(
+                    children: [
+                      Stack(
+                        children: [
+                          Image.network(
+                              result.data!['getCart'][index]['picture'],
+                              width: 80),
+                          Checkbox(value: false, onChanged: (newValue) {}),
+                        ],
+                      ),
+                      Flexible(
+                        child:
+                            Text(result.data!['getCart'][index]['productName']),
+                      ),
+                    ],
+                  ),
+                );
+              });
+
+          return Center(
+              child: Image(
+            image: AssetImage('assets/Корзина пуста.png'),
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ));
+        });
+  }
+}
+
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
 
@@ -50,94 +142,7 @@ class ShoppingPage extends StatelessWidget {
           ]),
           body: TabBarView(
             children: [
-              Query(
-                  options: QueryOptions(document: gql(getCart)),
-                  builder: (result, {refetch, fetchMore}) {
-                    print(result);
-
-                    if (result.hasException) {
-                      return Center(
-                        child: Text("Корзина недоступна"),
-                      );
-                      return Text(result.exception.toString());
-                    }
-
-                    if (result.isLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    return ListView(children: [
-                      ListTile(
-                          leading:
-                              Checkbox(value: false, onChanged: (newValue) {}),
-                          title: Text("Выбрано:4 "),
-                          trailing: Wrap(spacing: 12, // space between two icons
-                              children: <Widget>[
-                                Icon(Icons.delete_outlined), // icon-1
-                                Icon(Icons.favorite_outline), // icon-2
-                              ])),
-                      for (var item in result.data!['getCart'])
-                        Container(
-                          child: Row(
-                            children: [
-                              Stack(
-                                children: [
-                                  Image.network(item['picture'], width: 80),
-                                  Checkbox(
-                                      value: false, onChanged: (newValue) {}),
-                                ],
-                              ),
-                              Expanded(
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(item['amount'].toString()),
-                                    Text(item['productName']),
-                                  ],
-                                ),
-                              )
-                              /* Flexible(
-                                child: Text(item['productName']),
-                              ), */
-                            ],
-                          ),
-                        ),
-                    ]);
-
-                    return ListView.builder(
-                        itemCount: result.data!['getCart'].length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            child: Row(
-                              children: [
-                                Stack(
-                                  children: [
-                                    Image.network(
-                                        result.data!['getCart'][index]
-                                            ['picture'],
-                                        width: 80),
-                                    Checkbox(
-                                        value: false, onChanged: (newValue) {}),
-                                  ],
-                                ),
-                                Flexible(
-                                  child: Text(result.data!['getCart'][index]
-                                      ['productName']),
-                                ),
-                              ],
-                            ),
-                          );
-                        });
-
-                    return Center(
-                        child: Image(
-                      image: AssetImage('assets/Корзина пуста.png'),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ));
-                  }),
+              ShoppingCartPage(),
               Query(
                   options: QueryOptions(document: gql(getFavoritesProducts)),
                   builder: (result, {refetch, fetchMore}) {
