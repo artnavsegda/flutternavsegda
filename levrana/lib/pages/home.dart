@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 import 'user.dart';
 import 'product.dart';
@@ -157,6 +158,26 @@ class HomePage extends StatelessWidget {
                         child: CircularProgressIndicator(),
                       );
                     }
+
+                    return CarouselSlider.builder(
+                      options: CarouselOptions(
+                          height: 160.0, enableInfiniteScroll: false),
+                      itemCount: result.data!['getActions'].length,
+                      itemBuilder: (BuildContext context, int itemIndex,
+                              int pageViewIndex) =>
+                          Container(
+                        child: Container(
+                          padding: const EdgeInsets.fromLTRB(0, 21, 16, 0),
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(6.0),
+                            child: Image.network(
+                                result.data!['getActions'][itemIndex]
+                                    ['picture'],
+                                fit: BoxFit.fill),
+                          ),
+                        ),
+                      ),
+                    );
 
                     return Container(
                       margin: EdgeInsets.fromLTRB(0, 21, 0, 0),
