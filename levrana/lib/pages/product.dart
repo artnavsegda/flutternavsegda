@@ -490,6 +490,10 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
             builder: (runMutation, result) {
               var price = productPrice['price'];
               return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity,
+                        48), // double.infinity is the width and 30 is the height
+                  ),
                   onPressed: () {
                     List<int> charList =
                         charMap.entries.map((entry) => entry.value).toList();
@@ -499,7 +503,11 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                       'characteristicValueIds': charList
                     });
                   },
-                  child: Text("Купи $price"));
+                  child: Text("В КОРЗИНУ • $price₽",
+                      style: GoogleFonts.montserrat(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w400,
+                      )));
             },
           )
         ],
