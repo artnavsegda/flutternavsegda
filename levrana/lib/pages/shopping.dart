@@ -86,6 +86,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                             onCompleted: (resultData) {
                               print(resultData);
                               refetch!();
+                              setState(() {
+                                selected.clear();
+                              });
                             },
                           ),
                           builder: (runMutation, result) {

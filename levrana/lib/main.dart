@@ -97,14 +97,28 @@ class MainPage extends StatefulWidget {
   _MainPageState createState() => _MainPageState();
 }
 
-class _MainPageState extends State<MainPage> {
+class _MainPageState extends State<MainPage>
+    with SingleTickerProviderStateMixin {
   int _selectedIndex = 0;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 5);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
+      body: TabBarView(
+        controller: _tabController,
         children: <Widget>[
           HomePage(),
           CatalogNavigator(),
@@ -137,9 +151,12 @@ class _MainPageState extends State<MainPage> {
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          onTap: (index) => setState(() {
-            _selectedIndex = index;
-          }),
+          onTap: (index) {
+            _tabController.animateTo(index);
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
