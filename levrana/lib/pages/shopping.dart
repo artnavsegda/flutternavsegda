@@ -52,7 +52,8 @@ class ShoppingCartPage extends StatefulWidget {
 }
 
 class _ShoppingCartPageState extends State<ShoppingCartPage> {
-  var selected = <int>{};
+  var selectedRows = <int>{};
+  var selectedFavs = <int>{};
 
   @override
   Widget build(BuildContext context) {
@@ -77,7 +78,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           return ListView(children: [
             ListTile(
                 leading: Checkbox(value: false, onChanged: (newValue) {}),
-                title: Text('Выбрано: ${selected.length}'),
+                title: Text('Выбрано: ${selectedRows.length}'),
                 trailing: Wrap(spacing: 12, // space between two icons
                     children: <Widget>[
                       Mutation(
@@ -87,7 +88,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               print(resultData);
                               refetch!();
                               setState(() {
-                                selected.clear();
+                                selectedRows.clear();
                               });
                             },
                           ),
@@ -96,7 +97,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               constraints: BoxConstraints(maxWidth: 36),
                               icon: Icon(Icons.delete_outlined),
                               onPressed: () {
-                                runMutation({'rowIDs': selected.toList()});
+                                runMutation({'rowIDs': selectedRows.toList()});
                               },
                             );
                           }),
@@ -114,15 +115,17 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       children: [
                         Image.network(item['picture'], width: 80),
                         Checkbox(
-                            value: selected.contains(item['rowID']),
+                            value: selectedRows.contains(item['rowID']),
                             onChanged: (newValue) {
                               if (newValue == true) {
                                 setState(() {
-                                  selected.add(item['rowID']);
+                                  selectedRows.add(item['rowID']);
+                                  selectedFavs.add(item['productID']);
                                 });
                               } else {
                                 setState(() {
-                                  selected.remove(item['rowID']);
+                                  selectedRows.remove(item['rowID']);
+                                  selectedFavs.remove(item['productID']);
                                 });
                               }
                             }),
