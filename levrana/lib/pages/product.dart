@@ -486,6 +486,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
               document: gql(cartAdd),
               onCompleted: (resultData) {
                 print(resultData);
+                Navigator.pop(context);
               },
             ),
             builder: (runMutation, result) {
