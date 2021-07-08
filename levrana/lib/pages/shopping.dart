@@ -44,6 +44,15 @@ mutation cartDelete($rowIDs: [Int]) {
 }
 ''';
 
+const String setFavoritesProducts = r'''
+mutation setFavoritesProducts($productIds: [Int]) {
+  setFavoritesProducts(productIds: $productIds) {
+    result
+    errorMessage
+  }
+}
+''';
+
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({Key? key}) : super(key: key);
 
