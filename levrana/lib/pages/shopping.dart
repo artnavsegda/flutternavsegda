@@ -110,11 +110,27 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               },
                             );
                           }),
-                      IconButton(
-                        constraints: BoxConstraints(maxWidth: 36),
-                        icon: Icon(Icons.favorite_outline),
-                        onPressed: () {},
-                      )
+                      Mutation(
+                          options: MutationOptions(
+                            document: gql(setFavoritesProducts),
+                            onCompleted: (resultData) {
+                              print(resultData);
+                              refetch!();
+                              setState(() {
+                                selectedFavs.clear();
+                              });
+                            },
+                          ),
+                          builder: (runMutation, result) {
+                            return IconButton(
+                              constraints: BoxConstraints(maxWidth: 36),
+                              icon: Icon(Icons.favorite_outline),
+                              onPressed: () {
+                                runMutation(
+                                    {'productIds': selectedFavs.toList()});
+                              },
+                            );
+                          }),
                     ])),
             for (var item in result.data!['getCart'])
               Container(
