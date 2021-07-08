@@ -35,6 +35,15 @@ query getFavoritesProducts {
 }
 ''';
 
+const String cartDelete = r'''
+mutation cartDelete($rowIDs: [Int]) {
+  cartDelete(rowIDs: $rowIDs) {
+    result
+    errorMessage
+  }
+}
+''';
+
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({Key? key}) : super(key: key);
 
@@ -71,11 +80,23 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 title: Text('Выбрано: ${selected.length}'),
                 trailing: Wrap(spacing: 12, // space between two icons
                     children: <Widget>[
-                      IconButton(
-                        constraints: BoxConstraints(maxWidth: 36),
-                        icon: Icon(Icons.delete_outlined),
-                        onPressed: () {},
-                      ),
+                      Mutation(
+                          options: MutationOptions(
+                            document: gql(cartDelete),
+                            onCompleted: (resultData) {
+                              print(resultData);
+                              refetch!();
+                            },
+                          ),
+                          builder: (runMutation, result) {
+                            return IconButton(
+                              constraints: BoxConstraints(maxWidth: 36),
+                              icon: Icon(Icons.delete_outlined),
+                              onPressed: () {
+                                runMutation({'rowIDs': selected.toList()});
+                              },
+                            );
+                          }),
                       IconButton(
                         constraints: BoxConstraints(maxWidth: 36),
                         icon: Icon(Icons.favorite_outline),
