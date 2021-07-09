@@ -281,97 +281,110 @@ class QrPage extends StatelessWidget {
             width: double.infinity,
             fit: BoxFit.cover,
           ),
-          Center(
-            child: Query(
-                options: QueryOptions(document: gql(getClientInfo)),
-                builder: (result, {fetchMore, refetch}) {
-                  print(result.data);
+          Query(
+            options: QueryOptions(document: gql(getClientInfo)),
+            builder: (result, {fetchMore, refetch}) {
+              print(result.data);
 
-                  if (result.hasException) {
-                    return Text("Карта недоступна");
-                    return Text(result.exception.toString());
-                  }
+              if (result.hasException) {
+                return Text("Карта недоступна");
+                return Text(result.exception.toString());
+              }
 
-                  if (result.isLoading) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
+              if (result.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-                  String phone =
-                      "+" + result.data!['getClientInfo']['phone'].toString();
+              String phone =
+                  "+" + result.data!['getClientInfo']['phone'].toString();
 
-                  Future<PhoneNumber> futurePhone =
-                      PhoneNumberUtil().parse(phone);
+              Future<PhoneNumber> futurePhone = PhoneNumberUtil().parse(phone);
 
-                  return Column(
-                      //mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
+              return Column(children: [
+                Expanded(
+                  flex: 1,
+                  child: Center(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          boxShadow: <BoxShadow>[
+                            BoxShadow(
+                              color: Color.fromRGBO(85, 146, 80, 0.1696),
+                              blurRadius: 0.0,
+                              offset: Offset(0.0, 2),
+                            ),
+                            BoxShadow(
+                              color: Color.fromRGBO(85, 146, 80, 0.250),
+                              blurRadius: 15.11,
+                              offset: Offset(0.0, 12.02),
+                            ),
+                            BoxShadow(
+                              color: Color.fromRGBO(85, 146, 80, 0.250),
+                              blurRadius: 80,
+                              offset: Offset(0.0, 42),
+                            )
+                          ],
+                          color: Colors.white,
+                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                      child: QrImage(
+                        data: result.data!['getClientInfo']['clientGUID'],
+                        version: QrVersions.auto,
+                        size: 200.0,
+                      ),
+                    ),
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.all(24.0),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              boxShadow: <BoxShadow>[
-                                BoxShadow(
-                                  color: Color.fromRGBO(85, 146, 80, 0.1696),
-                                  blurRadius: 0.0,
-                                  offset: Offset(0.0, 2),
-                                ),
-                                BoxShadow(
-                                  color: Color.fromRGBO(85, 146, 80, 0.250),
-                                  blurRadius: 15.11,
-                                  offset: Offset(0.0, 12.02),
-                                ),
-                                BoxShadow(
-                                  color: Color.fromRGBO(85, 146, 80, 0.250),
-                                  blurRadius: 80,
-                                  offset: Offset(0.0, 42),
-                                )
-                              ],
-                              color: Colors.white,
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(20))),
-                          child: QrImage(
-                            data: result.data!['getClientInfo']['clientGUID'],
-                            version: QrVersions.auto,
-                            size: 200.0,
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.all(24.0),
-                          child: Wrap(
-                            runSpacing: 8,
-                            children: [
-                              Text("Показать на кассе",
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 28,
-                                      fontWeight: FontWeight.w700)),
-                              FutureBuilder<Object>(
-                                  future: futurePhone,
-                                  builder: (context, snapshot) {
-                                    if (snapshot.hasData) {
-                                      var phoneNumber =
-                                          snapshot.data as PhoneNumber;
+                        Wrap(
+                          runSpacing: 8,
+                          children: [
+                            Text("Показать на кассе",
+                                style: GoogleFonts.montserrat(
+                                    fontSize: 28, fontWeight: FontWeight.w700)),
+                            FutureBuilder<Object>(
+                                future: futurePhone,
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    var phoneNumber =
+                                        snapshot.data as PhoneNumber;
 
-                                      return Text(phoneNumber.international,
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 28,
-                                              fontWeight: FontWeight.w700,
-                                              color: Colors.green));
-                                    } else
-                                      return Center(
-                                          child: CircularProgressIndicator());
-                                  }),
-                              Text(
-                                  "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
-                            ],
-                          ),
+                                    return Text(phoneNumber.international,
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 28,
+                                            fontWeight: FontWeight.w700,
+                                            color: Colors.green));
+                                  } else
+                                    return Center(
+                                        child: CircularProgressIndicator());
+                                }),
+                            Text(
+                                "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
+                          ],
+                        ),
+                        Expanded(
+                          flex: 1,
+                          child: SizedBox(),
                         ),
                         ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(double.infinity, 48),
+                          ),
                           child: Text("Добавить в Wallet"),
                           onPressed: () {},
                         ),
-                      ]);
-                }),
+                      ],
+                    ),
+                  ),
+                ),
+              ]);
+            },
           ),
         ],
       ),

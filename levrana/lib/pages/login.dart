@@ -168,8 +168,7 @@ class _LoginPageState extends State<LoginPage> {
                         padding: const EdgeInsets.only(top: 16.0),
                         child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
-                              minimumSize: Size(double.infinity,
-                                  48), // double.infinity is the width and 30 is the height
+                              minimumSize: Size(double.infinity, 48),
                             ),
                             onPressed: isAgreed && isFamiliarized
                                 ? () async {
