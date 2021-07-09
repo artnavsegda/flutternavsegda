@@ -331,7 +331,7 @@ class QrPage extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(20))),
                           child: QrImage(
-                            data: "1234567890",
+                            data: result.data!['getClientInfo']['clientGUID'],
                             version: QrVersions.auto,
                             size: 200.0,
                           ),
