@@ -86,7 +86,29 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
           return ListView(children: [
             ListTile(
-                leading: Checkbox(value: false, onChanged: (newValue) {}),
+                leading: Checkbox(
+                    value: selectedRows.length != 0 &&
+                        selectedRows.containsAll(result.data!['getCart']
+                            .map((e) => e['rowID'])
+                            .cast<int>()
+                            .toList()),
+                    onChanged: (newValue) {
+                      setState(() {
+                        if (newValue == true) {
+                          selectedRows.addAll(result.data!['getCart']
+                              .map((e) => e['rowID'])
+                              .cast<int>()
+                              .toList());
+                          selectedFavs.addAll(result.data!['getCart']
+                              .map((e) => e['productID'])
+                              .cast<int>()
+                              .toList());
+                        } else {
+                          selectedRows.clear();
+                          selectedFavs.clear();
+                        }
+                      });
+                    }),
                 title: Text('Выбрано: ${selectedRows.length}'),
                 trailing: Wrap(spacing: 12, // space between two icons
                     children: <Widget>[
