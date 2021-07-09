@@ -16,6 +16,7 @@ class QRViewExample extends StatefulWidget {
 
 class _QRViewExampleState extends State<QRViewExample> {
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool scanned = false;
   late Barcode result;
   late QRViewController controller;
 
@@ -46,7 +47,7 @@ class _QRViewExampleState extends State<QRViewExample> {
           Expanded(
             flex: 1,
             child: Center(
-              child: (result != null)
+              child: (scanned != false)
                   ? Text(
                       'Barcode Type: ${result.format}   Data: ${result.code}')
                   : Text('Scan a code'),
@@ -61,6 +62,7 @@ class _QRViewExampleState extends State<QRViewExample> {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
       setState(() {
+        scanned = true;
         result = scanData;
       });
     });
