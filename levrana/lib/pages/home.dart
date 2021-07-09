@@ -376,7 +376,7 @@ class QrPage extends StatelessWidget {
                           style: ElevatedButton.styleFrom(
                             minimumSize: Size(double.infinity, 48),
                           ),
-                          child: Text("Добавить в Wallet"),
+                          child: Text("ДОБАВИТЬ В WALLET"),
                           onPressed: () {},
                         ),
                       ],
