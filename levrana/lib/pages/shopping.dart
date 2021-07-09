@@ -228,6 +228,53 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
   }
 }
 
+class FavouritesPage extends StatelessWidget {
+  const FavouritesPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Query(
+        options: QueryOptions(document: gql(getFavoritesProducts)),
+        builder: (result, {refetch, fetchMore}) {
+          print(result);
+
+          if (result.hasException) {
+            return Center(
+              child: Text("Корзина недоступна"),
+            );
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return GridView.builder(
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 2,
+                childAspectRatio: 0.8,
+              ),
+              itemCount: result.data!['getFavoritesProducts'].length,
+              itemBuilder: (context, index) {
+                return ProductCard(
+                    product: result.data!['getFavoritesProducts'][index]);
+                return ListTile(
+                    title: Text(
+                        result.data!['getFavoritesProducts'][index]['name']));
+              });
+
+          return Center(
+              child: Image(
+            image: AssetImage('assets/Корзина пуста.png'),
+            width: double.infinity,
+            fit: BoxFit.cover,
+          ));
+        });
+  }
+}
+
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
 
@@ -242,50 +289,7 @@ class ShoppingPage extends StatelessWidget {
             Tab(text: "Отложенные"),
           ]),
           body: TabBarView(
-            children: [
-              ShoppingCartPage(),
-              Query(
-                  options: QueryOptions(document: gql(getFavoritesProducts)),
-                  builder: (result, {refetch, fetchMore}) {
-                    print(result);
-
-                    if (result.hasException) {
-                      return Center(
-                        child: Text("Корзина недоступна"),
-                      );
-                      return Text(result.exception.toString());
-                    }
-
-                    if (result.isLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-
-                    return GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 0.8,
-                        ),
-                        itemCount: result.data!['getFavoritesProducts'].length,
-                        itemBuilder: (context, index) {
-                          return ProductCard(
-                              product: result.data!['getFavoritesProducts']
-                                  [index]);
-                          return ListTile(
-                              title: Text(result.data!['getFavoritesProducts']
-                                  [index]['name']));
-                        });
-
-                    return Center(
-                        child: Image(
-                      image: AssetImage('assets/Корзина пуста.png'),
-                      width: double.infinity,
-                      fit: BoxFit.cover,
-                    ));
-                  }),
-            ],
+            children: [ShoppingCartPage(), FavouritesPage()],
           ),
         ),
       ),
