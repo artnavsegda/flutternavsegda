@@ -85,7 +85,7 @@ class UserPage extends StatelessWidget {
                 ListView(
                   children: [
                     ListTile(
-                        title: Text(result.data!['getClientInfo']['name'],
+                        title: Text(result.data!['getClientInfo']['name'] ?? "",
                             style: GoogleFonts.montserrat(fontSize: 28)),
                         leading: CircleAvatar(
                           radius: 40,
