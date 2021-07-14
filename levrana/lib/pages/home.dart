@@ -139,7 +139,7 @@ class HomePage extends StatelessWidget {
                           child: Image(image: AssetImage('assets/Union.png'))),
                       Positioned(
                           right: 16,
-                          bottom: 37,
+                          top: 100,
                           child:
                               Image(image: AssetImage('assets/Group 145.png'))),
                     ]),
