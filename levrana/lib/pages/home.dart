@@ -161,7 +161,7 @@ class HomePage extends StatelessWidget {
                       );
                     }
 
-                    return CarouselSlider.builder(
+/*                     return CarouselSlider.builder(
                       options: CarouselOptions(
                           height: 200.0,
                           enableInfiniteScroll: false,
@@ -184,25 +184,29 @@ class HomePage extends StatelessWidget {
                           ),
                         ),
                       ),
-                    );
+                    ); */
 
                     return Container(
                       margin: EdgeInsets.fromLTRB(0, 21, 0, 0),
-                      height: 160,
-                      child: PageView.builder(
-                        controller: _controller,
-                        itemCount: result.data!['getActions'].length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            padding: const EdgeInsets.only(right: 16.0),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(6.0),
-                              child: Image.network(
-                                  result.data!['getActions'][index]['picture'],
-                                  fit: BoxFit.fill),
-                            ),
-                          );
-                        },
+                      //height: 160,
+                      child: AspectRatio(
+                        aspectRatio: 16 / 8,
+                        child: PageView.builder(
+                          controller: _controller,
+                          itemCount: result.data!['getActions'].length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              padding: const EdgeInsets.only(right: 16.0),
+                              child: ClipRRect(
+                                borderRadius: BorderRadius.circular(6.0),
+                                child: Image.network(
+                                    result.data!['getActions'][index]
+                                        ['picture'],
+                                    fit: BoxFit.fill),
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     );
                   }),
