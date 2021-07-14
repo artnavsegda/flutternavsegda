@@ -281,9 +281,24 @@ class _EditUserPageState extends State<EditUserPage> {
             Column(
               children: [
                 SizedBox(height: 100.0),
-                CircleAvatar(
-                  radius: 86,
-                  backgroundImage: AssetImage('assets/ic-24/icon-24-gift.png'),
+                Stack(
+                  children: [
+                    CircleAvatar(
+                      radius: 86,
+                      backgroundImage:
+                          AssetImage('assets/ic-24/icon-24-gift.png'),
+                    ),
+                    ElevatedButton(
+                      onPressed: () {},
+                      child: Icon(
+                        Icons.photo_camera_outlined,
+                      ),
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(48, 48),
+                        shape: CircleBorder(),
+                      ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
