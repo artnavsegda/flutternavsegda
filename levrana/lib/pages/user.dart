@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'dialog.dart';
+import 'login.dart';
 
 const String getClientInfo = r'''
 query getClientInfo {
@@ -41,7 +42,16 @@ class UserPage extends StatelessWidget {
         options: QueryOptions(document: gql(getClientInfo)),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
-            return Center(child: Text("Профиль пользователя недоступен"));
+            return Center(
+                child: ElevatedButton(
+              child: Text("Войти в профиль"),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                );
+              },
+            ));
             return Center(child: Text(result.exception.toString()));
           }
 
