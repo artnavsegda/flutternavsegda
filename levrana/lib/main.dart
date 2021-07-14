@@ -157,28 +157,28 @@ class _MainPageState extends State<MainPage>
               _selectedIndex = index;
             });
           },
+          selectedItemColor: Colors.green[800],
           currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
+              icon: ImageIcon(AssetImage('assets/ic-24/icons-home.png')),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: Image(
-                  image: AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
+              icon:
+                  ImageIcon(AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
               label: 'Catalog',
             ),
             BottomNavigationBarItem(
-              icon:
-                  Image(image: AssetImage('assets/ic-24/icon-24-shopping.png')),
+              icon: ImageIcon(AssetImage('assets/ic-24/icon-24-shopping.png')),
               label: 'Shopping',
             ),
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/ic-24/icon-24-user.png')),
+              icon: ImageIcon(AssetImage('assets/ic-24/icon-24-user.png')),
               label: 'User',
             ),
             BottomNavigationBarItem(
-              icon: Image(image: AssetImage('assets/ic-24/icons-more.png')),
+              icon: ImageIcon(AssetImage('assets/ic-24/icons-more.png')),
               label: 'More',
             ),
           ],
