@@ -334,70 +334,67 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 136,
-      child: Column(
-        children: [
-          Stack(
-            children: [
-              InkWell(
-                onTap: () {
-                  print(product['iD']);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ProductPage(id: product['iD'])),
-                  );
-                },
-                child: Image.network(
-                  product['picture'],
-                ),
+    return Column(
+      children: [
+        Stack(
+          children: [
+            InkWell(
+              onTap: () {
+                print(product['iD']);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ProductPage(id: product['iD'])),
+                );
+              },
+              child: Image.network(
+                product['picture'],
               ),
-              Positioned(
-                  bottom: 0,
-                  right: 0,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      border: Border.all(
-                        color: Colors.white,
-                      ),
-                      borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(8)),
-                    ),
-                    width: 40,
-                    height: 40,
-                  )),
-              Positioned(
+            ),
+            Positioned(
                 bottom: 0,
                 right: 0,
-                child: InkWell(
-                  onTap: () {
-                    print(product['iD']);
-                    showModalBottomSheet(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.vertical(
-                            top: const Radius.circular(16.0)),
-                      ),
-                      context: context,
-                      builder: (context) {
-                        return ProductBottomSheet(
-                            product: product, id: product['iD']);
-                      },
-                    );
-                  },
-                  child: Image.asset(
-                    'assets/ic-24/icon-24-shopping.png',
-                    width: 40,
-                    height: 40,
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    border: Border.all(
+                      color: Colors.white,
+                    ),
+                    borderRadius:
+                        BorderRadius.only(topLeft: Radius.circular(8)),
                   ),
+                  width: 40,
+                  height: 40,
+                )),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: InkWell(
+                onTap: () {
+                  print(product['iD']);
+                  showModalBottomSheet(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.vertical(
+                          top: const Radius.circular(16.0)),
+                    ),
+                    context: context,
+                    builder: (context) {
+                      return ProductBottomSheet(
+                          product: product, id: product['iD']);
+                    },
+                  );
+                },
+                child: Image.asset(
+                  'assets/ic-24/icon-24-shopping.png',
+                  width: 40,
+                  height: 40,
                 ),
-              )
-            ],
-          ),
-          Text(product['name']),
-        ],
-      ),
+              ),
+            )
+          ],
+        ),
+        Text(product['name']),
+      ],
     );
   }
 }

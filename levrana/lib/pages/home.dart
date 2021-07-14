@@ -246,8 +246,12 @@ class HomePage extends StatelessWidget {
                                           runSpacing: 16,
                                           children: section['products']
                                               .map(
-                                                (product) => ProductCard(
-                                                    product: product),
+                                                (product) =>
+                                                    FractionallySizedBox(
+                                                  widthFactor: 0.45,
+                                                  child: ProductCard(
+                                                      product: product),
+                                                ),
                                               )
                                               .toList()
                                               .cast<Widget>()),
