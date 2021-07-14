@@ -157,6 +157,7 @@ class _MainPageState extends State<MainPage>
               _selectedIndex = index;
             });
           },
+          currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Image(image: AssetImage('assets/ic-24/icons-home.png')),
