@@ -158,6 +158,7 @@ class _MainPageState extends State<MainPage>
             });
           },
           selectedItemColor: Colors.green[800],
+          unselectedItemColor: Colors.black,
           currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(

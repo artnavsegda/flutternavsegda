@@ -347,8 +347,13 @@ class ProductCard extends StatelessWidget {
                       builder: (context) => ProductPage(id: product['iD'])),
                 );
               },
-              child: Image.network(
-                product['picture'],
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Color(0x10000000),
+                ),
+                child: Image.network(
+                  product['picture'],
+                ),
               ),
             ),
             Positioned(
