@@ -1,4 +1,4 @@
-package com.example.camerademo
+package com.example.imagepickdemo
 
 import io.flutter.embedding.android.FlutterActivity
 

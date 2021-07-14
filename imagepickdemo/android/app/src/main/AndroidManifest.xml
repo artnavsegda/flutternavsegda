@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.camerademo">
+    package="com.example.imagepickdemo">
    <application
-        android:label="camerademo"
+        android:label="imagepickdemo"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

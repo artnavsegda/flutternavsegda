@@ -1,4 +1,4 @@
-# camerademo
+# imagepickdemo
 
 A new Flutter project.
 
