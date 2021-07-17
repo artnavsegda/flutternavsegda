@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 const String getCart = r'''
 query getCart {
@@ -284,10 +285,23 @@ class ShoppingPage extends StatelessWidget {
       length: 2,
       child: SafeArea(
         child: Scaffold(
-          appBar: TabBar(labelColor: Colors.black, tabs: [
-            Tab(text: "Корзина"),
-            Tab(text: "Отложенные"),
-          ]),
+          appBar: PreferredSize(
+            preferredSize: const Size.fromHeight(60.0),
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: TabBar(
+                  unselectedLabelColor: Colors.black38,
+                  labelColor: Colors.black,
+                  tabs: [
+                    Tab(
+                        child: Text("Корзина",
+                            style: GoogleFonts.montserrat(fontSize: 16))),
+                    Tab(
+                        child: Text("Отложенные",
+                            style: GoogleFonts.montserrat(fontSize: 16))),
+                  ]),
+            ),
+          ),
           body: TabBarView(
             children: [ShoppingCartPage(), FavouritesPage()],
           ),
