@@ -195,7 +195,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                   children: [
                                     Text(item['amount'].toString()),
                                     Text(item['productName']),
-                                    Column(
+                                    Row(
                                         children: item['characteristics']
                                             .map((e) => Text(e['value']))
                                             .toList()
