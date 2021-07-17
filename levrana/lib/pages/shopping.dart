@@ -167,45 +167,48 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       ])),
             ),
             for (var item in result.data!['getCart'])
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
-                color: Colors.white,
-                child: Row(
-                  children: [
-                    Stack(
-                      children: [
-                        Image.network(item['picture'], width: 80),
-                        Checkbox(
-                            value: selectedRows.contains(item['rowID']),
-                            onChanged: (newValue) {
-                              if (newValue == true) {
-                                setState(() {
-                                  selectedRows.add(item['rowID']);
-                                  selectedFavs.add(item['productID']);
-                                });
-                              } else {
-                                setState(() {
-                                  selectedRows.remove(item['rowID']);
-                                  selectedFavs.remove(item['productID']);
-                                });
-                              }
-                            }),
-                      ],
-                    ),
-                    Expanded(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              Stack(
+                children: [
+                  Container(
+                    margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                    color: Colors.white,
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Row(
                         children: [
-                          Text(item['amount'].toString()),
-                          Text(item['productName']),
+                          Image.network(item['picture'], width: 80),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(item['amount'].toString()),
+                                Text(item['productName']),
+                              ],
+                            ),
+                          )
+                          /* Flexible(
+                                      child: Text(item['productName']),
+                                    ), */
                         ],
                       ),
-                    )
-                    /* Flexible(
-                                child: Text(item['productName']),
-                              ), */
-                  ],
-                ),
+                    ),
+                  ),
+                  Checkbox(
+                      value: selectedRows.contains(item['rowID']),
+                      onChanged: (newValue) {
+                        if (newValue == true) {
+                          setState(() {
+                            selectedRows.add(item['rowID']);
+                            selectedFavs.add(item['productID']);
+                          });
+                        } else {
+                          setState(() {
+                            selectedRows.remove(item['rowID']);
+                            selectedFavs.remove(item['productID']);
+                          });
+                        }
+                      })
+                ],
               ),
           ]);
 
