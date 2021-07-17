@@ -285,6 +285,7 @@ class ShoppingPage extends StatelessWidget {
       length: 2,
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: Color(0xFFF5F5F5),
           appBar: PreferredSize(
             preferredSize: const Size.fromHeight(60.0),
             child: Padding(
