@@ -196,7 +196,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(item['amount'].toStringAsFixed(0),
+                                    Text(
+                                        "${item['amount'].toStringAsFixed(0)}₽",
                                         style: GoogleFonts.montserrat(
                                             fontSize: 32)),
                                     Text(item['productName']),

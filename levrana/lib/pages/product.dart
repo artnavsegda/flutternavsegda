@@ -281,7 +281,7 @@ class _ProductPageState extends State<ProductPage> {
                                           'characteristicValueIds': charList
                                         });
                                       },
-                                      child: Text("В КОРЗИНУ • $price₽",
+                                      child: Text(" • $price₽",
                                           style: GoogleFonts.montserrat(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400,
