@@ -180,7 +180,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
               Stack(
                 children: [
                   Container(
-                    margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                    margin:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.5),
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
