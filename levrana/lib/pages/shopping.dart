@@ -3,6 +3,15 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+const String cartEdit = r'''
+mutation cartEdit($rowID: Int, $quantity: Int) {
+  cartEdit(rowID: $rowID, quantity: $quantity) {
+    result
+    errorMessage
+  }
+}
+''';
+
 const String getCart = r'''
 query getCart {
   getCart {
