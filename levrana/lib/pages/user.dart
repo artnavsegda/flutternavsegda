@@ -431,6 +431,12 @@ class _EditUserPageState extends State<EditUserPage> {
                                             Uri.parse(
                                                 'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
                                           );
+                                          final prefs = await SharedPreferences
+                                              .getInstance();
+                                          request.headers['Authorization'] =
+                                              'Bearer ' +
+                                                  (prefs.getString('token') ??
+                                                      "");
                                           request.files
                                               .add(await MultipartFile.fromPath(
                                             'image',
