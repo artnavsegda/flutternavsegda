@@ -174,21 +174,28 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     color: Colors.white,
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Row(
+                      child: Column(
                         children: [
-                          Image.network(item['picture'], width: 80),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(item['amount'].toString()),
-                                Text(item['productName']),
-                              ],
-                            ),
-                          )
-                          /* Flexible(
-                                      child: Text(item['productName']),
-                                    ), */
+                          Row(
+                            children: [
+                              Image.network(item['picture'], width: 80),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(item['amount'].toString()),
+                                    Text(item['productName']),
+                                  ],
+                                ),
+                              )
+                              /* Flexible(
+                                          child: Text(item['productName']),
+                                        ), */
+                            ],
+                          ),
+                          Container(
+                              color: Colors.black12,
+                              child: Text(item['quantity'].toString()))
                         ],
                       ),
                     ),
