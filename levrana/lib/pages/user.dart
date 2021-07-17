@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -299,7 +300,24 @@ class _EditUserPageState extends State<EditUserPage> {
                           AssetImage('assets/ic-24/icon-24-gift.png'),
                     ),
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () => showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => CupertinoActionSheet(
+                                actions: <CupertinoActionSheetAction>[
+                                  CupertinoActionSheetAction(
+                                    child: const Text('Камера'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  CupertinoActionSheetAction(
+                                    child: const Text('Галерея'),
+                                    onPressed: () {
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              )),
                       child: Icon(
                         Icons.photo_camera_outlined,
                       ),
