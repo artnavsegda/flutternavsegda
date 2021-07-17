@@ -221,35 +221,17 @@ class _ProductPageState extends State<ProductPage> {
                             style: GoogleFonts.montserrat(fontSize: 20)),
                         Text(result.data!['getProduct']['comment'] ?? "null"),
                         Column(
-                            children:
-                                result.data!['getProduct']['characteristics']
-                                    .map((e) => CharacteristicsElement(
-                                          element: e,
-                                          onSelected: (index) {
-                                            selectChar(
-                                                index,
-                                                e,
-                                                result.data!['getProduct']
-                                                    ['prices']);
-                                            return;
-                                            charMap[e['iD']] =
-                                                e['values'][index]['iD'];
-                                            if (e['isPrice']) {
-                                              var price = getPrice(
-                                                  result.data!['getProduct']
-                                                      ['prices'],
-                                                  e['values'][index]['iD']);
-                                              if (price != null)
-                                                setState(() {
-                                                  productPrice =
-                                                      Map<String, dynamic>.from(
-                                                          price);
-                                                });
-                                            }
-                                          },
-                                        ))
-                                    .toList()
-                                    .cast<Widget>()),
+                            children: result.data!['getProduct']
+                                    ['characteristics']
+                                .map((e) => CharacteristicsElement(
+                                      element: e,
+                                      onSelected: (index) => selectChar(
+                                          index,
+                                          e,
+                                          result.data!['getProduct']['prices']),
+                                    ))
+                                .toList()
+                                .cast<Widget>()),
                         ExpandableTheme(
                           data: ExpandableThemeData(
                               headerAlignment:
@@ -444,6 +426,17 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
   Map<int, int> charMap = {};
 
+  void selectChar(index, characteristic, prices) {
+    charMap[characteristic['iD']] = characteristic['values'][index]['iD'];
+    if (characteristic['isPrice']) {
+      var price = getPrice(prices, characteristic['values'][index]['iD']);
+      if (price != null)
+        setState(() {
+          productPrice = Map<String, dynamic>.from(price);
+        });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -485,25 +478,24 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   );
                 }
 
+                WidgetsBinding.instance!.addPostFrameCallback((_) {
+                  result.data!['getProduct']['characteristics']
+                      .forEach((element) {
+                    if (element['type'] != "TEXT") if (!charMap
+                        .containsKey(element['iD']))
+                      selectChar(
+                          0, element, result.data!['getProduct']['prices']);
+                  });
+                });
+
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     mainAxisSize: MainAxisSize.min,
                     children: result.data!['getProduct']['characteristics']
                         .map((e) => CharacteristicsElement(
                               element: e,
-                              onSelected: (index) {
-                                charMap[e['iD']] = e['values'][index]['iD'];
-                                if (e['isPrice']) {
-                                  var price = getPrice(
-                                      result.data!['getProduct']['prices'],
-                                      e['values'][index]['iD']);
-                                  if (price != null)
-                                    setState(() {
-                                      productPrice =
-                                          Map<String, dynamic>.from(price);
-                                    });
-                                }
-                              },
+                              onSelected: (index) => selectChar(index, e,
+                                  result.data!['getProduct']['prices']),
                             ))
                         .toList()
                         .cast<Widget>());
