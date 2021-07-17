@@ -87,7 +87,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
           return ListView(children: [
             Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
               child: ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
