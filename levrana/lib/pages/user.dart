@@ -262,7 +262,7 @@ class _EditUserPageState extends State<EditUserPage> {
   final emailController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
-  late XFile? _image;
+  XFile? _imageFile;
 
   @override
   void dispose() {
@@ -311,17 +311,24 @@ class _EditUserPageState extends State<EditUserPage> {
                                   CupertinoActionSheetAction(
                                     child: const Text('Камера'),
                                     onPressed: () async {
-                                      _image = await _picker.pickImage(
-                                          source: ImageSource.camera);
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.camera);
+                                      setState(() {
+                                        _imageFile = pickedFile;
+                                      });
                                       Navigator.pop(context);
                                     },
                                   ),
                                   CupertinoActionSheetAction(
                                     child: const Text('Галерея'),
                                     onPressed: () async {
-                                      await _picker.pickImage(
-                                          source: ImageSource.gallery);
-                                      print("OK");
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.gallery);
+                                      setState(() {
+                                        _imageFile = pickedFile;
+                                      });
                                       Navigator.pop(context);
                                     },
                                   )
