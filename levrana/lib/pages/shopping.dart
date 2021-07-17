@@ -185,15 +185,20 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     child: Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Image.network(item['picture'], width: 80),
+                              SizedBox(width: 9),
                               Expanded(
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(item['amount'].toString()),
+                                    Text(item['amount'].toStringAsFixed(0),
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 32)),
                                     Text(item['productName']),
                                     Row(
                                         children: item['characteristics']
@@ -208,10 +213,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                         ), */
                             ],
                           ),
+                          SizedBox(height: 9),
                           Container(
                               width: 168,
                               decoration: BoxDecoration(
-                                  color: Colors.black12,
+                                  color: Color(0xFFF5F5F5),
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(24))),
                               child: Mutation(
@@ -231,6 +237,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextButton(
+                                            style: TextButton.styleFrom(
+                                              primary: Colors.black,
+                                            ),
                                             onPressed: () => runMutation({
                                                   'rowID': item['rowID'],
                                                   'quantity':
@@ -239,6 +248,9 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                             child: Text('-')),
                                         Text(item['quantity'].toString()),
                                         TextButton(
+                                            style: TextButton.styleFrom(
+                                              primary: Colors.black,
+                                            ),
                                             onPressed: () => runMutation({
                                                   'rowID': item['rowID'],
                                                   'quantity':
@@ -252,23 +264,31 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       ),
                     ),
                   ),
-                  Transform.scale(
-                    scale: 2,
-                    child: Checkbox(
-                        value: selectedRows.contains(item['rowID']),
-                        onChanged: (newValue) {
-                          if (newValue == true) {
-                            setState(() {
-                              selectedRows.add(item['rowID']);
-                              selectedFavs.add(item['productID']);
-                            });
-                          } else {
-                            setState(() {
-                              selectedRows.remove(item['rowID']);
-                              selectedFavs.remove(item['productID']);
-                            });
-                          }
-                        }),
+                  Positioned(
+                    top: 37,
+                    left: 9,
+                    child: Transform.scale(
+                      scale: 2,
+                      child: SizedBox(
+                        height: 32.0,
+                        width: 32.0,
+                        child: Checkbox(
+                            value: selectedRows.contains(item['rowID']),
+                            onChanged: (newValue) {
+                              if (newValue == true) {
+                                setState(() {
+                                  selectedRows.add(item['rowID']);
+                                  selectedFavs.add(item['productID']);
+                                });
+                              } else {
+                                setState(() {
+                                  selectedRows.remove(item['rowID']);
+                                  selectedFavs.remove(item['productID']);
+                                });
+                              }
+                            }),
+                      ),
+                    ),
                   )
                 ],
               ),
