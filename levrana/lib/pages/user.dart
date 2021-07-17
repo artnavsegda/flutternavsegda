@@ -105,8 +105,8 @@ class UserPage extends StatelessWidget {
                             style: GoogleFonts.montserrat(fontSize: 28)),
                         leading: CircleAvatar(
                           radius: 40,
-                          backgroundImage:
-                              AssetImage('assets/ic-24/icon-24-gift.png'),
+                          backgroundImage: NetworkImage(
+                              result.data!['getClientInfo']['picture']),
                         )),
                     Container(
                       decoration: BoxDecoration(
