@@ -204,7 +204,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                     Text(item['productName']),
                                     Row(
                                         children: item['characteristics']
-                                            .map((e) => Text(e['value']))
+                                            .map((e) => Text(e['value'],
+                                                style: GoogleFonts.montserrat(
+                                                    fontSize: 16,
+                                                    color: Colors.black45)))
                                             .toList()
                                             .cast<Widget>())
                                   ],
