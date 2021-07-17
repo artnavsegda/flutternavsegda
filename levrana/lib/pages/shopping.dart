@@ -87,8 +87,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
           return ListView(children: [
             Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+              padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
@@ -169,6 +168,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             ),
             for (var item in result.data!['getCart'])
               Container(
+                margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                color: Colors.white,
                 child: Row(
                   children: [
                     Stack(
