@@ -88,34 +88,38 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           return ListView(children: [
             Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0),
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
               child: ListTile(
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
                   tileColor: Colors.white,
-                  leading: Checkbox(
-                      value: selectedRows.length != 0 &&
-                          selectedRows.containsAll(result.data!['getCart']
-                              .map((e) => e['rowID'])
-                              .cast<int>()
-                              .toList()),
-                      onChanged: (newValue) {
-                        setState(() {
-                          if (newValue == true) {
-                            selectedRows.addAll(result.data!['getCart']
+                  leading: SizedBox(
+                    height: 24.0,
+                    width: 24.0,
+                    child: Checkbox(
+                        value: selectedRows.length != 0 &&
+                            selectedRows.containsAll(result.data!['getCart']
                                 .map((e) => e['rowID'])
                                 .cast<int>()
-                                .toList());
-                            selectedFavs.addAll(result.data!['getCart']
-                                .map((e) => e['productID'])
-                                .cast<int>()
-                                .toList());
-                          } else {
-                            selectedRows.clear();
-                            selectedFavs.clear();
-                          }
-                        });
-                      }),
+                                .toList()),
+                        onChanged: (newValue) {
+                          setState(() {
+                            if (newValue == true) {
+                              selectedRows.addAll(result.data!['getCart']
+                                  .map((e) => e['rowID'])
+                                  .cast<int>()
+                                  .toList());
+                              selectedFavs.addAll(result.data!['getCart']
+                                  .map((e) => e['productID'])
+                                  .cast<int>()
+                                  .toList());
+                            } else {
+                              selectedRows.clear();
+                              selectedFavs.clear();
+                            }
+                          });
+                        }),
+                  ),
                   title: Text('Выбрано: ${selectedRows.length}'),
                   trailing: Wrap(spacing: 12, // space between two icons
                       children: <Widget>[
