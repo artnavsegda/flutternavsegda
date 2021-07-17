@@ -262,6 +262,7 @@ class _EditUserPageState extends State<EditUserPage> {
   final emailController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
+  late XFile? _image;
 
   @override
   void dispose() {
@@ -309,17 +310,18 @@ class _EditUserPageState extends State<EditUserPage> {
                                 actions: <CupertinoActionSheetAction>[
                                   CupertinoActionSheetAction(
                                     child: const Text('Камера'),
-                                    onPressed: () {
-                                      _picker.pickImage(
+                                    onPressed: () async {
+                                      _image = await _picker.pickImage(
                                           source: ImageSource.camera);
                                       Navigator.pop(context);
                                     },
                                   ),
                                   CupertinoActionSheetAction(
                                     child: const Text('Галерея'),
-                                    onPressed: () {
-                                      _picker.pickImage(
+                                    onPressed: () async {
+                                      await _picker.pickImage(
                                           source: ImageSource.gallery);
+                                      print("OK");
                                       Navigator.pop(context);
                                     },
                                   )
