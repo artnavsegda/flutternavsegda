@@ -309,10 +309,19 @@ class FiltersPage extends StatelessWidget {
   }
 }
 
-class CatalogNavigator extends StatelessWidget {
+class CatalogNavigator extends StatefulWidget {
   const CatalogNavigator({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _CatalogNavigatorState createState() => _CatalogNavigatorState();
+}
+
+class _CatalogNavigatorState extends State<CatalogNavigator>
+    with AutomaticKeepAliveClientMixin<CatalogNavigator> {
+  @override
+  bool get wantKeepAlive => true;
 
   @override
   Widget build(BuildContext context) {
