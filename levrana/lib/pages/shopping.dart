@@ -223,6 +223,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                   ),
                                   builder: (runMutation, result) {
                                     return Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
                                       children: [
                                         TextButton(
                                             onPressed: () => runMutation({
@@ -246,21 +248,24 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       ),
                     ),
                   ),
-                  Checkbox(
-                      value: selectedRows.contains(item['rowID']),
-                      onChanged: (newValue) {
-                        if (newValue == true) {
-                          setState(() {
-                            selectedRows.add(item['rowID']);
-                            selectedFavs.add(item['productID']);
-                          });
-                        } else {
-                          setState(() {
-                            selectedRows.remove(item['rowID']);
-                            selectedFavs.remove(item['productID']);
-                          });
-                        }
-                      })
+                  Transform.scale(
+                    scale: 2,
+                    child: Checkbox(
+                        value: selectedRows.contains(item['rowID']),
+                        onChanged: (newValue) {
+                          if (newValue == true) {
+                            setState(() {
+                              selectedRows.add(item['rowID']);
+                              selectedFavs.add(item['productID']);
+                            });
+                          } else {
+                            setState(() {
+                              selectedRows.remove(item['rowID']);
+                              selectedFavs.remove(item['productID']);
+                            });
+                          }
+                        }),
+                  )
                 ],
               ),
           ]);
