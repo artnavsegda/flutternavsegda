@@ -195,7 +195,14 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           ),
                           Container(
                               color: Colors.black12,
-                              child: Text(item['quantity'].toString()))
+                              child: Row(
+                                children: [
+                                  TextButton(
+                                      onPressed: () {}, child: Text('-')),
+                                  Text(item['quantity'].toString()),
+                                  TextButton(onPressed: () {}, child: Text('+'))
+                                ],
+                              ))
                         ],
                       ),
                     ),
