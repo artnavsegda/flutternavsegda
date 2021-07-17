@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'dialog.dart';
 import 'login.dart';
@@ -260,6 +261,8 @@ class _EditUserPageState extends State<EditUserPage> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
 
+  final ImagePicker _picker = ImagePicker();
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
@@ -307,12 +310,16 @@ class _EditUserPageState extends State<EditUserPage> {
                                   CupertinoActionSheetAction(
                                     child: const Text('Камера'),
                                     onPressed: () {
+                                      _picker.pickImage(
+                                          source: ImageSource.camera);
                                       Navigator.pop(context);
                                     },
                                   ),
                                   CupertinoActionSheetAction(
                                     child: const Text('Галерея'),
                                     onPressed: () {
+                                      _picker.pickImage(
+                                          source: ImageSource.gallery);
                                       Navigator.pop(context);
                                     },
                                   )
