@@ -4,7 +4,6 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
-import 'package:flutter/scheduler.dart';
 
 const String getProduct = r'''
 query getProduct($productID: Int!) {
@@ -161,9 +160,10 @@ class _ProductPageState extends State<ProductPage> {
             );
           }
 
-          SchedulerBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
             result.data!['getProduct']['characteristics'].forEach((element) {
-              if (element['type'] != "TEXT")
+              if (element['type'] != "TEXT") if (!charMap
+                  .containsKey(element['iD']))
                 selectChar(0, element, result.data!['getProduct']['prices']);
             });
           });
