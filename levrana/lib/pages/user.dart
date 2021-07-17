@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -300,8 +302,9 @@ class _EditUserPageState extends State<EditUserPage> {
                   children: [
                     CircleAvatar(
                       radius: 86,
-                      backgroundImage:
-                          AssetImage('assets/ic-24/icon-24-gift.png'),
+                      backgroundImage: FileImage(File(_imageFile?.path ?? "")),
+                      //backgroundImage:
+                      //AssetImage('assets/ic-24/icon-24-gift.png'),
                     ),
                     ElevatedButton(
                       onPressed: () => showCupertinoModalPopup(
