@@ -87,6 +87,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
           return ListView(children: [
             ListTile(
+                tileColor: Colors.white,
                 leading: Checkbox(
                     value: selectedRows.length != 0 &&
                         selectedRows.containsAll(result.data!['getCart']
