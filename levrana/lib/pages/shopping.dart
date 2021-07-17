@@ -86,76 +86,82 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           }
 
           return ListView(children: [
-            ListTile(
-                tileColor: Colors.white,
-                leading: Checkbox(
-                    value: selectedRows.length != 0 &&
-                        selectedRows.containsAll(result.data!['getCart']
-                            .map((e) => e['rowID'])
-                            .cast<int>()
-                            .toList()),
-                    onChanged: (newValue) {
-                      setState(() {
-                        if (newValue == true) {
-                          selectedRows.addAll(result.data!['getCart']
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: ListTile(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  tileColor: Colors.white,
+                  leading: Checkbox(
+                      value: selectedRows.length != 0 &&
+                          selectedRows.containsAll(result.data!['getCart']
                               .map((e) => e['rowID'])
                               .cast<int>()
-                              .toList());
-                          selectedFavs.addAll(result.data!['getCart']
-                              .map((e) => e['productID'])
-                              .cast<int>()
-                              .toList());
-                        } else {
-                          selectedRows.clear();
-                          selectedFavs.clear();
-                        }
-                      });
-                    }),
-                title: Text('Выбрано: ${selectedRows.length}'),
-                trailing: Wrap(spacing: 12, // space between two icons
-                    children: <Widget>[
-                      Mutation(
-                          options: MutationOptions(
-                            document: gql(cartDelete),
-                            onCompleted: (resultData) {
-                              print(resultData);
-                              refetch!();
-                              setState(() {
-                                selectedRows.clear();
-                              });
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            return IconButton(
-                              constraints: BoxConstraints(maxWidth: 36),
-                              icon: Icon(Icons.delete_outlined),
-                              onPressed: () {
-                                runMutation({'rowIDs': selectedRows.toList()});
+                              .toList()),
+                      onChanged: (newValue) {
+                        setState(() {
+                          if (newValue == true) {
+                            selectedRows.addAll(result.data!['getCart']
+                                .map((e) => e['rowID'])
+                                .cast<int>()
+                                .toList());
+                            selectedFavs.addAll(result.data!['getCart']
+                                .map((e) => e['productID'])
+                                .cast<int>()
+                                .toList());
+                          } else {
+                            selectedRows.clear();
+                            selectedFavs.clear();
+                          }
+                        });
+                      }),
+                  title: Text('Выбрано: ${selectedRows.length}'),
+                  trailing: Wrap(spacing: 12, // space between two icons
+                      children: <Widget>[
+                        Mutation(
+                            options: MutationOptions(
+                              document: gql(cartDelete),
+                              onCompleted: (resultData) {
+                                print(resultData);
+                                refetch!();
+                                setState(() {
+                                  selectedRows.clear();
+                                });
                               },
-                            );
-                          }),
-                      Mutation(
-                          options: MutationOptions(
-                            document: gql(setFavoritesProducts),
-                            onCompleted: (resultData) {
-                              print(resultData);
-                              refetch!();
-                              setState(() {
-                                selectedFavs.clear();
-                              });
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            return IconButton(
-                              constraints: BoxConstraints(maxWidth: 36),
-                              icon: Icon(Icons.favorite_outline),
-                              onPressed: () {
-                                runMutation(
-                                    {'productIds': selectedFavs.toList()});
+                            ),
+                            builder: (runMutation, result) {
+                              return IconButton(
+                                constraints: BoxConstraints(maxWidth: 36),
+                                icon: Icon(Icons.delete_outlined),
+                                onPressed: () {
+                                  runMutation(
+                                      {'rowIDs': selectedRows.toList()});
+                                },
+                              );
+                            }),
+                        Mutation(
+                            options: MutationOptions(
+                              document: gql(setFavoritesProducts),
+                              onCompleted: (resultData) {
+                                print(resultData);
+                                refetch!();
+                                setState(() {
+                                  selectedFavs.clear();
+                                });
                               },
-                            );
-                          }),
-                    ])),
+                            ),
+                            builder: (runMutation, result) {
+                              return IconButton(
+                                constraints: BoxConstraints(maxWidth: 36),
+                                icon: Icon(Icons.favorite_outline),
+                                onPressed: () {
+                                  runMutation(
+                                      {'productIds': selectedFavs.toList()});
+                                },
+                              );
+                            }),
+                      ])),
+            ),
             for (var item in result.data!['getCart'])
               Container(
                 child: Row(
