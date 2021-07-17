@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -426,13 +427,22 @@ class _EditUserPageState extends State<EditUserPage> {
                                           print("Magic !");
 
                                           var request = MultipartRequest(
-                                              'POST',
-                                              Uri.parse(
-                                                  'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'));
-                                          request.files.add(
-                                              await MultipartFile.fromPath(
-                                                  'image', _imageFile!.path));
-                                          var res = await request.send();
+                                            'POST',
+                                            Uri.parse(
+                                                'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
+                                          );
+                                          request.files
+                                              .add(await MultipartFile.fromPath(
+                                            'image',
+                                            _imageFile!.path,
+                                            contentType:
+                                                MediaType('image', 'jpg'),
+                                          ));
+                                          var streamedResponse =
+                                              await request.send();
+                                          var res = await streamedResponse
+                                              .stream
+                                              .bytesToString();
                                           print(res);
 
                                           if (_formKey.currentState!
