@@ -4,6 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:math';
+import 'package:flutter/scheduler.dart';
 
 const String getProduct = r'''
 query getProduct($productID: Int!) {
@@ -65,7 +66,7 @@ class CharacteristicsElement extends StatefulWidget {
 }
 
 class _CharacteristicsElementState extends State<CharacteristicsElement> {
-  int selected = -1;
+  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +132,17 @@ class _ProductPageState extends State<ProductPage> {
 
   Map<int, int> charMap = {};
 
+  void selectChar(index, characteristic, prices) {
+    charMap[characteristic['iD']] = characteristic['values'][index]['iD'];
+    if (characteristic['isPrice']) {
+      var price = getPrice(prices, characteristic['values'][index]['iD']);
+      if (price != null)
+        setState(() {
+          productPrice = Map<String, dynamic>.from(price);
+        });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Query(
@@ -141,13 +153,20 @@ class _ProductPageState extends State<ProductPage> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          //print(result);
+          print(result);
 
           if (result.isLoading && result.data == null) {
             return const Center(
               child: CircularProgressIndicator(),
             );
           }
+
+          SchedulerBinding.instance!.addPostFrameCallback((_) {
+            result.data!['getProduct']['characteristics'].forEach((element) {
+              if (element['type'] != "TEXT")
+                selectChar(0, element, result.data!['getProduct']['prices']);
+            });
+          });
 
           return Scaffold(
               appBar: AppBar(
@@ -207,6 +226,12 @@ class _ProductPageState extends State<ProductPage> {
                                     .map((e) => CharacteristicsElement(
                                           element: e,
                                           onSelected: (index) {
+                                            selectChar(
+                                                index,
+                                                e,
+                                                result.data!['getProduct']
+                                                    ['prices']);
+                                            return;
                                             charMap[e['iD']] =
                                                 e['values'][index]['iD'];
                                             if (e['isPrice']) {

@@ -202,7 +202,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                         style: GoogleFonts.montserrat(
                                             fontSize: 32)),
                                     Text(item['productName']),
-                                    Row(
+                                    Column(
                                         children: item['characteristics']
                                             .map((e) => Text(e['value'],
                                                 style: GoogleFonts.montserrat(
