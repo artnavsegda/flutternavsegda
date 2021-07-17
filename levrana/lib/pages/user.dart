@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -421,8 +422,19 @@ class _EditUserPageState extends State<EditUserPage> {
                                   ),
                                   builder: (runMutation, result) {
                                     return ElevatedButton(
-                                        onPressed: () {
+                                        onPressed: () async {
                                           print("Magic !");
+
+                                          var request = MultipartRequest(
+                                              'POST',
+                                              Uri.parse(
+                                                  'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'));
+                                          request.files.add(
+                                              await MultipartFile.fromPath(
+                                                  'image', _imageFile!.path));
+                                          var res = await request.send();
+                                          print(res);
+
                                           if (_formKey.currentState!
                                               .validate()) {
                                             print(nameController.text);
