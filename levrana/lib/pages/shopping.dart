@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:levrana/pages/user.dart';
 
 const String cartEdit = r'''
 mutation cartEdit($rowID: Int, $quantity: Int) {
@@ -204,14 +205,38 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           ),
                           Container(
                               color: Colors.black12,
-                              child: Row(
-                                children: [
-                                  TextButton(
-                                      onPressed: () {}, child: Text('-')),
-                                  Text(item['quantity'].toString()),
-                                  TextButton(onPressed: () {}, child: Text('+'))
-                                ],
-                              ))
+                              child: Mutation(
+                                  options: MutationOptions(
+                                    document: gql(
+                                        cartEdit), // this is the mutation string you just created
+                                    // you can update the cache based on results
+                                    // or do something with the result.data on completion
+                                    onCompleted: (dynamic resultData) {
+                                      print(resultData);
+                                      refetch!();
+                                    },
+                                  ),
+                                  builder: (runMutation, result) {
+                                    return Row(
+                                      children: [
+                                        TextButton(
+                                            onPressed: () => runMutation({
+                                                  'rowID': item['rowID'],
+                                                  'quantity':
+                                                      item['quantity'] - 1
+                                                }),
+                                            child: Text('-')),
+                                        Text(item['quantity'].toString()),
+                                        TextButton(
+                                            onPressed: () => runMutation({
+                                                  'rowID': item['rowID'],
+                                                  'quantity':
+                                                      item['quantity'] + 1
+                                                }),
+                                            child: Text('+'))
+                                      ],
+                                    );
+                                  }))
                         ],
                       ),
                     ),
