@@ -430,31 +430,34 @@ class _EditUserPageState extends State<EditUserPage> {
                                       onPressed: () async {
                                         print("Magic !");
 
-                                        var request = MultipartRequest(
-                                          'POST',
-                                          Uri.parse(
-                                              'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
-                                        );
-                                        final prefs = await SharedPreferences
-                                            .getInstance();
-                                        request.headers['Authorization'] =
-                                            'Bearer ' +
-                                                (prefs.getString('token') ??
-                                                    "");
-                                        request.files
-                                            .add(await MultipartFile.fromPath(
-                                          'image',
-                                          _imageFile!.path,
-                                          contentType:
-                                              MediaType('image', 'jpg'),
-                                        ));
-                                        var streamedResponse =
-                                            await request.send();
-                                        var res = await streamedResponse.stream
-                                            .bytesToString();
-                                        print(res);
-
                                         if (_formKey.currentState!.validate()) {
+                                          if (_imageFile != null) {
+                                            var request = MultipartRequest(
+                                              'POST',
+                                              Uri.parse(
+                                                  'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
+                                            );
+                                            final prefs =
+                                                await SharedPreferences
+                                                    .getInstance();
+                                            request.headers['Authorization'] =
+                                                'Bearer ' +
+                                                    (prefs.getString('token') ??
+                                                        "");
+                                            request.files.add(
+                                                await MultipartFile.fromPath(
+                                              'image',
+                                              _imageFile!.path,
+                                              contentType:
+                                                  MediaType('image', 'jpg'),
+                                            ));
+                                            var streamedResponse =
+                                                await request.send();
+                                            var res = await streamedResponse
+                                                .stream
+                                                .bytesToString();
+                                            print(res);
+                                          }
                                           print(nameController.text);
                                           runMutation({
                                             'clientGUID': clientGUID,
