@@ -167,9 +167,12 @@ class ProductsListPage extends StatefulWidget {
 class _ProductsListPageState extends State<ProductsListPage> {
   late ScrollController _controller;
 
+  _scrollListener() {}
+
   @override
   void initState() {
     _controller = ScrollController();
+    _controller.addListener(_scrollListener);
     super.initState();
   }
 
