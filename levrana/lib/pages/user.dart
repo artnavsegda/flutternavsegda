@@ -301,208 +301,182 @@ class _EditUserPageState extends State<EditUserPage> {
               width: double.infinity,
               fit: BoxFit.cover,
             ),
-            Column(
-              children: [
-                SizedBox(height: 100.0),
-                Stack(
+            Query(
+              options: QueryOptions(document: gql(getClientInfo)),
+              builder: (result, {fetchMore, refetch}) {
+                if (result.isLoading && result.data == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                nameController.text =
+                    result.data!['getClientInfo']['name'] ?? "";
+
+                emailController.text =
+                    result.data!['getClientInfo']['eMail'] ?? "";
+
+                var clientGUID = result.data!['getClientInfo']['clientGUID'];
+                return Column(
                   children: [
-                    CircleAvatar(
-                      radius: 86,
-                      backgroundImage: FileImage(File(_imageFile?.path ?? "")),
-                      //backgroundImage:
-                      //AssetImage('assets/ic-24/icon-24-gift.png'),
+                    SizedBox(height: 100.0),
+                    Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 86,
+                          backgroundImage: _imageFile == null
+                              ? NetworkImage(
+                                  result.data!['getClientInfo']['picture'])
+                              : FileImage(File(_imageFile?.path ?? ""))
+                                  as ImageProvider,
+                          //backgroundImage:
+                          //AssetImage('assets/ic-24/icon-24-gift.png'),
+                        ),
+                        ElevatedButton(
+                          onPressed: () => showCupertinoModalPopup(
+                              context: context,
+                              builder: (context) => CupertinoActionSheet(
+                                    actions: <CupertinoActionSheetAction>[
+                                      CupertinoActionSheetAction(
+                                        child: const Text('Камера'),
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.camera);
+                                          setState(() {
+                                            _imageFile = pickedFile;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      ),
+                                      CupertinoActionSheetAction(
+                                        child: const Text('Галерея'),
+                                        onPressed: () async {
+                                          final pickedFile =
+                                              await _picker.pickImage(
+                                                  source: ImageSource.gallery);
+                                          setState(() {
+                                            _imageFile = pickedFile;
+                                          });
+                                          Navigator.pop(context);
+                                        },
+                                      )
+                                    ],
+                                  )),
+                          child: Icon(
+                            Icons.photo_camera_outlined,
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            minimumSize: Size(48, 48),
+                            shape: CircleBorder(),
+                          ),
+                        ),
+                      ],
                     ),
-                    ElevatedButton(
-                      onPressed: () => showCupertinoModalPopup(
-                          context: context,
-                          builder: (context) => CupertinoActionSheet(
-                                actions: <CupertinoActionSheetAction>[
-                                  CupertinoActionSheetAction(
-                                    child: const Text('Камера'),
-                                    onPressed: () async {
-                                      final pickedFile =
-                                          await _picker.pickImage(
-                                              source: ImageSource.camera);
-                                      setState(() {
-                                        _imageFile = pickedFile;
-                                      });
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  CupertinoActionSheetAction(
-                                    child: const Text('Галерея'),
-                                    onPressed: () async {
-                                      final pickedFile =
-                                          await _picker.pickImage(
-                                              source: ImageSource.gallery);
-                                      setState(() {
-                                        _imageFile = pickedFile;
-                                      });
-                                      Navigator.pop(context);
-                                    },
-                                  )
-                                ],
-                              )),
-                      child: Icon(
-                        Icons.photo_camera_outlined,
-                      ),
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(48, 48),
-                        shape: CircleBorder(),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Form(
+                        key: _formKey,
+                        child: Column(
+                          children: [
+                            TextFormField(
+                                controller: nameController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Введите имя';
+                                  }
+                                  return null;
+                                },
+                                decoration: InputDecoration(labelText: 'Имя')),
+                            TextFormField(
+                                controller: emailController,
+                                validator: (value) {
+                                  if (value == null || value.isEmpty) {
+                                    return 'Введите E-Mail';
+                                  }
+                                  return null;
+                                },
+                                decoration:
+                                    InputDecoration(labelText: 'E-mail')),
+                            TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Телефон')),
+                            TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Дата рождения')),
+                            TextFormField(
+                                decoration: InputDecoration(labelText: 'Пол')),
+                            TextFormField(
+                                decoration: InputDecoration(
+                                    labelText: 'Размер одежды')),
+                            TextFormField(
+                                decoration:
+                                    InputDecoration(labelText: 'Размер обуви')),
+                            SizedBox(
+                              height: 32,
+                            ),
+                            SizedBox(
+                              width: double.infinity,
+                              child: Mutation(
+                                options: MutationOptions(
+                                  document: gql(editClient),
+                                  onCompleted: (resultData) {
+                                    print(resultData);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                builder: (runMutation, result) {
+                                  return ElevatedButton(
+                                      onPressed: () async {
+                                        print("Magic !");
+
+                                        var request = MultipartRequest(
+                                          'POST',
+                                          Uri.parse(
+                                              'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
+                                        );
+                                        final prefs = await SharedPreferences
+                                            .getInstance();
+                                        request.headers['Authorization'] =
+                                            'Bearer ' +
+                                                (prefs.getString('token') ??
+                                                    "");
+                                        request.files
+                                            .add(await MultipartFile.fromPath(
+                                          'image',
+                                          _imageFile!.path,
+                                          contentType:
+                                              MediaType('image', 'jpg'),
+                                        ));
+                                        var streamedResponse =
+                                            await request.send();
+                                        var res = await streamedResponse.stream
+                                            .bytesToString();
+                                        print(res);
+
+                                        if (_formKey.currentState!.validate()) {
+                                          print(nameController.text);
+                                          runMutation({
+                                            'clientGUID': clientGUID,
+                                            'name': nameController.text,
+                                            'eMail': emailController.text,
+                                          });
+                                          //Navigator.pop(context);
+                                        }
+                                      },
+                                      child: Text("СОХРАНИТЬ",
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 16)));
+                                },
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Query(
-                      options: QueryOptions(document: gql(getClientInfo)),
-                      builder: (result, {fetchMore, refetch}) {
-                        if (result.isLoading && result.data == null) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        nameController.text =
-                            result.data!['getClientInfo']['name'] ?? "";
-
-                        emailController.text =
-                            result.data!['getClientInfo']['eMail'] ?? "";
-
-                        var clientGUID =
-                            result.data!['getClientInfo']['clientGUID'];
-
-                        return Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              TextFormField(
-                                  controller: nameController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите имя';
-                                    }
-                                    return null;
-                                  },
-                                  decoration:
-                                      InputDecoration(labelText: 'Имя')),
-                              TextFormField(
-                                  controller: emailController,
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите E-Mail';
-                                    }
-                                    return null;
-                                  },
-                                  decoration:
-                                      InputDecoration(labelText: 'E-mail')),
-                              TextFormField(
-                                  decoration:
-                                      InputDecoration(labelText: 'Телефон')),
-                              TextFormField(
-                                  decoration: InputDecoration(
-                                      labelText: 'Дата рождения')),
-                              TextFormField(
-                                  decoration:
-                                      InputDecoration(labelText: 'Пол')),
-                              TextFormField(
-                                  decoration: InputDecoration(
-                                      labelText: 'Размер одежды')),
-                              TextFormField(
-                                  decoration: InputDecoration(
-                                      labelText: 'Размер обуви')),
-                              SizedBox(
-                                height: 32,
-                              ),
-                              SizedBox(
-                                width: double.infinity,
-                                child: Mutation(
-                                  options: MutationOptions(
-                                    document: gql(editClient),
-                                    onCompleted: (resultData) {
-                                      print(resultData);
-                                      Navigator.pop(context);
-                                    },
-                                  ),
-                                  builder: (runMutation, result) {
-                                    return ElevatedButton(
-                                        onPressed: () async {
-                                          print("Magic !");
-
-                                          var request = MultipartRequest(
-                                            'POST',
-                                            Uri.parse(
-                                                'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
-                                          );
-                                          final prefs = await SharedPreferences
-                                              .getInstance();
-                                          request.headers['Authorization'] =
-                                              'Bearer ' +
-                                                  (prefs.getString('token') ??
-                                                      "");
-                                          request.files
-                                              .add(await MultipartFile.fromPath(
-                                            'image',
-                                            _imageFile!.path,
-                                            contentType:
-                                                MediaType('image', 'jpg'),
-                                          ));
-                                          var streamedResponse =
-                                              await request.send();
-                                          var res = await streamedResponse
-                                              .stream
-                                              .bytesToString();
-                                          print(res);
-
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            print(nameController.text);
-                                            runMutation({
-                                              'clientGUID': clientGUID,
-                                              'name': nameController.text,
-                                              'eMail': emailController.text,
-                                            });
-                                            //Navigator.pop(context);
-                                          }
-                                        },
-                                        child: Text("СОХРАНИТЬ",
-                                            style: GoogleFonts.montserrat(
-                                                fontSize: 16)));
-                                  },
-                                ),
-                              )
-                            ],
-                          ),
-                        );
-
-                        return Column(
-                          children: [
-                            Text(result.data!['getClientInfo']['name'] ?? ""),
-                            Text(result.data!['getClientInfo']['phone']
-                                .toString()),
-                            Text(result.data!['getClientInfo']['dateOfBirth'] ??
-                                ""),
-                            Text(result.data!['getClientInfo']['gender'] ?? ""),
-                            Text(result.data!['getClientInfo']['eMail'] ?? ""),
-                            Text(result.data!['getClientInfo']['confirmedPhone']
-                                .toString()),
-                            Text(result.data!['getClientInfo']['confirmedEMail']
-                                .toString()),
-                            Text(result.data!['getClientInfo']['isPassword']
-                                .toString()),
-                            Text(result.data!['getClientInfo']['points']
-                                .toString()),
-                            Text(
-                                result.data!['getClientInfo']['picture'] ?? ""),
-                            Text(result.data!['getClientInfo']
-                                    ['codeInviteFriend'] ??
-                                ""),
-                          ],
-                        );
-                      }),
-                ),
-              ],
+                );
+              },
             )
           ],
         ),
