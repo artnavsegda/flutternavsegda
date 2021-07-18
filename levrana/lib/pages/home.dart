@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 
 import 'user.dart';
 import 'product.dart';
@@ -322,8 +323,11 @@ class ActionPage extends StatelessWidget {
           return Scaffold(
               appBar:
                   AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
-              body: Center(
-                child: Text(result.data!['getAction']['description'] ?? ""),
+              body: Markdown(
+                data: result.data!['getAction']['description'] ?? "",
+                onTapLink: (text, url, title) {
+                  print(url);
+                },
               ));
         });
   }
