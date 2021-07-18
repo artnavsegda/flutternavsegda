@@ -153,12 +153,31 @@ class CatalogPage extends StatelessWidget {
   }
 }
 
-class ProductsListPage extends StatelessWidget {
+class ProductsListPage extends StatefulWidget {
   const ProductsListPage({Key? key, this.catalogId = 0, this.title = "Каталог"})
       : super(key: key);
 
   final int catalogId;
   final String title;
+
+  @override
+  _ProductsListPageState createState() => _ProductsListPageState();
+}
+
+class _ProductsListPageState extends State<ProductsListPage> {
+  late ScrollController _controller;
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +186,7 @@ class ProductsListPage extends StatelessWidget {
         iconTheme: IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text("$title", style: TextStyle(color: Colors.black)),
+        title: Text("${widget.title}", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         actions: <Widget>[
@@ -189,7 +208,7 @@ class ProductsListPage extends StatelessWidget {
       body: Query(
         options: QueryOptions(
           document: gql(getProducts),
-          variables: {'catalogID': catalogId, 'cursor': null},
+          variables: {'catalogID': widget.catalogId, 'cursor': null},
         ),
         builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
           print(result);
