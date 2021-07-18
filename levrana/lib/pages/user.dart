@@ -100,14 +100,18 @@ class UserPage extends StatelessWidget {
                 ),
                 ListView(
                   children: [
-                    ListTile(
-                        title: Text(result.data!['getClientInfo']['name'] ?? "",
-                            style: GoogleFonts.montserrat(fontSize: 28)),
-                        leading: CircleAvatar(
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        CircleAvatar(
                           radius: 40,
                           backgroundImage: NetworkImage(
                               result.data!['getClientInfo']['picture']),
-                        )),
+                        ),
+                        Text(result.data!['getClientInfo']['name'] ?? "",
+                            style: GoogleFonts.montserrat(fontSize: 28))
+                      ],
+                    ),
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
