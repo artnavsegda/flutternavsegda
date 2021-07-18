@@ -320,9 +320,10 @@ class ActionPage extends StatelessWidget {
           }
 
           return Scaffold(
-              appBar: AppBar(title: Text("Акция")),
+              appBar:
+                  AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
               body: Center(
-                child: Text("$actionID"),
+                child: Text(result.data!['getAction']['description'] ?? ""),
               ));
         });
   }
