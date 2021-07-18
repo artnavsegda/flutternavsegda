@@ -246,6 +246,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
           );
 
           return GridView.count(
+              controller: _controller,
               crossAxisCount: 2,
               childAspectRatio: 0.8,
               children: [
