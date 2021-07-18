@@ -9,7 +9,7 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'user.dart';
 import 'product.dart';
 
-const String getActions = """
+const String getActions = r'''
 query getActions {
   getActions {
     iD
@@ -17,9 +17,9 @@ query getActions {
     picture
   }
 }
-""";
+''';
 
-const String getTopBlocks = """
+const String getTopBlocks = r'''
 query getTopBlocks {
   getTopBlocks
   {
@@ -31,7 +31,19 @@ query getTopBlocks {
     }
   }
 }
-""";
+''';
+
+const String getAction = r'''
+query getAction($actionID: Int) {
+  getAction(actionID: $actionID) {
+    iD
+    name
+    description
+    picture
+    type
+  }
+}
+''';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -289,11 +301,30 @@ class ActionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(title: Text("Акция")),
-        body: Center(
-          child: Text("$actionID"),
-        ));
+    return Query(
+        options: QueryOptions(
+          document: gql(getAction),
+          variables: {
+            'actionID': actionID,
+          },
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Scaffold(
+              appBar: AppBar(title: Text("Акция")),
+              body: Center(
+                child: Text("$actionID"),
+              ));
+        });
   }
 }
 
@@ -322,7 +353,7 @@ class QrPage extends StatelessWidget {
           Query(
             options: QueryOptions(document: gql(getClientInfo)),
             builder: (result, {fetchMore, refetch}) {
-              print(result.data);
+              //print(result.data);
 
               if (result.hasException) {
                 return Text("Карта недоступна");
