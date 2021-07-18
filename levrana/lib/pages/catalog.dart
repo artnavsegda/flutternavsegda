@@ -167,12 +167,9 @@ class ProductsListPage extends StatefulWidget {
 class _ProductsListPageState extends State<ProductsListPage> {
   late ScrollController _controller;
 
-  _scrollListener() {}
-
   @override
   void initState() {
     _controller = ScrollController();
-    _controller.addListener(_scrollListener);
     super.initState();
   }
 
@@ -248,6 +245,13 @@ class _ProductsListPageState extends State<ProductsListPage> {
             },
           );
 
+          _controller.addListener(() {
+            if (_controller.offset >= _controller.position.maxScrollExtent &&
+                !_controller.position.outOfRange) {
+              fetchMore!(opts);
+            }
+          });
+
           return GridView.count(
               controller: _controller,
               crossAxisCount: 2,
@@ -262,11 +266,11 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   ProductCard(
                     product: item,
                   ),
-                TextButton(
+/*                 TextButton(
                     onPressed: () {
                       fetchMore!(opts);
                     },
-                    child: Text("More")),
+                    child: Text("More")), */
               ]);
 
           /*return GridView.builder(
