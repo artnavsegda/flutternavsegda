@@ -201,7 +201,10 @@ class HomePage extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => ActionPage()),
+                                      builder: (context) => ActionPage(
+                                            actionID: result.data!['getActions']
+                                                [index]['iD'],
+                                          )),
                                 );
                               },
                               child: Container(
@@ -280,14 +283,16 @@ class HomePage extends StatelessWidget {
 }
 
 class ActionPage extends StatelessWidget {
-  const ActionPage({Key? key}) : super(key: key);
+  const ActionPage({Key? key, required this.actionID}) : super(key: key);
+
+  final int actionID;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(title: Text("Акция")),
         body: Center(
-          child: Text("a"),
+          child: Text("$actionID"),
         ));
   }
 }
