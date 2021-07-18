@@ -195,14 +195,24 @@ class HomePage extends StatelessWidget {
                           controller: _controller,
                           itemCount: result.data!['getActions'].length,
                           itemBuilder: (context, index) {
-                            return Container(
-                              padding: const EdgeInsets.only(right: 16.0),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(6.0),
-                                child: Image.network(
-                                    result.data!['getActions'][index]
-                                        ['picture'],
-                                    fit: BoxFit.fill),
+                            return InkWell(
+                              onTap: () {
+                                print(result.data!['getActions'][index]['iD']);
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => ActionPage()),
+                                );
+                              },
+                              child: Container(
+                                padding: const EdgeInsets.only(right: 16.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(6.0),
+                                  child: Image.network(
+                                      result.data!['getActions'][index]
+                                          ['picture'],
+                                      fit: BoxFit.fill),
+                                ),
                               ),
                             );
                           },
@@ -266,6 +276,19 @@ class HomePage extends StatelessWidget {
         ],
       )),
     );
+  }
+}
+
+class ActionPage extends StatelessWidget {
+  const ActionPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+        appBar: AppBar(title: Text("Акция")),
+        body: Center(
+          child: Text("a"),
+        ));
   }
 }
 
