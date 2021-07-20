@@ -220,9 +220,14 @@ class _ProductPageState extends State<ProductPage> {
                                 productPrice['oldPrice'].toStringAsFixed(0) +
                                     "₽",
                                 style: GoogleFonts.montserrat(fontSize: 32)),
-                        Text(result.data!['getProduct']['name'],
-                            style: GoogleFonts.montserrat(fontSize: 20)),
-                        Text(result.data!['getProduct']['comment'] ?? "null"),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 0.0, vertical: 8.0),
+                          child: Text(result.data!['getProduct']['name'],
+                              style: GoogleFonts.montserrat(fontSize: 20)),
+                        ),
+                        Text(result.data!['getProduct']['comment'] ?? "null",
+                            style: GoogleFonts.montserrat(fontSize: 16)),
                         Column(
                             children: result.data!['getProduct']
                                     ['characteristics']
