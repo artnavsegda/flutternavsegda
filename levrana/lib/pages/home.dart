@@ -256,7 +256,7 @@ class HomePage extends StatelessWidget {
                         children: result.data!['getTopBlocks']
                             .map(
                               (section) => Container(
-                                margin: EdgeInsets.fromLTRB(0, 33, 0, 0),
+                                margin: EdgeInsets.fromLTRB(8, 33, 8, 0),
                                 child: Column(
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
