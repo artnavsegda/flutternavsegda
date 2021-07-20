@@ -322,10 +322,16 @@ class _LoginPageState extends State<LoginPage> {
       child: Row(
         children: [
           ElevatedButton(
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(166, 48),
+            ),
             child: Text("ВОЙТИ"),
             onPressed: () => _userLogin(context),
           ),
           TextButton(
+              style: TextButton.styleFrom(
+                minimumSize: Size(98, 48),
+              ),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
