@@ -288,7 +288,8 @@ class _ProductPageState extends State<ProductPage> {
                                           'characteristicValueIds': charList
                                         });
                                       },
-                                      child: Text("В КОРЗИНУ • $price₽",
+                                      child: Text(
+                                          "В КОРЗИНУ • ${price.toStringAsFixed(0)}₽",
                                           style: GoogleFonts.montserrat(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400,
@@ -524,7 +525,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                       'characteristicValueIds': charList
                     });
                   },
-                  child: Text("В КОРЗИНУ • $price₽",
+                  child: Text("В КОРЗИНУ • ${price.toStringAsFixed(0)}₽",
                       style: GoogleFonts.montserrat(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
