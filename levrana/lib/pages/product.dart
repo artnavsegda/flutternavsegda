@@ -235,12 +235,14 @@ class _ProductPageState extends State<ProductPage> {
                                     ))
                                 .toList()
                                 .cast<Widget>()),
+                        SizedBox(height: 16),
                         ExpandableTheme(
                           data: ExpandableThemeData(
                               headerAlignment:
                                   ExpandablePanelHeaderAlignment.center,
                               iconPlacement: ExpandablePanelIconPlacement.left,
-                              iconPadding: EdgeInsets.all(4.0),
+                              iconPadding: EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 7),
                               iconRotationAngle: pi / 2,
                               expandIcon: Icons.chevron_right,
                               collapseIcon: Icons.chevron_right),
