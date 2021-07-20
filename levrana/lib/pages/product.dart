@@ -205,17 +205,20 @@ class _ProductPageState extends State<ProductPage> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
+                    padding: const EdgeInsets.all(16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         productPrice['price'] == null
                             ? SizedBox.shrink()
-                            : Text(productPrice['price'].toStringAsFixed(0),
+                            : Text(
+                                productPrice['price'].toStringAsFixed(0) + "₽",
                                 style: GoogleFonts.montserrat(fontSize: 32)),
                         productPrice['oldPrice'] == null
                             ? SizedBox.shrink()
-                            : Text(productPrice['oldPrice'].toStringAsFixed(0),
+                            : Text(
+                                productPrice['oldPrice'].toStringAsFixed(0) +
+                                    "₽",
                                 style: GoogleFonts.montserrat(fontSize: 32)),
                         Text(result.data!['getProduct']['name'],
                             style: GoogleFonts.montserrat(fontSize: 20)),
@@ -237,34 +240,48 @@ class _ProductPageState extends State<ProductPage> {
                               headerAlignment:
                                   ExpandablePanelHeaderAlignment.center,
                               iconPlacement: ExpandablePanelIconPlacement.left,
+                              iconPadding: EdgeInsets.all(4.0),
                               iconRotationAngle: pi / 2,
                               expandIcon: Icons.chevron_right,
                               collapseIcon: Icons.chevron_right),
                           child: Column(
                             children: [
                               ExpandablePanel(
-                                header: Text("Характеристики"),
+                                header: Text("Характеристики",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
                                 expanded: Text("1234234234"),
                               ),
                               ExpandablePanel(
-                                header: Text("Описание"),
+                                header: Text("Описание",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
                                 expanded: Text("1234234234"),
                               ),
                               ExpandablePanel(
-                                header: Text("Состав"),
+                                header: Text("Состав",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
                                 expanded: Text("1234234234"),
                               ),
                               ExpandablePanel(
-                                header: Text("Отзывы"),
+                                header: Text("Отзывы",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
                                 expanded: Text("1234234234"),
                               ),
                             ],
                           ),
                         ),
+                        SizedBox(height: 16),
                         Row(
                           children: [
                             Expanded(
