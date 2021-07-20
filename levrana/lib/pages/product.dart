@@ -212,12 +212,12 @@ class _ProductPageState extends State<ProductPage> {
                         productPrice['price'] == null
                             ? SizedBox.shrink()
                             : Text(
-                                productPrice['price'].toStringAsFixed(0) + "₽",
+                                productPrice['price']?.toStringAsFixed(0) + "₽",
                                 style: GoogleFonts.montserrat(fontSize: 32)),
                         productPrice['oldPrice'] == null
                             ? SizedBox.shrink()
                             : Text(
-                                productPrice['oldPrice'].toStringAsFixed(0) +
+                                productPrice['oldPrice']?.toStringAsFixed(0) +
                                     "₽",
                                 style: GoogleFonts.montserrat(fontSize: 32)),
                         Padding(
@@ -300,7 +300,6 @@ class _ProductPageState extends State<ProductPage> {
                                   },
                                 ),
                                 builder: (runMutation, result) {
-                                  var price = productPrice['price'];
                                   return ElevatedButton(
                                       onPressed: () {
                                         List<int> charList = charMap.entries
@@ -313,7 +312,7 @@ class _ProductPageState extends State<ProductPage> {
                                         });
                                       },
                                       child: Text(
-                                          "В КОРЗИНУ • ${price.toStringAsFixed(0)}₽",
+                                          "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
                                           style: GoogleFonts.montserrat(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400,
@@ -534,7 +533,6 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
               },
             ),
             builder: (runMutation, result) {
-              var price = productPrice['price'];
               return ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     minimumSize: Size(double.infinity,
@@ -549,7 +547,8 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                       'characteristicValueIds': charList
                     });
                   },
-                  child: Text("В КОРЗИНУ • ${price.toStringAsFixed(0)}₽",
+                  child: Text(
+                      "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
                       style: GoogleFonts.montserrat(
                         fontSize: 16,
                         fontWeight: FontWeight.w400,
