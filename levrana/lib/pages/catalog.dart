@@ -218,7 +218,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
           }
 
           if (result.isLoading && result.data == null) {
-            return const Center(
+            return Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -263,9 +263,15 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     },
                     child: Text("More")), */
                 for (var item in items)
-                  ProductCard(
-                    product: item,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ProductCard(
+                      product: item,
+                    ),
                   ),
+                Center(
+                  child: CircularProgressIndicator(),
+                )
 /*                 TextButton(
                     onPressed: () {
                       fetchMore!(opts);
