@@ -14,6 +14,7 @@ query getProduct($productID: Int!) {
     pictures
     stickerPictures
     comment
+    isFavorite
     characteristics {
       iD
       name
@@ -325,9 +326,10 @@ class _ProductPageState extends State<ProductPage> {
                                 document: gql(setFavoritesProduct),
                                 onCompleted: (resultData) {
                                   print(resultData);
+                                  refetch!();
                                 },
                               ),
-                              builder: (runMutation, result) {
+                              builder: (runMutation, mutationResult) {
                                 return ElevatedButton(
                                   onPressed: () {
                                     runMutation({
@@ -335,7 +337,9 @@ class _ProductPageState extends State<ProductPage> {
                                     });
                                   },
                                   child: Icon(
-                                    Icons.favorite_border_outlined,
+                                    result.data!['getProduct']['isFavorite']
+                                        ? Icons.favorite_outlined
+                                        : Icons.favorite_border_outlined,
                                   ),
                                   style: ElevatedButton.styleFrom(
                                     minimumSize: Size(48, 48),
