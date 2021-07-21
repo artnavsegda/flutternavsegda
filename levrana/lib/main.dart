@@ -188,3 +188,20 @@ class _MainPageState extends State<MainPage>
     );
   }
 }
+
+const String getStartRoute = r'''
+query getStartRoute {
+  getClientInfo {
+    clientGUID,
+  }
+}
+''';
+
+class StartRoute extends StatelessWidget {
+  const StartRoute({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
