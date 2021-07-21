@@ -48,11 +48,9 @@ class Welcome extends StatelessWidget {
           QueryResult? result,
         ) {
           return ElevatedButton(
-            style: ButtonStyle(
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                    RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ))),
+            style: ElevatedButton.styleFrom(
+              minimumSize: Size(double.infinity, 48),
+            ),
             child: Text("ДАЛЬШЕ"),
             onPressed: () async {
               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
