@@ -253,8 +253,11 @@ class TransferBonusPage extends StatefulWidget {
   _TransferBonusPageState createState() => _TransferBonusPageState();
 }
 
+enum SearchMode { phone, qr }
+
 class _TransferBonusPageState extends State<TransferBonusPage> {
   double _amount = 0;
+  SearchMode? _currentMode = SearchMode.phone;
 
   @override
   Widget build(BuildContext context) {
@@ -281,8 +284,26 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
               Text(_amount.toStringAsFixed(0))
             ],
           ),
-          Text("По номеру телефона"),
-          Text("По QR коду"),
+          RadioListTile(
+            value: SearchMode.phone,
+            groupValue: _currentMode,
+            title: Text("По номеру телефона"),
+            onChanged: (SearchMode? value) {
+              setState(() {
+                _currentMode = value;
+              });
+            },
+          ),
+          RadioListTile(
+            value: SearchMode.qr,
+            groupValue: _currentMode,
+            title: Text("По QR коду"),
+            onChanged: (SearchMode? value) {
+              setState(() {
+                _currentMode = value;
+              });
+            },
+          ),
           Text("Введите телефон"),
           ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
         ],
