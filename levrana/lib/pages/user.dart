@@ -235,7 +235,7 @@ class UserPage extends StatelessWidget {
                       return ListTile(
                         onTap: () async {
                           final prefs = await SharedPreferences.getInstance();
-                          prefs.setString('token', '');
+                          prefs.remove('token');
                           client.cache.store.reset(); // empty the hash map
                           //await client.cache.save();
                           Navigator.pushReplacement(
