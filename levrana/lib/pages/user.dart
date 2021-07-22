@@ -180,7 +180,9 @@ class UserPage extends StatelessWidget {
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    return TransferBonusPage();
+                                    return TransferBonusPage(
+                                        maxAmount: result.data!['getClientInfo']
+                                            ['points']);
                                   },
                                 );
                               },
@@ -242,9 +244,10 @@ class UserPage extends StatelessWidget {
 }
 
 class TransferBonusPage extends StatefulWidget {
-  const TransferBonusPage({
-    Key? key,
-  }) : super(key: key);
+  const TransferBonusPage({Key? key, required this.maxAmount})
+      : super(key: key);
+
+  final int maxAmount;
 
   @override
   _TransferBonusPageState createState() => _TransferBonusPageState();
