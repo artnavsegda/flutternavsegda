@@ -266,6 +266,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
           Text("Подарить бонусы"),
           Text("Укажите количество бонусов"),
           Slider(
+              label: "hello",
+              max: widget.maxAmount.toDouble(),
               value: _amount,
               onChanged: (newValue) {
                 setState(() {
