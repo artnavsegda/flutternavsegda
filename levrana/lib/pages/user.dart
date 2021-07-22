@@ -304,7 +304,20 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
               });
             },
           ),
-          Text("Введите телефон"),
+          if (_currentMode == SearchMode.phone)
+            Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: "Введите телефон",
+                    ),
+                  ),
+                ),
+                Icon(Icons.ac_unit)
+              ],
+            ),
           ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
         ],
       ),
