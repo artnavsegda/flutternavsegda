@@ -79,7 +79,7 @@ class MyApp extends StatelessWidget {
               if (snapshot.data == "") {
                 return Welcome();
               } else {
-                return LoginPage();
+                return StartRoute();
               }
             } else {
               return Center(child: CircularProgressIndicator());
@@ -202,6 +202,20 @@ class StartRoute extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Query(
+        options: QueryOptions(document: gql(getStartRoute)),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return MainPage();
+        });
   }
 }
