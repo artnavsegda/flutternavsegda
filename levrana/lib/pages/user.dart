@@ -265,15 +265,22 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
         children: [
           Text("Подарить бонусы"),
           Text("Укажите количество бонусов"),
-          Slider(
-              label: "hello",
-              max: widget.maxAmount.toDouble(),
-              value: _amount,
-              onChanged: (newValue) {
-                setState(() {
-                  _amount = newValue;
-                });
-              }),
+          Row(
+            children: [
+              Expanded(
+                child: Slider(
+                    label: "hello",
+                    max: widget.maxAmount.toDouble(),
+                    value: _amount,
+                    onChanged: (newValue) {
+                      setState(() {
+                        _amount = newValue;
+                      });
+                    }),
+              ),
+              Text(_amount.toStringAsFixed(0))
+            ],
+          ),
           Text("По номеру телефона"),
           Text("По QR коду"),
           Text("Введите телефон"),
