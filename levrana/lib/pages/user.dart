@@ -180,23 +180,7 @@ class UserPage extends StatelessWidget {
                                 showModalBottomSheet(
                                   context: context,
                                   builder: (context) {
-                                    return Container(
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text("Подарить бонусы"),
-                                          Text("Укажите количество бонусов"),
-                                          Text("По номеру телефона"),
-                                          Text("По QR коду"),
-                                          Text("Введите телефон"),
-                                          ElevatedButton(
-                                              onPressed: () {},
-                                              child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
-                                        ],
-                                      ),
-                                    );
+                                    return TransferBonusPage();
                                   },
                                 );
                               },
@@ -254,6 +238,44 @@ class UserPage extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+class TransferBonusPage extends StatefulWidget {
+  const TransferBonusPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _TransferBonusPageState createState() => _TransferBonusPageState();
+}
+
+class _TransferBonusPageState extends State<TransferBonusPage> {
+  double _amount = 0;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text("Подарить бонусы"),
+          Text("Укажите количество бонусов"),
+          Slider(
+              value: _amount,
+              onChanged: (newValue) {
+                setState(() {
+                  _amount = newValue;
+                });
+              }),
+          Text("По номеру телефона"),
+          Text("По QR коду"),
+          Text("Введите телефон"),
+          ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
+        ],
+      ),
+    );
   }
 }
 
