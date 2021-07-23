@@ -315,7 +315,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     ),
                   ),
                 ),
-                Icon(Icons.ac_unit)
+                IconButton(
+                  icon: Icon(Icons.ac_unit),
+                  onPressed: () {},
+                )
               ],
             ),
           ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
