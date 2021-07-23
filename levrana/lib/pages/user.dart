@@ -243,6 +243,20 @@ class UserPage extends StatelessWidget {
   }
 }
 
+class FullScreenDialog extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Full-screen Dialog'),
+      ),
+      body: Center(
+        child: Text("Full-screen dialog"),
+      ),
+    );
+  }
+}
+
 class TransferBonusPage extends StatefulWidget {
   const TransferBonusPage({Key? key, required this.maxAmount})
       : super(key: key);
@@ -317,7 +331,15 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 ),
                 IconButton(
                   icon: Icon(Icons.ac_unit),
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute<void>(
+                        builder: (BuildContext context) => FullScreenDialog(),
+                        fullscreenDialog: true,
+                      ),
+                    );
+                  },
                 )
               ],
             ),
