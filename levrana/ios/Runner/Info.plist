@@ -45,6 +45,8 @@
 	<string>For camera use</string>
 	<key>NSCameraUsageDescription</key>
 	<string>For camera use</string>
+	<key>NSContactsUsageDescription</key>
+	<string>This app requires contacts access to function properly.</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 </dict>

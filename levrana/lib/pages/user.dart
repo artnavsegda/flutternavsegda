@@ -8,6 +8,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 import 'dialog.dart';
 import 'login.dart';
@@ -273,6 +274,37 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   double _amount = 0;
   SearchMode? _currentMode = SearchMode.phone;
 
+  Future<void> _askPermissions(route) async {
+    PermissionStatus permissionStatus = await _getContactPermission();
+    if (permissionStatus == PermissionStatus.granted) {
+      Navigator.of(context).push(route);
+    } else {
+      _handleInvalidPermissions(permissionStatus);
+    }
+  }
+
+  Future<PermissionStatus> _getContactPermission() async {
+    PermissionStatus permission = await Permission.contacts.status;
+    if (permission != PermissionStatus.granted &&
+        permission != PermissionStatus.permanentlyDenied) {
+      PermissionStatus permissionStatus = await Permission.contacts.request();
+      return permissionStatus;
+    } else {
+      return permission;
+    }
+  }
+
+  void _handleInvalidPermissions(PermissionStatus permissionStatus) {
+    if (permissionStatus == PermissionStatus.denied) {
+      final snackBar = SnackBar(content: Text('Access to contact data denied'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
+      final snackBar =
+          SnackBar(content: Text('Contact data not available on device'));
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -332,13 +364,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 IconButton(
                   icon: Icon(Icons.ac_unit),
                   onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute<void>(
-                        builder: (BuildContext context) => FullScreenDialog(),
-                        fullscreenDialog: true,
-                      ),
-                    );
+                    _askPermissions(MaterialPageRoute<void>(
+                      builder: (BuildContext context) => FullScreenDialog(),
+                      fullscreenDialog: true,
+                    ));
                   },
                 )
               ],
