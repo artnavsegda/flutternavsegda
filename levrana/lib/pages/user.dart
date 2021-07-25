@@ -264,7 +264,11 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   Future<void> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
     if (permissionStatus == PermissionStatus.granted) {
-      ContactsService.openDeviceContactPicker();
+      try {
+        ContactsService.openDeviceContactPicker();
+      } catch (e) {
+        print(e.toString());
+      }
     } else {
       _handleInvalidPermissions(permissionStatus);
     }
