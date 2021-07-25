@@ -265,7 +265,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
     PermissionStatus permissionStatus = await _getContactPermission();
     if (permissionStatus == PermissionStatus.granted) {
       try {
-        ContactsService.openDeviceContactPicker();
+        final Contact? contact =
+            await ContactsService.openDeviceContactPicker();
       } catch (e) {
         print(e.toString());
       }
