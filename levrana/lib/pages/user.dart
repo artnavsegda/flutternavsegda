@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
+import 'package:contacts_service/contacts_service.dart';
 
 import 'dialog.dart';
 import 'login.dart';
@@ -244,20 +245,6 @@ class UserPage extends StatelessWidget {
   }
 }
 
-class FullScreenDialog extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Full-screen Dialog'),
-      ),
-      body: Center(
-        child: Text("Full-screen dialog"),
-      ),
-    );
-  }
-}
-
 class TransferBonusPage extends StatefulWidget {
   const TransferBonusPage({Key? key, required this.maxAmount})
       : super(key: key);
@@ -274,10 +261,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   double _amount = 0;
   SearchMode? _currentMode = SearchMode.phone;
 
-  Future<void> _askPermissions(route) async {
+  Future<void> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
     if (permissionStatus == PermissionStatus.granted) {
-      Navigator.of(context).push(route);
+      ContactsService.openDeviceContactPicker();
     } else {
       _handleInvalidPermissions(permissionStatus);
     }
@@ -364,10 +351,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 IconButton(
                   icon: Icon(Icons.ac_unit),
                   onPressed: () {
-                    _askPermissions(MaterialPageRoute<void>(
-                      builder: (BuildContext context) => FullScreenDialog(),
-                      fullscreenDialog: true,
-                    ));
+                    _openContacts();
                   },
                 )
               ],

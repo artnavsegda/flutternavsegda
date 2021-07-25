@@ -1,5 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.levrana">
+   <uses-permission android:name="android.permission.READ_CONTACTS" />  
+   <uses-permission android:name="android.permission.WRITE_CONTACTS" />  
    <application
         android:label="levrana"
         android:icon="@mipmap/launcher_icon">
