@@ -263,7 +263,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   SearchMode? _currentMode = SearchMode.phone;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   bool scanned = false;
-  late Barcode result;
+  late Barcode clientGUID;
   late QRViewController controller;
 
   Future<void> _openContacts() async {
@@ -368,7 +368,11 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
             )
           else if (_currentMode == SearchMode.qr)
             if (scanned)
-              Text(result.code)
+              Query(
+                  options: QueryOptions(document: gql(getClientInfo)),
+                  builder: (result, {fetchMore, refetch}) {
+                    return Text(clientGUID.code);
+                  })
             else
               SizedBox(
                 width: 100,
@@ -390,7 +394,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
       print(scanData.code);
       setState(() {
         scanned = true;
-        result = scanData;
+        clientGUID = scanData;
       });
     });
   }
