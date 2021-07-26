@@ -386,6 +386,14 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     },
                   ),
                   builder: (result, {fetchMore, refetch}) {
+                    if (result.hasException) {
+                      return Text(result.exception.toString());
+                    }
+
+                    if (result.isLoading) {
+                      return Text('Loading');
+                    }
+
                     return Text(result.data!['friendFind']['name']);
                   })
             else
