@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
+import 'package:qr_code_scanner/qr_code_scanner.dart';
 
 import 'dialog.dart';
 import 'login.dart';
@@ -260,6 +261,7 @@ enum SearchMode { phone, qr }
 class _TransferBonusPageState extends State<TransferBonusPage> {
   double _amount = 0;
   SearchMode? _currentMode = SearchMode.phone;
+  final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
 
   Future<void> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
@@ -360,6 +362,11 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                   },
                 )
               ],
+            )
+          else
+            QRView(
+              key: qrKey,
+              onQRViewCreated: _onQRViewCreated,
             ),
           ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
         ],
