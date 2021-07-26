@@ -15,6 +15,16 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'dialog.dart';
 import 'login.dart';
 
+const String friendFind = r'''
+query friendFind($gUIDorPhone: String) {
+  friendFind(gUIDorPhone: $gUIDorPhone)
+  {
+    name
+    picture
+  }
+}
+''';
+
 const String getClientInfo = r'''
 query getClientInfo {
   getClientInfo {
@@ -369,9 +379,14 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
           else if (_currentMode == SearchMode.qr)
             if (scanned)
               Query(
-                  options: QueryOptions(document: gql(getClientInfo)),
+                  options: QueryOptions(
+                    document: gql(friendFind),
+                    variables: {
+                      'gUIDorPhone': clientGUID.code,
+                    },
+                  ),
                   builder: (result, {fetchMore, refetch}) {
-                    return Text(clientGUID.code);
+                    return Text(result.data!['friendFind']['name']);
                   })
             else
               SizedBox(
