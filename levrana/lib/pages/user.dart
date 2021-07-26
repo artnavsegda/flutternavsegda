@@ -367,9 +367,13 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
               ],
             )
           else
-            QRView(
-              key: qrKey,
-              onQRViewCreated: _onQRViewCreated,
+            SizedBox(
+              width: 100,
+              height: 100,
+              child: QRView(
+                key: qrKey,
+                onQRViewCreated: _onQRViewCreated,
+              ),
             ),
           ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
         ],
