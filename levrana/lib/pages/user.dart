@@ -262,6 +262,9 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   double _amount = 0;
   SearchMode? _currentMode = SearchMode.phone;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
+  bool scanned = false;
+  late Barcode result;
+  late QRViewController controller;
 
   Future<void> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
@@ -372,6 +375,16 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
         ],
       ),
     );
+  }
+
+  void _onQRViewCreated(QRViewController controller) {
+    this.controller = controller;
+    controller.scannedDataStream.listen((scanData) {
+      setState(() {
+        scanned = true;
+        result = scanData;
+      });
+    });
   }
 }
 
