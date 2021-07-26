@@ -366,6 +366,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 )
               ],
             )
+          else if (scanned)
+            Text(result.code)
           else
             SizedBox(
               width: 100,
@@ -384,6 +386,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
+      print(scanData.code);
       setState(() {
         scanned = true;
         result = scanData;
