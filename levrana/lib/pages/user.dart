@@ -52,6 +52,17 @@ mutation editClient($clientGUID: String!, $name: String, $eMail: String) {
 }
 ''';
 
+const String friendTransfer = r'''
+mutation friendTransfer($gUIDorPhone: String, $points: Int)
+{
+  friendTransfer(gUIDorPhone: $gUIDorPhone, points: $points)
+  {
+    result
+    errorMessage
+  }
+}
+''';
+
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
 
