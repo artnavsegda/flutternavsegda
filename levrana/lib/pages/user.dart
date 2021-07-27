@@ -416,7 +416,23 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                   onQRViewCreated: _onQRViewCreated,
                 ),
               ),
-          ElevatedButton(onPressed: () {}, child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"))
+          Mutation(
+              options: MutationOptions(
+                document: gql(editClient),
+                onCompleted: (resultData) {
+                  print(resultData);
+                },
+              ),
+              builder: (runMutation, result) {
+                return ElevatedButton(
+                    onPressed: () {
+                      runMutation({
+                        'gUIDorPhone': clientGUID.code,
+                        'points': _amount.toInt()
+                      });
+                    },
+                    child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
+              })
         ],
       ),
     );
