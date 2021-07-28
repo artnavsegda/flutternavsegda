@@ -57,7 +57,12 @@ class ChatPage extends StatefulWidget {
 }
 
 class _ChatPageState extends State<ChatPage> {
-  List<types.Message> _messages = [];
+  List<types.Message> _messages = [
+    types.TextMessage(
+        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+        id: 'id',
+        text: 'text'),
+  ];
   final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
 
   @override
