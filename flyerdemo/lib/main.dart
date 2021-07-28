@@ -130,6 +130,7 @@ class SupportPage extends StatelessWidget {
                 primaryColor: Colors.green,
               ),
               messages: _messages2,
+              l10n: ChatL10nRu(inputPlaceholder: "В чем дело ?"),
               //onAttachmentPressed: _handleAtachmentPressed,
               //onMessageTap: _handleMessageTap,
               //onPreviewDataFetched: _handlePreviewDataFetched,
