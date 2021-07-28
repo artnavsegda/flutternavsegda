@@ -52,12 +52,25 @@ class MyApp extends StatelessWidget {
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
   final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
+  final _consultant =
+      const types.User(id: '06c33e8b-e835-4736-80f4-63f44b6666d');
 
   static List<types.Message> _messages = [
     types.TextMessage(
+        createdAt: DateTime.now().millisecondsSinceEpoch,
         author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
         id: 'id',
-        text: 'text'),
+        text: 'tri'),
+    types.TextMessage(
+        createdAt: DateTime.now().millisecondsSinceEpoch - 1000 * 60 * 60,
+        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b6666d'),
+        id: 'id',
+        text: 'dva'),
+    types.TextMessage(
+        createdAt: DateTime.now().millisecondsSinceEpoch - 1000 * 60 * 60 * 24,
+        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666d'),
+        id: 'id',
+        text: 'raz'),
   ];
 
   void _handleSendPressed(types.PartialText message) {
