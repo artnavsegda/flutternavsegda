@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.purple,
+        primarySwatch: Colors.green,
       ),
       home: MyHomePage(),
     );
@@ -41,7 +41,32 @@ class _MyHomePageState extends State<MyHomePage> {
     uid: "25649654",
   );
 
-  List<ChatMessage> messages = <ChatMessage>[];
+  List<ChatMessage> messages = <ChatMessage>[
+    ChatMessage(
+      text: "sfasf",
+      user: ChatUser(
+        name: "Fayeed",
+        uid: "123456789",
+      ),
+      createdAt: DateTime.now(),
+    ),
+    ChatMessage(
+      text: "fddsgdg",
+      user: ChatUser(
+        name: "Fayeed",
+        uid: "123456789",
+      ),
+      createdAt: DateTime.now(),
+    ),
+    ChatMessage(
+      text: "dgsdg",
+      user: ChatUser(
+        name: "Fayeed",
+        uid: "123456789",
+      ),
+      createdAt: DateTime.now(),
+    ),
+  ];
   var m = <ChatMessage>[];
 
   var i = 0;
@@ -79,7 +104,7 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Chat App"),
+          title: Text("Поддержка"),
         ),
         body: DashChat(
           key: _chatViewKey,
