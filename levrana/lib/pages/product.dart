@@ -261,7 +261,7 @@ class _ProductPageState extends State<ProductPage> {
                           child: Text(result.data!['getProduct']['name'],
                               style: GoogleFonts.montserrat(fontSize: 20)),
                         ),
-                        Text(result.data!['getProduct']['comment'] ?? "null",
+                        Text(result.data!['getProduct']['comment'] ?? "",
                             style: GoogleFonts.montserrat(fontSize: 16)),
                         Column(
                             children: result.data!['getProduct']
