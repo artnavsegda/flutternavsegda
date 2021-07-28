@@ -83,17 +83,6 @@ class SupportPage extends StatelessWidget {
         text: 'raz'),
   ];
 
-  void _handleSendPressed(types.PartialText message) {
-    final textMessage = types.TextMessage(
-      author: _user,
-      createdAt: DateTime.now().millisecondsSinceEpoch,
-      id: const Uuid().v4(),
-      text: message.text,
-    );
-
-    //_addMessage(textMessage);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,7 +123,16 @@ class SupportPage extends StatelessWidget {
               //onAttachmentPressed: _handleAtachmentPressed,
               //onMessageTap: _handleMessageTap,
               //onPreviewDataFetched: _handlePreviewDataFetched,
-              onSendPressed: _handleSendPressed,
+              onSendPressed: (types.PartialText message) {
+                final textMessage = types.TextMessage(
+                  author: _user,
+                  createdAt: DateTime.now().millisecondsSinceEpoch,
+                  id: const Uuid().v4(),
+                  text: message.text,
+                );
+
+                //_addMessage(textMessage);
+              },
               user: _user,
             );
           }),
