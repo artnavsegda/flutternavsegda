@@ -279,20 +279,28 @@ class UserPage extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
-                              height: 200,
-                              color: Colors.amber,
-                              child: Center(
-                                child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: <Widget>[
-                                    const Text('Modal BottomSheet'),
-                                    ElevatedButton(
-                                      child: const Text('Close BottomSheet'),
-                                      onPressed: () => Navigator.pop(context),
-                                    )
-                                  ],
-                                ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  Text('Смена пароля'),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Введите пароль",
+                                    ),
+                                  ),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Подтвердите пароль",
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
+                                    onPressed: () => Navigator.pop(context),
+                                  )
+                                ],
                               ),
                             );
                           },
