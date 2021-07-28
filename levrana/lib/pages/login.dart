@@ -303,6 +303,21 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                   ),
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: TextButton(
+                        style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all(
+                                Size(double.infinity, 48.0)),
+                            shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(24.0),
+                                    side: BorderSide(color: Colors.green)))),
+                        onPressed: () {},
+                        child: Text("ПОВТОРИТЬ",
+                            style: GoogleFonts.montserrat(fontSize: 16))),
+                  )
                 ]),
               ),
             );
