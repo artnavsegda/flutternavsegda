@@ -202,6 +202,7 @@ class UserPage extends StatelessWidget {
                                   ))),
                               onPressed: () {
                                 showModalBottomSheet(
+                                  isScrollControlled: true,
                                   context: context,
                                   builder: (context) {
                                     return TransferBonusPage(
@@ -408,9 +409,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     return Text(result.data!['friendFind']['name']);
                   })
             else
-              SizedBox(
-                width: 100,
-                height: 100,
+              Expanded(
                 child: QRView(
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
