@@ -225,6 +225,32 @@ class UserPage extends StatelessWidget {
                       title: Text("Активировать промокод"),
                       leading: Image(
                           image: AssetImage('assets/ic-24/icon-24-promo.png')),
+                      onTap: () {
+                        showModalBottomSheet<void>(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Container(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text('Промокод'),
+                                  TextField(
+                                    decoration: InputDecoration(
+                                      border: OutlineInputBorder(),
+                                      labelText: "Введите промокод",
+                                    ),
+                                  ),
+                                  ElevatedButton(
+                                    child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
+                                    onPressed: () => Navigator.pop(context),
+                                  )
+                                ],
+                              ),
+                            );
+                          },
+                        );
+                      },
                     ),
                     ListTile(
                       title: Text("История заказов"),
