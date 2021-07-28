@@ -205,7 +205,9 @@ class StartRoute extends StatelessWidget {
     return Query(
         options: QueryOptions(document: gql(getStartRoute)),
         builder: (result, {fetchMore, refetch}) {
+          print(result);
           if (result.hasException) {
+            return LoginPage();
             return Text(result.exception.toString());
           }
 

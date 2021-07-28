@@ -4,6 +4,7 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'dart:async';
 
 import 'dialog.dart';
 import '../main.dart';
@@ -42,6 +43,8 @@ class _LoginPageState extends State<LoginPage> {
   bool isFamiliarized = false;
   final TextEditingController phoneNumberController = TextEditingController();
   final TextEditingController smsCodeController = TextEditingController();
+
+  int smsTimeout = 0;
 
   @override
   void dispose() {
@@ -205,6 +208,21 @@ class _LoginPageState extends State<LoginPage> {
       builder: (context) {
         return StatefulBuilder(
           builder: (context, StateSetter setModalState) {
+            void repeatSMS() {
+              setModalState(() {
+                smsTimeout = 30;
+              });
+              Timer.periodic(Duration(seconds: 1), (timer) {
+                if (smsTimeout == 0) {
+                  timer.cancel();
+                } else {
+                  setModalState(() {
+                    smsTimeout--;
+                  });
+                }
+              });
+            }
+
             return Padding(
               padding: MediaQuery.of(context).viewInsets,
               child: Padding(
@@ -314,8 +332,10 @@ class _LoginPageState extends State<LoginPage> {
                                 RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(24.0),
                                     side: BorderSide(color: Colors.green)))),
-                        onPressed: () {},
-                        child: Text("ПОВТОРИТЬ",
+                        onPressed: smsTimeout == 0 ? repeatSMS : null,
+                        child: Text(
+                            "ПОВТОРИТЬ" +
+                                (smsTimeout == 0 ? "" : " ($smsTimeout) СЕК."),
                             style: GoogleFonts.montserrat(fontSize: 16))),
                   )
                 ]),
