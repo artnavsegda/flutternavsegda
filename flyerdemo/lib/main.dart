@@ -11,6 +11,16 @@ import 'package:open_file/open_file.dart';
 import 'package:uuid/uuid.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+const String getSupport = r'''
+query getSupport {
+  getSupport {
+    iD
+    date
+    text
+  }
+}
+''';
+
 void main() {
   final HttpLink httpLink = HttpLink(
     'https://demo.cyberiasoft.com/levranaservice/graphql',
@@ -87,18 +97,46 @@ class SupportPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Chat(
-        theme: const DefaultChatTheme(
-          //sdsainputBackgroundColor: Colors.green,
-          primaryColor: Colors.green,
-        ),
-        messages: _messages,
-        //onAttachmentPressed: _handleAtachmentPressed,
-        //onMessageTap: _handleMessageTap,
-        //onPreviewDataFetched: _handlePreviewDataFetched,
-        onSendPressed: _handleSendPressed,
-        user: _user,
-      ),
+      body: Query(
+          options: QueryOptions(
+            document: gql(getSupport),
+          ),
+          builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
+            print(result);
+
+            if (result.hasException) {
+              return Text(result.exception.toString());
+            }
+
+            if (result.isLoading && result.data == null) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            List<types.Message> _messages2 = result.data!['getSupport']
+                .map((message) => types.TextMessage(
+                      author: _consultant,
+                      createdAt: message['date'],
+                      id: const Uuid().v4(),
+                      text: message['text'],
+                    ))
+                .toList()
+                .cast<types.Message>();
+
+            return Chat(
+              theme: const DefaultChatTheme(
+                //sdsainputBackgroundColor: Colors.green,
+                primaryColor: Colors.green,
+              ),
+              messages: _messages2,
+              //onAttachmentPressed: _handleAtachmentPressed,
+              //onMessageTap: _handleMessageTap,
+              //onPreviewDataFetched: _handlePreviewDataFetched,
+              onSendPressed: _handleSendPressed,
+              user: _user,
+            );
+          }),
     );
   }
 }
