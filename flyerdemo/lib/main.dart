@@ -43,7 +43,48 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: client,
       child: const MaterialApp(
-        home: ChatPage(),
+        home: SupportPage(),
+      ),
+    );
+  }
+}
+
+class SupportPage extends StatelessWidget {
+  const SupportPage({Key? key}) : super(key: key);
+  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
+
+  static List<types.Message> _messages = [
+    types.TextMessage(
+        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
+        id: 'id',
+        text: 'text'),
+  ];
+
+  void _handleSendPressed(types.PartialText message) {
+    final textMessage = types.TextMessage(
+      author: _user,
+      createdAt: DateTime.now().millisecondsSinceEpoch,
+      id: const Uuid().v4(),
+      text: message.text,
+    );
+
+    //_addMessage(textMessage);
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Chat(
+        theme: const DefaultChatTheme(
+          //sdsainputBackgroundColor: Colors.green,
+          primaryColor: Colors.green,
+        ),
+        messages: _messages,
+        //onAttachmentPressed: _handleAtachmentPressed,
+        //onMessageTap: _handleMessageTap,
+        //onPreviewDataFetched: _handlePreviewDataFetched,
+        onSendPressed: _handleSendPressed,
+        user: _user,
       ),
     );
   }
