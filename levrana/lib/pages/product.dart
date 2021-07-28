@@ -77,15 +77,23 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
       case 'SIZE':
         return Row(children: [
           for (int index = 0; index < widget.element['values'].length; index++)
-            ChoiceChip(
-                label: Text(widget.element['values'][index]['value']),
-                selected: selected == index,
-                onSelected: (bool newValue) {
-                  widget.onSelected!(index);
-                  setState(() {
-                    selected = index;
-                  });
-                })
+            Padding(
+              padding: const EdgeInsets.only(right: 4.0),
+              child: ChoiceChip(
+                  labelStyle: TextStyle(
+                    fontSize: 16.0,
+                    color: selected == index ? Colors.white : Colors.black,
+                  ),
+                  selectedColor: Colors.green,
+                  label: Text(widget.element['values'][index]['value']),
+                  selected: selected == index,
+                  onSelected: (bool newValue) {
+                    widget.onSelected!(index);
+                    setState(() {
+                      selected = index;
+                    });
+                  }),
+            )
         ]);
       case 'COLOR':
         return Row(children: [
@@ -250,17 +258,26 @@ class _ProductPageState extends State<ProductPage> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        productPrice['price'] == null
-                            ? SizedBox.shrink()
-                            : Text(
-                                productPrice['price']?.toStringAsFixed(0) + "₽",
-                                style: GoogleFonts.montserrat(fontSize: 32)),
-                        productPrice['oldPrice'] == null
-                            ? SizedBox.shrink()
-                            : Text(
-                                productPrice['oldPrice']?.toStringAsFixed(0) +
-                                    "₽",
-                                style: GoogleFonts.montserrat(fontSize: 32)),
+                        Row(
+                          children: [
+                            productPrice['price'] == null
+                                ? SizedBox.shrink()
+                                : Text(
+                                    productPrice['price']?.toStringAsFixed(0) +
+                                        "₽",
+                                    style:
+                                        GoogleFonts.montserrat(fontSize: 32)),
+                            SizedBox(width: 10),
+                            productPrice['oldPrice'] == null
+                                ? SizedBox.shrink()
+                                : Text(
+                                    productPrice['oldPrice']
+                                            ?.toStringAsFixed(0) +
+                                        "₽",
+                                    style: GoogleFonts.montserrat(
+                                        fontSize: 32, color: Colors.black45)),
+                          ],
+                        ),
                         Padding(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 0.0, vertical: 8.0),
