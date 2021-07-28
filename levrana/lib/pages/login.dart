@@ -42,15 +42,11 @@ class _LoginPageState extends State<LoginPage> {
   bool isAgreed = false;
   bool isFamiliarized = false;
   final TextEditingController phoneNumberController = TextEditingController();
-  final TextEditingController smsCodeController = TextEditingController();
-
-  int smsTimeout = 0;
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
     phoneNumberController.dispose();
-    smsCodeController.dispose();
     super.dispose();
   }
 
@@ -206,143 +202,7 @@ class _LoginPageState extends State<LoginPage> {
         borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
       ),
       builder: (context) {
-        return StatefulBuilder(
-          builder: (context, StateSetter setModalState) {
-            void repeatSMS() {
-              setModalState(() {
-                smsTimeout = 30;
-              });
-              Timer.periodic(Duration(seconds: 1), (timer) {
-                if (smsTimeout == 0) {
-                  timer.cancel();
-                } else {
-                  setModalState(() {
-                    smsTimeout--;
-                  });
-                }
-              });
-            }
-
-            return Padding(
-              padding: MediaQuery.of(context).viewInsets,
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Wrap(children: [
-                  Text("Код",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      )),
-                  Container(
-                    margin: EdgeInsets.only(top: 8.0),
-                    height: 48,
-                    child: TextField(
-                      controller: smsCodeController,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: const BorderRadius.all(
-                              const Radius.circular(24.0),
-                            ),
-                          ),
-                          hintText: '12345'),
-                    ),
-                  ),
-                  Mutation(
-                    options: MutationOptions(
-                        document: gql(checkClient),
-                        onError: (error) {
-                          print("ERROR");
-                          print(error!.graphqlErrors[0].message);
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Ошибка'),
-                              content: Text(error.graphqlErrors[0].message),
-                              actions: <Widget>[
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
-                        },
-                        onCompleted: (dynamic resultData) async {
-                          print(resultData);
-                          if (resultData != null) {
-                            if (resultData['checkClient']['result'] == 0) {
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              prefs.setString(
-                                  'token', resultData['checkClient']['token']);
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => MainPage()),
-                              );
-                            } else {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) => AlertDialog(
-                                  title: const Text('Ошибка'),
-                                  content: Text(resultData['checkClient']
-                                      ['errorMessage']),
-                                  actions: <Widget>[
-                                    TextButton(
-                                      onPressed: () =>
-                                          Navigator.pop(context, 'OK'),
-                                      child: const Text('OK'),
-                                    ),
-                                  ],
-                                ),
-                              );
-                            }
-                          }
-                        }),
-                    builder: (
-                      RunMutation runMutation,
-                      QueryResult? result,
-                    ) {
-                      return Padding(
-                        padding: const EdgeInsets.only(top: 16.0),
-                        child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              minimumSize: Size(double.infinity,
-                                  48), // double.infinity is the width and 30 is the height
-                            ),
-                            child: Text("ПОДТВЕРДИТЬ"),
-                            onPressed: () {
-                              print("SMS NOW PLZ " + smsCodeController.text);
-                              runMutation({
-                                'code': smsCodeController.text,
-                              });
-                            }),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16.0),
-                    child: TextButton(
-                        style: ButtonStyle(
-                            minimumSize: MaterialStateProperty.all(
-                                Size(double.infinity, 48.0)),
-                            shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(24.0),
-                                    side: BorderSide(color: Colors.green)))),
-                        onPressed: smsTimeout == 0 ? repeatSMS : null,
-                        child: Text(
-                            "ПОВТОРИТЬ" +
-                                (smsTimeout == 0 ? "" : " ($smsTimeout) СЕК."),
-                            style: GoogleFonts.montserrat(fontSize: 16))),
-                  )
-                ]),
-              ),
-            );
-          },
-        );
+        return ConfirmSMSPage();
       },
     );
   }
@@ -375,6 +235,163 @@ class _LoginPageState extends State<LoginPage> {
               },
               child: Text("ПОЗЖЕ")),
         ],
+      ),
+    );
+  }
+}
+
+class ConfirmSMSPage extends StatefulWidget {
+  const ConfirmSMSPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  _ConfirmSMSPageState createState() => _ConfirmSMSPageState();
+}
+
+class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
+  int smsTimeout = 30;
+
+  final TextEditingController smsCodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    smsCodeController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    repeatSMS();
+    super.initState();
+  }
+
+  void repeatSMS() {
+    Timer.periodic(Duration(seconds: 1), (timer) {
+      if (smsTimeout == 0) {
+        timer.cancel();
+      } else {
+        setState(() {
+          smsTimeout--;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Wrap(children: [
+          Text("Код",
+              style: GoogleFonts.montserrat(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+              )),
+          Container(
+            margin: EdgeInsets.only(top: 8.0),
+            height: 48,
+            child: TextField(
+              controller: smsCodeController,
+              keyboardType: TextInputType.number,
+              decoration: InputDecoration(
+                  border: OutlineInputBorder(
+                    borderRadius: const BorderRadius.all(
+                      const Radius.circular(24.0),
+                    ),
+                  ),
+                  hintText: '12345'),
+            ),
+          ),
+          Mutation(
+            options: MutationOptions(
+                document: gql(checkClient),
+                onError: (error) {
+                  print("ERROR");
+                  print(error!.graphqlErrors[0].message);
+                  showDialog(
+                    context: context,
+                    builder: (BuildContext context) => AlertDialog(
+                      title: const Text('Ошибка'),
+                      content: Text(error.graphqlErrors[0].message),
+                      actions: <Widget>[
+                        TextButton(
+                          onPressed: () => Navigator.pop(context, 'OK'),
+                          child: const Text('OK'),
+                        ),
+                      ],
+                    ),
+                  );
+                },
+                onCompleted: (dynamic resultData) async {
+                  print(resultData);
+                  if (resultData != null) {
+                    if (resultData['checkClient']['result'] == 0) {
+                      final prefs = await SharedPreferences.getInstance();
+                      prefs.setString(
+                          'token', resultData['checkClient']['token']);
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => MainPage()),
+                      );
+                    } else {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Ошибка'),
+                          content:
+                              Text(resultData['checkClient']['errorMessage']),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
+                  }
+                }),
+            builder: (
+              RunMutation runMutation,
+              QueryResult? result,
+            ) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 16.0),
+                child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity,
+                          48), // double.infinity is the width and 30 is the height
+                    ),
+                    child: Text("ПОДТВЕРДИТЬ"),
+                    onPressed: () {
+                      runMutation({
+                        'code': smsCodeController.text,
+                      });
+                    }),
+              );
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 16.0),
+            child: TextButton(
+                style: ButtonStyle(
+                    minimumSize:
+                        MaterialStateProperty.all(Size(double.infinity, 48.0)),
+                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(24.0),
+                            side: BorderSide(color: Colors.green)))),
+                onPressed: smsTimeout == 0 ? repeatSMS : null,
+                child: Text(
+                    "ПОВТОРИТЬ" +
+                        (smsTimeout == 0 ? "" : " ($smsTimeout) СЕК."),
+                    style: GoogleFonts.montserrat(fontSize: 16))),
+          )
+        ]),
       ),
     );
   }
