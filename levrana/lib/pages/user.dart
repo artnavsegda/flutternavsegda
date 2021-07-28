@@ -73,6 +73,17 @@ mutation promocodeActivation($promoCode: String)
 }
 ''';
 
+const String setPassword = r'''
+mutation setPassword($password: String)
+{
+  setPassword(password: $password)
+  {
+    result
+    errorMessage
+  }
+}
+''';
+
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
 
