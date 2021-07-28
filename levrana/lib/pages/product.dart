@@ -201,6 +201,12 @@ class _ProductPageState extends State<ProductPage> {
                   .containsKey(element['iD']))
                 selectChar(0, element, result.data!['getProduct']['prices']);
             });
+            if (productPrice['price'] == null &&
+                result.data!['getProduct']['prices'].length == 1) {
+              setState(() {
+                productPrice = result.data!['getProduct']['prices'][0];
+              });
+            }
           });
 
           return Scaffold(
@@ -548,6 +554,13 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                       selectChar(
                           0, element, result.data!['getProduct']['prices']);
                   });
+
+                  if (productPrice['price'] == null &&
+                      result.data!['getProduct']['prices'].length == 1) {
+                    setState(() {
+                      productPrice = result.data!['getProduct']['prices'][0];
+                    });
+                  }
                 });
 
                 return Column(
