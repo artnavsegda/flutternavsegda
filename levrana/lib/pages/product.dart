@@ -90,22 +90,35 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
       case 'COLOR':
         return Row(children: [
           for (int index = 0; index < widget.element['values'].length; index++)
-            Container(
-              margin: EdgeInsets.all(3),
-              decoration: ShapeDecoration(
-                  color: hexToColor(widget.element['values'][index]['value']),
-                  shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(width: 3, color: Colors.white)) +
-                      RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(32.0),
-                          side: BorderSide(
-                              width: 3,
-                              color: hexToColor(
-                                  widget.element['values'][index]['value'])))),
-              child: SizedBox(
-                height: 20,
-                width: 35,
+            GestureDetector(
+              onTap: () {
+                widget.onSelected!(index);
+                setState(() {
+                  selected = index;
+                });
+              },
+              child: Container(
+                margin: EdgeInsets.all(3),
+                decoration: ShapeDecoration(
+                    color: hexToColor(widget.element['values'][index]['value']),
+                    shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                            side: BorderSide(
+                                width: 3,
+                                color: selected == index
+                                    ? Colors.white
+                                    : hexToColor(widget.element['values'][index]
+                                        ['value']))) +
+                        RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                            side: BorderSide(
+                                width: 2,
+                                color: hexToColor(widget.element['values']
+                                    [index]['value'])))),
+                child: SizedBox(
+                  height: 22,
+                  width: 35,
+                ),
               ),
             )
 /*             ChoiceChip(
