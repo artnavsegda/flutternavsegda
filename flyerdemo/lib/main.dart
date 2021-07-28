@@ -11,16 +11,6 @@ import 'package:open_file/open_file.dart';
 import 'package:uuid/uuid.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-const String getSupport = r'''
-query getSupport {
-  getSupport {
-    iD
-    date
-    text
-  }
-}
-''';
-
 void main() {
   final HttpLink httpLink = HttpLink(
     'https://demo.cyberiasoft.com/levranaservice/graphql',
@@ -59,29 +49,33 @@ class MyApp extends StatelessWidget {
   }
 }
 
+const String getSupport = r'''
+query getSupport {
+  getSupport {
+    iD
+    date
+    text
+    managerID
+  }
+}
+''';
+
+const String addSupport = r'''
+mutation addSupport($message: String)
+{
+  addSupport(message: $message)
+  {
+    result
+    errorMessage
+    iD
+  }
+}
+''';
+
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
-  final _user = const types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c');
-  final _consultant =
-      const types.User(id: '06c33e8b-e835-4736-80f4-63f44b6666d');
-
-  static List<types.Message> _messages = [
-    types.TextMessage(
-        createdAt: DateTime.now().millisecondsSinceEpoch,
-        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666c'),
-        id: 'id',
-        text: 'tri'),
-    types.TextMessage(
-        createdAt: DateTime.now().millisecondsSinceEpoch - 1000 * 60 * 60,
-        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b6666d'),
-        id: 'id',
-        text: 'dva'),
-    types.TextMessage(
-        createdAt: DateTime.now().millisecondsSinceEpoch - 1000 * 60 * 60 * 24,
-        author: types.User(id: '06c33e8b-e835-4736-80f4-63f44b66666d'),
-        id: 'id',
-        text: 'raz'),
-  ];
+  final _user = const types.User(id: 'user');
+  final _consultant = const types.User(id: 'consultant');
 
   @override
   Widget build(BuildContext context) {
@@ -105,7 +99,8 @@ class SupportPage extends StatelessWidget {
 
             List<types.Message> _messages2 = result.data!['getSupport']
                 .map((message) => types.TextMessage(
-                      author: _consultant,
+                      author:
+                          message['managerID'] == null ? _user : _consultant,
                       createdAt: message['date'],
                       id: const Uuid().v4(),
                       text: message['text'],
@@ -113,28 +108,47 @@ class SupportPage extends StatelessWidget {
                 .toList()
                 .cast<types.Message>();
 
-            return Chat(
-              theme: const DefaultChatTheme(
-                //sdsainputBackgroundColor: Colors.green,
-                primaryColor: Colors.green,
-              ),
-              messages: _messages2,
-              l10n: ChatL10nRu(inputPlaceholder: "В чем дело ?"),
-              //onAttachmentPressed: _handleAtachmentPressed,
-              //onMessageTap: _handleMessageTap,
-              //onPreviewDataFetched: _handlePreviewDataFetched,
-              onSendPressed: (types.PartialText message) {
-                final textMessage = types.TextMessage(
-                  author: _user,
-                  createdAt: DateTime.now().millisecondsSinceEpoch,
-                  id: const Uuid().v4(),
-                  text: message.text,
-                );
+            return Mutation(
+                options: MutationOptions(
+                  document: gql(addSupport),
+                  onError: (error) {
+                    print(error);
+                  },
+                  onCompleted: (dynamic resultData) async {
+                    print(resultData);
+                    refetch!();
+                  },
+                ),
+                builder: (
+                  RunMutation runMutation,
+                  QueryResult? mutationResult,
+                ) {
+                  return Chat(
+                    theme: const DefaultChatTheme(
+                      //sdsainputBackgroundColor: Colors.green,
+                      primaryColor: Colors.green,
+                    ),
+                    messages: _messages2,
+                    l10n: ChatL10nRu(inputPlaceholder: "В чем дело ?"),
+                    //onAttachmentPressed: _handleAtachmentPressed,
+                    //onMessageTap: _handleMessageTap,
+                    //onPreviewDataFetched: _handlePreviewDataFetched,
+                    onSendPressed: (types.PartialText message) {
+                      final textMessage = types.TextMessage(
+                        author: _user,
+                        createdAt: DateTime.now().millisecondsSinceEpoch,
+                        id: const Uuid().v4(),
+                        text: message.text,
+                      );
 
-                //_addMessage(textMessage);
-              },
-              user: _user,
-            );
+                      //_addMessage(textMessage);
+                      runMutation({
+                        'message': message.text,
+                      });
+                    },
+                    user: _user,
+                  );
+                });
           }),
     );
   }
