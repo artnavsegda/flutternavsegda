@@ -9,18 +9,42 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:mime/mime.dart';
 import 'package:open_file/open_file.dart';
 import 'package:uuid/uuid.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
-  initializeDateFormatting().then((_) => runApp(const MyApp()));
+  final HttpLink httpLink = HttpLink(
+    'https://demo.cyberiasoft.com/levranaservice/graphql',
+  );
+
+  final AuthLink authLink = AuthLink(
+    getToken: () async =>
+        'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI1MDUxOWMxYy05NDMzLTQxOWMtOTc1NS1jOWQxOGNkMzE5M2MiLCJkZXZpY2VJZCI6ImhlbGxvIiwib1NUeXBlIjoiMSIsImNsaWVudElkIjoiNSIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzE0ODcxMzUyMiwiaXNzIjoiTGV2cmFuYSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.WUkgyFmkF3yUVGO8z90KWvqBmk7Wp4HdBHR-teVYp_0',
+  );
+
+  final Link link = authLink.concat(httpLink);
+
+  ValueNotifier<GraphQLClient> client = ValueNotifier(
+    GraphQLClient(
+      link: link,
+      cache: GraphQLCache(store: InMemoryStore()),
+    ),
+  );
+
+  initializeDateFormatting().then((_) => runApp(MyApp(client: client)));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key, required this.client}) : super(key: key);
+
+  final ValueNotifier<GraphQLClient> client;
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
-      home: ChatPage(),
+    return GraphQLProvider(
+      client: client,
+      child: const MaterialApp(
+        home: ChatPage(),
+      ),
     );
   }
 }
