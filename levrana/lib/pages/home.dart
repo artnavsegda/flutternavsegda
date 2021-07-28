@@ -6,6 +6,7 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'user.dart';
 import 'product.dart';
@@ -323,12 +324,19 @@ class ActionPage extends StatelessWidget {
           return Scaffold(
               appBar:
                   AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
-              body: Markdown(
-                data: result.data!['getAction']['description'] ?? "",
-                onTapLink: (text, url, title) {
-                  print(url);
-                },
-              ));
+              body: ListView(children: [
+                Image.network(result.data!['getAction']['picture']),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: MarkdownBody(
+                    data: result.data!['getAction']['description'] ?? "",
+                    onTapLink: (text, url, title) {
+                      launch(url!);
+                      print(url);
+                    },
+                  ),
+                ),
+              ]));
         });
   }
 }
