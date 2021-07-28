@@ -677,12 +677,6 @@ class _EditUserPageState extends State<EditUserPage> {
                                     labelText: 'Дата рождения')),
                             TextFormField(
                                 decoration: InputDecoration(labelText: 'Пол')),
-                            TextFormField(
-                                decoration: InputDecoration(
-                                    labelText: 'Размер одежды')),
-                            TextFormField(
-                                decoration:
-                                    InputDecoration(labelText: 'Размер обуви')),
                             SizedBox(
                               height: 32,
                             ),
