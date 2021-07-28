@@ -63,6 +63,16 @@ mutation friendTransfer($gUIDorPhone: String, $points: Int)
 }
 ''';
 
+const String promocodeActivation = r'''
+mutation promocodeActivation($promoCode: String)
+{
+  promocodeActivation(promoCode: $promoCode) {
+    result
+    errorMessage
+  }
+}
+''';
+
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
 
