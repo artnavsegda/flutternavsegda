@@ -387,10 +387,22 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
               labelText: "Подтвердите пароль",
             ),
           ),
-          ElevatedButton(
-            child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
-            onPressed: _isPassValid ? () => Navigator.pop(context) : null,
-          )
+          Mutation(
+              options: MutationOptions(
+                document: gql(setPassword),
+                onCompleted: (resultData) {
+                  print(resultData);
+                  Navigator.pop(context);
+                },
+              ),
+              builder: (runMutation, result) {
+                return ElevatedButton(
+                  child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
+                  onPressed: _isPassValid
+                      ? () => runMutation({'password': passwordController.text})
+                      : null,
+                );
+              })
         ],
       ),
     );
