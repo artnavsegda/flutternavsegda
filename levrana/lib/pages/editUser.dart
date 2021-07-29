@@ -139,134 +139,145 @@ class _EditUserPageState extends State<EditUserPage> {
                     ),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: Form(
-                        key: _formKey,
-                        child: Column(
-                          children: [
-                            TextFormField(
-                                controller: nameController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Введите имя';
-                                  }
-                                  return null;
-                                },
-                                decoration: InputDecoration(labelText: 'Имя')),
-                            TextFormField(
-                                controller: emailController,
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Введите E-Mail';
-                                  }
-                                  return null;
-                                },
-                                decoration:
-                                    InputDecoration(labelText: 'E-mail')),
-                            TextFormField(
-                                controller: phoneNumberController,
-                                inputFormatters: [
-                                  MaskTextInputFormatter(
-                                      mask: '+7 (###) ###-##-##',
-                                      filter: {"#": RegExp(r'[0-9]')})
-                                ],
-                                keyboardType: TextInputType.number,
-                                decoration:
-                                    InputDecoration(labelText: 'Телефон')),
-                            TextFormField(
-                                onTap: () {
-                                  print("AAAA");
-                                  showCupertinoModalPopup(
-                                      context: context,
-                                      builder: (context) {
-                                        return Container(
-                                          height: 300,
-                                          color: Color.fromARGB(
-                                              255, 255, 255, 255),
-                                          child: Column(
-                                            children: [
-                                              Container(
-                                                height: 240,
-                                                child: CupertinoDatePicker(
-                                                  mode: CupertinoDatePickerMode
-                                                      .date,
-                                                  onDateTimeChanged: (value) {},
+                      child: Theme(
+                        data: Theme.of(context).copyWith(
+                            inputDecorationTheme: InputDecorationTheme()),
+                        child: Form(
+                          key: _formKey,
+                          child: Column(
+                            children: [
+                              TextFormField(
+                                  controller: nameController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите имя';
+                                    }
+                                    return null;
+                                  },
+                                  decoration:
+                                      InputDecoration(labelText: 'Имя')),
+                              TextFormField(
+                                  controller: emailController,
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return 'Введите E-Mail';
+                                    }
+                                    return null;
+                                  },
+                                  decoration:
+                                      InputDecoration(labelText: 'E-mail')),
+                              TextFormField(
+                                  controller: phoneNumberController,
+                                  inputFormatters: [
+                                    MaskTextInputFormatter(
+                                        mask: '+7 (###) ###-##-##',
+                                        filter: {"#": RegExp(r'[0-9]')})
+                                  ],
+                                  keyboardType: TextInputType.number,
+                                  decoration:
+                                      InputDecoration(labelText: 'Телефон')),
+                              TextFormField(
+                                  onTap: () {
+                                    print("AAAA");
+                                    showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) {
+                                          return Container(
+                                            height: 300,
+                                            color: Color.fromARGB(
+                                                255, 255, 255, 255),
+                                            child: Column(
+                                              children: [
+                                                Container(
+                                                  height: 240,
+                                                  child: CupertinoDatePicker(
+                                                    mode:
+                                                        CupertinoDatePickerMode
+                                                            .date,
+                                                    onDateTimeChanged:
+                                                        (value) {},
+                                                  ),
                                                 ),
-                                              ),
-                                              CupertinoButton(
-                                                child: Text('OK'),
-                                                onPressed: () =>
-                                                    Navigator.of(context).pop(),
-                                              )
-                                            ],
-                                          ),
-                                        );
-                                      });
-                                },
-                                decoration: InputDecoration(
-                                    labelText: 'Дата рождения')),
-                            TextFormField(
-                                decoration: InputDecoration(labelText: 'Пол')),
-                            SizedBox(
-                              height: 32,
-                            ),
-                            SizedBox(
-                              width: double.infinity,
-                              child: Mutation(
-                                options: MutationOptions(
-                                  document: gql(editClient),
-                                  onCompleted: (resultData) {
-                                    print(resultData);
-                                    Navigator.pop(context);
+                                                CupertinoButton(
+                                                  child: Text('OK'),
+                                                  onPressed: () =>
+                                                      Navigator.of(context)
+                                                          .pop(),
+                                                )
+                                              ],
+                                            ),
+                                          );
+                                        });
+                                  },
+                                  decoration: InputDecoration(
+                                      labelText: 'Дата рождения')),
+                              TextFormField(
+                                  decoration:
+                                      InputDecoration(labelText: 'Пол')),
+                              SizedBox(
+                                height: 32,
+                              ),
+                              SizedBox(
+                                width: double.infinity,
+                                child: Mutation(
+                                  options: MutationOptions(
+                                    document: gql(editClient),
+                                    onCompleted: (resultData) {
+                                      print(resultData);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  builder: (runMutation, result) {
+                                    return ElevatedButton(
+                                        onPressed: () async {
+                                          print("Magic !");
+
+                                          if (_formKey.currentState!
+                                              .validate()) {
+                                            if (_imageFile != null) {
+                                              var request = MultipartRequest(
+                                                'POST',
+                                                Uri.parse(
+                                                    'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
+                                              );
+                                              final prefs =
+                                                  await SharedPreferences
+                                                      .getInstance();
+                                              request.headers['Authorization'] =
+                                                  'Bearer ' +
+                                                      (prefs.getString(
+                                                              'token') ??
+                                                          "");
+                                              request.files.add(
+                                                  await MultipartFile.fromPath(
+                                                'image',
+                                                _imageFile!.path,
+                                                contentType:
+                                                    MediaType('image', 'jpg'),
+                                              ));
+                                              var streamedResponse =
+                                                  await request.send();
+                                              var res = await streamedResponse
+                                                  .stream
+                                                  .bytesToString();
+                                              print(res);
+                                            }
+                                            print(nameController.text);
+                                            runMutation({
+                                              'clientGUID': clientGUID,
+                                              'name': nameController.text,
+                                              'eMail': emailController.text,
+                                            });
+                                            //Navigator.pop(context);
+                                          }
+                                        },
+                                        child: Text("СОХРАНИТЬ",
+                                            style: TextStyle(fontSize: 16.0)));
                                   },
                                 ),
-                                builder: (runMutation, result) {
-                                  return ElevatedButton(
-                                      onPressed: () async {
-                                        print("Magic !");
-
-                                        if (_formKey.currentState!.validate()) {
-                                          if (_imageFile != null) {
-                                            var request = MultipartRequest(
-                                              'POST',
-                                              Uri.parse(
-                                                  'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
-                                            );
-                                            final prefs =
-                                                await SharedPreferences
-                                                    .getInstance();
-                                            request.headers['Authorization'] =
-                                                'Bearer ' +
-                                                    (prefs.getString('token') ??
-                                                        "");
-                                            request.files.add(
-                                                await MultipartFile.fromPath(
-                                              'image',
-                                              _imageFile!.path,
-                                              contentType:
-                                                  MediaType('image', 'jpg'),
-                                            ));
-                                            var streamedResponse =
-                                                await request.send();
-                                            var res = await streamedResponse
-                                                .stream
-                                                .bytesToString();
-                                            print(res);
-                                          }
-                                          print(nameController.text);
-                                          runMutation({
-                                            'clientGUID': clientGUID,
-                                            'name': nameController.text,
-                                            'eMail': emailController.text,
-                                          });
-                                          //Navigator.pop(context);
-                                        }
-                                      },
-                                      child: Text("СОХРАНИТЬ",
-                                          style: TextStyle(fontSize: 16.0)));
-                                },
-                              ),
-                            )
-                          ],
+                              )
+                            ],
+                          ),
                         ),
                       ),
                     ),

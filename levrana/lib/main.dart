@@ -58,42 +58,43 @@ class MyApp extends StatelessWidget {
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
-          scaffoldBackgroundColor: Colors.white,
-          primarySwatch: Colors.green,
-          fontFamily: 'Montserrat',
-          textTheme: GoogleFonts.montserratTextTheme(
-            Theme.of(context).textTheme,
-          ),
-          appBarTheme: AppBarTheme(
-            backwardsCompatibility: false,
-            titleTextStyle:
-                TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
-          ),
-          elevatedButtonTheme: ElevatedButtonThemeData(
-            style: ButtonStyle(
-              elevation: MaterialStateProperty.all(0.0),
-              minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
+            scaffoldBackgroundColor: Colors.white,
+            primarySwatch: Colors.green,
+            fontFamily: 'Montserrat',
+            textTheme: GoogleFonts.montserratTextTheme(
+              Theme.of(context).textTheme,
+            ),
+            appBarTheme: AppBarTheme(
+              backwardsCompatibility: false,
+              titleTextStyle:
+                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
+            elevatedButtonTheme: ElevatedButtonThemeData(
+              style: ButtonStyle(
+                elevation: MaterialStateProperty.all(0.0),
+                minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
                 ),
               ),
             ),
-          ),
-          outlinedButtonTheme: OutlinedButtonThemeData(
-            style: ButtonStyle(
-              side: MaterialStateProperty.all(
-                  BorderSide(width: 1.0, color: Colors.green)),
-              elevation: MaterialStateProperty.all(0.0),
-              minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
-              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(24.0),
+            outlinedButtonTheme: OutlinedButtonThemeData(
+              style: ButtonStyle(
+                side: MaterialStateProperty.all(
+                    BorderSide(width: 1.0, color: Colors.green)),
+                elevation: MaterialStateProperty.all(0.0),
+                minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(24.0),
+                  ),
                 ),
               ),
             ),
-          ),
-        ),
+            inputDecorationTheme:
+                InputDecorationTheme(border: OutlineInputBorder())),
         home: FutureBuilder<String>(
           future: getToken(),
           builder: (buildContext, snapshot) {
