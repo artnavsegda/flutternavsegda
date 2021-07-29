@@ -327,6 +327,9 @@ class _PromocodeState extends State<Promocode> {
               ),
               builder: (runMutation, result) {
                 return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 48),
+                  ),
                   child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
                   onPressed: () {
                     runMutation({
@@ -381,11 +384,15 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+      padding: const EdgeInsets.all(15.0),
+      child: Wrap(
+        runSpacing: 8.0,
         children: <Widget>[
-          Text('Смена пароля'),
+          Text('Смена пароля',
+              style: GoogleFonts.montserrat(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+              )),
           TextField(
             controller: passwordController,
             obscureText: true,
@@ -410,6 +417,9 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
               ),
               builder: (runMutation, result) {
                 return ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(double.infinity, 48),
+                  ),
                   child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
                   onPressed: _isPassValid
                       ? () => runMutation({'password': passwordController.text})
