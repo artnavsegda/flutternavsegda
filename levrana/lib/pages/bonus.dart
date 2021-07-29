@@ -85,126 +85,129 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      child: Wrap(
-        runSpacing: 8.0,
-        children: [
-          Text("Подарить бонусы",
-              style: GoogleFonts.montserrat(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-              )),
-          Text("Укажите количество бонусов"),
-          Row(
-            children: [
-              Expanded(
-                child: Slider(
-                    label: "hello",
-                    max: widget.maxAmount.toDouble(),
-                    value: _amount,
-                    onChanged: (newValue) {
-                      setState(() {
-                        _amount = newValue;
-                      });
-                    }),
-              ),
-              Text(_amount.toStringAsFixed(0))
-            ],
-          ),
-          RadioListTile(
-            value: SearchMode.phone,
-            groupValue: _currentMode,
-            title: Text("По номеру телефона"),
-            onChanged: (SearchMode? value) {
-              setState(() {
-                _currentMode = value;
-              });
-            },
-          ),
-          RadioListTile(
-            value: SearchMode.qr,
-            groupValue: _currentMode,
-            title: Text("По QR коду"),
-            onChanged: (SearchMode? value) {
-              setState(() {
-                _currentMode = value;
-              });
-            },
-          ),
-          if (_currentMode == SearchMode.phone)
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        padding: const EdgeInsets.all(15.0),
+        child: Wrap(
+          runSpacing: 8.0,
+          children: [
+            Text("Подарить бонусы",
+                style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                )),
+            Text("Укажите количество бонусов"),
             Row(
               children: [
                 Expanded(
-                  child: TextField(
-                    inputFormatters: [
-                      MaskTextInputFormatter(
-                          mask: '+7 (###) ###-##-##',
-                          filter: {"#": RegExp(r'[0-9]')})
-                    ],
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      labelText: "Введите телефон",
-                    ),
-                  ),
+                  child: Slider(
+                      label: "hello",
+                      max: widget.maxAmount.toDouble(),
+                      value: _amount,
+                      onChanged: (newValue) {
+                        setState(() {
+                          _amount = newValue;
+                        });
+                      }),
                 ),
-                IconButton(
-                  icon: Icon(Icons.ac_unit),
-                  onPressed: () {
-                    _openContacts();
-                  },
-                )
+                Text(_amount.toStringAsFixed(0))
               ],
-            )
-          else if (_currentMode == SearchMode.qr)
-            if (scanned)
-              Query(
-                  options: QueryOptions(
-                    document: gql(friendFind),
-                    variables: {
-                      'gUIDorPhone': clientGUID.code,
-                    },
-                  ),
-                  builder: (result, {fetchMore, refetch}) {
-                    if (result.hasException) {
-                      return Text(result.exception.toString());
-                    }
-
-                    if (result.isLoading) {
-                      return Text('Loading');
-                    }
-
-                    return Text(result.data!['friendFind']['name']);
-                  })
-            else
-              SizedBox(
-                height: 200,
-                child: QRView(
-                  key: qrKey,
-                  onQRViewCreated: _onQRViewCreated,
-                ),
-              ),
-          Mutation(
-              options: MutationOptions(
-                document: gql(friendTransfer),
-                onCompleted: (resultData) {
-                  print(resultData);
-                },
-              ),
-              builder: (runMutation, result) {
-                return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 48),
+            ),
+            RadioListTile(
+              value: SearchMode.phone,
+              groupValue: _currentMode,
+              title: Text("По номеру телефона"),
+              onChanged: (SearchMode? value) {
+                setState(() {
+                  _currentMode = value;
+                });
+              },
+            ),
+            RadioListTile(
+              value: SearchMode.qr,
+              groupValue: _currentMode,
+              title: Text("По QR коду"),
+              onChanged: (SearchMode? value) {
+                setState(() {
+                  _currentMode = value;
+                });
+              },
+            ),
+            if (_currentMode == SearchMode.phone)
+              Row(
+                children: [
+                  Expanded(
+                    child: TextField(
+                      inputFormatters: [
+                        MaskTextInputFormatter(
+                            mask: '+7 (###) ###-##-##',
+                            filter: {"#": RegExp(r'[0-9]')})
+                      ],
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        labelText: "Введите телефон",
+                      ),
                     ),
+                  ),
+                  IconButton(
+                    icon: Icon(Icons.ac_unit),
                     onPressed: () {
-                      runMutation({
-                        'gUIDorPhone': clientGUID.code,
-                        'points': _amount.toInt()
-                      });
+                      _openContacts();
                     },
-                    child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
-              })
-        ],
+                  )
+                ],
+              )
+            else if (_currentMode == SearchMode.qr)
+              if (scanned)
+                Query(
+                    options: QueryOptions(
+                      document: gql(friendFind),
+                      variables: {
+                        'gUIDorPhone': clientGUID.code,
+                      },
+                    ),
+                    builder: (result, {fetchMore, refetch}) {
+                      if (result.hasException) {
+                        return Text(result.exception.toString());
+                      }
+
+                      if (result.isLoading) {
+                        return Text('Loading');
+                      }
+
+                      return Text(result.data!['friendFind']['name']);
+                    })
+              else
+                SizedBox(
+                  height: 200,
+                  child: QRView(
+                    key: qrKey,
+                    onQRViewCreated: _onQRViewCreated,
+                  ),
+                ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(friendTransfer),
+                  onCompleted: (resultData) {
+                    print(resultData);
+                  },
+                ),
+                builder: (runMutation, result) {
+                  return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(double.infinity, 48),
+                      ),
+                      onPressed: () {
+                        runMutation({
+                          'gUIDorPhone': clientGUID.code,
+                          'points': _amount.toInt()
+                        });
+                      },
+                      child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
+                })
+          ],
+        ),
       ),
     );
   }

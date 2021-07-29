@@ -221,9 +221,7 @@ class UserPage extends StatelessWidget {
                           ),
                           context: context,
                           builder: (BuildContext context) {
-                            return Container(
-                              child: Promocode(),
-                            );
+                            return Promocode();
                           },
                         );
                       },
@@ -303,44 +301,47 @@ class _PromocodeState extends State<Promocode> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: Wrap(
-        runSpacing: 8.0,
-        children: [
-          Text('Промокод',
-              style: GoogleFonts.montserrat(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-              )),
-          TextField(
-            controller: textController,
-            decoration: InputDecoration(
-              labelText: "Введите промокод",
-            ),
-          ),
-          Mutation(
-              options: MutationOptions(
-                document: gql(promocodeActivation),
-                onCompleted: (resultData) {
-                  print(resultData);
-                  Navigator.pop(context);
-                },
+    return Container(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Wrap(
+          runSpacing: 8.0,
+          children: [
+            Text('Промокод',
+                style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                )),
+            TextField(
+              controller: textController,
+              decoration: InputDecoration(
+                labelText: "Введите промокод",
               ),
-              builder: (runMutation, result) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 48),
-                  ),
-                  child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
-                  onPressed: () {
-                    runMutation({
-                      'promoCode': textController.text,
-                    });
+            ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(promocodeActivation),
+                  onCompleted: (resultData) {
+                    print(resultData);
+                    Navigator.pop(context);
                   },
-                );
-              })
-        ],
+                ),
+                builder: (runMutation, result) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 48),
+                    ),
+                    child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
+                    onPressed: () {
+                      runMutation({
+                        'promoCode': textController.text,
+                      });
+                    },
+                  );
+                })
+          ],
+        ),
       ),
     );
   }
@@ -385,50 +386,54 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(15.0),
-      child: Wrap(
-        runSpacing: 8.0,
-        children: <Widget>[
-          Text('Смена пароля',
-              style: GoogleFonts.montserrat(
-                fontSize: 28,
-                fontWeight: FontWeight.w700,
-              )),
-          TextField(
-            controller: passwordController,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Введите пароль",
-            ),
-          ),
-          TextField(
-            controller: confirmController,
-            obscureText: true,
-            decoration: InputDecoration(
-              labelText: "Подтвердите пароль",
-            ),
-          ),
-          Mutation(
-              options: MutationOptions(
-                document: gql(setPassword),
-                onCompleted: (resultData) {
-                  print(resultData);
-                  Navigator.pop(context);
-                },
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Container(
+        padding: const EdgeInsets.all(15.0),
+        child: Wrap(
+          runSpacing: 8.0,
+          children: <Widget>[
+            Text('Смена пароля',
+                style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                )),
+            TextField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Введите пароль",
               ),
-              builder: (runMutation, result) {
-                return ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity, 48),
-                  ),
-                  child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
-                  onPressed: _isPassValid
-                      ? () => runMutation({'password': passwordController.text})
-                      : null,
-                );
-              })
-        ],
+            ),
+            TextField(
+              controller: confirmController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: "Подтвердите пароль",
+              ),
+            ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(setPassword),
+                  onCompleted: (resultData) {
+                    print(resultData);
+                    Navigator.pop(context);
+                  },
+                ),
+                builder: (runMutation, result) {
+                  return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 48),
+                    ),
+                    child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
+                    onPressed: _isPassValid
+                        ? () =>
+                            runMutation({'password': passwordController.text})
+                        : null,
+                  );
+                })
+          ],
+        ),
       ),
     );
   }
