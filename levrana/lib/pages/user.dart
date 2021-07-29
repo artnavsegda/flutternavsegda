@@ -253,31 +253,7 @@ class UserPage extends StatelessWidget {
                         showModalBottomSheet<void>(
                           context: context,
                           builder: (BuildContext context) {
-                            return Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  Text('Смена пароля'),
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "Введите пароль",
-                                    ),
-                                  ),
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "Подтвердите пароль",
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
-                                    onPressed: () => Navigator.pop(context),
-                                  )
-                                ],
-                              ),
-                            );
+                            return SetPasswordPage();
                           },
                         );
                       },
@@ -308,5 +284,40 @@ class UserPage extends StatelessWidget {
             ),
           );
         });
+  }
+}
+
+class SetPasswordPage extends StatelessWidget {
+  const SetPasswordPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisSize: MainAxisSize.min,
+        children: <Widget>[
+          Text('Смена пароля'),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Введите пароль",
+            ),
+          ),
+          TextField(
+            decoration: InputDecoration(
+              border: OutlineInputBorder(),
+              labelText: "Подтвердите пароль",
+            ),
+          ),
+          ElevatedButton(
+            child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
+            onPressed: () => Navigator.pop(context),
+          )
+        ],
+      ),
+    );
   }
 }
