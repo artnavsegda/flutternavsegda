@@ -682,6 +682,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                 decoration:
                                     InputDecoration(labelText: 'Телефон')),
                             TextFormField(
+                                onTap: () {
+                                  print("AAAA");
+                                },
                                 decoration: InputDecoration(
                                     labelText: 'Дата рождения')),
                             TextFormField(
