@@ -297,6 +297,7 @@ class _PromocodeState extends State<Promocode> {
         TextField(
           controller: textController,
           decoration: InputDecoration(
+            isDense: true,
             labelText: "Введите промокод",
           ),
         ),
