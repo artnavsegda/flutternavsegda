@@ -297,7 +297,6 @@ class _PromocodeState extends State<Promocode> {
         TextField(
           controller: textController,
           decoration: InputDecoration(
-            border: OutlineInputBorder(),
             labelText: "Введите промокод",
           ),
         ),
@@ -373,7 +372,6 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
             controller: passwordController,
             obscureText: true,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
               labelText: "Введите пароль",
             ),
           ),
@@ -381,7 +379,6 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
             controller: confirmController,
             obscureText: true,
             decoration: InputDecoration(
-              border: OutlineInputBorder(),
               labelText: "Подтвердите пароль",
             ),
           ),

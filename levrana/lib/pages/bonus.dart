@@ -132,7 +132,6 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 Expanded(
                   child: TextField(
                     decoration: InputDecoration(
-                      border: OutlineInputBorder(),
                       labelText: "Введите телефон",
                     ),
                   ),

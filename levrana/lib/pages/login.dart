@@ -80,13 +80,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                 controller: phoneNumberController,
                 inputFormatters: [maskFormatter],
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(24.0),
-                      ),
-                    ),
-                    hintText: '+7(___) ___-__-__'),
+                decoration: InputDecoration(hintText: '+7(___) ___-__-__'),
               ),
             ),
             CheckboxTitle(
@@ -227,13 +221,7 @@ class _PasswordPageState extends State<PasswordPage> {
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
-                decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                      borderRadius: const BorderRadius.all(
-                        const Radius.circular(24.0),
-                      ),
-                    ),
-                    hintText: 'Ввести пароль'),
+                decoration: InputDecoration(hintText: 'Ввести пароль'),
               ),
             ),
             Mutation(
@@ -381,13 +369,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
             child: TextField(
               controller: smsCodeController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(
-                  border: OutlineInputBorder(
-                    borderRadius: const BorderRadius.all(
-                      const Radius.circular(24.0),
-                    ),
-                  ),
-                  hintText: '12345'),
+              decoration: InputDecoration(hintText: '12345'),
             ),
           ),
           Mutation(
