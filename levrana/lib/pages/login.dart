@@ -108,7 +108,10 @@ class _UserLoginPageState extends State<UserLoginPage> {
                     prefs.setString(
                         'token', resultData['loginClient']['token']);
                     Navigator.pop(context);
-                    _confirmSMS(context);
+                    if (resultData['loginClient']['nextStep'] == 'PASSWORD')
+                      _enterPassword(context);
+                    else
+                      _confirmSMS(context);
                   } else {
                     showDialog(
                       context: context,
@@ -166,9 +169,31 @@ class _UserLoginPageState extends State<UserLoginPage> {
         borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
       ),
       builder: (context) {
+        return PasswordPage();
+      },
+    );
+  }
+
+  void _enterPassword(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
         return ConfirmSMSPage();
       },
     );
+  }
+}
+
+class PasswordPage extends StatelessWidget {
+  const PasswordPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
   }
 }
 
