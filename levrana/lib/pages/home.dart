@@ -40,9 +40,18 @@ query getAction($actionID: Int) {
   getAction(actionID: $actionID) {
     iD
     name
+    specialConditions
     description
+    uRL
+    familyName
+    dateStart
+    dateFinish
     picture
+    squarePicture
     type
+    products {
+      iD
+    }
   }
 }
 ''';
