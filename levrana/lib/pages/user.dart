@@ -162,17 +162,17 @@ class UserPage extends StatelessWidget {
                                       'assets/ic-24/icon-24-bonus.png'))
                             ],
                           ),
-                          TextButton(
+                          OutlinedButton(
                               style: ButtonStyle(
+                                  side: MaterialStateProperty.all(BorderSide(
+                                      width: 1.0, color: Colors.green)),
                                   minimumSize: MaterialStateProperty.all(
                                       Size(223.0, 36.0)),
                                   shape: MaterialStateProperty.all<
                                           RoundedRectangleBorder>(
                                       RoundedRectangleBorder(
-                                          borderRadius:
-                                              BorderRadius.circular(18.0),
-                                          side: BorderSide(
-                                              color: Colors.green)))),
+                                    borderRadius: BorderRadius.circular(18.0),
+                                  ))),
                               onPressed: () {},
                               child: Text("ПРИГЛАСИТЬ ДРУГА",
                                   style: TextStyle(fontSize: 16.0))),
