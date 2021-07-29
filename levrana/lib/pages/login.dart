@@ -30,6 +30,16 @@ mutation checkClient($code: String!){
 }
 ''';
 
+const String checkPassword = r'''
+mutation checkPassword($password: String!){
+  checkClient(checkUser: {step: PASSWORD, code: $password}) {
+    result
+    errorMessage
+    token
+  }
+}
+''';
+
 class UserLoginPage extends StatefulWidget {
   const UserLoginPage({Key? key}) : super(key: key);
 
@@ -188,12 +198,117 @@ class _UserLoginPageState extends State<UserLoginPage> {
   }
 }
 
-class PasswordPage extends StatelessWidget {
+class PasswordPage extends StatefulWidget {
   const PasswordPage({Key? key}) : super(key: key);
 
   @override
+  _PasswordPageState createState() => _PasswordPageState();
+}
+
+class _PasswordPageState extends State<PasswordPage> {
+  final TextEditingController passwordController = TextEditingController();
+
+  @override
   Widget build(BuildContext context) {
-    return Container();
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: Wrap(
+          children: [
+            Text("Пароль",
+                style: GoogleFonts.montserrat(
+                  fontSize: 28,
+                  fontWeight: FontWeight.w700,
+                )),
+            Container(
+              margin: EdgeInsets.only(top: 8.0),
+              height: 48,
+              child: TextField(
+                obscureText: true,
+                controller: passwordController,
+                decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderRadius: const BorderRadius.all(
+                        const Radius.circular(24.0),
+                      ),
+                    ),
+                    hintText: 'Ввести пароль'),
+              ),
+            ),
+            Mutation(
+              options: MutationOptions(
+                  document: gql(checkPassword),
+                  onError: (error) {
+                    print("ERROR");
+                    print(error!.graphqlErrors[0].message);
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Ошибка'),
+                        content: Text(error.graphqlErrors[0].message),
+                        actions: <Widget>[
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                  onCompleted: (dynamic resultData) async {
+                    print(resultData);
+                    if (resultData != null) {
+                      if (resultData['checkClient']['result'] == 0) {
+                        final prefs = await SharedPreferences.getInstance();
+                        prefs.setString(
+                            'token', resultData['checkClient']['token']);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MainPage()),
+                        );
+                      } else {
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Ошибка'),
+                            content:
+                                Text(resultData['checkClient']['errorMessage']),
+                            actions: <Widget>[
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
+                    }
+                  }),
+              builder: (
+                RunMutation runMutation,
+                QueryResult? result,
+              ) {
+                return Padding(
+                  padding: const EdgeInsets.only(top: 16.0),
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: Size(double.infinity,
+                            48), // double.infinity is the width and 30 is the height
+                      ),
+                      child: Text("ПОДТВЕРДИТЬ"),
+                      onPressed: () {
+                        runMutation({
+                          'password': passwordController.text,
+                        });
+                      }),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }
 
