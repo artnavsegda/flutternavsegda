@@ -169,7 +169,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
         borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
       ),
       builder: (context) {
-        return PasswordPage();
+        return ConfirmSMSPage();
       },
     );
   }
@@ -182,7 +182,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
         borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
       ),
       builder: (context) {
-        return ConfirmSMSPage();
+        return PasswordPage();
       },
     );
   }
