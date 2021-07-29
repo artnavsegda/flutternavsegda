@@ -214,6 +214,7 @@ class UserPage extends StatelessWidget {
                           image: AssetImage('assets/ic-24/icon-24-promo.png')),
                       onTap: () {
                         showModalBottomSheet(
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: const Radius.circular(16.0)),
@@ -241,6 +242,7 @@ class UserPage extends StatelessWidget {
                     ListTile(
                       onTap: () {
                         showModalBottomSheet(
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(
                                 top: const Radius.circular(16.0)),

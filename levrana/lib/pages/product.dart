@@ -467,6 +467,7 @@ class ProductCard extends StatelessWidget {
                 onTap: () {
                   print(product['iD']);
                   showModalBottomSheet(
+                    isScrollControlled: true,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
                           top: const Radius.circular(16.0)),
