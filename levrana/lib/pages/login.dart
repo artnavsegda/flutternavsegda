@@ -296,8 +296,8 @@ class _PasswordPageState extends State<PasswordPage> {
                         minimumSize: Size(double.infinity,
                             48), // double.infinity is the width and 30 is the height
                       ),
-                      child: Text("ПОДТВЕРДИТЬ",
-                          style: GoogleFonts.montserrat(fontSize: 16)),
+                      child:
+                          Text("ПОДТВЕРДИТЬ", style: TextStyle(fontSize: 16.0)),
                       onPressed: () {
                         runMutation({
                           'password': passwordController.text,
@@ -453,8 +453,8 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                       minimumSize: Size(double.infinity,
                           48), // double.infinity is the width and 30 is the height
                     ),
-                    child: Text("ПОДТВЕРДИТЬ",
-                        style: GoogleFonts.montserrat(fontSize: 16)),
+                    child:
+                        Text("ПОДТВЕРДИТЬ", style: TextStyle(fontSize: 16.0)),
                     onPressed: () {
                       runMutation({
                         'code': smsCodeController.text,

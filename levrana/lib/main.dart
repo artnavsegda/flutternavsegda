@@ -64,6 +64,11 @@ class MyApp extends StatelessWidget {
 /*             textTheme: GoogleFonts.montserratTextTheme(
               Theme.of(context).textTheme,
             ), */
+            appBarTheme: AppBarTheme(
+              backwardsCompatibility: false,
+              titleTextStyle:
+                  TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
+            ),
             textTheme: const TextTheme(
                 //caption: TextStyle(fontSize: 14.0, fontFamily: 'Montserrat'),
                 //headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),

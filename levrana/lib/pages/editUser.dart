@@ -262,8 +262,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                         }
                                       },
                                       child: Text("СОХРАНИТЬ",
-                                          style: GoogleFonts.montserrat(
-                                              fontSize: 16)));
+                                          style: TextStyle(fontSize: 16.0)));
                                 },
                               ),
                             )

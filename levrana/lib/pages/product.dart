@@ -223,10 +223,7 @@ class _ProductPageState extends State<ProductPage> {
                   color: Colors.black, //change your color here
                 ),
                 title: Text(result.data!['getProduct']['name'],
-                    style: GoogleFonts.montserrat(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.black)),
+                    style: TextStyle(color: Colors.black)),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
               ),
@@ -285,7 +282,7 @@ class _ProductPageState extends State<ProductPage> {
                               style: GoogleFonts.montserrat(fontSize: 20)),
                         ),
                         Text(result.data!['getProduct']['comment'] ?? "",
-                            style: GoogleFonts.montserrat(fontSize: 16)),
+                            style: TextStyle(fontSize: 16.0)),
                         Column(
                             children: result.data!['getProduct']
                                     ['characteristics']
@@ -540,7 +537,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(widget.product['name'],
-                    style: GoogleFonts.montserrat(fontSize: 16)),
+                    style: TextStyle(fontSize: 16.0)),
               )),
             ],
           ),

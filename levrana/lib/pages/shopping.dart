@@ -395,9 +395,9 @@ class ShoppingPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: TabBar(
                   unselectedLabelColor: Colors.black38,
-                  unselectedLabelStyle: GoogleFonts.montserrat(fontSize: 16),
+                  unselectedLabelStyle: TextStyle(fontSize: 16.0),
                   labelColor: Colors.black,
-                  labelStyle: GoogleFonts.montserrat(fontSize: 16),
+                  labelStyle: TextStyle(fontSize: 16.0),
                   tabs: [
                     Tab(text: "Корзина"),
                     Tab(text: "Отложенные"),

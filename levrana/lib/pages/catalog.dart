@@ -64,16 +64,9 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //print(catalog);
-    //print(id);
-    //print(totalCount);
     return Scaffold(
       appBar: AppBar(
-        title: Text(title,
-            style: GoogleFonts.montserrat(
-              fontSize: 16,
-              fontWeight: FontWeight.w700,
-            )),
+        title: Text(title),
       ),
       body: Column(
         children: [
@@ -110,11 +103,11 @@ class CatalogPage extends StatelessWidget {
                   dense: true,
                   title: Text(
                     section['name'],
-                    style: GoogleFonts.montserrat(fontSize: 16),
+                    style: TextStyle(fontSize: 16.0),
                   ),
                   trailing: (section['childs'] == null)
                       ? Text(section['totalCount'].toString(),
-                          style: GoogleFonts.montserrat(fontSize: 16))
+                          style: TextStyle(fontSize: 16.0))
                       : Icon(Icons.navigate_next),
                   onTap: () {
                     if (section['childs'] != null)

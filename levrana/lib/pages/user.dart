@@ -175,7 +175,7 @@ class UserPage extends StatelessWidget {
                                               color: Colors.green)))),
                               onPressed: () {},
                               child: Text("ПРИГЛАСИТЬ ДРУГА",
-                                  style: GoogleFonts.montserrat(fontSize: 16))),
+                                  style: TextStyle(fontSize: 16.0))),
                           ElevatedButton(
                               style: ButtonStyle(
                                   minimumSize: MaterialStateProperty.all(
@@ -197,7 +197,7 @@ class UserPage extends StatelessWidget {
                                 );
                               },
                               child: Text("ПОДАРИТЬ БОНУСЫ",
-                                  style: GoogleFonts.montserrat(fontSize: 16))),
+                                  style: TextStyle(fontSize: 16.0))),
                         ],
                       ),
                     ),
