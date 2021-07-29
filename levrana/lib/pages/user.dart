@@ -215,23 +215,7 @@ class UserPage extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Text('Промокод'),
-                                  TextField(
-                                    decoration: InputDecoration(
-                                      border: OutlineInputBorder(),
-                                      labelText: "Введите промокод",
-                                    ),
-                                  ),
-                                  ElevatedButton(
-                                    child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
-                                    onPressed: () => Navigator.pop(context),
-                                  )
-                                ],
-                              ),
+                              child: Promocode(),
                             );
                           },
                         );
@@ -287,11 +271,43 @@ class UserPage extends StatelessWidget {
   }
 }
 
-class SetPasswordPage extends StatelessWidget {
+class Promocode extends StatelessWidget {
+  const Promocode({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text('Промокод'),
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(),
+            labelText: "Введите промокод",
+          ),
+        ),
+        ElevatedButton(
+          child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
+          onPressed: () => Navigator.pop(context),
+        )
+      ],
+    );
+  }
+}
+
+class SetPasswordPage extends StatefulWidget {
   const SetPasswordPage({
     Key? key,
   }) : super(key: key);
 
+  @override
+  _SetPasswordPageState createState() => _SetPasswordPageState();
+}
+
+class _SetPasswordPageState extends State<SetPasswordPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -301,12 +317,14 @@ class SetPasswordPage extends StatelessWidget {
         children: <Widget>[
           Text('Смена пароля'),
           TextField(
+            obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Введите пароль",
             ),
           ),
           TextField(
+            obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               labelText: "Подтвердите пароль",
