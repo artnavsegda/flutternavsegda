@@ -12,6 +12,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:flutter/cupertino.dart';
 
 import 'dialog.dart';
 
@@ -684,6 +685,32 @@ class _EditUserPageState extends State<EditUserPage> {
                             TextFormField(
                                 onTap: () {
                                   print("AAAA");
+                                  showCupertinoModalPopup(
+                                      context: context,
+                                      builder: (context) {
+                                        return Container(
+                                          height: 300,
+                                          color: Color.fromARGB(
+                                              255, 255, 255, 255),
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: 240,
+                                                child: CupertinoDatePicker(
+                                                  mode: CupertinoDatePickerMode
+                                                      .date,
+                                                  onDateTimeChanged: (value) {},
+                                                ),
+                                              ),
+                                              CupertinoButton(
+                                                child: Text('OK'),
+                                                onPressed: () =>
+                                                    Navigator.of(context).pop(),
+                                              )
+                                            ],
+                                          ),
+                                        );
+                                      });
                                 },
                                 decoration: InputDecoration(
                                     labelText: 'Дата рождения')),
