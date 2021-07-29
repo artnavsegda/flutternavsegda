@@ -3,6 +3,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
+import 'product.dart';
+
 const String getAction = r'''
 query getAction($actionID: Int) {
   getAction(actionID: $actionID) {
@@ -19,6 +21,8 @@ query getAction($actionID: Int) {
     type
     products {
       iD
+      name
+      picture
     }
   }
 }
@@ -50,9 +54,10 @@ class ActionPage extends StatelessWidget {
           }
 
           return Scaffold(
-              appBar:
-                  AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
-              body: ListView(children: [
+            appBar:
+                AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
+            body: ListView(
+              children: [
                 Image.network(result.data!['getAction']['picture']),
                 Text(
                     "C ${result.data!['getAction']['dateStart']} по ${result.data!['getAction']['dateFinish']}"),
@@ -66,7 +71,21 @@ class ActionPage extends StatelessWidget {
                     },
                   ),
                 ),
-              ]));
+                Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: result.data!['getAction']['products']
+                        .map(
+                          (product) => FractionallySizedBox(
+                            widthFactor: 0.45,
+                            child: ProductCard(product: product),
+                          ),
+                        )
+                        .toList()
+                        .cast<Widget>()),
+              ],
+            ),
+          );
         });
   }
 }
