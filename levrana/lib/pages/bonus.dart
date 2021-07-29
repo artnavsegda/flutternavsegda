@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -84,11 +85,15 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        mainAxisSize: MainAxisSize.min,
+      padding: const EdgeInsets.all(15.0),
+      child: Wrap(
+        runSpacing: 8.0,
         children: [
-          Text("Подарить бонусы"),
+          Text("Подарить бонусы",
+              style: GoogleFonts.montserrat(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+              )),
           Text("Укажите количество бонусов"),
           Row(
             children: [
@@ -165,7 +170,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     return Text(result.data!['friendFind']['name']);
                   })
             else
-              Expanded(
+              SizedBox(
+                height: 200,
                 child: QRView(
                   key: qrKey,
                   onQRViewCreated: _onQRViewCreated,
@@ -180,6 +186,9 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
               ),
               builder: (runMutation, result) {
                 return ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      minimumSize: Size(double.infinity, 48),
+                    ),
                     onPressed: () {
                       runMutation({
                         'gUIDorPhone': clientGUID.code,
