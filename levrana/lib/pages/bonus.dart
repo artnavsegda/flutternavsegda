@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 const String friendFind = r'''
 query friendFind($gUIDorPhone: String) {
@@ -136,6 +137,12 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
               children: [
                 Expanded(
                   child: TextField(
+                    inputFormatters: [
+                      MaskTextInputFormatter(
+                          mask: '+7 (###) ###-##-##',
+                          filter: {"#": RegExp(r'[0-9]')})
+                    ],
+                    keyboardType: TextInputType.number,
                     decoration: InputDecoration(
                       labelText: "Введите телефон",
                     ),
