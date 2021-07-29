@@ -11,9 +11,9 @@ import 'package:image_picker/image_picker.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'dialog.dart';
-import 'login.dart';
 
 const String friendFind = r'''
 query friendFind($gUIDorPhone: String) {
@@ -539,6 +539,7 @@ class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
   final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneNumberController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
@@ -548,6 +549,7 @@ class _EditUserPageState extends State<EditUserPage> {
     // Clean up the controller when the widget is disposed.
     nameController.dispose();
     emailController.dispose();
+    phoneNumberController.dispose();
     super.dispose();
   }
 
@@ -670,6 +672,13 @@ class _EditUserPageState extends State<EditUserPage> {
                                 decoration:
                                     InputDecoration(labelText: 'E-mail')),
                             TextFormField(
+                                controller: phoneNumberController,
+                                inputFormatters: [
+                                  MaskTextInputFormatter(
+                                      mask: '+7 (###) ###-##-##',
+                                      filter: {"#": RegExp(r'[0-9]')})
+                                ],
+                                keyboardType: TextInputType.number,
                                 decoration:
                                     InputDecoration(labelText: 'Телефон')),
                             TextFormField(
