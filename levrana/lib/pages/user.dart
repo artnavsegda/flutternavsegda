@@ -185,6 +185,10 @@ class UserPage extends StatelessWidget {
                                   ))),
                               onPressed: () {
                                 showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: const Radius.circular(16.0)),
+                                  ),
                                   isScrollControlled: true,
                                   context: context,
                                   builder: (context) {
@@ -209,7 +213,11 @@ class UserPage extends StatelessWidget {
                       leading: Image(
                           image: AssetImage('assets/ic-24/icon-24-promo.png')),
                       onTap: () {
-                        showModalBottomSheet<void>(
+                        showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: const Radius.circular(16.0)),
+                          ),
                           context: context,
                           builder: (BuildContext context) {
                             return Container(
@@ -232,7 +240,11 @@ class UserPage extends StatelessWidget {
                     ),
                     ListTile(
                       onTap: () {
-                        showModalBottomSheet<void>(
+                        showModalBottomSheet(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.vertical(
+                                top: const Radius.circular(16.0)),
+                          ),
                           context: context,
                           builder: (BuildContext context) {
                             return SetPasswordPage();
@@ -289,36 +301,42 @@ class _PromocodeState extends State<Promocode> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        Text('Промокод'),
-        TextField(
-          controller: textController,
-          decoration: InputDecoration(
-            labelText: "Введите промокод",
-          ),
-        ),
-        Mutation(
-            options: MutationOptions(
-              document: gql(promocodeActivation),
-              onCompleted: (resultData) {
-                print(resultData);
-                Navigator.pop(context);
-              },
+    return Padding(
+      padding: const EdgeInsets.all(15.0),
+      child: Wrap(
+        runSpacing: 8.0,
+        children: [
+          Text('Промокод',
+              style: GoogleFonts.montserrat(
+                fontSize: 28,
+                fontWeight: FontWeight.w700,
+              )),
+          TextField(
+            controller: textController,
+            decoration: InputDecoration(
+              labelText: "Введите промокод",
             ),
-            builder: (runMutation, result) {
-              return ElevatedButton(
-                child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
-                onPressed: () {
-                  runMutation({
-                    'promoCode': textController.text,
-                  });
+          ),
+          Mutation(
+              options: MutationOptions(
+                document: gql(promocodeActivation),
+                onCompleted: (resultData) {
+                  print(resultData);
+                  Navigator.pop(context);
                 },
-              );
-            })
-      ],
+              ),
+              builder: (runMutation, result) {
+                return ElevatedButton(
+                  child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
+                  onPressed: () {
+                    runMutation({
+                      'promoCode': textController.text,
+                    });
+                  },
+                );
+              })
+        ],
+      ),
     );
   }
 }
