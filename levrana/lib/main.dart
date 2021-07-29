@@ -61,21 +61,14 @@ class MyApp extends StatelessWidget {
             scaffoldBackgroundColor: Colors.white,
             primarySwatch: Colors.green,
             fontFamily: 'Montserrat',
-/*             textTheme: GoogleFonts.montserratTextTheme(
+            textTheme: GoogleFonts.montserratTextTheme(
               Theme.of(context).textTheme,
-            ), */
+            ),
             appBarTheme: AppBarTheme(
               backwardsCompatibility: false,
               titleTextStyle:
                   TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
-            textTheme: const TextTheme(
-                //caption: TextStyle(fontSize: 14.0, fontFamily: 'Montserrat'),
-                //headline1: TextStyle(fontSize: 72.0, fontWeight: FontWeight.bold),
-                //headline6: TextStyle(fontSize: 36.0, fontStyle: FontStyle.italic),
-                //bodyText1: TextStyle(fontSize: 16.0, fontFamily: 'Montserrat'),
-                //bodyText2: TextStyle(fontSize: 20.0, fontFamily: 'Montserrat'),
-                ),
             elevatedButtonTheme: ElevatedButtonThemeData(
                 style: ButtonStyle(
                     elevation: MaterialStateProperty.all(0.0),
