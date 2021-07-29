@@ -317,7 +317,7 @@ class _PasswordPageState extends State<PasswordPage> {
                               borderRadius: BorderRadius.circular(24.0),
                               side: BorderSide(color: Colors.green)))),
                   onPressed: () {},
-                  child: Text("ПОВТОРИТЬ",
+                  child: Text("ЗАБЫЛ ПАРОЛЬ",
                       style: GoogleFonts.montserrat(fontSize: 16))),
             )
           ],
