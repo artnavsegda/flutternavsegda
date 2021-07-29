@@ -94,11 +94,12 @@ class MyApp extends StatelessWidget {
               ),
             ),
             inputDecorationTheme: InputDecorationTheme(
+                isDense: true,
                 border: OutlineInputBorder(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(24.0),
-              ),
-            ))),
+                  borderRadius: const BorderRadius.all(
+                    Radius.circular(24.0),
+                  ),
+                ))),
         home: FutureBuilder<String>(
           future: getToken(),
           builder: (buildContext, snapshot) {
