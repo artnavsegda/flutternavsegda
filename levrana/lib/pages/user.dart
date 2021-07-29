@@ -285,7 +285,6 @@ class _PromocodeState extends State<Promocode> {
 
   @override
   void dispose() {
-    // Clean up the controller when the widget is disposed.
     textController.dispose();
     super.dispose();
   }
@@ -337,6 +336,33 @@ class SetPasswordPage extends StatefulWidget {
 }
 
 class _SetPasswordPageState extends State<SetPasswordPage> {
+  final passwordController = TextEditingController();
+  final confirmController = TextEditingController();
+
+  bool _isPassValid = false;
+
+  @override
+  void dispose() {
+    passwordController.dispose();
+    confirmController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    void handleChange() {
+      if (passwordController.text.length > 0)
+        setState(() {
+          _isPassValid = passwordController.text == confirmController.text;
+        });
+    }
+
+    passwordController.addListener(handleChange);
+    confirmController.addListener(handleChange);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -346,6 +372,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
         children: <Widget>[
           Text('Смена пароля'),
           TextField(
+            controller: passwordController,
             obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -353,6 +380,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
             ),
           ),
           TextField(
+            controller: confirmController,
             obscureText: true,
             decoration: InputDecoration(
               border: OutlineInputBorder(),
@@ -361,7 +389,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           ),
           ElevatedButton(
             child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
-            onPressed: () => Navigator.pop(context),
+            onPressed: _isPassValid ? () => Navigator.pop(context) : null,
           )
         ],
       ),
