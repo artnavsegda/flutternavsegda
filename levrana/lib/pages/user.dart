@@ -271,10 +271,24 @@ class UserPage extends StatelessWidget {
   }
 }
 
-class Promocode extends StatelessWidget {
+class Promocode extends StatefulWidget {
   const Promocode({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _PromocodeState createState() => _PromocodeState();
+}
+
+class _PromocodeState extends State<Promocode> {
+  final textController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    textController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -284,6 +298,7 @@ class Promocode extends StatelessWidget {
       children: [
         Text('Промокод'),
         TextField(
+          controller: textController,
           decoration: InputDecoration(
             border: OutlineInputBorder(),
             labelText: "Введите промокод",
