@@ -308,14 +308,11 @@ class _PasswordPageState extends State<PasswordPage> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 16.0),
-              child: TextButton(
-                  style: ButtonStyle(
-                      minimumSize: MaterialStateProperty.all(
-                          Size(double.infinity, 48.0)),
-                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                          RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(24.0),
-                              side: BorderSide(color: Colors.green)))),
+              child: OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: Size(double.infinity,
+                        48), // double.infinity is the width and 30 is the height
+                  ),
                   onPressed: () {},
                   child: Text("ЗАБЫЛ ПАРОЛЬ",
                       style: GoogleFonts.montserrat(fontSize: 16))),

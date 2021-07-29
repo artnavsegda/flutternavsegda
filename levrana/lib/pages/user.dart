@@ -164,8 +164,6 @@ class UserPage extends StatelessWidget {
                           ),
                           OutlinedButton(
                               style: ButtonStyle(
-                                  side: MaterialStateProperty.all(BorderSide(
-                                      width: 1.0, color: Colors.green)),
                                   minimumSize: MaterialStateProperty.all(
                                       Size(223.0, 36.0)),
                                   shape: MaterialStateProperty.all<
