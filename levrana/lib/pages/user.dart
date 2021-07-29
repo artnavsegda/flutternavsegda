@@ -304,10 +304,24 @@ class _PromocodeState extends State<Promocode> {
             labelText: "Введите промокод",
           ),
         ),
-        ElevatedButton(
-          child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
-          onPressed: () => Navigator.pop(context),
-        )
+        Mutation(
+            options: MutationOptions(
+              document: gql(promocodeActivation),
+              onCompleted: (resultData) {
+                print(resultData);
+                Navigator.pop(context);
+              },
+            ),
+            builder: (runMutation, result) {
+              return ElevatedButton(
+                child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
+                onPressed: () {
+                  runMutation({
+                    'promoCode': textController.text,
+                  });
+                },
+              );
+            })
       ],
     );
   }
