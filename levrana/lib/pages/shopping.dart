@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
@@ -388,27 +389,36 @@ class FavouritesPage extends StatelessWidget {
                                 }),
                           ])),
                 ),
-                Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: result.data!['getFavoritesProducts']
-                        .map(
-                          (product) => FractionallySizedBox(
-                            widthFactor: 0.45,
-                            child: ProductCard(
-                                product: product,
-                                onTap: () async {
-                                  await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductPage(id: product['iD'])));
-                                  refetch!();
-                                }),
-                          ),
-                        )
-                        .toList()
-                        .cast<Widget>())
+                Container(
+                  decoration: ShapeDecoration(
+                      color: Colors.white,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0))),
+                  width: double.infinity,
+                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                  padding: EdgeInsets.all(16.0),
+                  child: Wrap(
+                      spacing: 16,
+                      runSpacing: 16,
+                      children: result.data!['getFavoritesProducts']
+                          .map(
+                            (product) => FractionallySizedBox(
+                              widthFactor: 0.45,
+                              child: ProductCard(
+                                  product: product,
+                                  onTap: () async {
+                                    await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (context) => ProductPage(
+                                                id: product['iD'])));
+                                    refetch!();
+                                  }),
+                            ),
+                          )
+                          .toList()
+                          .cast<Widget>()),
+                )
               ],
             ),
           );
