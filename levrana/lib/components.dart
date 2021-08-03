@@ -10,8 +10,10 @@ class LevranaCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return value
-        ? Image.asset('assets/checkbox/checked.png')
-        : Image.asset('assets/checkbox/unchecked.png');
+    return GestureDetector(
+        onTap: () => onChanged!(!value),
+        child: value
+            ? Image.asset('assets/checkbox/checked.png')
+            : Image.asset('assets/checkbox/unchecked.png'));
   }
 }
