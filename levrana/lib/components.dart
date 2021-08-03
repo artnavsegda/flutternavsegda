@@ -11,7 +11,7 @@ class LevranaCheckbox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return value
-        ? Image.asset('assets/checkbox/Checked=Yes, Big=No, Partial=No.png')
-        : Image.asset('assets/checkbox/Checked=No, Big=No, Partial=No.png');
+        ? Image.asset('assets/checkbox/checked.png')
+        : Image.asset('assets/checkbox/unchecked.png');
   }
 }

@@ -106,7 +106,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   leading: SizedBox(
                     height: 24.0,
                     width: 24.0,
-                    child: Checkbox(
+                    child: LevranaCheckbox(
                         value: selectedRows.length != 0 &&
                             selectedRows.containsAll(result.data!['getCart']
                                 .map((e) => e['rowID'])
