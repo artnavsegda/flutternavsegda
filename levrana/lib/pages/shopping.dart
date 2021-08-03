@@ -273,27 +273,24 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   Positioned(
                     top: 37,
                     left: 9,
-                    child: Transform.scale(
-                      scale: 2,
-                      child: SizedBox(
-                        height: 32.0,
-                        width: 32.0,
-                        child: LevranaCheckbox(
-                            value: selectedRows.contains(item['rowID']),
-                            onChanged: (newValue) {
-                              if (newValue == true) {
-                                setState(() {
-                                  selectedRows.add(item['rowID']);
-                                  selectedFavs.add(item['productID']);
-                                });
-                              } else {
-                                setState(() {
-                                  selectedRows.remove(item['rowID']);
-                                  selectedFavs.remove(item['productID']);
-                                });
-                              }
-                            }),
-                      ),
+                    child: SizedBox(
+                      height: 32.0,
+                      width: 32.0,
+                      child: LevranaBigCheckbox(
+                          value: selectedRows.contains(item['rowID']),
+                          onChanged: (newValue) {
+                            if (newValue == true) {
+                              setState(() {
+                                selectedRows.add(item['rowID']);
+                                selectedFavs.add(item['productID']);
+                              });
+                            } else {
+                              setState(() {
+                                selectedRows.remove(item['rowID']);
+                                selectedFavs.remove(item['productID']);
+                              });
+                            }
+                          }),
                     ),
                   )
                 ],
