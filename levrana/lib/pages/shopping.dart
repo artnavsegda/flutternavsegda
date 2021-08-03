@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:levrana/pages/user.dart';
+
+import '../components.dart';
 
 const String cartEdit = r'''
 mutation cartEdit($rowID: Int, $quantity: Int) {
@@ -277,7 +278,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       child: SizedBox(
                         height: 32.0,
                         width: 32.0,
-                        child: Checkbox(
+                        child: LevranaCheckbox(
                             value: selectedRows.contains(item['rowID']),
                             onChanged: (newValue) {
                               if (newValue == true) {
