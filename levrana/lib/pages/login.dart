@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 import '../main.dart';
+import '../components.dart';
 
 const String loginClient = r'''
 mutation loginClient($clientPhone: Long!) {
@@ -483,7 +484,7 @@ class CheckboxTitle extends StatelessWidget {
           SizedBox(
             height: 24.0,
             width: 32.0,
-            child: Checkbox(
+            child: LevranaCheckbox(
               value: value,
               onChanged: onChanged,
             ),
