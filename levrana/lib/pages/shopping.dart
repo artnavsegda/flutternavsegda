@@ -357,6 +357,7 @@ class FavouritesPage extends StatelessWidget {
 
           return SingleChildScrollView(
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Padding(
                   padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -387,6 +388,27 @@ class FavouritesPage extends StatelessWidget {
                                 }),
                           ])),
                 ),
+                Wrap(
+                    spacing: 16,
+                    runSpacing: 16,
+                    children: result.data!['getFavoritesProducts']
+                        .map(
+                          (product) => FractionallySizedBox(
+                            widthFactor: 0.45,
+                            child: ProductCard(
+                                product: product,
+                                onTap: () async {
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: product['iD'])));
+                                  refetch!();
+                                }),
+                          ),
+                        )
+                        .toList()
+                        .cast<Widget>())
               ],
             ),
           );
