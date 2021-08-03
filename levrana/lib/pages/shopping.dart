@@ -96,6 +96,15 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             );
           }
 
+          if (result.data!['getCart'].length == 0) {
+            return Center(
+                child: Image(
+              image: AssetImage('assets/Корзина пуста.png'),
+              width: double.infinity,
+              fit: BoxFit.cover,
+            ));
+          }
+
           return ListView(children: [
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
@@ -319,13 +328,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   ),
                 );
               });
-
-          return Center(
-              child: Image(
-            image: AssetImage('assets/Корзина пуста.png'),
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ));
         });
   }
 }
