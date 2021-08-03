@@ -355,6 +355,42 @@ class FavouritesPage extends StatelessWidget {
             );
           }
 
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                  child: ListTile(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(12.0)),
+                      tileColor: Colors.white,
+                      leading: SizedBox(
+                        height: 24.0,
+                        width: 24.0,
+                        child: LevranaCheckbox(
+                            value: false, onChanged: (newValue) {}),
+                      ),
+                      title: Text('Выбрано: 0'),
+                      trailing: Wrap(spacing: 12, // space between two icons
+                          children: <Widget>[
+                            Mutation(
+                                options: MutationOptions(
+                                  document: gql(cartDelete),
+                                  onCompleted: (resultData) {},
+                                ),
+                                builder: (runMutation, result) {
+                                  return IconButton(
+                                    constraints: BoxConstraints(maxWidth: 36),
+                                    icon: Icon(Icons.delete_outlined),
+                                    onPressed: () {},
+                                  );
+                                }),
+                          ])),
+                ),
+              ],
+            ),
+          );
+
           return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
