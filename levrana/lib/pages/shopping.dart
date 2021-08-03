@@ -360,11 +360,17 @@ class FavouritesPage extends StatelessWidget {
               ),
               itemCount: result.data!['getFavoritesProducts'].length,
               itemBuilder: (context, index) {
+                var product = result.data!['getFavoritesProducts'][index];
                 return ProductCard(
-                    product: result.data!['getFavoritesProducts'][index]);
-                return ListTile(
-                    title: Text(
-                        result.data!['getFavoritesProducts'][index]['name']));
+                    product: product,
+                    onTap: () async {
+                      await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  ProductPage(id: product['iD'])));
+                      refetch!();
+                    });
               });
 
           return Center(

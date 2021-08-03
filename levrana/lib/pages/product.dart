@@ -414,12 +414,10 @@ class _ProductPageState extends State<ProductPage> {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({
-    Key? key,
-    this.product,
-  }) : super(key: key);
+  const ProductCard({Key? key, this.product, this.onTap}) : super(key: key);
 
   final product;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -428,14 +426,7 @@ class ProductCard extends StatelessWidget {
         Stack(
           children: [
             InkWell(
-              onTap: () {
-                print(product['iD']);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ProductPage(id: product['iD'])),
-                );
-              },
+              onTap: onTap,
               child: Container(
                 decoration: BoxDecoration(
                   color: Color(0x10000000),

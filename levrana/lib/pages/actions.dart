@@ -78,7 +78,14 @@ class ActionPage extends StatelessWidget {
                         .map(
                           (product) => FractionallySizedBox(
                             widthFactor: 0.45,
-                            child: ProductCard(product: product),
+                            child: ProductCard(
+                                product: product,
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: product['iD'])),
+                                    )),
                           ),
                         )
                         .toList()

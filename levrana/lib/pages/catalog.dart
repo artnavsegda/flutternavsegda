@@ -259,8 +259,13 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: ProductCard(
-                      product: item,
-                    ),
+                        product: item,
+                        onTap: () => Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ProductPage(id: item['iD'])),
+                            )),
                   ),
                 Center(
                   child: CircularProgressIndicator(),

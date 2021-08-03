@@ -264,7 +264,15 @@ class HomePage extends StatelessWidget {
                                                     FractionallySizedBox(
                                                   widthFactor: 0.45,
                                                   child: ProductCard(
-                                                      product: product),
+                                                      product: product,
+                                                      onTap:
+                                                          () => Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        ProductPage(
+                                                                            id: product['iD'])),
+                                                              )),
                                                 ),
                                               )
                                               .toList()
