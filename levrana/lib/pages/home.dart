@@ -319,7 +319,7 @@ class QrPage extends StatelessWidget {
               //print(result.data);
 
               if (result.hasException) {
-                return Text("Карта недоступна");
+                return Center(child: Text("Карта недоступна"));
                 return Text(result.exception.toString());
               }
 
