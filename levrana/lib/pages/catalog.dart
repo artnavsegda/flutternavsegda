@@ -341,8 +341,14 @@ class FiltersPage extends StatelessWidget {
                         ]),
                     color: Color(0xffFFF2C4),
                   ),
-                  child: Center(
-                      child: Text("Подобрать косметику в конфигураторе"))),
+                  child: Row(children: [
+                    Flexible(
+                        child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text("Подобрать косметику в конфигураторе"),
+                    )),
+                    Image.asset("assets/Bottles.png")
+                  ])),
             ),
             Text("Hello"),
           ],
