@@ -1,3 +1,4 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -53,14 +54,18 @@ class ActionPage extends StatelessWidget {
             );
           }
 
+          var dateStart = result.data!['getAction']['dateStart'];
+          var dateFinish = result.data!['getAction']['dateFinish'];
+
           return Scaffold(
             appBar:
                 AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
             body: ListView(
               children: [
                 Image.network(result.data!['getAction']['picture']),
-                Text(
-                    "C ${result.data!['getAction']['dateStart']} по ${result.data!['getAction']['dateFinish']}"),
+                if (dateStart != null && dateFinish != null)
+                  Text(
+                      "C ${new DateTime.fromMillisecondsSinceEpoch(dateStart)} по ${new DateTime.fromMillisecondsSinceEpoch(dateFinish)}"),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: MarkdownBody(
