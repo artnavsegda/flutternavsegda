@@ -100,7 +100,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           if (result.data!['getCart'].length == 0) {
             return Center(
                 child: Image(
-              image: AssetImage('assets/Корзина пуста.png'),
+              image: AssetImage('assets/BasketEmpty.png'),
               width: double.infinity,
               fit: BoxFit.cover,
             ));
