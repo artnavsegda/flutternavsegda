@@ -99,10 +99,18 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
 
           if (result.data!['getCart'].length == 0) {
             return Center(
-                child: Image(
-              image: AssetImage('assets/BasketEmpty.png'),
-              width: double.infinity,
-              fit: BoxFit.cover,
+                child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image(
+                  image: AssetImage('assets/BasketEmpty.png'),
+                  width: double.infinity,
+                  fit: BoxFit.cover,
+                ),
+                Text("Корзина пуста"),
+                Text(
+                    "Но это легко исправить. И вы даже знаете как это сделать ;)")
+              ],
             ));
           }
 
