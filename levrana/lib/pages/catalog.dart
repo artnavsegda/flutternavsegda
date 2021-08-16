@@ -333,14 +333,7 @@ class FiltersPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Scaffold(
-                      appBar: AppBar(
-                        title: Text("Конфигуратор"),
-                      ),
-                      body: Center(
-                        child: Text("Hello"),
-                      ),
-                    ),
+                    builder: (context) => Configurator(),
                   ),
                 );
               },
@@ -370,6 +363,24 @@ class FiltersPage extends StatelessWidget {
             Text("Hello"),
           ],
         ));
+  }
+}
+
+class Configurator extends StatelessWidget {
+  const Configurator({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Конфигуратор"),
+      ),
+      body: Center(
+        child: Text("Hello"),
+      ),
+    );
   }
 }
 
