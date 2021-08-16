@@ -51,6 +51,10 @@ class SupportPage extends StatelessWidget {
             print(result);
 
             if (result.hasException) {
+              return Center(
+                child: Text(
+                    "Чат с поддержкой доступен для зарегестрированных пользователей"),
+              );
               return Text(result.exception.toString());
             }
 
