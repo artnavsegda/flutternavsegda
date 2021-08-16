@@ -107,9 +107,24 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                   width: double.infinity,
                   fit: BoxFit.cover,
                 ),
-                Text("Корзина пуста"),
-                Text(
-                    "Но это легко исправить. И вы даже знаете как это сделать ;)")
+                Padding(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Корзина пуста",
+                          style: GoogleFonts.montserrat(
+                            fontSize: 28,
+                          )),
+                      SizedBox(height: 8),
+                      Text(
+                          "Но это легко исправить. И вы даже знаете как это сделать ;)",
+                          style: GoogleFonts.montserrat(
+                            fontWeight: FontWeight.w700,
+                          )),
+                    ],
+                  ),
+                )
               ],
             ));
           }
