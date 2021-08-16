@@ -160,6 +160,8 @@ class ProductsListPage extends StatefulWidget {
 class _ProductsListPageState extends State<ProductsListPage> {
   late ScrollController _controller;
 
+  bool fetchingMore = false;
+
   @override
   void initState() {
     _controller = ScrollController();
@@ -234,6 +236,10 @@ class _ProductsListPageState extends State<ProductsListPage> {
               // correctly
               fetchMoreResultData['getProducts']['items'] = items;
 
+              setState(() {
+                fetchingMore = false;
+              });
+
               return fetchMoreResultData;
             },
           );
@@ -241,6 +247,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
           _controller.addListener(() {
             if (_controller.offset >= _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
+              setState(() {
+                fetchingMore = true;
+              });
               fetchMore!(opts);
             }
           });
@@ -267,9 +276,10 @@ class _ProductsListPageState extends State<ProductsListPage> {
                                       ProductPage(id: item['iD'])),
                             )),
                   ),
-                Center(
-                  child: CircularProgressIndicator(),
-                )
+                if (fetchingMore)
+                  Center(
+                    child: CircularProgressIndicator(),
+                  )
 /*                 TextButton(
                     onPressed: () {
                       fetchMore!(opts);
