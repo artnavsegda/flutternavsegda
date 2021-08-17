@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:levrana/pages/product.dart';
+import 'configurator.dart';
 
 const String getCatalog = r'''
 query getCatalog {
@@ -363,24 +364,6 @@ class FiltersPage extends StatelessWidget {
             Text("Hello"),
           ],
         ));
-  }
-}
-
-class Configurator extends StatelessWidget {
-  const Configurator({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Конфигуратор"),
-      ),
-      body: Center(
-        child: Text("Hello"),
-      ),
-    );
   }
 }
 
