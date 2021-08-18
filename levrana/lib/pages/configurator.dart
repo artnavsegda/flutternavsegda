@@ -19,10 +19,17 @@ query getConfigurator
 }
 ''';
 
-class Configurator extends StatelessWidget {
+class Configurator extends StatefulWidget {
   const Configurator({
     Key? key,
   }) : super(key: key);
+
+  @override
+  _ConfiguratorState createState() => _ConfiguratorState();
+}
+
+class _ConfiguratorState extends State<Configurator> {
+  int stage = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +52,7 @@ class Configurator extends StatelessWidget {
           }
 
           return Center(
-            child: Text("Hello"),
+            child: Text(result.data!['getConfigurator'][stage]['name']),
           );
         },
       ),
