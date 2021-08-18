@@ -51,7 +51,7 @@ class _ConfiguratorState extends State<Configurator> {
             );
           }
 
-          return Column(
+          return ListView(
             children: [
               Text(result.data!['getConfigurator'][stage]['name']),
               Text(result.data!['getConfigurator'][stage]['description']),
