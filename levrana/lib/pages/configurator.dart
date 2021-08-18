@@ -19,6 +19,20 @@ query getConfigurator
 }
 ''';
 
+const String getConfiguratorProducts = r'''
+query getConfiguratorProducts
+{
+  getConfiguratorProducts(first: 5, configuratorItemIds: [2]) {
+		totalCount
+    items {
+      iD
+      name
+      picture
+    }
+  }
+}
+''';
+
 class Configurator extends StatefulWidget {
   const Configurator({
     Key? key,
