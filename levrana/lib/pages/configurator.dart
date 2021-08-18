@@ -81,7 +81,9 @@ class _ConfiguratorState extends State<Configurator> {
                                   int idToAdd = element['iD'];
                                   print(idToAdd);
                                   setState(() {
-                                    configuratorItemIds.add(idToAdd);
+                                    configuratorItemIds =
+                                        List.from(configuratorItemIds)
+                                          ..add(idToAdd);
                                     stage = stage + 1;
                                   });
                                 },
@@ -91,7 +93,8 @@ class _ConfiguratorState extends State<Configurator> {
                   TextButton(
                     onPressed: () {
                       setState(() {
-                        configuratorItemIds.removeLast();
+                        configuratorItemIds = List.from(configuratorItemIds)
+                          ..removeLast();
                         stage = stage - 1;
                       });
                     },
