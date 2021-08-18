@@ -20,9 +20,9 @@ query getConfigurator
 ''';
 
 const String getConfiguratorProducts = r'''
-query getConfiguratorProducts
+query getConfiguratorProducts($configuratorItemIds: [Int])
 {
-  getConfiguratorProducts(first: 5, configuratorItemIds: [2]) {
+  getConfiguratorProducts(first: 5, configuratorItemIds: $configuratorItemIds) {
 		totalCount
     items {
       iD
