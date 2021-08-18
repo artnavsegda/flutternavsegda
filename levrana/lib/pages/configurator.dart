@@ -71,7 +71,24 @@ class _ConfiguratorState extends State<Configurator> {
 
               return Column(
                 children: [
-                  Text(result.data!['getConfigurator'][stage]['name']),
+                  //Text(result.data!['getConfigurator'][stage]['name']),
+                  RichText(
+                    text: TextSpan(
+                        style: DefaultTextStyle.of(context).style,
+                        children: result.data!['getConfigurator'][stage]['name']
+                            .split("*")
+                            .asMap()
+                            .entries
+                            .map(
+                              (element) => TextSpan(
+                                  text: element.value,
+                                  style: element.key.isEven
+                                      ? TextStyle(fontWeight: FontWeight.normal)
+                                      : TextStyle(fontWeight: FontWeight.bold)),
+                            )
+                            .toList()
+                            .cast<InlineSpan>()),
+                  ),
                   Text(result.data!['getConfigurator'][stage]['description']),
                   Row(
                       children: result.data!['getConfigurator'][stage]['values']
