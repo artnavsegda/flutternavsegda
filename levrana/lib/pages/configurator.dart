@@ -45,79 +45,91 @@ class Configurator extends StatefulWidget {
 class _ConfiguratorState extends State<Configurator> {
   int stage = 0;
 
+  List<int> configuratorItemIds = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text("Конфигуратор"),
       ),
-      body: Query(
-        options: QueryOptions(document: gql(getConfigurator)),
-        builder: (result, {fetchMore, refetch}) {
-          print(result);
-          if (result.hasException) {
-            return Text(result.exception.toString());
-          }
+      body: Column(
+        children: [
+          Query(
+            options: QueryOptions(document: gql(getConfigurator)),
+            builder: (result, {fetchMore, refetch}) {
+              //print(result);
+              if (result.hasException) {
+                return Text(result.exception.toString());
+              }
 
-          if (result.isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
+              if (result.isLoading) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
 
-          return ListView(
-            children: [
-              Text(result.data!['getConfigurator'][stage]['name']),
-              Text(result.data!['getConfigurator'][stage]['description']),
-              Row(
-                  children: result.data!['getConfigurator'][stage]['values']
-                      .map((element) => ElevatedButton(
-                            child: Text(element['name']),
-                            onPressed: () {
-                              setState(() {
-                                stage = stage + 1;
-                              });
-                            },
-                          ))
-                      .toList()
-                      .cast<Widget>()),
-              TextButton(
-                onPressed: () {
-                  setState(() {
-                    stage = stage - 1;
-                  });
-                },
-                child: Text(
-                    "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
-              ),
-              Query(
-                  options: QueryOptions(
-                    document: gql(getConfiguratorProducts),
-                    variables: {
-                      'configuratorItemIds': 2,
+              return Column(
+                children: [
+                  Text(result.data!['getConfigurator'][stage]['name']),
+                  Text(result.data!['getConfigurator'][stage]['description']),
+                  Row(
+                      children: result.data!['getConfigurator'][stage]['values']
+                          .map((element) => ElevatedButton(
+                                child: Text(element['name']),
+                                onPressed: () {
+                                  int idToAdd = element['iD'];
+                                  print(idToAdd);
+                                  setState(() {
+                                    configuratorItemIds.add(idToAdd);
+                                    stage = stage + 1;
+                                  });
+                                },
+                              ))
+                          .toList()
+                          .cast<Widget>()),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        configuratorItemIds.removeLast();
+                        stage = stage - 1;
+                      });
                     },
+                    child: Text(
+                        "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
                   ),
-                  builder: (result, {fetchMore, refetch}) {
-                    print(result);
-                    if (result.hasException) {
-                      return Text(result.exception.toString());
-                    }
+                ],
+              );
+            },
+          ),
+          Query(
+              options: QueryOptions(
+                document: gql(getConfiguratorProducts),
+                fetchPolicy: FetchPolicy.networkOnly,
+                variables: {
+                  'configuratorItemIds': configuratorItemIds,
+                },
+              ),
+              builder: (result, {fetchMore, refetch}) {
+                print(configuratorItemIds);
+                print(result);
+                //refetch!();
+                if (result.hasException) {
+                  return Text(result.exception.toString());
+                }
 
-                    if (result.isLoading) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    return Wrap(
-                        children: result.data!['getConfiguratorProducts']
-                                ['items']
-                            .map((element) => Text(element['name']))
-                            .toList()
-                            .cast<Widget>());
-                  }),
-            ],
-          );
-        },
+                if (result.isLoading) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return Wrap(
+                    children: result.data!['getConfiguratorProducts']['items']
+                        .map((element) => Text(element['name']))
+                        .toList()
+                        .cast<Widget>());
+              })
+        ],
       ),
     );
   }
