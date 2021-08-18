@@ -92,19 +92,27 @@ class _ConfiguratorState extends State<Configurator> {
                   Text(result.data!['getConfigurator'][stage]['description']),
                   Row(
                       children: result.data!['getConfigurator'][stage]['values']
-                          .map((element) => ElevatedButton(
-                                child: Text(element['name']),
-                                onPressed: () {
-                                  int idToAdd = element['iD'];
-                                  print(idToAdd);
-                                  setState(() {
-                                    configuratorItemIds =
-                                        List.from(configuratorItemIds)
-                                          ..add(idToAdd);
-                                    stage = stage + 1;
-                                  });
-                                },
-                              ))
+                          .map((element) {
+                            switch (result.data!['getConfigurator'][stage]
+                                ['type']) {
+                              case 'IMAGE':
+                                return ElevatedButton(
+                                  child: Text(element['name']),
+                                  onPressed: () {
+                                    int idToAdd = element['iD'];
+                                    print(idToAdd);
+                                    setState(() {
+                                      configuratorItemIds =
+                                          List.from(configuratorItemIds)
+                                            ..add(idToAdd);
+                                      stage = stage + 1;
+                                    });
+                                  },
+                                );
+                              default:
+                                return Text('X');
+                            }
+                          })
                           .toList()
                           .cast<Widget>()),
                   TextButton(
