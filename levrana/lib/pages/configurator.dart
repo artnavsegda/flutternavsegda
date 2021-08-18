@@ -51,8 +51,16 @@ class _ConfiguratorState extends State<Configurator> {
             );
           }
 
-          return Center(
-            child: Text(result.data!['getConfigurator'][stage]['name']),
+          return Column(
+            children: [
+              Text(result.data!['getConfigurator'][stage]['name']),
+              Text(result.data!['getConfigurator'][stage]['description']),
+              Row(
+                  children: result.data!['getConfigurator'][stage]['values']
+                      .map((element) => Text(element['name']))
+                      .toList()
+                      .cast<Widget>())
+            ],
           );
         },
       ),
