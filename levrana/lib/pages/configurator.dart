@@ -91,7 +91,12 @@ class _ConfiguratorState extends State<Configurator> {
                     "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
               ),
               Query(
-                  options: QueryOptions(document: gql(getConfiguratorProducts)),
+                  options: QueryOptions(
+                    document: gql(getConfiguratorProducts),
+                    variables: {
+                      'configuratorItemIds': 2,
+                    },
+                  ),
                   builder: (result, {fetchMore, refetch}) {
                     print(result);
                     if (result.hasException) {
