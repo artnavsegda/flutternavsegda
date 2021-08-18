@@ -108,7 +108,12 @@ class _ConfiguratorState extends State<Configurator> {
                         child: CircularProgressIndicator(),
                       );
                     }
-                    return Text("Hello");
+                    return Wrap(
+                        children: result.data!['getConfiguratorProducts']
+                                ['items']
+                            .map((element) => Text(element['name']))
+                            .toList()
+                            .cast<Widget>());
                   }),
             ],
           );
