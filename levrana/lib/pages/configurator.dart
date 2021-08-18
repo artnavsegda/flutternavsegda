@@ -90,6 +90,21 @@ class _ConfiguratorState extends State<Configurator> {
                 child: Text(
                     "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
               ),
+              Query(
+                  options: QueryOptions(document: gql(getConfiguratorProducts)),
+                  builder: (result, {fetchMore, refetch}) {
+                    print(result);
+                    if (result.hasException) {
+                      return Text(result.exception.toString());
+                    }
+
+                    if (result.isLoading) {
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                    }
+                    return Text("Hello");
+                  }),
             ],
           );
         },
