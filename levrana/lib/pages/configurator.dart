@@ -59,7 +59,9 @@ class _ConfiguratorState extends State<Configurator> {
                   children: result.data!['getConfigurator'][stage]['values']
                       .map((element) => Text(element['name']))
                       .toList()
-                      .cast<Widget>())
+                      .cast<Widget>()),
+              Text(
+                  "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
             ],
           );
         },
