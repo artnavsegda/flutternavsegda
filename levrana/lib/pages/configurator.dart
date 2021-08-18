@@ -57,11 +57,25 @@ class _ConfiguratorState extends State<Configurator> {
               Text(result.data!['getConfigurator'][stage]['description']),
               Row(
                   children: result.data!['getConfigurator'][stage]['values']
-                      .map((element) => Text(element['name']))
+                      .map((element) => ElevatedButton(
+                            child: Text(element['name']),
+                            onPressed: () {
+                              setState(() {
+                                stage = stage + 1;
+                              });
+                            },
+                          ))
                       .toList()
                       .cast<Widget>()),
-              Text(
-                  "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
+              TextButton(
+                onPressed: () {
+                  setState(() {
+                    stage = stage - 1;
+                  });
+                },
+                child: Text(
+                    "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
+              ),
             ],
           );
         },
