@@ -93,23 +93,34 @@ class _ConfiguratorState extends State<Configurator> {
                   Row(
                       children: result.data!['getConfigurator'][stage]['values']
                           .map((element) {
+                            void onPress() {
+                              int idToAdd = element['iD'];
+                              print(idToAdd);
+                              setState(() {
+                                configuratorItemIds =
+                                    List.from(configuratorItemIds)
+                                      ..add(idToAdd);
+                                stage = stage + 1;
+                              });
+                            }
+
                             switch (result.data!['getConfigurator'][stage]
                                 ['type']) {
                               case 'IMAGE':
-                                return Image.network(element['picture']);
-                                return ElevatedButton(
-                                  child: Text(element['name']),
-                                  onPressed: () {
-                                    int idToAdd = element['iD'];
-                                    print(idToAdd);
-                                    setState(() {
-                                      configuratorItemIds =
-                                          List.from(configuratorItemIds)
-                                            ..add(idToAdd);
-                                      stage = stage + 1;
-                                    });
-                                  },
+                              case 'ICON':
+                                return InkWell(
+                                  onTap: onPress,
+                                  child: Column(
+                                    children: [
+                                      Image.network(element['picture']),
+                                      Text(element['name'])
+                                    ],
+                                  ),
                                 );
+                              case 'TEXT':
+                                return ElevatedButton(
+                                    onPressed: onPress,
+                                    child: Text(element['name']));
                               default:
                                 return Text('X');
                             }
