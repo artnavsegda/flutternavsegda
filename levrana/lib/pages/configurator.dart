@@ -30,8 +30,24 @@ class Configurator extends StatelessWidget {
       appBar: AppBar(
         title: Text("Конфигуратор"),
       ),
-      body: Center(
-        child: Text("Hello"),
+      body: Query(
+        options: QueryOptions(document: gql(getConfigurator)),
+        builder: (result, {fetchMore, refetch}) {
+          print(result);
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Center(
+            child: Text("Hello"),
+          );
+        },
       ),
     );
   }
