@@ -96,6 +96,7 @@ class _ConfiguratorState extends State<Configurator> {
                             switch (result.data!['getConfigurator'][stage]
                                 ['type']) {
                               case 'IMAGE':
+                                return Image.network(element['picture']);
                                 return ElevatedButton(
                                   child: Text(element['name']),
                                   onPressed: () {
