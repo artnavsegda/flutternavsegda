@@ -180,23 +180,30 @@ class _ConfiguratorState extends State<Configurator> {
                             .toList()
                             .cast<Widget>()),
                   ),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        configuratorItemIds = List.from(configuratorItemIds)
-                          ..removeLast();
-                        stage = stage - 1;
-                      });
-                    },
-                    child: Text(
-                        "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
-                        style: TextStyle(fontSize: 20.0)),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          configuratorItemIds = List.from(configuratorItemIds)
+                            ..removeLast();
+                          stage = stage - 1;
+                        });
+                      },
+                      child: Text(
+                          "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
+                          style: TextStyle(fontSize: 20.0)),
+                    ),
                   ),
                 ],
               );
             },
           ),
-          Text("Вам подойдет эта косметика", textAlign: TextAlign.center),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text("Вам подойдет эта косметика",
+                style: TextStyle(fontSize: 32.0), textAlign: TextAlign.center),
+          ),
           Query(
               options: QueryOptions(
                 document: gql(getConfiguratorProducts),
