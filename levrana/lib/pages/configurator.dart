@@ -102,7 +102,8 @@ class _ConfiguratorState extends State<Configurator> {
                     ),
                   ),
                   Text(result.data!['getConfigurator'][stage]['description'],
-                      textAlign: TextAlign.center),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 16.0)),
                   Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: result.data!['getConfigurator'][stage]['values']
@@ -132,7 +133,8 @@ class _ConfiguratorState extends State<Configurator> {
                                       ),
                                       Padding(
                                         padding: const EdgeInsets.all(8.0),
-                                        child: Text(element['name']),
+                                        child: Text(element['name'],
+                                            style: TextStyle(fontSize: 20.0)),
                                       )
                                     ],
                                   ),
