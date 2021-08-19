@@ -104,65 +104,65 @@ class _ConfiguratorState extends State<Configurator> {
                   Text(result.data!['getConfigurator'][stage]['description'],
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16.0)),
-                  Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: result.data!['getConfigurator'][stage]['values']
-                          .map((element) {
-                            void onPress() {
-                              int idToAdd = element['iD'];
-                              print(idToAdd);
-                              setState(() {
-                                configuratorItemIds =
-                                    List.from(configuratorItemIds)
-                                      ..add(idToAdd);
-                                stage = stage + 1;
-                              });
-                            }
-
-                            switch (result.data!['getConfigurator'][stage]
-                                ['type']) {
-                              case 'IMAGE':
-                              case 'ICON':
-                                return InkWell(
-                                  onTap: onPress,
-                                  child: Column(
-                                    children: [
-                                      Image.network(
-                                        element['picture'],
-                                        width: 136,
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(8.0),
-                                        child: Text(element['name'],
-                                            style: TextStyle(fontSize: 20.0)),
-                                      )
-                                    ],
-                                  ),
-                                );
-                              case 'TEXT':
-                                return ElevatedButton(
-                                    onPressed: onPress,
-                                    child: Text(element['name']));
-                              default:
-                                return Text('X');
-                            }
-                          })
-                          .toList()
-                          .cast<Widget>()),
                   Padding(
-                    padding: const EdgeInsets.all(24.0),
-                    child: TextButton(
-                      onPressed: () {
-                        setState(() {
-                          configuratorItemIds = List.from(configuratorItemIds)
-                            ..removeLast();
-                          stage = stage - 1;
-                        });
-                      },
-                      child: Text(
-                          "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
-                          style: TextStyle(fontSize: 20.0)),
-                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 32.0),
+                    child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: result.data!['getConfigurator'][stage]
+                                ['values']
+                            .map((element) {
+                              void onPress() {
+                                int idToAdd = element['iD'];
+                                print(idToAdd);
+                                setState(() {
+                                  configuratorItemIds =
+                                      List.from(configuratorItemIds)
+                                        ..add(idToAdd);
+                                  stage = stage + 1;
+                                });
+                              }
+
+                              switch (result.data!['getConfigurator'][stage]
+                                  ['type']) {
+                                case 'IMAGE':
+                                case 'ICON':
+                                  return InkWell(
+                                    onTap: onPress,
+                                    child: Column(
+                                      children: [
+                                        Image.network(
+                                          element['picture'],
+                                          width: 136,
+                                          height: 136,
+                                        ),
+                                        SizedBox(height: 8.0),
+                                        Text(element['name'],
+                                            style: TextStyle(fontSize: 20.0)),
+                                      ],
+                                    ),
+                                  );
+                                case 'TEXT':
+                                  return ElevatedButton(
+                                      onPressed: onPress,
+                                      child: Text(element['name']));
+                                default:
+                                  return Text('X');
+                              }
+                            })
+                            .toList()
+                            .cast<Widget>()),
+                  ),
+                  TextButton(
+                    onPressed: () {
+                      setState(() {
+                        configuratorItemIds = List.from(configuratorItemIds)
+                          ..removeLast();
+                        stage = stage - 1;
+                      });
+                    },
+                    child: Text(
+                        "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
+                        style: TextStyle(fontSize: 20.0)),
                   ),
                 ],
               );
