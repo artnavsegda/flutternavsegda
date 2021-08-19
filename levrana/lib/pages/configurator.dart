@@ -228,7 +228,6 @@ class _ConfiguratorState extends State<Configurator> {
           Query(
               options: QueryOptions(
                 document: gql(getConfiguratorProducts),
-                fetchPolicy: FetchPolicy.networkOnly,
                 variables: {
                   'configuratorItemIds': configuratorItemIds,
                   'cursor': null
@@ -242,7 +241,7 @@ class _ConfiguratorState extends State<Configurator> {
                   return Text(result.exception.toString());
                 }
 
-                if (result.isLoading) {
+                if (result.data == null) {
                   return Center(
                     child: CircularProgressIndicator(),
                   );
