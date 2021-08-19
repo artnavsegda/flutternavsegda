@@ -195,6 +195,7 @@ class _ConfiguratorState extends State<Configurator> {
               );
             },
           ),
+          Text("Вам подойдет эта косметика", textAlign: TextAlign.center),
           Query(
               options: QueryOptions(
                 document: gql(getConfiguratorProducts),
