@@ -108,7 +108,7 @@ class _ConfiguratorState extends State<Configurator> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16.0)),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 32.0),
+                    padding: const EdgeInsets.symmetric(vertical: 24.0),
                     child: Flex(
                         direction: stageType == 'IMAGE'
                             ? Axis.horizontal
@@ -132,23 +132,27 @@ class _ConfiguratorState extends State<Configurator> {
                                   ['type']) {
                                 case 'IMAGE':
                                 case 'ICON':
-                                  return InkWell(
-                                    onTap: onPress,
-                                    child: Column(
-                                      children: [
-                                        ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(13.6),
-                                          child: Image.network(
-                                              element['picture'],
-                                              width: 136,
-                                              height: 136,
-                                              fit: BoxFit.fill),
-                                        ),
-                                        SizedBox(height: 8.0),
-                                        Text(element['name'],
-                                            style: TextStyle(fontSize: 20.0)),
-                                      ],
+                                  return Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 12.0),
+                                    child: InkWell(
+                                      onTap: onPress,
+                                      child: Column(
+                                        children: [
+                                          ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(13.6),
+                                            child: Image.network(
+                                                element['picture'],
+                                                width: 136,
+                                                height: 136,
+                                                fit: BoxFit.fill),
+                                          ),
+                                          SizedBox(height: 8.0),
+                                          Text(element['name'],
+                                              style: TextStyle(fontSize: 20.0)),
+                                        ],
+                                      ),
                                     ),
                                   );
                                 case 'TEXT':
@@ -163,7 +167,9 @@ class _ConfiguratorState extends State<Configurator> {
                                         onPressed: onPress,
                                         child: Text(
                                           element['name'],
-                                          style: TextStyle(color: Colors.black),
+                                          style: TextStyle(
+                                              color: Colors.black,
+                                              fontSize: 20.0),
                                         )),
                                   );
                                 default:
