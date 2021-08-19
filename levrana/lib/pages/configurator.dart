@@ -91,6 +91,23 @@ class _ConfiguratorState extends State<Configurator> {
                 );
               }
 
+              if (stage == result.data!['getConfigurator'].length) {
+                return Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: TextButton(
+                        onPressed: () {
+                          setState(() {
+                            configuratorItemIds = List.from(configuratorItemIds)
+                              ..removeLast();
+                            stage = stage - 1;
+                          });
+                        },
+                        child: Text("Назад")),
+                  ),
+                );
+              }
+
               var stageType = result.data!['getConfigurator'][stage]['type'];
 
               return Column(
@@ -153,7 +170,6 @@ class _ConfiguratorState extends State<Configurator> {
                               switch (result.data!['getConfigurator'][stage]
                                   ['type']) {
                                 case 'IMAGE':
-                                case 'ICON':
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
                                         horizontal: 8.0, vertical: 12.0),
@@ -194,6 +210,30 @@ class _ConfiguratorState extends State<Configurator> {
                                               fontSize: 20.0),
                                         )),
                                   );
+                                case 'ICON':
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          minimumSize:
+                                              Size(double.infinity, 92),
+                                        ),
+                                        onPressed: onPress,
+                                        child: Row(
+                                          children: [
+                                            Image.network(element['picture'],
+                                                width: 60),
+                                            SizedBox(width: 16.0),
+                                            Text(
+                                              element['name'],
+                                              style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontSize: 20.0),
+                                            ),
+                                          ],
+                                        )),
+                                  );
                                 default:
                                   return Text('X');
                               }
@@ -205,11 +245,12 @@ class _ConfiguratorState extends State<Configurator> {
                     padding: const EdgeInsets.all(8.0),
                     child: TextButton(
                       onPressed: () {
-                        setState(() {
-                          configuratorItemIds = List.from(configuratorItemIds)
-                            ..removeLast();
-                          stage = stage - 1;
-                        });
+                        if (stage != 0)
+                          setState(() {
+                            configuratorItemIds = List.from(configuratorItemIds)
+                              ..removeLast();
+                            stage = stage - 1;
+                          });
                       },
                       child: Text(
                           "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
