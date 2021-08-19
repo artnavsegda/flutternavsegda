@@ -108,7 +108,8 @@ class _ConfiguratorState extends State<Configurator> {
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 16.0)),
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 24.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 24.0, horizontal: 8.0),
                     child: Flex(
                         direction: stageType == 'IMAGE'
                             ? Axis.horizontal
@@ -134,7 +135,7 @@ class _ConfiguratorState extends State<Configurator> {
                                 case 'ICON':
                                   return Padding(
                                     padding: const EdgeInsets.symmetric(
-                                        vertical: 12.0),
+                                        horizontal: 8.0, vertical: 12.0),
                                     child: InkWell(
                                       onTap: onPress,
                                       child: Column(
