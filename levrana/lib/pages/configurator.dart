@@ -21,10 +21,16 @@ query getConfigurator
 ''';
 
 const String getConfiguratorProducts = r'''
-query getConfiguratorProducts($configuratorItemIds: [Int])
+query getConfiguratorProducts($configuratorItemIds: [Int], $cursor: String)
 {
-  getConfiguratorProducts(first: 4, configuratorItemIds: $configuratorItemIds) {
+  getConfiguratorProducts(first: 4, configuratorItemIds: $configuratorItemIds, after: $cursor) {
 		totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
     items {
       iD
       name
@@ -225,6 +231,7 @@ class _ConfiguratorState extends State<Configurator> {
                 fetchPolicy: FetchPolicy.networkOnly,
                 variables: {
                   'configuratorItemIds': configuratorItemIds,
+                  'cursor': null
                 },
               ),
               builder: (result, {fetchMore, refetch}) {
@@ -240,6 +247,36 @@ class _ConfiguratorState extends State<Configurator> {
                     child: CircularProgressIndicator(),
                   );
                 }
+
+                final Map pageInfo =
+                    result.data!['getConfiguratorProducts']['pageInfo'];
+                final String fetchMoreCursor = pageInfo['endCursor'];
+
+                FetchMoreOptions opts = FetchMoreOptions(
+                  variables: {'cursor': fetchMoreCursor},
+                  updateQuery: (previousResultData, fetchMoreResultData) {
+                    final List<dynamic> items = [
+                      ...previousResultData!['getConfiguratorProducts']['items']
+                          as List<dynamic>,
+                      ...fetchMoreResultData!['getConfiguratorProducts']
+                          ['items'] as List<dynamic>
+                    ];
+
+                    fetchMoreResultData['getConfiguratorProducts']['items'] =
+                        items;
+
+                    return fetchMoreResultData;
+                  },
+                );
+
+                _controller.addListener(() {
+                  if (_controller.offset >=
+                          _controller.position.maxScrollExtent &&
+                      !_controller.position.outOfRange) {
+                    fetchMore!(opts);
+                  }
+                });
+
                 return Wrap(
                     alignment: WrapAlignment.center,
                     spacing: 16,
