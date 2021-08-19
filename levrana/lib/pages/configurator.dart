@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'product.dart';
 
 const String getConfigurator = r'''
 query getConfigurator
@@ -22,7 +23,7 @@ query getConfigurator
 const String getConfiguratorProducts = r'''
 query getConfiguratorProducts($configuratorItemIds: [Int])
 {
-  getConfiguratorProducts(first: 5, configuratorItemIds: $configuratorItemIds) {
+  getConfiguratorProducts(first: 4, configuratorItemIds: $configuratorItemIds) {
 		totalCount
     items {
       iD
@@ -226,8 +227,20 @@ class _ConfiguratorState extends State<Configurator> {
                   );
                 }
                 return Wrap(
+                    alignment: WrapAlignment.center,
+                    spacing: 16,
+                    runSpacing: 16,
                     children: result.data!['getConfiguratorProducts']['items']
-                        .map((element) => Text(element['name']))
+                        .map((element) => FractionallySizedBox(
+                            widthFactor: 0.43,
+                            child: ProductCard(
+                                product: element,
+                                onTap: () => Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: element['iD'])),
+                                    ))))
                         .toList()
                         .cast<Widget>());
               })
