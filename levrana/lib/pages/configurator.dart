@@ -130,10 +130,14 @@ class _ConfiguratorState extends State<Configurator> {
                                     onTap: onPress,
                                     child: Column(
                                       children: [
-                                        Image.network(
-                                          element['picture'],
-                                          width: 136,
-                                          height: 136,
+                                        ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(13.6),
+                                          child: Image.network(
+                                              element['picture'],
+                                              width: 136,
+                                              height: 136,
+                                              fit: BoxFit.fill),
                                         ),
                                         SizedBox(height: 8.0),
                                         Text(element['name'],
