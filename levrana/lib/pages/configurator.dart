@@ -69,6 +69,8 @@ class _ConfiguratorState extends State<Configurator> {
                 );
               }
 
+              var stageType = result.data!['getConfigurator'][stage]['type'];
+
               return Column(
                 children: [
                   //Text(result.data!['getConfigurator'][stage]['name']),
@@ -106,7 +108,10 @@ class _ConfiguratorState extends State<Configurator> {
                       style: TextStyle(fontSize: 16.0)),
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 32.0),
-                    child: Row(
+                    child: Flex(
+                        direction: stageType == 'IMAGE'
+                            ? Axis.horizontal
+                            : Axis.vertical,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: result.data!['getConfigurator'][stage]
                                 ['values']
