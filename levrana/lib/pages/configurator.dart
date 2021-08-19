@@ -72,25 +72,39 @@ class _ConfiguratorState extends State<Configurator> {
               return Column(
                 children: [
                   //Text(result.data!['getConfigurator'][stage]['name']),
-                  RichText(
-                    text: TextSpan(
-                        style: DefaultTextStyle.of(context).style,
-                        children: result.data!['getConfigurator'][stage]['name']
-                            .split("*")
-                            .asMap()
-                            .entries
-                            .map(
-                              (element) => TextSpan(
-                                  text: element.value,
-                                  style: element.key.isEven
-                                      ? TextStyle(fontWeight: FontWeight.normal)
-                                      : TextStyle(fontWeight: FontWeight.bold)),
-                            )
-                            .toList()
-                            .cast<InlineSpan>()),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 32.0, vertical: 16.0),
+                    child: RichText(
+                      textAlign: TextAlign.center,
+                      text: TextSpan(
+                          style: DefaultTextStyle.of(context).style,
+                          children:
+                              result.data!['getConfigurator'][stage]['name']
+                                  .split("*")
+                                  .asMap()
+                                  .entries
+                                  .map(
+                                    (element) => TextSpan(
+                                        text: element.value,
+                                        style: element.key.isEven
+                                            ? GoogleFonts.montserrat(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w700,
+                                              )
+                                            : GoogleFonts.montserrat(
+                                                fontSize: 32,
+                                                fontWeight: FontWeight.w700,
+                                                color: Colors.green)),
+                                  )
+                                  .toList()
+                                  .cast<InlineSpan>()),
+                    ),
                   ),
-                  Text(result.data!['getConfigurator'][stage]['description']),
+                  Text(result.data!['getConfigurator'][stage]['description'],
+                      textAlign: TextAlign.center),
                   Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: result.data!['getConfigurator'][stage]['values']
                           .map((element) {
                             void onPress() {
@@ -112,8 +126,14 @@ class _ConfiguratorState extends State<Configurator> {
                                   onTap: onPress,
                                   child: Column(
                                     children: [
-                                      Image.network(element['picture']),
-                                      Text(element['name'])
+                                      Image.network(
+                                        element['picture'],
+                                        width: 136,
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Text(element['name']),
+                                      )
                                     ],
                                   ),
                                 );
