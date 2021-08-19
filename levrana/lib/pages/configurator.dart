@@ -53,7 +53,7 @@ class _ConfiguratorState extends State<Configurator> {
       appBar: AppBar(
         title: Text("Конфигуратор"),
       ),
-      body: Column(
+      body: ListView(
         children: [
           Query(
             options: QueryOptions(document: gql(getConfigurator)),
@@ -149,16 +149,20 @@ class _ConfiguratorState extends State<Configurator> {
                           })
                           .toList()
                           .cast<Widget>()),
-                  TextButton(
-                    onPressed: () {
-                      setState(() {
-                        configuratorItemIds = List.from(configuratorItemIds)
-                          ..removeLast();
-                        stage = stage - 1;
-                      });
-                    },
-                    child: Text(
-                        "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}"),
+                  Padding(
+                    padding: const EdgeInsets.all(24.0),
+                    child: TextButton(
+                      onPressed: () {
+                        setState(() {
+                          configuratorItemIds = List.from(configuratorItemIds)
+                            ..removeLast();
+                          stage = stage - 1;
+                        });
+                      },
+                      child: Text(
+                          "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
+                          style: TextStyle(fontSize: 20.0)),
+                    ),
                   ),
                 ],
               );
