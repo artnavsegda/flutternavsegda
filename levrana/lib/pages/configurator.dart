@@ -50,6 +50,7 @@ class _ConfiguratorState extends State<Configurator> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
         title: Text("Конфигуратор"),
       ),
@@ -151,9 +152,20 @@ class _ConfiguratorState extends State<Configurator> {
                                     ),
                                   );
                                 case 'TEXT':
-                                  return ElevatedButton(
-                                      onPressed: onPress,
-                                      child: Text(element['name']));
+                                  return Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          primary: Colors.white,
+                                          minimumSize:
+                                              Size(double.infinity, 92),
+                                        ),
+                                        onPressed: onPress,
+                                        child: Text(
+                                          element['name'],
+                                          style: TextStyle(color: Colors.black),
+                                        )),
+                                  );
                                 default:
                                   return Text('X');
                               }
