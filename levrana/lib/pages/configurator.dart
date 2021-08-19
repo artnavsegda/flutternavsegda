@@ -44,9 +44,22 @@ class Configurator extends StatefulWidget {
 }
 
 class _ConfiguratorState extends State<Configurator> {
+  late ScrollController _controller;
   int stage = 0;
 
   List<int> configuratorItemIds = [];
+
+  @override
+  void initState() {
+    _controller = ScrollController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +69,7 @@ class _ConfiguratorState extends State<Configurator> {
         title: Text("Конфигуратор"),
       ),
       body: ListView(
+        controller: _controller,
         children: [
           Query(
             options: QueryOptions(document: gql(getConfigurator)),
