@@ -136,7 +136,13 @@ class ActionPage extends StatelessWidget {
                             child: CircularProgressIndicator(),
                           );
                         }
-                        return Text("Poll");
+
+                        return Column(
+                          children: [
+                            Text(result.data!['getPoll'].length.toString()),
+                            Text(result.data!['getPoll'][0]['name']),
+                          ],
+                        );
                       })
               ],
             ),
