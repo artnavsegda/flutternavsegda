@@ -29,6 +29,27 @@ query getAction($actionID: Int) {
 }
 ''';
 
+const String getPoll = r'''
+query getPoll($actionID: Int)
+{
+  getPoll(actionID: $actionID) {
+    iD
+    name
+    comment
+    isOther
+    isSkip
+    isMultiple
+    isScale
+    scaleMin
+    scaleMax
+    pollAnswers {
+      iD
+      name
+    }
+  }
+}
+''';
+
 class ActionPage extends StatelessWidget {
   const ActionPage({Key? key, required this.actionID}) : super(key: key);
 
@@ -62,7 +83,7 @@ class ActionPage extends StatelessWidget {
                 AppBar(title: Text(result.data!['getAction']['type'] ?? "")),
             body: ListView(
               children: [
-                //Text(result.data!['getAction']['iD'].toString()),
+                Text(result.data!['getAction']['iD'].toString()),
                 //Text(result.data!['getAction']['type']),
                 Image.network(result.data!['getAction']['picture']),
                 if (dateStart != null && dateFinish != null)
