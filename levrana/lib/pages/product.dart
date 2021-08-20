@@ -397,9 +397,31 @@ class _ProductPageState extends State<ProductPage> {
                                       keyboardType: TextInputType.multiline,
                                       maxLines: null,
                                     ),
-                                    TextButton(
-                                        onPressed: () {},
-                                        child: Text("Отозватся"))
+                                    Mutation(
+                                        options: MutationOptions(
+                                          document: gql(addReviewProduct),
+                                          onError: (error) {
+                                            print(error);
+                                          },
+                                          onCompleted:
+                                              (dynamic resultData) async {
+                                            print(resultData);
+                                            refetch!();
+                                          },
+                                        ),
+                                        builder: (
+                                          RunMutation runMutation,
+                                          QueryResult? result,
+                                        ) {
+                                          return TextButton(
+                                              onPressed: () {
+                                                runMutation({
+                                                  'productID': widget.id,
+                                                  'text': myController.text,
+                                                });
+                                              },
+                                              child: Text("Отозватся"));
+                                        })
                                   ],
                                 ),
                               ),
