@@ -374,6 +374,13 @@ class _ProductPageState extends State<ProductPage> {
                                 expanded: Column(
                                   children: [
                                     Text("1234234234"),
+                                    TextField(
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                    ),
+                                    TextButton(
+                                        onPressed: () {},
+                                        child: Text("Отозватся"))
                                   ],
                                 ),
                               ),
