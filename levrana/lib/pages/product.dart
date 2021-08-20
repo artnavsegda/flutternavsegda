@@ -10,11 +10,27 @@ query getProduct($productID: Int!) {
   getProduct(productID: $productID)
   {
     iD
+    type
+    familyID
+    topCatalogID
     name
-    pictures
-    stickerPictures
+    article
     comment
+    description
+    application
+    composition
     isFavorite
+    favorites
+    attributes {
+      iD
+      name
+      color
+    }
+    awards {
+      iD
+      name
+      picture
+    }
     characteristics {
       iD
       name
@@ -29,6 +45,21 @@ query getProduct($productID: Int!) {
       price
       oldPrice
       characteristicValueID
+    }
+    pictures
+    stickerPictures
+    compositionPictures
+    link {
+      iD
+    }
+    similar {
+      iD
+    }
+    modifiers {
+      caption
+    }
+    reviews {
+      text
     }
   }
 }
