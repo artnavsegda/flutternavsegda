@@ -118,7 +118,26 @@ class ActionPage extends StatelessWidget {
                         )
                         .toList()
                         .cast<Widget>()),
-                if (result.data!['getAction']['type'] == 'POLL') Text("Poll")
+                if (result.data!['getAction']['type'] == 'POLL')
+                  Query(
+                      options: QueryOptions(
+                        document: gql(getPoll),
+                        variables: {
+                          'actionID': actionID,
+                        },
+                      ),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return Text(result.exception.toString());
+                        }
+
+                        if (result.isLoading) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+                        return Text("Poll");
+                      })
               ],
             ),
           );
