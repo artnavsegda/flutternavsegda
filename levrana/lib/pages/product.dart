@@ -210,6 +210,14 @@ dynamic getPrice(priceList, priceID) {
 
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
@@ -385,6 +393,7 @@ class _ProductPageState extends State<ProductPage> {
                                   children: [
                                     Text("1234234234"),
                                     TextField(
+                                      controller: myController,
                                       keyboardType: TextInputType.multiline,
                                       maxLines: null,
                                     ),
