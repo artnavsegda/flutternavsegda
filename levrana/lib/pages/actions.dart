@@ -59,9 +59,11 @@ class ActionPage extends StatelessWidget {
 
           return Scaffold(
             appBar:
-                AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
+                AppBar(title: Text(result.data!['getAction']['type'] ?? "")),
             body: ListView(
               children: [
+                //Text(result.data!['getAction']['iD'].toString()),
+                //Text(result.data!['getAction']['type']),
                 Image.network(result.data!['getAction']['picture']),
                 if (dateStart != null && dateFinish != null)
                   Text(
@@ -95,6 +97,7 @@ class ActionPage extends StatelessWidget {
                         )
                         .toList()
                         .cast<Widget>()),
+                if (result.data!['getAction']['type'] == 'POLL') Text("Poll")
               ],
             ),
           );
