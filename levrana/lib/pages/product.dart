@@ -65,6 +65,16 @@ query getProduct($productID: Int!) {
 }
 ''';
 
+const String addReviewProduct = r'''
+mutation addReviewProduct($productID: Int, $text: String)
+{
+  addReviewProduct(productID: $productID, mark: 3, text: $text) {
+    result
+    errorMessage
+  }
+}
+''';
+
 const String cartAdd = r'''
 mutation cartAdd($productID: Int!, $characteristicValueIds: [Int]) {
   cartAdd(cartItem: {productID: $productID, quantity: 1, characteristicValueIds: $characteristicValueIds}) {
