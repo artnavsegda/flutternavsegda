@@ -14,6 +14,7 @@ query getProduct($productID: Int!) {
     pictures
     stickerPictures
     comment
+    description
     isFavorite
     characteristics {
       iD
