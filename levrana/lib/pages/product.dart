@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'dart:math';
 
 const String getProduct = r'''
@@ -386,8 +387,9 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text(
-                                    result.data!['getProduct']['description']),
+                                expanded: MarkdownBody(
+                                    data: result.data!['getProduct']
+                                        ['description']),
                               ),
                               ExpandablePanel(
                                 header: Text("Состав",
