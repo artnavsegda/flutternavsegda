@@ -247,7 +247,15 @@ class _ProductPageState extends State<ProductPage> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
+          if (result.hasException) {
+            return Scaffold(
+              body: Center(
+                child: Text(
+                  result.exception.toString(),
+                ),
+              ),
+            );
+          }
 
           if (result.isLoading && result.data == null) {
             return const Center(
@@ -274,7 +282,7 @@ class _ProductPageState extends State<ProductPage> {
                 iconTheme: IconThemeData(
                   color: Colors.black, //change your color here
                 ),
-                title: Text(result.data!['getProduct']['name'],
+                title: Text(result.data!['getProduct']['name'] ?? "WHAT",
                     style: TextStyle(color: Colors.black)),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
@@ -382,9 +390,7 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text(result.data!['getProduct']
-                                        ['composition'] ??
-                                    "113"),
+                                expanded: Text("WHAT"),
                               ),
                               ExpandablePanel(
                                 header: Text("Отзывы",
