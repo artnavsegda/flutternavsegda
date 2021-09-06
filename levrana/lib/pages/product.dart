@@ -122,6 +122,7 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
     switch (widget.element['type']) {
       case 'TEXT':
         return Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(widget.element['name']),
             Text(widget.element['values']
