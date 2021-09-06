@@ -14,7 +14,11 @@ query getProduct($productID: Int!) {
     familyID
     topCatalogID
     name
-    article
+    articles {
+      characteristicValueID
+      characteristicValue2ID
+      value
+    }
     comment
     description
     application
