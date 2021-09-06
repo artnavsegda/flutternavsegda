@@ -120,8 +120,15 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
   @override
   Widget build(BuildContext context) {
     switch (widget.element['type']) {
-      //case 'TEXT':
-      //  return Text(element['name']);
+      case 'TEXT':
+        return Row(
+          children: [
+            Text(widget.element['name']),
+            Text(widget.element['values']
+                .map((element) => element['value'])
+                .reduce((value, element) => value + ',' + element))
+          ],
+        );
       case 'VOLUME':
       case 'SIZE':
         return Row(children: [
