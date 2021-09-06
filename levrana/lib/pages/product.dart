@@ -10,12 +10,27 @@ query getProduct($productID: Int!) {
   getProduct(productID: $productID)
   {
     iD
+    type
+    familyID
+    topCatalogID
     name
-    pictures
-    stickerPictures
+    article
     comment
     description
+    application
+    composition
     isFavorite
+    favorites
+    attributes {
+      iD
+      name
+      color
+    }
+    awards {
+      iD
+      name
+      picture
+    }
     characteristics {
       iD
       name
@@ -31,6 +46,31 @@ query getProduct($productID: Int!) {
       oldPrice
       characteristicValueID
     }
+    pictures
+    stickerPictures
+    compositionPictures
+    link {
+      iD
+    }
+    similar {
+      iD
+    }
+    modifiers {
+      caption
+    }
+    reviews {
+      text
+    }
+  }
+}
+''';
+
+const String addReviewProduct = r'''
+mutation addReviewProduct($productID: Int, $text: String)
+{
+  addReviewProduct(productID: $productID, mark: 3, text: $text) {
+    result
+    errorMessage
   }
 }
 ''';
@@ -170,6 +210,14 @@ dynamic getPrice(priceList, priceID) {
 
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
+  final myController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    myController.dispose();
+    super.dispose();
+  }
 
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
@@ -331,7 +379,9 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text("1234234234"),
+                                expanded: Text(result.data!['getProduct']
+                                        ['composition'] ??
+                                    "113"),
                               ),
                               ExpandablePanel(
                                 header: Text("Отзывы",
@@ -339,7 +389,41 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text("1234234234"),
+                                expanded: Column(
+                                  children: [
+                                    Text("1234234234"),
+                                    TextField(
+                                      controller: myController,
+                                      keyboardType: TextInputType.multiline,
+                                      maxLines: null,
+                                    ),
+                                    Mutation(
+                                        options: MutationOptions(
+                                          document: gql(addReviewProduct),
+                                          onError: (error) {
+                                            print(error);
+                                          },
+                                          onCompleted:
+                                              (dynamic resultData) async {
+                                            print(resultData);
+                                            refetch!();
+                                          },
+                                        ),
+                                        builder: (
+                                          RunMutation runMutation,
+                                          QueryResult? result,
+                                        ) {
+                                          return TextButton(
+                                              onPressed: () {
+                                                runMutation({
+                                                  'productID': widget.id,
+                                                  'text': myController.text,
+                                                });
+                                              },
+                                              child: Text("Отозватся"));
+                                        })
+                                  ],
+                                ),
                               ),
                             ],
                           ),

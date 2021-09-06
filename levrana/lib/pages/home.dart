@@ -103,7 +103,7 @@ class HomePage extends StatelessWidget {
                                 options:
                                     QueryOptions(document: gql(getClientInfo)),
                                 builder: (result, {fetchMore, refetch}) {
-                                  print(result.data);
+                                  //print(result.data);
 
                                   if (result.hasException) {
                                     return Text("0",

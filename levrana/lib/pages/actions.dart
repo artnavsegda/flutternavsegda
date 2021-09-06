@@ -29,6 +29,27 @@ query getAction($actionID: Int) {
 }
 ''';
 
+const String getPoll = r'''
+query getPoll($actionID: Int)
+{
+  getPoll(actionID: $actionID) {
+    iD
+    name
+    comment
+    isOther
+    isSkip
+    isMultiple
+    isScale
+    scaleMin
+    scaleMax
+    pollAnswers {
+      iD
+      name
+    }
+  }
+}
+''';
+
 class ActionPage extends StatelessWidget {
   const ActionPage({Key? key, required this.actionID}) : super(key: key);
 
@@ -59,9 +80,11 @@ class ActionPage extends StatelessWidget {
 
           return Scaffold(
             appBar:
-                AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
+                AppBar(title: Text(result.data!['getAction']['type'] ?? "")),
             body: ListView(
               children: [
+                Text(result.data!['getAction']['iD'].toString()),
+                //Text(result.data!['getAction']['type']),
                 Image.network(result.data!['getAction']['picture']),
                 if (dateStart != null && dateFinish != null)
                   Text(
@@ -95,6 +118,32 @@ class ActionPage extends StatelessWidget {
                         )
                         .toList()
                         .cast<Widget>()),
+                if (result.data!['getAction']['type'] == 'POLL')
+                  Query(
+                      options: QueryOptions(
+                        document: gql(getPoll),
+                        variables: {
+                          'actionID': actionID,
+                        },
+                      ),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return Text(result.exception.toString());
+                        }
+
+                        if (result.isLoading) {
+                          return Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        return Column(
+                          children: [
+                            Text(result.data!['getPoll'].length.toString()),
+                            Text(result.data!['getPoll'][0]['name']),
+                          ],
+                        );
+                      })
               ],
             ),
           );

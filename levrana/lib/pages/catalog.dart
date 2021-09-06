@@ -49,6 +49,26 @@ query getProducts($catalogID: Int!, $cursor: String) {
 }
 ''';
 
+const String getFilters = r'''
+query getFilters($catalogID: Int)
+{
+  getFilters(catalogID: $catalogID)
+  {
+    priceMin
+    priceMax
+    groups {
+    	iD
+      name
+      type
+      values {
+        iD
+        name
+      }
+  	}
+  }
+}
+''';
+
 class CatalogPage extends StatelessWidget {
   CatalogPage(
       {Key? key,
