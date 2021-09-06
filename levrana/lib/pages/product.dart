@@ -103,6 +103,25 @@ Color hexToColor(String code) {
   return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
 
+class TextCharacteristic extends StatelessWidget {
+  const TextCharacteristic({Key? key, this.element}) : super(key: key);
+
+  final element;
+
+  @override
+  Widget build(BuildContext context) {
+    if (element['type'] == 'TEXT')
+      return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(element['name']),
+        Text(element['values']
+            .map((element) => element['value'])
+            .reduce((value, element) => value + ',' + element))
+      ]);
+    else
+      return Container();
+  }
+}
+
 class CharacteristicsElement extends StatefulWidget {
   const CharacteristicsElement({Key? key, this.element, this.onSelected})
       : super(key: key);
@@ -387,7 +406,13 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text("1234234234"),
+                                expanded: Column(
+                                    children: result.data!['getProduct']
+                                            ['characteristics']
+                                        .map((e) =>
+                                            TextCharacteristic(element: e))
+                                        .toList()
+                                        .cast<Widget>()),
                               ),
                               ExpandablePanel(
                                 header: Text("Описание",
