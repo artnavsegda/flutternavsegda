@@ -48,7 +48,10 @@ query getProduct($productID: Int!) {
     }
     pictures
     stickerPictures
-    compositionPictures
+    compositions {
+      description
+      picture
+    }
     link {
       iD
     }
