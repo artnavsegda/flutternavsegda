@@ -99,6 +99,21 @@ mutation setFavoritesProduct($productID: Int!) {
 }
 ''';
 
+class RedLine extends CustomPainter {
+  @override
+  void paint(canvas, size) {
+    canvas.drawLine(
+        Offset(0, size.height),
+        Offset(size.width, 0),
+        Paint()
+          ..color = Colors.red
+          ..strokeWidth = 1);
+  }
+
+  @override
+  bool shouldRepaint(oldDelegate) => false;
+}
+
 Color hexToColor(String code) {
   return new Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
@@ -366,12 +381,16 @@ class _ProductPageState extends State<ProductPage> {
                             SizedBox(width: 10),
                             productPrice['oldPrice'] == null
                                 ? SizedBox.shrink()
-                                : Text(
-                                    productPrice['oldPrice']
-                                            ?.toStringAsFixed(0) +
-                                        "₽",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 32, color: Colors.black45)),
+                                : CustomPaint(
+                                    painter: RedLine(),
+                                    child: Text(
+                                        productPrice['oldPrice']
+                                                ?.toStringAsFixed(0) +
+                                            "₽",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 32,
+                                            color: Colors.black45)),
+                                  ),
                           ],
                         ),
                         Padding(
