@@ -314,7 +314,7 @@ class _ProductPageState extends State<ProductPage> {
               body: ListView(
                 children: [
                   Container(
-                    height: 340,
+                    height: 360,
                     child: PageView.builder(
                         onPageChanged: (pageNum) => setState(() {
                               picturePage = pageNum;
@@ -323,7 +323,7 @@ class _ProductPageState extends State<ProductPage> {
                             result.data!['getProduct']['pictures'].length,
                         itemBuilder: (context, index) {
                           return Stack(
-                            alignment: Alignment.bottomCenter,
+                            alignment: Alignment.center,
                             children: [
                               Image.network(result.data!['getProduct']
                                   ['pictures'][index]),
