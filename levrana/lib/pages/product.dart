@@ -269,6 +269,8 @@ class _ProductPageState extends State<ProductPage> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
+          print(result);
+
           if (result.hasException) {
             return Scaffold(
               body: Center(
@@ -412,7 +414,8 @@ class _ProductPageState extends State<ProductPage> {
                                 collapsed: SizedBox.shrink(),
                                 expanded: MarkdownBody(
                                     data: result.data!['getProduct']
-                                        ['description']),
+                                            ['description'] ??
+                                        ""),
                               ),
                               ExpandablePanel(
                                 header: Text("Состав",
