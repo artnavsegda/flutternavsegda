@@ -396,7 +396,9 @@ class _ProductPageState extends State<ProductPage> {
                         Row(
                           children: result.data!['getProduct']['attributes']
                               .map((element) {
-                                return Text(element['name']);
+                                return Container(
+                                    color: hexToColor(element['color']),
+                                    child: Text(element['name']));
                               })
                               .toList()
                               .cast<Widget>(),
