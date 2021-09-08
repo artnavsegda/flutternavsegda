@@ -314,7 +314,7 @@ class _ProductPageState extends State<ProductPage> {
               body: ListView(
                 children: [
                   Container(
-                    height: 360,
+                    height: 340,
                     child: PageView.builder(
                         onPageChanged: (pageNum) => setState(() {
                               picturePage = pageNum;
