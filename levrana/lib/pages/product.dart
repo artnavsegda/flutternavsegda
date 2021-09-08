@@ -476,7 +476,9 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text("WHAT"),
+                                expanded: Text(result.data!['getProduct']
+                                        ['composition'] ??
+                                    ""),
                               ),
                               ExpandablePanel(
                                 header: Text("Отзывы",
