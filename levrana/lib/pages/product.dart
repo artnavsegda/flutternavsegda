@@ -322,8 +322,23 @@ class _ProductPageState extends State<ProductPage> {
                         itemCount:
                             result.data!['getProduct']['pictures'].length,
                         itemBuilder: (context, index) {
-                          return Image.network(
-                              result.data!['getProduct']['pictures'][index]);
+                          return Stack(
+                            alignment: Alignment.bottomCenter,
+                            children: [
+                              Image.network(result.data!['getProduct']
+                                  ['pictures'][index]),
+                              if (result.data!['getProduct']['stickerPictures']
+                                      .length >
+                                  index)
+                                Positioned(
+                                  top: 0,
+                                  right: 0,
+                                  child: Image.network(
+                                      result.data!['getProduct']
+                                          ['stickerPictures'][index]),
+                                )
+                            ],
+                          );
                         }),
                   ),
                   new DotsIndicator(
