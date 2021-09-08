@@ -396,9 +396,18 @@ class _ProductPageState extends State<ProductPage> {
                         Row(
                           children: result.data!['getProduct']['attributes']
                               .map((element) {
-                                return Container(
-                                    color: hexToColor(element['color']),
-                                    child: Text(element['name']));
+                                return Padding(
+                                  padding: const EdgeInsets.only(right: 6.0),
+                                  child: ChoiceChip(
+                                      visualDensity: VisualDensity.compact,
+                                      labelStyle: TextStyle(
+                                          fontSize: 16.0, color: Colors.white),
+                                      selectedColor:
+                                          hexToColor(element['color']),
+                                      selected: true,
+                                      onSelected: (e) {},
+                                      label: Text(element['name'])),
+                                );
                               })
                               .toList()
                               .cast<Widget>(),
