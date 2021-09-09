@@ -75,8 +75,10 @@ class ActionPage extends StatelessWidget {
             );
           }
 
-          var dateStart = result.data!['getAction']['dateStart'];
-          var dateFinish = result.data!['getAction']['dateFinish'];
+          var dateStart = DateTime.fromMillisecondsSinceEpoch(
+              result.data!['getAction']['dateStart'] ?? 0);
+          var dateFinish = DateTime.fromMillisecondsSinceEpoch(
+              result.data!['getAction']['dateFinish'] ?? 0);
 
           return Scaffold(
             appBar:
@@ -88,7 +90,7 @@ class ActionPage extends StatelessWidget {
                 Image.network(result.data!['getAction']['picture']),
                 if (dateStart != null && dateFinish != null)
                   Text(
-                      "C ${new DateTime.fromMillisecondsSinceEpoch(dateStart)} по ${new DateTime.fromMillisecondsSinceEpoch(dateFinish)}"),
+                      "C ${DateFormat.yMMMd().format(dateStart)} по ${DateFormat.yMMMd().format(dateFinish)}"),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: MarkdownBody(
