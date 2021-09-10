@@ -60,9 +60,37 @@ class Poll extends StatefulWidget {
 }
 
 class _PollState extends State<Poll> {
+  int stage = 0;
+
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Query(
+        options: QueryOptions(
+          document: gql(getPoll),
+          variables: {
+            'actionID': widget.actionID,
+          },
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          print(result);
+
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Column(
+            children: [
+              Text(result.data!['getPoll'].length.toString()),
+              Text(result.data!['getPoll'][stage]['name']),
+            ],
+          );
+        });
   }
 }
 
@@ -137,31 +165,7 @@ class ActionPage extends StatelessWidget {
                         .toList()
                         .cast<Widget>()),
                 if (result.data!['getAction']['type'] == 'POLL')
-                  Query(
-                      options: QueryOptions(
-                        document: gql(getPoll),
-                        variables: {
-                          'actionID': actionID,
-                        },
-                      ),
-                      builder: (result, {fetchMore, refetch}) {
-                        if (result.hasException) {
-                          return Text(result.exception.toString());
-                        }
-
-                        if (result.isLoading) {
-                          return Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        return Column(
-                          children: [
-                            Text(result.data!['getPoll'].length.toString()),
-                            Text(result.data!['getPoll'][0]['name']),
-                          ],
-                        );
-                      })
+                  Poll(actionID: actionID)
               ],
             ),
           );
