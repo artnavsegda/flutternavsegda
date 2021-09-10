@@ -50,6 +50,22 @@ query getPoll($actionID: Int)
 }
 ''';
 
+class Poll extends StatefulWidget {
+  const Poll({Key? key, required this.actionID}) : super(key: key);
+
+  final int actionID;
+
+  @override
+  _PollState createState() => _PollState();
+}
+
+class _PollState extends State<Poll> {
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
+
 class ActionPage extends StatelessWidget {
   const ActionPage({Key? key, required this.actionID}) : super(key: key);
 
