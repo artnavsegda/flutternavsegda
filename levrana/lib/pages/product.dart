@@ -476,9 +476,29 @@ class _ProductPageState extends State<ProductPage> {
                                         fontSize: 16,
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
-                                expanded: Text(result.data!['getProduct']
-                                        ['composition'] ??
-                                    ""),
+                                expanded: Column(
+                                  children: [
+                                    SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: result.data!['getProduct']
+                                                ['compositions']
+                                            .map((element) {
+                                              return Image.network(
+                                                element['picture'],
+                                                height: 100,
+                                                width: 100,
+                                              );
+                                            })
+                                            .toList()
+                                            .cast<Widget>(),
+                                      ),
+                                    ),
+                                    Text(result.data!['getProduct']
+                                            ['composition'] ??
+                                        ""),
+                                  ],
+                                ),
                               ),
                               ExpandablePanel(
                                 header: Text("Отзывы",
