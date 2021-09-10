@@ -88,6 +88,12 @@ class _PollState extends State<Poll> {
             children: [
               Text(result.data!['getPoll'].length.toString()),
               Text(result.data!['getPoll'][stage]['name']),
+              Column(
+                children: result.data!['getPoll'][stage]['pollAnswers']
+                    .map((element) => Text(element['name']))
+                    .toList()
+                    .cast<Widget>(),
+              )
             ],
           );
         });
