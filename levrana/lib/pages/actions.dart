@@ -100,10 +100,29 @@ class _PollState extends State<Poll> {
               Text(result.data!['getPoll'][stage]['name']),
               Column(
                 children: result.data!['getPoll'][stage]['pollAnswers']
-                    .map((element) => Text(element['name']))
+                    .map((element) {
+                      return Row(
+                        children: [
+                          Radio(
+                            value: false,
+                            onChanged: (v) {},
+                            groupValue: true,
+                          ),
+                          Text(element['name']),
+                        ],
+                      );
+                    })
                     .toList()
                     .cast<Widget>(),
-              )
+              ),
+              ElevatedButton(
+                  onPressed: () {
+                    if (stage < result.data!['getPoll'].length - 1)
+                      setState(() {
+                        stage++;
+                      });
+                  },
+                  child: Text("Далее"))
             ],
           );
         });
