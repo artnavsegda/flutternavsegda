@@ -50,6 +50,16 @@ query getPoll($actionID: Int)
 }
 ''';
 
+const String setPollResult = r'''
+mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
+  setPollResult(actionID: $actionID, answers: $answers) {
+    result
+    errorMessage
+    point
+  }
+}
+''';
+
 class Poll extends StatefulWidget {
   const Poll({Key? key, required this.actionID}) : super(key: key);
 
