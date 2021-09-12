@@ -252,6 +252,7 @@ class _PollState extends State<Poll> {
                             return TextButton(
                                 onPressed: () {
                                   print("Finish");
+                                  print(widget.actionID);
                                   runMutation({
                                     'actionID': widget.actionID,
                                     'answers': answers.values.toList()
