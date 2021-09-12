@@ -102,7 +102,7 @@ class _PollState extends State<Poll> {
 
           var stageData = result.data!['getPoll'][stage];
 
-          print(stageData);
+          //print(stageData);
 
           return Column(
             children: [
@@ -113,7 +113,6 @@ class _PollState extends State<Poll> {
                 Slider(
                   divisions: stageData['scaleMax'] - stageData['scaleMin'],
                   onChanged: (value) {
-                    print(value);
                     setState(() {
                       answers[stageData['iD']] =
                           PollAnswersClient(scale: value.round());
