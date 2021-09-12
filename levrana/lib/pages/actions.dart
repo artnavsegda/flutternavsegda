@@ -225,8 +225,13 @@ class _PollState extends State<Poll> {
                           setState(() {
                             stage++;
                           });
+                        else {
+                          print("Finish");
+                        }
                       },
-                      child: Text("ДАЛЕЕ")),
+                      child: Text((stage < result.data!['getPoll'].length - 1)
+                          ? "ДАЛЕЕ"
+                          : "ЗАКОНЧИТЬ")),
                 ],
               )
             ],
