@@ -61,9 +61,11 @@ mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
 ''';
 
 class PollAnswersClient {
-  PollAnswersClient({this.scale = 0, this.pollAnswers = const <int>{}});
+  PollAnswersClient(
+      {this.scale = 0, this.pollAnswers = const <int>{}, this.other = ""});
   int scale;
-  var pollAnswers = <int>{};
+  var pollAnswers;
+  String other;
 }
 
 class Poll extends StatefulWidget {
@@ -102,7 +104,7 @@ class _PollState extends State<Poll> {
 
           var stageData = result.data!['getPoll'][stage];
 
-          //print(stageData);
+          print(stageData);
 
           return Column(
             children: [
@@ -172,6 +174,14 @@ class _PollState extends State<Poll> {
                                 print(answers);
                                 setState(() {
                                   print(element['iD']);
+
+                                  (answers[stageData['iD']] != null)
+                                      ? answers[stageData['iD']]?.pollAnswers =
+                                          {element['iD']}
+                                      : answers[stageData['iD']] =
+                                          PollAnswersClient(
+                                              pollAnswers: {element['iD']});
+
                                   answers[stageData['iD']] = PollAnswersClient(
                                       pollAnswers: {element['iD']});
                                 });
@@ -184,6 +194,18 @@ class _PollState extends State<Poll> {
                       })
                       .toList()
                       .cast<Widget>(),
+                ),
+              if ((stageData['isOther'] == true))
+                TextField(
+                  onChanged: (text) {
+                    setState(() {
+                      (answers[stageData['iD']] != null)
+                          ? answers[stageData['iD']]?.other = text
+                          : answers[stageData['iD']] =
+                              PollAnswersClient(other: text);
+                    });
+                  },
+                  maxLines: null,
                 ),
               Spacer(),
               Row(
