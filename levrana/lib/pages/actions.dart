@@ -82,8 +82,6 @@ class _PollState extends State<Poll> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
-
           if (result.hasException) {
             return Text(result.exception.toString());
           }
@@ -94,10 +92,19 @@ class _PollState extends State<Poll> {
             );
           }
 
+          print(result.data!['getPoll'][stage]);
+
           return Column(
             children: [
               Text(result.data!['getPoll'].length.toString()),
               Text(result.data!['getPoll'][stage]['name']),
+              if (result.data!['getPoll'][stage]['isScale'] == true)
+                Slider(
+                  onChanged: (v) {},
+                  value: 1,
+                  min: result.data!['getPoll'][stage]['scaleMin'].toDouble(),
+                  max: result.data!['getPoll'][stage]['scaleMax'].toDouble(),
+                ),
               Column(
                 children: result.data!['getPoll'][stage]['pollAnswers']
                     .map((element) {
