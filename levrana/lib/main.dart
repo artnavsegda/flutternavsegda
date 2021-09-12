@@ -65,7 +65,6 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme,
             ),
             appBarTheme: AppBarTheme(
-              backwardsCompatibility: false,
               titleTextStyle:
                   TextStyle(fontSize: 16.0, fontWeight: FontWeight.bold),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 import 'product.dart';
 
@@ -119,8 +120,8 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
-              Text(stageData['name']),
-              Text(stageData['comment']),
+              Text(stageData['name'], style: TextStyle(fontSize: 22.0)),
+              Text(stageData['comment'], style: TextStyle(fontSize: 18.0)),
               if (stageData['isScale'] == true)
                 Slider(
                   divisions: stageData['scaleMax'] - stageData['scaleMin'],
