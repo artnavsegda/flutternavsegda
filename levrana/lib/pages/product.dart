@@ -4,6 +4,7 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'dart:math';
 
 const String getProduct = r'''
@@ -267,6 +268,21 @@ class _ReviewPageState extends State<ReviewPage> {
               children: [
                 Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
                 Text("Ваша оценка", style: TextStyle(fontSize: 16.0)),
+                RatingBar.builder(
+                  initialRating: 3,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder: (context, _) => Icon(
+                    Icons.star,
+                    color: Colors.amber,
+                  ),
+                  onRatingUpdate: (rating) {
+                    print(rating);
+                  },
+                ),
                 Text("*****"),
                 TextField(
                   decoration: const InputDecoration(
