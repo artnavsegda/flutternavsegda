@@ -248,6 +248,54 @@ dynamic getPrice(priceList, priceID) {
   return priceMap[priceID];
 }
 
+class ReviewPage extends StatefulWidget {
+  const ReviewPage({Key? key}) : super(key: key);
+
+  @override
+  _ReviewPageState createState() => _ReviewPageState();
+}
+
+class _ReviewPageState extends State<ReviewPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Wrap(
+          children: [
+            TextField(
+              //controller: myController,
+              keyboardType: TextInputType.multiline,
+              maxLines: null,
+            ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(addReviewProduct),
+                  onError: (error) {
+                    print(error);
+                  },
+                  onCompleted: (dynamic resultData) async {
+                    print(resultData);
+                    //refetch!();
+                  },
+                ),
+                builder: (
+                  RunMutation runMutation,
+                  QueryResult? result,
+                ) {
+                  return TextButton(
+                      onPressed: () {
+                        runMutation({
+                          //'productID': widget.id,
+                          //'text': myController.text,
+                        });
+                      },
+                      child: Text("Отозватся"));
+                })
+          ],
+        ));
+  }
+}
+
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
   final myController = TextEditingController();
@@ -507,38 +555,27 @@ class _ProductPageState extends State<ProductPage> {
                                         fontWeight: FontWeight.w700)),
                                 collapsed: SizedBox.shrink(),
                                 expanded: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
+                                    OutlinedButton(
+                                        child: Text("НАПИСАТЬ ОТЗЫВ"),
+                                        onPressed: () {
+                                          showModalBottomSheet(
+                                            context: context,
+                                            isScrollControlled: true,
+                                            shape: RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top:
+                                                          const Radius.circular(
+                                                              16.0)),
+                                            ),
+                                            builder: (context) {
+                                              return ReviewPage();
+                                            },
+                                          );
+                                        }),
                                     Text("1234234234"),
-                                    TextField(
-                                      controller: myController,
-                                      keyboardType: TextInputType.multiline,
-                                      maxLines: null,
-                                    ),
-                                    Mutation(
-                                        options: MutationOptions(
-                                          document: gql(addReviewProduct),
-                                          onError: (error) {
-                                            print(error);
-                                          },
-                                          onCompleted:
-                                              (dynamic resultData) async {
-                                            print(resultData);
-                                            refetch!();
-                                          },
-                                        ),
-                                        builder: (
-                                          RunMutation runMutation,
-                                          QueryResult? result,
-                                        ) {
-                                          return TextButton(
-                                              onPressed: () {
-                                                runMutation({
-                                                  'productID': widget.id,
-                                                  'text': myController.text,
-                                                });
-                                              },
-                                              child: Text("Отозватся"));
-                                        })
                                   ],
                                 ),
                               ),
