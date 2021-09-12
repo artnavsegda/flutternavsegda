@@ -138,78 +138,69 @@ class _PollState extends State<Poll> {
               else if (stageData['isMultiple'] == true)
                 Column(
                   children: stageData['pollAnswers']
-                      .map((element) {
-                        return Row(
-                          children: [
-                            Checkbox(
-                                value: answers[stageData['iD']]
+                      .map((element) => CheckboxListTile(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: Text(element['name']),
+                          value: answers[stageData['iD']]
+                                  ?.pollAnswers
+                                  .contains(element['iD']) ??
+                              false,
+                          onChanged: (value) {
+                            print(element['iD']);
+                            setState(() {
+                              if (value != true)
+                                answers[stageData['iD']]
+                                    ?.pollAnswers
+                                    .remove(element['iD']);
+                              else
+                                (answers[stageData['iD']] != null)
+                                    ? answers[stageData['iD']]
                                         ?.pollAnswers
-                                        .contains(element['iD']) ??
-                                    false,
-                                onChanged: (value) {
-                                  print(element['iD']);
-                                  setState(() {
-                                    if (value != true)
-                                      answers[stageData['iD']]
-                                          ?.pollAnswers
-                                          .remove(element['iD']);
-                                    else
-                                      (answers[stageData['iD']] != null)
-                                          ? answers[stageData['iD']]
-                                              ?.pollAnswers
-                                              .add(element['iD'])
-                                          : answers[stageData['iD']] =
-                                              PollAnswersClient(
-                                                  pollID: stageData['iD'],
-                                                  pollAnswers: {element['iD']});
-                                  });
-                                }),
-                            Text(element['name']),
-                          ],
-                        );
-                      })
+                                        .add(element['iD'])
+                                    : answers[stageData['iD']] =
+                                        PollAnswersClient(
+                                            pollID: stageData['iD'],
+                                            pollAnswers: {element['iD']});
+                            });
+                          }))
                       .toList()
                       .cast<Widget>(),
                 )
               else
                 Column(
                   children: stageData['pollAnswers']
-                      .map((element) {
-                        return Row(
-                          children: [
-                            Radio<bool?>(
-                              value: answers[stageData['iD']]
-                                  ?.pollAnswers
-                                  .contains(element['iD']),
-                              onChanged: (v) {
-                                print(answers);
-                                setState(() {
-                                  print(element['iD']);
+                      .map((element) => RadioListTile<bool?>(
+                            title: Text(element['name']),
+                            value: answers[stageData['iD']]
+                                ?.pollAnswers
+                                .contains(element['iD']),
+                            onChanged: (v) {
+                              print(answers);
+                              setState(() {
+                                print(element['iD']);
 
-                                  (answers[stageData['iD']] != null)
-                                      ? answers[stageData['iD']]?.pollAnswers =
-                                          {element['iD']}
-                                      : answers[stageData['iD']] =
-                                          PollAnswersClient(
-                                              pollID: stageData['iD'],
-                                              pollAnswers: {element['iD']});
+                                (answers[stageData['iD']] != null)
+                                    ? answers[stageData['iD']]?.pollAnswers = {
+                                        element['iD']
+                                      }
+                                    : answers[stageData['iD']] =
+                                        PollAnswersClient(
+                                            pollID: stageData['iD'],
+                                            pollAnswers: {element['iD']});
 
-                                  answers[stageData['iD']] = PollAnswersClient(
-                                      pollID: stageData['iD'],
-                                      pollAnswers: {element['iD']});
-                                });
-                              },
-                              groupValue: true,
-                            ),
-                            Text(element['name']),
-                          ],
-                        );
-                      })
+                                answers[stageData['iD']] = PollAnswersClient(
+                                    pollID: stageData['iD'],
+                                    pollAnswers: {element['iD']});
+                              });
+                            },
+                            groupValue: true,
+                          ))
                       .toList()
                       .cast<Widget>(),
                 ),
               if ((stageData['isOther'] == true))
                 TextField(
+                  decoration: const InputDecoration(hintText: 'Ваш вариант'),
                   onChanged: (text) {
                     setState(() {
                       (answers[stageData['iD']] != null)
@@ -234,11 +225,17 @@ class _PollState extends State<Poll> {
                   Spacer(),
                   (stage < result.data!['getPoll'].length - 1)
                       ? TextButton(
-                          onPressed: () {
-                            setState(() {
-                              stage++;
-                            });
-                          },
+                          onPressed: (stageData['isSkip'] == true ||
+                                  (answers[stageData['iD']]
+                                          ?.pollAnswers
+                                          .isNotEmpty ??
+                                      false))
+                              ? () {
+                                  setState(() {
+                                    stage++;
+                                  });
+                                }
+                              : null,
                           child: Text("ДАЛЕЕ"))
                       : Mutation(
                           options: MutationOptions(
