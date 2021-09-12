@@ -61,8 +61,9 @@ mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
 ''';
 
 class PollAnswersClient {
-  int scale = 0;
-  var pollAnswers = <int>[];
+  PollAnswersClient({this.scale = 0, this.pollAnswers = const <int>{}});
+  int scale;
+  var pollAnswers = <int>{};
 }
 
 class Poll extends StatefulWidget {
@@ -99,27 +100,50 @@ class _PollState extends State<Poll> {
             );
           }
 
-          print(result.data!['getPoll'][stage]);
+          var stageData = result.data!['getPoll'][stage];
+
+          print(stageData);
 
           return Column(
             children: [
-              Text(result.data!['getPoll'][stage]['iD'].toString()),
-              Text(result.data!['getPoll'][stage]['name']),
-              Text(result.data!['getPoll'][stage]['comment']),
-              if (result.data!['getPoll'][stage]['isScale'] == true)
+              Text(stageData['iD'].toString()),
+              Text(stageData['name']),
+              Text(stageData['comment']),
+              if (stageData['isScale'] == true)
                 Slider(
                   onChanged: (v) {},
                   value: 1,
-                  min: result.data!['getPoll'][stage]['scaleMin'].toDouble(),
-                  max: result.data!['getPoll'][stage]['scaleMax'].toDouble(),
+                  min: stageData['scaleMin'].toDouble(),
+                  max: stageData['scaleMax'].toDouble(),
                 )
-              else if (result.data!['getPoll'][stage]['isMultiple'] == true)
+              else if (stageData['isMultiple'] == true)
                 Column(
-                  children: result.data!['getPoll'][stage]['pollAnswers']
+                  children: stageData['pollAnswers']
                       .map((element) {
                         return Row(
                           children: [
-                            Checkbox(value: false, onChanged: (v) {}),
+                            Checkbox(
+                                value: answers[stageData['iD']]
+                                        ?.pollAnswers
+                                        .contains(element['iD']) ??
+                                    false,
+                                onChanged: (value) {
+                                  print(element['iD']);
+                                  setState(() {
+                                    if (value != true)
+                                      answers[stageData['iD']]
+                                          ?.pollAnswers
+                                          .remove(element['iD']);
+                                    else
+                                      (answers[stageData['iD']] != null)
+                                          ? answers[stageData['iD']]
+                                              ?.pollAnswers
+                                              .add(element['iD'])
+                                          : answers[stageData['iD']] =
+                                              PollAnswersClient(
+                                                  pollAnswers: {element['iD']});
+                                  });
+                                }),
                             Text(element['name']),
                           ],
                         );
@@ -129,13 +153,22 @@ class _PollState extends State<Poll> {
                 )
               else
                 Column(
-                  children: result.data!['getPoll'][stage]['pollAnswers']
+                  children: stageData['pollAnswers']
                       .map((element) {
                         return Row(
                           children: [
-                            Radio(
-                              value: false,
-                              onChanged: (v) {},
+                            Radio<bool?>(
+                              value: answers[stageData['iD']]
+                                  ?.pollAnswers
+                                  .contains(element['iD']),
+                              onChanged: (v) {
+                                print(answers);
+                                setState(() {
+                                  print(element['iD']);
+                                  answers[stageData['iD']] = PollAnswersClient(
+                                      pollAnswers: {element['iD']});
+                                });
+                              },
                               groupValue: true,
                             ),
                             Text(element['name']),
