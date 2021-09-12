@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
+import 'package:intl/date_symbol_data_local.dart';
 
 import 'product.dart';
 
@@ -294,6 +294,8 @@ class ActionPage extends StatelessWidget {
             );
           }
 
+          initializeDateFormatting();
+
           var dateStart = DateTime.fromMillisecondsSinceEpoch(
               result.data!['getAction']['dateStart'] ?? 0);
           var dateFinish = DateTime.fromMillisecondsSinceEpoch(
@@ -307,44 +309,64 @@ class ActionPage extends StatelessWidget {
                 : ListView(
                     children: [
                       Image.network(result.data!['getAction']['picture']),
-                      if (result.data!['getAction']['dateStart'] != null)
-                        Text("C ${DateFormat.yMMMd().format(dateStart)}")
-                      else if (result.data!['getAction']['dateFinish'] != null)
-                        Text("По ${DateFormat.yMMMd().format(dateFinish)}")
-                      else if (result.data!['getAction']['dateStart'] != null &&
-                          result.data!['getAction']['dateFinish'] != null)
-                        Text(
-                            "C ${DateFormat.yMMMd().format(dateStart)} по ${DateFormat.yMMMd().format(dateFinish)}"),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: MarkdownBody(
-                          data: result.data!['getAction']['description'] ?? "",
-                          onTapLink: (text, url, title) {
-                            launch(url!);
-                            print(url);
-                          },
-                        ),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (result.data!['getAction']['dateStart'] !=
+                                  null)
+                                Text(
+                                    "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
+                                    style: TextStyle(fontSize: 20.0))
+                              else if (result.data!['getAction']
+                                      ['dateFinish'] !=
+                                  null)
+                                Text(
+                                    "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
+                                    style: TextStyle(fontSize: 20.0))
+                              else if (result.data!['getAction']['dateStart'] !=
+                                      null &&
+                                  result.data!['getAction']['dateFinish'] !=
+                                      null)
+                                Text(
+                                    "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
+                                    style: TextStyle(fontSize: 20.0)),
+                              SizedBox(height: 16),
+                              MarkdownBody(
+                                data: result.data!['getAction']
+                                        ['description'] ??
+                                    "",
+                                onTapLink: (text, url, title) {
+                                  launch(url!);
+                                  print(url);
+                                },
+                              ),
+                              SizedBox(height: 16),
+                              Wrap(
+                                  spacing: 16,
+                                  runSpacing: 16,
+                                  children:
+                                      result.data!['getAction']['products']
+                                          .map(
+                                            (product) => FractionallySizedBox(
+                                              widthFactor: 0.47,
+                                              child: ProductCard(
+                                                  product: product,
+                                                  onTap: () => Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ProductPage(
+                                                                    id: product[
+                                                                        'iD'])),
+                                                      )),
+                                            ),
+                                          )
+                                          .toList()
+                                          .cast<Widget>()),
+                            ]),
                       ),
-                      Wrap(
-                          spacing: 16,
-                          runSpacing: 16,
-                          children: result.data!['getAction']['products']
-                              .map(
-                                (product) => FractionallySizedBox(
-                                  widthFactor: 0.45,
-                                  child: ProductCard(
-                                      product: product,
-                                      onTap: () => Navigator.push(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (context) =>
-                                                    ProductPage(
-                                                        id: product['iD'])),
-                                          )),
-                                ),
-                              )
-                              .toList()
-                              .cast<Widget>()),
                     ],
                   ),
           );
