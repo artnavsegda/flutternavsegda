@@ -132,10 +132,12 @@ class TextCharacteristic extends StatelessWidget {
   Widget build(BuildContext context) {
     if (element['type'] == 'TEXT')
       return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(element['name']),
-        Text(element['values']
-            .map((element) => element['value'])
-            .reduce((value, element) => value + ',' + element))
+        Expanded(child: Text(element['name'])),
+        Expanded(
+          child: Text(element['values']
+              .map((element) => element['value'])
+              .reduce((value, element) => value + ',' + element)),
+        )
       ]);
     else
       return Container();
