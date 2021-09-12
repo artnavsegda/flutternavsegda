@@ -6,19 +6,19 @@ PODS:
     - Flutter
   - device_info_plus (0.0.1):
     - Flutter
-  - Firebase/CoreOnly (8.3.0):
-    - FirebaseCore (= 8.3.0)
-  - Firebase/Messaging (8.3.0):
+  - Firebase/CoreOnly (8.0.0):
+    - FirebaseCore (= 8.0.0)
+  - Firebase/Messaging (8.0.0):
     - Firebase/CoreOnly
-    - FirebaseMessaging (~> 8.3.0)
-  - firebase_core (1.4.0):
-    - Firebase/CoreOnly (= 8.3.0)
+    - FirebaseMessaging (~> 8.0.0)
+  - firebase_core (1.3.0):
+    - Firebase/CoreOnly (= 8.0.0)
     - Flutter
-  - firebase_messaging (10.0.4):
-    - Firebase/Messaging (= 8.3.0)
+  - firebase_messaging (10.0.2):
+    - Firebase/Messaging (= 8.0.0)
     - firebase_core
     - Flutter
-  - FirebaseCore (8.3.0):
+  - FirebaseCore (8.0.0):
     - FirebaseCoreDiagnostics (~> 8.0)
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/Logger (~> 7.4)
@@ -32,7 +32,7 @@ PODS:
     - GoogleUtilities/Environment (~> 7.4)
     - GoogleUtilities/UserDefaults (~> 7.4)
     - PromisesObjC (< 3.0, >= 1.2)
-  - FirebaseMessaging (8.3.0):
+  - FirebaseMessaging (8.0.0):
     - FirebaseCore (~> 8.0)
     - FirebaseInstallations (~> 8.0)
     - GoogleUtilities/AppDelegateSwizzler (~> 7.4)
@@ -154,14 +154,14 @@ SPEC CHECKSUMS:
   connectivity_plus: 5f0eb61093bec56935f21a1699dd2758bc895587
   contacts_service: 849e1f84281804c8bfbec1b4c3eedcb23c5d3eca
   device_info_plus: e5c5da33f982a436e103237c0c85f9031142abed
-  Firebase: 817b9171d0d51dccc458b94a5e8edff6b1dd323d
-  firebase_core: 72374607c8c6f5a0adc0559e5c5bf57deda975e3
-  firebase_messaging: 55c5b8184efd330b9d1f1765b55c4ae57e015c5e
-  FirebaseCore: a6dba751680d7033b9d3831e1cfc95ead0605118
+  Firebase: 73c3e3b216ec1ecbc54d2ffdd4670c65c749edb1
+  firebase_core: cda81ae37eda6df2bc2d16027fda527987c4bd33
+  firebase_messaging: bdc64f21cd3e9e174164b1417530c723fd128958
+  FirebaseCore: 3f09591d51292843e2a46f18358d60bf4e996255
   FirebaseCoreDiagnostics: b63732f581a1c6a453ec7241f9ab60b3a5bd3450
   FirebaseInstallations: ede6fb72bb6337914e5888b399271259d0c4910c
-  FirebaseMessaging: 42252b79b860482021483748669ec32e22196462
-  Flutter: 434fef37c0980e73bb6479ef766c45957d4b510c
+  FirebaseMessaging: 1a33b4af3c8042ed6ddacb6c031894af2064bfab
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
   GoogleDataTransport: 85fd18ff3019bb85d3f2c551d04c481dedf71fc9
   GoogleUtilities: 8de2a97a17e15b6b98e38e8770e2d129a57c0040
   image_picker: e06f7a68f000bd36f552c1847e33cda96ed31f1f
@@ -180,4 +180,4 @@ SPEC CHECKSUMS:
 
 PODFILE CHECKSUM: e6da753226ff077af9e2b9b62ee45c488a5c3dd3
 
-COCOAPODS: 1.10.2
+COCOAPODS: 1.11.0
