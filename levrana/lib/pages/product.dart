@@ -268,22 +268,21 @@ class _ReviewPageState extends State<ReviewPage> {
               children: [
                 Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
                 Text("Ваша оценка", style: TextStyle(fontSize: 16.0)),
-                RatingBar.builder(
+                RatingBar(
                   initialRating: 3,
-                  minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  itemBuilder: (context, _) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
+                  ratingWidget: RatingWidget(
+                    full: Image.asset('assets/star.png'),
+                    half: Image.asset('assets/star_half.png'),
+                    empty: Image.asset('assets/star_border.png'),
                   ),
+                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
                   onRatingUpdate: (rating) {
                     print(rating);
                   },
                 ),
-                Text("*****"),
                 TextField(
                   decoration: const InputDecoration(
                       border: UnderlineInputBorder(), labelText: 'Отзыв'),
