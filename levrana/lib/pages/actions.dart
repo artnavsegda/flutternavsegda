@@ -226,11 +226,24 @@ class _PollState extends State<Poll> {
                             });
                           },
                           child: Text("ДАЛЕЕ"))
-                      : TextButton(
-                          onPressed: () {
-                            print("Finish");
-                          },
-                          child: Text("ЗАКОНЧИТЬ")),
+                      : Mutation(
+                          options: MutationOptions(
+                            document: gql(setPollResult),
+                            onCompleted: (dynamic resultData) {
+                              print(resultData);
+                            },
+                          ),
+                          builder: (runMutation, result) {
+                            return TextButton(
+                                onPressed: () {
+                                  print("Finish");
+                                  runMutation({
+                                    'actionID': widget.actionID,
+                                    'answers': answers
+                                  });
+                                },
+                                child: Text("ЗАКОНЧИТЬ"));
+                          }),
                 ],
               )
             ],
