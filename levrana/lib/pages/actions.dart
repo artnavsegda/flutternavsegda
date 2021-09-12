@@ -111,8 +111,16 @@ class _PollState extends State<Poll> {
               Text(stageData['comment']),
               if (stageData['isScale'] == true)
                 Slider(
-                  onChanged: (v) {},
-                  value: 1,
+                  divisions: stageData['scaleMax'] - stageData['scaleMin'],
+                  onChanged: (value) {
+                    print(value);
+                    setState(() {
+                      answers[stageData['iD']] =
+                          PollAnswersClient(scale: value.round());
+                    });
+                  },
+                  value: answers[stageData['iD']]?.scale.toDouble() ??
+                      stageData['scaleMin'].toDouble(),
                   min: stageData['scaleMin'].toDouble(),
                   max: stageData['scaleMax'].toDouble(),
                 )
