@@ -108,7 +108,6 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
-              Text(stageData['iD'].toString()),
               Text(stageData['name']),
               Text(stageData['comment']),
               if (stageData['isScale'] == true)
@@ -219,19 +218,19 @@ class _PollState extends State<Poll> {
                         },
                         child: Text("НАЗАД")),
                   Spacer(),
-                  TextButton(
-                      onPressed: () {
-                        if (stage < result.data!['getPoll'].length - 1)
-                          setState(() {
-                            stage++;
-                          });
-                        else {
-                          print("Finish");
-                        }
-                      },
-                      child: Text((stage < result.data!['getPoll'].length - 1)
-                          ? "ДАЛЕЕ"
-                          : "ЗАКОНЧИТЬ")),
+                  (stage < result.data!['getPoll'].length - 1)
+                      ? TextButton(
+                          onPressed: () {
+                            setState(() {
+                              stage++;
+                            });
+                          },
+                          child: Text("ДАЛЕЕ"))
+                      : TextButton(
+                          onPressed: () {
+                            print("Finish");
+                          },
+                          child: Text("ЗАКОНЧИТЬ")),
                 ],
               )
             ],
