@@ -96,7 +96,6 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
-              Text(result.data!['getPoll'].length.toString()),
               Text(result.data!['getPoll'][stage]['name']),
               if (result.data!['getPoll'][stage]['isScale'] == true)
                 Slider(
@@ -104,32 +103,47 @@ class _PollState extends State<Poll> {
                   value: 1,
                   min: result.data!['getPoll'][stage]['scaleMin'].toDouble(),
                   max: result.data!['getPoll'][stage]['scaleMax'].toDouble(),
+                )
+              else
+                Column(
+                  children: result.data!['getPoll'][stage]['pollAnswers']
+                      .map((element) {
+                        return Row(
+                          children: [
+                            Radio(
+                              value: false,
+                              onChanged: (v) {},
+                              groupValue: true,
+                            ),
+                            Text(element['name']),
+                          ],
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
                 ),
-              Column(
-                children: result.data!['getPoll'][stage]['pollAnswers']
-                    .map((element) {
-                      return Row(
-                        children: [
-                          Radio(
-                            value: false,
-                            onChanged: (v) {},
-                            groupValue: true,
-                          ),
-                          Text(element['name']),
-                        ],
-                      );
-                    })
-                    .toList()
-                    .cast<Widget>(),
-              ),
-              ElevatedButton(
-                  onPressed: () {
-                    if (stage < result.data!['getPoll'].length - 1)
-                      setState(() {
-                        stage++;
-                      });
-                  },
-                  child: Text("Далее"))
+              Spacer(),
+              Row(
+                children: [
+                  if (stage != 0)
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            stage--;
+                          });
+                        },
+                        child: Text("НАЗАД")),
+                  Spacer(),
+                  TextButton(
+                      onPressed: () {
+                        if (stage < result.data!['getPoll'].length - 1)
+                          setState(() {
+                            stage++;
+                          });
+                      },
+                      child: Text("ДАЛЕЕ")),
+                ],
+              )
             ],
           );
         });
@@ -168,48 +182,47 @@ class ActionPage extends StatelessWidget {
 
           return Scaffold(
             appBar:
-                AppBar(title: Text(result.data!['getAction']['type'] ?? "")),
-            body: ListView(
-              children: [
-                Text(result.data!['getAction']['iD'].toString()),
-                //Text(result.data!['getAction']['type']),
-                Image.network(result.data!['getAction']['picture']),
-                if (dateStart != null && dateFinish != null)
-                  Text(
-                      "C ${DateFormat.yMMMd().format(dateStart)} по ${DateFormat.yMMMd().format(dateFinish)}"),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: MarkdownBody(
-                    data: result.data!['getAction']['description'] ?? "",
-                    onTapLink: (text, url, title) {
-                      launch(url!);
-                      print(url);
-                    },
+                AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
+            body: result.data!['getAction']['type'] == 'POLL'
+                ? Poll(actionID: actionID)
+                : ListView(
+                    children: [
+                      Image.network(result.data!['getAction']['picture']),
+                      if (dateStart != null && dateFinish != null)
+                        Text(
+                            "C ${DateFormat.yMMMd().format(dateStart)} по ${DateFormat.yMMMd().format(dateFinish)}"),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: MarkdownBody(
+                          data: result.data!['getAction']['description'] ?? "",
+                          onTapLink: (text, url, title) {
+                            launch(url!);
+                            print(url);
+                          },
+                        ),
+                      ),
+                      Wrap(
+                          spacing: 16,
+                          runSpacing: 16,
+                          children: result.data!['getAction']['products']
+                              .map(
+                                (product) => FractionallySizedBox(
+                                  widthFactor: 0.45,
+                                  child: ProductCard(
+                                      product: product,
+                                      onTap: () => Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductPage(
+                                                        id: product['iD'])),
+                                          )),
+                                ),
+                              )
+                              .toList()
+                              .cast<Widget>()),
+                    ],
                   ),
-                ),
-                Wrap(
-                    spacing: 16,
-                    runSpacing: 16,
-                    children: result.data!['getAction']['products']
-                        .map(
-                          (product) => FractionallySizedBox(
-                            widthFactor: 0.45,
-                            child: ProductCard(
-                                product: product,
-                                onTap: () => Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductPage(id: product['iD'])),
-                                    )),
-                          ),
-                        )
-                        .toList()
-                        .cast<Widget>()),
-                if (result.data!['getAction']['type'] == 'POLL')
-                  Poll(actionID: actionID)
-              ],
-            ),
           );
         });
   }
