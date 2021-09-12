@@ -262,10 +262,20 @@ class _ReviewPageState extends State<ReviewPage> {
         padding: MediaQuery.of(context).viewInsets,
         child: Wrap(
           children: [
-            TextField(
-              //controller: myController,
-              keyboardType: TextInputType.multiline,
-              maxLines: null,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
+                Text("Ваша оценка", style: TextStyle(fontSize: 16.0)),
+                Text("*****"),
+                TextField(
+                  decoration: const InputDecoration(
+                      border: UnderlineInputBorder(), labelText: 'Отзыв'),
+                  //controller: myController,
+                  keyboardType: TextInputType.multiline,
+                  maxLines: null,
+                ),
+              ],
             ),
             Mutation(
                 options: MutationOptions(
@@ -282,15 +292,16 @@ class _ReviewPageState extends State<ReviewPage> {
                   RunMutation runMutation,
                   QueryResult? result,
                 ) {
-                  return TextButton(
+                  return ElevatedButton(
                       onPressed: () {
                         runMutation({
                           //'productID': widget.id,
                           //'text': myController.text,
                         });
                       },
-                      child: Text("Отозватся"));
-                })
+                      child: Text("ОТПРАВИТЬ"));
+                }),
+            OutlinedButton(onPressed: () {}, child: Text("ОТМЕНА"))
           ],
         ));
   }
