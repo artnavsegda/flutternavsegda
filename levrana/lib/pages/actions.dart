@@ -118,10 +118,14 @@ class _PollState extends State<Poll> {
 
           print(stageData);
 
+          var isActive = ((stageData['isSkip'] == true) ||
+              (answers[stageData['iD']]?.pollAnswers.isNotEmpty ?? false) ||
+              ((answers[stageData['iD']]?.scale ?? 0) != 0));
+
           return Column(
             children: [
               Text(stageData['name'], style: TextStyle(fontSize: 22.0)),
-              Text(stageData['comment'], style: TextStyle(fontSize: 18.0)),
+              Text(stageData['comment'], style: TextStyle(fontSize: 20.0)),
               if (stageData['isScale'] == true)
                 Slider(
                   divisions: stageData['scaleMax'] - stageData['scaleMin'],
@@ -226,11 +230,7 @@ class _PollState extends State<Poll> {
                   Spacer(),
                   (stage < result.data!['getPoll'].length - 1)
                       ? TextButton(
-                          onPressed: (stageData['isSkip'] == true ||
-                                  (answers[stageData['iD']]
-                                          ?.pollAnswers
-                                          .isNotEmpty ??
-                                      false))
+                          onPressed: isActive
                               ? () {
                                   setState(() {
                                     stage++;
@@ -249,14 +249,16 @@ class _PollState extends State<Poll> {
                           builder: (runMutation, result) {
                             print(result);
                             return TextButton(
-                                onPressed: () {
-                                  print("Finish");
-                                  print(widget.actionID);
-                                  runMutation({
-                                    'actionID': widget.actionID,
-                                    'answers': answers.values.toList()
-                                  });
-                                },
+                                onPressed: isActive
+                                    ? () {
+                                        print("Finish");
+                                        print(widget.actionID);
+                                        runMutation({
+                                          'actionID': widget.actionID,
+                                          'answers': answers.values.toList()
+                                        });
+                                      }
+                                    : null,
                                 child: Text("ЗАКОНЧИТЬ"));
                           }),
                 ],
