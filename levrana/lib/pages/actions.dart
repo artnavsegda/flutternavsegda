@@ -307,7 +307,12 @@ class ActionPage extends StatelessWidget {
                 : ListView(
                     children: [
                       Image.network(result.data!['getAction']['picture']),
-                      if (dateStart != null && dateFinish != null)
+                      if (result.data!['getAction']['dateStart'] != null)
+                        Text("C ${DateFormat.yMMMd().format(dateStart)}")
+                      else if (result.data!['getAction']['dateFinish'] != null)
+                        Text("По ${DateFormat.yMMMd().format(dateFinish)}")
+                      else if (result.data!['getAction']['dateStart'] != null &&
+                          result.data!['getAction']['dateFinish'] != null)
                         Text(
                             "C ${DateFormat.yMMMd().format(dateStart)} по ${DateFormat.yMMMd().format(dateFinish)}"),
                       Padding(
