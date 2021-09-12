@@ -197,9 +197,9 @@ class HomePage extends StatelessWidget {
                           itemCount: result.data!['getActions'].length,
                           itemBuilder: (context, index) {
                             return InkWell(
-                              onTap: () {
+                              onTap: () async {
                                 print(result.data!['getActions'][index]['iD']);
-                                Navigator.push(
+                                await Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                       builder: (context) => ActionPage(
@@ -207,6 +207,7 @@ class HomePage extends StatelessWidget {
                                                 [index]['iD'],
                                           )),
                                 );
+                                refetch!();
                               },
                               child: Container(
                                 padding: const EdgeInsets.only(right: 16.0),

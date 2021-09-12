@@ -65,14 +65,14 @@ class PollAnswersClient {
       {this.scale = 0,
       this.pollAnswers = const <int>{},
       this.other = "",
-      required this.poolID});
+      required this.pollID});
   int scale;
   var pollAnswers;
   String other;
-  int poolID;
+  int pollID;
 
   Map<String, dynamic> toJson() => {
-        'poolID': poolID,
+        'pollID': pollID,
         'pollAnswers': pollAnswers.toList(),
         'other': other,
         'scale': scale,
@@ -127,7 +127,7 @@ class _PollState extends State<Poll> {
                   onChanged: (value) {
                     setState(() {
                       answers[stageData['iD']] = PollAnswersClient(
-                          poolID: stageData['iD'], scale: value.round());
+                          pollID: stageData['iD'], scale: value.round());
                     });
                   },
                   value: answers[stageData['iD']]?.scale.toDouble() ??
@@ -160,7 +160,7 @@ class _PollState extends State<Poll> {
                                               .add(element['iD'])
                                           : answers[stageData['iD']] =
                                               PollAnswersClient(
-                                                  poolID: stageData['iD'],
+                                                  pollID: stageData['iD'],
                                                   pollAnswers: {element['iD']});
                                   });
                                 }),
@@ -191,11 +191,11 @@ class _PollState extends State<Poll> {
                                           {element['iD']}
                                       : answers[stageData['iD']] =
                                           PollAnswersClient(
-                                              poolID: stageData['iD'],
+                                              pollID: stageData['iD'],
                                               pollAnswers: {element['iD']});
 
                                   answers[stageData['iD']] = PollAnswersClient(
-                                      poolID: stageData['iD'],
+                                      pollID: stageData['iD'],
                                       pollAnswers: {element['iD']});
                                 });
                               },
@@ -215,7 +215,7 @@ class _PollState extends State<Poll> {
                       (answers[stageData['iD']] != null)
                           ? answers[stageData['iD']]?.other = text
                           : answers[stageData['iD']] = PollAnswersClient(
-                              poolID: stageData['iD'], other: text);
+                              pollID: stageData['iD'], other: text);
                     });
                   },
                   maxLines: null,
@@ -245,6 +245,7 @@ class _PollState extends State<Poll> {
                             document: gql(setPollResult),
                             onCompleted: (dynamic resultData) {
                               print(resultData);
+                              Navigator.pop(context);
                             },
                           ),
                           builder: (runMutation, result) {
