@@ -60,6 +60,11 @@ mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
 }
 ''';
 
+class PollAnswersClient {
+  int scale = 0;
+  var pollAnswers = <int>[];
+}
+
 class Poll extends StatefulWidget {
   const Poll({Key? key, required this.actionID}) : super(key: key);
 
@@ -71,6 +76,8 @@ class Poll extends StatefulWidget {
 
 class _PollState extends State<Poll> {
   int stage = 0;
+
+  var answers = Map<int, PollAnswersClient>();
 
   @override
   Widget build(BuildContext context) {
