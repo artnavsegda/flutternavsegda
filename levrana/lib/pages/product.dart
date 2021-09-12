@@ -68,16 +68,20 @@ query getProduct($productID: Int!) {
       caption
     }
     reviews {
+      clientName
+      self
+      date
       text
+      mark
     }
   }
 }
 ''';
 
 const String addReviewProduct = r'''
-mutation addReviewProduct($productID: Int, $text: String)
+mutation addReviewProduct($productID: Int, $mark: Int, $text: String)
 {
-  addReviewProduct(productID: $productID, mark: 3, text: $text) {
+  addReviewProduct(productID: $productID, mark: $mark, text: $text) {
     result
     errorMessage
   }
@@ -234,15 +238,6 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
   }
 }
 
-class ProductPage extends StatefulWidget {
-  const ProductPage({Key? key, this.id = 0}) : super(key: key);
-
-  final int id;
-
-  @override
-  _ProductPageState createState() => _ProductPageState();
-}
-
 dynamic getPrice(priceList, priceID) {
   var priceMap = Map.fromIterable(priceList,
       key: (e) => e['characteristicValueID'], value: (e) => e);
@@ -250,81 +245,17 @@ dynamic getPrice(priceList, priceID) {
 }
 
 class ReviewPage extends StatefulWidget {
-  const ReviewPage({Key? key}) : super(key: key);
+  const ReviewPage({Key? key, required this.id}) : super(key: key);
+
+  final int id;
 
   @override
   _ReviewPageState createState() => _ReviewPageState();
 }
 
 class _ReviewPageState extends State<ReviewPage> {
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: Wrap(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
-                Text("Ваша оценка", style: TextStyle(fontSize: 16.0)),
-                RatingBar(
-                  initialRating: 3,
-                  direction: Axis.horizontal,
-                  allowHalfRating: true,
-                  itemCount: 5,
-                  ratingWidget: RatingWidget(
-                    full: Image.asset('assets/star.png'),
-                    half: Image.asset('assets/star_half.png'),
-                    empty: Image.asset('assets/star_border.png'),
-                  ),
-                  itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-                  onRatingUpdate: (rating) {
-                    print(rating);
-                  },
-                ),
-                TextField(
-                  decoration: const InputDecoration(
-                      border: UnderlineInputBorder(), labelText: 'Отзыв'),
-                  //controller: myController,
-                  keyboardType: TextInputType.multiline,
-                  maxLines: null,
-                ),
-              ],
-            ),
-            Mutation(
-                options: MutationOptions(
-                  document: gql(addReviewProduct),
-                  onError: (error) {
-                    print(error);
-                  },
-                  onCompleted: (dynamic resultData) async {
-                    print(resultData);
-                    //refetch!();
-                  },
-                ),
-                builder: (
-                  RunMutation runMutation,
-                  QueryResult? result,
-                ) {
-                  return ElevatedButton(
-                      onPressed: () {
-                        runMutation({
-                          //'productID': widget.id,
-                          //'text': myController.text,
-                        });
-                      },
-                      child: Text("ОТПРАВИТЬ"));
-                }),
-            OutlinedButton(onPressed: () {}, child: Text("ОТМЕНА"))
-          ],
-        ));
-  }
-}
-
-class _ProductPageState extends State<ProductPage> {
-  int picturePage = 0;
   final myController = TextEditingController();
+  int rating = 5;
 
   @override
   void dispose() {
@@ -332,6 +263,110 @@ class _ProductPageState extends State<ProductPage> {
     myController.dispose();
     super.dispose();
   }
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+        padding: MediaQuery.of(context).viewInsets,
+        child: Wrap(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
+                  SizedBox(
+                    height: 24,
+                  ),
+                  Text("Ваша оценка",
+                      style: TextStyle(fontSize: 16.0, color: Colors.grey)),
+                  RatingBar(
+                    itemSize: 27,
+                    initialRating: rating / 2.0,
+                    direction: Axis.horizontal,
+                    allowHalfRating: true,
+                    itemCount: 5,
+                    ratingWidget: RatingWidget(
+                      full: Image.asset('assets/star.png'),
+                      half: Image.asset('assets/star_half.png'),
+                      empty: Image.asset('assets/star_border.png'),
+                    ),
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    onRatingUpdate: (newRating) {
+                      setState(() {
+                        rating = (newRating * 2).round();
+                      });
+                      print(newRating);
+                    },
+                  ),
+                  SizedBox(
+                    height: 18,
+                  ),
+                  TextField(
+                    decoration: const InputDecoration(
+                        border: UnderlineInputBorder(), labelText: 'Отзыв'),
+                    controller: myController,
+                    keyboardType: TextInputType.multiline,
+                    maxLines: null,
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(12.0),
+              child: Row(
+                children: [
+                  Mutation(
+                      options: MutationOptions(
+                        document: gql(addReviewProduct),
+                        onError: (error) {
+                          print(error);
+                        },
+                        onCompleted: (dynamic resultData) async {
+                          print(resultData);
+                          Navigator.pop(context);
+                        },
+                      ),
+                      builder: (
+                        RunMutation runMutation,
+                        QueryResult? result,
+                      ) {
+                        return ElevatedButton(
+                            onPressed: () {
+                              runMutation({
+                                'productID': widget.id,
+                                'text': myController.text,
+                                'mark': rating
+                              });
+                            },
+                            child: Text("ОТПРАВИТЬ"));
+                      }),
+                  SizedBox(width: 16),
+                  OutlinedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("ОТМЕНА")),
+                ],
+              ),
+            )
+          ],
+        ));
+  }
+}
+
+class ProductPage extends StatefulWidget {
+  const ProductPage({Key? key, required this.id}) : super(key: key);
+
+  final int id;
+
+  @override
+  _ProductPageState createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  int picturePage = 0;
 
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
@@ -597,11 +632,17 @@ class _ProductPageState extends State<ProductPage> {
                                                               16.0)),
                                             ),
                                             builder: (context) {
-                                              return ReviewPage();
+                                              return ReviewPage(id: widget.id);
                                             },
                                           );
                                         }),
-                                    Text("1234234234"),
+                                    Column(
+                                        children: result.data!['getProduct']
+                                                ['reviews']
+                                            .map((element) =>
+                                                Text(element['text']))
+                                            .toList()
+                                            .cast<Widget>())
                                   ],
                                 ),
                               ),
