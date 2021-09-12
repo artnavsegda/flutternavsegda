@@ -96,6 +96,7 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
+              Text(result.data!['getPoll'][stage]['iD'].toString()),
               Text(result.data!['getPoll'][stage]['name']),
               Text(result.data!['getPoll'][stage]['comment']),
               if (result.data!['getPoll'][stage]['isScale'] == true)
@@ -199,7 +200,7 @@ class ActionPage extends StatelessWidget {
             appBar:
                 AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
             body: result.data!['getAction']['type'] == 'POLL'
-                ? Poll(actionID: actionID)
+                ? SafeArea(child: Poll(actionID: actionID))
                 : ListView(
                     children: [
                       Image.network(result.data!['getAction']['picture']),
