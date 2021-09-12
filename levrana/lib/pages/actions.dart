@@ -97,12 +97,27 @@ class _PollState extends State<Poll> {
           return Column(
             children: [
               Text(result.data!['getPoll'][stage]['name']),
+              Text(result.data!['getPoll'][stage]['comment']),
               if (result.data!['getPoll'][stage]['isScale'] == true)
                 Slider(
                   onChanged: (v) {},
                   value: 1,
                   min: result.data!['getPoll'][stage]['scaleMin'].toDouble(),
                   max: result.data!['getPoll'][stage]['scaleMax'].toDouble(),
+                )
+              else if (result.data!['getPoll'][stage]['isMultiple'] == true)
+                Column(
+                  children: result.data!['getPoll'][stage]['pollAnswers']
+                      .map((element) {
+                        return Row(
+                          children: [
+                            Checkbox(value: false, onChanged: (v) {}),
+                            Text(element['name']),
+                          ],
+                        );
+                      })
+                      .toList()
+                      .cast<Widget>(),
                 )
               else
                 Column(
