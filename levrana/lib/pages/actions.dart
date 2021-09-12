@@ -62,10 +62,21 @@ mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
 
 class PollAnswersClient {
   PollAnswersClient(
-      {this.scale = 0, this.pollAnswers = const <int>{}, this.other = ""});
+      {this.scale = 0,
+      this.pollAnswers = const <int>{},
+      this.other = "",
+      required this.poolID});
   int scale;
   var pollAnswers;
   String other;
+  int poolID;
+
+  Map<String, dynamic> toJson() => {
+        'poolID': poolID,
+        'pollAnswers': pollAnswers.toList(),
+        'other': other,
+        'scale': scale,
+      };
 }
 
 class Poll extends StatefulWidget {
@@ -115,8 +126,8 @@ class _PollState extends State<Poll> {
                   divisions: stageData['scaleMax'] - stageData['scaleMin'],
                   onChanged: (value) {
                     setState(() {
-                      answers[stageData['iD']] =
-                          PollAnswersClient(scale: value.round());
+                      answers[stageData['iD']] = PollAnswersClient(
+                          poolID: stageData['iD'], scale: value.round());
                     });
                   },
                   value: answers[stageData['iD']]?.scale.toDouble() ??
@@ -149,6 +160,7 @@ class _PollState extends State<Poll> {
                                               .add(element['iD'])
                                           : answers[stageData['iD']] =
                                               PollAnswersClient(
+                                                  poolID: stageData['iD'],
                                                   pollAnswers: {element['iD']});
                                   });
                                 }),
@@ -179,9 +191,11 @@ class _PollState extends State<Poll> {
                                           {element['iD']}
                                       : answers[stageData['iD']] =
                                           PollAnswersClient(
+                                              poolID: stageData['iD'],
                                               pollAnswers: {element['iD']});
 
                                   answers[stageData['iD']] = PollAnswersClient(
+                                      poolID: stageData['iD'],
                                       pollAnswers: {element['iD']});
                                 });
                               },
@@ -200,8 +214,8 @@ class _PollState extends State<Poll> {
                     setState(() {
                       (answers[stageData['iD']] != null)
                           ? answers[stageData['iD']]?.other = text
-                          : answers[stageData['iD']] =
-                              PollAnswersClient(other: text);
+                          : answers[stageData['iD']] = PollAnswersClient(
+                              poolID: stageData['iD'], other: text);
                     });
                   },
                   maxLines: null,
@@ -234,12 +248,13 @@ class _PollState extends State<Poll> {
                             },
                           ),
                           builder: (runMutation, result) {
+                            print(result);
                             return TextButton(
                                 onPressed: () {
                                   print("Finish");
                                   runMutation({
                                     'actionID': widget.actionID,
-                                    'answers': answers
+                                    'answers': answers.values.toList()
                                   });
                                 },
                                 child: Text("ЗАКОНЧИТЬ"));
