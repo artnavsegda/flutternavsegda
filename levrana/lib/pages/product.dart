@@ -146,10 +146,12 @@ class TextCharacteristic extends StatelessWidget {
 }
 
 class CharacteristicsElement extends StatefulWidget {
-  const CharacteristicsElement({Key? key, this.element, this.onSelected})
+  const CharacteristicsElement(
+      {Key? key, this.element, this.onSelected, this.hideOne = false})
       : super(key: key);
 
   final element;
+  final bool hideOne;
   final Function(int)? onSelected;
 
   @override
@@ -161,6 +163,9 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.element['values'].length == 1 && widget.hideOne)
+      return SizedBox.shrink();
+
     switch (widget.element['type']) {
       case 'VOLUME':
       case 'SIZE':
@@ -899,6 +904,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     mainAxisSize: MainAxisSize.min,
                     children: result.data!['getProduct']['characteristics']
                         .map((e) => CharacteristicsElement(
+                              hideOne: true,
                               element: e,
                               onSelected: (index) => selectChar(index, e,
                                   result.data!['getProduct']['prices']),
