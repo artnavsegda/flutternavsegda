@@ -666,7 +666,7 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                 ),
                                 SizedBox(
-                                    height: 50 +
+                                    height: 60 +
                                         MediaQuery.of(context).padding.bottom)
                               ],
                             ),
