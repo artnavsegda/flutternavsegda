@@ -711,6 +711,7 @@ class _ProductPageState extends State<ProductPage> {
                             },
                           ),
                         ),
+                        SizedBox(width: 10),
                         Mutation(
                           options: MutationOptions(
                             document: gql(setFavoritesProduct),
@@ -720,23 +721,32 @@ class _ProductPageState extends State<ProductPage> {
                             },
                           ),
                           builder: (runMutation, mutationResult) {
-                            return ElevatedButton(
-                              onPressed: () {
-                                runMutation({
+                            if (result.data!['getProduct']['isFavorite'])
+                              return ElevatedButton.icon(
+                                onPressed: () => runMutation({
                                   'productID': widget.id,
-                                });
-                              },
-                              child: result.data!['getProduct']['isFavorite']
-                                  ? Icon(Icons.favorite_outlined,
-                                      color: Colors.red)
-                                  : Icon(Icons.favorite_border_outlined),
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: Size(48, 48),
-                                shape: CircleBorder(),
-                              ),
-                            );
+                                }),
+                                label: Text(
+                                    "${result.data!['getProduct']['favorites']}"),
+                                icon: Icon(Icons.favorite_outlined,
+                                    color: Colors.red),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(48, 48),
+                                ),
+                              );
+                            else
+                              return ElevatedButton(
+                                child: Icon(Icons.favorite_border_outlined),
+                                onPressed: () => runMutation({
+                                  'productID': widget.id,
+                                }),
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(48, 48),
+                                  shape: CircleBorder(),
+                                ),
+                              );
                           },
-                        )
+                        ),
                       ],
                     ))
               ]));
