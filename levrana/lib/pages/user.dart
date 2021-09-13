@@ -260,6 +260,7 @@ class UserPage extends StatelessWidget {
                         onTap: () async {
                           final prefs = await SharedPreferences.getInstance();
                           prefs.remove('token');
+                          print("Token removed");
                           client.cache.store.reset(); // empty the hash map
                           //await client.cache.save();
                           Navigator.pushReplacement(

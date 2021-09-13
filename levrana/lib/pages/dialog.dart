@@ -36,6 +36,7 @@ class Welcome extends StatelessWidget {
           onCompleted: (dynamic resultData) async {
             print(resultData);
             final prefs = await SharedPreferences.getInstance();
+            print("authenticate token:" + resultData['authenticate']['token']);
             prefs.setString('token', resultData['authenticate']['token']);
             Navigator.push(
               context,

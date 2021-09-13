@@ -48,6 +48,7 @@ class MyApp extends StatelessWidget {
 
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
+    print("STARTUP TOKEN" + (prefs.getString('token') ?? ""));
     return prefs.getString('token') ?? "";
   }
 

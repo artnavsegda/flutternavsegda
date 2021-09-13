@@ -230,8 +230,6 @@ class _EditUserPageState extends State<EditUserPage> {
                                   builder: (runMutation, result) {
                                     return ElevatedButton(
                                         onPressed: () async {
-                                          print("Magic !");
-
                                           if (_formKey.currentState!
                                               .validate()) {
                                             if (_imageFile != null) {
@@ -243,6 +241,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                               final prefs =
                                                   await SharedPreferences
                                                       .getInstance();
+                                              print("Upload token: " +
+                                                  (prefs.getString('token') ??
+                                                      ""));
                                               request.headers['Authorization'] =
                                                   'Bearer ' +
                                                       (prefs.getString(

@@ -110,6 +110,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
                   print(resultData);
                   if (resultData['loginClient']['result'] == 0) {
                     final prefs = await SharedPreferences.getInstance();
+                    print("loginClient token :" +
+                        resultData['loginClient']['token']);
                     prefs.setString(
                         'token', resultData['loginClient']['token']);
                     Navigator.pop(context);
@@ -257,6 +259,8 @@ class _PasswordPageState extends State<PasswordPage> {
                     if (resultData != null) {
                       if (resultData['checkClient']['result'] == 0) {
                         final prefs = await SharedPreferences.getInstance();
+                        print("checkClient token :" +
+                            resultData['checkClient']['token']);
                         prefs.setString(
                             'token', resultData['checkClient']['token']);
                         Navigator.pushReplacement(
@@ -405,6 +409,8 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                   if (resultData != null) {
                     if (resultData['checkClient']['result'] == 0) {
                       final prefs = await SharedPreferences.getInstance();
+                      print("checkClient token :" +
+                          resultData['checkClient']['token']);
                       prefs.setString(
                           'token', resultData['checkClient']['token']);
                       Navigator.push(
