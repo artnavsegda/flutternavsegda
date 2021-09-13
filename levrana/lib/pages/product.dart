@@ -726,11 +726,10 @@ class _ProductPageState extends State<ProductPage> {
                                   'productID': widget.id,
                                 });
                               },
-                              child: Icon(
-                                result.data!['getProduct']['isFavorite']
-                                    ? Icons.favorite_outlined
-                                    : Icons.favorite_border_outlined,
-                              ),
+                              child: result.data!['getProduct']['isFavorite']
+                                  ? Icon(Icons.favorite_outlined,
+                                      color: Colors.red)
+                                  : Icon(Icons.favorite_border_outlined),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(48, 48),
                                 shape: CircleBorder(),
