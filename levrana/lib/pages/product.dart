@@ -428,6 +428,10 @@ class _ProductPageState extends State<ProductPage> {
             }
           });
 
+          bool isShowChar = result.data!['getProduct']['characteristics']
+                  .indexWhere((element) => element['type'] == "TEXT") !=
+              -1;
+
           return Scaffold(
               appBar: AppBar(
                 iconTheme: IconThemeData(
@@ -557,20 +561,21 @@ class _ProductPageState extends State<ProductPage> {
                               collapseIcon: Icons.chevron_right),
                           child: Column(
                             children: [
-                              ExpandablePanel(
-                                header: Text("Характеристики",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700)),
-                                collapsed: SizedBox.shrink(),
-                                expanded: Column(
-                                    children: result.data!['getProduct']
-                                            ['characteristics']
-                                        .map((e) =>
-                                            TextCharacteristic(element: e))
-                                        .toList()
-                                        .cast<Widget>()),
-                              ),
+                              if (isShowChar)
+                                ExpandablePanel(
+                                  header: Text("Характеристики",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700)),
+                                  collapsed: SizedBox.shrink(),
+                                  expanded: Column(
+                                      children: result.data!['getProduct']
+                                              ['characteristics']
+                                          .map((e) =>
+                                              TextCharacteristic(element: e))
+                                          .toList()
+                                          .cast<Widget>()),
+                                ),
                               ExpandablePanel(
                                 header: Text("Описание",
                                     style: GoogleFonts.montserrat(
