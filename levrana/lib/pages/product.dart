@@ -664,7 +664,9 @@ class _ProductPageState extends State<ProductPage> {
                                     ],
                                   ),
                                 ),
-                                SizedBox(height: 50)
+                                SizedBox(
+                                    height: 50 +
+                                        MediaQuery.of(context).padding.bottom)
                               ],
                             ),
                           ),
@@ -676,7 +678,7 @@ class _ProductPageState extends State<ProductPage> {
                 Positioned(
                     left: 16,
                     right: 16,
-                    bottom: 32,
+                    bottom: MediaQuery.of(context).padding.bottom + 16,
                     child: Row(
                       children: [
                         Expanded(
