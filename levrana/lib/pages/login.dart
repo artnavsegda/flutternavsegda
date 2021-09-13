@@ -252,7 +252,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         final prefs = await SharedPreferences.getInstance();
                         prefs.setString(
                             'token', resultData['checkClient']['token']);
-                        Navigator.push(
+                        Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(builder: (context) => MainPage()),
                         );
