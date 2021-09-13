@@ -442,287 +442,298 @@ class _ProductPageState extends State<ProductPage> {
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
               ),
-              body: ListView(
-                children: [
-                  Container(
-                    height: 340,
-                    child: PageView.builder(
-                        onPageChanged: (pageNum) => setState(() {
-                              picturePage = pageNum;
-                            }),
-                        itemCount:
-                            result.data!['getProduct']['pictures'].length,
-                        itemBuilder: (context, index) {
-                          return Stack(
-                            alignment: Alignment.center,
-                            children: [
-                              Image.network(result.data!['getProduct']
-                                  ['pictures'][index]),
-                              if (result.data!['getProduct']['stickerPictures']
-                                      .length >
-                                  index)
-                                Positioned(
-                                  top: 0,
-                                  right: 0,
-                                  child: Image.network(
-                                      result.data!['getProduct']
-                                          ['stickerPictures'][index]),
-                                )
-                            ],
-                          );
-                        }),
-                  ),
-                  new DotsIndicator(
-                    dotsCount: result.data!['getProduct']['pictures'].length,
-                    position: picturePage.toDouble(),
-                    decorator: DotsDecorator(
-                      color: Colors.lightGreen, // Inactive color
-                      activeColor: Colors.green,
+              body: Stack(children: [
+                ListView(
+                  children: [
+                    Container(
+                      height: 340,
+                      child: PageView.builder(
+                          onPageChanged: (pageNum) => setState(() {
+                                picturePage = pageNum;
+                              }),
+                          itemCount:
+                              result.data!['getProduct']['pictures'].length,
+                          itemBuilder: (context, index) {
+                            return Stack(
+                              alignment: Alignment.center,
+                              children: [
+                                Image.network(result.data!['getProduct']
+                                    ['pictures'][index]),
+                                if (result
+                                        .data!['getProduct']['stickerPictures']
+                                        .length >
+                                    index)
+                                  Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: Image.network(
+                                        result.data!['getProduct']
+                                            ['stickerPictures'][index]),
+                                  )
+                              ],
+                            );
+                          }),
                     ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            productPrice['price'] == null
-                                ? SizedBox.shrink()
-                                : Text(
-                                    productPrice['price']?.toStringAsFixed(0) +
-                                        "₽",
-                                    style:
-                                        GoogleFonts.montserrat(fontSize: 32)),
-                            SizedBox(width: 10),
-                            productPrice['oldPrice'] == null
-                                ? SizedBox.shrink()
-                                : CustomPaint(
-                                    painter: RedLine(),
-                                    child: Text(
-                                        productPrice['oldPrice']
-                                                ?.toStringAsFixed(0) +
-                                            "₽",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 32,
-                                            color: Colors.black45)),
-                                  ),
-                          ],
-                        ),
-                        Row(
-                          children: result.data!['getProduct']['attributes']
-                              .map((element) {
-                                return Padding(
-                                  padding: const EdgeInsets.only(right: 6.0),
-                                  child: ChoiceChip(
-                                      visualDensity: VisualDensity.compact,
-                                      labelStyle: TextStyle(
-                                          fontSize: 16.0, color: Colors.white),
-                                      selectedColor:
-                                          hexToColor(element['color']),
-                                      selected: true,
-                                      onSelected: (e) {},
-                                      label: Text(element['name'])),
-                                );
-                              })
-                              .toList()
-                              .cast<Widget>(),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                              horizontal: 0.0, vertical: 8.0),
-                          child: Text(result.data!['getProduct']['name'],
-                              style: GoogleFonts.montserrat(fontSize: 20)),
-                        ),
-                        Text(result.data!['getProduct']['comment'] ?? "",
-                            style: TextStyle(fontSize: 16.0)),
-                        Column(
-                            children: result.data!['getProduct']
-                                    ['characteristics']
-                                .map((e) => CharacteristicsElement(
-                                      element: e,
-                                      onSelected: (index) => selectChar(
-                                          index,
-                                          e,
-                                          result.data!['getProduct']['prices']),
-                                    ))
-                                .toList()
-                                .cast<Widget>()),
-                        SizedBox(height: 16),
-                        ExpandableTheme(
-                          data: ExpandableThemeData(
-                              headerAlignment:
-                                  ExpandablePanelHeaderAlignment.center,
-                              iconPlacement: ExpandablePanelIconPlacement.left,
-                              iconPadding: EdgeInsets.symmetric(
-                                  horizontal: 0, vertical: 7),
-                              iconRotationAngle: pi / 2,
-                              expandIcon: Icons.chevron_right,
-                              collapseIcon: Icons.chevron_right),
-                          child: Column(
+                    new DotsIndicator(
+                      dotsCount: result.data!['getProduct']['pictures'].length,
+                      position: picturePage.toDouble(),
+                      decorator: DotsDecorator(
+                        color: Colors.lightGreen, // Inactive color
+                        activeColor: Colors.green,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
-                              if (isShowChar)
+                              productPrice['price'] == null
+                                  ? SizedBox.shrink()
+                                  : Text(
+                                      productPrice['price']
+                                              ?.toStringAsFixed(0) +
+                                          "₽",
+                                      style:
+                                          GoogleFonts.montserrat(fontSize: 32)),
+                              SizedBox(width: 10),
+                              productPrice['oldPrice'] == null
+                                  ? SizedBox.shrink()
+                                  : CustomPaint(
+                                      painter: RedLine(),
+                                      child: Text(
+                                          productPrice['oldPrice']
+                                                  ?.toStringAsFixed(0) +
+                                              "₽",
+                                          style: GoogleFonts.montserrat(
+                                              fontSize: 32,
+                                              color: Colors.black45)),
+                                    ),
+                            ],
+                          ),
+                          Row(
+                            children: result.data!['getProduct']['attributes']
+                                .map((element) {
+                                  return Padding(
+                                    padding: const EdgeInsets.only(right: 6.0),
+                                    child: ChoiceChip(
+                                        visualDensity: VisualDensity.compact,
+                                        labelStyle: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white),
+                                        selectedColor:
+                                            hexToColor(element['color']),
+                                        selected: true,
+                                        onSelected: (e) {},
+                                        label: Text(element['name'])),
+                                  );
+                                })
+                                .toList()
+                                .cast<Widget>(),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 0.0, vertical: 8.0),
+                            child: Text(result.data!['getProduct']['name'],
+                                style: GoogleFonts.montserrat(fontSize: 20)),
+                          ),
+                          Text(result.data!['getProduct']['comment'] ?? "",
+                              style: TextStyle(fontSize: 16.0)),
+                          Column(
+                              children:
+                                  result.data!['getProduct']['characteristics']
+                                      .map((e) => CharacteristicsElement(
+                                            element: e,
+                                            onSelected: (index) => selectChar(
+                                                index,
+                                                e,
+                                                result.data!['getProduct']
+                                                    ['prices']),
+                                          ))
+                                      .toList()
+                                      .cast<Widget>()),
+                          SizedBox(height: 16),
+                          ExpandableTheme(
+                            data: ExpandableThemeData(
+                                headerAlignment:
+                                    ExpandablePanelHeaderAlignment.center,
+                                iconPlacement:
+                                    ExpandablePanelIconPlacement.left,
+                                iconPadding: EdgeInsets.symmetric(
+                                    horizontal: 0, vertical: 7),
+                                iconRotationAngle: pi / 2,
+                                expandIcon: Icons.chevron_right,
+                                collapseIcon: Icons.chevron_right),
+                            child: Column(
+                              children: [
+                                if (isShowChar)
+                                  ExpandablePanel(
+                                    header: Text("Характеристики",
+                                        style: GoogleFonts.montserrat(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700)),
+                                    collapsed: SizedBox.shrink(),
+                                    expanded: Column(
+                                        children: result.data!['getProduct']
+                                                ['characteristics']
+                                            .map((e) =>
+                                                TextCharacteristic(element: e))
+                                            .toList()
+                                            .cast<Widget>()),
+                                  ),
                                 ExpandablePanel(
-                                  header: Text("Характеристики",
+                                  header: Text("Описание",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700)),
+                                  collapsed: SizedBox.shrink(),
+                                  expanded: MarkdownBody(
+                                      data: result.data!['getProduct']
+                                              ['description'] ??
+                                          ""),
+                                ),
+                                ExpandablePanel(
+                                  header: Text("Состав",
                                       style: GoogleFonts.montserrat(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700)),
                                   collapsed: SizedBox.shrink(),
                                   expanded: Column(
-                                      children: result.data!['getProduct']
-                                              ['characteristics']
-                                          .map((e) =>
-                                              TextCharacteristic(element: e))
-                                          .toList()
-                                          .cast<Widget>()),
-                                ),
-                              ExpandablePanel(
-                                header: Text("Описание",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700)),
-                                collapsed: SizedBox.shrink(),
-                                expanded: MarkdownBody(
-                                    data: result.data!['getProduct']
-                                            ['description'] ??
-                                        ""),
-                              ),
-                              ExpandablePanel(
-                                header: Text("Состав",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700)),
-                                collapsed: SizedBox.shrink(),
-                                expanded: Column(
-                                  children: [
-                                    SingleChildScrollView(
-                                      scrollDirection: Axis.horizontal,
-                                      child: Row(
-                                        children: result.data!['getProduct']
-                                                ['compositions']
-                                            .map((element) {
-                                              return Image.network(
-                                                element['picture'],
-                                                height: 100,
-                                                width: 100,
-                                              );
-                                            })
-                                            .toList()
-                                            .cast<Widget>(),
+                                    children: [
+                                      SingleChildScrollView(
+                                        scrollDirection: Axis.horizontal,
+                                        child: Row(
+                                          children: result.data!['getProduct']
+                                                  ['compositions']
+                                              .map((element) {
+                                                return Image.network(
+                                                  element['picture'],
+                                                  height: 100,
+                                                  width: 100,
+                                                );
+                                              })
+                                              .toList()
+                                              .cast<Widget>(),
+                                        ),
                                       ),
-                                    ),
-                                    Text(result.data!['getProduct']
-                                            ['composition'] ??
-                                        ""),
-                                  ],
+                                      Text(result.data!['getProduct']
+                                              ['composition'] ??
+                                          ""),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              ExpandablePanel(
-                                header: Text("Отзывы",
-                                    style: GoogleFonts.montserrat(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w700)),
-                                collapsed: SizedBox.shrink(),
-                                expanded: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    OutlinedButton(
-                                        child: Text("НАПИСАТЬ ОТЗЫВ"),
-                                        onPressed: () {
-                                          showModalBottomSheet(
-                                            context: context,
-                                            isScrollControlled: true,
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.vertical(
-                                                      top:
-                                                          const Radius.circular(
-                                                              16.0)),
-                                            ),
-                                            builder: (context) {
-                                              return ReviewPage(id: widget.id);
-                                            },
-                                          );
-                                        }),
-                                    Column(
-                                        children: result.data!['getProduct']
-                                                ['reviews']
-                                            .map((element) =>
-                                                Text(element['text']))
-                                            .toList()
-                                            .cast<Widget>())
-                                  ],
+                                ExpandablePanel(
+                                  header: Text("Отзывы",
+                                      style: GoogleFonts.montserrat(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700)),
+                                  collapsed: SizedBox.shrink(),
+                                  expanded: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      OutlinedButton(
+                                          child: Text("НАПИСАТЬ ОТЗЫВ"),
+                                          onPressed: () {
+                                            showModalBottomSheet(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              shape: RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.vertical(
+                                                        top: const Radius
+                                                            .circular(16.0)),
+                                              ),
+                                              builder: (context) {
+                                                return ReviewPage(
+                                                    id: widget.id);
+                                              },
+                                            );
+                                          }),
+                                      Column(
+                                          children: result.data!['getProduct']
+                                                  ['reviews']
+                                              .map((element) =>
+                                                  Text(element['text']))
+                                              .toList()
+                                              .cast<Widget>())
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            ],
-                          ),
-                        ),
-                        SizedBox(height: 16),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: Mutation(
-                                options: MutationOptions(
-                                  document: gql(cartAdd),
-                                  onCompleted: (resultData) {
-                                    print(resultData);
-                                  },
-                                ),
-                                builder: (runMutation, result) {
-                                  return ElevatedButton(
-                                      onPressed: () {
-                                        List<int> charList = charMap.entries
-                                            .map((entry) => entry.value)
-                                            .toList();
-                                        print(charList);
-                                        runMutation({
-                                          'productID': widget.id,
-                                          'characteristicValueIds': charList
-                                        });
-                                      },
-                                      child: Text(
-                                          "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w400,
-                                          )));
-                                },
-                              ),
+                              ],
                             ),
-                            Mutation(
-                              options: MutationOptions(
-                                document: gql(setFavoritesProduct),
-                                onCompleted: (resultData) {
-                                  print(resultData);
-                                  refetch!();
-                                },
-                              ),
-                              builder: (runMutation, mutationResult) {
-                                return ElevatedButton(
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+                Positioned(
+                    left: 16,
+                    right: 16,
+                    bottom: 32,
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Mutation(
+                            options: MutationOptions(
+                              document: gql(cartAdd),
+                              onCompleted: (resultData) {
+                                print(resultData);
+                              },
+                            ),
+                            builder: (runMutation, result) {
+                              return ElevatedButton(
                                   onPressed: () {
+                                    List<int> charList = charMap.entries
+                                        .map((entry) => entry.value)
+                                        .toList();
+                                    print(charList);
                                     runMutation({
                                       'productID': widget.id,
+                                      'characteristicValueIds': charList
                                     });
                                   },
-                                  child: Icon(
-                                    result.data!['getProduct']['isFavorite']
-                                        ? Icons.favorite_outlined
-                                        : Icons.favorite_border_outlined,
-                                  ),
-                                  style: ElevatedButton.styleFrom(
-                                    minimumSize: Size(48, 48),
-                                    shape: CircleBorder(),
-                                  ),
-                                );
-                              },
-                            )
-                          ],
+                                  child: Text(
+                                      "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w400,
+                                      )));
+                            },
+                          ),
                         ),
+                        Mutation(
+                          options: MutationOptions(
+                            document: gql(setFavoritesProduct),
+                            onCompleted: (resultData) {
+                              print(resultData);
+                              refetch!();
+                            },
+                          ),
+                          builder: (runMutation, mutationResult) {
+                            return ElevatedButton(
+                              onPressed: () {
+                                runMutation({
+                                  'productID': widget.id,
+                                });
+                              },
+                              child: Icon(
+                                result.data!['getProduct']['isFavorite']
+                                    ? Icons.favorite_outlined
+                                    : Icons.favorite_border_outlined,
+                              ),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(48, 48),
+                                shape: CircleBorder(),
+                              ),
+                            );
+                          },
+                        )
                       ],
-                    ),
-                  )
-                ],
-              ));
+                    ))
+              ]));
         });
   }
 }
