@@ -228,6 +228,13 @@ class _PasswordPageState extends State<PasswordPage> {
             Mutation(
               options: MutationOptions(
                   document: gql(checkPassword),
+                  update: (cache, result) {
+                    if (result!.hasException) {
+                      print(result.exception);
+                    } else {
+                      return cache;
+                    }
+                  },
                   onError: (error) {
                     print("ERROR");
                     print(error!.graphqlErrors[0].message);
