@@ -44,6 +44,7 @@ query getFavoritesProducts {
     iD
     name
     picture
+    type
   }
 }
 ''';

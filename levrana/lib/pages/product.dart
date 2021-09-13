@@ -355,7 +355,8 @@ class _ReviewPageState extends State<ReviewPage> {
                       child: Text("ОТМЕНА")),
                 ],
               ),
-            )
+            ),
+            SizedBox(height: 100),
           ],
         ));
   }
@@ -663,6 +664,7 @@ class _ProductPageState extends State<ProductPage> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: 50)
                               ],
                             ),
                           ),
@@ -778,32 +780,44 @@ class ProductCard extends StatelessWidget {
                   width: 40,
                   height: 40,
                 )),
-            Positioned(
-              bottom: 0,
-              right: 0,
-              child: InkWell(
-                onTap: () {
-                  print(product['iD']);
-                  showModalBottomSheet(
-                    isScrollControlled: true,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.vertical(
-                          top: const Radius.circular(16.0)),
-                    ),
-                    context: context,
-                    builder: (context) {
-                      return ProductBottomSheet(
-                          product: product, id: product['iD']);
-                    },
-                  );
-                },
-                child: Image.asset(
-                  'assets/ic-24/icon-24-shopping.png',
-                  width: 40,
-                  height: 40,
+            Mutation(
+                options: MutationOptions(
+                  document: gql(cartAdd),
+                  onCompleted: (resultData) {
+                    print(resultData);
+                  },
                 ),
-              ),
-            )
+                builder: (runMutation, result) {
+                  return Positioned(
+                    bottom: 0,
+                    right: 0,
+                    child: InkWell(
+                      onTap: () {
+                        print(product['type']);
+                        if (product['type'] != 'SIMPLE')
+                          showModalBottomSheet(
+                            isScrollControlled: true,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: const Radius.circular(16.0)),
+                            ),
+                            context: context,
+                            builder: (context) {
+                              return ProductBottomSheet(
+                                  product: product, id: product['iD']);
+                            },
+                          );
+                        else
+                          runMutation({'productID': product['iD']});
+                      },
+                      child: Image.asset(
+                        'assets/ic-24/icon-24-shopping.png',
+                        width: 40,
+                        height: 40,
+                      ),
+                    ),
+                  );
+                })
           ],
         ),
         Text(product['name']),

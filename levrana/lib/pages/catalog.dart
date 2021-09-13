@@ -31,7 +31,7 @@ query getCatalog {
 
 const String getProducts = r'''
 query getProducts($catalogID: Int!, $cursor: String) {
-  getProducts(catalogID: $catalogID, first: 5, after: $cursor)
+  getProducts(catalogID: $catalogID, first: 20, after: $cursor)
   {
     totalCount
     pageInfo {
@@ -44,6 +44,7 @@ query getProducts($catalogID: Int!, $cursor: String) {
       iD
       name
       picture
+      type
     }
   }
 }
@@ -299,7 +300,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
           );
 
           _controller.addListener(() {
-            if (_controller.offset >= _controller.position.maxScrollExtent &&
+            if (_controller.offset + 100 >=
+                    _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
               setState(() {
                 fetchingMore = true;
@@ -311,7 +313,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
           return GridView.count(
               controller: _controller,
               crossAxisCount: 2,
-              childAspectRatio: 0.8,
+              childAspectRatio: 0.75,
               children: [
 /*                 ElevatedButton(
                     onPressed: () {

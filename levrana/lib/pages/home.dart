@@ -29,6 +29,7 @@ query getTopBlocks {
       iD
       name
       picture
+      type
     }
   }
 }

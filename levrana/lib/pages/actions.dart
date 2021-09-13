@@ -25,6 +25,7 @@ query getAction($actionID: Int) {
       iD
       name
       picture
+      type
     }
   }
 }
