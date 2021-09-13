@@ -113,6 +113,39 @@ class CatalogPage extends StatelessWidget {
                         builder: (context) =>
                             ProductsListPage(catalogId: id, title: title)));
               },
+            )
+          else
+            InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => Configurator(),
+                  ),
+                );
+              },
+              child: SizedBox(
+                height: 92,
+                child: Container(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: <Color>[
+                            Color.fromRGBO(255, 162, 76, 0.22),
+                            Color.fromRGBO(255, 162, 76, 0)
+                          ]),
+                      color: Color(0xffFFF2C4),
+                    ),
+                    child: Row(children: [
+                      Flexible(
+                          child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text("Подобрать косметику в конфигураторе"),
+                      )),
+                      Image.asset("assets/Bottles.png")
+                    ])),
+              ),
             ),
           Expanded(
             child: ListView.separated(
