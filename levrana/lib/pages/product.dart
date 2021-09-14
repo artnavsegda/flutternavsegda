@@ -313,10 +313,44 @@ class _ProductPageState extends State<ProductPage> {
                                     ],
                                   ),
                                 ),
+                                SizedBox(height: 24),
                                 Text("С этим берут",
                                     style: TextStyle(fontSize: 32)),
+                                SizedBox(height: 12),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      children: result.data!['getProduct']
+                                              ['link']
+                                          .map((element) => SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.1,
+                                              child: ProductCard(
+                                                  product: element)))
+                                          .toList()
+                                          .cast<Widget>()),
+                                ),
+                                SizedBox(height: 48),
                                 Text("Похожие товары",
                                     style: TextStyle(fontSize: 32)),
+                                SizedBox(height: 12),
+                                SingleChildScrollView(
+                                  scrollDirection: Axis.horizontal,
+                                  child: Row(
+                                      children: result.data!['getProduct']
+                                              ['similar']
+                                          .map((element) => SizedBox(
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width /
+                                                  2.1,
+                                              child: ProductCard(
+                                                  product: element)))
+                                          .toList()
+                                          .cast<Widget>()),
+                                ),
                                 SizedBox(
                                     height: 60 +
                                         MediaQuery.of(context).padding.bottom)

@@ -51,7 +51,8 @@ class LevranaBigCheckbox extends StatelessWidget {
 }
 
 class ProductCard extends StatelessWidget {
-  const ProductCard({Key? key, this.product, this.onTap}) : super(key: key);
+  const ProductCard({Key? key, required this.product, this.onTap})
+      : super(key: key);
 
   final product;
   final void Function()? onTap;
