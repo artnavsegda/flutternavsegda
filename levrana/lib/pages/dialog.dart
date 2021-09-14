@@ -124,16 +124,18 @@ class LoginPage extends StatelessWidget {
           "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
       child: Row(
         children: [
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(166, 48),
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+              ),
+              child: Text("ВОЙТИ"),
+              onPressed: () => _userLogin(context),
             ),
-            child: Text("ВОЙТИ"),
-            onPressed: () => _userLogin(context),
           ),
           TextButton(
               style: TextButton.styleFrom(
-                minimumSize: Size(98, 48),
+                minimumSize: Size(110, 48),
               ),
               onPressed: () {
                 Navigator.pushReplacement(
