@@ -433,30 +433,20 @@ class _ProductPageState extends State<ProductPage> {
                             },
                           ),
                           builder: (runMutation, mutationResult) {
-                            if (result.data!['getProduct']['isFavorite'])
-                              return ElevatedButton.icon(
-                                onPressed: () => runMutation({
-                                  'productID': widget.id,
-                                }),
-                                label: Text(
-                                    "${result.data!['getProduct']['favorites']}"),
-                                icon: Icon(Icons.favorite_outlined,
-                                    color: Colors.red),
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(48, 48),
-                                ),
-                              );
-                            else
-                              return ElevatedButton(
-                                child: Icon(Icons.favorite_border_outlined),
-                                onPressed: () => runMutation({
-                                  'productID': widget.id,
-                                }),
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(48, 48),
-                                  shape: CircleBorder(),
-                                ),
-                              );
+                            return ElevatedButton.icon(
+                              onPressed: () => runMutation({
+                                'productID': widget.id,
+                              }),
+                              label: Text(
+                                  "${result.data!['getProduct']['favorites']}"),
+                              icon: result.data!['getProduct']['isFavorite']
+                                  ? Icon(Icons.favorite_outlined,
+                                      color: Colors.red)
+                                  : Icon(Icons.favorite_border_outlined),
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: Size(48, 48),
+                              ),
+                            );
                           },
                         ),
                       ],

@@ -322,6 +322,7 @@ query getProduct($productID: Int!) {
       values {
         iD
         value
+        comment
       }
     }
     prices {
