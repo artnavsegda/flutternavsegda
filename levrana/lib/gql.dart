@@ -337,9 +337,25 @@ query getProduct($productID: Int!) {
     }
     link {
       iD
+      name
+      picture
+      type
+      attributes {
+        iD
+        name
+        color
+      }
     }
     similar {
       iD
+      name
+      picture
+      type
+      attributes {
+        iD
+        name
+        color
+      }
     }
     modifiers {
       caption
