@@ -313,8 +313,10 @@ class _ProductPageState extends State<ProductPage> {
                                     ],
                                   ),
                                 ),
-                                Text("С этим берут"),
-                                Text("Похожие товары"),
+                                Text("С этим берут",
+                                    style: TextStyle(fontSize: 32)),
+                                Text("Похожие товары",
+                                    style: TextStyle(fontSize: 32)),
                                 SizedBox(
                                     height: 60 +
                                         MediaQuery.of(context).padding.bottom)
