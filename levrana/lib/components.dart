@@ -94,6 +94,9 @@ class ProductCard extends StatelessWidget {
                   document: gql(cartAdd),
                   onCompleted: (resultData) {
                     print(resultData);
+                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                      content: const Text('Добавлен в корзину'),
+                    ));
                   },
                 ),
                 builder: (runMutation, result) {

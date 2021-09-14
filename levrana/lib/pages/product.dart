@@ -374,6 +374,13 @@ class _ProductPageState extends State<ProductPage> {
                               document: gql(cartAdd),
                               onCompleted: (resultData) {
                                 print(resultData);
+
+                                // Find the ScaffoldMessenger in the widget tree
+                                // and use it to show a SnackBar.
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(SnackBar(
+                                  content: const Text('Добавлен в корзину'),
+                                ));
                               },
                             ),
                             builder: (runMutation, result) {
