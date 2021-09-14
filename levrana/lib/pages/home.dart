@@ -53,7 +53,7 @@ class HomePage extends StatelessWidget {
           ),
           Column(
             children: [
-              Container(
+/*               Container(
                 margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
                 child: TextField(
                   decoration: InputDecoration(
@@ -67,7 +67,7 @@ class HomePage extends StatelessWidget {
                       ),
                       filled: true),
                 ),
-              ),
+              ), */
               GestureDetector(
                 onTap: () {
                   Navigator.push(
