@@ -30,6 +30,11 @@ query getTopBlocks {
       name
       picture
       type
+      attributes {
+        iD
+        name
+        color
+      }
     }
   }
 }

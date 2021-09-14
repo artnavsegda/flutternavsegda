@@ -45,6 +45,11 @@ query getProducts($catalogID: Int!, $cursor: String) {
       name
       picture
       type
+        attributes {
+        iD
+        name
+        color
+      }
     }
   }
 }

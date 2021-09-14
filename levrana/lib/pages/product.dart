@@ -832,6 +832,24 @@ class ProductCard extends StatelessWidget {
                 })
           ],
         ),
+        Row(
+          children: product['attributes']
+              .map((element) {
+                return Padding(
+                  padding: const EdgeInsets.only(right: 6.0),
+                  child: ChoiceChip(
+                      visualDensity: VisualDensity.compact,
+                      labelStyle:
+                          TextStyle(fontSize: 16.0, color: Colors.white),
+                      selectedColor: hexToColor(element['color']),
+                      selected: true,
+                      onSelected: (e) {},
+                      label: Text(element['name'])),
+                );
+              })
+              .toList()
+              .cast<Widget>(),
+        ),
         Text(product['name']),
       ],
     );
