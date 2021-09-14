@@ -4,68 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../gql.dart';
 import '../components.dart';
-
-const String cartEdit = r'''
-mutation cartEdit($rowID: Int, $quantity: Int) {
-  cartEdit(rowID: $rowID, quantity: $quantity) {
-    result
-    errorMessage
-  }
-}
-''';
-
-const String getCart = r'''
-query getCart {
-  getCart {
-    rowID
-    productID
-    productName
-    quantity
-    amount
-    oldAmount
-    modifiers
-    comment
-    picture
-    message
-    characteristics {
-      type
-      name
-      value
-    }
-    modifiers
-  }
-}
-''';
-
-const String getFavoritesProducts = r'''
-query getFavoritesProducts {
-  getFavoritesProducts {
-    iD
-    name
-    picture
-    type
-  }
-}
-''';
-
-const String cartDelete = r'''
-mutation cartDelete($rowIDs: [Int]) {
-  cartDelete(rowIDs: $rowIDs) {
-    result
-    errorMessage
-  }
-}
-''';
-
-const String setFavoritesProducts = r'''
-mutation setFavoritesProducts($productIds: [Int]) {
-  setFavoritesProducts(productIds: $productIds) {
-    result
-    errorMessage
-  }
-}
-''';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({Key? key}) : super(key: key);

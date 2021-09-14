@@ -4,28 +4,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:in_app_review/in_app_review.dart';
 
-const String getSupport = r'''
-query getSupport {
-  getSupport {
-    iD
-    date
-    text
-    managerID
-  }
-}
-''';
-
-const String addSupport = r'''
-mutation addSupport($message: String)
-{
-  addSupport(message: $message)
-  {
-    result
-    errorMessage
-    iD
-  }
-}
-''';
+import '../gql.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);

@@ -2,78 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:levrana/pages/product.dart';
+
+import '../gql.dart';
 import 'configurator.dart';
-
-const String getCatalog = r'''
-query getCatalog {
-  getCatalog {
-    iD
-    name
-    totalCount
-    childs {
-      name
-      iD
-      totalCount
-      childs {
-        name
-        iD
-        totalCount
-        childs {
-          name
-          iD
-          totalCount
-        }
-      }
-    }
-  }
-}
-''';
-
-const String getProducts = r'''
-query getProducts($catalogID: Int!, $cursor: String) {
-  getProducts(catalogID: $catalogID, first: 20, after: $cursor)
-  {
-    totalCount
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-    items {
-      iD
-      name
-      picture
-      type
-        attributes {
-        iD
-        name
-        color
-      }
-    }
-  }
-}
-''';
-
-const String getFilters = r'''
-query getFilters($catalogID: Int)
-{
-  getFilters(catalogID: $catalogID)
-  {
-    priceMin
-    priceMax
-    groups {
-    	iD
-      name
-      type
-      values {
-        iD
-        name
-      }
-  	}
-  }
-}
-''';
 
 class CatalogPage extends StatelessWidget {
   CatalogPage(

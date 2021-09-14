@@ -5,62 +5,8 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
+import '../gql.dart';
 import 'product.dart';
-
-const String getAction = r'''
-query getAction($actionID: Int) {
-  getAction(actionID: $actionID) {
-    iD
-    name
-    specialConditions
-    description
-    uRL
-    familyName
-    dateStart
-    dateFinish
-    picture
-    squarePicture
-    type
-    products {
-      iD
-      name
-      picture
-      type
-    }
-  }
-}
-''';
-
-const String getPoll = r'''
-query getPoll($actionID: Int)
-{
-  getPoll(actionID: $actionID) {
-    iD
-    name
-    comment
-    isOther
-    isSkip
-    isMultiple
-    isScale
-    scaleMin
-    scaleMax
-    pollAnswers {
-      iD
-      name
-    }
-  }
-}
-''';
-
-const String setPollResult = r'''
-mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
-  setPollResult(actionID: $actionID, answers: $answers) {
-    result
-    errorMessage
-    point
-  }
-}
-''';
 
 class PollAnswersClient {
   PollAnswersClient(

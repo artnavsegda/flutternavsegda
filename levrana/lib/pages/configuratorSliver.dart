@@ -1,44 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../gql.dart';
 import 'product.dart';
-
-const String getConfigurator = r'''
-query getConfigurator
-{
-  getConfigurator {
-    iD
-    type
-    name
-    description
-    values {
-      iD
-      name
-      picture
-    }
-  }
-}
-''';
-
-const String getConfiguratorProducts = r'''
-query getConfiguratorProducts($configuratorItemIds: [Int], $cursor: String)
-{
-  getConfiguratorProducts(first: 4, configuratorItemIds: $configuratorItemIds, after: $cursor) {
-		totalCount
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-    items {
-      iD
-      name
-      picture
-    }
-  }
-}
-''';
 
 class Configurator extends StatefulWidget {
   const Configurator({

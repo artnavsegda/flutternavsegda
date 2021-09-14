@@ -6,39 +6,10 @@ import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
+import '../gql.dart';
 import 'user.dart';
 import 'product.dart';
 import 'actions.dart';
-
-const String getActions = r'''
-query getActions {
-  getActions {
-    iD
-    name
-    picture
-  }
-}
-''';
-
-const String getTopBlocks = r'''
-query getTopBlocks {
-  getTopBlocks
-  {
-    name
-    products {
-      iD
-      name
-      picture
-      type
-      attributes {
-        iD
-        name
-        color
-      }
-    }
-  }
-}
-''';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);

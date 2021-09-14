@@ -9,15 +9,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../gql.dart';
 import 'user.dart';
-
-const String editClient = r'''
-mutation editClient($clientGUID: String!, $name: String, $eMail: String) {
-  editClient(clientInfo: { clientGUID: $clientGUID, name: $name, eMail: $eMail }) {
-    result
-  }
-}
-''';
 
 class EditUserPage extends StatefulWidget {
   const EditUserPage({Key? key}) : super(key: key);

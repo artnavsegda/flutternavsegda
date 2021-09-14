@@ -6,40 +6,9 @@ import 'package:phone_number/phone_number.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
+import '../gql.dart';
 import '../main.dart';
 import '../components.dart';
-
-const String loginClient = r'''
-mutation loginClient($clientPhone: Long!) {
-  loginClient(clientPhone: $clientPhone) {
-    result
-    errorMessage
-    clientGUID
-    token
-    nextStep
-  }
-}
-''';
-
-const String checkClient = r'''
-mutation checkClient($code: String!){
-  checkClient(checkUser: {step: SMS_CONFIRMED_PHONE, code: $code}) {
-    result
-    errorMessage
-    token
-  }
-}
-''';
-
-const String checkPassword = r'''
-mutation checkPassword($password: String!){
-  checkClient(checkUser: {step: PASSWORD, code: $password}) {
-    result
-    errorMessage
-    token
-  }
-}
-''';
 
 class UserLoginPage extends StatefulWidget {
   const UserLoginPage({Key? key}) : super(key: key);

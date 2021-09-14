@@ -6,26 +6,7 @@ import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
-const String friendFind = r'''
-query friendFind($gUIDorPhone: String) {
-  friendFind(gUIDorPhone: $gUIDorPhone)
-  {
-    name
-    picture
-  }
-}
-''';
-
-const String friendTransfer = r'''
-mutation friendTransfer($gUIDorPhone: String, $points: Int)
-{
-  friendTransfer(gUIDorPhone: $gUIDorPhone, points: $points)
-  {
-    result
-    errorMessage
-  }
-}
-''';
+import '../gql.dart';
 
 class TransferBonusPage extends StatefulWidget {
   const TransferBonusPage({Key? key, required this.maxAmount})

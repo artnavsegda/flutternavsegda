@@ -6,16 +6,8 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
 import '../main.dart';
+import '../gql.dart';
 import 'login.dart';
-
-const String authenticate = r'''
-mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEnum!) {
-  authenticate(device: {gUID: $gUID, bundleID: $bundleID, oSType: $oSType}) 
-  {
-    token
-  }
-}
-''';
 
 class Welcome extends StatelessWidget {
   const Welcome({Key? key}) : super(key: key);

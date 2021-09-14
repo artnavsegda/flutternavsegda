@@ -4,49 +4,10 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 
+import '../gql.dart';
 import 'dialog.dart';
 import 'editUser.dart';
 import 'bonus.dart';
-
-const String getClientInfo = r'''
-query getClientInfo {
-  getClientInfo {
-    clientGUID,
-    name,
-    phone,
-    dateOfBirth,
-    gender,
-    eMail,
-    confirmedPhone,
-    confirmedEMail
-    isPassword,
-    points,
-    picture,
-    codeInviteFriend
-  }
-}
-''';
-
-const String promocodeActivation = r'''
-mutation promocodeActivation($promoCode: String)
-{
-  promocodeActivation(promoCode: $promoCode) {
-    result
-    errorMessage
-  }
-}
-''';
-
-const String setPassword = r'''
-mutation setPassword($password: String)
-{
-  setPassword(password: $password)
-  {
-    result
-    errorMessage
-  }
-}
-''';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
