@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:qr_flutter/qr_flutter.dart';
@@ -7,7 +6,8 @@ import 'package:phone_number/phone_number.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../gql.dart';
-import 'user.dart';
+import '../components.dart';
+
 import 'product.dart';
 import 'actions.dart';
 

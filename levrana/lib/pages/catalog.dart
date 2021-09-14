@@ -4,6 +4,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:levrana/pages/product.dart';
 
 import '../gql.dart';
+import '../components.dart';
 import 'configurator.dart';
 
 class CatalogPage extends StatelessWidget {

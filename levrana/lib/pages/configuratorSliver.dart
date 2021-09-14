@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../gql.dart';
+import '../components.dart';
 import 'product.dart';
 
 class Configurator extends StatefulWidget {
