@@ -217,6 +217,7 @@ class _ProductPageState extends State<ProductPage> {
                                 expandIcon: Icons.chevron_right,
                                 collapseIcon: Icons.chevron_right),
                             child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 if (isShowChar)
                                   ExpandablePanel(
@@ -312,6 +313,8 @@ class _ProductPageState extends State<ProductPage> {
                                     ],
                                   ),
                                 ),
+                                Text("С этим берут"),
+                                Text("Похожие товары"),
                                 SizedBox(
                                     height: 60 +
                                         MediaQuery.of(context).padding.bottom)
