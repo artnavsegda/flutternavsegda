@@ -30,7 +30,7 @@ class Welcome extends StatelessWidget {
             final prefs = await SharedPreferences.getInstance();
             print("authenticate token:" + resultData['authenticate']['token']);
             prefs.setString('token', resultData['authenticate']['token']);
-            Navigator.push(
+            Navigator.pushReplacement(
               context,
               MaterialPageRoute(builder: (context) => LoginPage()),
             );
