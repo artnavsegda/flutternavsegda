@@ -382,7 +382,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                           resultData['checkClient']['token']);
                       prefs.setString(
                           'token', resultData['checkClient']['token']);
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) => MainPage()),
                       );
