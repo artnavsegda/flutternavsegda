@@ -100,8 +100,8 @@ query getCatalog {
 ''';
 
 const String getProducts = r'''
-query getProducts($catalogID: Int!, $cursor: String) {
-  getProducts(catalogID: $catalogID, first: 20, after: $cursor)
+query getProducts($catalogID: Int!, $cursor: String, $filter: graphFilter) {
+  getProducts(catalogID: $catalogID, first: 20, after: $cursor, filter: $filter)
   {
     totalCount
     pageInfo {

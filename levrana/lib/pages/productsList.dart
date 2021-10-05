@@ -6,17 +6,6 @@ import '../gql.dart';
 import '../components.dart';
 import 'filter.dart';
 
-class GraphFilter {
-  GraphFilter({this.priceMin = 0, this.priceMax = 0});
-  int priceMin;
-  int priceMax;
-
-  Map<String, dynamic> toJson() => {
-        'priceMin': priceMin,
-        'priceMax': priceMax,
-      };
-}
-
 class ProductsListPage extends StatefulWidget {
   const ProductsListPage(
       {Key? key, required this.catalogId, this.title = "Каталог"})
@@ -70,8 +59,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
               Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                          FiltersPage(catalogId: widget.catalogId)));
+                      builder: (context) => FiltersPage(
+                          catalogId: widget.catalogId, filter: catalogFilter)));
             },
           ),
         ],
