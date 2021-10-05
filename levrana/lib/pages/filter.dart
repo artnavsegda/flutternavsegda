@@ -23,7 +23,7 @@ class GraphFilter {
   GraphFilter({
     this.priceMin = 0,
     this.priceMax = 0,
-    this.groups = const <GraphFilterGroup>{},
+    this.groups = const <GraphFilterGroup>[],
   });
   int priceMin;
   int priceMax;
@@ -32,7 +32,7 @@ class GraphFilter {
   Map<String, dynamic> toJson() => {
         'priceMin': priceMin,
         'priceMax': priceMax,
-        'groups': groups.toList().map((element) => element.toJson()),
+        'groups': groups.map((element) => element.toJson()),
       };
 }
 
