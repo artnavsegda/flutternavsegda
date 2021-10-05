@@ -59,8 +59,12 @@ class FiltersPage extends StatelessWidget {
                         Text("Цена"),
                         Row(
                           children: [
-                            TextField(),
-                            TextField(),
+                            Expanded(
+                                child: TextField(
+                                    keyboardType: TextInputType.number)),
+                            Expanded(
+                                child: TextField(
+                                    keyboardType: TextInputType.number)),
                           ],
                         )
                       ],
