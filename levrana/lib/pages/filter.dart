@@ -54,7 +54,17 @@ class FiltersPage extends StatelessWidget {
                     return Text("Упорядочить");
                   }
                   if (index == 1) {
-                    return Text("Цена");
+                    return Column(
+                      children: [
+                        Text("Цена"),
+                        Row(
+                          children: [
+                            TextField(),
+                            TextField(),
+                          ],
+                        )
+                      ],
+                    );
                   }
 
                   final section =
