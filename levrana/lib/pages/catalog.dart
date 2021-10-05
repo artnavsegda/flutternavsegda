@@ -353,7 +353,12 @@ class FiltersPage extends StatelessWidget {
                     ])),
               ),
             ),
-            Text("Hello"),
+            Text("Упорядочить"),
+            Text("Цена"),
+            Text("Лейблы"),
+            Text("Бренды"),
+            Text("Тип продукта"),
+            Text("Тип кожи"),
           ],
         ));
   }
