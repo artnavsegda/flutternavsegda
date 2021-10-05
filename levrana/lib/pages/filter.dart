@@ -32,13 +32,44 @@ class FiltersPage extends StatelessWidget {
         body: Query(
             options: QueryOptions(
               document: gql(getFilters),
-              variables: {'catalogID': 0},
+              variables: {'catalogID': catalogId},
             ),
             builder: (result, {fetchMore, refetch}) {
+              print(result);
+
+              if (result.hasException) {
+                return Text(result.exception.toString());
+              }
+
+              if (result.isLoading && result.data == null) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              return ListView.separated(
+                itemCount: result.data!['getFilters']['groups'].length + 2,
+                itemBuilder: (context, index) {
+                  if (index == 0) {
+                    return Text("Упорядочить");
+                  }
+                  if (index == 1) {
+                    return Text("Цена");
+                  }
+
+                  final section =
+                      result.data!['getFilters']['groups'][index - 2];
+                  return Text(section['name']);
+                },
+                separatorBuilder: (context, index) {
+                  return Text("A");
+                },
+              );
+
               return Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  InkWell(
+/*                   InkWell(
                     onTap: () {
                       Navigator.push(
                         context,
@@ -70,13 +101,13 @@ class FiltersPage extends StatelessWidget {
                             Image.asset("assets/Bottles.png")
                           ])),
                     ),
-                  ),
-                  Text("Упорядочить"),
+                  ), */
+/*                   Text("Упорядочить"),
                   Text("Цена"),
                   Text("Лейблы"),
                   Text("Бренды"),
                   Text("Тип продукта"),
-                  Text("Тип кожи"),
+                  Text("Тип кожи"), */
                 ],
               );
             }));

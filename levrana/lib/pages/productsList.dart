@@ -55,8 +55,11 @@ class _ProductsListPageState extends State<ProductsListPage> {
             icon: const Image(
                 image: AssetImage('assets/ic-24/icon-24-filter-menu.png')),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => FiltersPage()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          FiltersPage(catalogId: widget.catalogId)));
             },
           ),
         ],
