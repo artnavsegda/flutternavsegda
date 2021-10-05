@@ -4,14 +4,35 @@ import 'configurator.dart';
 
 import '../gql.dart';
 
+class GraphFilterGroup {
+  GraphFilterGroup({
+    required this.iD,
+    this.values = const <int>{},
+  });
+
+  int iD;
+  var values;
+
+  Map<String, dynamic> toJson() => {
+        'iD': iD,
+        'values': values.toList(),
+      };
+}
+
 class GraphFilter {
-  GraphFilter({this.priceMin = 0, this.priceMax = 0});
+  GraphFilter({
+    this.priceMin = 0,
+    this.priceMax = 0,
+    this.groups = const <GraphFilterGroup>{},
+  });
   int priceMin;
   int priceMax;
+  var groups;
 
   Map<String, dynamic> toJson() => {
         'priceMin': priceMin,
         'priceMax': priceMax,
+        'groups': groups.toList().map((element) => element.toJson()),
       };
 }
 
