@@ -77,16 +77,22 @@ class FiltersPage extends StatelessWidget {
                             Expanded(
                                 child: TextFormField(
                                     onChanged: (value) {
-                                      filter.priceMin = int.parse(value);
-                                      onFilterChanged(filter);
+                                      var newVal = int.tryParse(value);
+                                      if (newVal != null) {
+                                        filter.priceMin = newVal;
+                                        onFilterChanged(filter);
+                                      }
                                     },
                                     initialValue: filter.priceMin.toString(),
                                     keyboardType: TextInputType.number)),
                             Expanded(
                                 child: TextFormField(
                                     onChanged: (value) {
-                                      filter.priceMax = int.parse(value);
-                                      onFilterChanged(filter);
+                                      var newVal = int.tryParse(value);
+                                      if (newVal != null) {
+                                        filter.priceMax = newVal;
+                                        onFilterChanged(filter);
+                                      }
                                     },
                                     initialValue: filter.priceMax.toString(),
                                     keyboardType: TextInputType.number)),
