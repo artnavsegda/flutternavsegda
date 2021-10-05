@@ -7,7 +7,8 @@ import '../components.dart';
 import 'filter.dart';
 
 class ProductsListPage extends StatefulWidget {
-  const ProductsListPage({Key? key, this.catalogId = 0, this.title = "Каталог"})
+  const ProductsListPage(
+      {Key? key, required this.catalogId, this.title = "Каталог"})
       : super(key: key);
 
   final int catalogId;

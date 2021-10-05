@@ -7,7 +7,10 @@ import '../gql.dart';
 class FiltersPage extends StatelessWidget {
   const FiltersPage({
     Key? key,
+    required this.catalogId,
   }) : super(key: key);
+
+  final int catalogId;
 
   @override
   Widget build(BuildContext context) {
