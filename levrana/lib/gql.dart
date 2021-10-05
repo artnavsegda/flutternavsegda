@@ -130,8 +130,6 @@ query getFilters($catalogID: Int)
 {
   getFilters(catalogID: $catalogID)
   {
-    sortType
-    sortOrder
     priceMin
     priceMax
     groups {
