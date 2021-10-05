@@ -38,34 +38,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-        title: Text("${widget.title}", style: TextStyle(color: Colors.black)),
-        backgroundColor: Colors.transparent,
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: const Image(
-                image: AssetImage('assets/ic-24/icon-24-search.png')),
-            onPressed: () {},
-          ),
-          IconButton(
-            icon: const Image(
-                image: AssetImage('assets/ic-24/icon-24-filter-menu.png')),
-            onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => FiltersPage(
-                          catalogId: widget.catalogId, filter: catalogFilter)));
-            },
-          ),
-        ],
-      ),
-      body: Query(
+    return Query(
         options: QueryOptions(
           document: gql(getProducts),
           variables: {
@@ -73,8 +46,10 @@ class _ProductsListPageState extends State<ProductsListPage> {
             'cursor': null,
             'filter': catalogFilter
           },
+          fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
+          print(catalogFilter.priceMax);
           print(result);
 
           if (result.hasException) {
@@ -87,77 +62,139 @@ class _ProductsListPageState extends State<ProductsListPage> {
             );
           }
 
-          final items = (result.data!['getProducts']['items'] as List<dynamic>);
+          return Scaffold(
+            appBar: AppBar(
+              iconTheme: IconThemeData(
+                color: Colors.black, //change your color here
+              ),
+              title: Text("${widget.title}",
+                  style: TextStyle(color: Colors.black)),
+              backgroundColor: Colors.transparent,
+              elevation: 0.0,
+              actions: <Widget>[
+                IconButton(
+                  icon: const Image(
+                      image: AssetImage('assets/ic-24/icon-24-search.png')),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Image(
+                      image:
+                          AssetImage('assets/ic-24/icon-24-filter-menu.png')),
+                  onPressed: () async {
+                    await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => FiltersPage(
+                                  catalogId: widget.catalogId,
+                                  filter: catalogFilter,
+                                  onFilterChanged: (newFilter) {
+                                    setState(() {
+                                      catalogFilter = newFilter;
+                                    });
+                                  },
+                                )));
+                    refetch!();
+                  },
+                ),
+              ],
+            ),
+            body: Query(
+              options: QueryOptions(
+                document: gql(getProducts),
+                variables: {
+                  'catalogID': widget.catalogId,
+                  'cursor': null,
+                  'filter': catalogFilter
+                },
+                fetchPolicy: FetchPolicy.networkOnly,
+              ),
+              builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
+                if (result.hasException) {
+                  return Text(result.exception.toString());
+                }
 
-          final Map pageInfo = result.data!['getProducts']['pageInfo'];
-          final String fetchMoreCursor = pageInfo['endCursor'];
+                if (result.isLoading && result.data == null) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-          FetchMoreOptions opts = FetchMoreOptions(
-            variables: {'cursor': fetchMoreCursor},
-            updateQuery: (previousResultData, fetchMoreResultData) {
-              final List<dynamic> items = [
-                ...previousResultData!['getProducts']['items'] as List<dynamic>,
-                ...fetchMoreResultData!['getProducts']['items'] as List<dynamic>
-              ];
+                final items =
+                    (result.data!['getProducts']['items'] as List<dynamic>);
 
-              // to avoid a lot of work, lets just update the list of repos in returned
-              // data with new data, this also ensures we have the endCursor already set
-              // correctly
-              fetchMoreResultData['getProducts']['items'] = items;
+                final Map pageInfo = result.data!['getProducts']['pageInfo'];
+                final String fetchMoreCursor = pageInfo['endCursor'];
 
-              setState(() {
-                fetchingMore = false;
-              });
+                FetchMoreOptions opts = FetchMoreOptions(
+                  variables: {'cursor': fetchMoreCursor},
+                  updateQuery: (previousResultData, fetchMoreResultData) {
+                    final List<dynamic> items = [
+                      ...previousResultData!['getProducts']['items']
+                          as List<dynamic>,
+                      ...fetchMoreResultData!['getProducts']['items']
+                          as List<dynamic>
+                    ];
 
-              return fetchMoreResultData;
-            },
-          );
+                    // to avoid a lot of work, lets just update the list of repos in returned
+                    // data with new data, this also ensures we have the endCursor already set
+                    // correctly
+                    fetchMoreResultData['getProducts']['items'] = items;
 
-          _controller.addListener(() {
-            if (_controller.offset + 100 >=
-                    _controller.position.maxScrollExtent &&
-                !_controller.position.outOfRange) {
-              setState(() {
-                fetchingMore = true;
-              });
-              fetchMore!(opts);
-            }
-          });
+                    setState(() {
+                      fetchingMore = false;
+                    });
 
-          return GridView.count(
-              controller: _controller,
-              crossAxisCount: 2,
-              childAspectRatio: 0.75,
-              children: [
+                    return fetchMoreResultData;
+                  },
+                );
+
+                _controller.addListener(() {
+                  if (_controller.offset + 100 >=
+                          _controller.position.maxScrollExtent &&
+                      !_controller.position.outOfRange) {
+                    setState(() {
+                      fetchingMore = true;
+                    });
+                    fetchMore!(opts);
+                  }
+                });
+
+                return GridView.count(
+                    controller: _controller,
+                    crossAxisCount: 2,
+                    childAspectRatio: 0.75,
+                    children: [
 /*                 ElevatedButton(
                     onPressed: () {
                       fetchMore!(opts);
                     },
                     child: Text("More")), */
-                for (var item in items)
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ProductCard(
-                        product: item,
-                        onTap: () =>
-                            Navigator.of(context, rootNavigator: true).push(
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ProductPage(id: item['iD'])),
-                            )),
-                  ),
-                if (fetchingMore)
-                  Center(
-                    child: CircularProgressIndicator(),
-                  )
+                      for (var item in items)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProductCard(
+                              product: item,
+                              onTap: () =>
+                                  Navigator.of(context, rootNavigator: true)
+                                      .push(
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductPage(id: item['iD'])),
+                                  )),
+                        ),
+                      if (fetchingMore)
+                        Center(
+                          child: CircularProgressIndicator(),
+                        )
 /*                 TextButton(
                     onPressed: () {
                       fetchMore!(opts);
                     },
                     child: Text("More")), */
-              ]);
+                    ]);
 
-          /*return GridView.builder(
+                /*return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
               ),
@@ -168,8 +205,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
                       Text(result.data!['getProducts']['items'][index]['name']),
                 );
               });*/
-        },
-      ),
-    );
+              },
+            ),
+          );
+        });
   }
 }

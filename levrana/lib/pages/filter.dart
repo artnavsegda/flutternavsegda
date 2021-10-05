@@ -5,7 +5,7 @@ import 'configurator.dart';
 import '../gql.dart';
 
 class GraphFilter {
-  GraphFilter({this.priceMin = 10, this.priceMax = 100});
+  GraphFilter({this.priceMin = 0, this.priceMax = 0});
   int priceMin;
   int priceMax;
 
@@ -16,14 +16,16 @@ class GraphFilter {
 }
 
 class FiltersPage extends StatelessWidget {
-  const FiltersPage({
-    Key? key,
-    required this.catalogId,
-    required this.filter,
-  }) : super(key: key);
+  const FiltersPage(
+      {Key? key,
+      required this.catalogId,
+      required this.filter,
+      required this.onFilterChanged})
+      : super(key: key);
 
   final int catalogId;
   final GraphFilter filter;
+  final ValueChanged<GraphFilter> onFilterChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -74,10 +76,18 @@ class FiltersPage extends StatelessWidget {
                           children: [
                             Expanded(
                                 child: TextFormField(
+                                    onChanged: (value) {
+                                      filter.priceMin = int.parse(value);
+                                      onFilterChanged(filter);
+                                    },
                                     initialValue: filter.priceMin.toString(),
                                     keyboardType: TextInputType.number)),
                             Expanded(
                                 child: TextFormField(
+                                    onChanged: (value) {
+                                      filter.priceMax = int.parse(value);
+                                      onFilterChanged(filter);
+                                    },
                                     initialValue: filter.priceMax.toString(),
                                     keyboardType: TextInputType.number)),
                           ],
