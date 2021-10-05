@@ -104,7 +104,18 @@ class FiltersPage extends StatelessWidget {
 
                   final section =
                       result.data!['getFilters']['groups'][index - 2];
-                  return Text(section['name']);
+                  return Column(
+                    children: [
+                      Text(section['name']),
+                      Row(
+                          children: section['values']
+                              .map((element) {
+                                return Text(element['name']);
+                              })
+                              .toList()
+                              .cast<Widget>()),
+                    ],
+                  );
                 },
                 separatorBuilder: (context, index) {
                   return Text("A");
