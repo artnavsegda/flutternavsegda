@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:phone_number/phone_number.dart';
 
 import '../gql.dart';
@@ -93,8 +92,9 @@ class QrPage extends StatelessWidget {
                           runSpacing: 8,
                           children: [
                             Text("Показать на кассе",
-                                style: GoogleFonts.montserrat(
-                                    fontSize: 28, fontWeight: FontWeight.w700)),
+                                style: TextStyle(
+                                    fontSize: 28.0,
+                                    fontWeight: FontWeight.w700)),
                             FutureBuilder<Object>(
                                 future: futurePhone,
                                 builder: (context, snapshot) {
@@ -103,8 +103,8 @@ class QrPage extends StatelessWidget {
                                         snapshot.data as PhoneNumber;
 
                                     return Text(phoneNumber.international,
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 28,
+                                        style: TextStyle(
+                                            fontSize: 28.0,
                                             fontWeight: FontWeight.w700,
                                             color: Colors.green));
                                   } else

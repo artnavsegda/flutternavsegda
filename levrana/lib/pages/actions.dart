@@ -1,7 +1,6 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -297,10 +296,9 @@ class ActionPage extends StatelessWidget {
                               SizedBox(height: 16),
                               result.data!['getAction']['products'].length > 1
                                   ? Text("Товары из акции",
-                                      style: GoogleFonts.montserrat(
-                                        fontSize: 28,
-                                        fontWeight: FontWeight.w700,
-                                      ))
+                                      style: TextStyle(
+                                          fontSize: 28.0,
+                                          fontWeight: FontWeight.w700))
                                   : SizedBox.shrink(),
                               SizedBox(height: 16),
                               Wrap(
@@ -371,8 +369,10 @@ class ActionPage extends StatelessWidget {
                                                       .map((metroStation) {
                                                         return Row(
                                                           children: [
-                                                            Text('*',
+                                                            Text('⬤ ',
                                                                 style: TextStyle(
+                                                                    fontSize:
+                                                                        7.0,
                                                                     color: hexToColor(
                                                                         metroStation[
                                                                             'colorLine']))),

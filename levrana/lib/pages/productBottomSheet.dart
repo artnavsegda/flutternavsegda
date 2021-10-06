@@ -127,10 +127,8 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   },
                   child: Text(
                       "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
-                      style: GoogleFonts.montserrat(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      )));
+                      style: TextStyle(
+                          fontSize: 16.0, fontWeight: FontWeight.w400)));
             },
           )
         ],

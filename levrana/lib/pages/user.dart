@@ -79,7 +79,7 @@ class UserPage extends StatelessWidget {
                               result.data!['getClientInfo']['picture']),
                         ),
                         Text(result.data!['getClientInfo']['name'] ?? "",
-                            style: GoogleFonts.montserrat(fontSize: 28))
+                            style: TextStyle(fontSize: 28.0))
                       ],
                     ),
                     Container(
@@ -115,8 +115,8 @@ class UserPage extends StatelessWidget {
                               Text(
                                   result.data!['getClientInfo']['points']
                                       .toString(),
-                                  style: GoogleFonts.montserrat(
-                                      fontSize: 40,
+                                  style: TextStyle(
+                                      fontSize: 40.0,
                                       fontWeight: FontWeight.w700)),
                               Image(
                                   image: AssetImage(
@@ -298,10 +298,7 @@ class _PromocodeState extends State<Promocode> {
           runSpacing: 8.0,
           children: [
             Text('Промокод',
-                style: GoogleFonts.montserrat(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                )),
+                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
             TextField(
               controller: textController,
               decoration: InputDecoration(
@@ -383,10 +380,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           runSpacing: 8.0,
           children: <Widget>[
             Text('Смена пароля',
-                style: GoogleFonts.montserrat(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                )),
+                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
             TextField(
               controller: passwordController,
               obscureText: true,
