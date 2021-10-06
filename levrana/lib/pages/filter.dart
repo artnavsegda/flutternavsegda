@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'configurator.dart';
+import 'selector.dart';
 
 import '../gql.dart';
 
@@ -10,8 +11,13 @@ class GraphFilterGroup {
     this.values = const <int>{},
   });
 
-  int iD;
-  Set<int> values;
+  GraphFilterGroup.from(GraphFilterGroup original) {
+    this.iD = original.iD;
+    this.values = Set<int>.from(original.values);
+  }
+
+  late int iD;
+  Set<int> values = <int>{};
 
   Map<String, dynamic> toJson() => {
         'iD': iD,
@@ -156,6 +162,63 @@ class _FiltersPageState extends State<FiltersPage> {
 
                   final section =
                       result.data!['getFilters']['groups'][index - 2];
+
+                  return InkWell(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SelectorPage(
+                                    title: section['name'],
+                                    values: section['values'],
+                                    filterGroup: filter.groups[section['iD']],
+                                    onChangeFilter: (newValue, newId) {
+                                      var newFilter = GraphFilter.from(filter);
+                                      if (newValue == true) {
+                                        if (filter.groups
+                                            .containsKey(section['iD'])) {
+                                          newFilter
+                                              .groups[section['iD']]?.values
+                                              .add(newId);
+                                        } else {
+                                          newFilter.groups[section['iD']] =
+                                              GraphFilterGroup(
+                                                  iD: section['iD'],
+                                                  values: {newId});
+                                        }
+                                      } else {
+                                        newFilter.groups[section['iD']]?.values
+                                            .remove(newId);
+                                        if (newFilter.groups[section['iD']]!
+                                            .values.isEmpty)
+                                          newFilter.groups
+                                              .remove(section['iD']);
+                                      }
+                                      setState(() {
+                                        filter = newFilter;
+                                      });
+                                      widget.onFilterChanged(newFilter);
+                                    },
+                                  )));
+                    },
+                    child: Column(children: [
+                      Text(section['name']),
+                      Wrap(
+                        children: section['values']
+                            .where((element) =>
+                                filter.groups[section['iD']]?.values
+                                    .contains(element['iD']) ??
+                                false)
+                            .toList()
+                            .map((element) {
+                              return Text(element['name']);
+                            })
+                            .toList()
+                            .cast<Widget>(),
+                      )
+                    ]),
+                  );
+
                   return Column(
                     children: [
                       Text(section['name']),
