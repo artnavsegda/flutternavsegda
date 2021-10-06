@@ -174,6 +174,19 @@ class PasswordPage extends StatefulWidget {
 class _PasswordPageState extends State<PasswordPage> {
   final TextEditingController passwordController = TextEditingController();
 
+  void _confirmSMS(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return ConfirmSMSPage();
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -275,17 +288,33 @@ class _PasswordPageState extends State<PasswordPage> {
                 );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.only(top: 16.0),
-              child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(double.infinity,
-                        48), // double.infinity is the width and 30 is the height
-                  ),
-                  onPressed: () {},
-                  child: Text("ЗАБЫЛ ПАРОЛЬ",
-                      style: GoogleFonts.montserrat(fontSize: 16))),
-            )
+            Mutation(
+                options: MutationOptions(
+                  document: gql(forgotPassword),
+                  onCompleted: (dynamic resultData) async {
+                    print(resultData);
+                    Navigator.pop(context);
+                    _confirmSMS(context);
+                  },
+                ),
+                builder: (
+                  RunMutation runMutation,
+                  QueryResult? result,
+                ) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: Size(double.infinity,
+                              48), // double.infinity is the width and 30 is the height
+                        ),
+                        onPressed: () {
+                          runMutation({});
+                        },
+                        child: Text("ЗАБЫЛ ПАРОЛЬ",
+                            style: GoogleFonts.montserrat(fontSize: 16))),
+                  );
+                })
           ],
         ),
       ),

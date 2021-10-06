@@ -538,3 +538,14 @@ mutation logoffClient
   }
 }
 ''';
+
+const String forgotPassword = r'''
+mutation forgotPassword
+{
+  forgotPassword
+  {
+    result
+    errorMessage
+  }
+}
+''';
