@@ -451,6 +451,11 @@ query getFavoritesProducts {
     name
     picture
     type
+    attributes {
+      iD
+      name
+      color
+    }
   }
 }
 ''';
