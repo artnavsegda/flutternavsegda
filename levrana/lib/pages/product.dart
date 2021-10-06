@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'dart:math';
 
@@ -146,8 +145,7 @@ class _ProductPageState extends State<ProductPage> {
                                       productPrice['price']
                                               ?.toStringAsFixed(0) +
                                           "₽",
-                                      style:
-                                          GoogleFonts.montserrat(fontSize: 32)),
+                                      style: TextStyle(fontSize: 32)),
                               SizedBox(width: 10),
                               productPrice['oldPrice'] == null
                                   ? SizedBox.shrink()
@@ -157,7 +155,7 @@ class _ProductPageState extends State<ProductPage> {
                                           productPrice['oldPrice']
                                                   ?.toStringAsFixed(0) +
                                               "₽",
-                                          style: GoogleFonts.montserrat(
+                                          style: TextStyle(
                                               fontSize: 32,
                                               color: Colors.black45)),
                                     ),
@@ -187,7 +185,7 @@ class _ProductPageState extends State<ProductPage> {
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 0.0, vertical: 8.0),
                             child: Text(result.data!['getProduct']['name'],
-                                style: GoogleFonts.montserrat(fontSize: 20)),
+                                style: TextStyle(fontSize: 20)),
                           ),
                           Text(result.data!['getProduct']['comment'] ?? "",
                               style: TextStyle(fontSize: 16.0)),
@@ -222,7 +220,7 @@ class _ProductPageState extends State<ProductPage> {
                                 if (isShowChar)
                                   ExpandablePanel(
                                     header: Text("Характеристики",
-                                        style: GoogleFonts.montserrat(
+                                        style: TextStyle(
                                             fontSize: 16,
                                             fontWeight: FontWeight.w700)),
                                     collapsed: SizedBox.shrink(),
@@ -236,7 +234,7 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                 ExpandablePanel(
                                   header: Text("Описание",
-                                      style: GoogleFonts.montserrat(
+                                      style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700)),
                                   collapsed: SizedBox.shrink(),
@@ -247,7 +245,7 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                                 ExpandablePanel(
                                   header: Text("Состав",
-                                      style: GoogleFonts.montserrat(
+                                      style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700)),
                                   collapsed: SizedBox.shrink(),
@@ -277,7 +275,7 @@ class _ProductPageState extends State<ProductPage> {
                                 ),
                                 ExpandablePanel(
                                   header: Text("Отзывы",
-                                      style: GoogleFonts.montserrat(
+                                      style: TextStyle(
                                           fontSize: 16,
                                           fontWeight: FontWeight.w700)),
                                   collapsed: SizedBox.shrink(),
@@ -416,7 +414,7 @@ class _ProductPageState extends State<ProductPage> {
                                   },
                                   child: Text(
                                       "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
-                                      style: GoogleFonts.montserrat(
+                                      style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                       )));

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../gql.dart';
 import '../components.dart';
@@ -53,13 +52,13 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text("Корзина пуста",
-                          style: GoogleFonts.montserrat(
-                            fontSize: 28,
+                          style: TextStyle(
+                            fontSize: 28.0,
                           )),
                       SizedBox(height: 8),
                       Text(
                           "Но это легко исправить. И вы даже знаете как это сделать ;)",
-                          style: GoogleFonts.montserrat(
+                          style: TextStyle(
                             fontWeight: FontWeight.w700,
                           )),
                     ],
@@ -173,13 +172,14 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                   children: [
                                     Text(
                                         "${item['amount']?.toStringAsFixed(0)}₽",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 32)),
+                                        style: TextStyle(
+                                          fontSize: 32.0,
+                                        )),
                                     Text(item['productName']),
                                     Column(
                                         children: item['characteristics']
                                             .map((e) => Text(e['value'],
-                                                style: GoogleFonts.montserrat(
+                                                style: TextStyle(
                                                     fontSize: 16,
                                                     color: Colors.black45)))
                                             .toList()

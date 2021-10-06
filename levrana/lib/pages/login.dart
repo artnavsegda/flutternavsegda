@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:phone_number/phone_number.dart';
@@ -39,7 +38,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
         child: Wrap(
           children: [
             Text("Вход",
-                style: GoogleFonts.montserrat(
+                style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
                 )),
@@ -196,7 +195,7 @@ class _PasswordPageState extends State<PasswordPage> {
         child: Wrap(
           children: [
             Text("Пароль",
-                style: GoogleFonts.montserrat(
+                style: TextStyle(
                   fontSize: 28,
                   fontWeight: FontWeight.w700,
                 )),
@@ -312,7 +311,7 @@ class _PasswordPageState extends State<PasswordPage> {
                           runMutation({});
                         },
                         child: Text("ЗАБЫЛ ПАРОЛЬ",
-                            style: GoogleFonts.montserrat(fontSize: 16))),
+                            style: TextStyle(fontSize: 16))),
                   );
                 })
           ],
@@ -369,7 +368,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
         padding: const EdgeInsets.all(15.0),
         child: Wrap(children: [
           Text("Код",
-              style: GoogleFonts.montserrat(
+              style: TextStyle(
                 fontSize: 28,
                 fontWeight: FontWeight.w700,
               )),
@@ -468,7 +467,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                 child: Text(
                     "ПОВТОРИТЬ" +
                         (smsTimeout == 0 ? "" : " ($smsTimeout) СЕК."),
-                    style: GoogleFonts.montserrat(fontSize: 16))),
+                    style: TextStyle(fontSize: 16))),
           )
         ]),
       ),
@@ -505,8 +504,7 @@ class CheckboxTitle extends StatelessWidget {
                 onTap: () {
                   onChanged(!value);
                 },
-                child:
-                    Text(title, style: GoogleFonts.montserrat(fontSize: 14))),
+                child: Text(title, style: TextStyle(fontSize: 14))),
           )
         ],
       ),
