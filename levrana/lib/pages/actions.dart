@@ -242,6 +242,8 @@ class ActionPage extends StatelessWidget {
             );
           }
 
+          //print(result);
+
           initializeDateFormatting();
 
           var dateStart = DateTime.fromMillisecondsSinceEpoch(

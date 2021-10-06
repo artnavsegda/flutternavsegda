@@ -47,7 +47,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
             'cursor': null,
             'filter': catalogFilter
           },
-          fetchPolicy: FetchPolicy.networkOnly,
+          //fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
           //print(catalogFilter.priceMax);

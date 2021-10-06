@@ -17,6 +17,11 @@ query getAction($actionID: Int) {
       name
       picture
       type
+      attributes {
+        iD
+        name
+        color
+      }
     }
   }
 }
@@ -115,7 +120,7 @@ query getProducts($catalogID: Int!, $cursor: String, $filter: graphFilter) {
       name
       picture
       type
-        attributes {
+      attributes {
         iD
         name
         color
