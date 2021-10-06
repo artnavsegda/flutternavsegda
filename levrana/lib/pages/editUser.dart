@@ -7,10 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../gql.dart';
-import 'user.dart';
 
 class EditUserPage extends StatefulWidget {
   const EditUserPage({Key? key}) : super(key: key);

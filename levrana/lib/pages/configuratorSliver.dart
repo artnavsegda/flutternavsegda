@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../gql.dart';
 import '../components.dart';
@@ -82,12 +81,11 @@ class _ConfiguratorState extends State<Configurator> {
                                       (element) => TextSpan(
                                           text: element.value,
                                           style: element.key.isEven
-                                              ? GoogleFonts.montserrat(
-                                                  fontSize: 32,
-                                                  fontWeight: FontWeight.w700,
-                                                )
-                                              : GoogleFonts.montserrat(
-                                                  fontSize: 32,
+                                              ? TextStyle(
+                                                  fontSize: 32.0,
+                                                  fontWeight: FontWeight.w700)
+                                              : TextStyle(
+                                                  fontSize: 32.0,
                                                   fontWeight: FontWeight.w700,
                                                   color: Colors.green)),
                                     )

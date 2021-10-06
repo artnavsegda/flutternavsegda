@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 
 import '../gql.dart';
@@ -83,8 +82,8 @@ class HomePage extends StatelessWidget {
 
                                   if (result.hasException) {
                                     return Text("0",
-                                        style: GoogleFonts.montserrat(
-                                            fontSize: 40,
+                                        style: TextStyle(
+                                            fontSize: 40.0,
                                             fontWeight: FontWeight.w700,
                                             color: Colors.white));
                                     return Text(result.exception.toString());
@@ -99,8 +98,8 @@ class HomePage extends StatelessWidget {
                                   return Text(
                                       result.data!['getClientInfo']['points']
                                           .toString(),
-                                      style: GoogleFonts.montserrat(
-                                          fontSize: 40,
+                                      style: TextStyle(
+                                          fontSize: 40.0,
                                           fontWeight: FontWeight.w700,
                                           color: Colors.white));
                                 }),
@@ -227,8 +226,8 @@ class HomePage extends StatelessWidget {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(section['name'],
-                                          style: GoogleFonts.montserrat(
-                                            fontSize: 28,
+                                          style: TextStyle(
+                                            fontSize: 28.0,
                                             fontWeight: FontWeight.w700,
                                           )),
                                       SizedBox(height: 16),
