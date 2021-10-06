@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../gql.dart';
 import '../components.dart';
@@ -162,6 +163,30 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     fetchMore!(opts);
                   }
                 });
+
+                return StaggeredGridView.countBuilder(
+                  controller: _controller,
+                  crossAxisCount: 4,
+                  itemCount: items.length + 1,
+                  itemBuilder: (BuildContext context, int index) =>
+                      (index == items.length)
+                          ? Center(child: CircularProgressIndicator())
+                          : Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: new ProductCard(
+                                  product: items[index],
+                                  onTap: () =>
+                                      Navigator.of(context, rootNavigator: true)
+                                          .push(
+                                        MaterialPageRoute(
+                                            builder: (context) => ProductPage(
+                                                id: items[index]['iD'])),
+                                      )),
+                            ),
+                  staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+                  mainAxisSpacing: 4.0,
+                  crossAxisSpacing: 4.0,
+                );
 
                 return GridView.count(
                     controller: _controller,
