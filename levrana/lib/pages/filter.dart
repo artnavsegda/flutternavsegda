@@ -76,7 +76,9 @@ class _FiltersPageState extends State<FiltersPage> {
           actions: <Widget>[
             TextButton(
               onPressed: () {
-                //print("puk");
+                setState(() {
+                  filter = GraphFilter();
+                });
                 widget.onFilterChanged(GraphFilter());
               },
               child: const Text(
@@ -181,6 +183,10 @@ class _FiltersPageState extends State<FiltersPage> {
                                       } else {
                                         newFilter.groups[section['iD']]?.values
                                             .remove(element['iD']);
+                                        if (newFilter.groups[section['iD']]!
+                                            .values.isEmpty)
+                                          newFilter.groups
+                                              .remove(section['iD']);
                                       }
                                       setState(() {
                                         filter = newFilter;
