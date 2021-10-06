@@ -66,6 +66,7 @@ class MyApp extends StatelessWidget {
               Theme.of(context).textTheme,
             ),
             appBarTheme: AppBarTheme(
+              centerTitle: true,
               titleTextStyle: GoogleFonts.montserrat(
                   fontSize: 16.0, fontWeight: FontWeight.bold),
             ),
