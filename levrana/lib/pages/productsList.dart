@@ -163,7 +163,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   if (_controller.offset + 100 >=
                           _controller.position.maxScrollExtent &&
                       !_controller.position.outOfRange &&
-                      pageInfo['hasNextPage']) {
+                      pageInfo['hasNextPage'] &&
+                      items.length <
+                          result.data!['getProducts']['totalCount']) {
                     setState(() {
                       fetchingMore = true;
                     });
