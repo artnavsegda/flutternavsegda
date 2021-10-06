@@ -75,14 +75,23 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           children: <Widget>[
                             Mutation(
                                 options: MutationOptions(
-                                  document: gql(cartDelete),
-                                  onCompleted: (resultData) {},
+                                  document: gql(delFavoritesProducts),
+                                  onCompleted: (resultData) {
+                                    refetch!();
+                                    setState(() {
+                                      selectedRows.clear();
+                                    });
+                                  },
                                 ),
                                 builder: (runMutation, result) {
                                   return IconButton(
                                     constraints: BoxConstraints(maxWidth: 36),
                                     icon: Icon(Icons.delete_outlined),
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      runMutation({
+                                        'productIds': selectedRows.toList()
+                                      });
+                                    },
                                   );
                                 }),
                           ])),

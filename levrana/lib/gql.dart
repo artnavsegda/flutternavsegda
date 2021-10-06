@@ -478,6 +478,15 @@ mutation setFavoritesProducts($productIds: [Int]) {
 }
 ''';
 
+const String delFavoritesProducts = r'''
+mutation delFavoritesProducts($productIds: [Int]) {
+  delFavoritesProducts(productIds: $productIds) {
+    result
+    errorMessage
+  }
+}
+''';
+
 const String getClientInfo = r'''
 query getClientInfo {
   getClientInfo {
