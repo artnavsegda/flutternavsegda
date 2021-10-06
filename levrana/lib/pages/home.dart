@@ -258,7 +258,10 @@ class HomePage extends StatelessWidget {
                             )
                             .toList()
                             .cast<Widget>());
-                  })
+                  }),
+              SizedBox(
+                height: 50,
+              )
             ],
           ),
         ],
