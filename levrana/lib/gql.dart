@@ -191,6 +191,11 @@ query getConfiguratorProducts($configuratorItemIds: [Int], $cursor: String)
       iD
       name
       picture
+      attributes {
+        iD
+        name
+        color
+      }
     }
   }
 }
