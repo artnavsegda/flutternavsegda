@@ -1,6 +1,5 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart';
@@ -189,10 +188,8 @@ class DialogPage extends StatelessWidget {
                 Container(
                   margin: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(title,
-                      style: GoogleFonts.montserrat(
-                        fontSize: 28,
-                        fontWeight: FontWeight.w700,
-                      )),
+                      style: TextStyle(
+                          fontSize: 28.0, fontWeight: FontWeight.w700)),
                 ),
                 ConstrainedBox(
                   constraints: new BoxConstraints(

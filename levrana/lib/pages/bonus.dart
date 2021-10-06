@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -74,10 +73,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
           runSpacing: 8.0,
           children: [
             Text("Подарить бонусы",
-                style: GoogleFonts.montserrat(
-                  fontSize: 28,
-                  fontWeight: FontWeight.w700,
-                )),
+                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
             Text("Укажите количество бонусов"),
             Row(
               children: [
