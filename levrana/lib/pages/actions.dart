@@ -328,34 +328,55 @@ class ActionPage extends StatelessWidget {
                               Column(
                                 children: result.data!['getAction']['shops']
                                     .map((shop) {
-                                      return Column(
-                                        children: [
-                                          Image.network(
-                                            shop['pictures'][0],
-                                          ),
-                                          Text(shop['name']),
-                                          Text(shop['address']),
-                                          Column(
-                                            children: shop['metroStations']
-                                                .map((metroStation) {
-                                                  return Row(
-                                                    children: [
-                                                      Text(
-                                                          metroStation[
-                                                              'colorLine'],
-                                                          style: TextStyle(
-                                                              color: hexToColor(
+                                      return Container(
+                                        color: Color(0xFFF5F5F5),
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0),
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 80,
+                                              height: 80,
+                                              child: Image.network(
+                                                shop['pictures'][0],
+                                                fit: BoxFit.cover,
+                                              ),
+                                            ),
+                                            SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(shop['name']),
+                                                  Text(shop['address']),
+                                                  ...shop['metroStations']
+                                                      .map((metroStation) {
+                                                        return Row(
+                                                          children: [
+                                                            Text('*',
+                                                                style: TextStyle(
+                                                                    color: hexToColor(
+                                                                        metroStation[
+                                                                            'colorLine']))),
+                                                            Expanded(
+                                                              child: Text(
                                                                   metroStation[
-                                                                      'colorLine']))),
-                                                      Text(metroStation[
-                                                          'stationName']),
-                                                    ],
-                                                  );
-                                                })
-                                                .toList()
-                                                .cast<Widget>(),
-                                          )
-                                        ],
+                                                                      'stationName']),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      })
+                                                      .toList()
+                                                      .cast<Widget>(),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
                                       );
                                     })
                                     .toList()
