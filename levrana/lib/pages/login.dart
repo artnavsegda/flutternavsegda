@@ -72,15 +72,15 @@ class _UserLoginPageState extends State<UserLoginPage> {
               options: MutationOptions(
                 document: gql(loginClient),
                 onError: (error) {
-                  print("ERROR");
-                  print(error);
+                  //print("ERROR");
+                  //print(error);
                 },
                 onCompleted: (dynamic resultData) async {
-                  print(resultData);
+                  //(resultData);
                   if (resultData['loginClient']['result'] == 0) {
                     final prefs = await SharedPreferences.getInstance();
-                    print("loginClient token :" +
-                        resultData['loginClient']['token']);
+                    //print("loginClient token :" +
+                    //    resultData['loginClient']['token']);
                     prefs.setString(
                         'token', resultData['loginClient']['token']);
                     Navigator.pop(context);
@@ -120,7 +120,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                           ? () async {
                               PhoneNumber phoneNumber = await PhoneNumberUtil()
                                   .parse(phoneNumberController.text);
-                              print('7' + phoneNumber.nationalNumber);
+                              //print('7' + phoneNumber.nationalNumber);
                               runMutation({
                                 'clientPhone':
                                     int.parse('7' + phoneNumber.nationalNumber),
@@ -201,19 +201,19 @@ class _PasswordPageState extends State<PasswordPage> {
                   document: gql(checkPassword),
                   update: (cache, result) {
                     if (result!.hasException) {
-                      print(result.exception);
+                      //print(result.exception);
                     } else {
                       return cache;
                     }
                   },
                   onError: (error) {
-                    print("ERROR");
-                    print(error!.graphqlErrors[0].message);
+                    //print("ERROR");
+                    //print(error!.graphqlErrors[0].message);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
                         title: const Text('Ошибка'),
-                        content: Text(error.graphqlErrors[0].message),
+                        content: Text(error!.graphqlErrors[0].message),
                         actions: <Widget>[
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'OK'),
@@ -224,12 +224,12 @@ class _PasswordPageState extends State<PasswordPage> {
                     );
                   },
                   onCompleted: (dynamic resultData) async {
-                    print(resultData);
+                    //print(resultData);
                     if (resultData != null) {
                       if (resultData['checkClient']['result'] == 0) {
                         final prefs = await SharedPreferences.getInstance();
-                        print("checkClient token :" +
-                            resultData['checkClient']['token']);
+                        //print("checkClient token :" +
+                        //    resultData['checkClient']['token']);
                         prefs.setString(
                             'token', resultData['checkClient']['token']);
                         Navigator.pushReplacement(
@@ -357,13 +357,13 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
             options: MutationOptions(
                 document: gql(checkClient),
                 onError: (error) {
-                  print("ERROR");
-                  print(error!.graphqlErrors[0].message);
+                  //print("ERROR");
+                  //print(error!.graphqlErrors[0].message);
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
                       title: const Text('Ошибка'),
-                      content: Text(error.graphqlErrors[0].message),
+                      content: Text(error!.graphqlErrors[0].message),
                       actions: <Widget>[
                         TextButton(
                           onPressed: () => Navigator.pop(context, 'OK'),
@@ -374,12 +374,12 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                   );
                 },
                 onCompleted: (dynamic resultData) async {
-                  print(resultData);
+                  //print(resultData);
                   if (resultData != null) {
                     if (resultData['checkClient']['result'] == 0) {
                       final prefs = await SharedPreferences.getInstance();
-                      print("checkClient token :" +
-                          resultData['checkClient']['token']);
+                      //print("checkClient token :" +
+                      //    resultData['checkClient']['token']);
                       prefs.setString(
                           'token', resultData['checkClient']['token']);
                       Navigator.pushReplacement(

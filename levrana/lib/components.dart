@@ -93,7 +93,7 @@ class ProductCard extends StatelessWidget {
                 options: MutationOptions(
                   document: gql(cartAdd),
                   onCompleted: (resultData) {
-                    print(resultData);
+                    //print(resultData);
                     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                       content: const Text('Добавлен в корзину'),
                     ));
@@ -105,7 +105,7 @@ class ProductCard extends StatelessWidget {
                     right: 0,
                     child: InkWell(
                       onTap: () {
-                        print(product['type']);
+                        //print(product['type']);
                         if (product['type'] != 'SIMPLE')
                           showModalBottomSheet(
                             isScrollControlled: true,

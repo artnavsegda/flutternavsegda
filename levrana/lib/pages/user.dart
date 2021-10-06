@@ -221,7 +221,7 @@ class UserPage extends StatelessWidget {
                         onTap: () async {
                           final prefs = await SharedPreferences.getInstance();
                           prefs.remove('token');
-                          print("Token removed");
+                          //print("Token removed");
                           client.cache.store.reset(); // empty the hash map
                           //await client.cache.save();
                           Navigator.pushReplacement(
@@ -285,7 +285,7 @@ class _PromocodeState extends State<Promocode> {
                 options: MutationOptions(
                   document: gql(promocodeActivation),
                   onCompleted: (resultData) {
-                    print(resultData);
+                    //print(resultData);
                     Navigator.pop(context);
                   },
                 ),
@@ -378,7 +378,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 options: MutationOptions(
                   document: gql(setPassword),
                   onCompleted: (resultData) {
-                    print(resultData);
+                    //print(resultData);
                     Navigator.pop(context);
                   },
                 ),

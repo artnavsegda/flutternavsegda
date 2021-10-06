@@ -175,7 +175,7 @@ class HomePage extends StatelessWidget {
                           itemBuilder: (context, index) {
                             return InkWell(
                               onTap: () async {
-                                print(result.data!['getActions'][index]['iD']);
+                                //print(result.data!['getActions'][index]['iD']);
                                 await Navigator.push(
                                   context,
                                   MaterialPageRoute(

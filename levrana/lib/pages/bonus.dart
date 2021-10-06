@@ -35,7 +35,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
         final Contact? contact =
             await ContactsService.openDeviceContactPicker();
       } catch (e) {
-        print(e.toString());
+        //print(e.toString());
       }
     } else {
       _handleInvalidPermissions(permissionStatus);
@@ -171,7 +171,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 options: MutationOptions(
                   document: gql(friendTransfer),
                   onCompleted: (resultData) {
-                    print(resultData);
+                    //print(resultData);
                   },
                 ),
                 builder: (runMutation, result) {
@@ -196,7 +196,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   void _onQRViewCreated(QRViewController controller) {
     this.controller = controller;
     controller.scannedDataStream.listen((scanData) {
-      print(scanData.code);
+      //print(scanData.code);
       setState(() {
         scanned = true;
         clientGUID = scanData;

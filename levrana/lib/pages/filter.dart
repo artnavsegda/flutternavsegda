@@ -11,7 +11,7 @@ class GraphFilterGroup {
   });
 
   int iD;
-  var values;
+  Set<int> values;
 
   Map<String, dynamic> toJson() => {
         'iD': iD,
@@ -23,16 +23,23 @@ class GraphFilter {
   GraphFilter({
     this.priceMin = 0,
     this.priceMax = 0,
-    this.groups = const <GraphFilterGroup>[],
+    this.groups = const <int, GraphFilterGroup>{},
   });
-  int priceMin;
-  int priceMax;
-  var groups;
+
+  GraphFilter.from(GraphFilter original) {
+    this.priceMin = original.priceMin;
+    this.priceMax = original.priceMax;
+    this.groups = Map<int, GraphFilterGroup>.from(original.groups);
+  }
+
+  int priceMin = 0;
+  int priceMax = 0;
+  Map<int, GraphFilterGroup> groups = const <int, GraphFilterGroup>{};
 
   Map<String, dynamic> toJson() => {
         'priceMin': priceMin,
         'priceMax': priceMax,
-        'groups': groups.map((element) => element.toJson()),
+        'groups': groups.entries.map((e) => e.value).toList()
       };
 }
 
@@ -55,7 +62,10 @@ class FiltersPage extends StatelessWidget {
           title: Text("Фильтры"),
           actions: <Widget>[
             TextButton(
-              onPressed: () {},
+              onPressed: () {
+                //print("puk");
+                onFilterChanged(GraphFilter());
+              },
               child: const Text(
                 'Сбросить',
                 style: TextStyle(
@@ -71,7 +81,7 @@ class FiltersPage extends StatelessWidget {
               variables: {'catalogID': catalogId},
             ),
             builder: (result, {fetchMore, refetch}) {
-              print(result);
+              //print(result);
 
               if (result.hasException) {
                 return Text(result.exception.toString());
@@ -131,7 +141,27 @@ class FiltersPage extends StatelessWidget {
                       Row(
                           children: section['values']
                               .map((element) {
-                                return Text(element['name']);
+                                return ElevatedButton(
+                                    onPressed: () {
+                                      var newFilter = GraphFilter.from(filter);
+
+                                      print(filter.groups[section['iD']]);
+
+                                      if (filter.groups[section['iD']] !=
+                                          null) {
+                                        print('not empty');
+                                        newFilter.groups[section['iD']]?.values
+                                            .add(element['iD']);
+                                      } else {
+                                        print('empty');
+                                        newFilter.groups[section['iD']] =
+                                            GraphFilterGroup(
+                                                iD: section['iD'],
+                                                values: {element['iD']});
+                                      }
+                                      onFilterChanged(newFilter);
+                                    },
+                                    child: Text(element['name']));
                               })
                               .toList()
                               .cast<Widget>()),

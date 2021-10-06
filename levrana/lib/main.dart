@@ -19,7 +19,7 @@ void main() async {
 
   final AuthLink authLink = AuthLink(getToken: () async {
     final prefs = await SharedPreferences.getInstance();
-    print("DEBUG TOKEN " + (prefs.getString('token') ?? ""));
+    //print("DEBUG TOKEN " + (prefs.getString('token') ?? ""));
     return 'Bearer ' + (prefs.getString('token') ?? "");
   });
 
@@ -48,7 +48,7 @@ class MyApp extends StatelessWidget {
 
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
-    print("STARTUP TOKEN" + (prefs.getString('token') ?? ""));
+    //print("STARTUP TOKEN" + (prefs.getString('token') ?? ""));
     return prefs.getString('token') ?? "";
   }
 

@@ -16,7 +16,7 @@ class PollAnswersClient {
       this.other = "",
       required this.pollID});
   int scale;
-  var pollAnswers;
+  Set<int> pollAnswers;
   String other;
   int pollID;
 
@@ -64,7 +64,7 @@ class _PollState extends State<Poll> {
 
           var stageData = result.data!['getPoll'][stage];
 
-          print(stageData);
+          //print(stageData);
 
           var isActive = ((stageData['isSkip'] == true) ||
               (answers[stageData['iD']]?.pollAnswers.isNotEmpty ?? false) ||
@@ -99,7 +99,7 @@ class _PollState extends State<Poll> {
                                   .contains(element['iD']) ??
                               false,
                           onChanged: (value) {
-                            print(element['iD']);
+                            //print(element['iD']);
                             setState(() {
                               if (value != true)
                                 answers[stageData['iD']]
@@ -128,9 +128,9 @@ class _PollState extends State<Poll> {
                                 ?.pollAnswers
                                 .contains(element['iD']),
                             onChanged: (v) {
-                              print(answers);
+                              //print(answers);
                               setState(() {
-                                print(element['iD']);
+                                //print(element['iD']);
 
                                 (answers[stageData['iD']] != null)
                                     ? answers[stageData['iD']]?.pollAnswers = {
@@ -190,17 +190,17 @@ class _PollState extends State<Poll> {
                           options: MutationOptions(
                             document: gql(setPollResult),
                             onCompleted: (dynamic resultData) {
-                              print(resultData);
+                              //print(resultData);
                               Navigator.pop(context);
                             },
                           ),
                           builder: (runMutation, result) {
-                            print(result);
+                            //print(result);
                             return TextButton(
                                 onPressed: isActive
                                     ? () {
-                                        print("Finish");
-                                        print(widget.actionID);
+                                        //print("Finish");
+                                        //print(widget.actionID);
                                         runMutation({
                                           'actionID': widget.actionID,
                                           'answers': answers.values.toList()
@@ -287,7 +287,7 @@ class ActionPage extends StatelessWidget {
                                     "",
                                 onTapLink: (text, url, title) {
                                   launch(url!);
-                                  print(url);
+                                  //print(url);
                                 },
                               ),
                               SizedBox(height: 16),

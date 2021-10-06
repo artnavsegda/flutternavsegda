@@ -42,7 +42,7 @@ class CatalogPage extends StatelessWidget {
                 ),
               ),
               onTap: () {
-                print(id);
+                //print(id);
                 Navigator.push(
                     context,
                     MaterialPageRoute(
@@ -110,7 +110,7 @@ class CatalogPage extends StatelessWidget {
                                   id: section['iD'],
                                   totalCount: section['totalCount'])));
                     else {
-                      print(section['iD'].toString());
+                      //print(section['iD'].toString());
                       Navigator.push(
                           context,
                           MaterialPageRoute(

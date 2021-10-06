@@ -23,7 +23,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
     return Query(
         options: QueryOptions(document: gql(getCart)),
         builder: (result, {refetch, fetchMore}) {
-          print(result);
+          //print(result);
 
           if (result.hasException) {
             return Center(
@@ -111,7 +111,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                             options: MutationOptions(
                               document: gql(cartDelete),
                               onCompleted: (resultData) {
-                                print(resultData);
+                                //print(resultData);
                                 refetch!();
                                 setState(() {
                                   selectedRows.clear();
@@ -132,7 +132,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                             options: MutationOptions(
                               document: gql(setFavoritesProducts),
                               onCompleted: (resultData) {
-                                print(resultData);
+                                //print(resultData);
                                 refetch!();
                                 setState(() {
                                   selectedFavs.clear();
@@ -207,7 +207,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                     // you can update the cache based on results
                                     // or do something with the result.data on completion
                                     onCompleted: (dynamic resultData) {
-                                      print(resultData);
+                                      //print(resultData);
                                       refetch!();
                                     },
                                   ),
@@ -305,7 +305,7 @@ class FavouritesPage extends StatelessWidget {
     return Query(
         options: QueryOptions(document: gql(getFavoritesProducts)),
         builder: (result, {refetch, fetchMore}) {
-          print(result);
+          //print(result);
 
           if (result.hasException) {
             return Center(

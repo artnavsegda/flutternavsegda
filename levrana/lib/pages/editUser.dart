@@ -171,7 +171,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                       InputDecoration(labelText: 'Телефон')),
                               TextFormField(
                                   onTap: () {
-                                    print("AAAA");
+                                    //print("AAAA");
                                     showCupertinoModalPopup(
                                         context: context,
                                         builder: (context) {
@@ -216,7 +216,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   options: MutationOptions(
                                     document: gql(editClient),
                                     onCompleted: (resultData) {
-                                      print(resultData);
+                                      //print(resultData);
                                       Navigator.pop(context);
                                     },
                                   ),
@@ -234,9 +234,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                               final prefs =
                                                   await SharedPreferences
                                                       .getInstance();
-                                              print("Upload token: " +
-                                                  (prefs.getString('token') ??
-                                                      ""));
+                                              //print("Upload token: " +
+                                              //    (prefs.getString('token') ??
+                                              //        ""));
                                               request.headers['Authorization'] =
                                                   'Bearer ' +
                                                       (prefs.getString(
@@ -254,9 +254,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                               var res = await streamedResponse
                                                   .stream
                                                   .bytesToString();
-                                              print(res);
+                                              //print(res);
                                             }
-                                            print(nameController.text);
+                                            //print(nameController.text);
                                             runMutation({
                                               'clientGUID': clientGUID,
                                               'name': nameController.text,

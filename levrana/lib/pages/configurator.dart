@@ -124,7 +124,7 @@ class _ConfiguratorState extends State<Configurator> {
                             .map((element) {
                               void onPress() {
                                 int idToAdd = element['iD'];
-                                print(idToAdd);
+                                //print(idToAdd);
                                 setState(() {
                                   configuratorItemIds =
                                       List.from(configuratorItemIds)
@@ -241,8 +241,8 @@ class _ConfiguratorState extends State<Configurator> {
                 },
               ),
               builder: (result, {fetchMore, refetch}) {
-                print(configuratorItemIds);
-                print(result);
+                //print(configuratorItemIds);
+                //print(result);
                 //refetch!();
                 if (result.hasException) {
                   return Text(result.exception.toString());

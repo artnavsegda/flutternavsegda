@@ -28,7 +28,7 @@ class SupportPage extends StatelessWidget {
             document: gql(getSupport),
           ),
           builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-            print(result);
+            //print(result);
 
             if (result.hasException) {
               return Center(
@@ -59,10 +59,10 @@ class SupportPage extends StatelessWidget {
                 options: MutationOptions(
                   document: gql(addSupport),
                   onError: (error) {
-                    print(error);
+                    //print(error);
                   },
                   onCompleted: (dynamic resultData) async {
-                    print(resultData);
+                    //print(resultData);
                     refetch!();
                   },
                 ),

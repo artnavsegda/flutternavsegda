@@ -58,7 +58,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         setState(() {
                           rating = (newRating * 2).round();
                         });
-                        print(newRating);
+                        //print(newRating);
                       },
                     ),
                     SizedBox(
@@ -82,10 +82,10 @@ class _ReviewPageState extends State<ReviewPage> {
                         options: MutationOptions(
                           document: gql(addReviewProduct),
                           onError: (error) {
-                            print(error);
+                            //print(error);
                           },
                           onCompleted: (dynamic resultData) async {
-                            print(resultData);
+                            //print(resultData);
                             Navigator.pop(context);
                           },
                         ),

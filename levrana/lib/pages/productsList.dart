@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product.dart';
@@ -49,8 +50,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
           fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-          print(catalogFilter.priceMax);
-          print(result);
+          //print(catalogFilter.priceMax);
+          //print(result);
 
           if (result.hasException) {
             return Text(result.exception.toString());
@@ -110,6 +111,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 fetchPolicy: FetchPolicy.networkOnly,
               ),
               builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
+                print(jsonEncode(catalogFilter));
+
                 if (result.hasException) {
                   return Text(result.exception.toString());
                 }

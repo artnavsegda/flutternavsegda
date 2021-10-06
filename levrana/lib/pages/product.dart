@@ -47,7 +47,7 @@ class _ProductPageState extends State<ProductPage> {
           },
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
+          //print(result);
 
           if (result.hasException) {
             return Scaffold(
@@ -392,7 +392,7 @@ class _ProductPageState extends State<ProductPage> {
                             options: MutationOptions(
                               document: gql(cartAdd),
                               onCompleted: (resultData) {
-                                print(resultData);
+                                //print(resultData);
 
                                 // Find the ScaffoldMessenger in the widget tree
                                 // and use it to show a SnackBar.
@@ -408,7 +408,7 @@ class _ProductPageState extends State<ProductPage> {
                                     List<int> charList = charMap.entries
                                         .map((entry) => entry.value)
                                         .toList();
-                                    print(charList);
+                                    //print(charList);
                                     runMutation({
                                       'productID': widget.id,
                                       'characteristicValueIds': charList
@@ -428,7 +428,7 @@ class _ProductPageState extends State<ProductPage> {
                           options: MutationOptions(
                             document: gql(setFavoritesProduct),
                             onCompleted: (resultData) {
-                              print(resultData);
+                              //print(resultData);
                               refetch!();
                             },
                           ),

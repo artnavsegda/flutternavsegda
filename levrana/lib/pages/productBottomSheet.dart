@@ -61,7 +61,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                 },
               ),
               builder: (result, {fetchMore, refetch}) {
-                print(result);
+                //print(result);
                 if (result.hasException) {
                   return Text(result.exception.toString());
                 }
@@ -106,7 +106,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
             options: MutationOptions(
               document: gql(cartAdd),
               onCompleted: (resultData) {
-                print(resultData);
+                //print(resultData);
                 Navigator.pop(context);
               },
             ),
@@ -119,7 +119,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   onPressed: () {
                     List<int> charList =
                         charMap.entries.map((entry) => entry.value).toList();
-                    print(charList);
+                    //print(charList);
                     runMutation({
                       'productID': widget.id,
                       'characteristicValueIds': charList

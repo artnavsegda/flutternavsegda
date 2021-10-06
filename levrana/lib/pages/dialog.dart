@@ -23,12 +23,12 @@ class Welcome extends StatelessWidget {
         options: MutationOptions(
           document: gql(authenticate),
           onError: (error) {
-            print(error);
+            //print(error);
           },
           onCompleted: (dynamic resultData) async {
-            print(resultData);
+            //print(resultData);
             final prefs = await SharedPreferences.getInstance();
-            print("authenticate token:" + resultData['authenticate']['token']);
+            //print("authenticate token:" + resultData['authenticate']['token']);
             prefs.setString('token', resultData['authenticate']['token']);
             Navigator.pushReplacement(
               context,
