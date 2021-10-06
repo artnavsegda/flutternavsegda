@@ -512,3 +512,15 @@ mutation setPassword($password: String)
   }
 }
 ''';
+
+const String logoffClient = r'''
+mutation logoffClient
+{
+  logoffClient
+  {
+    result
+    errorMessage
+    token
+  }
+}
+''';
