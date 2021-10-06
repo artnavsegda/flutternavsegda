@@ -43,7 +43,7 @@ class GraphFilter {
       };
 }
 
-class FiltersPage extends StatelessWidget {
+class FiltersPage extends StatefulWidget {
   const FiltersPage(
       {Key? key,
       required this.catalogId,
@@ -56,6 +56,19 @@ class FiltersPage extends StatelessWidget {
   final ValueChanged<GraphFilter> onFilterChanged;
 
   @override
+  State<FiltersPage> createState() => _FiltersPageState();
+}
+
+class _FiltersPageState extends State<FiltersPage> {
+  late GraphFilter filter;
+
+  @override
+  void initState() {
+    super.initState();
+    filter = widget.filter;
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
@@ -64,7 +77,7 @@ class FiltersPage extends StatelessWidget {
             TextButton(
               onPressed: () {
                 //print("puk");
-                onFilterChanged(GraphFilter());
+                widget.onFilterChanged(GraphFilter());
               },
               child: const Text(
                 'Сбросить',
@@ -78,7 +91,7 @@ class FiltersPage extends StatelessWidget {
         body: Query(
             options: QueryOptions(
               document: gql(getFilters),
-              variables: {'catalogID': catalogId},
+              variables: {'catalogID': widget.catalogId},
             ),
             builder: (result, {fetchMore, refetch}) {
               //print(result);
@@ -111,7 +124,10 @@ class FiltersPage extends StatelessWidget {
                                       var newVal = int.tryParse(value);
                                       if (newVal != null) {
                                         filter.priceMin = newVal;
-                                        onFilterChanged(filter);
+                                        widget.onFilterChanged(filter);
+                                        setState(() {
+                                          filter = filter;
+                                        });
                                       }
                                     },
                                     initialValue: filter.priceMin.toString(),
@@ -122,7 +138,10 @@ class FiltersPage extends StatelessWidget {
                                       var newVal = int.tryParse(value);
                                       if (newVal != null) {
                                         filter.priceMax = newVal;
-                                        onFilterChanged(filter);
+                                        widget.onFilterChanged(filter);
+                                        setState(() {
+                                          filter = filter;
+                                        });
                                       }
                                     },
                                     initialValue: filter.priceMax.toString(),
@@ -145,8 +164,6 @@ class FiltersPage extends StatelessWidget {
                                     onPressed: () {
                                       var newFilter = GraphFilter.from(filter);
 
-                                      print(filter.groups[section['iD']]);
-
                                       if (filter.groups[section['iD']] !=
                                           null) {
                                         print('not empty');
@@ -159,7 +176,10 @@ class FiltersPage extends StatelessWidget {
                                                 iD: section['iD'],
                                                 values: {element['iD']});
                                       }
-                                      onFilterChanged(newFilter);
+                                      setState(() {
+                                        filter = newFilter;
+                                      });
+                                      widget.onFilterChanged(newFilter);
                                     },
                                     child: Text(element['name']));
                               })
