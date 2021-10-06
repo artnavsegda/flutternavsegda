@@ -27,6 +27,10 @@ query getAction($actionID: Int) {
       name
       address
       pictures
+      metroStations {
+        colorLine
+        stationName
+      }
     }
   }
 }

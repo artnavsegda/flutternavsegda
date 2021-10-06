@@ -334,6 +334,26 @@ class ActionPage extends StatelessWidget {
                                           ),
                                           Text(shop['name']),
                                           Text(shop['address']),
+                                          Column(
+                                            children: shop['metroStations']
+                                                .map((metroStation) {
+                                                  return Row(
+                                                    children: [
+                                                      Text(
+                                                          metroStation[
+                                                              'colorLine'],
+                                                          style: TextStyle(
+                                                              color: hexToColor(
+                                                                  metroStation[
+                                                                      'colorLine']))),
+                                                      Text(metroStation[
+                                                          'stationName']),
+                                                    ],
+                                                  );
+                                                })
+                                                .toList()
+                                                .cast<Widget>(),
+                                          )
                                         ],
                                       );
                                     })
