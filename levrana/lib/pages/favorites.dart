@@ -36,6 +36,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
             );
           }
 
+          if (result.data!['getFavoritesProducts'].length == 0) {
+            return Center(child: Text("Жми сердечко"));
+          }
+
           return SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
