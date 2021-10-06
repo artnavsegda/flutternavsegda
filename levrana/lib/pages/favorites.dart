@@ -6,8 +6,15 @@ import 'package:levrana/pages/product.dart';
 import '../gql.dart';
 import '../components.dart';
 
-class FavouritesPage extends StatelessWidget {
+class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);
+
+  @override
+  State<FavouritesPage> createState() => _FavouritesPageState();
+}
+
+class _FavouritesPageState extends State<FavouritesPage> {
+  var selectedRows = <int>{};
 
   @override
   Widget build(BuildContext context) {
@@ -43,9 +50,27 @@ class FavouritesPage extends StatelessWidget {
                         height: 24.0,
                         width: 24.0,
                         child: LevranaCheckbox(
-                            value: false, onChanged: (newValue) {}),
+                            value: selectedRows.length != 0 &&
+                                selectedRows.containsAll(result
+                                    .data!['getFavoritesProducts']
+                                    .map((e) => e['iD'])
+                                    .cast<int>()
+                                    .toList()),
+                            onChanged: (newValue) {
+                              setState(() {
+                                if (newValue == true) {
+                                  selectedRows.addAll(result
+                                      .data!['getFavoritesProducts']
+                                      .map((e) => e['iD'])
+                                      .cast<int>()
+                                      .toList());
+                                } else {
+                                  selectedRows.clear();
+                                }
+                              });
+                            }),
                       ),
-                      title: Text('Выбрано: 0'),
+                      title: Text('Выбрано: ${selectedRows.length}'),
                       trailing: Wrap(spacing: 12, // space between two icons
                           children: <Widget>[
                             Mutation(
@@ -98,9 +123,20 @@ class FavouritesPage extends StatelessWidget {
                                   Positioned(
                                     top: 10,
                                     child: LevranaBigCheckbox(
-                                      value: false,
-                                      onChanged: (value) {},
-                                    ),
+                                        value: selectedRows
+                                            .contains(product['iD']),
+                                        onChanged: (newValue) {
+                                          if (newValue == true) {
+                                            setState(() {
+                                              selectedRows.add(product['iD']);
+                                            });
+                                          } else {
+                                            setState(() {
+                                              selectedRows
+                                                  .remove(product['iD']);
+                                            });
+                                          }
+                                        }),
                                   )
                                 ],
                               ),
