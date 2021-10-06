@@ -69,24 +69,41 @@ class FavouritesPage extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12.0))),
                   width: double.infinity,
                   margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                  padding: EdgeInsets.all(16.0),
+                  padding:
+                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
                   child: Wrap(
-                      spacing: 16,
-                      runSpacing: 16,
+                      spacing: 0,
+                      runSpacing: 32,
                       children: result.data!['getFavoritesProducts']
                           .map(
                             (product) => FractionallySizedBox(
-                              widthFactor: 0.45,
-                              child: ProductCard(
-                                  product: product,
-                                  onTap: () async {
-                                    await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) => ProductPage(
-                                                id: product['iD'])));
-                                    refetch!();
-                                  }),
+                              widthFactor: 0.5,
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 8),
+                                    child: ProductCard(
+                                        product: product,
+                                        onTap: () async {
+                                          await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ProductPage(
+                                                          id: product['iD'])));
+                                          refetch!();
+                                        }),
+                                  ),
+                                  Positioned(
+                                    top: 10,
+                                    child: LevranaBigCheckbox(
+                                      value: false,
+                                      onChanged: (value) {},
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
                           )
                           .toList()
