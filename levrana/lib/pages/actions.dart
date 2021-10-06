@@ -1,6 +1,7 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
@@ -293,6 +294,14 @@ class ActionPage extends StatelessWidget {
                                 },
                               ),
                               SizedBox(height: 16),
+                              result.data!['getAction']['products'].length > 1
+                                  ? Text("Товары из акции",
+                                      style: GoogleFonts.montserrat(
+                                        fontSize: 28,
+                                        fontWeight: FontWeight.w700,
+                                      ))
+                                  : SizedBox.shrink(),
+                              SizedBox(height: 16),
                               Wrap(
                                   spacing: 16,
                                   runSpacing: 16,
@@ -315,6 +324,22 @@ class ActionPage extends StatelessWidget {
                                           )
                                           .toList()
                                           .cast<Widget>()),
+                              Column(
+                                children: result.data!['getAction']['shops']
+                                    .map((shop) {
+                                      return Column(
+                                        children: [
+                                          Image.network(
+                                            shop['pictures'][0],
+                                          ),
+                                          Text(shop['name']),
+                                          Text(shop['address']),
+                                        ],
+                                      );
+                                    })
+                                    .toList()
+                                    .cast<Widget>(),
+                              ),
                             ]),
                       ),
                     ],

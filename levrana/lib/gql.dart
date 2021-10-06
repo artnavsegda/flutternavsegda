@@ -23,6 +23,11 @@ query getAction($actionID: Int) {
         color
       }
     }
+    shops {
+      name
+      address
+      pictures
+    }
   }
 }
 ''';
