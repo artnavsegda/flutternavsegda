@@ -357,8 +357,16 @@ class ActionPage extends StatelessWidget {
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 children: [
-                                                  Text(shop['name']),
-                                                  Text(shop['address']),
+                                                  Text(
+                                                    shop['name'],
+                                                    style: TextStyle(
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ),
+                                                  Text(shop['address'],
+                                                      style: TextStyle(
+                                                          fontSize: 12.0)),
                                                   ...shop['metroStations']
                                                       .map((metroStation) {
                                                         return Row(
@@ -371,7 +379,10 @@ class ActionPage extends StatelessWidget {
                                                             Expanded(
                                                               child: Text(
                                                                   metroStation[
-                                                                      'stationName']),
+                                                                      'stationName'],
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.0)),
                                                             ),
                                                           ],
                                                         );
