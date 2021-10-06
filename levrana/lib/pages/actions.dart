@@ -54,6 +54,7 @@ class _PollState extends State<Poll> {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
+            return Text('Только зарегистрированным пользователям');
             return Text(result.exception.toString());
           }
 
