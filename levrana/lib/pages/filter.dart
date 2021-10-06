@@ -157,31 +157,37 @@ class _FiltersPageState extends State<FiltersPage> {
                   return Column(
                     children: [
                       Text(section['name']),
-                      Row(
+                      Column(
                           children: section['values']
                               .map((element) {
-                                return ElevatedButton(
-                                    onPressed: () {
+                                return CheckboxListTile(
+                                    value: filter.groups[section['iD']]?.values
+                                            .contains(element['iD']) ??
+                                        false,
+                                    onChanged: (newValue) {
                                       var newFilter = GraphFilter.from(filter);
-
-                                      if (filter.groups[section['iD']] !=
-                                          null) {
-                                        print('not empty');
-                                        newFilter.groups[section['iD']]?.values
-                                            .add(element['iD']);
+                                      if (newValue == true) {
+                                        if (filter.groups
+                                            .containsKey(section['iD'])) {
+                                          newFilter
+                                              .groups[section['iD']]?.values
+                                              .add(element['iD']);
+                                        } else {
+                                          newFilter.groups[section['iD']] =
+                                              GraphFilterGroup(
+                                                  iD: section['iD'],
+                                                  values: {element['iD']});
+                                        }
                                       } else {
-                                        print('empty');
-                                        newFilter.groups[section['iD']] =
-                                            GraphFilterGroup(
-                                                iD: section['iD'],
-                                                values: {element['iD']});
+                                        newFilter.groups[section['iD']]?.values
+                                            .remove(element['iD']);
                                       }
                                       setState(() {
                                         filter = newFilter;
                                       });
                                       widget.onFilterChanged(newFilter);
                                     },
-                                    child: Text(element['name']));
+                                    title: Text(element['name']));
                               })
                               .toList()
                               .cast<Widget>()),
