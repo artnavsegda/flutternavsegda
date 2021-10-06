@@ -237,7 +237,7 @@ class UserPage extends StatelessWidget {
                         options: MutationOptions(
                           document: gql(logoffClient),
                           onCompleted: (resultData) async {
-                            print(resultData);
+                            //print(resultData);
                             final prefs = await SharedPreferences.getInstance();
                             //prefs.remove('token');
                             prefs.setString(

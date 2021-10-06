@@ -112,7 +112,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 fetchPolicy: FetchPolicy.networkOnly,
               ),
               builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-                print(jsonEncode(catalogFilter));
+                //print(jsonEncode(catalogFilter));
 
                 if (result.hasException) {
                   return Text(result.exception.toString());
@@ -130,9 +130,15 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 final Map pageInfo = result.data!['getProducts']['pageInfo'];
                 final String fetchMoreCursor = pageInfo['endCursor'];
 
+                print("catalog: ${widget.catalogId}");
+                print("fetch more cursor:" + fetchMoreCursor);
+                print("has next page:" + pageInfo['hasNextPage'].toString());
+
                 FetchMoreOptions opts = FetchMoreOptions(
                   variables: {'cursor': fetchMoreCursor},
                   updateQuery: (previousResultData, fetchMoreResultData) {
+                    //print(fetchMoreResultData!['getProducts']['items']);
+
                     final List<dynamic> items = [
                       ...previousResultData!['getProducts']['items']
                           as List<dynamic>,
@@ -156,7 +162,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 _controller.addListener(() {
                   if (_controller.offset + 100 >=
                           _controller.position.maxScrollExtent &&
-                      !_controller.position.outOfRange) {
+                      !_controller.position.outOfRange &&
+                      pageInfo['hasNextPage']) {
                     setState(() {
                       fetchingMore = true;
                     });
@@ -167,9 +174,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 return StaggeredGridView.countBuilder(
                   controller: _controller,
                   crossAxisCount: 4,
-                  itemCount: items.length + 1,
+                  itemCount: items.length + (fetchingMore ? 1 : 0),
                   itemBuilder: (BuildContext context, int index) =>
-                      (index == items.length)
+                      (index == items.length && fetchingMore)
                           ? Center(child: CircularProgressIndicator())
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
