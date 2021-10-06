@@ -329,7 +329,11 @@ class ActionPage extends StatelessWidget {
                                 children: result.data!['getAction']['shops']
                                     .map((shop) {
                                       return Container(
-                                        color: Color(0xFFF5F5F5),
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFF5F5F5),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
                                         margin: const EdgeInsets.symmetric(
                                             vertical: 5.0),
                                         padding: const EdgeInsets.all(10.0),
@@ -337,12 +341,14 @@ class ActionPage extends StatelessWidget {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           children: [
-                                            SizedBox(
-                                              width: 80,
-                                              height: 80,
+                                            ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(6.0),
                                               child: Image.network(
                                                 shop['pictures'][0],
                                                 fit: BoxFit.cover,
+                                                width: 80,
+                                                height: 80,
                                               ),
                                             ),
                                             SizedBox(width: 10),
