@@ -216,7 +216,7 @@ class UserPage extends StatelessWidget {
                       leading: Image(
                           image: AssetImage('assets/ic-24/icon-24-pass.png')),
                     ),
-                    GraphQLConsumer(builder: (GraphQLClient client) {
+/*                     GraphQLConsumer(builder: (GraphQLClient client) {
                       return ListTile(
                         onTap: () async {
                           final prefs = await SharedPreferences.getInstance();
@@ -233,7 +233,34 @@ class UserPage extends StatelessWidget {
                         leading: Image(
                             image: AssetImage('assets/ic-24/icon-24-exit.png')),
                       );
-                    }),
+                    }), */
+                    Mutation(
+                        options: MutationOptions(
+                          document: gql(logoffClient),
+                          onCompleted: (resultData) async {
+                            print(resultData);
+                            final prefs = await SharedPreferences.getInstance();
+                            //prefs.remove('token');
+                            prefs.setString(
+                                'token', resultData['logoffClient']['token']);
+                            Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Welcome()),
+                            );
+                          },
+                        ),
+                        builder: (runMutation, result) {
+                          return ListTile(
+                            onTap: () async {
+                              runMutation({});
+                            },
+                            title: Text("Выйти"),
+                            leading: Image(
+                                image: AssetImage(
+                                    'assets/ic-24/icon-24-exit.png')),
+                          );
+                        }),
                   ],
                 )
               ],
