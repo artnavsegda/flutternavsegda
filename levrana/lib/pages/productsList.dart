@@ -131,6 +131,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
                 final String fetchMoreCursor = pageInfo['endCursor'];
 
                 print("catalog: ${widget.catalogId}");
+                print("total: ${result.data!['getProducts']['totalCount']}");
+                print("loaded: ${items.length}");
                 print("fetch more cursor:" + fetchMoreCursor);
                 print("has next page:" + pageInfo['hasNextPage'].toString());
 
