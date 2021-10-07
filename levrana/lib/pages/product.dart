@@ -273,9 +273,10 @@ class _ProductPageState extends State<ProductPage> {
                                               .cast<Widget>(),
                                         ),
                                       ),
-                                      Text(result.data!['getProduct']
-                                              ['composition'] ??
-                                          ""),
+                                      MarkdownBody(
+                                          data: result.data!['getProduct']
+                                                  ['composition'] ??
+                                              ""),
                                     ],
                                   ),
                                 ),
