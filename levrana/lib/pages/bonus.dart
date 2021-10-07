@@ -128,7 +128,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.ac_unit),
+                    icon: Icon(Icons.contact_phone),
                     onPressed: () {
                       _openContacts();
                     },
