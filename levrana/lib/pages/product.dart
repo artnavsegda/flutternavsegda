@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:transparent_image/transparent_image.dart';
 import 'dart:math';
 
 import '../components.dart';
@@ -107,8 +108,10 @@ class _ProductPageState extends State<ProductPage> {
                             return Stack(
                               alignment: Alignment.center,
                               children: [
-                                Image.network(result.data!['getProduct']
-                                    ['pictures'][index]),
+                                FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: result.data!['getProduct']
+                                        ['pictures'][index]),
                                 if (result
                                         .data!['getProduct']['stickerPictures']
                                         .length >
