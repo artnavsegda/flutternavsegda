@@ -182,21 +182,51 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     ),
                     builder: (result, {fetchMore, refetch}) {
                       if (result.hasException) {
+                        Future.delayed(const Duration(milliseconds: 1000), () {
+                          setState(() {
+                            scanned = false;
+                          });
+                        });
+                        return Center(child: CircularProgressIndicator());
                         return Text(result.exception.toString());
                       }
 
                       if (result.isLoading) {
-                        return Text('Loading');
+                        return Center(child: CircularProgressIndicator());
                       }
 
-                      return Text(result.data!['friendFind']['name']);
+                      return Row(
+                        children: [
+                          CircleAvatar(
+                            radius: 20,
+                            backgroundImage: NetworkImage(
+                                result.data!['friendFind']['picture']),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(result.data!['friendFind']['name']),
+                          ),
+                          Spacer(),
+                          IconButton(
+                            icon: Icon(Icons.close),
+                            onPressed: () {
+                              setState(() {
+                                scanned = false;
+                              });
+                            },
+                          )
+                        ],
+                      );
                     })
               else
-                SizedBox(
-                  height: 200,
-                  child: QRView(
-                    key: qrKey,
-                    onQRViewCreated: _onQRViewCreated,
+                AspectRatio(
+                  aspectRatio: 1.3,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: QRView(
+                      key: qrKey,
+                      onQRViewCreated: _onQRViewCreated,
+                    ),
                   ),
                 ),
             Mutation(
@@ -227,7 +257,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48),
                       ),
-                      onPressed: phoneNumberIsCorrect
+                      onPressed: phoneNumberIsCorrect || scanned
                           ? () async {
                               if (_currentMode == SearchMode.phone) {
                                 try {
@@ -265,7 +295,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                               }
                             }
                           : null,
-                      child: Text(phoneNumberIsCorrect
+                      child: Text(phoneNumberIsCorrect || scanned
                           ? "ПОДАРИТЬ"
                           : "ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
                 })
