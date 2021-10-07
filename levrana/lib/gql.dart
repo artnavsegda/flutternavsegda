@@ -211,8 +211,8 @@ mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEn
 ''';
 
 const String editClient = r'''
-mutation editClient($clientGUID: String!, $name: String, $eMail: String) {
-  editClient(clientInfo: { clientGUID: $clientGUID, name: $name, eMail: $eMail }) {
+mutation editClient($clientGUID: String!, $name: String, $eMail: String, $phone: Long) {
+  editClient(clientInfo: { clientGUID: $clientGUID, name: $name, eMail: $eMail, phone: $phone }) {
     result
   }
 }

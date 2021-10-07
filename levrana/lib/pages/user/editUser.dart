@@ -8,6 +8,8 @@ import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import '../../gql.dart';
 
@@ -23,6 +25,7 @@ class _EditUserPageState extends State<EditUserPage> {
   final nameController = TextEditingController();
   final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
+  final birthDateController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
@@ -33,17 +36,18 @@ class _EditUserPageState extends State<EditUserPage> {
     nameController.dispose();
     emailController.dispose();
     phoneNumberController.dispose();
+    birthDateController.dispose();
     super.dispose();
   }
 
   void parsePhone(int value) async {
-    print(value);
+    //print(value);
     try {
       PhoneNumber phoneNumber =
           await PhoneNumberUtil().parse("+" + value.toString());
       phoneNumberController.text = phoneNumber.international;
     } catch (e) {
-      print('no');
+      //print('no');
     }
   }
 
@@ -182,6 +186,8 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration:
                                       InputDecoration(labelText: 'Телефон')),
                               TextFormField(
+                                  readOnly: true,
+                                  controller: birthDateController,
                                   onTap: () {
                                     //print("AAAA");
                                     showCupertinoModalPopup(
@@ -199,8 +205,14 @@ class _EditUserPageState extends State<EditUserPage> {
                                                     mode:
                                                         CupertinoDatePickerMode
                                                             .date,
-                                                    onDateTimeChanged:
-                                                        (value) {},
+                                                    onDateTimeChanged: (value) {
+                                                      initializeDateFormatting();
+                                                      birthDateController.text =
+                                                          DateFormat.yMMMd(
+                                                                  'ru_RU')
+                                                              .format(value);
+                                                      print(value.toString());
+                                                    },
                                                   ),
                                                 ),
                                                 CupertinoButton(
@@ -228,7 +240,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   options: MutationOptions(
                                     document: gql(editClient),
                                     onCompleted: (resultData) {
-                                      //print(resultData);
+                                      print(resultData);
                                       Navigator.pop(context);
                                     },
                                   ),
@@ -269,10 +281,15 @@ class _EditUserPageState extends State<EditUserPage> {
                                               //print(res);
                                             }
                                             //print(nameController.text);
+                                            PhoneNumber phoneNumber =
+                                                await PhoneNumberUtil().parse(
+                                                    phoneNumberController.text);
                                             runMutation({
                                               'clientGUID': clientGUID,
                                               'name': nameController.text,
                                               'eMail': emailController.text,
+                                              'phone': int.parse('7' +
+                                                  phoneNumber.nationalNumber)
                                             });
                                             //Navigator.pop(context);
                                           }
