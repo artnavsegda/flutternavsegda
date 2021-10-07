@@ -15,6 +15,43 @@ dynamic getPrice(priceList, priceID) {
   return priceMap[priceID];
 }
 
+class CheckboxTitle extends StatelessWidget {
+  const CheckboxTitle(
+      {Key? key, this.title = "", required this.value, required this.onChanged})
+      : super(key: key);
+
+  final String title;
+  final bool value;
+  final void Function(bool?) onChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 24.0,
+            width: 32.0,
+            child: LevranaCheckbox(
+              value: value,
+              onChanged: onChanged,
+            ),
+          ),
+          Flexible(
+            child: InkWell(
+                onTap: () {
+                  onChanged(!value);
+                },
+                child: Text(title, style: TextStyle(fontSize: 14))),
+          )
+        ],
+      ),
+    );
+  }
+}
+
 class LevranaCheckboxTitle extends StatelessWidget {
   const LevranaCheckboxTitle({
     Key? key,
