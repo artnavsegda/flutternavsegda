@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../gql.dart';
 import '../components.dart';
@@ -192,8 +193,9 @@ class HomePage extends StatelessWidget {
                                 padding: const EdgeInsets.only(right: 16.0),
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(6.0),
-                                  child: Image.network(
-                                      result.data!['getActions'][index]
+                                  child: FadeInImage.memoryNetwork(
+                                      placeholder: kTransparentImage,
+                                      image: result.data!['getActions'][index]
                                           ['picture'],
                                       fit: BoxFit.fill),
                                 ),

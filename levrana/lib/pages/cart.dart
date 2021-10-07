@@ -1,6 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../gql.dart';
 import '../components.dart';
@@ -164,7 +165,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Image.network(item['picture'], width: 80),
+                              FadeInImage.memoryNetwork(
+                                  placeholder: kTransparentImage,
+                                  image: item['picture'],
+                                  width: 80),
                               SizedBox(width: 9),
                               Expanded(
                                 child: Column(
