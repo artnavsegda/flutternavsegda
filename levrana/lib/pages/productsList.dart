@@ -186,28 +186,33 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     }
                     return false;
                   },
-                  child: StaggeredGridView.countBuilder(
-                    controller: _controller,
-                    crossAxisCount: 2,
-                    itemCount: items.length + (hasNextPage ? 1 : 0),
-                    itemBuilder: (BuildContext context, int index) =>
-                        (index == items.length && hasNextPage)
-                            ? Center(child: CircularProgressIndicator())
-                            : Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: new ProductCard(
-                                    product: items[index],
-                                    onTap: () => Navigator.of(context,
-                                                rootNavigator: true)
-                                            .push(
-                                          MaterialPageRoute(
-                                              builder: (context) => ProductPage(
-                                                  id: items[index]['iD'])),
-                                        )),
-                              ),
-                    staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
-                    mainAxisSpacing: 4.0,
-                    crossAxisSpacing: 4.0,
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: StaggeredGridView.countBuilder(
+                      controller: _controller,
+                      crossAxisCount: 2,
+                      itemCount: items.length + (hasNextPage ? 1 : 0),
+                      itemBuilder: (BuildContext context, int index) =>
+                          (index == items.length && hasNextPage)
+                              ? Center(child: CircularProgressIndicator())
+                              : Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: new ProductCard(
+                                      product: items[index],
+                                      onTap: () => Navigator.of(context,
+                                                  rootNavigator: true)
+                                              .push(
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductPage(
+                                                        id: items[index]
+                                                            ['iD'])),
+                                          )),
+                                ),
+                      staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
+                      mainAxisSpacing: 4.0,
+                      crossAxisSpacing: 4.0,
+                    ),
                   ),
                 );
 
