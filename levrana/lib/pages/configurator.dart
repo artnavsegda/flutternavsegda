@@ -279,6 +279,7 @@ class _ConfiguratorState extends State<Configurator> {
                   bool hasNextPage = items.length <
                       result.data!['getConfiguratorProducts']['totalCount'];
 
+                  print(configuratorItemIds);
                   print(
                       "total: ${result.data!['getConfiguratorProducts']['totalCount']}");
                   print("loaded: ${items.length}");
@@ -316,23 +317,29 @@ class _ConfiguratorState extends State<Configurator> {
                     if (hasNextPage) fetchMore!(opts);
                   });
 
-                  return Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 16,
-                      runSpacing: 16,
-                      children: result.data!['getConfiguratorProducts']['items']
-                          .map((element) => FractionallySizedBox(
-                              widthFactor: 0.43,
-                              child: ProductCard(
-                                  product: element,
-                                  onTap: () => Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                ProductPage(id: element['iD'])),
-                                      ))))
-                          .toList()
-                          .cast<Widget>());
+                  return Column(
+                    children: [
+                      Wrap(
+                          alignment: WrapAlignment.start,
+                          spacing: 16,
+                          runSpacing: 16,
+                          children:
+                              result.data!['getConfiguratorProducts']['items']
+                                  .map((element) => FractionallySizedBox(
+                                      widthFactor: 0.43,
+                                      child: ProductCard(
+                                          product: element,
+                                          onTap: () => Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductPage(
+                                                            id: element['iD'])),
+                                              ))))
+                                  .toList()
+                                  .cast<Widget>()),
+                    ],
+                  );
                 })
           ],
         ),
