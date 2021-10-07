@@ -189,6 +189,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StaggeredGridView.countBuilder(
+                      addAutomaticKeepAlives: false,
+                      addRepaintBoundaries: false,
                       controller: _controller,
                       crossAxisCount: 2,
                       itemCount: items.length + (hasNextPage ? 1 : 0),
