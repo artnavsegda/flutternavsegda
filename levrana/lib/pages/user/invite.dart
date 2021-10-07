@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:share_plus/share_plus.dart';
 
 class InvitePage extends StatelessWidget {
   const InvitePage({Key? key, required this.codeInviteFriend})
@@ -29,7 +30,9 @@ class InvitePage extends StatelessWidget {
             ),
             ElevatedButton(
               child: Text("ПОДЕЛИТСЯ КОДОМ"),
-              onPressed: () {},
+              onPressed: () {
+                Share.share(codeInviteFriend);
+              },
               style: ElevatedButton.styleFrom(
                 minimumSize: Size(double.infinity, 48),
               ),
