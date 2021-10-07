@@ -95,19 +95,15 @@ class ProductCard extends StatelessWidget {
           child: Stack(
             children: [
               Container(
+                  decoration: BoxDecoration(
                 color: Color(0xFFF5F5F5),
-              ),
+                borderRadius: BorderRadius.circular(6.0),
+              )),
               InkWell(
                 onTap: onTap,
-                child: Container(
-                    decoration: BoxDecoration(
-                      color: Color(0xFFF5F5F5),
-                    ),
+                child: ClipRRect(
+                    borderRadius: BorderRadius.circular(6.0),
                     child: FadeInImage.memoryNetwork(
-                        placeholderCacheHeight: 183,
-                        placeholderCacheWidth: 183,
-                        imageCacheHeight: 183,
-                        imageCacheWidth: 183,
                         placeholder: kTransparentImage,
                         image: product['picture'])),
               ),

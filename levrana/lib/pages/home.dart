@@ -52,7 +52,7 @@ class HomePage extends StatelessWidget {
                 child: Container(
                   margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(16)),
+                      borderRadius: BorderRadius.circular(16),
                       gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,

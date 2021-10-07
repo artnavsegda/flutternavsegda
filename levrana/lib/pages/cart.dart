@@ -197,8 +197,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               width: 168,
                               decoration: BoxDecoration(
                                   color: Color(0xFFF5F5F5),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(24))),
+                                  borderRadius: BorderRadius.circular(24)),
                               child: Mutation(
                                   options: MutationOptions(
                                     document: gql(

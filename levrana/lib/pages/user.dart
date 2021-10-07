@@ -84,7 +84,7 @@ class UserPage extends StatelessWidget {
                     Container(
                       decoration: BoxDecoration(
                         color: Colors.white,
-                        borderRadius: BorderRadius.all(Radius.circular(12)),
+                        borderRadius: BorderRadius.circular(12),
                         boxShadow: <BoxShadow>[
                           BoxShadow(
                             color: Color.fromRGBO(85, 146, 80, 0.0525),

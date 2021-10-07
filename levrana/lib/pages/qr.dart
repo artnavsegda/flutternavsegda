@@ -72,7 +72,7 @@ class QrPage extends StatelessWidget {
                             )
                           ],
                           color: Colors.white,
-                          borderRadius: BorderRadius.all(Radius.circular(20))),
+                          borderRadius: BorderRadius.circular(20)),
                       child: QrImage(
                         data: result.data!['getClientInfo']['clientGUID'],
                         version: QrVersions.auto,
