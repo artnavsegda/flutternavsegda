@@ -118,13 +118,32 @@ class _UserLoginPageState extends State<UserLoginPage> {
                       ),
                       onPressed: isAgreed && isFamiliarized
                           ? () async {
-                              PhoneNumber phoneNumber = await PhoneNumberUtil()
-                                  .parse(phoneNumberController.text);
-                              //print('7' + phoneNumber.nationalNumber);
-                              runMutation({
-                                'clientPhone':
-                                    int.parse('7' + phoneNumber.nationalNumber),
-                              });
+                              try {
+                                PhoneNumber phoneNumber =
+                                    await PhoneNumberUtil()
+                                        .parse(phoneNumberController.text);
+                                //print('7' + phoneNumber.nationalNumber);
+                                runMutation({
+                                  'clientPhone': int.parse(
+                                      '7' + phoneNumber.nationalNumber),
+                                });
+                              } catch (e) {
+                                showDialog(
+                                  context: context,
+                                  builder: (BuildContext context) =>
+                                      AlertDialog(
+                                    title: const Text('Ошибка'),
+                                    content: Text("Неправильный номер"),
+                                    actions: [
+                                      TextButton(
+                                        onPressed: () =>
+                                            Navigator.pop(context, 'OK'),
+                                        child: const Text('OK'),
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              }
                             }
                           : null,
                       child: Text("ВОЙТИ")),
