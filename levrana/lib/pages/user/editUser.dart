@@ -7,6 +7,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:phone_number/phone_number.dart';
 
 import '../../gql.dart';
 
@@ -33,6 +34,17 @@ class _EditUserPageState extends State<EditUserPage> {
     emailController.dispose();
     phoneNumberController.dispose();
     super.dispose();
+  }
+
+  void parsePhone(int value) async {
+    print(value);
+    try {
+      PhoneNumber phoneNumber =
+          await PhoneNumberUtil().parse("+" + value.toString());
+      phoneNumberController.text = phoneNumber.international;
+    } catch (e) {
+      print('no');
+    }
   }
 
   @override
@@ -70,6 +82,8 @@ class _EditUserPageState extends State<EditUserPage> {
 
                 emailController.text =
                     result.data!['getClientInfo']['eMail'] ?? "";
+
+                parsePhone(result.data!['getClientInfo']['phone']);
 
                 var clientGUID = result.data!['getClientInfo']['clientGUID'];
                 return Column(
@@ -161,7 +175,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   controller: phoneNumberController,
                                   inputFormatters: [
                                     MaskTextInputFormatter(
-                                        mask: '+7 (###) ###-##-##',
+                                        mask: '+7 ### ###-##-##',
                                         filter: {"#": RegExp(r'[0-9]')})
                                   ],
                                   keyboardType: TextInputType.number,
