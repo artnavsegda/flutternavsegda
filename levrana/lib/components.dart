@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import 'gql.dart';
 import 'pages/productBottomSheet.dart';
@@ -89,76 +90,85 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Stack(
-          children: [
-            InkWell(
-              onTap: onTap,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Color(0x10000000),
-                ),
-                child: Image.network(
-                  product['picture'],
-                ),
+        AspectRatio(
+          aspectRatio: 1.0,
+          child: Stack(
+            children: [
+              Container(
+                color: Color(0xFFF5F5F5),
               ),
-            ),
-            Positioned(
-                bottom: 0,
-                right: 0,
+              InkWell(
+                onTap: onTap,
                 child: Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    border: Border.all(
+                    decoration: BoxDecoration(
+                      color: Color(0xFFF5F5F5),
+                    ),
+                    child: FadeInImage.memoryNetwork(
+                        placeholderCacheHeight: 183,
+                        placeholderCacheWidth: 183,
+                        imageCacheHeight: 183,
+                        imageCacheWidth: 183,
+                        placeholder: kTransparentImage,
+                        image: product['picture'])),
+              ),
+              Positioned(
+                  bottom: 0,
+                  right: 0,
+                  child: Container(
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                    ),
-                    borderRadius:
-                        BorderRadius.only(topLeft: Radius.circular(8)),
-                  ),
-                  width: 40,
-                  height: 40,
-                )),
-            Mutation(
-                options: MutationOptions(
-                  document: gql(cartAdd),
-                  onCompleted: (resultData) {
-                    //print(resultData);
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: const Text('Добавлен в корзину'),
-                    ));
-                  },
-                ),
-                builder: (runMutation, result) {
-                  return Positioned(
-                    bottom: 0,
-                    right: 0,
-                    child: InkWell(
-                      onTap: () {
-                        //print(product['type']);
-                        if (product['type'] != 'SIMPLE')
-                          showModalBottomSheet(
-                            isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.vertical(
-                                  top: const Radius.circular(16.0)),
-                            ),
-                            context: context,
-                            builder: (context) {
-                              return ProductBottomSheet(
-                                  product: product, id: product['iD']);
-                            },
-                          );
-                        else
-                          runMutation({'productID': product['iD']});
-                      },
-                      child: Image.asset(
-                        'assets/ic-24/icon-24-shopping.png',
-                        width: 40,
-                        height: 40,
+                      border: Border.all(
+                        color: Colors.white,
                       ),
+                      borderRadius:
+                          BorderRadius.only(topLeft: Radius.circular(8)),
                     ),
-                  );
-                })
-          ],
+                    width: 40,
+                    height: 40,
+                  )),
+              Mutation(
+                  options: MutationOptions(
+                    document: gql(cartAdd),
+                    onCompleted: (resultData) {
+                      //print(resultData);
+                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                        content: const Text('Добавлен в корзину'),
+                      ));
+                    },
+                  ),
+                  builder: (runMutation, result) {
+                    return Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: InkWell(
+                        onTap: () {
+                          //print(product['type']);
+                          if (product['type'] != 'SIMPLE')
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: const Radius.circular(16.0)),
+                              ),
+                              context: context,
+                              builder: (context) {
+                                return ProductBottomSheet(
+                                    product: product, id: product['iD']);
+                              },
+                            );
+                          else
+                            runMutation({'productID': product['iD']});
+                        },
+                        child: Image.asset(
+                          'assets/ic-24/icon-24-shopping.png',
+                          width: 40,
+                          height: 40,
+                        ),
+                      ),
+                    );
+                  })
+            ],
+          ),
         ),
         Row(
           children: product['attributes']

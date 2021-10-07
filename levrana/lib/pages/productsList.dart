@@ -23,7 +23,6 @@ class ProductsListPage extends StatefulWidget {
 class _ProductsListPageState extends State<ProductsListPage> {
   late ScrollController _controller;
 
-  bool fetchingMore = false;
   GraphFilter catalogFilter = GraphFilter();
 
   @override
@@ -153,10 +152,6 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     // correctly
                     fetchMoreResultData['getProducts']['items'] = items;
 
-                    setState(() {
-                      fetchingMore = false;
-                    });
-
                     return fetchMoreResultData;
                   },
                 );
@@ -175,6 +170,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   }
                 }); */
 
+                bool hasNextPage =
+                    items.length < result.data!['getProducts']['totalCount'];
+
                 return NotificationListener<ScrollNotification>(
                   onNotification: (scrollNotification) {
                     if (scrollNotification is ScrollEndNotification) {
@@ -182,11 +180,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                               _controller.position.maxScrollExtent &&
                           !_controller.position.outOfRange &&
                           pageInfo['hasNextPage'] &&
-                          items.length <
-                              result.data!['getProducts']['totalCount']) {
-                        setState(() {
-                          fetchingMore = true;
-                        });
+                          hasNextPage) {
                         fetchMore!(opts);
                       }
                     }
@@ -195,9 +189,9 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   child: StaggeredGridView.countBuilder(
                     controller: _controller,
                     crossAxisCount: 2,
-                    itemCount: items.length + (fetchingMore ? 1 : 0),
+                    itemCount: items.length + (hasNextPage ? 1 : 0),
                     itemBuilder: (BuildContext context, int index) =>
-                        (index == items.length && fetchingMore)
+                        (index == items.length && hasNextPage)
                             ? Center(child: CircularProgressIndicator())
                             : Padding(
                                 padding: const EdgeInsets.all(8.0),
@@ -226,9 +220,6 @@ class _ProductsListPageState extends State<ProductsListPage> {
                           pageInfo['hasNextPage'] &&
                           items.length <
                               result.data!['getProducts']['totalCount']) {
-                        setState(() {
-                          fetchingMore = true;
-                        });
                         fetchMore!(opts);
                       }
                     }
@@ -257,7 +248,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                                               ProductPage(id: item['iD'])),
                                     )),
                           ),
-                        if (fetchingMore)
+                        if (hasNextPage)
                           Center(
                             child: CircularProgressIndicator(),
                           )
