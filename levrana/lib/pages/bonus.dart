@@ -27,18 +27,21 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   late Barcode clientGUID;
   late QRViewController controller;
 
-  Future<void> _openContacts() async {
+  Future<String?> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
     if (permissionStatus == PermissionStatus.granted) {
       try {
         final Contact? contact =
             await ContactsService.openDeviceContactPicker();
+        //print(contact?.phones!.first.value);
+        return contact?.phones!.first.value;
       } catch (e) {
         //print(e.toString());
       }
     } else {
       _handleInvalidPermissions(permissionStatus);
     }
+    return "no";
   }
 
   Future<PermissionStatus> _getContactPermission() async {
@@ -129,8 +132,9 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                   ),
                   IconButton(
                     icon: Icon(Icons.contact_phone),
-                    onPressed: () {
-                      _openContacts();
+                    onPressed: () async {
+                      String? phone = await _openContacts();
+                      print(phone);
                     },
                   )
                 ],
