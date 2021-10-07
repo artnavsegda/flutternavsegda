@@ -93,8 +93,9 @@ class QrPage extends StatelessWidget {
                           children: [
                             Text("Показать на кассе",
                                 style: TextStyle(
+                                    fontFamily: 'Montserrat',
                                     fontSize: 28.0,
-                                    fontWeight: FontWeight.w700)),
+                                    fontWeight: FontWeight.bold)),
                             FutureBuilder<Object>(
                                 future: futurePhone,
                                 builder: (context, snapshot) {
@@ -104,8 +105,9 @@ class QrPage extends StatelessWidget {
 
                                     return Text(phoneNumber.international,
                                         style: TextStyle(
+                                            fontFamily: 'Montserrat',
                                             fontSize: 28.0,
-                                            fontWeight: FontWeight.w700,
+                                            fontWeight: FontWeight.bold,
                                             color: Colors.green));
                                   } else
                                     return Center(
