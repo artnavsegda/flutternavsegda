@@ -115,8 +115,9 @@ class UserPage extends StatelessWidget {
                                   result.data!['getClientInfo']['points']
                                       .toString(),
                                   style: TextStyle(
+                                      fontFamily: 'Montserrat',
                                       fontSize: 40.0,
-                                      fontWeight: FontWeight.w700)),
+                                      fontWeight: FontWeight.bold)),
                               Image(
                                   image: AssetImage(
                                       'assets/ic-24/icon-24-bonus.png'))

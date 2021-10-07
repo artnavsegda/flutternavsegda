@@ -99,8 +99,9 @@ class HomePage extends StatelessWidget {
                                       result.data!['getClientInfo']['points']
                                           .toString(),
                                       style: TextStyle(
+                                          fontFamily: 'Montserrat',
                                           fontSize: 40.0,
-                                          fontWeight: FontWeight.w700,
+                                          fontWeight: FontWeight.bold,
                                           color: Colors.white));
                                 }),
                             Image(
