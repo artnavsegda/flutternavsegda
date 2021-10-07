@@ -49,6 +49,19 @@ class _UserLoginPageState extends State<UserLoginPage> {
               margin: EdgeInsets.only(top: 8.0),
               height: 48,
               child: TextField(
+                onChanged: (value) async {
+                  try {
+                    PhoneNumber phoneNumber = await PhoneNumberUtil()
+                        .parse(phoneNumberController.text);
+                    setState(() {
+                      phoneNumberIsCorrect = true;
+                    });
+                  } catch (e) {
+                    setState(() {
+                      phoneNumberIsCorrect = false;
+                    });
+                  }
+                },
                 controller: phoneNumberController,
                 inputFormatters: [maskFormatter],
                 keyboardType: TextInputType.number,
@@ -118,36 +131,37 @@ class _UserLoginPageState extends State<UserLoginPage> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48),
                       ),
-                      onPressed: isAgreed && isFamiliarized
-                          ? () async {
-                              try {
-                                PhoneNumber phoneNumber =
-                                    await PhoneNumberUtil()
-                                        .parse(phoneNumberController.text);
-                                //print('7' + phoneNumber.nationalNumber);
-                                runMutation({
-                                  'clientPhone': int.parse(
-                                      '7' + phoneNumber.nationalNumber),
-                                });
-                              } catch (e) {
-                                showDialog(
-                                  context: context,
-                                  builder: (BuildContext context) =>
-                                      AlertDialog(
-                                    title: const Text('Ошибка'),
-                                    content: Text("Неправильный номер"),
-                                    actions: [
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context, 'OK'),
-                                        child: const Text('OK'),
+                      onPressed:
+                          isAgreed && isFamiliarized && phoneNumberIsCorrect
+                              ? () async {
+                                  try {
+                                    PhoneNumber phoneNumber =
+                                        await PhoneNumberUtil()
+                                            .parse(phoneNumberController.text);
+                                    //print('7' + phoneNumber.nationalNumber);
+                                    runMutation({
+                                      'clientPhone': int.parse(
+                                          '7' + phoneNumber.nationalNumber),
+                                    });
+                                  } catch (e) {
+                                    showDialog(
+                                      context: context,
+                                      builder: (BuildContext context) =>
+                                          AlertDialog(
+                                        title: const Text('Ошибка'),
+                                        content: Text("Неправильный номер"),
+                                        actions: [
+                                          TextButton(
+                                            onPressed: () =>
+                                                Navigator.pop(context, 'OK'),
+                                            child: const Text('OK'),
+                                          ),
+                                        ],
                                       ),
-                                    ],
-                                  ),
-                                );
-                              }
-                            }
-                          : null,
+                                    );
+                                  }
+                                }
+                              : null,
                       child: Text("ВОЙТИ")),
                 );
               },
