@@ -194,7 +194,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   },
                   child: StaggeredGridView.countBuilder(
                     controller: _controller,
-                    crossAxisCount: 4,
+                    crossAxisCount: 2,
                     itemCount: items.length + (fetchingMore ? 1 : 0),
                     itemBuilder: (BuildContext context, int index) =>
                         (index == items.length && fetchingMore)
@@ -211,7 +211,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                                                   id: items[index]['iD'])),
                                         )),
                               ),
-                    staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+                    staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
                     mainAxisSpacing: 4.0,
                     crossAxisSpacing: 4.0,
                   ),
