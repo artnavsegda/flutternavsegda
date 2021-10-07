@@ -224,8 +224,9 @@ class _ProductPageState extends State<ProductPage> {
                                   ExpandablePanel(
                                     header: Text("Характеристики",
                                         style: TextStyle(
+                                            fontFamily: 'Montserrat',
                                             fontSize: 16,
-                                            fontWeight: FontWeight.w700)),
+                                            fontWeight: FontWeight.bold)),
                                     collapsed: SizedBox.shrink(),
                                     expanded: Column(
                                         children: result.data!['getProduct']
@@ -238,8 +239,9 @@ class _ProductPageState extends State<ProductPage> {
                                 ExpandablePanel(
                                   header: Text("Описание",
                                       style: TextStyle(
+                                          fontFamily: 'Montserrat',
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w700)),
+                                          fontWeight: FontWeight.bold)),
                                   collapsed: SizedBox.shrink(),
                                   expanded: MarkdownBody(
                                       data: result.data!['getProduct']
@@ -249,8 +251,9 @@ class _ProductPageState extends State<ProductPage> {
                                 ExpandablePanel(
                                   header: Text("Состав",
                                       style: TextStyle(
+                                          fontFamily: 'Montserrat',
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w700)),
+                                          fontWeight: FontWeight.bold)),
                                   collapsed: SizedBox.shrink(),
                                   expanded: Column(
                                     children: [
@@ -279,8 +282,9 @@ class _ProductPageState extends State<ProductPage> {
                                 ExpandablePanel(
                                   header: Text("Отзывы",
                                       style: TextStyle(
+                                          fontFamily: 'Montserrat',
                                           fontSize: 16,
-                                          fontWeight: FontWeight.w700)),
+                                          fontWeight: FontWeight.bold)),
                                   collapsed: SizedBox.shrink(),
                                   expanded: Column(
                                     crossAxisAlignment:

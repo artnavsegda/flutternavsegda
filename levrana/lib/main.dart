@@ -68,8 +68,10 @@ class MyApp extends StatelessWidget {
             ),
             appBarTheme: AppBarTheme(
               centerTitle: true,
-              titleTextStyle: GoogleFonts.montserrat(
-                  fontSize: 16.0, fontWeight: FontWeight.bold),
+              titleTextStyle: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 16.0,
+                  fontWeight: FontWeight.bold),
             ),
             elevatedButtonTheme: ElevatedButtonThemeData(
               style: ButtonStyle(
