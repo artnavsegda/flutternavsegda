@@ -1,11 +1,11 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:levrana/pages/product.dart';
+import 'package:levrana/pages/product/product.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
-import '../gql.dart';
-import '../components.dart';
+import '../../gql.dart';
+import '../../components.dart';
 import 'filter.dart';
 
 class ProductsListPage extends StatefulWidget {

@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'configurator.dart';
 import 'selector.dart';
 
-import '../gql.dart';
+import '../../gql.dart';
 
 class GraphFilterGroup {
   GraphFilterGroup({

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../gql.dart';
-import '../components.dart';
+import '../../gql.dart';
+import '../../components.dart';
 
 class ProductBottomSheet extends StatefulWidget {
   const ProductBottomSheet({Key? key, this.id = 0, this.product})

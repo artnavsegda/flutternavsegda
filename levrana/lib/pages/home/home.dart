@@ -3,10 +3,10 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:transparent_image/transparent_image.dart';
 
-import '../gql.dart';
-import '../components.dart';
+import '../../gql.dart';
+import '../../components.dart';
 
-import 'product.dart';
+import '../product/product.dart';
 import 'actions.dart';
 import 'qr.dart';
 

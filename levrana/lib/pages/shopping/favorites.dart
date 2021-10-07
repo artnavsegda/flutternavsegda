@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:levrana/pages/product.dart';
+import 'package:levrana/pages/product/product.dart';
 
-import '../gql.dart';
-import '../components.dart';
+import '../../gql.dart';
+import '../../components.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);

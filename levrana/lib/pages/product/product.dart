@@ -6,8 +6,8 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'dart:math';
 
-import '../components.dart';
-import '../gql.dart';
+import '../../components.dart';
+import '../../gql.dart';
 import 'review.dart';
 
 class ProductPage extends StatefulWidget {

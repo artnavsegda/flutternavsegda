@@ -3,8 +3,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter/cupertino.dart';
 
-import '../gql.dart';
-import 'dialog.dart';
+import '../../gql.dart';
+import '../login/dialog.dart';
 import 'editUser.dart';
 import 'bonus.dart';
 import 'promocode.dart';

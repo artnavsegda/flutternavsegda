@@ -5,9 +5,9 @@ import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
-import '../gql.dart';
-import '../components.dart';
-import 'product.dart';
+import '../../gql.dart';
+import '../../components.dart';
+import '../product/product.dart';
 
 class PollAnswersClient {
   PollAnswersClient(

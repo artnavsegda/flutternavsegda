@@ -6,9 +6,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 
 import 'password.dart';
-import '../gql.dart';
-import '../main.dart';
-import '../components.dart';
+import '../../gql.dart';
+import '../../main.dart';
+import '../../components.dart';
 
 class UserLoginPage extends StatefulWidget {
   const UserLoginPage({Key? key}) : super(key: key);

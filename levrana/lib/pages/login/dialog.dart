@@ -4,8 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 
-import '../main.dart';
-import '../gql.dart';
+import '../../main.dart';
+import '../../gql.dart';
 import 'login.dart';
 
 class Welcome extends StatelessWidget {

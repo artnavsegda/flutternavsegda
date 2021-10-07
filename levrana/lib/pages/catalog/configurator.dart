@@ -2,9 +2,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../gql.dart';
-import '../components.dart';
-import 'product.dart';
+import '../../gql.dart';
+import '../../components.dart';
+import '../product/product.dart';
 
 class Configurator extends StatefulWidget {
   const Configurator({

@@ -3,12 +3,12 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import 'pages/catalog.dart';
-import 'pages/home.dart';
-import 'pages/more.dart';
-import 'pages/shopping.dart';
-import 'pages/user.dart';
-import 'pages/dialog.dart';
+import 'pages/catalog/catalog.dart';
+import 'pages/home/home.dart';
+import 'pages/more/more.dart';
+import 'pages/shopping/shopping.dart';
+import 'pages/user/user.dart';
+import 'pages/login/dialog.dart';
 
 void main() async {
   //await initHiveForFlutter();

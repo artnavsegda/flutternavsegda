@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
-import 'package:in_app_review/in_app_review.dart';
 
-import '../gql.dart';
+import '../../gql.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -97,46 +96,6 @@ class SupportPage extends StatelessWidget {
                   );
                 });
           }),
-    );
-  }
-}
-
-class MorePage extends StatelessWidget {
-  const MorePage({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView(
-      children: [
-        ListTile(
-          onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SupportPage()));
-          },
-          title: Text("Служба поддержки"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
-        ),
-        ListTile(
-          title: Text("Справка"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
-        ),
-        ListTile(
-          title: Text("Уведомления"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
-        ),
-        ListTile(
-          onTap: () async {
-            final InAppReview inAppReview = InAppReview.instance;
-
-            if (await inAppReview.isAvailable()) {
-              inAppReview.requestReview();
-            }
-          },
-          title: Text("Оценить приложение"),
-          leading:
-              Image(image: AssetImage('assets/ic-24/icon-24-feedback.png')),
-        ),
-      ],
     );
   }
 }

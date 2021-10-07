@@ -7,7 +7,7 @@ import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:phone_number/phone_number.dart';
 
-import '../gql.dart';
+import '../../gql.dart';
 
 class TransferBonusPage extends StatefulWidget {
   const TransferBonusPage({Key? key, required this.maxAmount})

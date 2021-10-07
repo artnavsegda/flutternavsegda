@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../gql.dart';
+import '../../gql.dart';
 
 class ReviewPage extends StatefulWidget {
   const ReviewPage({Key? key, required this.id}) : super(key: key);

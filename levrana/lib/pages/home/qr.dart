@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
 
-import '../gql.dart';
+import '../../gql.dart';
 
 class QrPage extends StatelessWidget {
   const QrPage({Key? key}) : super(key: key);
