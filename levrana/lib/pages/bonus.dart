@@ -87,7 +87,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
           runSpacing: 8.0,
           children: [
             Text("Подарить бонусы",
-                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
+                style: TextStyle(
+                    fontFamily: 'Montserrat',
+                    fontSize: 28.0,
+                    fontWeight: FontWeight.bold)),
             Text("Укажите количество бонусов"),
             Row(
               children: [
@@ -133,7 +136,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                       controller: textController,
                       inputFormatters: [
                         MaskTextInputFormatter(
-                          mask: '+7 (###) ###-##-##',
+                          mask: '+7 ### ###-##-##',
                           filter: {"#": RegExp(r'[0-9]')},
                         )
                       ],
@@ -150,8 +153,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                       PhoneNumber phoneNumber =
                           await PhoneNumberUtil().parse(phone!);
                       print(phoneNumber.toString());
-                      //textController.value =
-                      //TextEditingValue(text: phone ?? "");
+                      textController.value =
+                          TextEditingValue(text: phoneNumber.international);
                     },
                   )
                 ],

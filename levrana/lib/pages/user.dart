@@ -321,7 +321,11 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
           runSpacing: 8.0,
           children: <Widget>[
             Text('Смена пароля',
-                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                )),
             TextField(
               controller: passwordController,
               obscureText: true,

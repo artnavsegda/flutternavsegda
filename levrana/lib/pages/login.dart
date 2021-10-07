@@ -39,8 +39,9 @@ class _UserLoginPageState extends State<UserLoginPage> {
           children: [
             Text("Вход",
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                 )),
             Container(
               margin: EdgeInsets.only(top: 8.0),
@@ -196,8 +197,9 @@ class _PasswordPageState extends State<PasswordPage> {
           children: [
             Text("Пароль",
                 style: TextStyle(
+                  fontFamily: 'Montserrat',
                   fontSize: 28,
-                  fontWeight: FontWeight.w700,
+                  fontWeight: FontWeight.bold,
                 )),
             Container(
               margin: EdgeInsets.only(top: 8.0),
@@ -369,8 +371,9 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
         child: Wrap(children: [
           Text("Код",
               style: TextStyle(
+                fontFamily: 'Montserrat',
                 fontSize: 28,
-                fontWeight: FontWeight.w700,
+                fontWeight: FontWeight.bold,
               )),
           Container(
             margin: EdgeInsets.only(top: 8.0),

@@ -110,11 +110,13 @@ class _ConfiguratorState extends State<Configurator> {
                                           text: element.value,
                                           style: element.key.isEven
                                               ? TextStyle(
+                                                  fontFamily: 'Montserrat',
                                                   fontSize: 32.0,
-                                                  fontWeight: FontWeight.w700)
+                                                  fontWeight: FontWeight.bold)
                                               : TextStyle(
+                                                  fontFamily: 'Montserrat',
                                                   fontSize: 32.0,
-                                                  fontWeight: FontWeight.w700,
+                                                  fontWeight: FontWeight.bold,
                                                   color: Colors.green)),
                                     )
                                     .toList()

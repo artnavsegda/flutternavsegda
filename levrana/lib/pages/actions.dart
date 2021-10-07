@@ -361,7 +361,7 @@ class ActionPage extends StatelessWidget {
                                                     style: TextStyle(
                                                         fontSize: 12.0,
                                                         fontWeight:
-                                                            FontWeight.w700),
+                                                            FontWeight.bold),
                                                   ),
                                                   Text(shop['address'],
                                                       style: TextStyle(

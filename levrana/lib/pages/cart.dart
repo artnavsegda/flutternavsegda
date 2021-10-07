@@ -60,7 +60,8 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       Text(
                           "Но это легко исправить. И вы даже знаете как это сделать ;)",
                           style: TextStyle(
-                            fontWeight: FontWeight.w700,
+                            fontFamily: 'Montserrat',
+                            fontWeight: FontWeight.bold,
                           )),
                     ],
                   ),

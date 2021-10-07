@@ -189,7 +189,10 @@ class DialogPage extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(title,
                       style: TextStyle(
-                          fontSize: 28.0, fontWeight: FontWeight.w700)),
+                        fontFamily: 'Montserrat',
+                        fontSize: 28.0,
+                        fontWeight: FontWeight.bold,
+                      )),
                 ),
                 ConstrainedBox(
                   constraints: new BoxConstraints(

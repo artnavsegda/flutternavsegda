@@ -31,7 +31,11 @@ class _PromocodeState extends State<Promocode> {
           runSpacing: 8.0,
           children: [
             Text('Промокод',
-                style: TextStyle(fontSize: 28.0, fontWeight: FontWeight.w700)),
+                style: TextStyle(
+                  fontFamily: 'Montserrat',
+                  fontSize: 28.0,
+                  fontWeight: FontWeight.bold,
+                )),
             TextField(
               controller: textController,
               decoration: InputDecoration(
