@@ -8,6 +8,7 @@ import '../login/dialog.dart';
 import 'editUser.dart';
 import 'bonus.dart';
 import 'promocode.dart';
+import 'invite.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -136,7 +137,22 @@ class UserPage extends StatelessWidget {
                                       RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(18.0),
                                   ))),
-                              onPressed: () {},
+                              onPressed: () {
+                                showModalBottomSheet(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: const Radius.circular(16.0)),
+                                  ),
+                                  isScrollControlled: true,
+                                  context: context,
+                                  builder: (context) {
+                                    return InvitePage(
+                                        codeInviteFriend:
+                                            result.data!['getClientInfo']
+                                                ['codeInviteFriend']);
+                                  },
+                                );
+                              },
                               child: Text("ПРИГЛАСИТЬ ДРУГА",
                                   style: TextStyle(fontSize: 16.0))),
                           ElevatedButton(
