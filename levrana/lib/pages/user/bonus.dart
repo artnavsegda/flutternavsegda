@@ -22,6 +22,7 @@ class TransferBonusPage extends StatefulWidget {
 enum SearchMode { phone, qr }
 
 class _TransferBonusPageState extends State<TransferBonusPage> {
+  bool phoneNumberIsCorrect = false;
   double _amount = 0;
   SearchMode? _currentMode = SearchMode.phone;
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -29,6 +30,9 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   late Barcode clientGUID;
   late QRViewController controller;
   final textController = TextEditingController();
+
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '+7 ### ###-##-##', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   void dispose() {
@@ -133,13 +137,21 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 children: [
                   Expanded(
                     child: TextField(
+                      onChanged: (value) async {
+                        try {
+                          PhoneNumber phoneNumber =
+                              await PhoneNumberUtil().parse(value);
+                          setState(() {
+                            phoneNumberIsCorrect = true;
+                          });
+                        } catch (e) {
+                          setState(() {
+                            phoneNumberIsCorrect = false;
+                          });
+                        }
+                      },
                       controller: textController,
-                      inputFormatters: [
-                        MaskTextInputFormatter(
-                          mask: '+7 ### ###-##-##',
-                          filter: {"#": RegExp(r'[0-9]')},
-                        )
-                      ],
+                      inputFormatters: [maskFormatter],
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: "Введите телефон",
@@ -191,7 +203,23 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 options: MutationOptions(
                   document: gql(friendTransfer),
                   onCompleted: (resultData) {
-                    //print(resultData);
+                    print(resultData);
+                    if (resultData['friendTransfer']['code'] != 0) {
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Информация'),
+                          content: Text(
+                              resultData['friendTransfer']['errorMessage']),
+                          actions: [
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    }
                   },
                 ),
                 builder: (runMutation, result) {
@@ -199,13 +227,47 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                       style: ElevatedButton.styleFrom(
                         minimumSize: Size(double.infinity, 48),
                       ),
-                      onPressed: () {
-                        runMutation({
-                          'gUIDorPhone': clientGUID.code,
-                          'points': _amount.toInt()
-                        });
-                      },
-                      child: Text("ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
+                      onPressed: phoneNumberIsCorrect
+                          ? () async {
+                              if (_currentMode == SearchMode.phone) {
+                                try {
+                                  PhoneNumber phoneNumber =
+                                      await PhoneNumberUtil()
+                                          .parse(textController.text);
+                                  print('7' + phoneNumber.nationalNumber);
+                                  runMutation({
+                                    'gUIDorPhone':
+                                        '7' + phoneNumber.nationalNumber,
+                                    'points': _amount.toInt()
+                                  });
+                                } catch (e) {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) =>
+                                        AlertDialog(
+                                      title: const Text('Ошибка'),
+                                      content: Text("Неправильный номер"),
+                                      actions: [
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context, 'OK'),
+                                          child: const Text('OK'),
+                                        ),
+                                      ],
+                                    ),
+                                  );
+                                }
+                              } else if (_currentMode == SearchMode.qr) {
+                                runMutation({
+                                  'gUIDorPhone': clientGUID.code,
+                                  'points': _amount.toInt()
+                                });
+                              }
+                            }
+                          : null,
+                      child: Text(phoneNumberIsCorrect
+                          ? "ПОДАРИТЬ"
+                          : "ВВЕДИТЕ ПОЛУЧАТЕЛЯ"));
                 })
           ],
         ),

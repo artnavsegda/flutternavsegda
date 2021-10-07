@@ -51,8 +51,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
               child: TextField(
                 onChanged: (value) async {
                   try {
-                    PhoneNumber phoneNumber = await PhoneNumberUtil()
-                        .parse(phoneNumberController.text);
+                    PhoneNumber phoneNumber =
+                        await PhoneNumberUtil().parse(value);
                     setState(() {
                       phoneNumberIsCorrect = true;
                     });
