@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
@@ -26,6 +27,15 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
   bool scanned = false;
   late Barcode clientGUID;
   late QRViewController controller;
+  final textController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is removed from the
+    // widget tree.
+    textController.dispose();
+    super.dispose();
+  }
 
   Future<String?> _openContacts() async {
     PermissionStatus permissionStatus = await _getContactPermission();
@@ -119,11 +129,13 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 children: [
                   Expanded(
                     child: TextField(
-                      inputFormatters: [
+                      controller: textController,
+/*                       inputFormatters: [
                         MaskTextInputFormatter(
-                            mask: '+7 (###) ###-##-##',
-                            filter: {"#": RegExp(r'[0-9]')})
-                      ],
+                          mask: '+7 (###) ###-##-##',
+                          filter: {"#": RegExp(r'[0-9]')},
+                        )
+                      ], */
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: "Введите телефон",
@@ -135,6 +147,8 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     onPressed: () async {
                       String? phone = await _openContacts();
                       print(phone);
+                      textController.value =
+                          TextEditingValue(text: phone ?? "");
                     },
                   )
                 ],
