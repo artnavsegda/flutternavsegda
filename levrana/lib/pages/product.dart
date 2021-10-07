@@ -446,11 +446,14 @@ class _ProductPageState extends State<ProductPage> {
                               label: Text(
                                   "${result.data!['getProduct']['favorites']}"),
                               icon: result.data!['getProduct']['isFavorite']
-                                  ? Icon(Icons.favorite_outlined,
-                                      color: Colors.red)
+                                  ? Icon(Icons.favorite_outlined)
                                   : Icon(Icons.favorite_border_outlined),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(48, 48),
+                                primary: result.data!['getProduct']
+                                        ['isFavorite']
+                                    ? Colors.red
+                                    : Colors.green,
                               ),
                             );
                           },

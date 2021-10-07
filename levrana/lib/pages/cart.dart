@@ -165,10 +165,15 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              FadeInImage.memoryNetwork(
-                                  placeholder: kTransparentImage,
-                                  image: item['picture'],
-                                  width: 80),
+                              Container(
+                                decoration: BoxDecoration(
+                                    color: Color(0xFFF6F6F6),
+                                    borderRadius: BorderRadius.circular(6.0)),
+                                child: FadeInImage.memoryNetwork(
+                                    placeholder: kTransparentImage,
+                                    image: item['picture'],
+                                    width: 80),
+                              ),
                               SizedBox(width: 9),
                               Expanded(
                                 child: Column(
