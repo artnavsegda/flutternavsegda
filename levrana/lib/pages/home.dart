@@ -105,6 +105,9 @@ class HomePage extends StatelessWidget {
                                           color: Colors.white));
                                 }),
                             Image(
+                                fit: BoxFit.contain,
+                                width: 48,
+                                height: 48,
                                 image: AssetImage(
                                     'assets/ic-24/icon-24-bonus.png'))
                           ],
