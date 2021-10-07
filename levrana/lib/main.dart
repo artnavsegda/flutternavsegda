@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
     return GraphQLProvider(
       client: client,
       child: MaterialApp(
+        //showPerformanceOverlay: true,
         title: 'Flutter Demo',
         theme: ThemeData(
             scaffoldBackgroundColor: Colors.white,
