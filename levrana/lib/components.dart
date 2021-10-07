@@ -96,7 +96,7 @@ class ProductCard extends StatelessWidget {
             children: [
               Container(
                   decoration: BoxDecoration(
-                color: Color(0xFFF5F5F5),
+                color: Color(0xFFECECEC),
                 borderRadius: BorderRadius.circular(6.0),
               )),
               InkWell(
