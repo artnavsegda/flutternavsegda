@@ -297,8 +297,9 @@ class ActionPage extends StatelessWidget {
                               result.data!['getAction']['products'].length > 1
                                   ? Text("Товары из акции",
                                       style: TextStyle(
+                                          fontFamily: 'Montserrat',
                                           fontSize: 28.0,
-                                          fontWeight: FontWeight.w700))
+                                          fontWeight: FontWeight.bold))
                                   : SizedBox.shrink(),
                               SizedBox(height: 16),
                               Wrap(

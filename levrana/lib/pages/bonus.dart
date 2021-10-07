@@ -5,6 +5,7 @@ import 'package:permission_handler/permission_handler.dart';
 import 'package:contacts_service/contacts_service.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:phone_number/phone_number.dart';
 
 import '../gql.dart';
 
@@ -130,12 +131,12 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                   Expanded(
                     child: TextField(
                       controller: textController,
-/*                       inputFormatters: [
+                      inputFormatters: [
                         MaskTextInputFormatter(
                           mask: '+7 (###) ###-##-##',
                           filter: {"#": RegExp(r'[0-9]')},
                         )
-                      ], */
+                      ],
                       keyboardType: TextInputType.number,
                       decoration: InputDecoration(
                         labelText: "Введите телефон",
@@ -146,9 +147,11 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     icon: Icon(Icons.contact_phone),
                     onPressed: () async {
                       String? phone = await _openContacts();
-                      print(phone);
-                      textController.value =
-                          TextEditingValue(text: phone ?? "");
+                      PhoneNumber phoneNumber =
+                          await PhoneNumberUtil().parse(phone!);
+                      print(phoneNumber.toString());
+                      //textController.value =
+                      //TextEditingValue(text: phone ?? "");
                     },
                   )
                 ],

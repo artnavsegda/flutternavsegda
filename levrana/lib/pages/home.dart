@@ -84,8 +84,9 @@ class HomePage extends StatelessWidget {
                                   if (result.hasException) {
                                     return Text("0",
                                         style: TextStyle(
+                                            fontFamily: 'Montserrat',
                                             fontSize: 40.0,
-                                            fontWeight: FontWeight.w700,
+                                            fontWeight: FontWeight.bold,
                                             color: Colors.white));
                                     return Text(result.exception.toString());
                                   }
@@ -233,8 +234,9 @@ class HomePage extends StatelessWidget {
                                     children: [
                                       Text(section['name'],
                                           style: TextStyle(
+                                            fontFamily: 'Montserrat',
                                             fontSize: 28.0,
-                                            fontWeight: FontWeight.w700,
+                                            fontWeight: FontWeight.bold,
                                           )),
                                       SizedBox(height: 16),
                                       Wrap(
