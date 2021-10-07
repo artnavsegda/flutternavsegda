@@ -161,7 +161,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   },
                 );
 
-                _controller.addListener(() {
+/*                 _controller.addListener(() {
                   if (_controller.offset + 100 >=
                           _controller.position.maxScrollExtent &&
                       !_controller.position.outOfRange &&
@@ -173,65 +173,101 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     });
                     fetchMore!(opts);
                   }
-                });
+                }); */
 
-                return StaggeredGridView.countBuilder(
-                  controller: _controller,
-                  crossAxisCount: 4,
-                  itemCount: items.length + (fetchingMore ? 1 : 0),
-                  itemBuilder: (BuildContext context, int index) =>
-                      (index == items.length && fetchingMore)
-                          ? Center(child: CircularProgressIndicator())
-                          : Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: new ProductCard(
-                                  product: items[index],
-                                  onTap: () =>
-                                      Navigator.of(context, rootNavigator: true)
-                                          .push(
-                                        MaterialPageRoute(
-                                            builder: (context) => ProductPage(
-                                                id: items[index]['iD'])),
-                                      )),
-                            ),
-                  staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
-                  mainAxisSpacing: 4.0,
-                  crossAxisSpacing: 4.0,
+                return NotificationListener<ScrollNotification>(
+                  onNotification: (scrollNotification) {
+                    if (scrollNotification is ScrollEndNotification) {
+                      if (_controller.offset + 100 >=
+                              _controller.position.maxScrollExtent &&
+                          !_controller.position.outOfRange &&
+                          pageInfo['hasNextPage'] &&
+                          items.length <
+                              result.data!['getProducts']['totalCount']) {
+                        setState(() {
+                          fetchingMore = true;
+                        });
+                        fetchMore!(opts);
+                      }
+                    }
+                    return false;
+                  },
+                  child: StaggeredGridView.countBuilder(
+                    controller: _controller,
+                    crossAxisCount: 4,
+                    itemCount: items.length + (fetchingMore ? 1 : 0),
+                    itemBuilder: (BuildContext context, int index) =>
+                        (index == items.length && fetchingMore)
+                            ? Center(child: CircularProgressIndicator())
+                            : Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: new ProductCard(
+                                    product: items[index],
+                                    onTap: () => Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(
+                                          MaterialPageRoute(
+                                              builder: (context) => ProductPage(
+                                                  id: items[index]['iD'])),
+                                        )),
+                              ),
+                    staggeredTileBuilder: (int index) => StaggeredTile.fit(2),
+                    mainAxisSpacing: 4.0,
+                    crossAxisSpacing: 4.0,
+                  ),
                 );
 
-                return GridView.count(
-                    controller: _controller,
-                    crossAxisCount: 2,
-                    childAspectRatio: 0.75,
-                    children: [
-/*                 ElevatedButton(
-                    onPressed: () {
-                      fetchMore!(opts);
-                    },
-                    child: Text("More")), */
-                      for (var item in items)
-                        Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ProductCard(
-                              product: item,
-                              onTap: () =>
-                                  Navigator.of(context, rootNavigator: true)
-                                      .push(
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ProductPage(id: item['iD'])),
-                                  )),
-                        ),
-                      if (fetchingMore)
-                        Center(
-                          child: CircularProgressIndicator(),
-                        )
-/*                 TextButton(
-                    onPressed: () {
-                      fetchMore!(opts);
-                    },
-                    child: Text("More")), */
-                    ]);
+                return NotificationListener<ScrollNotification>(
+                  onNotification: (scrollNotification) {
+                    if (scrollNotification is ScrollEndNotification) {
+                      if (_controller.offset + 100 >=
+                              _controller.position.maxScrollExtent &&
+                          !_controller.position.outOfRange &&
+                          pageInfo['hasNextPage'] &&
+                          items.length <
+                              result.data!['getProducts']['totalCount']) {
+                        setState(() {
+                          fetchingMore = true;
+                        });
+                        fetchMore!(opts);
+                      }
+                    }
+                    return false;
+                  },
+                  child: GridView.count(
+                      controller: _controller,
+                      crossAxisCount: 2,
+                      childAspectRatio: 0.75,
+                      children: [
+                        /*                 ElevatedButton(
+                      onPressed: () {
+                        fetchMore!(opts);
+                      },
+                      child: Text("More")), */
+                        for (var item in items)
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: ProductCard(
+                                product: item,
+                                onTap: () =>
+                                    Navigator.of(context, rootNavigator: true)
+                                        .push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: item['iD'])),
+                                    )),
+                          ),
+                        if (fetchingMore)
+                          Center(
+                            child: CircularProgressIndicator(),
+                          )
+                        /*                 TextButton(
+                      onPressed: () {
+                        fetchMore!(opts);
+                      },
+                      child: Text("More")), */
+                      ]),
+                );
 
                 /*return GridView.builder(
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
