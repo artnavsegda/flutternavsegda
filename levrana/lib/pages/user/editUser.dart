@@ -7,7 +7,6 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:phone_number/phone_number.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
@@ -22,8 +21,6 @@ class EditUserPage extends StatefulWidget {
 
 class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
-  final phoneNumberController = TextEditingController();
-  final birthDateController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
@@ -39,13 +36,6 @@ class _EditUserPageState extends State<EditUserPage> {
   String? phone;
   String? dateOfBirth;
   String? gender;
-
-  @override
-  void dispose() {
-    // Clean up the controller when the widget is disposed.
-    birthDateController.dispose();
-    super.dispose();
-  }
 
   var maskFormatter = MaskTextInputFormatter(
       mask: '+# (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
