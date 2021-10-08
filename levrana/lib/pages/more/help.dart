@@ -1,4 +1,6 @@
+import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:expandable/expandable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../gql.dart';
@@ -26,15 +28,28 @@ class HelpPage extends StatelessWidget {
             );
           }
 
-          return Column(
-              children: result.data!['getFAQGroups']
-                  .map(
-                    (element) {
-                      return Text(element['name']);
-                    },
-                  )
-                  .toList()
-                  .cast<Widget>());
+          return ExpandableTheme(
+            data: ExpandableThemeData(
+                headerAlignment: ExpandablePanelHeaderAlignment.center,
+                iconPlacement: ExpandablePanelIconPlacement.left,
+                iconPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
+                iconRotationAngle: pi / 2,
+                expandIcon: Icons.chevron_right,
+                collapseIcon: Icons.chevron_right),
+            child: Column(
+                children: result.data!['getFAQGroups']
+                    .map(
+                      (element) {
+                        return ExpandablePanel(
+                          header: Text(element['name']),
+                          collapsed: SizedBox.shrink(),
+                          expanded: SizedBox.shrink(),
+                        );
+                      },
+                    )
+                    .toList()
+                    .cast<Widget>()),
+          );
         },
       ),
     );
