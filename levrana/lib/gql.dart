@@ -567,3 +567,12 @@ query getFAQGroups {
   }
 }
 ''';
+
+const String getFAQ = r'''
+query getFAQ($fAQQuestionID: Int) {
+  getFAQ(fAQQuestionID: $fAQQuestionID) {
+    question
+    answer
+  }
+}
+''';
