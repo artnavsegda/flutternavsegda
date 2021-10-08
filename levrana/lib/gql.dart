@@ -554,3 +554,16 @@ mutation forgotPassword
   }
 }
 ''';
+
+const String getFAQGroups = r'''
+query getFAQGroups {
+  getFAQGroups {
+    iD
+    name
+    questions {
+      iD
+      question
+    }
+  }
+}
+''';
