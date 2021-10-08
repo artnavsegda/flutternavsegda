@@ -22,19 +22,18 @@ class EditUserPage extends StatefulWidget {
 
 class _EditUserPageState extends State<EditUserPage> {
   final _formKey = GlobalKey<FormState>();
-  final nameController = TextEditingController();
-  final emailController = TextEditingController();
   final phoneNumberController = TextEditingController();
   final birthDateController = TextEditingController();
 
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
 
+  String? name;
+  String? eMail;
+
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    nameController.dispose();
-    emailController.dispose();
     phoneNumberController.dispose();
     birthDateController.dispose();
     super.dispose();
@@ -80,12 +79,6 @@ class _EditUserPageState extends State<EditUserPage> {
                     child: CircularProgressIndicator(),
                   );
                 }
-
-                nameController.text =
-                    result.data!['getClientInfo']['name'] ?? "";
-
-                emailController.text =
-                    result.data!['getClientInfo']['eMail'] ?? "";
 
                 parsePhone(result.data!['getClientInfo']['phone']);
 
@@ -156,7 +149,11 @@ class _EditUserPageState extends State<EditUserPage> {
                           child: Column(
                             children: [
                               TextFormField(
-                                  controller: nameController,
+                                  onChanged: (value) {
+                                    name = value;
+                                  },
+                                  initialValue: result.data!['getClientInfo']
+                                      ['name'],
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Введите имя';
@@ -166,7 +163,11 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration:
                                       InputDecoration(labelText: 'Имя')),
                               TextFormField(
-                                  controller: emailController,
+                                  onChanged: (value) {
+                                    eMail = value;
+                                  },
+                                  initialValue: result.data!['getClientInfo']
+                                      ['eMail'],
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Введите E-Mail';
@@ -244,7 +245,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                       Navigator.pop(context);
                                     },
                                   ),
-                                  builder: (runMutation, result) {
+                                  builder: (runMutation, mutationResult) {
                                     return ElevatedButton(
                                         onPressed: () async {
                                           if (_formKey.currentState!
@@ -286,8 +287,12 @@ class _EditUserPageState extends State<EditUserPage> {
                                                     phoneNumberController.text);
                                             runMutation({
                                               'clientGUID': clientGUID,
-                                              'name': nameController.text,
-                                              'eMail': emailController.text,
+                                              'name': name ??
+                                                  result.data!['getClientInfo']
+                                                      ['name'],
+                                              'eMail': eMail ??
+                                                  result.data!['getClientInfo']
+                                                      ['eMail'],
                                               'phone': int.parse('7' +
                                                   phoneNumber.nationalNumber)
                                             });
