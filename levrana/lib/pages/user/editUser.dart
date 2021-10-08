@@ -28,10 +28,17 @@ class _EditUserPageState extends State<EditUserPage> {
   final ImagePicker _picker = ImagePicker();
   XFile? _imageFile;
 
+  static const genders = {
+    'UNDETERMINED': '',
+    'MALE': 'Мужской',
+    'FEMALE': 'Женский',
+  };
+
   String? name;
   String? eMail;
   String? phone;
   String? dateOfBirth;
+  String? gender;
 
   @override
   void dispose() {
@@ -188,7 +195,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration:
                                       InputDecoration(labelText: 'Телефон')),
                               TextFormField(
-                                  key: Key(dateOfBirth ?? ""),
+                                  key: Key(dateOfBirth ?? "dateOfBirth"),
                                   readOnly: true,
                                   initialValue: DateFormat.yMMMd('ru_RU')
                                       .format(DateTime.parse(dateOfBirth ??
@@ -240,6 +247,38 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration: InputDecoration(
                                       labelText: 'Дата рождения')),
                               TextFormField(
+                                  key: Key(gender ?? "gender"),
+                                  readOnly: true,
+                                  initialValue: genders[gender ??
+                                      result.data!['getClientInfo']['gender']],
+                                  onTap: () {
+                                    showCupertinoModalPopup(
+                                        context: context,
+                                        builder: (context) =>
+                                            CupertinoActionSheet(
+                                              actions: <
+                                                  CupertinoActionSheetAction>[
+                                                CupertinoActionSheetAction(
+                                                  child: const Text('Мужской'),
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      gender = 'MALE';
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                CupertinoActionSheetAction(
+                                                  child: const Text('Женский'),
+                                                  onPressed: () async {
+                                                    setState(() {
+                                                      gender = 'FEMALE';
+                                                    });
+                                                    Navigator.pop(context);
+                                                  },
+                                                )
+                                              ],
+                                            ));
+                                  },
                                   decoration:
                                       InputDecoration(labelText: 'Пол')),
                               SizedBox(
@@ -315,6 +354,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                               'dateOfBirth': dateOfBirth ??
                                                   result.data!['getClientInfo']
                                                       ['dateOfBirth'],
+                                              'gender': gender ??
+                                                  result.data!['getClientInfo']
+                                                      ['gender'],
                                             });
                                             //Navigator.pop(context);
                                           }
