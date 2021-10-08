@@ -30,25 +30,18 @@ class _EditUserPageState extends State<EditUserPage> {
 
   String? name;
   String? eMail;
+  String? phone;
+  String? dateOfBirth;
 
   @override
   void dispose() {
     // Clean up the controller when the widget is disposed.
-    phoneNumberController.dispose();
     birthDateController.dispose();
     super.dispose();
   }
 
-  void parsePhone(int value) async {
-    //print(value);
-    try {
-      PhoneNumber phoneNumber =
-          await PhoneNumberUtil().parse("+" + value.toString());
-      phoneNumberController.text = phoneNumber.international;
-    } catch (e) {
-      //print('no');
-    }
-  }
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +73,8 @@ class _EditUserPageState extends State<EditUserPage> {
                   );
                 }
 
-                parsePhone(result.data!['getClientInfo']['phone']);
+                initializeDateFormatting();
+                print(result);
 
                 var clientGUID = result.data!['getClientInfo']['clientGUID'];
                 return Column(
@@ -150,7 +144,9 @@ class _EditUserPageState extends State<EditUserPage> {
                             children: [
                               TextFormField(
                                   onChanged: (value) {
-                                    name = value;
+                                    setState(() {
+                                      name = value;
+                                    });
                                   },
                                   initialValue: result.data!['getClientInfo']
                                       ['name'],
@@ -164,7 +160,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                       InputDecoration(labelText: 'Имя')),
                               TextFormField(
                                   onChanged: (value) {
-                                    eMail = value;
+                                    setState(() {
+                                      eMail = value;
+                                    });
                                   },
                                   initialValue: result.data!['getClientInfo']
                                       ['eMail'],
@@ -177,18 +175,26 @@ class _EditUserPageState extends State<EditUserPage> {
                                   decoration:
                                       InputDecoration(labelText: 'E-mail')),
                               TextFormField(
-                                  controller: phoneNumberController,
-                                  inputFormatters: [
-                                    MaskTextInputFormatter(
-                                        mask: '+7 ### ###-##-##',
-                                        filter: {"#": RegExp(r'[0-9]')})
-                                  ],
+                                  onChanged: (value) {
+                                    setState(() {
+                                      phone = value;
+                                    });
+                                  },
+                                  initialValue: maskFormatter.maskText(result
+                                      .data!['getClientInfo']['phone']
+                                      .toString()),
+                                  inputFormatters: [maskFormatter],
                                   keyboardType: TextInputType.number,
                                   decoration:
                                       InputDecoration(labelText: 'Телефон')),
                               TextFormField(
+                                  key: Key(dateOfBirth ?? ""),
                                   readOnly: true,
-                                  controller: birthDateController,
+                                  initialValue: DateFormat.yMMMd('ru_RU')
+                                      .format(DateTime.parse(dateOfBirth ??
+                                          result.data!['getClientInfo']
+                                              ['dateOfBirth'])),
+                                  //controller: birthDateController,
                                   onTap: () {
                                     //print("AAAA");
                                     showCupertinoModalPopup(
@@ -203,16 +209,20 @@ class _EditUserPageState extends State<EditUserPage> {
                                                 Container(
                                                   height: 240,
                                                   child: CupertinoDatePicker(
+                                                    initialDateTime: DateTime
+                                                        .parse(dateOfBirth ??
+                                                            result.data![
+                                                                    'getClientInfo']
+                                                                [
+                                                                'dateOfBirth']),
                                                     mode:
                                                         CupertinoDatePickerMode
                                                             .date,
                                                     onDateTimeChanged: (value) {
-                                                      initializeDateFormatting();
-                                                      birthDateController.text =
-                                                          DateFormat.yMMMd(
-                                                                  'ru_RU')
-                                                              .format(value);
-                                                      print(value.toString());
+                                                      setState(() {
+                                                        dateOfBirth = value
+                                                            .toIso8601String();
+                                                      });
                                                     },
                                                   ),
                                                 ),
@@ -240,6 +250,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                 child: Mutation(
                                   options: MutationOptions(
                                     document: gql(editClient),
+                                    onError: (error) {
+                                      print(error);
+                                    },
                                     onCompleted: (resultData) {
                                       print(resultData);
                                       Navigator.pop(context);
@@ -281,10 +294,11 @@ class _EditUserPageState extends State<EditUserPage> {
                                                   .bytesToString();
                                               //print(res);
                                             }
-                                            //print(nameController.text);
-                                            PhoneNumber phoneNumber =
-                                                await PhoneNumberUtil().parse(
-                                                    phoneNumberController.text);
+                                            print(phone != null
+                                                ? int.parse(maskFormatter
+                                                    .unmaskText(phone!))
+                                                : result.data!['getClientInfo']
+                                                    ['phone']);
                                             runMutation({
                                               'clientGUID': clientGUID,
                                               'name': name ??
@@ -293,8 +307,14 @@ class _EditUserPageState extends State<EditUserPage> {
                                               'eMail': eMail ??
                                                   result.data!['getClientInfo']
                                                       ['eMail'],
-                                              'phone': int.parse('7' +
-                                                  phoneNumber.nationalNumber)
+                                              'phone': phone != null
+                                                  ? int.parse(maskFormatter
+                                                      .unmaskText(phone!))
+                                                  : result.data![
+                                                      'getClientInfo']['phone'],
+                                              'dateOfBirth': dateOfBirth ??
+                                                  result.data!['getClientInfo']
+                                                      ['dateOfBirth'],
                                             });
                                             //Navigator.pop(context);
                                           }
