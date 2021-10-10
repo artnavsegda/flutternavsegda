@@ -210,6 +210,7 @@ class ConfirmSMSPage extends StatefulWidget {
 
 class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
   int smsTimeout = 30;
+  Timer? _timeDilationTimer;
 
   final TextEditingController smsCodeController = TextEditingController();
 
@@ -217,6 +218,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
   void dispose() {
     // Clean up the controller when the widget is disposed.
     smsCodeController.dispose();
+    _timeDilationTimer?.cancel();
     super.dispose();
   }
 
@@ -227,7 +229,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
   }
 
   void repeatSMS() {
-    Timer.periodic(Duration(seconds: 1), (timer) {
+    _timeDilationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (smsTimeout == 0) {
         timer.cancel();
       } else {
