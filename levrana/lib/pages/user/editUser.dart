@@ -305,6 +305,24 @@ class _EditUserPageState extends State<EditUserPage> {
                                         } else {
                                           Navigator.pop(context);
                                         }
+                                      } else {
+                                        showDialog(
+                                          context: context,
+                                          builder: (BuildContext context) =>
+                                              AlertDialog(
+                                            title: const Text('Ошибка'),
+                                            content: Text(
+                                                resultData['editClient']
+                                                    ['errorMessage']),
+                                            actions: [
+                                              TextButton(
+                                                onPressed: () => Navigator.pop(
+                                                    context, 'OK'),
+                                                child: const Text('OK'),
+                                              ),
+                                            ],
+                                          ),
+                                        );
                                       }
                                     },
                                   ),
