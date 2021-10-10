@@ -185,6 +185,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: StaggeredGridView.countBuilder(
+                      shrinkWrap: true,
                       addAutomaticKeepAlives: false,
                       addRepaintBoundaries: false,
                       controller: _controller,
