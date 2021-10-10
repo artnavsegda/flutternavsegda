@@ -11,6 +11,7 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
 import '../../gql.dart';
+import '../login/login.dart';
 
 class EditUserPage extends StatefulWidget {
   const EditUserPage({Key? key}) : super(key: key);
@@ -39,6 +40,19 @@ class _EditUserPageState extends State<EditUserPage> {
 
   var maskFormatter = MaskTextInputFormatter(
       mask: '+# (###) ###-##-##', filter: {"#": RegExp(r'[0-9]')});
+
+  void _confirmSMS(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return ConfirmSMSPage();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -284,7 +298,14 @@ class _EditUserPageState extends State<EditUserPage> {
                                     },
                                     onCompleted: (resultData) {
                                       print(resultData);
-                                      Navigator.pop(context);
+                                      if (resultData['editClient']['result'] ==
+                                          0) {
+                                        if (phone != null) {
+                                          _confirmSMS(context);
+                                        } else {
+                                          Navigator.pop(context);
+                                        }
+                                      }
                                     },
                                   ),
                                   builder: (runMutation, mutationResult) {
