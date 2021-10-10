@@ -170,17 +170,13 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   }
                 }); */
 
-                bool hasNextPage =
-                    items.length < result.data!['getProducts']['totalCount'];
-
                 return NotificationListener<ScrollNotification>(
                   onNotification: (scrollNotification) {
                     if (scrollNotification is ScrollEndNotification) {
                       if (_controller.offset + 100 >=
                               _controller.position.maxScrollExtent &&
                           !_controller.position.outOfRange &&
-                          pageInfo['hasNextPage'] &&
-                          hasNextPage) {
+                          pageInfo['hasNextPage']) {
                         fetchMore!(opts);
                       }
                     }
@@ -193,9 +189,10 @@ class _ProductsListPageState extends State<ProductsListPage> {
                       addRepaintBoundaries: false,
                       controller: _controller,
                       crossAxisCount: 2,
-                      itemCount: items.length + (hasNextPage ? 1 : 0),
+                      itemCount:
+                          items.length + (pageInfo['hasNextPage'] ? 1 : 0),
                       itemBuilder: (BuildContext context, int index) =>
-                          (index == items.length && hasNextPage)
+                          (index == items.length && pageInfo['hasNextPage'])
                               ? Center(child: CircularProgressIndicator())
                               : Padding(
                                   padding: const EdgeInsets.all(8.0),
@@ -255,7 +252,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                                               ProductPage(id: item['iD'])),
                                     )),
                           ),
-                        if (hasNextPage)
+                        if (pageInfo['hasNextPage'])
                           Center(
                             child: CircularProgressIndicator(),
                           )
