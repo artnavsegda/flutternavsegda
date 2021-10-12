@@ -204,7 +204,49 @@ class _EditUserPageState extends State<EditUserPage> {
                                                     BorderRadius.circular(18.0),
                                               ))),
                                           onPressed: () {
-                                            print("puk");
+                                            showCupertinoDialog<void>(
+                                              context: context,
+                                              builder: (context) =>
+                                                  CupertinoAlertDialog(
+                                                content: Text(
+                                                    'Выслать повторно код подтверждения?'),
+                                                actions: [
+                                                  CupertinoDialogAction(
+                                                    isDefaultAction: true,
+                                                    child: const Text('Нет'),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  ),
+                                                  CupertinoDialogAction(
+                                                    child: const Text('Да'),
+                                                    onPressed: () {
+                                                      Navigator.pop(context);
+                                                    },
+                                                  )
+                                                ],
+                                              ),
+                                            );
+
+                                            return;
+
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                content: Text(
+                                                    'Выслать повторно код подтверждения?'),
+                                                actions: [
+                                                  TextButton(
+                                                    onPressed: () => {},
+                                                    child: const Text('Да'),
+                                                  ),
+                                                  TextButton(
+                                                    onPressed: () => {},
+                                                    child: const Text('Да'),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
                                           },
                                           child: Text("Подтвердить")),
                                 ],

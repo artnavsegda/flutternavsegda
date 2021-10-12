@@ -110,7 +110,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                         title: const Text('Ошибка'),
                         content:
                             Text(resultData['loginClient']['errorMessage']),
-                        actions: <Widget>[
+                        actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'OK'),
                             child: const Text('OK'),
