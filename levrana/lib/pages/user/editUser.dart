@@ -92,6 +92,7 @@ class _EditUserPageState extends State<EditUserPage> {
                   children: [
                     SizedBox(height: 100.0),
                     Stack(
+                      alignment: Alignment.bottomRight,
                       children: [
                         CircleAvatar(
                           radius: 86,
@@ -188,21 +189,24 @@ class _EditUserPageState extends State<EditUserPage> {
                                       },
                                       decoration:
                                           InputDecoration(labelText: 'E-mail')),
-                                  OutlinedButton(
-                                      style: ButtonStyle(
-                                          minimumSize:
-                                              MaterialStateProperty.all(
-                                                  Size(36.0, 36.0)),
-                                          shape: MaterialStateProperty.all<
-                                                  RoundedRectangleBorder>(
-                                              RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(18.0),
-                                          ))),
-                                      onPressed: () {
-                                        print("puk");
-                                      },
-                                      child: Text("Подтвердить")),
+                                  result.data!['getClientInfo']
+                                          ['confirmedEMail']
+                                      ? SizedBox.shrink()
+                                      : OutlinedButton(
+                                          style: ButtonStyle(
+                                              minimumSize:
+                                                  MaterialStateProperty.all(
+                                                      Size(36.0, 36.0)),
+                                              shape: MaterialStateProperty.all<
+                                                      RoundedRectangleBorder>(
+                                                  RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(18.0),
+                                              ))),
+                                          onPressed: () {
+                                            print("puk");
+                                          },
+                                          child: Text("Подтвердить")),
                                 ],
                               ),
                               TextFormField(
