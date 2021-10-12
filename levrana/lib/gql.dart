@@ -577,3 +577,12 @@ query getFAQ($fAQQuestionID: Int) {
   }
 }
 ''';
+
+const String eMailConfirmRepeat = r'''
+mutation eMailConfirmRepeat {
+  eMailConfirmRepeat {
+    result
+    errorMessage
+  }
+}
+''';

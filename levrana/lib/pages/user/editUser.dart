@@ -189,66 +189,80 @@ class _EditUserPageState extends State<EditUserPage> {
                                       },
                                       decoration:
                                           InputDecoration(labelText: 'E-mail')),
-                                  result.data!['getClientInfo']
-                                          ['confirmedEMail']
-                                      ? SizedBox.shrink()
-                                      : OutlinedButton(
-                                          style: ButtonStyle(
-                                              minimumSize:
-                                                  MaterialStateProperty.all(
-                                                      Size(36.0, 36.0)),
-                                              shape: MaterialStateProperty.all<
-                                                      RoundedRectangleBorder>(
-                                                  RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(18.0),
-                                              ))),
-                                          onPressed: () {
-                                            showCupertinoDialog<void>(
-                                              context: context,
-                                              builder: (context) =>
-                                                  CupertinoAlertDialog(
-                                                content: Text(
-                                                    'Выслать повторно код подтверждения?'),
-                                                actions: [
-                                                  CupertinoDialogAction(
-                                                    isDefaultAction: true,
-                                                    child: const Text('Нет'),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  ),
-                                                  CupertinoDialogAction(
-                                                    child: const Text('Да'),
-                                                    onPressed: () {
-                                                      Navigator.pop(context);
-                                                    },
-                                                  )
-                                                ],
-                                              ),
-                                            );
+                                  if (result.data!['getClientInfo']
+                                          ['confirmedEMail'] ==
+                                      false)
+                                    OutlinedButton(
+                                        style: ButtonStyle(
+                                            minimumSize:
+                                                MaterialStateProperty.all(
+                                                    Size(36.0, 36.0)),
+                                            shape: MaterialStateProperty.all<
+                                                    RoundedRectangleBorder>(
+                                                RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.circular(18.0),
+                                            ))),
+                                        onPressed: () {
+                                          showCupertinoDialog<void>(
+                                            context: context,
+                                            builder: (context) =>
+                                                CupertinoAlertDialog(
+                                              content: Text(
+                                                  'Выслать повторно код подтверждения?'),
+                                              actions: [
+                                                CupertinoDialogAction(
+                                                  isDefaultAction: true,
+                                                  child: const Text('Нет'),
+                                                  onPressed: () {
+                                                    Navigator.pop(context);
+                                                  },
+                                                ),
+                                                Mutation(
+                                                    options: MutationOptions(
+                                                      document: gql(
+                                                          eMailConfirmRepeat),
+                                                      onCompleted:
+                                                          (resultData) {
+                                                        print(resultData);
+                                                      },
+                                                    ),
+                                                    builder:
+                                                        (runMutation, result) {
+                                                      return CupertinoDialogAction(
+                                                        child: const Text('Да'),
+                                                        onPressed: () {
+                                                          runMutation({});
+                                                          Navigator.pop(
+                                                              context);
+                                                        },
+                                                      );
+                                                    })
+                                              ],
+                                            ),
+                                          );
 
-                                            return;
+                                          return;
 
-                                            showDialog(
-                                              context: context,
-                                              builder: (context) => AlertDialog(
-                                                content: Text(
-                                                    'Выслать повторно код подтверждения?'),
-                                                actions: [
-                                                  TextButton(
-                                                    onPressed: () => {},
-                                                    child: const Text('Да'),
-                                                  ),
-                                                  TextButton(
-                                                    onPressed: () => {},
-                                                    child: const Text('Да'),
-                                                  ),
-                                                ],
-                                              ),
-                                            );
-                                          },
-                                          child: Text("Подтвердить")),
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              content: Text(
+                                                  'Выслать повторно код подтверждения?'),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () => {},
+                                                  child: const Text('Да'),
+                                                ),
+                                                TextButton(
+                                                  onPressed: () => {},
+                                                  child: const Text('Да'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        },
+                                        child: Text("Подтвердить")),
                                 ],
                               ),
                               TextFormField(
