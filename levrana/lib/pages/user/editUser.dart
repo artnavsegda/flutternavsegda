@@ -169,22 +169,42 @@ class _EditUserPageState extends State<EditUserPage> {
                                   },
                                   decoration:
                                       InputDecoration(labelText: 'Имя')),
-                              TextFormField(
-                                  onChanged: (value) {
-                                    setState(() {
-                                      eMail = value;
-                                    });
-                                  },
-                                  initialValue: result.data!['getClientInfo']
-                                      ['eMail'],
-                                  validator: (value) {
-                                    if (value == null || value.isEmpty) {
-                                      return 'Введите E-Mail';
-                                    }
-                                    return null;
-                                  },
-                                  decoration:
-                                      InputDecoration(labelText: 'E-mail')),
+                              Stack(
+                                alignment: Alignment.centerRight,
+                                children: [
+                                  TextFormField(
+                                      onChanged: (value) {
+                                        setState(() {
+                                          eMail = value;
+                                        });
+                                      },
+                                      initialValue: result
+                                          .data!['getClientInfo']['eMail'],
+                                      validator: (value) {
+                                        if (value == null || value.isEmpty) {
+                                          return 'Введите E-Mail';
+                                        }
+                                        return null;
+                                      },
+                                      decoration:
+                                          InputDecoration(labelText: 'E-mail')),
+                                  OutlinedButton(
+                                      style: ButtonStyle(
+                                          minimumSize:
+                                              MaterialStateProperty.all(
+                                                  Size(36.0, 36.0)),
+                                          shape: MaterialStateProperty.all<
+                                                  RoundedRectangleBorder>(
+                                              RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(18.0),
+                                          ))),
+                                      onPressed: () {
+                                        print("puk");
+                                      },
+                                      child: Text("Подтвердить")),
+                                ],
+                              ),
                               TextFormField(
                                   onChanged: (value) {
                                     setState(() {

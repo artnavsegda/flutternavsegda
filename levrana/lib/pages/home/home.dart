@@ -32,6 +32,7 @@ class HomePage extends StatelessWidget {
                 margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
                 child: TextField(
                   decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.search),
                       isDense: true,
                       contentPadding: EdgeInsets.all(10),
                       border: new OutlineInputBorder(
