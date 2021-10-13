@@ -248,8 +248,6 @@ class Draw extends StatelessWidget {
           return Center(
             child: Column(
               children: [
-                Text(result.data!['getDraw']['name']),
-                Text(result.data!['getDraw']['description']),
                 Column(
                   children: result.data!['getDraw']['levels']
                       .map((element) {
@@ -349,160 +347,156 @@ class ActionPage extends StatelessWidget {
                 AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
             body: result.data!['getAction']['type'] == 'POLL'
                 ? SafeArea(child: Poll(actionID: actionID))
-                : result.data!['getAction']['type'] == 'DRAWING'
-                    ? SafeArea(child: Draw(actionID: actionID))
-                    : ListView(
-                        children: [
-                          Image.network(result.data!['getAction']['picture']),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  if (result.data!['getAction']['dateStart'] !=
+                : ListView(
+                    children: [
+                      Image.network(result.data!['getAction']['picture']),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              if (result.data!['getAction']['dateStart'] !=
+                                  null)
+                                Text(
+                                    "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
+                                    style: TextStyle(fontSize: 20.0))
+                              else if (result.data!['getAction']
+                                      ['dateFinish'] !=
+                                  null)
+                                Text(
+                                    "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
+                                    style: TextStyle(fontSize: 20.0))
+                              else if (result.data!['getAction']['dateStart'] !=
+                                      null &&
+                                  result.data!['getAction']['dateFinish'] !=
                                       null)
-                                    Text(
-                                        "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
-                                        style: TextStyle(fontSize: 20.0))
-                                  else if (result.data!['getAction']
-                                          ['dateFinish'] !=
-                                      null)
-                                    Text(
-                                        "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
-                                        style: TextStyle(fontSize: 20.0))
-                                  else if (result.data!['getAction']
-                                              ['dateStart'] !=
-                                          null &&
-                                      result.data!['getAction']['dateFinish'] !=
-                                          null)
-                                    Text(
-                                        "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
-                                        style: TextStyle(fontSize: 20.0)),
-                                  SizedBox(height: 16),
-                                  MarkdownBody(
-                                    data: result.data!['getAction']
-                                            ['description'] ??
-                                        "",
-                                    onTapLink: (text, url, title) {
-                                      launch(url!);
-                                      //print(url);
-                                    },
-                                  ),
-                                  SizedBox(height: 16),
-                                  result.data!['getAction']['products'].length >
-                                          1
-                                      ? Text("Товары из акции",
-                                          style: TextStyle(
-                                              fontFamily: 'Montserrat',
-                                              fontSize: 28.0,
-                                              fontWeight: FontWeight.bold))
-                                      : SizedBox.shrink(),
-                                  SizedBox(height: 16),
-                                  Wrap(
-                                      spacing: 16,
-                                      runSpacing: 16,
-                                      children:
-                                          result.data!['getAction']['products']
-                                              .map(
-                                                (product) =>
-                                                    FractionallySizedBox(
-                                                  widthFactor: 0.47,
-                                                  child: ProductCard(
-                                                      product: product,
-                                                      onTap:
-                                                          () => Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                        ProductPage(
-                                                                            id: product['iD'])),
-                                                              )),
-                                                ),
-                                              )
-                                              .toList()
-                                              .cast<Widget>()),
-                                  Column(
-                                    children: result.data!['getAction']['shops']
-                                        .map((shop) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                              color: Color(0xFFF5F5F5),
+                                Text(
+                                    "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
+                                    style: TextStyle(fontSize: 20.0)),
+                              SizedBox(height: 16),
+                              if (result.data!['getAction']['type'] ==
+                                  'DRAWING')
+                                SafeArea(child: Draw(actionID: actionID)),
+                              MarkdownBody(
+                                data: result.data!['getAction']
+                                        ['description'] ??
+                                    "",
+                                onTapLink: (text, url, title) {
+                                  launch(url!);
+                                  //print(url);
+                                },
+                              ),
+                              SizedBox(height: 16),
+                              result.data!['getAction']['products'].length > 1
+                                  ? Text("Товары из акции",
+                                      style: TextStyle(
+                                          fontFamily: 'Montserrat',
+                                          fontSize: 28.0,
+                                          fontWeight: FontWeight.bold))
+                                  : SizedBox.shrink(),
+                              SizedBox(height: 16),
+                              Wrap(
+                                  spacing: 16,
+                                  runSpacing: 16,
+                                  children:
+                                      result.data!['getAction']['products']
+                                          .map(
+                                            (product) => FractionallySizedBox(
+                                              widthFactor: 0.47,
+                                              child: ProductCard(
+                                                  product: product,
+                                                  onTap: () => Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ProductPage(
+                                                                    id: product[
+                                                                        'iD'])),
+                                                      )),
+                                            ),
+                                          )
+                                          .toList()
+                                          .cast<Widget>()),
+                              Column(
+                                children: result.data!['getAction']['shops']
+                                    .map((shop) {
+                                      return Container(
+                                        decoration: BoxDecoration(
+                                          color: Color(0xFFF5F5F5),
+                                          borderRadius:
+                                              BorderRadius.circular(12),
+                                        ),
+                                        margin: const EdgeInsets.symmetric(
+                                            vertical: 5.0),
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            ClipRRect(
                                               borderRadius:
-                                                  BorderRadius.circular(12),
+                                                  BorderRadius.circular(6.0),
+                                              child: Image.network(
+                                                shop['pictures'][0],
+                                                fit: BoxFit.cover,
+                                                width: 80,
+                                                height: 80,
+                                              ),
                                             ),
-                                            margin: const EdgeInsets.symmetric(
-                                                vertical: 5.0),
-                                            padding: const EdgeInsets.all(10.0),
-                                            child: Row(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                ClipRRect(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          6.0),
-                                                  child: Image.network(
-                                                    shop['pictures'][0],
-                                                    fit: BoxFit.cover,
-                                                    width: 80,
-                                                    height: 80,
+                                            SizedBox(width: 10),
+                                            Expanded(
+                                              child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                children: [
+                                                  Text(
+                                                    shop['name'],
+                                                    style: TextStyle(
+                                                        fontSize: 12.0,
+                                                        fontWeight:
+                                                            FontWeight.bold),
                                                   ),
-                                                ),
-                                                SizedBox(width: 10),
-                                                Expanded(
-                                                  child: Column(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .start,
-                                                    children: [
-                                                      Text(
-                                                        shop['name'],
-                                                        style: TextStyle(
-                                                            fontSize: 12.0,
-                                                            fontWeight:
-                                                                FontWeight
-                                                                    .bold),
-                                                      ),
-                                                      Text(shop['address'],
-                                                          style: TextStyle(
-                                                              fontSize: 12.0)),
-                                                      ...shop['metroStations']
-                                                          .map((metroStation) {
-                                                            return Row(
-                                                              children: [
-                                                                Text('⬤ ',
-                                                                    style: TextStyle(
-                                                                        fontSize:
-                                                                            7.0,
-                                                                        color: hexToColor(
-                                                                            metroStation['colorLine']))),
-                                                                Expanded(
-                                                                  child: Text(
-                                                                      metroStation[
-                                                                          'stationName'],
-                                                                      style: TextStyle(
-                                                                          fontSize:
-                                                                              12.0)),
-                                                                ),
-                                                              ],
-                                                            );
-                                                          })
-                                                          .toList()
-                                                          .cast<Widget>(),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
-                                            ),
-                                          );
-                                        })
-                                        .toList()
-                                        .cast<Widget>(),
-                                  ),
-                                ]),
-                          ),
-                        ],
+                                                  Text(shop['address'],
+                                                      style: TextStyle(
+                                                          fontSize: 12.0)),
+                                                  ...shop['metroStations']
+                                                      .map((metroStation) {
+                                                        return Row(
+                                                          children: [
+                                                            Text('⬤ ',
+                                                                style: TextStyle(
+                                                                    fontSize:
+                                                                        7.0,
+                                                                    color: hexToColor(
+                                                                        metroStation[
+                                                                            'colorLine']))),
+                                                            Expanded(
+                                                              child: Text(
+                                                                  metroStation[
+                                                                      'stationName'],
+                                                                  style: TextStyle(
+                                                                      fontSize:
+                                                                          12.0)),
+                                                            ),
+                                                          ],
+                                                        );
+                                                      })
+                                                      .toList()
+                                                      .cast<Widget>(),
+                                                ],
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                      );
+                                    })
+                                    .toList()
+                                    .cast<Widget>(),
+                              ),
+                            ]),
                       ),
+                    ],
+                  ),
           );
         });
   }
