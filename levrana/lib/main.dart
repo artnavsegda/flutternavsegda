@@ -3,6 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import 'pages/catalog/catalog.dart';
 import 'pages/home/home.dart';
@@ -10,6 +11,8 @@ import 'pages/more/more.dart';
 import 'pages/shopping/shopping.dart';
 import 'pages/user/user.dart';
 import 'pages/login/dialog.dart';
+
+import 'gql.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -151,76 +154,121 @@ class _MainPageState extends State<MainPage>
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: TabBarView(
-        controller: _tabController,
-        children: <Widget>[
-          HomePage(),
-          CatalogNavigator(),
-          ShoppingPage(),
-          UserPage(),
-          MorePage(),
-        ],
-      ),
-      bottomNavigationBar: Container(
-        decoration: BoxDecoration(
-          boxShadow: <BoxShadow>[
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.07),
-              blurRadius: 100.0,
-              offset: Offset(0.0, -27),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.0417275),
-              blurRadius: 22.3363,
-              offset: Offset(0.0, -6.0308),
-            ),
-            BoxShadow(
-              color: Color.fromRGBO(0, 0, 0, 0.0282725),
-              blurRadius: 6.6501,
-              offset: Offset(0.0, -1.79553),
-            )
-          ],
+    return Query(
+        options: QueryOptions(
+          document: gql(getReactions),
         ),
-        child: BottomNavigationBar(
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          onTap: (index) {
-            _tabController.animateTo(index);
-            setState(() {
-              _selectedIndex = index;
+        builder: (result, {fetchMore, refetch}) {
+          print(result);
+
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading && result.data == null) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          if (result.data!['getReactions'][0]['type'] == 'MESSAGE') {
+            WidgetsBinding.instance!.addPostFrameCallback((_) async {
+              showDialog(
+                context: context,
+                builder: (context) => AlertDialog(
+                  title: Text(
+                      result.data!['getReactions'][0]['message']['caption']),
+                  content:
+                      Text(result.data!['getReactions'][0]['message']['text']),
+                  actions: [
+                    TextButton(
+                      onPressed: () async {
+                        await launch(
+                            result.data!['getReactions'][0]['message']['uRL']);
+                        Navigator.pop(context, 'OK');
+                      },
+                      child: Text(
+                          result.data!['getReactions'][0]['message']['button']),
+                    ),
+                  ],
+                ),
+              );
             });
-          },
-          selectedItemColor: Colors.green[800],
-          unselectedItemColor: Colors.black,
-          currentIndex: _selectedIndex,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/ic-24/icons-home.png')),
-              label: 'Home',
+          }
+
+          return Scaffold(
+            body: TabBarView(
+              controller: _tabController,
+              children: <Widget>[
+                HomePage(),
+                CatalogNavigator(),
+                ShoppingPage(),
+                UserPage(),
+                MorePage(),
+              ],
             ),
-            BottomNavigationBarItem(
-              icon:
-                  ImageIcon(AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
-              label: 'Catalog',
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                boxShadow: <BoxShadow>[
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.07),
+                    blurRadius: 100.0,
+                    offset: Offset(0.0, -27),
+                  ),
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.0417275),
+                    blurRadius: 22.3363,
+                    offset: Offset(0.0, -6.0308),
+                  ),
+                  BoxShadow(
+                    color: Color.fromRGBO(0, 0, 0, 0.0282725),
+                    blurRadius: 6.6501,
+                    offset: Offset(0.0, -1.79553),
+                  )
+                ],
+              ),
+              child: BottomNavigationBar(
+                type: BottomNavigationBarType.fixed,
+                showSelectedLabels: false,
+                showUnselectedLabels: false,
+                onTap: (index) {
+                  _tabController.animateTo(index);
+                  setState(() {
+                    _selectedIndex = index;
+                  });
+                },
+                selectedItemColor: Colors.green[800],
+                unselectedItemColor: Colors.black,
+                currentIndex: _selectedIndex,
+                items: const <BottomNavigationBarItem>[
+                  BottomNavigationBarItem(
+                    icon: ImageIcon(AssetImage('assets/ic-24/icons-home.png')),
+                    label: 'Home',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: ImageIcon(
+                        AssetImage('assets/ic-24/icon-24-catalog-v3.png')),
+                    label: 'Catalog',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: ImageIcon(
+                        AssetImage('assets/ic-24/icon-24-shopping.png')),
+                    label: 'Shopping',
+                  ),
+                  BottomNavigationBarItem(
+                    icon:
+                        ImageIcon(AssetImage('assets/ic-24/icon-24-user.png')),
+                    label: 'User',
+                  ),
+                  BottomNavigationBarItem(
+                    icon: ImageIcon(AssetImage('assets/ic-24/icons-more.png')),
+                    label: 'More',
+                  ),
+                ],
+              ),
             ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/ic-24/icon-24-shopping.png')),
-              label: 'Shopping',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/ic-24/icon-24-user.png')),
-              label: 'User',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/ic-24/icons-more.png')),
-              label: 'More',
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
 

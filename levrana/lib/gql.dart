@@ -622,3 +622,28 @@ mutation setDrawTakePart($actionID: Int, $mode: DrawTakePart)
   }
 }
 ''';
+
+const String getReactions = r'''
+query getReactions {
+  getReactions {
+    type
+    order {
+      orderId
+      dateOrder
+      priceOrder
+      address
+    }
+    action {
+      iD
+      name
+    }
+    message {
+      iD
+      caption
+      text
+      button
+      uRL
+    }
+  }
+}
+''';
