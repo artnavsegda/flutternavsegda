@@ -610,3 +610,15 @@ query getDraw($actionID: Int)
   }
 }
 ''';
+
+const String setDrawTakePart = r'''
+mutation setDrawTakePart($actionID: Int, $mode: DrawTakePart)
+{
+  setDrawTakePart(actionID: $actionID, mode: $mode)
+  {
+    result
+    errorMessage
+    point
+  }
+}
+''';

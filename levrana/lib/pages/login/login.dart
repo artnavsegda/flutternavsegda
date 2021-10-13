@@ -271,12 +271,12 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                   showDialog(
                     context: context,
                     builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Ошибка'),
+                      title: Text('Ошибка'),
                       content: Text(error!.graphqlErrors[0].message),
-                      actions: <Widget>[
+                      actions: [
                         TextButton(
                           onPressed: () => Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
+                          child: Text('OK'),
                         ),
                       ],
                     ),

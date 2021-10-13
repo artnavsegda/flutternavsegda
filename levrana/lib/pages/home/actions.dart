@@ -262,6 +262,47 @@ class Draw extends StatelessWidget {
                       .toList()
                       .cast<Widget>(),
                 ),
+                Mutation(
+                    options: MutationOptions(
+                      document: gql(setDrawTakePart),
+                      onError: (error) {
+                        print(error);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: Text('Ошибка'),
+                            content: Text(error!.graphqlErrors[0].message),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                      onCompleted: (resultData) {
+                        print(resultData);
+                      },
+                    ),
+                    builder: (runMutation, mutationResult) {
+                      return Wrap(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () => runMutation(
+                                  {'actionID': actionID, 'mode': 'WAIT'}),
+                              child: Text("WAIT")),
+                          ElevatedButton(
+                              onPressed: () => runMutation(
+                                  {'actionID': actionID, 'mode': 'YES'}),
+                              child: Text("YES")),
+                          ElevatedButton(
+                              onPressed: () => runMutation(
+                                  {'actionID': actionID, 'mode': 'NO'}),
+                              child: Text("NO")),
+                        ],
+                      );
+                    })
               ],
             ),
           );

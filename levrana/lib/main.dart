@@ -24,7 +24,7 @@ void main() async {
 
   final AuthLink authLink = AuthLink(getToken: () async {
     final prefs = await SharedPreferences.getInstance();
-    //print("DEBUG TOKEN " + (prefs.getString('token') ?? ""));
+    print("DEBUG TOKEN " + (prefs.getString('token') ?? ""));
     return 'Bearer ' + (prefs.getString('token') ?? "");
   });
 
