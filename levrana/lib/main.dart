@@ -181,15 +181,29 @@ class _MainPageState extends State<MainPage>
                   content:
                       Text(result.data!['getReactions'][0]['message']['text']),
                   actions: [
-                    TextButton(
-                      onPressed: () async {
-                        await launch(
-                            result.data!['getReactions'][0]['message']['uRL']);
-                        Navigator.pop(context, 'OK');
-                      },
-                      child: Text(
-                          result.data!['getReactions'][0]['message']['button']),
-                    ),
+                    Mutation(
+                        options: MutationOptions(
+                          document: gql(openReactionMessage),
+                          onCompleted: (resultData) {
+                            print(resultData);
+                            refetch!();
+                          },
+                        ),
+                        builder: (runMutation, mutationResult) {
+                          return TextButton(
+                            onPressed: () async {
+                              await launch(result.data!['getReactions'][0]
+                                  ['message']['uRL']);
+                              runMutation({
+                                'messageID': result.data!['getReactions'][0]
+                                    ['message']['iD']
+                              });
+                              Navigator.pop(context, 'OK');
+                            },
+                            child: Text(result.data!['getReactions'][0]
+                                ['message']['button']),
+                          );
+                        }),
                   ],
                 ),
               );

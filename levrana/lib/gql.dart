@@ -647,3 +647,12 @@ query getReactions {
   }
 }
 ''';
+
+const String openReactionMessage = r'''
+mutation openReactionMessage($messageID: Int) {
+  openReactionMessage(messageID: $messageID) {
+    result
+    errorMessage
+  }
+}
+''';
