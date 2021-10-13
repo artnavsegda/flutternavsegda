@@ -586,3 +586,27 @@ mutation eMailConfirmRepeat {
   }
 }
 ''';
+
+const String getDraw = r'''
+query getDraw($actionID: Int)
+{
+  getDraw(actionID: $actionID)
+  {
+    iD
+    name
+    description
+    uRL
+    dateStart
+    dateFinish
+    specialConditions
+    picture
+    pictureLevel
+    drawMode
+    levels {
+      level
+      position
+      endPosition
+    }
+  }
+}
+''';

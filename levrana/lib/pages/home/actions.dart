@@ -225,11 +225,47 @@ class Draw extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Center(
-        child: Text("DRAW"),
-      ),
-    );
+    return Query(
+        options: QueryOptions(
+          document: gql(getDraw),
+          variables: {
+            'actionID': actionID,
+          },
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return Text(result.exception.toString());
+          }
+
+          if (result.isLoading) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          print(result);
+
+          return Center(
+            child: Column(
+              children: [
+                Text(result.data!['getDraw']['name']),
+                Text(result.data!['getDraw']['description']),
+                Column(
+                  children: result.data!['getDraw']['levels']
+                      .map((element) {
+                        return Row(children: [
+                          Text("${element['level']}"),
+                          Text("${element['position']}"),
+                          Text("${element['endPosition']}"),
+                        ]);
+                      })
+                      .toList()
+                      .cast<Widget>(),
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
 
