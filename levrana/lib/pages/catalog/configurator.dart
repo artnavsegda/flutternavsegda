@@ -18,9 +18,6 @@ class Configurator extends StatefulWidget {
 class _ConfiguratorState extends State<Configurator> {
   late ScrollController _controller;
   int stage = 0;
-  var _streamController = StreamController<String>.broadcast();
-  StreamSubscription<String>? _streamReciever;
-
   List<int> configuratorItemIds = [];
 
   @override
@@ -37,6 +34,8 @@ class _ConfiguratorState extends State<Configurator> {
 
   @override
   Widget build(BuildContext context) {
+    var fetchMoreCB;
+
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
       appBar: AppBar(
@@ -49,7 +48,7 @@ class _ConfiguratorState extends State<Configurator> {
                     _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
               print("refetch parent");
-              _streamController.add("refetch");
+              fetchMoreCB();
             }
           }
           return false;
@@ -313,11 +312,10 @@ class _ConfiguratorState extends State<Configurator> {
                     }
                   }); */
 
-                  _streamReciever?.cancel();
-                  _streamReciever = _streamController.stream.listen((action) {
+                  fetchMoreCB = () {
                     print("refetch children");
                     if (hasNextPage) fetchMore!(opts);
-                  });
+                  };
 
                   return Column(
                     children: [
