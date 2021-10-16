@@ -17,13 +17,14 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var refetchCb;
+    Future Function()? refetchClientInfo;
+    var refetchTopBlocks;
 
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () async {
-          refetchCb();
-          await Future.delayed(Duration(seconds: 1));
+          await refetchClientInfo!();
+          //await Future.delayed(Duration(seconds: 1));
         },
         child: SingleChildScrollView(
             child: Stack(
@@ -88,9 +89,9 @@ class HomePage extends StatelessWidget {
                                       document: gql(getClientInfo)),
                                   builder: (result, {fetchMore, refetch}) {
                                     //print(result.data);
-                                    refetchCb = () {
+                                    refetchClientInfo = () async {
                                       print("refetch");
-                                      refetch!();
+                                      await refetch!();
                                     };
 
                                     if (result.hasException) {

@@ -34,7 +34,7 @@ class _ConfiguratorState extends State<Configurator> {
 
   @override
   Widget build(BuildContext context) {
-    var fetchMoreCB;
+    Future Function()? fetchMoreCB;
 
     return Scaffold(
       backgroundColor: Color(0xfff5f5f5),
@@ -48,7 +48,7 @@ class _ConfiguratorState extends State<Configurator> {
                     _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
               print("refetch parent");
-              fetchMoreCB();
+              fetchMoreCB!();
             }
           }
           return false;
@@ -312,9 +312,11 @@ class _ConfiguratorState extends State<Configurator> {
                     }
                   }); */
 
-                  fetchMoreCB = () {
+                  fetchMoreCB = () async {
                     print("refetch children");
-                    if (hasNextPage) fetchMore!(opts);
+                    if (hasNextPage) {
+                      await fetchMore!(opts);
+                    }
                   };
 
                   return Column(
