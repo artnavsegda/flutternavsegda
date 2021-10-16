@@ -171,7 +171,7 @@ class _MainPageState extends State<MainPage>
             );
           }
 
-          if (result.data!['getReactions'][0]['type'] == 'MESSAGE') {
+          if (result.data!['getReactions'][0]['type'] == 'MESSAGE' && false) {
             WidgetsBinding.instance!.addPostFrameCallback((_) async {
               showDialog(
                 context: context,

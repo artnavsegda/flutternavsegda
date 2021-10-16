@@ -40,125 +40,134 @@ class _FavouritesPageState extends State<FavouritesPage> {
             return Center(child: Text("Жми сердечко"));
           }
 
-          return SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                  child: ListTile(
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0)),
-                      tileColor: Colors.white,
-                      leading: SizedBox(
-                        height: 24.0,
-                        width: 24.0,
-                        child: LevranaCheckbox(
-                            value: selectedRows.length != 0 &&
-                                selectedRows.containsAll(result
-                                    .data!['getFavoritesProducts']
-                                    .map((e) => e['iD'])
-                                    .cast<int>()
-                                    .toList()),
-                            onChanged: (newValue) {
-                              setState(() {
-                                if (newValue == true) {
-                                  selectedRows.addAll(result
+          return RefreshIndicator(
+            onRefresh: () async {
+              await refetch!();
+              //await Future.delayed(Duration(seconds: 1));
+            },
+            child: SingleChildScrollView(
+              physics: AlwaysScrollableScrollPhysics(),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Padding(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                    child: ListTile(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0)),
+                        tileColor: Colors.white,
+                        leading: SizedBox(
+                          height: 24.0,
+                          width: 24.0,
+                          child: LevranaCheckbox(
+                              value: selectedRows.length != 0 &&
+                                  selectedRows.containsAll(result
                                       .data!['getFavoritesProducts']
                                       .map((e) => e['iD'])
                                       .cast<int>()
-                                      .toList());
-                                } else {
-                                  selectedRows.clear();
-                                }
-                              });
-                            }),
-                      ),
-                      title: Text('Выбрано: ${selectedRows.length}'),
-                      trailing: Wrap(spacing: 12, // space between two icons
-                          children: <Widget>[
-                            Mutation(
-                                options: MutationOptions(
-                                  document: gql(delFavoritesProducts),
-                                  onCompleted: (resultData) {
-                                    refetch!();
-                                    setState(() {
-                                      selectedRows.clear();
-                                    });
-                                  },
-                                ),
-                                builder: (runMutation, result) {
-                                  return IconButton(
-                                    constraints: BoxConstraints(maxWidth: 36),
-                                    icon: Icon(Icons.delete_outlined),
-                                    onPressed: () {
-                                      runMutation({
-                                        'productIds': selectedRows.toList()
+                                      .toList()),
+                              onChanged: (newValue) {
+                                setState(() {
+                                  if (newValue == true) {
+                                    selectedRows.addAll(result
+                                        .data!['getFavoritesProducts']
+                                        .map((e) => e['iD'])
+                                        .cast<int>()
+                                        .toList());
+                                  } else {
+                                    selectedRows.clear();
+                                  }
+                                });
+                              }),
+                        ),
+                        title: Text('Выбрано: ${selectedRows.length}'),
+                        trailing: Wrap(spacing: 12, // space between two icons
+                            children: <Widget>[
+                              Mutation(
+                                  options: MutationOptions(
+                                    document: gql(delFavoritesProducts),
+                                    onCompleted: (resultData) {
+                                      refetch!();
+                                      setState(() {
+                                        selectedRows.clear();
                                       });
                                     },
-                                  );
-                                }),
-                          ])),
-                ),
-                Container(
-                  decoration: ShapeDecoration(
-                      color: Colors.white,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12.0))),
-                  width: double.infinity,
-                  margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
-                  child: Wrap(
-                      spacing: 0,
-                      runSpacing: 32,
-                      children: result.data!['getFavoritesProducts']
-                          .map(
-                            (product) => FractionallySizedBox(
-                              widthFactor: 0.5,
-                              child: Stack(
-                                children: [
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 8),
-                                    child: ProductCard(
-                                        product: product,
-                                        onTap: () async {
-                                          await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ProductPage(
-                                                          id: product['iD'])));
-                                          refetch!();
-                                        }),
                                   ),
-                                  Positioned(
-                                    top: 10,
-                                    child: LevranaBigCheckbox(
-                                        value: selectedRows
-                                            .contains(product['iD']),
-                                        onChanged: (newValue) {
-                                          if (newValue == true) {
-                                            setState(() {
-                                              selectedRows.add(product['iD']);
-                                            });
-                                          } else {
-                                            setState(() {
-                                              selectedRows
-                                                  .remove(product['iD']);
-                                            });
-                                          }
-                                        }),
-                                  )
-                                ],
+                                  builder: (runMutation, result) {
+                                    return IconButton(
+                                      constraints: BoxConstraints(maxWidth: 36),
+                                      icon: Icon(Icons.delete_outlined),
+                                      onPressed: () {
+                                        runMutation({
+                                          'productIds': selectedRows.toList()
+                                        });
+                                      },
+                                    );
+                                  }),
+                            ])),
+                  ),
+                  Container(
+                    decoration: ShapeDecoration(
+                        color: Colors.white,
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(12.0))),
+                    width: double.infinity,
+                    margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                    child: Wrap(
+                        spacing: 0,
+                        runSpacing: 32,
+                        children: result.data!['getFavoritesProducts']
+                            .map(
+                              (product) => FractionallySizedBox(
+                                widthFactor: 0.5,
+                                child: Stack(
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 8),
+                                      child: ProductCard(
+                                          product: product,
+                                          onTap: () async {
+                                            await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductPage(
+                                                            id: product[
+                                                                'iD'])));
+                                            refetch!();
+                                          }),
+                                    ),
+                                    Positioned(
+                                      top: 10,
+                                      child: LevranaBigCheckbox(
+                                          value: selectedRows
+                                              .contains(product['iD']),
+                                          onChanged: (newValue) {
+                                            if (newValue == true) {
+                                              setState(() {
+                                                selectedRows.add(product['iD']);
+                                              });
+                                            } else {
+                                              setState(() {
+                                                selectedRows
+                                                    .remove(product['iD']);
+                                              });
+                                            }
+                                          }),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          )
-                          .toList()
-                          .cast<Widget>()),
-                )
-              ],
+                            )
+                            .toList()
+                            .cast<Widget>()),
+                  )
+                ],
+              ),
             ),
           );
 
