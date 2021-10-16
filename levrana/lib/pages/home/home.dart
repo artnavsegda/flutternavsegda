@@ -18,13 +18,16 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future Function()? refetchClientInfo;
-    var refetchTopBlocks;
+    Future Function()? refetchActions;
+    Future Function()? refetchTopBlocks;
 
     return SafeArea(
       child: RefreshIndicator(
         onRefresh: () async {
           await refetchClientInfo!();
-          //await Future.delayed(Duration(seconds: 1));
+          await refetchActions!();
+          await refetchTopBlocks!();
+          await Future.delayed(Duration(seconds: 1));
         },
         child: SingleChildScrollView(
             child: Stack(
@@ -90,7 +93,7 @@ class HomePage extends StatelessWidget {
                                   builder: (result, {fetchMore, refetch}) {
                                     //print(result.data);
                                     refetchClientInfo = () async {
-                                      print("refetch");
+                                      print("refetch client info");
                                       await refetch!();
                                     };
 
@@ -146,6 +149,10 @@ class HomePage extends StatelessWidget {
                     options: QueryOptions(document: gql(getActions)),
                     builder: (result, {fetchMore, refetch}) {
                       //print(result.data);
+                      refetchActions = () async {
+                        print("refetch actions");
+                        await refetch!();
+                      };
 
                       if (result.hasException) {
                         return Text(result.exception.toString());
@@ -226,6 +233,10 @@ class HomePage extends StatelessWidget {
                     options: QueryOptions(document: gql(getTopBlocks)),
                     builder: (result, {fetchMore, refetch}) {
                       //print(result.data);
+                      refetchTopBlocks = () async {
+                        print("refetch top blocks");
+                        await refetch!();
+                      };
 
                       if (result.hasException) {
                         return Text(result.exception.toString());
