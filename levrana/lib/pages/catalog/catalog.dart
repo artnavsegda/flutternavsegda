@@ -88,7 +88,6 @@ class CatalogPage extends StatelessWidget {
               itemCount: catalog.length,
               itemBuilder: (context, index) {
                 final section = catalog[index];
-
                 return ListTile(
                   dense: true,
                   title: Text(
