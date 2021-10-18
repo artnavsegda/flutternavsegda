@@ -13,6 +13,7 @@ class InvitePage extends StatelessWidget {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Container(
+        padding: const EdgeInsets.all(15.0),
         child: Wrap(
           children: [
             Center(
