@@ -161,53 +161,51 @@ class _MainPageState extends State<MainPage>
         builder: (result, {fetchMore, refetch}) {
           print(result);
 
-          if (result.hasException) {
-            return Text(result.exception.toString());
-          }
-
-          if (result.isLoading && result.data == null) {
-            return Center(
-              child: CircularProgressIndicator(),
-            );
-          }
-
-          if (result.data!['getReactions'][0]['type'] == 'MESSAGE' && false) {
-            WidgetsBinding.instance!.addPostFrameCallback((_) async {
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text(
-                      result.data!['getReactions'][0]['message']['caption']),
-                  content:
-                      Text(result.data!['getReactions'][0]['message']['text']),
-                  actions: [
-                    Mutation(
-                        options: MutationOptions(
-                          document: gql(openReactionMessage),
-                          onCompleted: (resultData) {
-                            print(resultData);
-                            refetch!();
-                          },
-                        ),
-                        builder: (runMutation, mutationResult) {
-                          return TextButton(
-                            onPressed: () async {
-                              await launch(result.data!['getReactions'][0]
-                                  ['message']['uRL']);
-                              runMutation({
-                                'messageID': result.data!['getReactions'][0]
-                                    ['message']['iD']
-                              });
-                              Navigator.pop(context, 'OK');
-                            },
-                            child: Text(result.data!['getReactions'][0]
-                                ['message']['button']),
-                          );
-                        }),
-                  ],
-                ),
+          if (!result.hasException) {
+            if (result.isLoading && result.data == null) {
+              return Center(
+                child: CircularProgressIndicator(),
               );
-            });
+            }
+
+            if (result.data!['getReactions'][0]['type'] == 'MESSAGE' && false) {
+              WidgetsBinding.instance!.addPostFrameCallback((_) async {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: Text(
+                        result.data!['getReactions'][0]['message']['caption']),
+                    content: Text(
+                        result.data!['getReactions'][0]['message']['text']),
+                    actions: [
+                      Mutation(
+                          options: MutationOptions(
+                            document: gql(openReactionMessage),
+                            onCompleted: (resultData) {
+                              print(resultData);
+                              refetch!();
+                            },
+                          ),
+                          builder: (runMutation, mutationResult) {
+                            return TextButton(
+                              onPressed: () async {
+                                await launch(result.data!['getReactions'][0]
+                                    ['message']['uRL']);
+                                runMutation({
+                                  'messageID': result.data!['getReactions'][0]
+                                      ['message']['iD']
+                                });
+                                Navigator.pop(context, 'OK');
+                              },
+                              child: Text(result.data!['getReactions'][0]
+                                  ['message']['button']),
+                            );
+                          }),
+                    ],
+                  ),
+                );
+              });
+            }
           }
 
           return Scaffold(
