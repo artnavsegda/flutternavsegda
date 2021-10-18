@@ -97,7 +97,7 @@ class _ProductPageState extends State<ProductPage> {
                 RefreshIndicator(
                   onRefresh: () async {
                     await refetch!();
-                    //await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(Duration(seconds: 1));
                   },
                   child: ListView(
                     children: [

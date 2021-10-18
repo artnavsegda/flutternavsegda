@@ -72,7 +72,7 @@ class UserPage extends StatelessWidget {
                 RefreshIndicator(
                   onRefresh: () async {
                     await refetch!();
-                    //await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(Duration(seconds: 1));
                   },
                   child: ListView(
                     children: [

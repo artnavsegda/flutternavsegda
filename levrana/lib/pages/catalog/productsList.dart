@@ -157,7 +157,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   await refetch!();
-                  //await Future.delayed(Duration(seconds: 1));
+                  await Future.delayed(Duration(seconds: 1));
                 },
                 child: StaggeredGridView.countBuilder(
                   shrinkWrap: true,

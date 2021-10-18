@@ -8,6 +8,7 @@ import 'productsList.dart';
 class CatalogPage extends StatelessWidget {
   CatalogPage(
       {Key? key,
+      required this.refetch,
       required this.catalog,
       required this.title,
       this.id = 0,
@@ -18,6 +19,7 @@ class CatalogPage extends StatelessWidget {
   final String title;
   final int id;
   final int totalCount;
+  final refetch;
 
   @override
   Widget build(BuildContext context) {
@@ -84,49 +86,56 @@ class CatalogPage extends StatelessWidget {
               ),
             ),
           Expanded(
-            child: ListView.separated(
-              itemCount: catalog.length,
-              itemBuilder: (context, index) {
-                final section = catalog[index];
-                return ListTile(
-                  dense: true,
-                  title: Text(
-                    section['name'],
-                    style: TextStyle(fontSize: 16.0),
-                  ),
-                  trailing: (section['childs'] == null)
-                      ? Text(section['totalCount'].toString(),
-                          style: TextStyle(fontSize: 16.0))
-                      : Icon(Icons.navigate_next),
-                  onTap: () {
-                    if (section['childs'] != null)
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => CatalogPage(
-                                  catalog: section['childs'],
-                                  title: section['name'],
-                                  id: section['iD'],
-                                  totalCount: section['totalCount'])));
-                    else {
-                      //print(section['iD'].toString());
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProductsListPage(
-                                  catalogId: section['iD'],
-                                  title: section['name'])));
-                    }
-                  },
-                );
+            child: RefreshIndicator(
+              onRefresh: () async {
+                await refetch!();
+                await Future.delayed(Duration(seconds: 1));
               },
-              separatorBuilder: (context, index) {
-                return Divider(
-                  height: 1,
-                  indent: 20,
-                  endIndent: 20,
-                );
-              },
+              child: ListView.separated(
+                itemCount: catalog.length,
+                itemBuilder: (context, index) {
+                  final section = catalog[index];
+                  return ListTile(
+                    dense: true,
+                    title: Text(
+                      section['name'],
+                      style: TextStyle(fontSize: 16.0),
+                    ),
+                    trailing: (section['childs'] == null)
+                        ? Text(section['totalCount'].toString(),
+                            style: TextStyle(fontSize: 16.0))
+                        : Icon(Icons.navigate_next),
+                    onTap: () {
+                      if (section['childs'] != null)
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => CatalogPage(
+                                    refetch: refetch,
+                                    catalog: section['childs'],
+                                    title: section['name'],
+                                    id: section['iD'],
+                                    totalCount: section['totalCount'])));
+                      else {
+                        //print(section['iD'].toString());
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ProductsListPage(
+                                    catalogId: section['iD'],
+                                    title: section['name'])));
+                      }
+                    },
+                  );
+                },
+                separatorBuilder: (context, index) {
+                  return Divider(
+                    height: 1,
+                    indent: 20,
+                    endIndent: 20,
+                  );
+                },
+              ),
             ),
           )
         ],
@@ -172,9 +181,7 @@ class _CatalogNavigatorState extends State<CatalogNavigator>
                   List catalog = result.data!['getCatalog'];
 
                   return CatalogPage(
-                    catalog: catalog,
-                    title: "Каталог",
-                  );
+                      catalog: catalog, title: "Каталог", refetch: refetch);
                 },
               ),
           settings: settings),

@@ -2,11 +2,29 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:phone_number/phone_number.dart';
+import 'package:screen_brightness/screen_brightness.dart';
 
 import '../../gql.dart';
 
-class QrPage extends StatelessWidget {
+class QrPage extends StatefulWidget {
   const QrPage({Key? key}) : super(key: key);
+
+  @override
+  State<QrPage> createState() => _QrPageState();
+}
+
+class _QrPageState extends State<QrPage> {
+  @override
+  void initState() {
+    super.initState();
+    ScreenBrightness.setScreenBrightness(1.0);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    ScreenBrightness.resetScreenBrightness();
+  }
 
   @override
   Widget build(BuildContext context) {
