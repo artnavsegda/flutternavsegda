@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
@@ -374,6 +376,31 @@ class ActionPage extends StatelessWidget {
                                     "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
                                     style: TextStyle(fontSize: 20.0)),
                               SizedBox(height: 16),
+                              if (result.data!['getAction']
+                                      ['specialConditions'] !=
+                                  null)
+                                Container(
+                                  width: double.infinity,
+                                  margin: EdgeInsets.symmetric(vertical: 10),
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 15, vertical: 2),
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                        stops: [0.01, 0.01],
+                                        colors: [Colors.red, Colors.black12]),
+                                    borderRadius: BorderRadius.circular(3.0),
+/*                                     color: Colors.black12,
+                                    border: Border(
+                                      left: BorderSide(
+                                          width: 5.0, color: Colors.red),
+                                    ), */
+                                  ),
+                                  child: Text(
+                                      result.data!['getAction']
+                                          ['specialConditions'],
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold)),
+                                ),
                               if (result.data!['getAction']['type'] ==
                                   'DRAWING')
                                 SafeArea(child: Draw(actionID: actionID)),
