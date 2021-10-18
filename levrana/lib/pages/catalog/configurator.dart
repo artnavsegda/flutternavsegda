@@ -325,21 +325,25 @@ class _ConfiguratorState extends State<Configurator> {
                           alignment: WrapAlignment.start,
                           spacing: 16,
                           runSpacing: 16,
-                          children:
-                              result.data!['getConfiguratorProducts']['items']
-                                  .map((element) => FractionallySizedBox(
-                                      widthFactor: 0.43,
-                                      child: ProductCard(
-                                          product: element,
-                                          onTap: () => Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ProductPage(
-                                                            id: element['iD'])),
-                                              ))))
-                                  .toList()
-                                  .cast<Widget>()),
+                          children: result.data!['getConfiguratorProducts']
+                                  ['items']
+                              .map(
+                                (element) => FractionallySizedBox(
+                                  widthFactor: 0.43,
+                                  child: ProductCard(
+                                    product: element,
+                                    onTap: () => Navigator.of(context,
+                                            rootNavigator: true)
+                                        .push(
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: element['iD'])),
+                                    ),
+                                  ),
+                                ),
+                              )
+                              .toList()
+                              .cast<Widget>()),
                     ],
                   );
                 })
