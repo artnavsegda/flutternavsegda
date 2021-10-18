@@ -390,6 +390,14 @@ class ActionPage extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   if (result.data!['getAction']['dateStart'] !=
+                                          null &&
+                                      result.data!['getAction']['dateFinish'] !=
+                                          null)
+                                    Text(
+                                        "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
+                                        style: TextStyle(fontSize: 20.0))
+                                  else if (result.data!['getAction']
+                                          ['dateStart'] !=
                                       null)
                                     Text(
                                         "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
@@ -399,14 +407,6 @@ class ActionPage extends StatelessWidget {
                                       null)
                                     Text(
                                         "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
-                                        style: TextStyle(fontSize: 20.0))
-                                  else if (result.data!['getAction']
-                                              ['dateStart'] !=
-                                          null &&
-                                      result.data!['getAction']['dateFinish'] !=
-                                          null)
-                                    Text(
-                                        "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
                                         style: TextStyle(fontSize: 20.0)),
                                   SizedBox(height: 16),
                                   if (result.data!['getAction']
