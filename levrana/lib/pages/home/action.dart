@@ -220,10 +220,17 @@ class _PollState extends State<Poll> {
   }
 }
 
-class Draw extends StatelessWidget {
+class Draw extends StatefulWidget {
   const Draw({Key? key, required this.actionID}) : super(key: key);
 
   final int actionID;
+
+  @override
+  State<Draw> createState() => _DrawState();
+}
+
+class _DrawState extends State<Draw> {
+  bool iAgree = false;
 
   @override
   Widget build(BuildContext context) {
@@ -231,7 +238,7 @@ class Draw extends StatelessWidget {
         options: QueryOptions(
           document: gql(getDraw),
           variables: {
-            'actionID': actionID,
+            'actionID': widget.actionID,
           },
         ),
         builder: (result, {fetchMore, refetch}) {
@@ -265,8 +272,10 @@ class Draw extends StatelessWidget {
                 CheckboxTitle(
                   title:
                       "Я прочитал(а) и соглашаюсь с правилами проведения акции",
-                  value: false,
-                  onChanged: (newValue) {},
+                  value: iAgree,
+                  onChanged: (newValue) => setState(() {
+                    iAgree = newValue!;
+                  }),
                 ),
                 SizedBox(height: 16),
                 Mutation(
@@ -301,8 +310,10 @@ class Draw extends StatelessWidget {
                               child: Text("WAIT")), */
                           Expanded(
                             child: OutlinedButton(
-                                onPressed: () => runMutation(
-                                    {'actionID': actionID, 'mode': 'NO'}),
+                                onPressed: () => runMutation({
+                                      'actionID': widget.actionID,
+                                      'mode': 'NO'
+                                    }),
                                 child: Text("ОТКАЗАТСЯ")),
                           ),
                           SizedBox(
@@ -310,8 +321,12 @@ class Draw extends StatelessWidget {
                           ),
                           Expanded(
                             child: ElevatedButton(
-                                onPressed: () => runMutation(
-                                    {'actionID': actionID, 'mode': 'YES'}),
+                                onPressed: iAgree
+                                    ? () => runMutation({
+                                          'actionID': widget.actionID,
+                                          'mode': 'YES'
+                                        })
+                                    : null,
                                 child: Text("УЧАВСТВОВАТЬ")),
                           ),
                         ],
