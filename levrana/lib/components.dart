@@ -446,3 +446,69 @@ class TextCharacteristic extends StatelessWidget {
       return Container();
   }
 }
+
+class ShopCard extends StatelessWidget {
+  const ShopCard({
+    required this.shop,
+    Key? key,
+  }) : super(key: key);
+
+  final shop;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Color(0xFFF5F5F5),
+        borderRadius: BorderRadius.circular(12),
+      ),
+      margin: const EdgeInsets.symmetric(vertical: 5.0),
+      padding: const EdgeInsets.all(10.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ClipRRect(
+            borderRadius: BorderRadius.circular(6.0),
+            child: Image.network(
+              shop['pictures'][0],
+              fit: BoxFit.cover,
+              width: 80,
+              height: 80,
+            ),
+          ),
+          SizedBox(width: 10),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  shop['name'],
+                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                ),
+                Text(shop['address'], style: TextStyle(fontSize: 12.0)),
+                ...shop['metroStations']
+                    .map((metroStation) {
+                      return Row(
+                        children: [
+                          Text('⬤ ',
+                              style: TextStyle(
+                                  fontSize: 7.0,
+                                  color:
+                                      hexToColor(metroStation['colorLine']))),
+                          Expanded(
+                            child: Text(metroStation['stationName'],
+                                style: TextStyle(fontSize: 12.0)),
+                          ),
+                        ],
+                      );
+                    })
+                    .toList()
+                    .cast<Widget>(),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
+}
