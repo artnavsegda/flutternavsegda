@@ -7,7 +7,7 @@ import '../../gql.dart';
 import '../../components.dart';
 
 import '../product/product.dart';
-import 'actions.dart';
+import 'action.dart';
 import 'qr.dart';
 
 class HomePage extends StatelessWidget {

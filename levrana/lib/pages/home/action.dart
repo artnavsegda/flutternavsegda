@@ -250,7 +250,7 @@ class Draw extends StatelessWidget {
           return Center(
             child: Column(
               children: [
-                Column(
+/*                 Column(
                   children: result.data!['getDraw']['levels']
                       .map((element) {
                         return Row(children: [
@@ -261,7 +261,14 @@ class Draw extends StatelessWidget {
                       })
                       .toList()
                       .cast<Widget>(),
+                ), */
+                CheckboxTitle(
+                  title:
+                      "Я прочитал(а) и соглашаюсь с правилами проведения акции",
+                  value: false,
+                  onChanged: (newValue) {},
                 ),
+                SizedBox(height: 16),
                 Mutation(
                     options: MutationOptions(
                       document: gql(setDrawTakePart),
@@ -286,23 +293,31 @@ class Draw extends StatelessWidget {
                       },
                     ),
                     builder: (runMutation, mutationResult) {
-                      return Wrap(
+                      return Row(
                         children: [
-                          ElevatedButton(
+/*                           ElevatedButton(
                               onPressed: () => runMutation(
                                   {'actionID': actionID, 'mode': 'WAIT'}),
-                              child: Text("WAIT")),
-                          ElevatedButton(
-                              onPressed: () => runMutation(
-                                  {'actionID': actionID, 'mode': 'YES'}),
-                              child: Text("YES")),
-                          ElevatedButton(
-                              onPressed: () => runMutation(
-                                  {'actionID': actionID, 'mode': 'NO'}),
-                              child: Text("NO")),
+                              child: Text("WAIT")), */
+                          Expanded(
+                            child: OutlinedButton(
+                                onPressed: () => runMutation(
+                                    {'actionID': actionID, 'mode': 'NO'}),
+                                child: Text("ОТКАЗАТСЯ")),
+                          ),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: ElevatedButton(
+                                onPressed: () => runMutation(
+                                    {'actionID': actionID, 'mode': 'YES'}),
+                                child: Text("УЧАВСТВОВАТЬ")),
+                          ),
                         ],
                       );
-                    })
+                    }),
+                SizedBox(height: 16),
               ],
             ),
           );
