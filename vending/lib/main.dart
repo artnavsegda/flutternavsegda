@@ -42,6 +42,14 @@ class AppModel with ChangeNotifier {
     return token;
   }
 
+  logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    userName = "";
+    prefs.setString('username', "");
+    token = "";
+    prefs.setString('token', "");
+  }
+
   Future<String> startup() async {
     final prefs = await SharedPreferences.getInstance();
     userName = prefs.getString('username') ?? "";
