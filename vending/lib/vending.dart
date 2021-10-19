@@ -12,6 +12,17 @@ class VendingPage extends StatelessWidget {
         length: 2,
         child: Scaffold(
           appBar: AppBar(
+            actions: <Widget>[
+              IconButton(
+                icon: Icon(
+                  Icons.settings,
+                  color: Colors.white,
+                ),
+                onPressed: () {
+                  // do something
+                },
+              )
+            ],
             bottom: TabBar(
               tabs: [
                 Tab(text: "Аппараты"),
