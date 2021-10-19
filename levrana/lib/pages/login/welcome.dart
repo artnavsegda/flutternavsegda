@@ -29,10 +29,10 @@ class Welcome extends StatelessWidget {
             onCompleted: (dynamic resultData) async {
               print(resultData);
               await model.setToken(resultData['authenticate']['token']);
-              Navigator.pushReplacement(
+/*               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => LoginPage()),
-              );
+                MaterialPageRoute(builder: (context) => StartRoute()),
+              ); */
             },
           ),
           builder: (
