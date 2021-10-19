@@ -70,84 +70,70 @@ class LevranaApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GraphQLProvider(
-      client: ValueNotifier(
-        GraphQLClient(
-          link: AuthLink(
-            getToken: () async {
-              final prefs = await SharedPreferences.getInstance();
-              return 'Bearer ' + (prefs.getString('token') ?? "");
-            },
-          ).concat(
-            HttpLink(
-              'https://demo.cyberiasoft.com/levranaservice/graphql',
+    ThemeData levranaTheme = ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        primarySwatch: Colors.green,
+        fontFamily: 'Montserrat',
+        textTheme: GoogleFonts.montserratTextTheme(
+          Theme.of(context).textTheme,
+        ),
+        appBarTheme: AppBarTheme(
+          centerTitle: true,
+          titleTextStyle: TextStyle(
+              fontFamily: 'Montserrat',
+              fontSize: 16.0,
+              fontWeight: FontWeight.bold),
+        ),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ButtonStyle(
+            elevation: MaterialStateProperty.all(0.0),
+            minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
+              ),
             ),
           ),
-          cache: GraphQLCache(store: InMemoryStore()),
         ),
-      ),
-      child: MaterialApp(
-        //showPerformanceOverlay: true,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-            scaffoldBackgroundColor: Colors.white,
-            primarySwatch: Colors.green,
-            fontFamily: 'Montserrat',
-            textTheme: GoogleFonts.montserratTextTheme(
-              Theme.of(context).textTheme,
-            ),
-            appBarTheme: AppBarTheme(
-              centerTitle: true,
-              titleTextStyle: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 16.0,
-                  fontWeight: FontWeight.bold),
-            ),
-            elevatedButtonTheme: ElevatedButtonThemeData(
-              style: ButtonStyle(
-                elevation: MaterialStateProperty.all(0.0),
-                minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                  ),
-                ),
+        outlinedButtonTheme: OutlinedButtonThemeData(
+          style: ButtonStyle(
+            side: MaterialStateProperty.all(
+                BorderSide(width: 1.0, color: Colors.green)),
+            elevation: MaterialStateProperty.all(0.0),
+            minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+              RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(24.0),
               ),
             ),
-            outlinedButtonTheme: OutlinedButtonThemeData(
-              style: ButtonStyle(
-                side: MaterialStateProperty.all(
-                    BorderSide(width: 1.0, color: Colors.green)),
-                elevation: MaterialStateProperty.all(0.0),
-                minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
-                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                  RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(24.0),
-                  ),
-                ),
+          ),
+        ),
+        inputDecorationTheme: InputDecorationTheme(
+            isDense: true,
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            )));
+
+    return Consumer<AppModel>(builder: (context, model, child) {
+      return GraphQLProvider(
+        client: ValueNotifier(
+          GraphQLClient(
+            link: AuthLink(getToken: () => 'Bearer ' + model.token).concat(
+              HttpLink(
+                'https://demo.cyberiasoft.com/levranaservice/graphql',
               ),
             ),
-            inputDecorationTheme: InputDecorationTheme(
-                isDense: true,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(24.0),
-                ))),
-        home: FutureBuilder<String>(
-          future: getToken(),
-          builder: (buildContext, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data == "") {
-                return Welcome();
-              } else {
-                return StartRoute();
-              }
-            } else {
-              return Center(child: CircularProgressIndicator());
-            }
-          },
+            cache: GraphQLCache(store: InMemoryStore()),
+          ),
         ),
-      ),
-    );
+        child: MaterialApp(
+          //showPerformanceOverlay: true,
+          title: 'Flutter Demo',
+          theme: levranaTheme,
+          home: model.token == "" ? Welcome() : StartRoute(),
+        ),
+      );
+    });
   }
 }
 

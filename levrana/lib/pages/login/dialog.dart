@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:device_info_plus/device_info_plus.dart';
+import 'package:provider/provider.dart';
 
 import '../../main.dart';
 import '../../gql.dart';
@@ -18,53 +19,57 @@ class Welcome extends StatelessWidget {
       title: "Привет!",
       body:
           "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас.",
-      child: Mutation(
-        options: MutationOptions(
-          document: gql(authenticate),
-          onError: (error) {
-            //print(error);
-          },
-          onCompleted: (dynamic resultData) async {
-            //print(resultData);
-            final prefs = await SharedPreferences.getInstance();
-            //print("authenticate token:" + resultData['authenticate']['token']);
-            prefs.setString('token', resultData['authenticate']['token']);
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(builder: (context) => LoginPage()),
+      child: Consumer<AppModel>(builder: (context, model, child) {
+        return Mutation(
+          options: MutationOptions(
+            document: gql(authenticate),
+            onError: (error) {
+              //print(error);
+            },
+            onCompleted: (dynamic resultData) async {
+              print(resultData);
+              await model.login(resultData['authenticate']['token']);
+              /*             //print(resultData);
+                final prefs = await SharedPreferences.getInstance();
+                //print("authenticate token:" + resultData['authenticate']['token']);
+                prefs.setString('token', resultData['authenticate']['token']);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => LoginPage()),
+                ); */
+            },
+          ),
+          builder: (
+            RunMutation runMutation,
+            QueryResult? result,
+          ) {
+            return ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+              ),
+              child: Text("ДАЛЬШЕ"),
+              onPressed: () async {
+                DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
+                if (Platform.isAndroid) {
+                  var build = await deviceInfo.androidInfo;
+                  runMutation({
+                    'gUID': build.androidId,
+                    'bundleID': "com.levrana",
+                    'oSType': "ANDROID",
+                  });
+                } else if (Platform.isIOS) {
+                  var data = await deviceInfo.iosInfo;
+                  runMutation({
+                    'gUID': data.identifierForVendor,
+                    'bundleID': "ru.levrana.mobile",
+                    'oSType': "IOS",
+                  });
+                }
+              },
             );
           },
-        ),
-        builder: (
-          RunMutation runMutation,
-          QueryResult? result,
-        ) {
-          return ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              minimumSize: Size(double.infinity, 48),
-            ),
-            child: Text("ДАЛЬШЕ"),
-            onPressed: () async {
-              DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-              if (Platform.isAndroid) {
-                var build = await deviceInfo.androidInfo;
-                runMutation({
-                  'gUID': build.androidId,
-                  'bundleID': "com.levrana",
-                  'oSType': "ANDROID",
-                });
-              } else if (Platform.isIOS) {
-                var data = await deviceInfo.iosInfo;
-                runMutation({
-                  'gUID': data.identifierForVendor,
-                  'bundleID': "ru.levrana.mobile",
-                  'oSType': "IOS",
-                });
-              }
-            },
-          );
-        },
-      ),
+        );
+      }),
     );
   }
 }

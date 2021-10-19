@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
-import 'login.dart';
+import 'sms.dart';
 import '../../main.dart';
 import '../../gql.dart';
 
@@ -54,85 +55,83 @@ class _PasswordPageState extends State<PasswordPage> {
                 ),
               ),
             ),
-            Mutation(
-              options: MutationOptions(
-                  document: gql(checkPassword),
-                  update: (cache, result) {
-                    if (result!.hasException) {
-                      //print(result.exception);
-                    } else {
-                      return cache;
-                    }
-                  },
-                  onError: (error) {
-                    //print("ERROR");
-                    //print(error!.graphqlErrors[0].message);
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) => AlertDialog(
-                        title: const Text('Ошибка'),
-                        content: Text(error!.graphqlErrors[0].message),
-                        actions: <Widget>[
-                          TextButton(
-                            onPressed: () => Navigator.pop(context, 'OK'),
-                            child: const Text('OK'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  onCompleted: (dynamic resultData) async {
-                    //print(resultData);
-                    if (resultData != null) {
-                      if (resultData['checkClient']['result'] == 0) {
-                        final prefs = await SharedPreferences.getInstance();
-                        //print("checkClient token :" +
-                        //    resultData['checkClient']['token']);
-                        prefs.setString(
-                            'token', resultData['checkClient']['token']);
-                        Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(builder: (context) => MainPage()),
-                        );
+            Consumer<AppModel>(builder: (context, model, child) {
+              return Mutation(
+                options: MutationOptions(
+                    document: gql(checkPassword),
+                    update: (cache, result) {
+                      if (result!.hasException) {
+                        //print(result.exception);
                       } else {
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Ошибка'),
-                            content:
-                                Text(resultData['checkClient']['errorMessage']),
-                            actions: <Widget>[
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
+                        return cache;
                       }
-                    }
-                  }),
-              builder: (
-                RunMutation runMutation,
-                QueryResult? result,
-              ) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity,
-                            48), // double.infinity is the width and 30 is the height
-                      ),
-                      child:
-                          Text("ПОДТВЕРДИТЬ", style: TextStyle(fontSize: 16.0)),
-                      onPressed: () {
-                        runMutation({
-                          'password': passwordController.text,
-                        });
-                      }),
-                );
-              },
-            ),
+                    },
+                    onError: (error) {
+                      //print("ERROR");
+                      //print(error!.graphqlErrors[0].message);
+                      showDialog(
+                        context: context,
+                        builder: (BuildContext context) => AlertDialog(
+                          title: const Text('Ошибка'),
+                          content: Text(error!.graphqlErrors[0].message),
+                          actions: <Widget>[
+                            TextButton(
+                              onPressed: () => Navigator.pop(context, 'OK'),
+                              child: const Text('OK'),
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                    onCompleted: (dynamic resultData) async {
+                      //print(resultData);
+                      if (resultData != null) {
+                        if (resultData['checkClient']['result'] == 0) {
+                          await model.login(resultData['checkClient']['token']);
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => MainPage()),
+                          );
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Ошибка'),
+                              content: Text(
+                                  resultData['checkClient']['errorMessage']),
+                              actions: <Widget>[
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      }
+                    }),
+                builder: (
+                  RunMutation runMutation,
+                  QueryResult? result,
+                ) {
+                  return Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          minimumSize: Size(double.infinity,
+                              48), // double.infinity is the width and 30 is the height
+                        ),
+                        child: Text("ПОДТВЕРДИТЬ",
+                            style: TextStyle(fontSize: 16.0)),
+                        onPressed: () {
+                          runMutation({
+                            'password': passwordController.text,
+                          });
+                        }),
+                  );
+                },
+              );
+            }),
             Mutation(
                 options: MutationOptions(
                   document: gql(forgotPassword),
