@@ -28,7 +28,7 @@ class UserPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => LoginPage()),
+                  MaterialPageRoute(builder: (context) => StartRoute()),
                 );
               },
             ));
