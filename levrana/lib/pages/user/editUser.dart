@@ -281,10 +281,14 @@ class _EditUserPageState extends State<EditUserPage> {
                               TextFormField(
                                   key: Key(dateOfBirth ?? "dateOfBirth"),
                                   readOnly: true,
-                                  initialValue: DateFormat.yMMMd('ru_RU')
-                                      .format(DateTime.parse(dateOfBirth ??
-                                          result.data!['getClientInfo']
-                                              ['dateOfBirth'])),
+                                  initialValue: result.data!['getClientInfo']
+                                              ['dateOfBirth'] ==
+                                          null
+                                      ? ""
+                                      : DateFormat.yMMMd('ru_RU').format(
+                                          DateTime.parse(dateOfBirth ??
+                                              result.data!['getClientInfo']
+                                                  ['dateOfBirth'])),
                                   //controller: birthDateController,
                                   onTap: () {
                                     //print("AAAA");
