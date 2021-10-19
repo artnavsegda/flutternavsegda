@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
 
 import '../../gql.dart';
-import '../login/dialog.dart';
+import '../../main.dart';
+import '../login/login.dart';
+import '../login/welcome.dart';
 import 'editUser.dart';
 import 'bonus.dart';
 import 'promocode.dart';
 import 'invite.dart';
+import 'setPassword.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -244,52 +247,32 @@ class UserPage extends StatelessWidget {
                         leading: Image(
                             image: AssetImage('assets/ic-24/icon-24-pass.png')),
                       ),
-                      /*                     GraphQLConsumer(builder: (GraphQLClient client) {
-                        return ListTile(
-                          onTap: () async {
-                            final prefs = await SharedPreferences.getInstance();
-                            prefs.remove('token');
-                            //print("Token removed");
-                            client.cache.store.reset(); // empty the hash map
-                            //await client.cache.save();
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(builder: (context) => Welcome()),
-                            );
-                          },
-                          title: Text("Выйти"),
-                          leading: Image(
-                              image: AssetImage('assets/ic-24/icon-24-exit.png')),
-                        );
-                      }), */
-                      Mutation(
-                          options: MutationOptions(
-                            document: gql(logoffClient),
-                            onCompleted: (resultData) async {
-                              //print(resultData);
-                              final prefs =
-                                  await SharedPreferences.getInstance();
-                              //prefs.remove('token');
-                              prefs.setString(
-                                  'token', resultData['logoffClient']['token']);
-                              Navigator.pushReplacement(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => Welcome()),
-                              );
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            return ListTile(
-                              onTap: () async {
-                                runMutation({});
+                      Consumer<AppModel>(builder: (context, model, child) {
+                        return Mutation(
+                            options: MutationOptions(
+                              document: gql(logoffClient),
+                              onCompleted: (resultData) async {
+                                await model.setToken(
+                                    resultData['logoffClient']['token']);
+                                Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => Welcome()),
+                                );
                               },
-                              title: Text("Выйти"),
-                              leading: Image(
-                                  image: AssetImage(
-                                      'assets/ic-24/icon-24-exit.png')),
-                            );
-                          }),
+                            ),
+                            builder: (runMutation, result) {
+                              return ListTile(
+                                onTap: () async {
+                                  runMutation({});
+                                },
+                                title: Text("Выйти"),
+                                leading: Image(
+                                    image: AssetImage(
+                                        'assets/ic-24/icon-24-exit.png')),
+                              );
+                            });
+                      }),
                     ],
                   ),
                 )
@@ -297,98 +280,5 @@ class UserPage extends StatelessWidget {
             ),
           );
         });
-  }
-}
-
-class SetPasswordPage extends StatefulWidget {
-  const SetPasswordPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  _SetPasswordPageState createState() => _SetPasswordPageState();
-}
-
-class _SetPasswordPageState extends State<SetPasswordPage> {
-  final passwordController = TextEditingController();
-  final confirmController = TextEditingController();
-
-  bool _isPassValid = false;
-
-  @override
-  void dispose() {
-    passwordController.dispose();
-    confirmController.dispose();
-    super.dispose();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-    void handleChange() {
-      if (passwordController.text.length > 0)
-        setState(() {
-          _isPassValid = passwordController.text == confirmController.text;
-        });
-    }
-
-    passwordController.addListener(handleChange);
-    confirmController.addListener(handleChange);
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Container(
-        padding: const EdgeInsets.all(15.0),
-        child: Wrap(
-          runSpacing: 8.0,
-          children: <Widget>[
-            Text('Смена пароля',
-                style: TextStyle(
-                  fontFamily: 'Montserrat',
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                )),
-            TextField(
-              controller: passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Введите пароль",
-              ),
-            ),
-            TextField(
-              controller: confirmController,
-              obscureText: true,
-              decoration: InputDecoration(
-                labelText: "Подтвердите пароль",
-              ),
-            ),
-            Mutation(
-                options: MutationOptions(
-                  document: gql(setPassword),
-                  onCompleted: (resultData) {
-                    //print(resultData);
-                    Navigator.pop(context);
-                  },
-                ),
-                builder: (runMutation, result) {
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 48),
-                    ),
-                    child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
-                    onPressed: _isPassValid
-                        ? () =>
-                            runMutation({'password': passwordController.text})
-                        : null,
-                  );
-                })
-          ],
-        ),
-      ),
-    );
   }
 }

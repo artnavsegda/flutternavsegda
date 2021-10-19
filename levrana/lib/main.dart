@@ -11,7 +11,8 @@ import 'pages/home/home.dart';
 import 'pages/more/more.dart';
 import 'pages/shopping/shopping.dart';
 import 'pages/user/user.dart';
-import 'pages/login/dialog.dart';
+import 'pages/login/welcome.dart';
+import 'pages/login/login.dart';
 
 import 'gql.dart';
 
@@ -20,38 +21,26 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
+  final prefs = await SharedPreferences.getInstance();
+  final startToken = prefs.getString('token') ?? "";
+
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AppModel(),
+      create: (context) => AppModel(token: startToken),
       child: LevranaApp(),
     ),
   );
 }
 
 class AppModel with ChangeNotifier {
-  String token = "";
+  AppModel({required this.token});
+  String token;
 
-  Future<String> login(String newToken) async {
+  setToken(String newToken) async {
     final prefs = await SharedPreferences.getInstance();
     this.token = newToken;
     prefs.setString('token', newToken);
     notifyListeners();
-    return token;
-  }
-
-  Future<String> logout() async {
-    final prefs = await SharedPreferences.getInstance();
-    token = "";
-    prefs.setString('token', "");
-    notifyListeners();
-    return token;
-  }
-
-  Future<String> startup() async {
-    final prefs = await SharedPreferences.getInstance();
-    token = prefs.getString('token') ?? "";
-    notifyListeners();
-    return token;
   }
 }
 
@@ -61,12 +50,6 @@ class LevranaApp extends StatelessWidget {
   const LevranaApp({
     Key? key,
   }) : super(key: key);
-
-  Future<String> getToken() async {
-    final prefs = await SharedPreferences.getInstance();
-    //print("STARTUP TOKEN" + (prefs.getString('token') ?? ""));
-    return prefs.getString('token') ?? "";
-  }
 
   @override
   Widget build(BuildContext context) {

@@ -7,9 +7,11 @@ import 'package:image_picker/image_picker.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
 
+import '../../main.dart';
 import '../../gql.dart';
 import '../login/sms.dart';
 
@@ -375,110 +377,115 @@ class _EditUserPageState extends State<EditUserPage> {
                               ),
                               SizedBox(
                                 width: double.infinity,
-                                child: Mutation(
-                                  options: MutationOptions(
-                                    document: gql(editClient),
-                                    onError: (error) {
-                                      print(error);
-                                    },
-                                    onCompleted: (resultData) {
-                                      print(resultData);
-                                      if (resultData['editClient']['result'] ==
-                                          0) {
-                                        if (phone != null) {
-                                          _confirmSMS(context);
+                                child: Consumer<AppModel>(
+                                    builder: (context, model, child) {
+                                  return Mutation(
+                                    options: MutationOptions(
+                                      document: gql(editClient),
+                                      onError: (error) {
+                                        print(error);
+                                      },
+                                      onCompleted: (resultData) {
+                                        print(resultData);
+                                        if (resultData['editClient']
+                                                ['result'] ==
+                                            0) {
+                                          if (phone != null) {
+                                            _confirmSMS(context);
+                                          } else {
+                                            Navigator.pop(context);
+                                          }
                                         } else {
-                                          Navigator.pop(context);
+                                          showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) =>
+                                                AlertDialog(
+                                              title: const Text('Ошибка'),
+                                              content: Text(
+                                                  resultData['editClient']
+                                                      ['errorMessage']),
+                                              actions: [
+                                                TextButton(
+                                                  onPressed: () =>
+                                                      Navigator.pop(
+                                                          context, 'OK'),
+                                                  child: const Text('OK'),
+                                                ),
+                                              ],
+                                            ),
+                                          );
                                         }
-                                      } else {
-                                        showDialog(
-                                          context: context,
-                                          builder: (BuildContext context) =>
-                                              AlertDialog(
-                                            title: const Text('Ошибка'),
-                                            content: Text(
-                                                resultData['editClient']
-                                                    ['errorMessage']),
-                                            actions: [
-                                              TextButton(
-                                                onPressed: () => Navigator.pop(
-                                                    context, 'OK'),
-                                                child: const Text('OK'),
-                                              ),
-                                            ],
-                                          ),
-                                        );
-                                      }
-                                    },
-                                  ),
-                                  builder: (runMutation, mutationResult) {
-                                    return ElevatedButton(
-                                        onPressed: () async {
-                                          if (_formKey.currentState!
-                                              .validate()) {
-                                            if (_imageFile != null) {
-                                              var request = MultipartRequest(
-                                                'POST',
-                                                Uri.parse(
-                                                    'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
-                                              );
-                                              final prefs =
-                                                  await SharedPreferences
-                                                      .getInstance();
-                                              //print("Upload token: " +
-                                              //    (prefs.getString('token') ??
-                                              //        ""));
-                                              request.headers['Authorization'] =
-                                                  'Bearer ' +
-                                                      (prefs.getString(
-                                                              'token') ??
-                                                          "");
-                                              request.files.add(
-                                                  await MultipartFile.fromPath(
-                                                'image',
-                                                _imageFile!.path,
-                                                contentType:
-                                                    MediaType('image', 'jpg'),
-                                              ));
-                                              var streamedResponse =
-                                                  await request.send();
-                                              var res = await streamedResponse
-                                                  .stream
-                                                  .bytesToString();
-                                              //print(res);
-                                            }
-                                            print(phone != null
-                                                ? int.parse(maskFormatter
-                                                    .unmaskText(phone!))
-                                                : result.data!['getClientInfo']
-                                                    ['phone']);
-                                            runMutation({
-                                              'clientGUID': clientGUID,
-                                              'name': name ??
-                                                  result.data!['getClientInfo']
-                                                      ['name'],
-                                              'eMail': eMail ??
-                                                  result.data!['getClientInfo']
-                                                      ['eMail'],
-                                              'phone': phone != null
+                                      },
+                                    ),
+                                    builder: (runMutation, mutationResult) {
+                                      return ElevatedButton(
+                                          onPressed: () async {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              if (_imageFile != null) {
+                                                var request = MultipartRequest(
+                                                  'POST',
+                                                  Uri.parse(
+                                                      'https://demo.cyberiasoft.com/LevranaService/api/client/setavatar'),
+                                                );
+                                                request.headers[
+                                                        'Authorization'] =
+                                                    'Bearer ' + model.token;
+                                                request.files.add(
+                                                    await MultipartFile
+                                                        .fromPath(
+                                                  'image',
+                                                  _imageFile!.path,
+                                                  contentType:
+                                                      MediaType('image', 'jpg'),
+                                                ));
+                                                var streamedResponse =
+                                                    await request.send();
+                                                var res = await streamedResponse
+                                                    .stream
+                                                    .bytesToString();
+                                                //print(res);
+                                              }
+                                              print(phone != null
                                                   ? int.parse(maskFormatter
                                                       .unmaskText(phone!))
                                                   : result.data![
-                                                      'getClientInfo']['phone'],
-                                              'dateOfBirth': dateOfBirth ??
-                                                  result.data!['getClientInfo']
-                                                      ['dateOfBirth'],
-                                              'gender': gender ??
-                                                  result.data!['getClientInfo']
-                                                      ['gender'],
-                                            });
-                                            //Navigator.pop(context);
-                                          }
-                                        },
-                                        child: Text("СОХРАНИТЬ",
-                                            style: TextStyle(fontSize: 16.0)));
-                                  },
-                                ),
+                                                          'getClientInfo']
+                                                      ['phone']);
+                                              runMutation({
+                                                'clientGUID': clientGUID,
+                                                'name': name ??
+                                                    result.data![
+                                                            'getClientInfo']
+                                                        ['name'],
+                                                'eMail': eMail ??
+                                                    result.data![
+                                                            'getClientInfo']
+                                                        ['eMail'],
+                                                'phone': phone != null
+                                                    ? int.parse(maskFormatter
+                                                        .unmaskText(phone!))
+                                                    : result.data![
+                                                            'getClientInfo']
+                                                        ['phone'],
+                                                'dateOfBirth': dateOfBirth ??
+                                                    result.data![
+                                                            'getClientInfo']
+                                                        ['dateOfBirth'],
+                                                'gender': gender ??
+                                                    result.data![
+                                                            'getClientInfo']
+                                                        ['gender'],
+                                              });
+                                              //Navigator.pop(context);
+                                            }
+                                          },
+                                          child: Text("СОХРАНИТЬ",
+                                              style:
+                                                  TextStyle(fontSize: 16.0)));
+                                    },
+                                  );
+                                }),
                               )
                             ],
                           ),

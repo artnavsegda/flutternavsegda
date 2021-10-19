@@ -6,9 +6,61 @@ import 'package:provider/provider.dart';
 
 import 'password.dart';
 import 'sms.dart';
+import 'dialog.dart';
 import '../../gql.dart';
 import '../../main.dart';
 import '../../components.dart';
+
+class LoginPage extends StatelessWidget {
+  const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return DialogPage(
+      image: AssetImage('assets/Login.png'),
+      title: "Войти",
+      body:
+          "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
+      child: Row(
+        children: [
+          Expanded(
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                minimumSize: Size(double.infinity, 48),
+              ),
+              child: Text("ВОЙТИ"),
+              onPressed: () => _userLogin(context),
+            ),
+          ),
+          TextButton(
+              style: TextButton.styleFrom(
+                minimumSize: Size(110, 48),
+              ),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => MainPage()),
+                );
+              },
+              child: Text("ПОЗЖЕ")),
+        ],
+      ),
+    );
+  }
+
+  void _userLogin(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      isScrollControlled: true,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      ),
+      builder: (context) {
+        return UserLoginPage();
+      },
+    );
+  }
+}
 
 class UserLoginPage extends StatefulWidget {
   const UserLoginPage({Key? key}) : super(key: key);
@@ -94,7 +146,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                   onCompleted: (dynamic resultData) async {
                     //(resultData);
                     if (resultData['loginClient']['result'] == 0) {
-                      await model.login(resultData['loginClient']['token']);
+                      await model.setToken(resultData['loginClient']['token']);
                       Navigator.pop(context);
                       if (resultData['loginClient']['nextStep'] == 'PASSWORD')
                         _enterPassword(context);
