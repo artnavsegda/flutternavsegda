@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
 import '../../main.dart';
@@ -21,6 +22,7 @@ class UserPage extends StatelessWidget {
     return Query(
         options: QueryOptions(document: gql(getClientInfo)),
         builder: (result, {fetchMore, refetch}) {
+          //print(result);
           if (result.hasException) {
             return Center(
                 child: ElevatedButton(
@@ -84,8 +86,13 @@ class UserPage extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 40,
-                            backgroundImage: NetworkImage(
-                                result.data!['getClientInfo']['picture']),
+                            backgroundImage: result.data!['getClientInfo']
+                                        ['picture'] !=
+                                    ""
+                                ? NetworkImage(
+                                    result.data!['getClientInfo']['picture'])
+                                : MemoryImage(kTransparentImage)
+                                    as ImageProvider,
                           ),
                           Text(result.data!['getClientInfo']['name'] ?? "",
                               style: TextStyle(fontSize: 28.0))

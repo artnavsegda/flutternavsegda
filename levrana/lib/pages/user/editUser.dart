@@ -9,6 +9,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:intl/intl.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../main.dart';
 import '../../gql.dart';
@@ -86,7 +87,16 @@ class _EditUserPageState extends State<EditUserPage> {
                 }
 
                 initializeDateFormatting();
-                print(result);
+                //print(result);
+
+                bool birthdayIsSet = (dateOfBirth ??
+                        result.data!['getClientInfo']['dateOfBirth']) !=
+                    null;
+
+                DateTime? birthDateTime = birthdayIsSet
+                    ? DateTime.parse(dateOfBirth ??
+                        result.data!['getClientInfo']['dateOfBirth'])
+                    : null;
 
                 var clientGUID = result.data!['getClientInfo']['clientGUID'];
                 return Column(
@@ -97,11 +107,13 @@ class _EditUserPageState extends State<EditUserPage> {
                       children: [
                         CircleAvatar(
                           radius: 86,
-                          backgroundImage: _imageFile == null
-                              ? NetworkImage(
-                                  result.data!['getClientInfo']['picture'])
-                              : FileImage(File(_imageFile?.path ?? ""))
-                                  as ImageProvider,
+                          backgroundImage: _imageFile != null
+                              ? FileImage(File(_imageFile?.path ?? ""))
+                              : result.data!['getClientInfo']['picture'] != ""
+                                  ? NetworkImage(
+                                      result.data!['getClientInfo']['picture'])
+                                  : MemoryImage(kTransparentImage)
+                                      as ImageProvider,
                           //backgroundImage:
                           //AssetImage('assets/ic-24/icon-24-gift.png'),
                         ),
@@ -282,15 +294,10 @@ class _EditUserPageState extends State<EditUserPage> {
                               TextFormField(
                                   key: Key(dateOfBirth ?? "dateOfBirth"),
                                   readOnly: true,
-                                  initialValue: (dateOfBirth ??
-                                              result.data!['getClientInfo']
-                                                  ['dateOfBirth']) ==
-                                          null
-                                      ? ""
-                                      : DateFormat.yMMMd('ru_RU').format(
-                                          DateTime.parse(dateOfBirth ??
-                                              result.data!['getClientInfo']
-                                                  ['dateOfBirth'])),
+                                  initialValue: birthdayIsSet
+                                      ? DateFormat.yMMMd('ru_RU')
+                                          .format(birthDateTime!)
+                                      : "",
                                   //controller: birthDateController,
                                   onTap: () {
                                     //print("AAAA");
@@ -306,12 +313,8 @@ class _EditUserPageState extends State<EditUserPage> {
                                                 Container(
                                                   height: 240,
                                                   child: CupertinoDatePicker(
-                                                    initialDateTime: DateTime
-                                                        .parse(dateOfBirth ??
-                                                            result.data![
-                                                                    'getClientInfo']
-                                                                [
-                                                                'dateOfBirth']),
+                                                    initialDateTime:
+                                                        birthDateTime,
                                                     mode:
                                                         CupertinoDatePickerMode
                                                             .date,

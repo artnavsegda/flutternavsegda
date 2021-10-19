@@ -21,11 +21,9 @@ class VendingPage extends StatelessWidget {
                 itemBuilder: (BuildContext context) => <PopupMenuEntry>[
                   PopupMenuItem(
                     child: ListTile(
-                      leading: Icon(Icons.add),
-                      title: Text('Item 1'),
-                      onTap: () {
-                        
-                      },
+                      leading: Icon(Icons.exit_to_app),
+                      title: Text('Выход'),
+                      onTap: () {},
                     ),
                   ),
                 ],

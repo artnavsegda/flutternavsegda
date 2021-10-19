@@ -150,7 +150,7 @@ class _MainPageState extends State<MainPage>
           document: gql(getReactions),
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
+          //print(result);
 
           if (!result.hasException) {
             if (result.isLoading && result.data == null) {
