@@ -88,10 +88,7 @@ class _PasswordPageState extends State<PasswordPage> {
                         if (resultData['checkClient']['result'] == 0) {
                           await model
                               .setToken(resultData['checkClient']['token']);
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(builder: (context) => MainPage()),
-                          );
+                          Navigator.pop(context);
                         } else {
                           showDialog(
                             context: context,

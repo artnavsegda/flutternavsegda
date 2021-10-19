@@ -294,7 +294,6 @@ class StartRoute extends StatelessWidget {
           //print(result);
           if (result.hasException) {
             return LoginPage();
-            return Text(result.exception.toString());
           }
 
           if (result.isLoading) {

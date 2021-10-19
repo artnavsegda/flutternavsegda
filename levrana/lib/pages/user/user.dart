@@ -257,7 +257,7 @@ class UserPage extends StatelessWidget {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => Welcome()),
+                                      builder: (context) => StartRoute()),
                                 );
                               },
                             ),
