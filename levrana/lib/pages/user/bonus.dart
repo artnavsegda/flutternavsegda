@@ -162,11 +162,20 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     icon: Icon(Icons.contact_phone),
                     onPressed: () async {
                       String? phone = await _openContacts();
-                      PhoneNumber phoneNumber =
-                          await PhoneNumberUtil().parse(phone!);
-                      print(phoneNumber.toString());
-                      textController.value =
-                          TextEditingValue(text: phoneNumber.international);
+                      if (phone != null) {
+                        try {
+                          PhoneNumber phoneNumber =
+                              await PhoneNumberUtil().parse(phone);
+                          setState(() {
+                            phoneNumberIsCorrect = true;
+                          });
+                          print(phoneNumber.toString());
+                          textController.value =
+                              TextEditingValue(text: phoneNumber.international);
+                        } catch (e) {
+                          print("no phone, sorry");
+                        }
+                      }
                     },
                   )
                 ],
