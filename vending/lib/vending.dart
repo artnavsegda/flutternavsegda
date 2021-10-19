@@ -23,7 +23,9 @@ class VendingPage extends StatelessWidget {
                     child: ListTile(
                       leading: Icon(Icons.add),
                       title: Text('Item 1'),
-                      onTap: () {},
+                      onTap: () {
+                        
+                      },
                     ),
                   ),
                 ],
