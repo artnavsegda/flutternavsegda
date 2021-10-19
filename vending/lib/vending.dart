@@ -13,14 +13,20 @@ class VendingPage extends StatelessWidget {
         child: Scaffold(
           appBar: AppBar(
             actions: <Widget>[
-              IconButton(
+              PopupMenuButton(
                 icon: Icon(
                   Icons.settings,
                   color: Colors.white,
                 ),
-                onPressed: () {
-                  // do something
-                },
+                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                  PopupMenuItem(
+                    child: ListTile(
+                      leading: Icon(Icons.add),
+                      title: Text('Item 1'),
+                      onTap: () {},
+                    ),
+                  ),
+                ],
               )
             ],
             bottom: TabBar(
