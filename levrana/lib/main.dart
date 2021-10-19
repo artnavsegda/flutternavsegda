@@ -19,29 +19,46 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  //await initHiveForFlutter();
-
-  final HttpLink httpLink = HttpLink(
-    'https://demo.cyberiasoft.com/levranaservice/graphql',
-  );
-
-  final AuthLink authLink = AuthLink(getToken: () async {
-    final prefs = await SharedPreferences.getInstance();
-    print("DEBUG TOKEN " + (prefs.getString('token') ?? ""));
-    return 'Bearer ' + (prefs.getString('token') ?? "");
-  });
-
-  final Link link = authLink.concat(httpLink);
-
   ValueNotifier<GraphQLClient> client = ValueNotifier(
     GraphQLClient(
-      link: link,
-      // The default store is the InMemoryStore, which does NOT persist to disk
+      link: AuthLink(getToken: () async {
+        final prefs = await SharedPreferences.getInstance();
+        return 'Bearer ' + (prefs.getString('token') ?? "");
+      }).concat(HttpLink(
+        'https://demo.cyberiasoft.com/levranaservice/graphql',
+      )),
       cache: GraphQLCache(store: InMemoryStore()),
     ),
   );
 
   runApp(MyApp(client: client));
+}
+
+class AppModel with ChangeNotifier {
+  String token = "";
+
+  Future<String> login(String newToken) async {
+    final prefs = await SharedPreferences.getInstance();
+    this.token = newToken;
+    prefs.setString('token', newToken);
+    notifyListeners();
+    return token;
+  }
+
+  Future<String> logout() async {
+    final prefs = await SharedPreferences.getInstance();
+    token = "";
+    prefs.setString('token', "");
+    notifyListeners();
+    return token;
+  }
+
+  Future<String> startup() async {
+    final prefs = await SharedPreferences.getInstance();
+    token = prefs.getString('token') ?? "";
+    notifyListeners();
+    return token;
+  }
 }
 
 class MyApp extends StatelessWidget {
