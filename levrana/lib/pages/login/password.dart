@@ -49,7 +49,9 @@ class _PasswordPageState extends State<PasswordPage> {
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
-                decoration: InputDecoration(hintText: 'Ввести пароль'),
+                decoration: InputDecoration(
+                  labelText: "Введите пароль",
+                ),
               ),
             ),
             Mutation(
