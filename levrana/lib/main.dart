@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:provider/provider.dart';
 
 import 'pages/catalog/catalog.dart';
 import 'pages/home/home.dart';
@@ -19,18 +20,12 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  runApp(MyApp(
-      client: ValueNotifier(
-    GraphQLClient(
-      link: AuthLink(getToken: () async {
-        final prefs = await SharedPreferences.getInstance();
-        return 'Bearer ' + (prefs.getString('token') ?? "");
-      }).concat(HttpLink(
-        'https://demo.cyberiasoft.com/levranaservice/graphql',
-      )),
-      cache: GraphQLCache(store: InMemoryStore()),
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => AppModel(),
+      child: LevranaApp(),
     ),
-  )));
+  );
 }
 
 class AppModel with ChangeNotifier {
@@ -60,15 +55,12 @@ class AppModel with ChangeNotifier {
   }
 }
 
-class MyApp extends StatelessWidget {
+class LevranaApp extends StatelessWidget {
   // This widget is the root of your application.
 
-  const MyApp({
+  const LevranaApp({
     Key? key,
-    required this.client,
   }) : super(key: key);
-
-  final ValueNotifier<GraphQLClient> client;
 
   Future<String> getToken() async {
     final prefs = await SharedPreferences.getInstance();
@@ -79,7 +71,21 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GraphQLProvider(
-      client: client,
+      client: ValueNotifier(
+        GraphQLClient(
+          link: AuthLink(
+            getToken: () async {
+              final prefs = await SharedPreferences.getInstance();
+              return 'Bearer ' + (prefs.getString('token') ?? "");
+            },
+          ).concat(
+            HttpLink(
+              'https://demo.cyberiasoft.com/levranaservice/graphql',
+            ),
+          ),
+          cache: GraphQLCache(store: InMemoryStore()),
+        ),
+      ),
       child: MaterialApp(
         //showPerformanceOverlay: true,
         title: 'Flutter Demo',
