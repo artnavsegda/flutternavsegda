@@ -19,7 +19,8 @@ void main() async {
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
 
-  ValueNotifier<GraphQLClient> client = ValueNotifier(
+  runApp(MyApp(
+      client: ValueNotifier(
     GraphQLClient(
       link: AuthLink(getToken: () async {
         final prefs = await SharedPreferences.getInstance();
@@ -29,9 +30,7 @@ void main() async {
       )),
       cache: GraphQLCache(store: InMemoryStore()),
     ),
-  );
-
-  runApp(MyApp(client: client));
+  )));
 }
 
 class AppModel with ChangeNotifier {
