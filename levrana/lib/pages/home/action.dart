@@ -156,7 +156,7 @@ class _PollState extends State<Poll> {
                 ),
               if ((stageData['isOther'] == true))
                 TextField(
-                  decoration: const InputDecoration(hintText: 'Ваш вариант'),
+                  decoration: const InputDecoration(labelText: 'Ваш вариант'),
                   onChanged: (text) {
                     setState(() {
                       (answers[stageData['iD']] != null)
