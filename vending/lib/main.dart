@@ -51,36 +51,22 @@ class AppModel with ChangeNotifier {
     notifyListeners();
     return token;
   }
-
-  Future<String> startup() async {
-    final prefs = await SharedPreferences.getInstance();
-    userName = prefs.getString('username') ?? "";
-    token = prefs.getString('token') ?? "";
-    await Permission.location.request();
-    return token;
-  }
 }
 
 class VendingApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    var appState = context.read<AppModel>();
     return MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.red,
         ),
-        home: FutureBuilder<String>(
-          future: appState.startup(),
-          builder: (buildContext, snapshot) {
-            if (snapshot.hasData) {
-              if (snapshot.data == "") {
-                return LoginPage(title: 'Цехомат');
-              } else {
-                return VendingPage();
-              }
+        home: Consumer<AppModel>(
+          builder: (context, model, child) {
+            if (model.token == "") {
+              return LoginPage(title: 'Цехомат');
             } else {
-              return Center(child: CircularProgressIndicator());
+              return VendingPage();
             }
           },
         ));

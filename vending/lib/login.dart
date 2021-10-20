@@ -66,8 +66,8 @@ class _LoginPageState extends State<LoginPage> {
                     var appState = context.read<AppModel>();
                     await appState.login(
                         _usernameController.text, _passwordController.text);
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => VendingPage()));
+/*                     Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => VendingPage())); */
                   },
                 ),
               ],
