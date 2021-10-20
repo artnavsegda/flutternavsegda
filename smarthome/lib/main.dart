@@ -104,16 +104,35 @@ class LightPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return CarouselSlider(
       options: CarouselOptions(
-        height: 400.0,
+        aspectRatio: 2,
+        enlargeCenterPage: true,
         enableInfiniteScroll: false,
       ),
-      items: const [
-        Text("1"),
-        Text("2"),
-        Text("3"),
-        Text("4"),
-        Text("5"),
+      items: [
+        RoomCard(image: 'assets/bedroom.jpg'),
+        RoomCard(image: 'assets/garage.jpg'),
+        RoomCard(image: 'assets/kidsroom.jpg'),
+        RoomCard(image: 'assets/kitchen.jpg'),
+        RoomCard(image: 'assets/cabinet.jpg'),
       ],
+    );
+  }
+}
+
+class RoomCard extends StatelessWidget {
+  const RoomCard({
+    required this.image,
+    Key? key,
+  }) : super(key: key);
+
+  final String image;
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: ClipRRect(
+          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+          child: Image.asset(image, fit: BoxFit.cover, width: 1000.0)),
     );
   }
 }
