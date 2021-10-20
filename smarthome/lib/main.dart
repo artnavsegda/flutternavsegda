@@ -83,6 +83,10 @@ class _MyHomePageState extends State<MyHomePage>
           BottomNavigationBarItem(
             icon: Icon(Icons.ad_units),
             label: "Медиа",
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.account_box),
+            label: "Сценарии",
           )
         ],
         selectedItemColor: Colors.amber[800],
