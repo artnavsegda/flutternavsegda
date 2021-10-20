@@ -7,17 +7,21 @@ import 'dart:convert';
 import 'login.dart';
 import 'vending.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  final prefs = await SharedPreferences.getInstance();
+  final startToken = prefs.getString('token') ?? "";
   runApp(
     ChangeNotifierProvider(
-      create: (context) => AppModel(),
+      create: (context) => AppModel(token: startToken),
       child: VendingApp(),
     ),
   );
 }
 
 class AppModel with ChangeNotifier {
-  String token = "";
+  AppModel({required this.token});
+  String token;
   String userName = "";
 
   Future<String> login(String login, String password) async {
