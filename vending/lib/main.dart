@@ -42,12 +42,14 @@ class AppModel with ChangeNotifier {
     return token;
   }
 
-  logout() async {
+  Future<String> logout() async {
     final prefs = await SharedPreferences.getInstance();
     userName = "";
     prefs.setString('username', "");
     token = "";
     prefs.setString('token', "");
+    notifyListeners();
+    return token;
   }
 
   Future<String> startup() async {
