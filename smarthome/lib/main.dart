@@ -102,19 +102,25 @@ class LightPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CarouselSlider(
-      options: CarouselOptions(
-        aspectRatio: 2,
-        enlargeCenterPage: true,
-        enableInfiniteScroll: false,
+    return SafeArea(
+      child: Column(
+        children: [
+          CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 2,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+            ),
+            items: [
+              RoomCard(image: 'assets/bedroom.jpg', title: "Спальня"),
+              RoomCard(image: 'assets/garage.jpg', title: "Гараж"),
+              RoomCard(image: 'assets/kidsroom.jpg', title: "Детская"),
+              RoomCard(image: 'assets/kitchen.jpg', title: "Кухня"),
+              RoomCard(image: 'assets/cabinet.jpg', title: "Кабинет"),
+            ],
+          ),
+        ],
       ),
-      items: [
-        RoomCard(image: 'assets/bedroom.jpg'),
-        RoomCard(image: 'assets/garage.jpg'),
-        RoomCard(image: 'assets/kidsroom.jpg'),
-        RoomCard(image: 'assets/kitchen.jpg'),
-        RoomCard(image: 'assets/cabinet.jpg'),
-      ],
     );
   }
 }
@@ -122,17 +128,24 @@ class LightPage extends StatelessWidget {
 class RoomCard extends StatelessWidget {
   const RoomCard({
     required this.image,
+    required this.title,
     Key? key,
   }) : super(key: key);
 
   final String image;
+  final String title;
 
   @override
   Widget build(BuildContext context) {
     return Card(
-      child: ClipRRect(
-          borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-          child: Image.asset(image, fit: BoxFit.cover, width: 1000.0)),
+      child: Stack(
+        children: [
+          ClipRRect(
+              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+              child: Image.asset(image, fit: BoxFit.cover, width: 1000.0)),
+          Positioned(child: Text(title))
+        ],
+      ),
     );
   }
 }
