@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 
 void main() {
   runApp(const MyApp());
@@ -52,7 +53,7 @@ class _MyHomePageState extends State<MyHomePage>
       body: TabBarView(
         controller: _tabController,
         children: const [
-          Text("1"),
+          LightPage(),
           Text("2"),
           Text("3"),
           Text("4"),
@@ -92,6 +93,27 @@ class _MyHomePageState extends State<MyHomePage>
         selectedItemColor: Colors.amber[800],
         unselectedItemColor: Colors.black,
       ),
+    );
+  }
+}
+
+class LightPage extends StatelessWidget {
+  const LightPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return CarouselSlider(
+      options: CarouselOptions(
+        height: 400.0,
+        enableInfiniteScroll: false,
+      ),
+      items: const [
+        Text("1"),
+        Text("2"),
+        Text("3"),
+        Text("4"),
+        Text("5"),
+      ],
     );
   }
 }
