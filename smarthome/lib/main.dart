@@ -105,18 +105,29 @@ class LightPage extends StatelessWidget {
     return SafeArea(
       child: Column(
         children: [
+          Text("1 этаж"),
           CarouselSlider(
             options: CarouselOptions(
-              aspectRatio: 2,
+              aspectRatio: 2.2,
+              enlargeCenterPage: true,
+              enableInfiniteScroll: false,
+            ),
+            items: [
+              RoomCard(image: 'assets/garage.jpg', title: "Гараж"),
+              RoomCard(image: 'assets/kitchen.jpg', title: "Кухня"),
+              RoomCard(image: 'assets/cabinet.jpg', title: "Кабинет"),
+            ],
+          ),
+          Text("2 этаж"),
+          CarouselSlider(
+            options: CarouselOptions(
+              aspectRatio: 2.2,
               enlargeCenterPage: true,
               enableInfiniteScroll: false,
             ),
             items: [
               RoomCard(image: 'assets/bedroom.jpg', title: "Спальня"),
-              RoomCard(image: 'assets/garage.jpg', title: "Гараж"),
               RoomCard(image: 'assets/kidsroom.jpg', title: "Детская"),
-              RoomCard(image: 'assets/kitchen.jpg', title: "Кухня"),
-              RoomCard(image: 'assets/cabinet.jpg', title: "Кабинет"),
             ],
           ),
         ],
