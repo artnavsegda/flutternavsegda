@@ -51,9 +51,22 @@ class _MyHomePageState extends State<MyHomePage>
     return Scaffold(
       body: TabBarView(
         controller: _tabController,
-        children: [],
+        children: const [
+          Text("1"),
+          Text("2"),
+          Text("3"),
+          Text("4"),
+          Text("5"),
+        ],
       ),
       bottomNavigationBar: BottomNavigationBar(
+        onTap: (index) {
+          _tabController.animateTo(index);
+          setState(() {
+            _selectedIndex = index;
+          });
+        },
+        currentIndex: _selectedIndex,
         items: const [
           BottomNavigationBarItem(
             icon: Icon(Icons.ac_unit_outlined),
