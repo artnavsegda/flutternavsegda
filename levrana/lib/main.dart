@@ -1,3 +1,4 @@
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
@@ -111,6 +112,14 @@ class LevranaApp extends StatelessWidget {
         ),
         child: MaterialApp(
           //showPerformanceOverlay: true,
+          localizationsDelegates: [
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: [
+            Locale('ru', ''), // English, no country codeish, no country code
+          ],
           title: 'Levrana',
           theme: levranaTheme,
           home: model.token == "" ? Welcome() : StartRoute(),
