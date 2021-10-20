@@ -211,7 +211,7 @@ class _MainPageState extends State<MainPage>
           return Scaffold(
             body: TabBarView(
               controller: _tabController,
-              children: <Widget>[
+              children: [
                 HomePage(),
                 CatalogNavigator(),
                 ShoppingPage(),
