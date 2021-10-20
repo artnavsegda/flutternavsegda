@@ -111,7 +111,7 @@ class LevranaApp extends StatelessWidget {
         ),
         child: MaterialApp(
           //showPerformanceOverlay: true,
-          title: 'Flutter Demo',
+          title: 'Levrana',
           theme: levranaTheme,
           home: model.token == "" ? Welcome() : StartRoute(),
         ),

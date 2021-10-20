@@ -18,7 +18,7 @@ class VendingPage extends StatelessWidget {
                   Icons.settings,
                   color: Colors.white,
                 ),
-                itemBuilder: (BuildContext context) => <PopupMenuEntry>[
+                itemBuilder: (BuildContext context) => [
                   PopupMenuItem(
                     child: ListTile(
                       leading: Icon(Icons.exit_to_app),
