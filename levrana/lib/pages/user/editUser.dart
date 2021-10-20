@@ -295,7 +295,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   key: Key(dateOfBirth ?? "dateOfBirth"),
                                   readOnly: true,
                                   initialValue: birthdayIsSet
-                                      ? DateFormat.yMMMd('ru_RU')
+                                      ? DateFormat.yMMMMd('ru_RU')
                                           .format(birthDateTime!)
                                       : "",
                                   //controller: birthDateController,
