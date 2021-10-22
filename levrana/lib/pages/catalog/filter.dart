@@ -182,6 +182,7 @@ class _FiltersPageState extends State<FiltersPage> {
                             MaterialPageRoute(
                                 builder: (context) => SelectorPage(
                                       title: section['name'],
+                                      type: section['type'],
                                       values: section['values'],
                                       filterGroup: filter.groups[section['iD']],
                                       onChangeFilter: (newValue, newId) {

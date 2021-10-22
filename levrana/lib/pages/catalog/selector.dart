@@ -6,6 +6,7 @@ class SelectorPage extends StatefulWidget {
   final GraphFilterGroup? filterGroup;
   final String title;
   final values;
+  final type;
   final onChangeFilter;
 
   const SelectorPage({
@@ -13,6 +14,7 @@ class SelectorPage extends StatefulWidget {
     required this.title,
     required this.filterGroup,
     required this.values,
+    required this.type,
     required this.onChangeFilter,
   }) : super(key: key);
 
@@ -60,8 +62,8 @@ class _SelectorPageState extends State<SelectorPage> {
                   value: filterGroup?.values
                           .contains(widget.values[index]['iD']) ??
                       false,
-                  title: Text(widget.values[index]['name'],
-                      style: TextStyle(fontSize: 16.0)),
+                  title: SelectorCharacteristic(
+                      element: widget.values[index], type: widget.type),
                 ),
               ],
             );
@@ -72,5 +74,33 @@ class _SelectorPageState extends State<SelectorPage> {
         ),
       ),
     );
+  }
+}
+
+class SelectorCharacteristic extends StatelessWidget {
+  const SelectorCharacteristic({
+    Key? key,
+    required this.element,
+    required this.type,
+  }) : super(key: key);
+
+  final element;
+  final type;
+
+  @override
+  Widget build(BuildContext context) {
+    print(element);
+
+    if (type == 'COLOR') {
+      return SizedBox(
+        width: 200,
+        height: 10,
+        child: Container(color: hexToColor(element['name'])),
+      );
+      return Text('⬤ ',
+          style: TextStyle(fontSize: 7.0, color: hexToColor(element['name'])));
+    } else {
+      return Text(element['name'], style: TextStyle(fontSize: 16.0));
+    }
   }
 }

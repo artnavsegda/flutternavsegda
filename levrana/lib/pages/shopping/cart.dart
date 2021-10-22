@@ -321,8 +321,6 @@ class MiniCharacteristic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(element);
-
     if (element['type'] == 'COLOR') {
       return Text('⬤ ',
           style: TextStyle(fontSize: 7.0, color: hexToColor(element['value'])));
