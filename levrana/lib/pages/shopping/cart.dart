@@ -193,12 +193,10 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                             fontSize: 32.0,
                                           )),
                                       Text(item['productName']),
-                                      Column(
+                                      Row(
                                           children: item['characteristics']
-                                              .map((e) => Text(e['value'],
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color: Colors.black45)))
+                                              .map((e) => MiniCharacteristic(
+                                                  element: e))
                                               .toList()
                                               .cast<Widget>())
                                     ],
@@ -310,5 +308,27 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 );
               });
         });
+  }
+}
+
+class MiniCharacteristic extends StatelessWidget {
+  const MiniCharacteristic({
+    required this.element,
+    Key? key,
+  }) : super(key: key);
+
+  final element;
+
+  @override
+  Widget build(BuildContext context) {
+    print(element);
+
+    if (element['type'] == 'COLOR') {
+      return Text('⬤ ',
+          style: TextStyle(fontSize: 7.0, color: hexToColor(element['value'])));
+    } else {
+      return Text(element['value'],
+          style: TextStyle(fontSize: 16, color: Colors.black45));
+    }
   }
 }
