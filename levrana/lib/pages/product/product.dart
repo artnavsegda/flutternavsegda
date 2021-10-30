@@ -116,7 +116,7 @@ class _ProductPageState extends State<ProductPage> {
                                   FadeInImage.memoryNetwork(
                                       placeholder: kTransparentImage,
                                       image: result.data!['getProduct']
-                                          ['pictures'][index]),
+                                          ['pictures'][index]['full']),
                                   if (result
                                           .data!['getProduct']
                                               ['stickerPictures']

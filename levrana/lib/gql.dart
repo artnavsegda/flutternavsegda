@@ -350,7 +350,11 @@ query getProduct($productID: Int!) {
       oldPrice
       characteristicValueID
     }
-    pictures
+    pictures {
+      small
+      full
+      characteristicValueID
+    }
     stickerPictures
     compositions {
       description
