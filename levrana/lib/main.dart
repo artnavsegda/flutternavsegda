@@ -18,6 +18,8 @@ import 'pages/login/login.dart';
 import 'gql.dart';
 
 void main() async {
+  await initHiveForFlutter();
+
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -107,7 +109,7 @@ class LevranaApp extends StatelessWidget {
                 'https://demo.cyberiasoft.com/levranaservice/graphql',
               ),
             ),
-            cache: GraphQLCache(store: InMemoryStore()),
+            cache: GraphQLCache(store: HiveStore()),
           ),
         ),
         child: MaterialApp(
