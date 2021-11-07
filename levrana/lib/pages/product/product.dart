@@ -22,11 +22,26 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int picturePage = 0;
 
+  final _controller = PageController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
 
   Map<int, int> charMap = {};
 
-  void selectChar(index, characteristic, prices) {
+  void selectChar(index, characteristic, prices, pictures) {
+    pictures.asMap().forEach((pictureIndex, element) {
+      if (element['characteristicValueID'] ==
+          characteristic['values'][index]['iD']) {
+        _controller.jumpToPage(pictureIndex);
+      }
+    });
+
     charMap[characteristic['iD']] = characteristic['values'][index]['iD'];
     if (characteristic['isPrice']) {
       var price = getPrice(prices, characteristic['values'][index]['iD']);
@@ -69,7 +84,12 @@ class _ProductPageState extends State<ProductPage> {
             result.data!['getProduct']['characteristics'].forEach((element) {
               if (element['type'] != "TEXT") if (!charMap
                   .containsKey(element['iD']))
-                selectChar(0, element, result.data!['getProduct']['prices']);
+                selectChar(
+                  0,
+                  element,
+                  result.data!['getProduct']['prices'],
+                  result.data!['getProduct']['pictures'],
+                );
             });
             if (productPrice['price'] == null &&
                 result.data!['getProduct']['prices'].length == 1) {
@@ -104,6 +124,7 @@ class _ProductPageState extends State<ProductPage> {
                       Container(
                         height: 340,
                         child: PageView.builder(
+                            controller: _controller,
                             onPageChanged: (pageNum) => setState(() {
                                   picturePage = pageNum;
                                 }),
@@ -209,7 +230,9 @@ class _ProductPageState extends State<ProductPage> {
                                               index,
                                               e,
                                               result.data!['getProduct']
-                                                  ['prices']),
+                                                  ['prices'],
+                                              result.data!['getProduct']
+                                                  ['pictures']),
                                         ))
                                     .toList()
                                     .cast<Widget>()),
