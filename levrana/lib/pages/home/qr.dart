@@ -46,7 +46,10 @@ class _QrPageState extends State<QrPage> {
             fit: BoxFit.cover,
           ),
           Query(
-            options: QueryOptions(document: gql(getClientInfo)),
+            options: QueryOptions(
+              document: gql(getClientInfo),
+              fetchPolicy: FetchPolicy.cacheFirst,
+            ),
             builder: (result, {fetchMore, refetch}) {
               //print(result.data);
 

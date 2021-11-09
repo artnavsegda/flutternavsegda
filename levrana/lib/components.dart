@@ -141,6 +141,8 @@ class ProductCard extends StatelessWidget {
                 child: ClipRRect(
                     borderRadius: BorderRadius.circular(6.0),
                     child: FadeInImage.memoryNetwork(
+                        imageErrorBuilder: (context, exception, stackTrace) =>
+                            Center(child: Icon(Icons.no_photography)),
                         placeholder: kTransparentImage,
                         image: product['picture'])),
               ),

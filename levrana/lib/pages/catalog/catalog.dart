@@ -169,7 +169,8 @@ class _CatalogNavigatorState extends State<CatalogNavigator>
                 ),
                 builder: (result, {fetchMore, refetch}) {
                   if (result.hasException) {
-                    return Text(result.exception.toString());
+                    return Center(child: Text("Каталог недоступен"));
+                    return Center(child: Text(result.exception.toString()));
                   }
 
                   if (result.isLoading && result.data == null) {

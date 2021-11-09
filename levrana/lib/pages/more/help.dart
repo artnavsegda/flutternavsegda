@@ -15,7 +15,10 @@ class HelpPage extends StatelessWidget {
         title: Text('Справка'),
       ),
       body: Query(
-        options: QueryOptions(document: gql(getFAQGroups)),
+        options: QueryOptions(
+          fetchPolicy: FetchPolicy.cacheFirst,
+          document: gql(getFAQGroups),
+        ),
         builder: (result, {fetchMore, refetch}) {
           print(result);
           if (result.hasException) {
@@ -79,6 +82,8 @@ class HelpPage extends StatelessWidget {
                                                 child: Query(
                                                     options: QueryOptions(
                                                       document: gql(getFAQ),
+                                                      fetchPolicy: FetchPolicy
+                                                          .cacheFirst,
                                                       variables: {
                                                         'fAQQuestionID':
                                                             subElement['iD'],

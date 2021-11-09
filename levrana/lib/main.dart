@@ -300,7 +300,10 @@ class StartRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Query(
-        options: QueryOptions(document: gql(getStartRoute)),
+        options: QueryOptions(
+          document: gql(getStartRoute),
+          fetchPolicy: FetchPolicy.cacheFirst,
+        ),
         builder: (result, {fetchMore, refetch}) {
           //print(result);
           if (result.hasException) {

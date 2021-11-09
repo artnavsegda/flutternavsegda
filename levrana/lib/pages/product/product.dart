@@ -60,6 +60,7 @@ class _ProductPageState extends State<ProductPage> {
           variables: {
             'productID': widget.id,
           },
+          fetchPolicy: FetchPolicy.cacheFirst,
         ),
         builder: (result, {fetchMore, refetch}) {
           //print(result);
@@ -67,8 +68,18 @@ class _ProductPageState extends State<ProductPage> {
           if (result.hasException) {
             return Scaffold(
               body: Center(
-                child: Text(
-                  result.exception.toString(),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      result.exception.toString(),
+                    ),
+                    ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text("Назад"))
+                  ],
                 ),
               ),
             );
@@ -136,6 +147,11 @@ class _ProductPageState extends State<ProductPage> {
                                 children: [
                                   FadeInImage.memoryNetwork(
                                       placeholder: kTransparentImage,
+                                      imageErrorBuilder: (context, exception,
+                                              stackTrace) =>
+                                          Center(
+                                              child:
+                                                  Icon(Icons.no_photography)),
                                       image: result.data!['getProduct']
                                           ['pictures'][index]['full']),
                                   if (result

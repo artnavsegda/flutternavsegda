@@ -89,7 +89,9 @@ class HomePage extends StatelessWidget {
                             children: [
                               Query(
                                   options: QueryOptions(
-                                      document: gql(getClientInfo)),
+                                    document: gql(getClientInfo),
+                                    fetchPolicy: FetchPolicy.cacheFirst,
+                                  ),
                                   builder: (result, {fetchMore, refetch}) {
                                     //print(result.data);
                                     refetchClientInfo = () async {
@@ -146,7 +148,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 Query(
-                    options: QueryOptions(document: gql(getActions)),
+                    options: QueryOptions(
+                        document: gql(getActions),
+                        fetchPolicy: FetchPolicy.cacheFirst),
                     builder: (result, {fetchMore, refetch}) {
                       //print(result.data);
                       refetchActions = () async {
@@ -217,6 +221,9 @@ class HomePage extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6.0),
                                     child: FadeInImage.memoryNetwork(
+                                        imageErrorBuilder:
+                                            (context, exception, stackTrace) =>
+                                                Icon(Icons.no_photography),
                                         placeholder: kTransparentImage,
                                         image: result.data!['getActions'][index]
                                             ['picture'],
@@ -230,7 +237,9 @@ class HomePage extends StatelessWidget {
                       );
                     }),
                 Query(
-                    options: QueryOptions(document: gql(getTopBlocks)),
+                    options: QueryOptions(
+                        document: gql(getTopBlocks),
+                        fetchPolicy: FetchPolicy.cacheFirst),
                     builder: (result, {fetchMore, refetch}) {
                       //print(result.data);
                       refetchTopBlocks = () async {

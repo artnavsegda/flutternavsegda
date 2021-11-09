@@ -1,11 +1,10 @@
-import 'dart:ffi';
-
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
 import '../../components.dart';
@@ -349,6 +348,7 @@ class ActionPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
+          fetchPolicy: FetchPolicy.cacheFirst,
           document: gql(getAction),
           variables: {
             'actionID': actionID,
@@ -356,7 +356,13 @@ class ActionPage extends StatelessWidget {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
-            return Text(result.exception.toString());
+            return Scaffold(
+              appBar: AppBar(),
+              body: Center(
+                  child: Text(
+                result.exception.toString(),
+              )),
+            );
           }
 
           if (result.isLoading) {
@@ -383,7 +389,13 @@ class ActionPage extends StatelessWidget {
                     children: [
                       ListView(
                         children: [
-                          Image.network(result.data!['getAction']['picture']),
+                          FadeInImage.memoryNetwork(
+                              imageErrorBuilder:
+                                  (context, exception, stackTrace) =>
+                                      Icon(Icons.no_photography),
+                              placeholder: kTransparentImage,
+                              image: result.data!['getAction']['picture'],
+                              fit: BoxFit.fill),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
