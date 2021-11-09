@@ -6,8 +6,6 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
 import '../../main.dart';
-import '../login/login.dart';
-import '../login/welcome.dart';
 import 'editUser.dart';
 import 'bonus.dart';
 import 'promocode.dart';
