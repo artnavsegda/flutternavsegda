@@ -32,8 +32,14 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           }
 
           if (result.isLoading) {
-            return Center(
-              child: CircularProgressIndicator(),
+            return RefreshIndicator(
+              onRefresh: () async {
+                await refetch!();
+                //await Future.delayed(Duration(seconds: 5));
+              },
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
@@ -73,7 +79,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
           return RefreshIndicator(
             onRefresh: () async {
               await refetch!();
-              //await Future.delayed(Duration(seconds: 1));
+              //await Future.delayed(Duration(seconds: 5));
             },
             child:
                 ListView(physics: AlwaysScrollableScrollPhysics(), children: [
