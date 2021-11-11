@@ -302,7 +302,7 @@ class StartRoute extends StatelessWidget {
     return Query(
         options: QueryOptions(
           document: gql(getStartRoute),
-          fetchPolicy: FetchPolicy.cacheFirst,
+          //fetchPolicy: FetchPolicy.cacheFirst,
         ),
         builder: (result, {fetchMore, refetch}) {
           //print(result);
