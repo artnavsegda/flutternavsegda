@@ -95,16 +95,12 @@ class _ProductsListPageState extends State<ProductsListPage> {
             );
           }
 
-          final items = (result.data!['getProducts']['items'] as List<dynamic>);
+          final GraphProductConnection productConnection =
+              GraphProductConnection.fromJson(result.data!['getProducts']);
+          final List<GraphProduct> items = productConnection.items;
 
-          final Map pageInfo = result.data!['getProducts']['pageInfo'];
-          final String fetchMoreCursor = pageInfo['endCursor'];
-
-          print("catalog: ${widget.catalogId}");
-          print("total: ${result.data!['getProducts']['totalCount']}");
-          print("loaded: ${items.length}");
-          print("fetch more cursor:" + fetchMoreCursor);
-          print("has next page:" + pageInfo['hasNextPage'].toString());
+          final PageInfo pageInfo = productConnection.pageInfo;
+          final String fetchMoreCursor = pageInfo.endCursor ?? "";
 
           FetchMoreOptions opts = FetchMoreOptions(
             variables: {'cursor': fetchMoreCursor},
@@ -125,27 +121,13 @@ class _ProductsListPageState extends State<ProductsListPage> {
             },
           );
 
-/*                 _controller.addListener(() {
-                  if (_controller.offset + 100 >=
-                          _controller.position.maxScrollExtent &&
-                      !_controller.position.outOfRange &&
-                      pageInfo['hasNextPage'] &&
-                      items.length <
-                          result.data!['getProducts']['totalCount']) {
-                    setState(() {
-                      fetchingMore = true;
-                    });
-                    fetchMore!(opts);
-                  }
-                }); */
-
           return NotificationListener<ScrollNotification>(
             onNotification: (scrollNotification) {
               if (scrollNotification is ScrollEndNotification) {
                 if (_controller.offset + 100 >=
                         _controller.position.maxScrollExtent &&
                     !_controller.position.outOfRange &&
-                    pageInfo['hasNextPage']) {
+                    pageInfo.hasNextPage) {
                   fetchMore!(opts);
                 }
               }
@@ -164,20 +146,20 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   addRepaintBoundaries: false,
                   controller: _controller,
                   crossAxisCount: 2,
-                  itemCount: items.length + (pageInfo['hasNextPage'] ? 1 : 0),
+                  itemCount: items.length + (pageInfo.hasNextPage ? 1 : 0),
                   itemBuilder: (BuildContext context, int index) =>
-                      (index == items.length && pageInfo['hasNextPage'])
+                      (index == items.length && pageInfo.hasNextPage)
                           ? Center(child: CircularProgressIndicator())
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ProductCard(
-                                  product: GraphProduct.fromJson(items[index]),
+                                  product: items[index],
                                   onTap: () =>
                                       Navigator.of(context, rootNavigator: true)
                                           .push(
                                         MaterialPageRoute(
                                             builder: (context) => ProductPage(
-                                                id: items[index]['iD'])),
+                                                id: items[index].iD)),
                                       )),
                             ),
                   staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
@@ -187,65 +169,6 @@ class _ProductsListPageState extends State<ProductsListPage> {
               ),
             ),
           );
-
-          return NotificationListener<ScrollNotification>(
-            onNotification: (scrollNotification) {
-              if (scrollNotification is ScrollEndNotification) {
-                if (_controller.offset + 100 >=
-                        _controller.position.maxScrollExtent &&
-                    !_controller.position.outOfRange &&
-                    pageInfo['hasNextPage'] &&
-                    items.length < result.data!['getProducts']['totalCount']) {
-                  fetchMore!(opts);
-                }
-              }
-              return false;
-            },
-            child: GridView.count(
-                controller: _controller,
-                crossAxisCount: 2,
-                childAspectRatio: 0.75,
-                children: [
-                  /*                 ElevatedButton(
-                      onPressed: () {
-                        fetchMore!(opts);
-                      },
-                      child: Text("More")), */
-                  for (var item in items)
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: ProductCard(
-                          product: GraphProduct.fromJson(item),
-                          onTap: () =>
-                              Navigator.of(context, rootNavigator: true).push(
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        ProductPage(id: item['iD'])),
-                              )),
-                    ),
-                  if (pageInfo['hasNextPage'])
-                    Center(
-                      child: CircularProgressIndicator(),
-                    )
-                  /*                 TextButton(
-                      onPressed: () {
-                        fetchMore!(opts);
-                      },
-                      child: Text("More")), */
-                ]),
-          );
-
-          /*return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-              ),
-              itemCount: 5,
-              itemBuilder: (context, index) {
-                return GridTile(
-                  child:
-                      Text(result.data!['getProducts']['items'][index]['name']),
-                );
-              });*/
         },
       ),
     );
