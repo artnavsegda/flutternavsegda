@@ -1,3 +1,72 @@
+class GraphMessage {
+  GraphMessage({
+    required this.iD,
+    this.caption,
+    this.text,
+    this.button,
+    this.uRL,
+  });
+  int iD;
+  String? caption;
+  String? text;
+  String? button;
+  String? uRL;
+  GraphMessage.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        caption = json['caption'],
+        text = json['text'],
+        button = json['button'],
+        uRL = json['uRL'];
+}
+
+class GraphActionShort {
+  GraphActionShort({
+    required this.iD,
+    required this.name,
+  });
+  int iD;
+  String name;
+  GraphActionShort.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'];
+}
+
+class GraphOrderShort {
+  GraphOrderShort({
+    required this.orderId,
+    required this.dateOrder,
+    required this.priceOrder,
+    required this.address,
+  });
+  int orderId;
+  int dateOrder;
+  int priceOrder;
+  String address;
+  GraphOrderShort.fromJson(Map<String, dynamic> json)
+      : orderId = json['orderId'],
+        dateOrder = json['dateOrder'],
+        priceOrder = json['priceOrder'],
+        address = json['address'];
+}
+
+class GraphReaction {
+  GraphReaction({
+    this.type,
+    this.order,
+    this.action,
+    this.message,
+  });
+  String? type;
+  GraphOrderShort? order;
+  GraphActionShort? action;
+  GraphMessage? message;
+  GraphReaction.fromJson(Map<String, dynamic> json)
+      : type = json['type'],
+        order = json['order'],
+        action = json['action'],
+        message = json['message'];
+}
+
 class GraphCatalog {
   GraphCatalog({
     required this.iD,
