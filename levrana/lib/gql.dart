@@ -1,3 +1,99 @@
+class GraphShop {
+  GraphShop({
+    required this.iD,
+    required this.name,
+    this.description,
+    this.address,
+    this.longitude,
+    this.latitude,
+    this.start,
+    this.finish,
+    required this.regionId,
+    required this.regionName,
+    required this.pictures,
+  });
+  int iD;
+  String name;
+  String? description;
+  String? address;
+  double? longitude;
+  double? latitude;
+  int? start;
+  int? finish;
+  int regionId;
+  String regionName;
+  List<String> pictures;
+}
+
+class GraphAction {
+  GraphAction({
+    required this.iD,
+    required this.name,
+    this.dateStart,
+    this.dateFinish,
+    this.picture,
+    this.squarePicture,
+  });
+  int iD;
+  String name;
+  int? dateStart;
+  int? dateFinish;
+  String? picture;
+  String? squarePicture;
+
+  GraphAction.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        dateStart = json['dateStart'],
+        dateFinish = json['dateFinish'],
+        picture = json['picture'],
+        squarePicture = json['squarePicture'];
+}
+
+class GraphActionCard {
+  GraphActionCard({
+    required this.iD,
+    required this.name,
+    this.specialConditions,
+    this.description,
+    this.uRL,
+    this.familyName,
+    this.dateStart,
+    this.dateFinish,
+    this.picture,
+    this.squarePicture,
+    this.type,
+    required this.products,
+  });
+  int iD;
+  String name;
+  String? specialConditions;
+  String? description;
+  String? uRL;
+  String? familyName;
+  int? dateStart;
+  int? dateFinish;
+  String? picture;
+  String? squarePicture;
+  String? type;
+  List<GraphProduct> products;
+
+  GraphActionCard.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        specialConditions = json['specialConditions'],
+        description = json['description'],
+        uRL = json['uRL'],
+        familyName = json['familyName'],
+        dateStart = json['dateStart'],
+        dateFinish = json['dateFinish'],
+        picture = json['picture'],
+        squarePicture = json['squarePicture'],
+        type = json['type'],
+        products = List<GraphProduct>.from(
+            json['products'].map((model) => GraphProduct.fromJson(model)));
+}
+
 class GraphMessage {
   GraphMessage({
     required this.iD,
@@ -11,6 +107,7 @@ class GraphMessage {
   String? text;
   String? button;
   String? uRL;
+
   GraphMessage.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         caption = json['caption'],
