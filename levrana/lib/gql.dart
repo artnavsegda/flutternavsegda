@@ -1,3 +1,40 @@
+class PollAnswersClient {
+  PollAnswersClient({
+    this.scale = 0,
+    this.pollAnswers = const <int>{},
+    this.other = "",
+    required this.pollID,
+  });
+  int scale;
+  Set<int> pollAnswers;
+  String other;
+  int pollID;
+
+  Map<String, dynamic> toJson() => {
+        'pollID': pollID,
+        'pollAnswers': pollAnswers.toList(),
+        'other': other,
+        'scale': scale,
+      };
+}
+
+class GraphTopBlock {
+  GraphTopBlock({
+    required this.iD,
+    required this.name,
+    required this.products,
+  });
+  int iD;
+  String name;
+  List<GraphProduct> products;
+
+  GraphTopBlock.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        products = List<GraphProduct>.from(
+            json['products'].map((model) => GraphProduct.fromJson(model)));
+}
+
 class GraphOpeningHours {
   GraphOpeningHours({
     required this.weekDay,
@@ -219,7 +256,7 @@ class GraphReaction {
       : type = json['type'],
         order = json['order'],
         action = json['action'],
-        message = json['message'];
+        message = GraphMessage.fromJson(json['message']);
 }
 
 class GraphCatalog {
@@ -775,6 +812,7 @@ const String getTopBlocks = r'''
 query getTopBlocks {
   getTopBlocks
   {
+    iD
     name
     products {
       iD

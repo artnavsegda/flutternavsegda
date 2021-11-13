@@ -258,9 +258,13 @@ class HomePage extends StatelessWidget {
                         );
                       }
 
+                      List<GraphTopBlock> topBlocks = List<GraphTopBlock>.from(
+                          result.data!['getTopBlocks']
+                              .map((model) => GraphTopBlock.fromJson(model)));
+
                       return Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
-                          children: result.data!['getTopBlocks']
+                          children: topBlocks
                               .map(
                                 (section) => Container(
                                   margin: EdgeInsets.fromLTRB(8, 33, 8, 0),
@@ -268,7 +272,7 @@ class HomePage extends StatelessWidget {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Text(section['name'],
+                                        Text(section.name,
                                             style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 28.0,
@@ -278,14 +282,13 @@ class HomePage extends StatelessWidget {
                                         Wrap(
                                             spacing: 16,
                                             runSpacing: 16,
-                                            children: section['products']
+                                            children: section.products
                                                 .map(
                                                   (product) =>
                                                       FractionallySizedBox(
                                                     widthFactor: 0.45,
                                                     child: ProductCard(
-                                                        product: GraphProduct
-                                                            .fromJson(product),
+                                                        product: product,
                                                         onTap:
                                                             () =>
                                                                 Navigator.push(
@@ -293,7 +296,7 @@ class HomePage extends StatelessWidget {
                                                                   MaterialPageRoute(
                                                                       builder: (context) =>
                                                                           ProductPage(
-                                                                              id: product['iD'])),
+                                                                              id: product.iD)),
                                                                 )),
                                                   ),
                                                 )

@@ -11,26 +11,6 @@ import '../../components/components.dart';
 import '../../components/productCard.dart';
 import '../product/product.dart';
 
-class PollAnswersClient {
-  PollAnswersClient({
-    this.scale = 0,
-    this.pollAnswers = const <int>{},
-    this.other = "",
-    required this.pollID,
-  });
-  int scale;
-  Set<int> pollAnswers;
-  String other;
-  int pollID;
-
-  Map<String, dynamic> toJson() => {
-        'pollID': pollID,
-        'pollAnswers': pollAnswers.toList(),
-        'other': other,
-        'scale': scale,
-      };
-}
-
 class Poll extends StatefulWidget {
   const Poll({Key? key, required this.actionID}) : super(key: key);
 
