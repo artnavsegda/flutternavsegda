@@ -15,10 +15,10 @@ class CatalogPage extends StatelessWidget {
       this.totalCount = 0})
       : super(key: key);
 
-  final List catalog;
+  final List<GraphCatalog>? catalog;
   final String title;
   final int id;
-  final int totalCount;
+  final int? totalCount;
   final refetch;
 
   @override
@@ -92,38 +92,38 @@ class CatalogPage extends StatelessWidget {
                 await Future.delayed(Duration(seconds: 1));
               },
               child: ListView.separated(
-                itemCount: catalog.length,
+                itemCount: catalog!.length,
                 itemBuilder: (context, index) {
-                  final section = catalog[index];
+                  final section = catalog![index];
                   return ListTile(
                     dense: true,
                     title: Text(
-                      section['name'],
+                      section.name,
                       style: TextStyle(fontSize: 16.0),
                     ),
-                    trailing: (section['childs'] == null)
-                        ? Text(section['totalCount'].toString(),
+                    trailing: (section.childs == null)
+                        ? Text(section.totalCount.toString(),
                             style: TextStyle(fontSize: 16.0))
                         : Icon(Icons.navigate_next),
                     onTap: () {
-                      if (section['childs'] != null)
+                      if (section.childs != null)
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => CatalogPage(
                                     refetch: refetch,
-                                    catalog: section['childs'],
-                                    title: section['name'],
-                                    id: section['iD'],
-                                    totalCount: section['totalCount'])));
+                                    catalog: section.childs,
+                                    title: section.name,
+                                    id: section.iD,
+                                    totalCount: section.totalCount)));
                       else {
                         //print(section['iD'].toString());
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => ProductsListPage(
-                                    catalogId: section['iD'],
-                                    title: section['name'])));
+                                    catalogId: section.iD,
+                                    title: section.name)));
                       }
                     },
                   );
@@ -179,7 +179,9 @@ class _CatalogNavigatorState extends State<CatalogNavigator>
                     );
                   }
 
-                  List catalog = result.data!['getCatalog'];
+                  List<GraphCatalog> catalog = List<GraphCatalog>.from(result
+                      .data!['getCatalog']
+                      .map((model) => GraphCatalog.fromJson(model)));
 
                   return CatalogPage(
                       catalog: catalog, title: "Каталог", refetch: refetch);
