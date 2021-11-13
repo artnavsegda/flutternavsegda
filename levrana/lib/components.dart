@@ -116,6 +116,22 @@ class LevranaBigCheckbox extends StatelessWidget {
   }
 }
 
+class GraphProductAttribute {
+  GraphProductAttribute(
+    this.iD,
+    this.name,
+    this.color,
+  );
+  int iD;
+  String name;
+  String color;
+
+  GraphProductAttribute.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        color = json['color'];
+}
+
 class GraphProduct {
   GraphProduct(
     this.iD,
@@ -125,30 +141,37 @@ class GraphProduct {
     this.isFavorite,
     this.favorites,
     this.stickerPictures,
+    this.attributes,
   );
   int iD;
+  String? type;
   int familyID;
   int topCatalogID;
   String name;
+  String? picture;
   bool isFavorite;
   int favorites;
   List<String> stickerPictures;
+  List<GraphProductAttribute> attributes;
 
   GraphProduct.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
+        type = json['type'],
         familyID = json['familyID'],
         topCatalogID = json['topCatalogID'],
         name = json['name'],
+        picture = json['name'],
         isFavorite = json['isFavorite'],
         favorites = json['favorites'],
-        stickerPictures = json['stickerPictures'];
+        stickerPictures = List<String>.from(json['stickerPictures']),
+        attributes = List<GraphProductAttribute>.from(json['attributes']);
 }
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product, this.onTap})
       : super(key: key);
 
-  final product;
+  final GraphProduct product;
   final void Function()? onTap;
 
   @override
@@ -172,7 +195,7 @@ class ProductCard extends StatelessWidget {
                         imageErrorBuilder: (context, exception, stackTrace) =>
                             Center(child: Icon(Icons.no_photography)),
                         placeholder: kTransparentImage,
-                        image: product['picture'])),
+                        image: product.picture ?? "")),
               ),
               Positioned(
                   bottom: 0,
@@ -206,7 +229,7 @@ class ProductCard extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           //print(product['type']);
-                          if (product['type'] != 'SIMPLE')
+                          if (product.type != 'SIMPLE')
                             showModalBottomSheet(
                               isScrollControlled: true,
                               shape: RoundedRectangleBorder(
@@ -216,11 +239,11 @@ class ProductCard extends StatelessWidget {
                               context: context,
                               builder: (context) {
                                 return ProductBottomSheet(
-                                    product: product, id: product['iD']);
+                                    product: product, id: product.iD);
                               },
                             );
                           else
-                            runMutation({'productID': product['iD']});
+                            runMutation({'productID': product.iD});
                         },
                         child: Image.asset(
                           'assets/ic-24/icon-24-shopping.png',
@@ -234,7 +257,7 @@ class ProductCard extends StatelessWidget {
           ),
         ),
         Row(
-          children: product['attributes']
+          children: product.attributes
               .map((element) {
                 return Padding(
                   padding: const EdgeInsets.only(right: 6.0),
@@ -242,16 +265,16 @@ class ProductCard extends StatelessWidget {
                       visualDensity: VisualDensity.compact,
                       labelStyle:
                           TextStyle(fontSize: 16.0, color: Colors.white),
-                      selectedColor: hexToColor(element['color']),
+                      selectedColor: hexToColor(element.color),
                       selected: true,
                       onSelected: (e) {},
-                      label: Text(element['name'])),
+                      label: Text(element.name)),
                 );
               })
               .toList()
               .cast<Widget>(),
         ),
-        Text(product['name']),
+        Text(product.name),
       ],
     );
   }

@@ -236,9 +236,14 @@ query getTopBlocks {
     name
     products {
       iD
+      type
+      familyID
+      topCatalogID
       name
       picture
-      type
+      isFavorite
+      favorites
+      stickerPictures
       attributes {
         iD
         name

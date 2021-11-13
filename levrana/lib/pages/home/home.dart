@@ -240,7 +240,7 @@ class HomePage extends StatelessWidget {
                         document: gql(getTopBlocks),
                         fetchPolicy: FetchPolicy.cacheFirst),
                     builder: (result, {fetchMore, refetch}) {
-                      //print(result.data);
+                      print(result.data);
                       refetchTopBlocks = () async {
                         print("refetch top blocks");
                         await refetch!();
@@ -282,7 +282,8 @@ class HomePage extends StatelessWidget {
                                                       FractionallySizedBox(
                                                     widthFactor: 0.45,
                                                     child: ProductCard(
-                                                        product: product,
+                                                        product: GraphProduct
+                                                            .fromJson(product),
                                                         onTap:
                                                             () =>
                                                                 Navigator.push(
