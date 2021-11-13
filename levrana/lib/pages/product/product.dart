@@ -35,12 +35,20 @@ class _ProductPageState extends State<ProductPage> {
   Map<int, int> charMap = {};
 
   void selectChar(index, characteristic, prices, pictures) {
-    pictures.asMap().forEach((pictureIndex, element) {
+    for (var i = 0; i < pictures.length; i++) {
+      if (pictures[i]['characteristicValueID'] ==
+          characteristic['values'][index]['iD']) {
+        _controller.jumpToPage(i);
+        break;
+      }
+    }
+
+/*     pictures.asMap().forEach((pictureIndex, element) {
       if (element['characteristicValueID'] ==
           characteristic['values'][index]['iD']) {
         _controller.jumpToPage(pictureIndex);
       }
-    });
+    }); */
 
     charMap[characteristic['iD']] = characteristic['values'][index]['iD'];
     if (characteristic['isPrice']) {
