@@ -1,43 +1,24 @@
 import 'package:flutter/material.dart';
 import '../utils.dart';
+import '../gql.dart';
 
-class GraphCharacteristicsValue {
-  GraphCharacteristicsValue({
-    required this.iD,
-    required this.value,
-    this.comment,
-  });
-  int iD;
-  String value;
-  String? comment;
+class TextCharacteristic extends StatelessWidget {
+  const TextCharacteristic({Key? key, required this.element}) : super(key: key);
 
-  GraphCharacteristicsValue.fromJson(Map<String, dynamic> json)
-      : iD = json['iD'],
-        value = json['value'],
-        comment = json['comment'];
-}
+  final GraphCharacteristics element;
 
-class GraphCharacteristics {
-  GraphCharacteristics({
-    required this.iD,
-    required this.name,
-    this.type,
-    required this.isPrice,
-    required this.values,
-  });
-  int iD;
-  String name;
-  String? type;
-  bool isPrice;
-  List<GraphCharacteristicsValue> values;
-
-  GraphCharacteristics.fromJson(Map<String, dynamic> json)
-      : iD = json['iD'],
-        name = json['name'],
-        type = json['type'],
-        isPrice = json['isPrice'],
-        values = List<GraphCharacteristicsValue>.from(json['values']
-            .map((model) => GraphCharacteristicsValue.fromJson(model)));
+  @override
+  Widget build(BuildContext context) {
+    if (element.type == 'TEXT')
+      return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+        Text(element.name, style: TextStyle(color: Colors.grey)),
+        Text(element.values
+            .map((element) => element.value)
+            .reduce((value, element) => value + ', ' + element))
+      ]);
+    else
+      return Container();
+  }
 }
 
 class CharacteristicsElement extends StatefulWidget {

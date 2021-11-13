@@ -117,25 +117,6 @@ class RedLine extends CustomPainter {
   bool shouldRepaint(oldDelegate) => false;
 }
 
-class TextCharacteristic extends StatelessWidget {
-  const TextCharacteristic({Key? key, this.element}) : super(key: key);
-
-  final element;
-
-  @override
-  Widget build(BuildContext context) {
-    if (element['type'] == 'TEXT')
-      return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(element['name'], style: TextStyle(color: Colors.grey)),
-        Text(element['values']
-            .map((element) => element['value'])
-            .reduce((value, element) => value + ', ' + element))
-      ]);
-    else
-      return Container();
-  }
-}
-
 class ShopCard extends StatelessWidget {
   const ShopCard({
     required this.shop,

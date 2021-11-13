@@ -33,38 +33,39 @@ class _ProductPageState extends State<ProductPage> {
     super.dispose();
   }
 
-  Map<String, dynamic> productPrice = {'price': null, 'oldPrice': null};
-
+  GraphProductPrice productPrice = GraphProductPrice(price: 0.0);
   Map<int, int> charMap = {};
 
-  dynamic getPrice(priceList, priceID) {
-    var priceMap = Map.fromIterable(priceList,
-        key: (e) => e['characteristicValueID'], value: (e) => e);
+  GraphProductPrice? getPrice(List<GraphProductPrice> priceList, int priceID) {
+    Map<int, GraphProductPrice> priceMap = Map.fromIterable(priceList,
+        key: (e) => e.characteristicValueID, value: (e) => e);
     return priceMap[priceID];
   }
 
-  void selectChar(index, characteristic, prices, pictures) {
+  void selectChar(int index, GraphCharacteristics characteristic,
+      List<GraphProductPrice> prices, List<GraphPicture> pictures) {
     for (var i = 0; i < pictures.length; i++) {
-      if (pictures[i]['characteristicValueID'] ==
-          characteristic['values'][index]['iD']) {
+      if (pictures[i].characteristicValueID ==
+          characteristic.values[index].iD) {
         _controller.jumpToPage(i);
         break;
       }
     }
 
-/*     pictures.asMap().forEach((pictureIndex, element) {
+    /*     pictures.asMap().forEach((pictureIndex, element) {
       if (element['characteristicValueID'] ==
           characteristic['values'][index]['iD']) {
         _controller.jumpToPage(pictureIndex);
       }
     }); */
 
-    charMap[characteristic['iD']] = characteristic['values'][index]['iD'];
-    if (characteristic['isPrice']) {
-      var price = getPrice(prices, characteristic['values'][index]['iD']);
+    charMap[characteristic.iD] = characteristic.values[index].iD;
+    if (characteristic.isPrice) {
+      GraphProductPrice? price =
+          getPrice(prices, characteristic.values[index].iD);
       if (price != null)
         setState(() {
-          productPrice = Map<String, dynamic>.from(price);
+          productPrice = price;
         });
     }
   }
@@ -108,27 +109,43 @@ class _ProductPageState extends State<ProductPage> {
             );
           }
 
+/*           return Scaffold(
+            body: Center(
+              child: ListView(
+                //mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    result.data!['getProduct'].toString(),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Назад"))
+                ],
+              ),
+            ),
+          ); */
+
+          GraphProductCard productInfo =
+              GraphProductCard.fromJson(result.data!['getProduct']);
+
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            result.data!['getProduct']['characteristics'].forEach((element) {
-              if (element['type'] != "TEXT") if (!charMap
-                  .containsKey(element['iD']))
+            productInfo.characteristics.forEach((element) {
+              if (element.type != "TEXT") if (!charMap.containsKey(element.iD))
                 selectChar(
-                  0,
-                  element,
-                  result.data!['getProduct']['prices'],
-                  result.data!['getProduct']['pictures'],
-                );
+                    0, element, productInfo.prices, productInfo.pictures);
             });
-            if (productPrice['price'] == null &&
-                result.data!['getProduct']['prices'].length == 1) {
+
+            if (productPrice.price == 0.0 && productInfo.prices.length == 1) {
               setState(() {
-                productPrice = result.data!['getProduct']['prices'][0];
+                productPrice = productInfo.prices[0];
               });
             }
           });
 
-          bool isShowChar = result.data!['getProduct']['characteristics']
-                  .indexWhere((element) => element['type'] == "TEXT") !=
+          bool isShowChar = productInfo.characteristics
+                  .indexWhere((element) => element.type == "TEXT") !=
               -1;
 
           return Scaffold(
@@ -136,7 +153,7 @@ class _ProductPageState extends State<ProductPage> {
                 iconTheme: IconThemeData(
                   color: Colors.black, //change your color here
                 ),
-                title: Text(result.data!['getProduct']['name'] ?? "WHAT",
+                title: Text(productInfo.name,
                     style: TextStyle(color: Colors.black)),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
@@ -156,8 +173,7 @@ class _ProductPageState extends State<ProductPage> {
                             onPageChanged: (pageNum) => setState(() {
                                   picturePage = pageNum;
                                 }),
-                            itemCount:
-                                result.data!['getProduct']['pictures'].length,
+                            itemCount: productInfo.pictures.length,
                             itemBuilder: (context, index) {
                               return Stack(
                                 alignment: Alignment.center,
@@ -169,27 +185,21 @@ class _ProductPageState extends State<ProductPage> {
                                           Center(
                                               child:
                                                   Icon(Icons.no_photography)),
-                                      image: result.data!['getProduct']
-                                          ['pictures'][index]['full']),
-                                  if (result
-                                          .data!['getProduct']
-                                              ['stickerPictures']
-                                          .length >
+                                      image: productInfo.pictures[index].full),
+                                  if (productInfo.stickerPictures.length >
                                       index)
                                     Positioned(
                                       top: 0,
                                       right: 0,
                                       child: Image.network(
-                                          result.data!['getProduct']
-                                              ['stickerPictures'][index]),
+                                          productInfo.stickerPictures[index]),
                                     )
                                 ],
                               );
                             }),
                       ),
                       new DotsIndicator(
-                        dotsCount:
-                            result.data!['getProduct']['pictures'].length,
+                        dotsCount: productInfo.pictures.length,
                         position: picturePage.toDouble(),
                         decorator: DotsDecorator(
                           color: Colors.lightGreen, // Inactive color
@@ -203,21 +213,20 @@ class _ProductPageState extends State<ProductPage> {
                           children: [
                             Row(
                               children: [
-                                productPrice['price'] == null
+                                productPrice.price == 0.0
                                     ? SizedBox.shrink()
                                     : Text(
-                                        productPrice['price']
-                                                ?.toStringAsFixed(0) +
+                                        productPrice.price.toStringAsFixed(0) +
                                             "₽",
                                         style: TextStyle(fontSize: 32)),
                                 SizedBox(width: 10),
-                                productPrice['oldPrice'] == null
+                                productPrice.oldPrice == null
                                     ? SizedBox.shrink()
                                     : CustomPaint(
                                         painter: RedLine(),
                                         child: Text(
-                                            productPrice['oldPrice']
-                                                    ?.toStringAsFixed(0) +
+                                            productPrice.oldPrice!
+                                                    .toStringAsFixed(0) +
                                                 "₽",
                                             style: TextStyle(
                                                 fontSize: 32,
@@ -226,7 +235,7 @@ class _ProductPageState extends State<ProductPage> {
                               ],
                             ),
                             Row(
-                              children: result.data!['getProduct']['attributes']
+                              children: productInfo.attributes
                                   .map((element) {
                                     return Padding(
                                       padding:
@@ -237,10 +246,10 @@ class _ProductPageState extends State<ProductPage> {
                                               fontSize: 16.0,
                                               color: Colors.white),
                                           selectedColor:
-                                              hexToColor(element['color']),
+                                              hexToColor(element.color),
                                           selected: true,
                                           onSelected: (e) {},
-                                          label: Text(element['name'])),
+                                          label: Text(element.name)),
                                     );
                                   })
                                   .toList()
@@ -249,24 +258,20 @@ class _ProductPageState extends State<ProductPage> {
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 0.0, vertical: 8.0),
-                              child: Text(result.data!['getProduct']['name'],
+                              child: Text(productInfo.name,
                                   style: TextStyle(fontSize: 20)),
                             ),
-                            Text(result.data!['getProduct']['comment'] ?? "",
+                            Text(productInfo.comment ?? "",
                                 style: TextStyle(fontSize: 16.0)),
                             Column(
-                                children: result.data!['getProduct']
-                                        ['characteristics']
+                                children: productInfo.characteristics
                                     .map((e) => CharacteristicsElement(
-                                          element:
-                                              GraphCharacteristics.fromJson(e),
+                                          element: e,
                                           onSelected: (index) => selectChar(
                                               index,
                                               e,
-                                              result.data!['getProduct']
-                                                  ['prices'],
-                                              result.data!['getProduct']
-                                                  ['pictures']),
+                                              productInfo.prices,
+                                              productInfo.pictures),
                                         ))
                                     .toList()
                                     .cast<Widget>()),
@@ -294,8 +299,7 @@ class _ProductPageState extends State<ProductPage> {
                                               fontWeight: FontWeight.bold)),
                                       collapsed: SizedBox.shrink(),
                                       expanded: Column(
-                                          children: result.data!['getProduct']
-                                                  ['characteristics']
+                                          children: productInfo.characteristics
                                               .map((e) => TextCharacteristic(
                                                   element: e))
                                               .toList()
@@ -309,9 +313,7 @@ class _ProductPageState extends State<ProductPage> {
                                             fontWeight: FontWeight.bold)),
                                     collapsed: SizedBox.shrink(),
                                     expanded: MarkdownBody(
-                                        data: result.data!['getProduct']
-                                                ['description'] ??
-                                            ""),
+                                        data: productInfo.description ?? ""),
                                   ),
                                   ExpandablePanel(
                                     header: Text("Состав",
@@ -325,11 +327,10 @@ class _ProductPageState extends State<ProductPage> {
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
-                                            children: result.data!['getProduct']
-                                                    ['compositions']
+                                            children: productInfo.compositions
                                                 .map((element) {
                                                   return Image.network(
-                                                    element['picture'],
+                                                    element.picture ?? "",
                                                     height: 100,
                                                     width: 100,
                                                   );
@@ -339,9 +340,8 @@ class _ProductPageState extends State<ProductPage> {
                                           ),
                                         ),
                                         MarkdownBody(
-                                            data: result.data!['getProduct']
-                                                    ['composition'] ??
-                                                ""),
+                                            data:
+                                                productInfo.composition ?? ""),
                                       ],
                                     ),
                                   ),
@@ -375,18 +375,15 @@ class _ProductPageState extends State<ProductPage> {
                                               );
                                             }),
                                         Column(
-                                            children: result.data!['getProduct']
-                                                    ['reviews']
+                                            children: productInfo.reviews
                                                 .map((element) =>
-                                                    Text(element['text']))
+                                                    Text(element.text ?? ""))
                                                 .toList()
                                                 .cast<Widget>())
                                       ],
                                     ),
                                   ),
-                                  if (result
-                                          .data!['getProduct']['link'].length >
-                                      0)
+                                  if (productInfo.link.length > 0)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -398,8 +395,7 @@ class _ProductPageState extends State<ProductPage> {
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
-                                              children: result
-                                                  .data!['getProduct']['link']
+                                              children: productInfo.link
                                                   .map((element) => SizedBox(
                                                       width:
                                                           MediaQuery.of(context)
@@ -407,17 +403,13 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
-                                                          product: GraphProduct
-                                                              .fromJson(
-                                                                  element))))
+                                                          product: element)))
                                                   .toList()
                                                   .cast<Widget>()),
                                         ),
                                       ],
                                     ),
-                                  if (result.data!['getProduct']['similar']
-                                          .length >
-                                      0)
+                                  if (productInfo.similar.length > 0)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
@@ -429,9 +421,7 @@ class _ProductPageState extends State<ProductPage> {
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
-                                              children: result
-                                                  .data!['getProduct']
-                                                      ['similar']
+                                              children: productInfo.similar
                                                   .map((element) => SizedBox(
                                                       width:
                                                           MediaQuery.of(context)
@@ -439,9 +429,7 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
-                                                          product: GraphProduct
-                                                              .fromJson(
-                                                                  element))))
+                                                          product: element)))
                                                   .toList()
                                                   .cast<Widget>()),
                                         ),
@@ -493,7 +481,7 @@ class _ProductPageState extends State<ProductPage> {
                                     });
                                   },
                                   child: Text(
-                                      "В КОРЗИНУ • ${productPrice['price']?.toStringAsFixed(0)}₽",
+                                      "В КОРЗИНУ • ${productPrice.price.toStringAsFixed(0)}₽",
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
@@ -515,15 +503,13 @@ class _ProductPageState extends State<ProductPage> {
                               onPressed: () => runMutation({
                                 'productID': widget.id,
                               }),
-                              label: Text(
-                                  "${result.data!['getProduct']['favorites']}"),
-                              icon: result.data!['getProduct']['isFavorite']
+                              label: Text("${productInfo.favorites}"),
+                              icon: productInfo.isFavorite
                                   ? Icon(Icons.favorite_outlined)
                                   : Icon(Icons.favorite_border_outlined),
                               style: ElevatedButton.styleFrom(
                                 minimumSize: Size(48, 48),
-                                primary: result.data!['getProduct']
-                                        ['isFavorite']
+                                primary: productInfo.isFavorite
                                     ? Colors.red
                                     : Colors.green,
                               ),

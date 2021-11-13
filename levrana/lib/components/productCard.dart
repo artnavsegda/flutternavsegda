@@ -6,58 +6,6 @@ import '../utils.dart';
 import '../gql.dart';
 import 'productBottomSheet.dart';
 
-class GraphProductAttribute {
-  GraphProductAttribute(
-    this.iD,
-    this.name,
-    this.color,
-  );
-  int iD;
-  String name;
-  String color;
-
-  GraphProductAttribute.fromJson(Map<String, dynamic> json)
-      : iD = json['iD'],
-        name = json['name'],
-        color = json['color'];
-}
-
-class GraphProduct {
-  GraphProduct(
-    this.iD,
-    this.familyID,
-    this.topCatalogID,
-    this.name,
-    this.isFavorite,
-    this.favorites,
-    this.stickerPictures,
-    this.attributes,
-  );
-  int iD;
-  String? type;
-  int familyID;
-  int topCatalogID;
-  String name;
-  String? picture;
-  bool isFavorite;
-  int favorites;
-  List<String> stickerPictures;
-  List<GraphProductAttribute> attributes;
-
-  GraphProduct.fromJson(Map<String, dynamic> json)
-      : iD = json['iD'],
-        type = json['type'],
-        familyID = json['familyID'],
-        topCatalogID = json['topCatalogID'],
-        name = json['name'],
-        picture = json['picture'],
-        isFavorite = json['isFavorite'],
-        favorites = json['favorites'],
-        stickerPictures = List<String>.from(json['stickerPictures']),
-        attributes = List<GraphProductAttribute>.from(json['attributes']
-            .map((model) => GraphProductAttribute.fromJson(model)));
-}
-
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product, this.onTap})
       : super(key: key);
