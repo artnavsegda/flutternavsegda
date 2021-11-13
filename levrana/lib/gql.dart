@@ -37,14 +37,16 @@ class GraphProductConnection {
   });
   int? totalCount;
   PageInfo pageInfo;
-  List<GraphProductEdge> edges;
+  List<GraphProductEdge>? edges;
   List<GraphProduct> items;
 
   GraphProductConnection.fromJson(Map<String, dynamic> json)
       : totalCount = json['totalCount'],
-        pageInfo = json['pageInfo'],
-        edges = List<GraphProductEdge>.from(
-            json['edges'].map((model) => GraphProductEdge.fromJson(model))),
+        pageInfo = PageInfo.fromJson(json['pageInfo']),
+        edges = json['edges'] != null
+            ? List<GraphProductEdge>.from(
+                json['edges'].map((model) => GraphProductEdge.fromJson(model)))
+            : null,
         items = List<GraphProduct>.from(
             json['items'].map((model) => GraphProduct.fromJson(model)));
 }
