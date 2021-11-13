@@ -4,7 +4,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../utils.dart';
 import '../gql.dart';
-import '../pages/product/productBottomSheet.dart';
+import 'productBottomSheet.dart';
 
 class GraphProductAttribute {
   GraphProductAttribute(

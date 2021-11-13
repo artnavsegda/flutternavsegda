@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import '../utils.dart';
 
 class GraphCharacteristicsValue {
-  GraphCharacteristicsValue(
-    this.iD,
-    this.value,
+  GraphCharacteristicsValue({
+    required this.iD,
+    required this.value,
     this.comment,
-  );
+  });
   int iD;
   String value;
   String? comment;
@@ -18,13 +18,13 @@ class GraphCharacteristicsValue {
 }
 
 class GraphCharacteristics {
-  GraphCharacteristics(
-    this.iD,
-    this.name,
+  GraphCharacteristics({
+    required this.iD,
+    required this.name,
     this.type,
-    this.isPrice,
-    this.values,
-  );
+    required this.isPrice,
+    required this.values,
+  });
   int iD;
   String name;
   String? type;

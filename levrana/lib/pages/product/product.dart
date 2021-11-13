@@ -37,6 +37,12 @@ class _ProductPageState extends State<ProductPage> {
 
   Map<int, int> charMap = {};
 
+  dynamic getPrice(priceList, priceID) {
+    var priceMap = Map.fromIterable(priceList,
+        key: (e) => e['characteristicValueID'], value: (e) => e);
+    return priceMap[priceID];
+  }
+
   void selectChar(index, characteristic, prices, pictures) {
     for (var i = 0; i < pictures.length; i++) {
       if (pictures[i]['characteristicValueID'] ==

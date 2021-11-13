@@ -1,12 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils.dart';
 
-dynamic getPrice(priceList, priceID) {
-  var priceMap = Map.fromIterable(priceList,
-      key: (e) => e['characteristicValueID'], value: (e) => e);
-  return priceMap[priceID];
-}
-
 class CheckboxTitle extends StatelessWidget {
   const CheckboxTitle(
       {Key? key, this.title = "", required this.value, required this.onChanged})
