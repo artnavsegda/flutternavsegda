@@ -641,12 +641,27 @@ query getAction($actionID: Int) {
       }
     }
     shops {
+      iD
       name
+      description
       address
+      longitude
+      latitude
+      start
+      finish
+      regionId
+      regionName
       pictures
       metroStations {
+        lineName
         colorLine
         stationName
+        distance
+      }
+      openingHours {
+        weekDay
+        start
+        finish
       }
     }
   }
