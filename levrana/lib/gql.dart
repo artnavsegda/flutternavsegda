@@ -1,3 +1,54 @@
+class PageInfo {
+  PageInfo({
+    required this.hasNextPage,
+    required this.hasPreviousPage,
+    this.startCursor,
+    this.endCursor,
+  });
+  bool hasNextPage;
+  bool hasPreviousPage;
+  String? startCursor;
+  String? endCursor;
+  PageInfo.fromJson(Map<String, dynamic> json)
+      : hasNextPage = json['hasNextPage'],
+        hasPreviousPage = json['hasPreviousPage'],
+        startCursor = json['startCursor'],
+        endCursor = json['endCursor'];
+}
+
+class GraphProductEdge {
+  GraphProductEdge({
+    required this.cursor,
+    required this.node,
+  });
+  String cursor;
+  GraphProduct node;
+  GraphProductEdge.fromJson(Map<String, dynamic> json)
+      : cursor = json['cursor'],
+        node = GraphProduct.fromJson(json['node']);
+}
+
+class GraphProductConnection {
+  GraphProductConnection({
+    this.totalCount,
+    required this.pageInfo,
+    required this.edges,
+    required this.items,
+  });
+  int? totalCount;
+  PageInfo pageInfo;
+  List<GraphProductEdge> edges;
+  List<GraphProduct> items;
+
+  GraphProductConnection.fromJson(Map<String, dynamic> json)
+      : totalCount = json['totalCount'],
+        pageInfo = json['pageInfo'],
+        edges = List<GraphProductEdge>.from(
+            json['edges'].map((model) => GraphProductEdge.fromJson(model))),
+        items = List<GraphProduct>.from(
+            json['items'].map((model) => GraphProduct.fromJson(model)));
+}
+
 class GraphPollAnswer {
   GraphPollAnswer({
     required this.iD,
