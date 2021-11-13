@@ -1,3 +1,52 @@
+class GraphPollAnswer {
+  GraphPollAnswer({
+    required this.iD,
+    required this.name,
+  });
+  int iD;
+  String name;
+  GraphPollAnswer.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'];
+}
+
+class GraphPoll {
+  GraphPoll({
+    required this.iD,
+    required this.name,
+    this.comment,
+    required this.isOther,
+    required this.isSkip,
+    required this.isMultiple,
+    required this.isScale,
+    this.scaleMin,
+    this.scaleMax,
+    required this.pollAnswers,
+  });
+  int iD;
+  String name;
+  String? comment;
+  bool isOther;
+  bool isSkip;
+  bool isMultiple;
+  bool isScale;
+  int? scaleMin;
+  int? scaleMax;
+  List<GraphPollAnswer> pollAnswers;
+  GraphPoll.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        comment = json['comment'],
+        isOther = json['isOther'],
+        isSkip = json['isSkip'],
+        isMultiple = json['isMultiple'],
+        isScale = json['isScale'],
+        scaleMin = json['scaleMin'],
+        scaleMax = json['scaleMax'],
+        pollAnswers = List<GraphPollAnswer>.from(json['pollAnswers']
+            .map((model) => GraphPollAnswer.fromJson(model)));
+}
+
 class PollAnswersClient {
   PollAnswersClient({
     this.scale = 0,
