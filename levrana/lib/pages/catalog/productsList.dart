@@ -170,7 +170,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                           ? Center(child: CircularProgressIndicator())
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: new ProductCard(
+                              child: ProductCard(
                                   product: GraphProduct.fromJson(items[index]),
                                   onTap: () =>
                                       Navigator.of(context, rootNavigator: true)
@@ -215,7 +215,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: ProductCard(
-                          product: item,
+                          product: GraphProduct.fromJson(item),
                           onTap: () =>
                               Navigator.of(context, rootNavigator: true).push(
                                 MaterialPageRoute(

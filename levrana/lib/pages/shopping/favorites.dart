@@ -129,7 +129,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: ProductCard(
-                                          product: product,
+                                          product:
+                                              GraphProduct.fromJson(product),
                                           onTap: () async {
                                             await Navigator.push(
                                                 context,
@@ -180,7 +181,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
               itemBuilder: (context, index) {
                 var product = result.data!['getFavoritesProducts'][index];
                 return ProductCard(
-                    product: product,
+                    product: GraphProduct.fromJson(product),
                     onTap: () async {
                       await Navigator.push(
                           context,

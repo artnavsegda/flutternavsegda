@@ -199,8 +199,14 @@ query getConfiguratorProducts($configuratorItemIds: [Int], $cursor: String)
     }
     items {
       iD
+      type
+      familyID
+      topCatalogID
       name
       picture
+      isFavorite
+      favorites
+      stickerPictures
       attributes {
         iD
         name
@@ -473,9 +479,14 @@ const String getFavoritesProducts = r'''
 query getFavoritesProducts {
   getFavoritesProducts {
     iD
+    type
+    familyID
+    topCatalogID
     name
     picture
-    type
+    isFavorite
+    favorites
+    stickerPictures
     attributes {
       iD
       name

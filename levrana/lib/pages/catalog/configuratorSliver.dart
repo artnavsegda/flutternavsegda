@@ -287,7 +287,7 @@ class _ConfiguratorState extends State<Configurator> {
                           .map((element) => FractionallySizedBox(
                               widthFactor: 0.43,
                               child: ProductCard(
-                                  product: element,
+                                  product: GraphProduct.fromJson(element),
                                   onTap: () => Navigator.push(
                                         context,
                                         MaterialPageRoute(

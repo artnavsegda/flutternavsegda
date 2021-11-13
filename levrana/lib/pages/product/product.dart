@@ -389,7 +389,9 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
-                                                          product: element)))
+                                                          product: GraphProduct
+                                                              .fromJson(
+                                                                  element))))
                                                   .toList()
                                                   .cast<Widget>()),
                                         ),
@@ -419,7 +421,9 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
-                                                          product: element)))
+                                                          product: GraphProduct
+                                                              .fromJson(
+                                                                  element))))
                                                   .toList()
                                                   .cast<Widget>()),
                                         ),

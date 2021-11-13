@@ -485,7 +485,9 @@ class ActionPage extends StatelessWidget {
                                                     FractionallySizedBox(
                                                   widthFactor: 0.47,
                                                   child: ProductCard(
-                                                      product: product,
+                                                      product:
+                                                          GraphProduct.fromJson(
+                                                              product),
                                                       onTap:
                                                           () => Navigator.push(
                                                                 context,
