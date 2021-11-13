@@ -14,9 +14,14 @@ query getAction($actionID: Int) {
     type
     products {
       iD
+      type
+      familyID
+      topCatalogID
       name
       picture
-      type
+      isFavorite
+      favorites
+      stickerPictures
       attributes {
         iD
         name
@@ -126,9 +131,14 @@ query getProducts($catalogID: Int!, $cursor: String, $filter: graphFilter) {
     }
     items {
       iD
+      type
+      familyID
+      topCatalogID
       name
       picture
-      type
+      isFavorite
+      favorites
+      stickerPictures
       attributes {
         iD
         name
