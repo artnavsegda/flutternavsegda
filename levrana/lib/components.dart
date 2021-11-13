@@ -160,11 +160,12 @@ class GraphProduct {
         familyID = json['familyID'],
         topCatalogID = json['topCatalogID'],
         name = json['name'],
-        picture = json['name'],
+        picture = json['picture'],
         isFavorite = json['isFavorite'],
         favorites = json['favorites'],
         stickerPictures = List<String>.from(json['stickerPictures']),
-        attributes = List<GraphProductAttribute>.from(json['attributes']);
+        attributes = List<GraphProductAttribute>.from(json['attributes']
+            .map((model) => GraphProductAttribute.fromJson(model)));
 }
 
 class ProductCard extends StatelessWidget {
