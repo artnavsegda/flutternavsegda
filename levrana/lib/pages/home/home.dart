@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
-import '../../components.dart';
+import '../../components/productCard.dart';
 
 import '../product/product.dart';
 import 'action.dart';

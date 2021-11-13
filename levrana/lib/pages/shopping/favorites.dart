@@ -4,7 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:levrana/pages/product/product.dart';
 
 import '../../gql.dart';
-import '../../components.dart';
+import '../../components/components.dart';
+import '../../components/productCard.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);

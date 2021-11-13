@@ -7,7 +7,8 @@ import 'package:intl/date_symbol_data_local.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
-import '../../components.dart';
+import '../../components/components.dart';
+import '../../components/productCard.dart';
 import '../product/product.dart';
 
 class PollAnswersClient {

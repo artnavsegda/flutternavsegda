@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'filter.dart';
-import '../../components.dart';
+import '../../utils.dart';
+import '../../components/components.dart';
 
 class SelectorPage extends StatefulWidget {
   final GraphFilterGroup? filterGroup;

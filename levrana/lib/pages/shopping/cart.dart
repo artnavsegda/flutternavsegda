@@ -4,7 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
-import '../../components.dart';
+import '../../components/components.dart';
+import '../../utils.dart';
 
 class ShoppingCartPage extends StatefulWidget {
   const ShoppingCartPage({Key? key}) : super(key: key);

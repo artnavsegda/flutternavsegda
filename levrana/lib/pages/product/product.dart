@@ -6,7 +6,9 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'dart:math';
 
-import '../../components.dart';
+import '../../components/components.dart';
+import '../../components/productCard.dart';
+import '../../utils.dart';
 import '../../gql.dart';
 import 'review.dart';
 

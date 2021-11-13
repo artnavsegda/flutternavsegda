@@ -9,7 +9,7 @@ import 'sms.dart';
 import 'dialog.dart';
 import '../../gql.dart';
 import '../../main.dart';
-import '../../components.dart';
+import '../../components/components.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
