@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../utils.dart';
+import '../gql.dart';
 
 class CheckboxTitle extends StatelessWidget {
   const CheckboxTitle(
@@ -123,7 +124,7 @@ class ShopCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final shop;
+  final GraphShop shop;
 
   @override
   Widget build(BuildContext context) {
@@ -140,7 +141,7 @@ class ShopCard extends StatelessWidget {
           ClipRRect(
             borderRadius: BorderRadius.circular(6.0),
             child: Image.network(
-              shop['pictures'][0],
+              shop.pictures[0],
               fit: BoxFit.cover,
               width: 80,
               height: 80,
@@ -152,21 +153,20 @@ class ShopCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  shop['name'],
+                  shop.name,
                   style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
                 ),
-                Text(shop['address'], style: TextStyle(fontSize: 12.0)),
-                ...shop['metroStations']
+                Text(shop.address ?? "", style: TextStyle(fontSize: 12.0)),
+                ...shop.metroStations
                     .map((metroStation) {
                       return Row(
                         children: [
                           Text('⬤ ',
                               style: TextStyle(
                                   fontSize: 7.0,
-                                  color:
-                                      hexToColor(metroStation['colorLine']))),
+                                  color: hexToColor(metroStation.colorLine))),
                           Expanded(
-                            child: Text(metroStation['stationName'],
+                            child: Text(metroStation.stationName,
                                 style: TextStyle(fontSize: 12.0)),
                           ),
                         ],

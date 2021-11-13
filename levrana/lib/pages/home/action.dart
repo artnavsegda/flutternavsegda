@@ -63,7 +63,7 @@ class _PollState extends State<Poll> {
               Text(stageData.comment ?? "", style: TextStyle(fontSize: 20.0)),
               if (stageData.isScale == true)
                 Slider(
-                  divisions: stageData.scaleMax - stageData.scaleMin,
+                  divisions: stageData.scaleMax! - stageData.scaleMin!,
                   onChanged: (value) {
                     setState(() {
                       answers[stageData.iD] = PollAnswersClient(
@@ -71,9 +71,9 @@ class _PollState extends State<Poll> {
                     });
                   },
                   value: answers[stageData.iD]?.scale.toDouble() ??
-                      stageData.scaleMin.toDouble(),
-                  min: stageData.scaleMin.toDouble(),
-                  max: stageData.scaleMax.toDouble(),
+                      stageData.scaleMin!.toDouble(),
+                  min: stageData.scaleMin!.toDouble(),
+                  max: stageData.scaleMax!.toDouble(),
                 )
               else if (stageData.isMultiple == true)
                 Column(
@@ -354,19 +354,19 @@ class ActionPage extends StatelessWidget {
             );
           }
 
-          print(result);
+          GraphActionCard action =
+              GraphActionCard.fromJson(result.data!['getAction']);
 
           initializeDateFormatting();
 
-          var dateStart = DateTime.fromMillisecondsSinceEpoch(
-              result.data!['getAction']['dateStart'] ?? 0);
-          var dateFinish = DateTime.fromMillisecondsSinceEpoch(
-              result.data!['getAction']['dateFinish'] ?? 0);
+          var dateStart =
+              DateTime.fromMillisecondsSinceEpoch(action.dateStart ?? 0);
+          var dateFinish =
+              DateTime.fromMillisecondsSinceEpoch(action.dateFinish ?? 0);
 
           return Scaffold(
-            appBar:
-                AppBar(title: Text(result.data!['getAction']['name'] ?? "")),
-            body: result.data!['getAction']['type'] == 'POLL'
+            appBar: AppBar(title: Text(action.name)),
+            body: action.type == 'POLL'
                 ? SafeArea(child: Poll(actionID: actionID))
                 : Stack(
                     children: [
@@ -377,36 +377,28 @@ class ActionPage extends StatelessWidget {
                                   (context, exception, stackTrace) =>
                                       Icon(Icons.no_photography),
                               placeholder: kTransparentImage,
-                              image: result.data!['getAction']['picture'],
+                              image: action.picture ?? "",
                               fit: BoxFit.fill),
                           Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  if (result.data!['getAction']['dateStart'] !=
-                                          null &&
-                                      result.data!['getAction']['dateFinish'] !=
-                                          null)
+                                  if (action.dateStart != null &&
+                                      action.dateFinish != null)
                                     Text(
                                         "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
                                         style: TextStyle(fontSize: 20.0))
-                                  else if (result.data!['getAction']
-                                          ['dateStart'] !=
-                                      null)
+                                  else if (action.dateStart != null)
                                     Text(
                                         "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
                                         style: TextStyle(fontSize: 20.0))
-                                  else if (result.data!['getAction']
-                                          ['dateFinish'] !=
-                                      null)
+                                  else if (action.dateFinish != null)
                                     Text(
                                         "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
                                         style: TextStyle(fontSize: 20.0)),
                                   SizedBox(height: 16),
-                                  if (result.data!['getAction']
-                                          ['specialConditions'] !=
-                                      null)
+                                  if (action.specialConditions != null)
                                     Container(
                                       width: double.infinity,
                                       margin:
@@ -430,26 +422,21 @@ class ActionPage extends StatelessWidget {
                                         ), */
                                       ),
                                       child: Text(
-                                          result.data!['getAction']
-                                              ['specialConditions'],
+                                          action.specialConditions ?? "",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold)),
                                     ),
-                                  if (result.data!['getAction']['type'] ==
-                                      'DRAWING')
+                                  if (action.type == 'DRAWING')
                                     SafeArea(child: Draw(actionID: actionID)),
                                   MarkdownBody(
-                                    data: result.data!['getAction']
-                                            ['description'] ??
-                                        "",
+                                    data: action.description ?? "",
                                     onTapLink: (text, url, title) {
                                       launch(url!);
                                       //print(url);
                                     },
                                   ),
                                   SizedBox(height: 16),
-                                  result.data!['getAction']['products'].length >
-                                          1
+                                  action.products.length > 1
                                       ? Text("Товары из акции",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat',
@@ -460,30 +447,26 @@ class ActionPage extends StatelessWidget {
                                   Wrap(
                                       spacing: 16,
                                       runSpacing: 16,
-                                      children:
-                                          result.data!['getAction']['products']
-                                              .map(
-                                                (product) =>
-                                                    FractionallySizedBox(
-                                                  widthFactor: 0.47,
-                                                  child: ProductCard(
-                                                      product:
-                                                          GraphProduct.fromJson(
-                                                              product),
-                                                      onTap:
-                                                          () => Navigator.push(
-                                                                context,
-                                                                MaterialPageRoute(
-                                                                    builder: (context) =>
-                                                                        ProductPage(
-                                                                            id: product['iD'])),
-                                                              )),
-                                                ),
-                                              )
-                                              .toList()
-                                              .cast<Widget>()),
+                                      children: action.products
+                                          .map(
+                                            (product) => FractionallySizedBox(
+                                              widthFactor: 0.47,
+                                              child: ProductCard(
+                                                  product: product,
+                                                  onTap: () => Navigator.push(
+                                                        context,
+                                                        MaterialPageRoute(
+                                                            builder: (context) =>
+                                                                ProductPage(
+                                                                    id: product
+                                                                        .iD)),
+                                                      )),
+                                            ),
+                                          )
+                                          .toList()
+                                          .cast<Widget>()),
                                   Column(
-                                    children: result.data!['getAction']['shops']
+                                    children: action.shops
                                         .map((shop) => ShopCard(shop: shop))
                                         .toList()
                                         .cast<Widget>(),
@@ -492,7 +475,7 @@ class ActionPage extends StatelessWidget {
                           ),
                         ],
                       ),
-                      if (result.data!['getAction']['uRL'] != null)
+                      if (action.uRL != null)
                         Positioned(
                             left: 16,
                             right: 16,
