@@ -171,7 +171,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: new ProductCard(
-                                  product: items[index],
+                                  product: GraphProduct.fromJson(items[index]),
                                   onTap: () =>
                                       Navigator.of(context, rootNavigator: true)
                                           .push(
