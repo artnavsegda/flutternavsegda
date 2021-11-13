@@ -1,3 +1,49 @@
+class GraphClientFullInfo {
+  GraphClientFullInfo({
+    required this.clientGUID,
+    this.phone,
+    this.name,
+    this.dateOfBirth,
+    this.gender,
+    this.eMail,
+    required this.confirmedPhone,
+    required this.confirmedEMail,
+    required this.isPassword,
+    required this.points,
+    required this.orders,
+    this.picture,
+    this.codeInviteFriend,
+  });
+  String clientGUID;
+  int? phone;
+  String? name;
+  String? dateOfBirth;
+  String? gender;
+  String? eMail;
+  bool confirmedPhone;
+  bool confirmedEMail;
+  bool isPassword;
+  int points;
+  int orders;
+  String? picture;
+  String? codeInviteFriend;
+
+  GraphClientFullInfo.fromJson(Map<String, dynamic> json)
+      : clientGUID = json['clientGUID'],
+        phone = json['phone'],
+        name = json['name'],
+        dateOfBirth = json['dateOfBirth'],
+        gender = json['gender'],
+        eMail = json['eMail'],
+        confirmedPhone = json['confirmedPhone'],
+        confirmedEMail = json['confirmedEMail'],
+        isPassword = json['isPassword'],
+        points = json['points'],
+        orders = json['orders'],
+        picture = json['picture'],
+        codeInviteFriend = json['codeInviteFriend'];
+}
+
 class GraphCharacteristicsValue {
   GraphCharacteristicsValue({
     required this.iD,
@@ -778,6 +824,7 @@ query getClientInfo {
     confirmedEMail
     isPassword,
     points,
+    orders,
     picture,
     codeInviteFriend
   }

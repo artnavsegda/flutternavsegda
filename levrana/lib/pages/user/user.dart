@@ -41,6 +41,9 @@ class UserPage extends StatelessWidget {
             );
           }
 
+          GraphClientFullInfo userInfo =
+              GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
+
           return Scaffold(
             extendBodyBehindAppBar: true,
             appBar: AppBar(
@@ -84,15 +87,12 @@ class UserPage extends StatelessWidget {
                         children: [
                           CircleAvatar(
                             radius: 40,
-                            backgroundImage: result.data!['getClientInfo']
-                                        ['picture'] !=
-                                    ""
-                                ? NetworkImage(
-                                    result.data!['getClientInfo']['picture'])
+                            backgroundImage: userInfo.picture != null
+                                ? NetworkImage(userInfo.picture ?? "")
                                 : MemoryImage(kTransparentImage)
                                     as ImageProvider,
                           ),
-                          Text(result.data!['getClientInfo']['name'] ?? "",
+                          Text(userInfo.name ?? "Незнакомец",
                               style: TextStyle(fontSize: 28.0))
                         ],
                       ),
@@ -126,9 +126,7 @@ class UserPage extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                    result.data!['getClientInfo']['points']
-                                        .toString(),
+                                Text(userInfo.points.toString(),
                                     style: TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 40.0,
@@ -161,8 +159,8 @@ class UserPage extends StatelessWidget {
                                     builder: (context) {
                                       return InvitePage(
                                           codeInviteFriend:
-                                              result.data!['getClientInfo']
-                                                  ['codeInviteFriend']);
+                                              userInfo.codeInviteFriend ??
+                                                  "no codes");
                                     },
                                   );
                                 },
@@ -187,9 +185,7 @@ class UserPage extends StatelessWidget {
                                     context: context,
                                     builder: (context) {
                                       return TransferBonusPage(
-                                          maxAmount:
-                                              result.data!['getClientInfo']
-                                                  ['points']);
+                                          maxAmount: userInfo.points);
                                     },
                                   );
                                 },
