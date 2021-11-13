@@ -46,58 +46,60 @@ class _PollState extends State<Poll> {
             );
           }
 
-          var stageData = result.data!['getPoll'][stage];
+          List<GraphPoll> poll = List<GraphPoll>.from(result.data!['getPoll']
+              .map((model) => GraphPoll.fromJson(model)));
+
+          var stageData = poll[stage];
 
           //print(stageData);
 
-          var isActive = ((stageData['isSkip'] == true) ||
-              (answers[stageData['iD']]?.pollAnswers.isNotEmpty ?? false) ||
-              ((answers[stageData['iD']]?.scale ?? 0) != 0));
+          var isActive = ((stageData.isSkip == true) ||
+              (answers[stageData.iD]?.pollAnswers.isNotEmpty ?? false) ||
+              ((answers[stageData.iD]?.scale ?? 0) != 0));
 
           return Column(
             children: [
-              Text(stageData['name'], style: TextStyle(fontSize: 22.0)),
-              Text(stageData['comment'], style: TextStyle(fontSize: 20.0)),
-              if (stageData['isScale'] == true)
+              Text(stageData.name, style: TextStyle(fontSize: 22.0)),
+              Text(stageData.comment ?? "", style: TextStyle(fontSize: 20.0)),
+              if (stageData.isScale == true)
                 Slider(
-                  divisions: stageData['scaleMax'] - stageData['scaleMin'],
+                  divisions: stageData.scaleMax - stageData.scaleMin,
                   onChanged: (value) {
                     setState(() {
-                      answers[stageData['iD']] = PollAnswersClient(
-                          pollID: stageData['iD'], scale: value.round());
+                      answers[stageData.iD] = PollAnswersClient(
+                          pollID: stageData.iD, scale: value.round());
                     });
                   },
-                  value: answers[stageData['iD']]?.scale.toDouble() ??
-                      stageData['scaleMin'].toDouble(),
-                  min: stageData['scaleMin'].toDouble(),
-                  max: stageData['scaleMax'].toDouble(),
+                  value: answers[stageData.iD]?.scale.toDouble() ??
+                      stageData.scaleMin.toDouble(),
+                  min: stageData.scaleMin.toDouble(),
+                  max: stageData.scaleMax.toDouble(),
                 )
-              else if (stageData['isMultiple'] == true)
+              else if (stageData.isMultiple == true)
                 Column(
-                  children: stageData['pollAnswers']
+                  children: stageData.pollAnswers
                       .map((element) => CheckboxListTile(
                           controlAffinity: ListTileControlAffinity.leading,
-                          title: Text(element['name']),
-                          value: answers[stageData['iD']]
+                          title: Text(element.name),
+                          value: answers[stageData.iD]
                                   ?.pollAnswers
-                                  .contains(element['iD']) ??
+                                  .contains(element.iD) ??
                               false,
                           onChanged: (value) {
                             //print(element['iD']);
                             setState(() {
                               if (value != true)
-                                answers[stageData['iD']]
+                                answers[stageData.iD]
                                     ?.pollAnswers
-                                    .remove(element['iD']);
+                                    .remove(element.iD);
                               else
-                                (answers[stageData['iD']] != null)
-                                    ? answers[stageData['iD']]
+                                (answers[stageData.iD] != null)
+                                    ? answers[stageData.iD]
                                         ?.pollAnswers
-                                        .add(element['iD'])
-                                    : answers[stageData['iD']] =
-                                        PollAnswersClient(
-                                            pollID: stageData['iD'],
-                                            pollAnswers: {element['iD']});
+                                        .add(element.iD)
+                                    : answers[stageData.iD] = PollAnswersClient(
+                                        pollID: stageData.iD,
+                                        pollAnswers: {element.iD});
                             });
                           }))
                       .toList()
@@ -105,29 +107,28 @@ class _PollState extends State<Poll> {
                 )
               else
                 Column(
-                  children: stageData['pollAnswers']
+                  children: stageData.pollAnswers
                       .map((element) => RadioListTile<bool?>(
-                            title: Text(element['name']),
-                            value: answers[stageData['iD']]
+                            title: Text(element.name),
+                            value: answers[stageData.iD]
                                 ?.pollAnswers
-                                .contains(element['iD']),
+                                .contains(element.iD),
                             onChanged: (v) {
                               //print(answers);
                               setState(() {
                                 //print(element['iD']);
 
-                                (answers[stageData['iD']] != null)
-                                    ? answers[stageData['iD']]?.pollAnswers = {
-                                        element['iD']
+                                (answers[stageData.iD] != null)
+                                    ? answers[stageData.iD]?.pollAnswers = {
+                                        element.iD
                                       }
-                                    : answers[stageData['iD']] =
-                                        PollAnswersClient(
-                                            pollID: stageData['iD'],
-                                            pollAnswers: {element['iD']});
+                                    : answers[stageData.iD] = PollAnswersClient(
+                                        pollID: stageData.iD,
+                                        pollAnswers: {element.iD});
 
-                                answers[stageData['iD']] = PollAnswersClient(
-                                    pollID: stageData['iD'],
-                                    pollAnswers: {element['iD']});
+                                answers[stageData.iD] = PollAnswersClient(
+                                    pollID: stageData.iD,
+                                    pollAnswers: {element.iD});
                               });
                             },
                             groupValue: true,
@@ -135,15 +136,15 @@ class _PollState extends State<Poll> {
                       .toList()
                       .cast<Widget>(),
                 ),
-              if ((stageData['isOther'] == true))
+              if ((stageData.isOther == true))
                 TextField(
                   decoration: const InputDecoration(labelText: 'Ваш вариант'),
                   onChanged: (text) {
                     setState(() {
-                      (answers[stageData['iD']] != null)
-                          ? answers[stageData['iD']]?.other = text
-                          : answers[stageData['iD']] = PollAnswersClient(
-                              pollID: stageData['iD'], other: text);
+                      (answers[stageData.iD] != null)
+                          ? answers[stageData.iD]?.other = text
+                          : answers[stageData.iD] = PollAnswersClient(
+                              pollID: stageData.iD, other: text);
                     });
                   },
                   maxLines: null,
@@ -160,7 +161,7 @@ class _PollState extends State<Poll> {
                         },
                         child: Text("НАЗАД")),
                   Spacer(),
-                  (stage < result.data!['getPoll'].length - 1)
+                  (stage < poll.length - 1)
                       ? TextButton(
                           onPressed: isActive
                               ? () {
