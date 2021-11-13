@@ -8,6 +8,7 @@ import 'dart:math';
 
 import '../../components/components.dart';
 import '../../components/productCard.dart';
+import '../../components/characteristicsElement.dart';
 import '../../utils.dart';
 import '../../gql.dart';
 import 'review.dart';

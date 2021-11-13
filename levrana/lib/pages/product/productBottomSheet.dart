@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../gql.dart';
 import '../../components/components.dart';
+import '../../components/characteristicsElement.dart';
 
 class ProductBottomSheet extends StatefulWidget {
   const ProductBottomSheet({Key? key, this.id = 0, this.product})
