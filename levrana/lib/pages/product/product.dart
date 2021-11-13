@@ -251,7 +251,8 @@ class _ProductPageState extends State<ProductPage> {
                                 children: result.data!['getProduct']
                                         ['characteristics']
                                     .map((e) => CharacteristicsElement(
-                                          element: e,
+                                          element:
+                                              GraphCharacteristics.fromJson(e),
                                           onSelected: (index) => selectChar(
                                               index,
                                               e,

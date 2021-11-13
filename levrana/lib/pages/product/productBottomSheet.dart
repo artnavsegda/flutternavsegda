@@ -94,7 +94,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     children: result.data!['getProduct']['characteristics']
                         .map((e) => CharacteristicsElement(
                               hideOne: true,
-                              element: e,
+                              element: GraphCharacteristics.fromJson(e),
                               onSelected: (index) => selectChar(index, e,
                                   result.data!['getProduct']['prices']),
                             ))
