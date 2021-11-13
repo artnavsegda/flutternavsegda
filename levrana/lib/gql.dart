@@ -1,3 +1,36 @@
+class GraphOpeningHours {
+  GraphOpeningHours({
+    required this.weekDay,
+    this.start,
+    this.finish,
+  });
+  int weekDay;
+  int? start;
+  int? finish;
+  GraphOpeningHours.fromJson(Map<String, dynamic> json)
+      : weekDay = json['weekDay'],
+        start = json['start'],
+        finish = json['finish'];
+}
+
+class GraphMetroStation {
+  GraphMetroStation({
+    required this.lineName,
+    required this.colorLine,
+    required this.stationName,
+    required this.distance,
+  });
+  String lineName;
+  String colorLine;
+  String stationName;
+  String distance;
+  GraphMetroStation.fromJson(Map<String, dynamic> json)
+      : lineName = json['lineName'],
+        colorLine = json['colorLine'],
+        stationName = json['stationName'],
+        distance = json['distance'];
+}
+
 class GraphShop {
   GraphShop({
     required this.iD,
@@ -11,6 +44,8 @@ class GraphShop {
     required this.regionId,
     required this.regionName,
     required this.pictures,
+    required this.metroStations,
+    required this.openingHours,
   });
   int iD;
   String name;
@@ -23,6 +58,25 @@ class GraphShop {
   int regionId;
   String regionName;
   List<String> pictures;
+  List<GraphMetroStation> metroStations;
+  List<GraphOpeningHours> openingHours;
+
+  GraphShop.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        description = json['description'],
+        address = json['address'],
+        longitude = json['longitude'],
+        latitude = json['latitude'],
+        start = json['start'],
+        finish = json['finish'],
+        regionId = json['regionId'],
+        regionName = json['regionName'],
+        pictures = List<String>.from(json['pictures']),
+        metroStations = List<GraphMetroStation>.from(json['metroStations']
+            .map((model) => GraphMetroStation.fromJson(model))),
+        openingHours = List<GraphOpeningHours>.from(json['openingHours']
+            .map((model) => GraphOpeningHours.fromJson(model)));
 }
 
 class GraphAction {
