@@ -118,6 +118,7 @@ class GraphActionCard {
     this.squarePicture,
     this.type,
     required this.products,
+    required this.shops,
   });
   int iD;
   String name;
@@ -131,6 +132,7 @@ class GraphActionCard {
   String? squarePicture;
   String? type;
   List<GraphProduct> products;
+  List<GraphShop> shops;
 
   GraphActionCard.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
@@ -145,7 +147,9 @@ class GraphActionCard {
         squarePicture = json['squarePicture'],
         type = json['type'],
         products = List<GraphProduct>.from(
-            json['products'].map((model) => GraphProduct.fromJson(model)));
+            json['products'].map((model) => GraphProduct.fromJson(model))),
+        shops = List<GraphShop>.from(
+            json['shops'].map((model) => GraphShop.fromJson(model)));
 }
 
 class GraphMessage {

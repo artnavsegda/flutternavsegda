@@ -64,8 +64,10 @@ class _QrPageState extends State<QrPage> {
                 );
               }
 
-              String phone =
-                  "+" + result.data!['getClientInfo']['phone'].toString();
+              GraphClientFullInfo userInfo =
+                  GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
+
+              String phone = "+" + userInfo.phone.toString();
 
               Future<PhoneNumber> futurePhone = PhoneNumberUtil().parse(phone);
 
@@ -95,7 +97,7 @@ class _QrPageState extends State<QrPage> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20)),
                       child: QrImage(
-                        data: result.data!['getClientInfo']['clientGUID'],
+                        data: userInfo.clientGUID,
                         version: QrVersions.auto,
                         size: 200.0,
                       ),

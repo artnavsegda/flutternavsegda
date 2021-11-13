@@ -114,9 +114,11 @@ class HomePage extends StatelessWidget {
                                       );
                                     }
 
-                                    return Text(
-                                        result.data!['getClientInfo']['points']
-                                            .toString(),
+                                    GraphClientFullInfo userInfo =
+                                        GraphClientFullInfo.fromJson(
+                                            result.data!['getClientInfo']);
+
+                                    return Text(userInfo.points.toString(),
                                         style: TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 40.0,
@@ -167,6 +169,10 @@ class HomePage extends StatelessWidget {
                         );
                       }
 
+                      List<GraphAction> actions = List<GraphAction>.from(result
+                          .data!['getActions']
+                          .map((model) => GraphAction.fromJson(model)));
+
                       /*                     return CarouselSlider.builder(
                         options: CarouselOptions(
                             height: 200.0,
@@ -199,18 +205,15 @@ class HomePage extends StatelessWidget {
                           aspectRatio: 16 / 8,
                           child: PageView.builder(
                             controller: _controller,
-                            itemCount: result.data!['getActions'].length,
+                            itemCount: actions.length,
                             itemBuilder: (context, index) {
                               return InkWell(
                                 onTap: () async {
-                                  //print(result.data!['getActions'][index]['iD']);
                                   await Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => ActionPage(
-                                              actionID:
-                                                  result.data!['getActions']
-                                                      [index]['iD'],
+                                              actionID: actions[index].iD,
                                             )),
                                   );
                                   refetch!();
@@ -224,8 +227,7 @@ class HomePage extends StatelessWidget {
                                             (context, exception, stackTrace) =>
                                                 Icon(Icons.no_photography),
                                         placeholder: kTransparentImage,
-                                        image: result.data!['getActions'][index]
-                                            ['picture'],
+                                        image: actions[index].picture ?? "",
                                         fit: BoxFit.fill),
                                   ),
                                 ),
