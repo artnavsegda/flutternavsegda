@@ -11,11 +11,12 @@ import '../../components.dart';
 import '../product/product.dart';
 
 class PollAnswersClient {
-  PollAnswersClient(
-      {this.scale = 0,
-      this.pollAnswers = const <int>{},
-      this.other = "",
-      required this.pollID});
+  PollAnswersClient({
+    this.scale = 0,
+    this.pollAnswers = const <int>{},
+    this.other = "",
+    required this.pollID,
+  });
   int scale;
   Set<int> pollAnswers;
   String other;

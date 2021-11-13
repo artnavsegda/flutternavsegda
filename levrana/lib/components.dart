@@ -116,6 +116,34 @@ class LevranaBigCheckbox extends StatelessWidget {
   }
 }
 
+class GraphProduct {
+  GraphProduct(
+    this.iD,
+    this.familyID,
+    this.topCatalogID,
+    this.name,
+    this.isFavorite,
+    this.favorites,
+    this.stickerPictures,
+  );
+  int iD;
+  int familyID;
+  int topCatalogID;
+  String name;
+  bool isFavorite;
+  int favorites;
+  List<String> stickerPictures;
+
+  GraphProduct.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        familyID = json['familyID'],
+        topCatalogID = json['topCatalogID'],
+        name = json['name'],
+        isFavorite = json['isFavorite'],
+        favorites = json['favorites'],
+        stickerPictures = json['stickerPictures'];
+}
+
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product, this.onTap})
       : super(key: key);
