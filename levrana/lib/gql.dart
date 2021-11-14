@@ -1,3 +1,50 @@
+class GraphFilterValueView {
+  GraphFilterValueView({
+    required this.iD,
+    required this.name,
+  });
+  int iD;
+  String name;
+
+  GraphFilterValueView.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'];
+}
+
+class GraphFilterGroupView {
+  GraphFilterGroupView({
+    required this.iD,
+    required this.name,
+    required this.values,
+  });
+  int iD;
+  String name;
+  List<GraphFilterValueView> values;
+
+  GraphFilterGroupView.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        values = List<GraphFilterValueView>.from(json['values']
+            .map((model) => GraphFilterValueView.fromJson(model)));
+}
+
+class GraphFilterView {
+  GraphFilterView({
+    this.priceMin,
+    this.priceMax,
+    required this.groups,
+  });
+  int? priceMin;
+  int? priceMax;
+  List<GraphFilterGroupView> groups;
+
+  GraphFilterView.fromJson(Map<String, dynamic> json)
+      : priceMin = json['priceMin'],
+        priceMax = json['priceMax'],
+        groups = List<GraphFilterGroupView>.from(json['groups']
+            .map((model) => GraphFilterGroupView.fromJson(model)));
+}
+
 class GraphConfiguratorItem {
   GraphConfiguratorItem({
     required this.iD,
