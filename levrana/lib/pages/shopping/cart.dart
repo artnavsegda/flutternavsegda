@@ -44,7 +44,11 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
             );
           }
 
-          if (result.data!['getCart'].length == 0) {
+          List<GraphCartRow> cart = List<GraphCartRow>.from(result
+              .data!['getCart']
+              .map((model) => GraphCartRow.fromJson(model)));
+
+          if (cart.length == 0) {
             return Center(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -95,21 +99,15 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                       width: 24.0,
                       child: LevranaCheckbox(
                           value: selectedRows.length != 0 &&
-                              selectedRows.containsAll(result.data!['getCart']
-                                  .map((e) => e['rowID'])
-                                  .cast<int>()
-                                  .toList()),
+                              selectedRows.containsAll(
+                                  cart.map((e) => e.rowID).toList()),
                           onChanged: (newValue) {
                             setState(() {
                               if (newValue == true) {
-                                selectedRows.addAll(result.data!['getCart']
-                                    .map((e) => e['rowID'])
-                                    .cast<int>()
-                                    .toList());
-                                selectedFavs.addAll(result.data!['getCart']
-                                    .map((e) => e['productID'])
-                                    .cast<int>()
-                                    .toList());
+                                selectedRows
+                                    .addAll(cart.map((e) => e.rowID).toList());
+                                selectedFavs.addAll(
+                                    cart.map((e) => e.productID).toList());
                               } else {
                                 selectedRows.clear();
                                 selectedFavs.clear();
@@ -164,7 +162,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                               }),
                         ])),
               ),
-              for (var item in result.data!['getCart'])
+              for (var item in cart)
                 Stack(
                   children: [
                     Container(
@@ -185,7 +183,7 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                       borderRadius: BorderRadius.circular(6.0)),
                                   child: FadeInImage.memoryNetwork(
                                       placeholder: kTransparentImage,
-                                      image: item['picture'],
+                                      image: item.picture ?? "",
                                       width: 80),
                                 ),
                                 SizedBox(width: 9),
@@ -194,14 +192,13 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(
-                                          "${item['amount']?.toStringAsFixed(0)}₽",
+                                      Text("${item.amount.toStringAsFixed(0)}₽",
                                           style: TextStyle(
                                             fontSize: 32.0,
                                           )),
-                                      Text(item['productName']),
+                                      Text(item.productName),
                                       Row(
-                                          children: item['characteristics']
+                                          children: item.characteristics
                                               .map((e) => MiniCharacteristic(
                                                   element: e))
                                               .toList()
@@ -209,9 +206,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                     ],
                                   ),
                                 )
-                                /* Flexible(
-                                            child: Text(item['productName']),
-                                          ), */
                               ],
                             ),
                             SizedBox(height: 9),
@@ -241,20 +235,20 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                                 primary: Colors.black,
                                               ),
                                               onPressed: () => runMutation({
-                                                    'rowID': item['rowID'],
+                                                    'rowID': item.rowID,
                                                     'quantity':
-                                                        item['quantity'] - 1
+                                                        item.quantity - 1
                                                   }),
                                               child: Text('-')),
-                                          Text(item['quantity'].toString()),
+                                          Text(item.quantity.toString()),
                                           TextButton(
                                               style: TextButton.styleFrom(
                                                 primary: Colors.black,
                                               ),
                                               onPressed: () => runMutation({
-                                                    'rowID': item['rowID'],
+                                                    'rowID': item.rowID,
                                                     'quantity':
-                                                        item['quantity'] + 1
+                                                        item.quantity + 1
                                                   }),
                                               child: Text('+'))
                                         ],
@@ -271,17 +265,17 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                         height: 32.0,
                         width: 32.0,
                         child: LevranaBigCheckbox(
-                            value: selectedRows.contains(item['rowID']),
+                            value: selectedRows.contains(item.rowID),
                             onChanged: (newValue) {
                               if (newValue == true) {
                                 setState(() {
-                                  selectedRows.add(item['rowID']);
-                                  selectedFavs.add(item['productID']);
+                                  selectedRows.add(item.rowID);
+                                  selectedFavs.add(item.productID);
                                 });
                               } else {
                                 setState(() {
-                                  selectedRows.remove(item['rowID']);
-                                  selectedFavs.remove(item['productID']);
+                                  selectedRows.remove(item.rowID);
+                                  selectedFavs.remove(item.productID);
                                 });
                               }
                             }),
@@ -291,29 +285,6 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                 ),
             ]),
           );
-
-          return ListView.builder(
-              itemCount: result.data!['getCart'].length,
-              itemBuilder: (context, index) {
-                return Container(
-                  child: Row(
-                    children: [
-                      Stack(
-                        children: [
-                          Image.network(
-                              result.data!['getCart'][index]['picture'],
-                              width: 80),
-                          Checkbox(value: false, onChanged: (newValue) {}),
-                        ],
-                      ),
-                      Flexible(
-                        child:
-                            Text(result.data!['getCart'][index]['productName']),
-                      ),
-                    ],
-                  ),
-                );
-              });
         });
   }
 }
@@ -324,15 +295,15 @@ class MiniCharacteristic extends StatelessWidget {
     Key? key,
   }) : super(key: key);
 
-  final element;
+  final GraphCartCharacteristic element;
 
   @override
   Widget build(BuildContext context) {
-    if (element['type'] == 'COLOR') {
+    if (element.type == 'COLOR') {
       return Text('⬤ ',
-          style: TextStyle(fontSize: 7.0, color: hexToColor(element['value'])));
+          style: TextStyle(fontSize: 7.0, color: hexToColor(element.value)));
     } else {
-      return Text(element['value'],
+      return Text(element.value,
           style: TextStyle(fontSize: 16, color: Colors.black45));
     }
   }

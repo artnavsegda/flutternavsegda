@@ -1,3 +1,64 @@
+class GraphCartCharacteristic {
+  GraphCartCharacteristic({
+    required this.type,
+    required this.name,
+    required this.value,
+  });
+  String? type;
+  String name;
+  String value;
+
+  GraphCartCharacteristic.fromJson(Map<String, dynamic> json)
+      : type = json['type'],
+        name = json['name'],
+        value = json['value'];
+}
+
+class GraphCartRow {
+  GraphCartRow({
+    required this.rowID,
+    required this.productID,
+    required this.productName,
+    required this.quantity,
+    required this.amount,
+    required this.oldAmount,
+    required this.modifiers,
+    required this.comment,
+    required this.picture,
+    required this.message,
+    required this.typeMessage,
+    required this.characteristics,
+  });
+  int rowID;
+  int productID;
+  String productName;
+  int quantity;
+  double amount;
+  double? oldAmount;
+  String? modifiers;
+  String? comment;
+  String? picture;
+  String? message;
+  String? typeMessage;
+  List<GraphCartCharacteristic> characteristics;
+
+  GraphCartRow.fromJson(Map<String, dynamic> json)
+      : rowID = json['rowID'],
+        productID = json['productID'],
+        productName = json['productName'],
+        quantity = json['quantity'],
+        amount = json['amount'],
+        oldAmount = json['oldAmount'],
+        modifiers = json['modifiers'],
+        comment = json['comment'],
+        picture = json['picture'],
+        message = json['message'],
+        typeMessage = json['typeMessage'],
+        characteristics = List<GraphCartCharacteristic>.from(
+            json['characteristics']
+                .map((model) => GraphCartCharacteristic.fromJson(model)));
+}
+
 class GraphFilterGroup {
   GraphFilterGroup({
     required this.iD,
@@ -1294,12 +1355,12 @@ query getCart {
     comment
     picture
     message
+    typeMessage
     characteristics {
       type
       name
       value
     }
-    modifiers
   }
 }
 ''';
