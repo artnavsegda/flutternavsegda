@@ -4,50 +4,6 @@ import 'selector.dart';
 
 import '../../gql.dart';
 
-class GraphFilterGroup {
-  GraphFilterGroup({
-    required this.iD,
-    this.values = const <int>{},
-  });
-
-  GraphFilterGroup.from(GraphFilterGroup original) {
-    this.iD = original.iD;
-    this.values = Set<int>.from(original.values);
-  }
-
-  late int iD;
-  Set<int> values = <int>{};
-
-  Map<String, dynamic> toJson() => {
-        'iD': iD,
-        'values': values.toList(),
-      };
-}
-
-class GraphFilter {
-  GraphFilter({
-    this.priceMin = 0,
-    this.priceMax = 0,
-    this.groups = const <int, GraphFilterGroup>{},
-  });
-
-  GraphFilter.from(GraphFilter original) {
-    this.priceMin = original.priceMin;
-    this.priceMax = original.priceMax;
-    this.groups = Map<int, GraphFilterGroup>.from(original.groups);
-  }
-
-  int priceMin = 0;
-  int priceMax = 0;
-  Map<int, GraphFilterGroup> groups = const <int, GraphFilterGroup>{};
-
-  Map<String, dynamic> toJson() => {
-        'priceMin': priceMin,
-        'priceMax': priceMax,
-        'groups': groups.entries.map((e) => e.value).toList()
-      };
-}
-
 class FiltersPage extends StatefulWidget {
   const FiltersPage(
       {Key? key,
