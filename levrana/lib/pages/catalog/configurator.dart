@@ -70,7 +70,12 @@ class _ConfiguratorState extends State<Configurator> {
                   );
                 }
 
-                if (stage == result.data!['getConfigurator'].length) {
+                List<GraphConfiguratorStep> configuratorSteps =
+                    List<GraphConfiguratorStep>.from(result
+                        .data!['getConfigurator']
+                        .map((model) => GraphConfiguratorStep.fromJson(model)));
+
+                if (stage == configuratorSteps.length) {
                   return Center(
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -87,11 +92,10 @@ class _ConfiguratorState extends State<Configurator> {
                   );
                 }
 
-                var stageType = result.data!['getConfigurator'][stage]['type'];
+                var stageType = configuratorSteps[stage].type;
 
                 return Column(
                   children: [
-                    //Text(result.data!['getConfigurator'][stage]['name']),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 32.0, vertical: 16.0),
@@ -99,30 +103,30 @@ class _ConfiguratorState extends State<Configurator> {
                         textAlign: TextAlign.center,
                         text: TextSpan(
                             style: DefaultTextStyle.of(context).style,
-                            children:
-                                result.data!['getConfigurator'][stage]['name']
-                                    .split("*")
-                                    .asMap()
-                                    .entries
-                                    .map(
-                                      (element) => TextSpan(
-                                          text: element.value,
-                                          style: element.key.isEven
-                                              ? TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 32.0,
-                                                  fontWeight: FontWeight.bold)
-                                              : TextStyle(
-                                                  fontFamily: 'Montserrat',
-                                                  fontSize: 32.0,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.green)),
-                                    )
-                                    .toList()
-                                    .cast<InlineSpan>()),
+                            children: configuratorSteps[stage]
+                                .name
+                                .split("*")
+                                .asMap()
+                                .entries
+                                .map(
+                                  (element) => TextSpan(
+                                      text: element.value,
+                                      style: element.key.isEven
+                                          ? TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 32.0,
+                                              fontWeight: FontWeight.bold)
+                                          : TextStyle(
+                                              fontFamily: 'Montserrat',
+                                              fontSize: 32.0,
+                                              fontWeight: FontWeight.bold,
+                                              color: Colors.green)),
+                                )
+                                .toList()
+                                .cast<InlineSpan>()),
                       ),
                     ),
-                    Text(result.data!['getConfigurator'][stage]['description'],
+                    Text(configuratorSteps[stage].description ?? "",
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 16.0)),
                     Padding(
@@ -133,11 +137,11 @@ class _ConfiguratorState extends State<Configurator> {
                               ? Axis.horizontal
                               : Axis.vertical,
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                          children: result.data!['getConfigurator'][stage]
-                                  ['values']
+                          children: configuratorSteps[stage]
+                              .values
                               .map((element) {
                                 void onPress() {
-                                  int idToAdd = element['iD'];
+                                  int idToAdd = element.iD;
                                   //print(idToAdd);
                                   setState(() {
                                     configuratorItemIds =
@@ -161,13 +165,13 @@ class _ConfiguratorState extends State<Configurator> {
                                               borderRadius:
                                                   BorderRadius.circular(13.6),
                                               child: Image.network(
-                                                  element['picture'],
+                                                  element.picture ?? "",
                                                   width: 136,
                                                   height: 136,
                                                   fit: BoxFit.fill),
                                             ),
                                             SizedBox(height: 8.0),
-                                            Text(element['name'],
+                                            Text(element.name,
                                                 style:
                                                     TextStyle(fontSize: 20.0)),
                                           ],
@@ -185,7 +189,7 @@ class _ConfiguratorState extends State<Configurator> {
                                           ),
                                           onPressed: onPress,
                                           child: Text(
-                                            element['name'],
+                                            element.name,
                                             style: TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20.0),
@@ -203,11 +207,12 @@ class _ConfiguratorState extends State<Configurator> {
                                           onPressed: onPress,
                                           child: Row(
                                             children: [
-                                              Image.network(element['picture'],
+                                              Image.network(
+                                                  element.picture ?? "",
                                                   width: 60),
                                               SizedBox(width: 16.0),
                                               Text(
-                                                element['name'],
+                                                element.name,
                                                 style: TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 20.0),
@@ -234,7 +239,7 @@ class _ConfiguratorState extends State<Configurator> {
                             });
                         },
                         child: Text(
-                            "< Шаг ${stage + 1} из ${result.data!['getConfigurator'].length}",
+                            "< Шаг ${stage + 1} из ${configuratorSteps.length}",
                             style: TextStyle(fontSize: 20.0)),
                       ),
                     ),
@@ -257,9 +262,6 @@ class _ConfiguratorState extends State<Configurator> {
                   },
                 ),
                 builder: (result, {fetchMore, refetch}) {
-                  //print(configuratorItemIds);
-                  //print(result);
-                  //refetch!();
                   if (result.hasException) {
                     return Text(result.exception.toString());
                   }
@@ -270,22 +272,17 @@ class _ConfiguratorState extends State<Configurator> {
                     );
                   }
 
-                  final Map pageInfo =
-                      result.data!['getConfiguratorProducts']['pageInfo'];
-                  final String fetchMoreCursor = pageInfo['endCursor'];
+                  final GraphProductConnection productConnection =
+                      GraphProductConnection.fromJson(
+                          result.data!['getConfiguratorProducts']);
 
-                  final items = (result.data!['getConfiguratorProducts']
-                      ['items'] as List<dynamic>);
+                  final PageInfo pageInfo = productConnection.pageInfo;
+                  final String fetchMoreCursor = pageInfo.endCursor ?? "";
+
+                  final List<GraphProduct> items = productConnection.items;
 
                   bool hasNextPage = items.length <
                       result.data!['getConfiguratorProducts']['totalCount'];
-
-                  print(configuratorItemIds);
-                  print(
-                      "total: ${result.data!['getConfiguratorProducts']['totalCount']}");
-                  print("loaded: ${items.length}");
-                  print("fetch more cursor:" + fetchMoreCursor);
-                  print("has next page:" + pageInfo['hasNextPage'].toString());
 
                   FetchMoreOptions opts = FetchMoreOptions(
                     variables: {'cursor': fetchMoreCursor},
@@ -304,14 +301,6 @@ class _ConfiguratorState extends State<Configurator> {
                     },
                   );
 
-/*                   _controller.addListener(() {
-                    if (_controller.offset >=
-                            _controller.position.maxScrollExtent &&
-                        !_controller.position.outOfRange) {
-                      fetchMore!(opts);
-                    }
-                  }); */
-
                   fetchMoreCB = () async {
                     print("refetch children");
                     if (hasNextPage) {
@@ -325,19 +314,18 @@ class _ConfiguratorState extends State<Configurator> {
                           alignment: WrapAlignment.start,
                           spacing: 16,
                           runSpacing: 16,
-                          children: result.data!['getConfiguratorProducts']
-                                  ['items']
+                          children: items
                               .map(
                                 (element) => FractionallySizedBox(
                                   widthFactor: 0.43,
                                   child: ProductCard(
-                                    product: GraphProduct.fromJson(element),
+                                    product: element,
                                     onTap: () => Navigator.of(context,
                                             rootNavigator: true)
                                         .push(
                                       MaterialPageRoute(
                                           builder: (context) =>
-                                              ProductPage(id: element['iD'])),
+                                              ProductPage(id: element.iD)),
                                     ),
                                   ),
                                 ),

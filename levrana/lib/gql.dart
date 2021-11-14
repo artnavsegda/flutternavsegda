@@ -1,3 +1,42 @@
+class GraphConfiguratorItem {
+  GraphConfiguratorItem({
+    required this.iD,
+    required this.name,
+    this.picture,
+  });
+  int iD;
+  String name;
+  String? picture;
+
+  GraphConfiguratorItem.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        picture = json['picture'];
+}
+
+class GraphConfiguratorStep {
+  GraphConfiguratorStep({
+    required this.iD,
+    this.type,
+    required this.name,
+    this.description,
+    required this.values,
+  });
+  int iD;
+  String? type;
+  String name;
+  String? description;
+  List<GraphConfiguratorItem> values;
+
+  GraphConfiguratorStep.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        type = json['type'],
+        name = json['name'],
+        description = json['description'],
+        values = List<GraphConfiguratorItem>.from(json['values']
+            .map((model) => GraphConfiguratorItem.fromJson(model)));
+}
+
 class PageInfo {
   PageInfo({
     required this.hasNextPage,
@@ -9,6 +48,7 @@ class PageInfo {
   bool hasPreviousPage;
   String? startCursor;
   String? endCursor;
+
   PageInfo.fromJson(Map<String, dynamic> json)
       : hasNextPage = json['hasNextPage'],
         hasPreviousPage = json['hasPreviousPage'],
@@ -23,6 +63,7 @@ class GraphProductEdge {
   });
   String cursor;
   GraphProduct node;
+
   GraphProductEdge.fromJson(Map<String, dynamic> json)
       : cursor = json['cursor'],
         node = GraphProduct.fromJson(json['node']);
@@ -86,6 +127,7 @@ class GraphPoll {
   int? scaleMin;
   int? scaleMax;
   List<GraphPollAnswer> pollAnswers;
+
   GraphPoll.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         name = json['name'],
@@ -146,6 +188,7 @@ class GraphOpeningHours {
   int weekDay;
   int? start;
   int? finish;
+
   GraphOpeningHours.fromJson(Map<String, dynamic> json)
       : weekDay = json['weekDay'],
         start = json['start'],
@@ -163,6 +206,7 @@ class GraphMetroStation {
   String colorLine;
   String stationName;
   String distance;
+
   GraphMetroStation.fromJson(Map<String, dynamic> json)
       : lineName = json['lineName'],
         colorLine = json['colorLine'],
