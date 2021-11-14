@@ -37,7 +37,11 @@ class _FavouritesPageState extends State<FavouritesPage> {
             );
           }
 
-          if (result.data!['getFavoritesProducts'].length == 0) {
+          List<GraphProduct> favourites = List<GraphProduct>.from(result
+              .data!['getFavoritesProducts']
+              .map((model) => GraphProduct.fromJson(model)));
+
+          if (favourites.length == 0) {
             return Center(child: Text("Жми сердечко"));
           }
 
@@ -63,19 +67,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           width: 24.0,
                           child: LevranaCheckbox(
                               value: selectedRows.length != 0 &&
-                                  selectedRows.containsAll(result
-                                      .data!['getFavoritesProducts']
-                                      .map((e) => e['iD'])
-                                      .cast<int>()
-                                      .toList()),
+                                  selectedRows.containsAll(
+                                      favourites.map((e) => e.iD).toList()),
                               onChanged: (newValue) {
                                 setState(() {
                                   if (newValue == true) {
-                                    selectedRows.addAll(result
-                                        .data!['getFavoritesProducts']
-                                        .map((e) => e['iD'])
-                                        .cast<int>()
-                                        .toList());
+                                    selectedRows.addAll(
+                                        favourites.map((e) => e.iD).toList());
                                   } else {
                                     selectedRows.clear();
                                   }
@@ -120,7 +118,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                     child: Wrap(
                         spacing: 0,
                         runSpacing: 32,
-                        children: result.data!['getFavoritesProducts']
+                        children: favourites
                             .map(
                               (product) => FractionallySizedBox(
                                 widthFactor: 0.5,
@@ -130,33 +128,30 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                       padding: const EdgeInsets.symmetric(
                                           horizontal: 8),
                                       child: ProductCard(
-                                          product:
-                                              GraphProduct.fromJson(product),
+                                          product: product,
                                           onTap: () async {
                                             await Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) =>
                                                         ProductPage(
-                                                            id: product[
-                                                                'iD'])));
+                                                            id: product.iD)));
                                             refetch!();
                                           }),
                                     ),
                                     Positioned(
                                       top: 10,
                                       child: LevranaBigCheckbox(
-                                          value: selectedRows
-                                              .contains(product['iD']),
+                                          value:
+                                              selectedRows.contains(product.iD),
                                           onChanged: (newValue) {
                                             if (newValue == true) {
                                               setState(() {
-                                                selectedRows.add(product['iD']);
+                                                selectedRows.add(product.iD);
                                               });
                                             } else {
                                               setState(() {
-                                                selectedRows
-                                                    .remove(product['iD']);
+                                                selectedRows.remove(product.iD);
                                               });
                                             }
                                           }),
@@ -172,33 +167,6 @@ class _FavouritesPageState extends State<FavouritesPage> {
               ),
             ),
           );
-
-          return GridView.builder(
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                childAspectRatio: 0.8,
-              ),
-              itemCount: result.data!['getFavoritesProducts'].length,
-              itemBuilder: (context, index) {
-                var product = result.data!['getFavoritesProducts'][index];
-                return ProductCard(
-                    product: GraphProduct.fromJson(product),
-                    onTap: () async {
-                      await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ProductPage(id: product['iD'])));
-                      refetch!();
-                    });
-              });
-
-          return Center(
-              child: Image(
-            image: AssetImage('assets/Корзина пуста.png'),
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ));
         });
   }
 }
