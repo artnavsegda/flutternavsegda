@@ -69,10 +69,13 @@ class _FiltersPageState extends State<FiltersPage> {
                 );
               }
 
+              GraphFilterView filterView =
+                  GraphFilterView.fromJson(result.data!['getFilters']);
+
               return Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: ListView.separated(
-                  itemCount: result.data!['getFilters']['groups'].length + 2,
+                  itemCount: filterView.groups.length + 2,
                   itemBuilder: (context, index) {
                     if (index == 0) {
                       return Text(
@@ -127,8 +130,7 @@ class _FiltersPageState extends State<FiltersPage> {
                       );
                     }
 
-                    final section =
-                        result.data!['getFilters']['groups'][index - 2];
+                    final section = filterView.groups[index - 2];
 
                     return InkWell(
                       onTap: () {
@@ -136,33 +138,31 @@ class _FiltersPageState extends State<FiltersPage> {
                             context,
                             MaterialPageRoute(
                                 builder: (context) => SelectorPage(
-                                      title: section['name'],
-                                      type: section['type'],
-                                      values: section['values'],
-                                      filterGroup: filter.groups[section['iD']],
-                                      onChangeFilter: (newValue, newId) {
+                                      title: section.name,
+                                      type: section.type,
+                                      values: section.values,
+                                      filterGroup: filter.groups[section.iD],
+                                      onChangeFilter:
+                                          (bool? newValue, int newId) {
                                         var newFilter =
                                             GraphFilter.from(filter);
                                         if (newValue == true) {
                                           if (filter.groups
-                                              .containsKey(section['iD'])) {
-                                            newFilter
-                                                .groups[section['iD']]?.values
+                                              .containsKey(section.iD)) {
+                                            newFilter.groups[section.iD]?.values
                                                 .add(newId);
                                           } else {
-                                            newFilter.groups[section['iD']] =
+                                            newFilter.groups[section.iD] =
                                                 GraphFilterGroup(
-                                                    iD: section['iD'],
+                                                    iD: section.iD,
                                                     values: {newId});
                                           }
                                         } else {
-                                          newFilter
-                                              .groups[section['iD']]?.values
+                                          newFilter.groups[section.iD]?.values
                                               .remove(newId);
-                                          if (newFilter.groups[section['iD']]!
+                                          if (newFilter.groups[section.iD]!
                                               .values.isEmpty)
-                                            newFilter.groups
-                                                .remove(section['iD']);
+                                            newFilter.groups.remove(section.iD);
                                         }
                                         setState(() {
                                           filter = newFilter;
@@ -175,141 +175,30 @@ class _FiltersPageState extends State<FiltersPage> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              section['name'],
+                              section.name,
                               style: TextStyle(fontSize: 16.0),
                             ),
-                            filter.groups[section['iD']]?.values.isNotEmpty ??
+                            filter.groups[section.iD]?.values.isNotEmpty ??
                                     false
                                 ? Text(
-                                    section['values']
+                                    section.values
                                         .where((element) =>
-                                            filter.groups[section['iD']]?.values
-                                                .contains(element['iD']) ??
+                                            filter.groups[section.iD]?.values
+                                                .contains(element.iD) ??
                                             false)
                                         .toList()
-                                        .map((element) => element['name'])
+                                        .map((element) => element.name)
                                         .join(', '),
                                     style: TextStyle(
                                         fontSize: 16.0, color: Colors.black45))
                                 : SizedBox.shrink(),
-/*                             Wrap(
-                              spacing: 10,
-                              children: section['values']
-                                  .where((element) =>
-                                      filter.groups[section['iD']]?.values
-                                          .contains(element['iD']) ??
-                                      false)
-                                  .toList()
-                                  .map((element) {
-                                    return Text(
-                                      element['name'],
-                                      style: TextStyle(
-                                          fontSize: 16.0,
-                                          color: Colors.black45),
-                                    );
-                                  })
-                                  .toList()
-                                  .cast<Widget>(),
-                            ) */
                           ]),
-                    );
-
-                    return Column(
-                      children: [
-                        Text(section['name']),
-                        Column(
-                            children: section['values']
-                                .map((element) {
-                                  return CheckboxListTile(
-                                      value: filter
-                                              .groups[section['iD']]?.values
-                                              .contains(element['iD']) ??
-                                          false,
-                                      onChanged: (newValue) {
-                                        var newFilter =
-                                            GraphFilter.from(filter);
-                                        if (newValue == true) {
-                                          if (filter.groups
-                                              .containsKey(section['iD'])) {
-                                            newFilter
-                                                .groups[section['iD']]?.values
-                                                .add(element['iD']);
-                                          } else {
-                                            newFilter.groups[section['iD']] =
-                                                GraphFilterGroup(
-                                                    iD: section['iD'],
-                                                    values: {element['iD']});
-                                          }
-                                        } else {
-                                          newFilter
-                                              .groups[section['iD']]?.values
-                                              .remove(element['iD']);
-                                          if (newFilter.groups[section['iD']]!
-                                              .values.isEmpty)
-                                            newFilter.groups
-                                                .remove(section['iD']);
-                                        }
-                                        setState(() {
-                                          filter = newFilter;
-                                        });
-                                        widget.onFilterChanged(newFilter);
-                                      },
-                                      title: Text(element['name']));
-                                })
-                                .toList()
-                                .cast<Widget>()),
-                      ],
                     );
                   },
                   separatorBuilder: (context, index) {
                     return Divider();
                   },
                 ),
-              );
-
-              return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-/*                   InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => Configurator(),
-                        ),
-                      );
-                    },
-                    child: SizedBox(
-                      height: 92,
-                      child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                                begin: Alignment.centerLeft,
-                                end: Alignment.centerRight,
-                                colors: <Color>[
-                                  Color.fromRGBO(255, 162, 76, 0.22),
-                                  Color.fromRGBO(255, 162, 76, 0)
-                                ]),
-                            color: Color(0xffFFF2C4),
-                          ),
-                          child: Row(children: [
-                            Flexible(
-                                child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child:
-                                  Text("Подобрать косметику в конфигураторе"),
-                            )),
-                            Image.asset("assets/Bottles.png")
-                          ])),
-                    ),
-                  ), */
-/*                   Text("Упорядочить"),
-                  Text("Цена"),
-                  Text("Лейблы"),
-                  Text("Бренды"),
-                  Text("Тип продукта"),
-                  Text("Тип кожи"), */
-                ],
               );
             }));
   }

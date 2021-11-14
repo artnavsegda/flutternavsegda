@@ -59,15 +59,18 @@ class GraphFilterGroupView {
   GraphFilterGroupView({
     required this.iD,
     required this.name,
+    this.type,
     required this.values,
   });
   int iD;
   String name;
+  String? type;
   List<GraphFilterValueView> values;
 
   GraphFilterGroupView.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         name = json['name'],
+        type = json['type'],
         values = List<GraphFilterValueView>.from(json['values']
             .map((model) => GraphFilterValueView.fromJson(model)));
 }

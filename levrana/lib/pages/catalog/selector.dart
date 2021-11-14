@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'filter.dart';
 import '../../utils.dart';
 import '../../components/components.dart';
+import '../../gql.dart';
 
 class SelectorPage extends StatefulWidget {
   final GraphFilterGroup? filterGroup;
   final String title;
-  final values;
-  final type;
-  final onChangeFilter;
+  final List<GraphFilterValueView> values;
+  final String? type;
+  final void Function(bool?, int) onChangeFilter;
 
   const SelectorPage({
     Key? key,
@@ -45,24 +45,24 @@ class _SelectorPageState extends State<SelectorPage> {
               children: [
                 LevranaCheckboxTitle(
                   onChanged: (newValue) {
-                    widget.onChangeFilter(newValue, widget.values[index]['iD']);
+                    widget.onChangeFilter(newValue, widget.values[index].iD);
                     var newFilterGroup;
                     if (filterGroup != null)
                       newFilterGroup = GraphFilterGroup.from(filterGroup!);
                     else
                       newFilterGroup = GraphFilterGroup(iD: 0, values: <int>{});
                     if (newValue == true) {
-                      newFilterGroup.values.add(widget.values[index]['iD']);
+                      newFilterGroup.values.add(widget.values[index].iD);
                     } else {
-                      newFilterGroup.values.remove(widget.values[index]['iD']);
+                      newFilterGroup.values.remove(widget.values[index].iD);
                     }
                     setState(() {
                       filterGroup = newFilterGroup;
                     });
                   },
-                  value: filterGroup?.values
-                          .contains(widget.values[index]['iD']) ??
-                      false,
+                  value:
+                      filterGroup?.values.contains(widget.values[index].iD) ??
+                          false,
                   title: SelectorCharacteristic(
                       element: widget.values[index], type: widget.type),
                 ),
@@ -85,8 +85,8 @@ class SelectorCharacteristic extends StatelessWidget {
     required this.type,
   }) : super(key: key);
 
-  final element;
-  final type;
+  final GraphFilterValueView element;
+  final String? type;
 
   @override
   Widget build(BuildContext context) {
@@ -96,12 +96,12 @@ class SelectorCharacteristic extends StatelessWidget {
       return SizedBox(
         width: 200,
         height: 10,
-        child: Container(color: hexToColor(element['name'])),
+        child: Container(color: hexToColor(element.name)),
       );
       return Text('⬤ ',
-          style: TextStyle(fontSize: 7.0, color: hexToColor(element['name'])));
+          style: TextStyle(fontSize: 7.0, color: hexToColor(element.name)));
     } else {
-      return Text(element['name'], style: TextStyle(fontSize: 16.0));
+      return Text(element.name, style: TextStyle(fontSize: 16.0));
     }
   }
 }
