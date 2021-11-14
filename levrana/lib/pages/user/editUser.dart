@@ -86,19 +86,19 @@ class _EditUserPageState extends State<EditUserPage> {
                   );
                 }
 
-                initializeDateFormatting();
-                //print(result);
+                GraphClientFullInfo userInfo =
+                    GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 
-                bool birthdayIsSet = (dateOfBirth ??
-                        result.data!['getClientInfo']['dateOfBirth']) !=
-                    null;
+                initializeDateFormatting();
+
+                bool birthdayIsSet =
+                    (dateOfBirth ?? userInfo.dateOfBirth) != null;
 
                 DateTime? birthDateTime = birthdayIsSet
-                    ? DateTime.parse(dateOfBirth ??
-                        result.data!['getClientInfo']['dateOfBirth'])
+                    ? DateTime.parse(dateOfBirth ?? userInfo.dateOfBirth ?? "")
                     : null;
 
-                var clientGUID = result.data!['getClientInfo']['clientGUID'];
+                String clientGUID = userInfo.clientGUID;
                 return Column(
                   children: [
                     SizedBox(height: 100.0),
@@ -109,9 +109,8 @@ class _EditUserPageState extends State<EditUserPage> {
                           radius: 86,
                           backgroundImage: _imageFile != null
                               ? FileImage(File(_imageFile?.path ?? ""))
-                              : result.data!['getClientInfo']['picture'] != ""
-                                  ? NetworkImage(
-                                      result.data!['getClientInfo']['picture'])
+                              : userInfo.picture != ""
+                                  ? NetworkImage(userInfo.picture ?? "")
                                   : MemoryImage(kTransparentImage)
                                       as ImageProvider,
                           //backgroundImage:
@@ -173,8 +172,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                       name = value;
                                     });
                                   },
-                                  initialValue: result.data!['getClientInfo']
-                                      ['name'],
+                                  initialValue: userInfo.name,
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
                                       return 'Введите имя';
@@ -192,8 +190,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                           eMail = value;
                                         });
                                       },
-                                      initialValue: result
-                                          .data!['getClientInfo']['eMail'],
+                                      initialValue: userInfo.eMail,
                                       validator: (value) {
                                         if (value == null || value.isEmpty) {
                                           return 'Введите E-Mail';
@@ -202,9 +199,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                       },
                                       decoration:
                                           InputDecoration(labelText: 'E-mail')),
-                                  if (result.data!['getClientInfo']
-                                          ['confirmedEMail'] ==
-                                      false)
+                                  if (userInfo.confirmedEMail == false)
                                     OutlinedButton(
                                         style: ButtonStyle(
                                             minimumSize:
@@ -284,9 +279,8 @@ class _EditUserPageState extends State<EditUserPage> {
                                       phone = value;
                                     });
                                   },
-                                  initialValue: maskFormatter.maskText(result
-                                      .data!['getClientInfo']['phone']
-                                      .toString()),
+                                  initialValue: maskFormatter
+                                      .maskText(userInfo.phone.toString()),
                                   inputFormatters: [maskFormatter],
                                   keyboardType: TextInputType.number,
                                   decoration:
@@ -342,8 +336,8 @@ class _EditUserPageState extends State<EditUserPage> {
                               TextFormField(
                                   key: Key(gender ?? "gender"),
                                   readOnly: true,
-                                  initialValue: genders[gender ??
-                                      result.data!['getClientInfo']['gender']],
+                                  initialValue:
+                                      genders[gender ?? userInfo.gender],
                                   onTap: () {
                                     showCupertinoModalPopup(
                                         context: context,
@@ -451,33 +445,20 @@ class _EditUserPageState extends State<EditUserPage> {
                                               print(phone != null
                                                   ? int.parse(maskFormatter
                                                       .unmaskText(phone!))
-                                                  : result.data![
-                                                          'getClientInfo']
-                                                      ['phone']);
+                                                  : userInfo.phone);
                                               runMutation({
                                                 'clientGUID': clientGUID,
-                                                'name': name ??
-                                                    result.data![
-                                                            'getClientInfo']
-                                                        ['name'],
-                                                'eMail': eMail ??
-                                                    result.data![
-                                                            'getClientInfo']
-                                                        ['eMail'],
+                                                'name': name ?? userInfo.name,
+                                                'eMail':
+                                                    eMail ?? userInfo.eMail,
                                                 'phone': phone != null
                                                     ? int.parse(maskFormatter
                                                         .unmaskText(phone!))
-                                                    : result.data![
-                                                            'getClientInfo']
-                                                        ['phone'],
+                                                    : userInfo.phone,
                                                 'dateOfBirth': dateOfBirth ??
-                                                    result.data![
-                                                            'getClientInfo']
-                                                        ['dateOfBirth'],
-                                                'gender': gender ??
-                                                    result.data![
-                                                            'getClientInfo']
-                                                        ['gender'],
+                                                    userInfo.dateOfBirth,
+                                                'gender':
+                                                    gender ?? userInfo.gender,
                                               });
                                               //Navigator.pop(context);
                                             }
