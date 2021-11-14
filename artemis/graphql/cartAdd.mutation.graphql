@@ -1,0 +1,5 @@
+mutation cartAdd($productID: Int!, $characteristicValueIds: [Int]) {
+  cartAdd(cartItem: {productID: $productID, quantity: 1, characteristicValueIds: $characteristicValueIds}) {
+    result
+  }
+}

@@ -1,0 +1,1571 @@
+type Query {
+  # Список меню для сайта
+  siteMenu: [graphSiteMenu]
+
+  # Наполнение информационной страницы сайта
+  getInfoPage(pageName: String): graphInfoPage
+
+  # Темы блогов
+  getTopics: [graphTopic]
+
+  # Блоги
+  getBlogs: [graphBlog]
+
+  # Наполнение блога
+  getBlogPage(blogPageID: Int): graphBlogFull
+
+  # Бренды
+  getFamily: [graphFamily]
+
+  # Каталог
+  getCatalog: [graphCatalog]
+
+  # Акции
+  getActions: [graphAction]
+
+  # Акция
+  getAction(actionID: Int): graphActionCard
+
+  # Блоки товаров на главной
+  getTopBlocks: [graphTopBlock]
+
+  # Фильтры в каталоге
+  getFilters(catalogID: Int): graphFilterView
+
+  # Список товаров
+  getProducts(
+    # Only return edges after the specified cursor.
+    after: String
+
+    # Specifies the maximum number of edges to return, starting after the cursor specified by 'after', or the first number of edges if 'after' is not specified.
+    first: Int
+    catalogID: Int
+    filter: graphFilter
+  ): graphProductConnection
+
+  # Поиск товаров
+  findProducts(searchBox: String): [graphProduct]
+
+  # Конфигуратор
+  getConfigurator: [graphConfiguratorStep]
+
+  # Список товаров по конфигуратору
+  getConfiguratorProducts(
+    # Only return edges after the specified cursor.
+    after: String
+
+    # Specifies the maximum number of edges to return, starting after the cursor specified by 'after', or the first number of edges if 'after' is not specified.
+    first: Int
+    configuratorItemIds: [Int]
+  ): graphProductConnection
+
+  # Карточка товара
+  getProduct(productID: Int): graphProductCard
+
+  # Список магазинов
+  getShops: [graphShop]
+
+  # Параметры устройства
+  getSettings: graphSettingsResult
+
+  # Информация о клиенте
+  getClientInfo: graphClientFullInfo
+
+  # Список избранных товаров
+  getFavoritesProducts: [graphProduct]
+
+  # Поиск клиента по номеру телефона или GUID
+  friendFind(gUIDorPhone: String): graphFriend
+
+  # Реакция на старте приложения и на входе на главную
+  getReactions: [graphReaction]
+
+  # Корзина
+  getCart: [graphCartRow]
+
+  # Список вопросов и возможных ответов
+  getPoll(actionID: Int): [graphPoll]
+
+  # Состояние розыгрыша
+  getDraw(actionID: Int): graphDraw
+
+  # FAQ. Группы и вопросы
+  getFAQGroups: [graphFAQGroup]
+
+  # FAQ. Вопрос-Ответ
+  getFAQ(fAQQuestionID: Int): graphFAQ
+
+  # Чат со службой поддержки
+  getSupport: [graphSupport]
+}
+
+# Элемент меню сайта
+type graphSiteMenu {
+  # Идентификатор
+  iD: Int!
+
+  # Имя страницы
+  name: String!
+
+  # Наименование
+  caption: String!
+
+  # META-данные
+  meta: String
+
+  # Ссылка на переход с пункта меню
+  redirectURL: String
+  location: LocationType
+  type: PageType
+  templateType: TemplateType
+  subMenu: [graphSiteMenu]
+}
+
+# Тип расположения
+enum LocationType {
+  # не показывать в меню
+  NONE
+
+  # Вверх
+  TOP
+
+  # Внизу
+  BOTTOM
+
+  # Справа
+  RIGHT
+
+  # Слева
+  LEFT
+
+  # в поле
+  LANDING
+}
+
+# Тип страницы
+enum PageType {
+  # системная
+  SYSTEM
+
+  # информационная
+  INFO
+
+  # ссылка
+  REDIRECT
+}
+
+# Тип шаблона информационной страницы
+enum TemplateType {
+  # Базовый шаблон с UI
+  BASE
+
+  # Очищенный от UI - только контент страницы
+  CLEAR
+}
+
+# Данные информационной страницы
+type graphInfoPage {
+  # Идентификатор
+  iD: Int!
+
+  # Имя страницы
+  name: String!
+
+  # Наименование
+  caption: String!
+
+  # META-данные
+  meta: String
+
+  # Наполнение информационной страницы
+  content: String
+  templateType: TemplateType
+}
+
+# Тема блога (топик)
+type graphTopic {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+}
+
+# Блог
+type graphBlog {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Дата
+  date: Long
+
+  # Картинка
+  picture: String
+
+  # Картинка квадрат
+  squarePicture: String
+  topics: [graphTopic]
+}
+
+scalar Long
+
+# Блог
+type graphBlogFull {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Дата
+  date: Long
+
+  # Наименование
+  caption: String!
+
+  # Наполнение информационной страницы
+  content: String
+
+  # Картинка
+  picture: String
+  templateType: TemplateType
+}
+
+# Бренд
+type graphFamily {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Описание
+  description: String
+
+  # Картинка
+  picture: String
+}
+
+# Элемент каталога
+type graphCatalog {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Картинка
+  picture: String
+
+  # Число товаров в каталоге
+  totalCount: Int
+  childs: [graphCatalog]
+}
+
+# Акция (список)
+type graphAction {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Начало акции
+  dateStart: Long
+
+  # Конец акции
+  dateFinish: Long
+
+  # Картинка
+  picture: String
+
+  # Картинка квадрат
+  squarePicture: String
+}
+
+# Акция (карта)
+type graphActionCard {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Специальные условия
+  specialConditions: String
+
+  # Описание
+  description: String
+
+  # URL на описание
+  uRL: String
+
+  # Бренд
+  familyName: String
+
+  # Начало акции
+  dateStart: Long
+
+  # Конец акции
+  dateFinish: Long
+
+  # Картинка
+  picture: String
+
+  # Картинка квадрат
+  squarePicture: String
+  type: ActionType
+  products: [graphProduct]
+  shops: [graphShop]
+}
+
+# Тип акции
+enum ActionType {
+  # простая
+  SIMPLE
+
+  # список магазинов
+  SHOP
+
+  # список товаров
+  PRODUCT
+
+  # опрос
+  POLL
+
+  # розыгрыш
+  DRAWING
+
+  # призы
+  PRIZE
+
+  # скидка
+  DISCOUNT
+
+  # подарок X+Z
+  GIFT
+}
+
+# Товар
+type graphProduct {
+  # Идентификатор
+  iD: Int!
+  type: ProductType
+
+  # Бренд
+  familyID: Int!
+
+  # Основной каталог
+  topCatalogID: Int!
+
+  # Название
+  name: String!
+
+  # Картинка
+  picture: String
+
+  # В избранном
+  isFavorite: Boolean!
+
+  # Рейтинг по избранным
+  favorites: Int!
+  stickerPictures: [String]
+  attributes: [graphProductAttribute]
+  characteristics: [graphCharacteristic]
+  prices: [graphProductPrice]
+}
+
+# Тип продукта
+enum ProductType {
+  # простой
+  SIMPLE
+
+  # составной. с модификатором
+  ADDITION
+
+  # составной. наборы
+  SET
+
+  # составной. на выбор
+  BOX
+
+  # модификатор
+  MODIFICATOR
+}
+
+# Атрибут товара
+type graphProductAttribute {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Цвет
+  color: String!
+}
+
+# Характеристика
+type graphCharacteristic {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+  type: CharacteristicType
+
+  # Влияет на цену
+  isPrice: Boolean!
+  values: [graphCharacteristicValue]
+}
+
+# Тип характеристики
+enum CharacteristicType {
+  # Текст
+  TEXT
+
+  # Объем
+  VOLUME
+
+  # Цвет
+  COLOR
+
+  # Размер
+  SIZE
+}
+
+type graphCharacteristicValue {
+  # Идентификатор
+  iD: Int!
+
+  # Значение
+  value: String!
+
+  # Примечание
+  comment: String
+}
+
+# Цена товара
+type graphProductPrice {
+  # Цена
+  price: Decimal!
+
+  # Старая цена
+  oldPrice: Decimal
+
+  # Идентификатор значения характеристики
+  characteristicValueID: Int
+}
+
+scalar Decimal
+
+# Магазин
+type graphShop {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Описание
+  description: String
+
+  # Адрес
+  address: String
+
+  # Координаты GPS.Долгота
+  longitude: Decimal
+
+  # Координаты GPS.Широта
+  latitude: Decimal
+
+  # Время работы сегодня.Открытие
+  start: Seconds
+
+  # Время работы сегодня.Закрытие
+  finish: Seconds
+
+  # Идентификатор региона
+  regionId: Int!
+
+  # Регион
+  regionName: String!
+  pictures: [String]
+  metroStations: [graphMetroStation]
+  openingHours: [graphOpeningHours]
+}
+
+# The `Seconds` scalar type represents a period of time represented as the total number of seconds in range [-922337203685, 922337203685].
+scalar Seconds
+
+# Станция метро точки
+type graphMetroStation {
+  # Название ветки метро
+  lineName: String!
+
+  # Цвет линии метро #XXXXXX
+  colorLine: String!
+
+  # Название станции метро
+  stationName: String!
+
+  # Расстояние от метро
+  distance: String!
+}
+
+# Время работы точки
+type graphOpeningHours {
+  # День недели
+  weekDay: Int!
+
+  # Время работы.Открытие
+  start: Long
+
+  # Время работы.Закрытие
+  finish: Long
+}
+
+# Блок товаров на главной
+type graphTopBlock {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+  products: [graphProduct]
+}
+
+type graphFilterView {
+  # Минимальная цена
+  priceMin: Int
+
+  # Максимальная цена
+  priceMax: Int
+  groups: [graphFilterGroupView]
+}
+
+# Элемент фильтра
+type graphFilterGroupView {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+  type: CharacteristicType
+  values: [graphFilterValueView]
+}
+
+# Значение фильтра
+type graphFilterValueView {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+}
+
+# A connection from an object to a list of objects of type `graphProduct`.
+type graphProductConnection {
+  # A count of the total number of objects in this connection, ignoring pagination. This allows a client to fetch the first five objects by passing "5" as the argument to `first`, then fetch the total count so it could display "5 of 83", for example. In cases where we employ infinite scrolling or don't have an exact count of entries, this field will return `null`.
+  totalCount: Int
+
+  # Information to aid in pagination.
+  pageInfo: PageInfo!
+
+  # A list of all of the edges returned in the connection.
+  edges: [graphProductEdge]
+
+  # A list of all of the objects returned in the connection. This is a convenience field provided for quickly exploring the API; rather than querying for "{ edges { node } }" when no edge data is needed, this field can be used instead. Note that when clients like Relay need to fetch the "cursor" field on the edge to enable efficient pagination, this shortcut cannot be used, and the full "{ edges { node } } " version should be used instead.
+  items: [graphProduct]
+}
+
+# Information about pagination in a connection.
+type PageInfo {
+  # When paginating forwards, are there more items?
+  hasNextPage: Boolean!
+
+  # When paginating backwards, are there more items?
+  hasPreviousPage: Boolean!
+
+  # When paginating backwards, the cursor to continue.
+  startCursor: String
+
+  # When paginating forwards, the cursor to continue.
+  endCursor: String
+}
+
+# An edge in a connection from an object to another object of type `graphProduct`.
+type graphProductEdge {
+  # A cursor for use in pagination
+  cursor: String!
+
+  # The item at the end of the edge
+  node: graphProduct
+}
+
+# Параметры фильтрации товаров
+input graphFilter {
+  sortType: SortType
+  sortOrder: SortOrder
+
+  # Минимальная цена
+  priceMin: Int
+
+  # Максимальная цена
+  priceMax: Int
+  groups: [graphFilterGroup]
+}
+
+# Тип сортировки
+enum SortType {
+  # по умолчанию
+  DEFAULT
+
+  # по имени
+  NAME
+
+  # по цене
+  PRICE
+}
+
+# Порядок сортировки
+enum SortOrder {
+  # по возрастанию
+  ASC
+
+  # по убыванию
+  DESC
+}
+
+# Элемент фильтра
+input graphFilterGroup {
+  # Идентификатор
+  iD: Int!
+  values: [Int]
+}
+
+# Шаг конфигуратора
+type graphConfiguratorStep {
+  # Идентификатор
+  iD: Int!
+  type: ConfiguratorStepType
+
+  # Название
+  name: String!
+
+  # Описание
+  description: String
+  values: [graphConfiguratorItem]
+}
+
+# Тип отображения элементов конфигуратора
+enum ConfiguratorStepType {
+  # Картинка
+  IMAGE
+
+  # Иконка
+  ICON
+
+  # Текст
+  TEXT
+}
+
+# Значение конфигуратора
+type graphConfiguratorItem {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Картинка
+  picture: String
+}
+
+# Карточка товара
+type graphProductCard {
+  # Идентификатор
+  iD: Int!
+  type: ProductType
+
+  # Бренд
+  familyID: Int!
+
+  # Основной каталог
+  topCatalogID: Int!
+
+  # Название
+  name: String!
+
+  # Краткое описание
+  comment: String
+
+  # Описание
+  description: String
+
+  # Применение
+  application: String
+
+  # Состав текст
+  composition: String
+
+  # В избранном
+  isFavorite: Boolean!
+
+  # Рейтинг по избранным
+  favorites: Int!
+  catalogs: [Int]
+  articles: [graphArticle]
+  attributes: [graphProductAttribute]
+  awards: [graphAward]
+  characteristics: [graphCharacteristic]
+  prices: [graphProductPrice]
+  pictures: [graphPicture]
+  stickerPictures: [String]
+  compositions: [graphComposition]
+  link: [graphProduct]
+  similar: [graphProduct]
+  modifiers: [graphModifier]
+  reviews: [graphProductReview]
+}
+
+# Артикул по характеристикам
+type graphArticle {
+  # Идентификатор значения характеристики #1
+  characteristicValueID: Int
+
+  # Идентификатор значения характеристики #2
+  characteristicValue2ID: Int
+
+  # Артикул
+  value: String!
+}
+
+# Награда
+type graphAward {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+
+  # Картинка
+  picture: String!
+}
+
+# Картинка товара
+type graphPicture {
+  # Картинка preview
+  small: String!
+
+  # Картинка
+  full: String!
+
+  # Идентификатор значения характеристики
+  characteristicValueID: Int
+}
+
+# Элемент состава
+type graphComposition {
+  # Описание
+  description: String!
+
+  # Картинка
+  picture: String
+}
+
+# Набор модификаторов
+type graphModifier {
+  # Заголовок
+  caption: String
+
+  # Обязательный выбор
+  required: Boolean
+
+  # Количесество для выбора
+  quantity: Int
+  products: [graphProduct]
+}
+
+# Отзыв о продукте
+type graphProductReview {
+  # Имя клиента
+  clientName: String
+
+  # Мой отзыв
+  self: Boolean!
+
+  # Дата
+  date: Long!
+
+  # Комментарий
+  text: String
+
+  # Оценка
+  mark: Short!
+}
+
+scalar Short
+
+# Параметры приложения и сайта
+type graphSettingsResult {
+  # SenderID для push-уведомлений Android
+  senderID: String
+
+  # Ссылка на политику конфидициальности
+  privacyPolicy: String!
+
+  # Время до следующей попытки запросить SMS-код (сек)
+  sMSTimer: Int!
+
+  # Группа помощи - правила системы лояльности
+  rulesHelpGroupID: Int!
+
+  # Бонусов за пригласить друга
+  pointInviteFriend: Int!
+
+  # Минимальная сумма покупок друга
+  ordersFriends: Int!
+
+  # Ключ к яндекс-картам
+  yandexApiKey: String
+
+  # Телефон службы поддержки
+  phone: Long
+
+  # Язык интерфейса
+  language: String
+
+  # IOS-приложение
+  iOSApplication: String
+
+  # Android-приложение
+  androidApplication: String
+
+  # email по общим вопросам
+  eMail: String
+
+  # email по товарам и заказам
+  eMailOrder: String
+
+  # Профиль Instagram
+  socialNetwork_Instagram: String
+
+  # Профиль Facebook
+  socialNetwork_Facebook: String
+
+  # Профиль ВКонтакте
+  socialNetwork_VK: String
+  startType: graphStartTypeEnum
+}
+
+# Старт приложения
+enum graphStartTypeEnum {
+  # Новое устройство
+  NEW_USER
+
+  # Новая версия приложкения
+  NEW_VERSION
+
+  # Обычный старт
+  NORMAL
+}
+
+# Все данные о клиенте
+type graphClientFullInfo {
+  # GUID клиента
+  clientGUID: String!
+
+  # Телефонный номер (в формате 7XXXYYYXXZZ)
+  phone: Long
+
+  # Имя
+  name: String
+
+  # Дата Рождения
+  dateOfBirth: DateTime
+  gender: GenderType
+
+  # e-mail
+  eMail: String
+
+  # Телефон подтвержден
+  confirmedPhone: Boolean!
+
+  # Почта подтверждена
+  confirmedEMail: Boolean!
+
+  # Вход по паролю
+  isPassword: Boolean!
+
+  # Бонусы
+  points: Int!
+
+  # Число заказаов
+  orders: Int!
+
+  # В Избранном
+  favorites: Int!
+
+  # Аватар
+  picture: String
+
+  # Промокод для реферальной программы
+  codeInviteFriend: String
+  deliveryAddresses: [graphDeliveryAddress]
+  bankCards: [graphBankCard]
+}
+
+# The `DateTime` scalar type represents a date and time. `DateTime` expects timestamps to be formatted in accordance with the [ISO-8601](https://en.wikipedia.org/wiki/ISO_8601) standard.
+scalar DateTime
+
+# Пол человека
+enum GenderType {
+  # неопределен
+  UNDETERMINED
+
+  # мужской
+  MALE
+
+  # женский
+  FEMALE
+}
+
+# Адрес доставки
+type graphDeliveryAddress {
+  # Идентификатор
+  iD: Int!
+
+  # Адрес
+  address: String!
+
+  # Координаты GPS.Долгота
+  longitude: Decimal!
+
+  # Координаты GPS.Широта
+  latitude: Decimal!
+
+  # Описание
+  description: String
+}
+
+# Банковская карта
+type graphBankCard {
+  # Идентификатор
+  iD: Int!
+
+  # Маскированный номер карты
+  mask: String!
+
+  # Иконка платежной системы или банка
+  picture: String
+}
+
+# Информация о друге
+type graphFriend {
+  # GUID клиента
+  clientGUID: String!
+
+  # Имя
+  name: String
+
+  # Аватар
+  picture: String
+}
+
+# Реакция для покупателя
+type graphReaction {
+  type: ReactionType
+  order: graphOrderShort
+  action: graphActionShort
+  message: graphMessage
+}
+
+# Тип реакции
+enum ReactionType {
+  # отзыв о покупке
+  REVIEW
+
+  # получи подарок
+  GIFT
+
+  # участвуй в розыгрыше
+  DRAW
+
+  # заказ
+  ORDER
+
+  # сообщение
+  MESSAGE
+}
+
+type graphOrderShort {
+  orderId: Long!
+  dateOrder: Long!
+  priceOrder: Int!
+  address: String!
+}
+
+# Акция
+type graphActionShort {
+  # Идентификатор
+  iD: Int!
+
+  # Название
+  name: String!
+}
+
+# Параметры сообщения
+type graphMessage {
+  # идентификатор сообщения
+  iD: Int!
+
+  # заголовок сообщения
+  caption: String
+
+  # текст сообщшения
+  text: String
+
+  # текст на кнопке
+  button: String
+
+  # ссылка на кнопке
+  uRL: String
+}
+
+# Позиция заказа
+type graphCartRow {
+  # Идентификатор строки
+  rowID: Int!
+
+  # Идентификатор продукта
+  productID: Int!
+
+  # Наименование продукта
+  productName: String!
+
+  # Количество товара
+  quantity: Int!
+
+  # Сумма
+  amount: Decimal!
+
+  # Старая сумма
+  oldAmount: Decimal
+
+  # Модификаторы
+  modifiers: String
+
+  # Примечание
+  comment: String
+
+  # Картинка
+  picture: String
+
+  # Строка ошибки при проверке заказа
+  message: String
+  typeMessage: CartTypeMessage
+  characteristics: [graphCartCharacteristic]
+}
+
+# тип сообщения в корзине
+enum CartTypeMessage {
+  # Предупреждение
+  WARNING
+
+  # Ошибка
+  ERROR
+}
+
+# Характеристика товара в корзине
+type graphCartCharacteristic {
+  type: CharacteristicType
+
+  # Название
+  name: String!
+
+  # Значение
+  value: String!
+}
+
+# Элемент опроса
+type graphPoll {
+  # Идентификатор
+  iD: Int!
+
+  # Вопрос
+  name: String!
+
+  # Комментарий
+  comment: String
+
+  # Есть ответ 'другой'
+  isOther: Boolean!
+
+  # Вопрос можно пропустить
+  isSkip: Boolean!
+
+  # Множественный выбор ответов
+  isMultiple: Boolean!
+
+  # Ответы шкалой
+  isScale: Boolean!
+
+  # Шкала начало
+  scaleMin: Int
+
+  # Шкала конец
+  scaleMax: Int
+  pollAnswers: [graphPollAnswer]
+}
+
+# Вариант ответа в опросе
+type graphPollAnswer {
+  # Идентификатор
+  iD: Int!
+
+  # Ответ
+  name: String!
+}
+
+# Свойства акции-розыгрыша
+type graphDraw {
+  # Идентификатор
+  iD: Int!
+
+  # Наименование
+  name: String!
+
+  # Описание
+  description: String
+
+  # ссылка на описание
+  uRL: String
+
+  # Дата начала
+  dateStart: Long
+
+  # Дата конца
+  dateFinish: Long
+
+  # Специальные условия
+  specialConditions: String
+
+  # Картинка
+  picture: String
+
+  # Картинка уровня
+  pictureLevel: String
+  drawMode: DrawMode
+  levels: [graphDrawLevel]
+}
+
+# Режим отображения розыгрыша
+enum DrawMode {
+  # блок участия
+  START
+
+  # блок результатов
+  RESULT
+}
+
+# Накоплено на уровне
+type graphDrawLevel {
+  # Уровень
+  level: Int!
+
+  # Накоплено
+  position: Int!
+
+  # Цель
+  endPosition: Int!
+}
+
+# FAQ. Группа
+type graphFAQGroup {
+  # Идентификатор
+  iD: Int!
+
+  # Наименование
+  name: String!
+  questions: [graphFAQQuestion]
+}
+
+# FAQ. Вопрос
+type graphFAQQuestion {
+  # Идентификатор
+  iD: Int!
+
+  # Вопрос
+  question: String!
+}
+
+# FAQ
+type graphFAQ {
+  # Вопрос
+  question: String!
+
+  # Ответ
+  answer: String!
+}
+
+# Сообщение в чате службы поддержки
+type graphSupport {
+  # Идентификатор
+  iD: Long!
+
+  # Дата время
+  date: Long!
+
+  # Текст
+  text: String
+
+  # Идентификатор менеджера ( != null - ответ/ = null - запрос)
+  managerID: Int
+
+  # ФИО менеджера
+  manager: String
+
+  # Есть картинка
+  isPhoto: Boolean!
+}
+
+type Mutation {
+  # Авторизация устройства
+  authenticate(device: graphDevice): graphAuthResult
+
+  # Авторизация клиента
+  loginClient(clientPhone: Long): graphClientResult
+
+  # Проверка кода пользователя
+  checkClient(checkUser: graphCheckUser): graphTokenResult
+
+  # Повторно отправляет код по SMS
+  newCodeSMS: graphBasisResult
+
+  # Сброс пароля. Отправляет код по SMS для авторизации
+  forgotPassword: graphBasisResult
+
+  # Выход клиента (Отвязка устройства от номера телефона)
+  logoffClient: graphTokenResult
+
+  # Изменение пароля
+  setPassword(password: String): graphBasisResult
+
+  # Изменение параметров клиента
+  editClient(clientInfo: graphClientInfo): graphBasisResult
+
+  # Повторное подтверждение почты
+  eMailConfirmRepeat: graphBasisResult
+
+  # Товар в/из избранных товаров
+  setFavoritesProduct(productId: Int): graphBasisResult
+
+  # Товары в избранные товаров
+  setFavoritesProducts(productIds: [Int]): graphBasisResult
+
+  # Товары из избранных товаров
+  delFavoritesProducts(productIds: [Int]): graphBasisResult
+
+  # Перевод бонусов клиенту по номеру телефона или GUID
+  friendTransfer(gUIDorPhone: String, points: Int): graphBasisResult
+
+  # Активация промокода
+  promocodeActivation(promoCode: String): graphPromocodeResult
+
+  # Сообщение на старте приложения прочитано
+  openReactionMessage(messageID: Int): graphBasisResult
+
+  # Добавляет/Изменяет отзыв о товаре
+  addReviewProduct(productID: Int, mark: Int, text: String): graphBasisResult
+
+  # Добавляет/Изменяет отзыв о покупке
+  addReviewOrder(orderID: BigInt, mark: Int, text: String): graphBasisResult
+
+  # Добавление товара в корзину
+  cartAdd(cartItem: graphCartItem): graphBasisResult
+
+  # Изменение количества в строке корзины
+  cartEdit(rowID: Int, quantity: Int): graphBasisResult
+
+  # Удаление строки из корзины
+  cartDelete(rowIDs: [Int]): graphBasisResult
+
+  # Очистка корзины
+  cartClear: graphBasisResult
+
+  # Передача результата опроса
+  setPollResult(
+    actionID: Int
+    answers: [graphPollAnswersClient]
+  ): graphPollResult
+
+  # Розыгрыш. Отметка об участии
+  setDrawTakePart(actionID: Int, mode: DrawTakePart): graphPollResult
+
+  # Новое сообщение в чат со службой поддержки
+  addSupport(message: String): graphSupportResult
+}
+
+# Параметры приложения и сайта
+type graphAuthResult {
+  # JWT-токен
+  token: String!
+
+  # SenderID для push-уведомлений Android
+  senderID: String
+
+  # Ссылка на политику конфидициальности
+  privacyPolicy: String!
+
+  # Время до следующей попытки запросить SMS-код (сек)
+  sMSTimer: Int!
+
+  # Группа помощи - правила системы лояльности
+  rulesHelpGroupID: Int!
+
+  # Бонусов за пригласить друга
+  pointInviteFriend: Int!
+
+  # Минимальная сумма покупок друга
+  ordersFriends: Int!
+
+  # Ключ к яндекс-картам
+  yandexApiKey: String
+
+  # Телефон службы поддержки
+  phone: Long
+
+  # Язык интерфейса
+  language: String
+
+  # IOS-приложение
+  iOSApplication: String
+
+  # Android-приложение
+  androidApplication: String
+
+  # email по общим вопросам
+  eMail: String
+
+  # email по товарам и заказам
+  eMailOrder: String
+
+  # Профиль Instagram
+  socialNetwork_Instagram: String
+
+  # Профиль Facebook
+  socialNetwork_Facebook: String
+
+  # Профиль ВКонтакте
+  socialNetwork_VK: String
+  startType: graphStartTypeEnum
+}
+
+# Свойства устройства
+input graphDevice {
+  # GUID-устройства
+  gUID: String!
+
+  # Версия ПО
+  buildApp: String
+
+  # ID приложения
+  bundleID: String!
+
+  # Версия операционной системы
+  oSVersion: String
+
+  # Токен для PUSH сообщений
+  pushNotificationToken: String
+  oSType: graphOSTypeEnum
+}
+
+# Тип операционной системы
+enum graphOSTypeEnum {
+  # приложение iOS
+  IOS
+
+  # приложение Android
+  ANDROID
+
+  # сайт
+  SITE
+}
+
+# Результат регистрации/авторизации клиента
+type graphClientResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+
+  # GUID клиента
+  clientGUID: String
+
+  # JWT-токен
+  token: String
+  nextStep: StepType
+}
+
+# Действие на входе
+enum StepType {
+  # Ввод кода подтверждения телефона
+  SMS_CONFIRMED_PHONE
+
+  # Вход по коду авторизации
+  SMS_AUTHORIZATION
+
+  # Вход по паролю
+  PASSWORD
+}
+
+# Результата вызова метода. с токеном
+type graphTokenResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+
+  # JWT-токен
+  token: String
+}
+
+# Данные для проверки пользователя
+input graphCheckUser {
+  # Введенный клиентом код
+  code: String!
+  step: StepType
+}
+
+# Результата вызова метода. Базовые поля
+type graphBasisResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+}
+
+# Данные о клиенте
+input graphClientInfo {
+  # GUID клиента
+  clientGUID: String!
+
+  # Телефонный номер (в формате 7XXXYYYXXZZ)
+  phone: Long
+
+  # Имя
+  name: String
+
+  # Дата Рождения
+  dateOfBirth: DateTime
+  gender: GenderType
+
+  # e-mail
+  eMail: String
+}
+
+# Результат активации промокода
+type graphPromocodeResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+  type: PromocodeType
+
+  # Идентификатор товара
+  productID: Int
+}
+
+# Тип промокода
+enum PromocodeType {
+  # Бонусы
+  POINTS
+
+  # Товар
+  PRODUCT
+
+  # Пригласи друга
+  FRIENDS
+}
+
+scalar BigInt
+
+# Элемент для добавления товара в корзину
+input graphCartItem {
+  # Идентификатор продукта
+  productID: Int!
+
+  # Количество товара
+  quantity: Int!
+  modifiers: [graphCartItemOnly]
+  characteristicValueIds: [Int]
+}
+
+# Параметры позиции
+input graphCartItemOnly {
+  # Идентификатор продукта
+  productID: Int!
+
+  # Количество товара
+  quantity: Int!
+}
+
+# Результат прохождения опроса
+type graphPollResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+
+  # Начислено бонусов
+  point: Int!
+}
+
+# Элемент результата опроса
+input graphPollAnswersClient {
+  # Идентификатор вопроса
+  pollID: Int!
+  pollAnswers: [Int]
+
+  # Ответ 'другое'
+  other: String
+
+  # Ответ шкалой
+  scale: Int
+}
+
+# Участие пользователя в розыгрыше
+enum DrawTakePart {
+  # Подумать
+  WAIT
+
+  # Участвовать
+  YES
+
+  # Не участвовать
+  NO
+}
+
+type graphSupportResult {
+  # Результат (0 - успех)
+  result: Int!
+
+  # Текст ошибки для Result != 0
+  errorMessage: String
+
+  # Идентификатор сообщения
+  iD: Long
+}
+
+type Subscription {
+  supportMessageAdded: graphSupport
+}

@@ -1,0 +1,23 @@
+targets:
+  $default:
+    sources:
+      - lib/**
+      - graphql/**
+      - levrana.schema.graphql
+    builders:
+      artemis:
+        options:
+          schema_mapping:
+            - schema: levrana.schema.graphql
+              queries_glob: graphql/**.graphql
+              output: lib/graphql/levrana.dart
+              naming_scheme: simple
+          scalar_mapping:
+            - graphql_type: Long
+              dart_type: int
+            - graphql_type: Decimal
+              dart_type: double
+            - graphql_type: Seconds
+              dart_type: int
+            - graphql_type: Short
+              dart_type: int

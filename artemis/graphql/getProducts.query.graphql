@@ -1,0 +1,28 @@
+query getProducts($catalogID: Int!, $cursor: String, $filter: graphFilter) {
+  getProducts(catalogID: $catalogID, first: 45, after: $cursor, filter: $filter)
+  {
+    totalCount
+    pageInfo {
+      endCursor
+      hasNextPage
+      hasPreviousPage
+      startCursor
+    }
+    items {
+      iD
+      type
+      familyID
+      topCatalogID
+      name
+      picture
+      isFavorite
+      favorites
+      stickerPictures
+      attributes {
+        iD
+        name
+        color
+      }
+    }
+  }
+}

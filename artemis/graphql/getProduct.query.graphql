@@ -1,0 +1,99 @@
+query getProduct($productID: Int!) {
+  getProduct(productID: $productID)
+  {
+    iD
+    type
+    familyID
+    topCatalogID
+    name
+    comment
+    description
+    application
+    composition
+    isFavorite
+    favorites
+    attributes {
+      iD
+      name
+      color
+    }
+    articles {
+      characteristicValueID
+      characteristicValue2ID
+      value
+    }
+    awards {
+      iD
+      name
+      picture
+    }
+    characteristics {
+      iD
+      name
+      type
+      isPrice
+      values {
+        iD
+        value
+        comment
+      }
+    }
+    prices {
+      price
+      oldPrice
+      characteristicValueID
+    }
+    pictures {
+      small
+      full
+      characteristicValueID
+    }
+    stickerPictures
+    compositions {
+      description
+      picture
+    }
+    link {
+      iD
+      type
+      familyID
+      topCatalogID
+      name
+      picture
+      isFavorite
+      favorites
+      stickerPictures
+      attributes {
+        iD
+        name
+        color
+      }
+    }
+    similar {
+      iD
+      type
+      familyID
+      topCatalogID
+      name
+      picture
+      isFavorite
+      favorites
+      stickerPictures
+      attributes {
+        iD
+        name
+        color
+      }
+    }
+    modifiers {
+      caption
+    }
+    reviews {
+      clientName
+      self
+      date
+      text
+      mark
+    }
+  }
+}

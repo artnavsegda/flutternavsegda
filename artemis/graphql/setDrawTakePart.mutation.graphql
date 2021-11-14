@@ -1,0 +1,9 @@
+mutation setDrawTakePart($actionID: Int, $mode: DrawTakePart)
+{
+  setDrawTakePart(actionID: $actionID, mode: $mode)
+  {
+    result
+    errorMessage
+    point
+  }
+}

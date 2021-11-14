@@ -1,0 +1,18 @@
+query getPoll($actionID: Int)
+{
+  getPoll(actionID: $actionID) {
+    iD
+    name
+    comment
+    isOther
+    isSkip
+    isMultiple
+    isScale
+    scaleMin
+    scaleMax
+    pollAnswers {
+      iD
+      name
+    }
+  }
+}

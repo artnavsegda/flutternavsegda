@@ -1,0 +1,5 @@
+mutation setFavoritesProduct($productID: Int!) {
+  setFavoritesProduct(productId: $productID) {
+    result
+  }
+}

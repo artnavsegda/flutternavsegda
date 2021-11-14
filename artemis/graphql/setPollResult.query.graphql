@@ -1,0 +1,7 @@
+mutation setPollResult($actionID: Int, $answers: [graphPollAnswersClient]) {
+  setPollResult(actionID: $actionID, answers: $answers) {
+    result
+    errorMessage
+    point
+  }
+}
