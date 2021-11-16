@@ -5,7 +5,19 @@ class Onboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Welcome());
+    final _controller = PageController(viewportFraction: 0.7);
+
+    return Scaffold(
+        body: PageView(
+      controller: _controller,
+      scrollDirection: Axis.vertical,
+      children: [
+        Welcome(),
+        Push(),
+        Location(),
+        Login(),
+      ],
+    ));
   }
 }
 
@@ -17,7 +29,6 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Добро пожаловать!'),
@@ -36,7 +47,6 @@ class Push extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Уведомления'),
@@ -53,7 +63,6 @@ class Location extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text('Местоположение'),
