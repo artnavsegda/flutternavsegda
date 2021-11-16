@@ -17,6 +17,7 @@ class Onboarding extends StatelessWidget {
             Image.asset('assets/Illustration Welcome.png'),
             Expanded(
               child: PageView(
+                padEnds: false,
                 controller: _controller,
                 scrollDirection: Axis.vertical,
                 children: const [
@@ -24,6 +25,7 @@ class Onboarding extends StatelessWidget {
                   Push(),
                   Location(),
                   Login(),
+                  SizedBox.expand()
                 ],
               ),
             ),
@@ -111,7 +113,6 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         Text('Все возможности'),
