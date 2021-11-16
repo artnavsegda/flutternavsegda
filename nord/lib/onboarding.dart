@@ -14,10 +14,7 @@ class Onboarding extends StatelessWidget {
       children: [
         Column(
           children: [
-            const Text('''AAAA
-            sssss
-            ssssss
-            sssss'''),
+            Image.asset('assets/Illustration Welcome.png'),
             Expanded(
               child: PageView(
                 controller: _controller,
@@ -46,7 +43,11 @@ class Onboarding extends StatelessWidget {
                   expansionFactor: 5,
                   activeDotColor: Color(0xFFB0063A)),
               onDotClicked: (index) {}),
-        )
+        ),
+        Positioned(
+            bottom: 20,
+            left: 20,
+            child: ElevatedButton(onPressed: () {}, child: Text("Далее")))
       ],
     ));
   }
