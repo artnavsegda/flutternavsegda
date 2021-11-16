@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class Onboarding extends StatelessWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -8,14 +9,34 @@ class Onboarding extends StatelessWidget {
     final _controller = PageController(viewportFraction: 0.7);
 
     return Scaffold(
-        body: PageView(
-      controller: _controller,
-      scrollDirection: Axis.vertical,
+        body: Stack(
+      alignment: Alignment.centerRight,
       children: [
-        Welcome(),
-        Push(),
-        Location(),
-        Login(),
+        PageView(
+          controller: _controller,
+          scrollDirection: Axis.vertical,
+          children: [
+            Welcome(),
+            Push(),
+            Location(),
+            Login(),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: SmoothPageIndicator(
+              axisDirection: Axis.vertical,
+              controller: _controller,
+              count: 4,
+              effect: ExpandingDotsEffect(
+                  //spacing: 8.0,
+                  //radius: 4.0,
+                  dotWidth: 8.0,
+                  dotHeight: 8.0,
+                  expansionFactor: 5,
+                  activeDotColor: Color(0xFFB0063A)),
+              onDotClicked: (index) {}),
+        )
       ],
     ));
   }
