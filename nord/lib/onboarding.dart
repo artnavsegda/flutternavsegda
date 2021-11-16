@@ -14,7 +14,7 @@ class Onboarding extends StatelessWidget {
       children: [
         Column(
           children: [
-            Text('''AAAA
+            const Text('''AAAA
             sssss
             ssssss
             sssss'''),
@@ -22,7 +22,7 @@ class Onboarding extends StatelessWidget {
               child: PageView(
                 controller: _controller,
                 scrollDirection: Axis.vertical,
-                children: [
+                children: const [
                   Welcome(),
                   Push(),
                   Location(),
@@ -38,7 +38,7 @@ class Onboarding extends StatelessWidget {
               axisDirection: Axis.vertical,
               controller: _controller,
               count: 4,
-              effect: ExpandingDotsEffect(
+              effect: const ExpandingDotsEffect(
                   //spacing: 8.0,
                   //radius: 4.0,
                   dotWidth: 8.0,
@@ -61,7 +61,7 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Text('Добро пожаловать!'),
         Text(
             '''С Вами легендарная кондитерская Петербурга. C 1903 года мы создаем торты и пирожные, храним традиции талантливых советских технологов, чтобы сделать Ваш день приятней.
@@ -79,7 +79,7 @@ class Push extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Text('Уведомления'),
         Text(
             '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.'''),
@@ -95,7 +95,7 @@ class Location extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Text('Местоположение'),
         Text(
             '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.'''),
@@ -112,7 +112,7 @@ class Login extends StatelessWidget {
     return Column(
       mainAxisAlignment: MainAxisAlignment.center,
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
+      children: const [
         Text('Все возможности'),
         Text('''Войдите в аккаунт и используйте все возможности приложения.
 Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
