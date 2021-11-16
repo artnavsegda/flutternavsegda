@@ -12,14 +12,24 @@ class Onboarding extends StatelessWidget {
         body: Stack(
       alignment: Alignment.centerRight,
       children: [
-        PageView(
-          controller: _controller,
-          scrollDirection: Axis.vertical,
+        Column(
           children: [
-            Welcome(),
-            Push(),
-            Location(),
-            Login(),
+            Text('''AAAA
+            sssss
+            ssssss
+            sssss'''),
+            Expanded(
+              child: PageView(
+                controller: _controller,
+                scrollDirection: Axis.vertical,
+                children: [
+                  Welcome(),
+                  Push(),
+                  Location(),
+                  Login(),
+                ],
+              ),
+            ),
           ],
         ),
         Padding(
