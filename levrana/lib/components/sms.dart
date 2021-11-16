@@ -3,8 +3,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'dart:async';
 
-import '../../gql.dart';
-import '../../main.dart';
+import '../gql.dart';
+import '../main.dart';
 
 class ConfirmSMSPage extends StatefulWidget {
   const ConfirmSMSPage({

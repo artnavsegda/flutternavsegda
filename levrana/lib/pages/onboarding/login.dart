@@ -5,7 +5,7 @@ import 'package:phone_number/phone_number.dart';
 import 'package:provider/provider.dart';
 
 import 'password.dart';
-import 'sms.dart';
+import '../../components/sms.dart';
 import 'dialog.dart';
 import '../../gql.dart';
 import '../../main.dart';

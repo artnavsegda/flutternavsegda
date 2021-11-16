@@ -13,7 +13,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../main.dart';
 import '../../gql.dart';
-import '../login/sms.dart';
+import '../../components/sms.dart';
 
 class EditUserPage extends StatefulWidget {
   const EditUserPage({Key? key}) : super(key: key);

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 
-import 'sms.dart';
+import '../../components/sms.dart';
 import '../../main.dart';
 import '../../gql.dart';
 

@@ -2,7 +2,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:device_info_plus/device_info_plus.dart';
-import 'package:levrana/pages/login/login.dart';
 import 'package:provider/provider.dart';
 
 import '../../main.dart';

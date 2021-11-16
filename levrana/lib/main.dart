@@ -12,8 +12,8 @@ import 'pages/home/home.dart';
 import 'pages/more/more.dart';
 import 'pages/shopping/shopping.dart';
 import 'pages/user/user.dart';
-import 'pages/login/welcome.dart';
-import 'pages/login/login.dart';
+import 'pages/onboarding/welcome.dart';
+import 'pages/onboarding/login.dart';
 
 import 'gql.dart';
 
