@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,6 +26,15 @@ class Onboarding extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData nordTheme = ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+      primarySwatch: Colors.green,
+      fontFamily: 'Forum',
+      textTheme: GoogleFonts.forumTextTheme(
+        Theme.of(context).textTheme,
+      ),
+    );
+
     return Scaffold(
         body: Column(
       mainAxisAlignment: MainAxisAlignment.center,
