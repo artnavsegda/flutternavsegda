@@ -37,9 +37,9 @@ class _ConfiguratorState extends State<Configurator> {
     Future Function()? fetchMoreCB;
 
     return Scaffold(
-      backgroundColor: Color(0xfff5f5f5),
+      backgroundColor: const Color(0xfff5f5f5),
       appBar: AppBar(
-        title: Text("Конфигуратор"),
+        title: const Text("Конфигуратор"),
       ),
       body: NotificationListener<ScrollNotification>(
         onNotification: (scrollNotification) {
@@ -47,7 +47,6 @@ class _ConfiguratorState extends State<Configurator> {
             if (_controller.offset + 100 >=
                     _controller.position.maxScrollExtent &&
                 !_controller.position.outOfRange) {
-              print("refetch parent");
               fetchMoreCB!();
             }
           }
@@ -65,7 +64,7 @@ class _ConfiguratorState extends State<Configurator> {
                 }
 
                 if (result.isLoading) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 }
@@ -87,7 +86,7 @@ class _ConfiguratorState extends State<Configurator> {
                               stage = stage - 1;
                             });
                           },
-                          child: Text("Назад")),
+                          child: const Text("Назад")),
                     ),
                   );
                 }
@@ -112,11 +111,11 @@ class _ConfiguratorState extends State<Configurator> {
                                   (element) => TextSpan(
                                       text: element.value,
                                       style: element.key.isEven
-                                          ? TextStyle(
+                                          ? const TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 32.0,
                                               fontWeight: FontWeight.bold)
-                                          : TextStyle(
+                                          : const TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 32.0,
                                               fontWeight: FontWeight.bold,
@@ -128,7 +127,7 @@ class _ConfiguratorState extends State<Configurator> {
                     ),
                     Text(configuratorSteps[stage].description ?? "",
                         textAlign: TextAlign.center,
-                        style: TextStyle(fontSize: 16.0)),
+                        style: const TextStyle(fontSize: 16.0)),
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           vertical: 24.0, horizontal: 8.0),
@@ -170,10 +169,10 @@ class _ConfiguratorState extends State<Configurator> {
                                                   height: 136,
                                                   fit: BoxFit.fill),
                                             ),
-                                            SizedBox(height: 8.0),
+                                            const SizedBox(height: 8.0),
                                             Text(element.name,
-                                                style:
-                                                    TextStyle(fontSize: 20.0)),
+                                                style: const TextStyle(
+                                                    fontSize: 20.0)),
                                           ],
                                         ),
                                       ),
@@ -185,12 +184,12 @@ class _ConfiguratorState extends State<Configurator> {
                                           style: ElevatedButton.styleFrom(
                                             primary: Colors.white,
                                             minimumSize:
-                                                Size(double.infinity, 92),
+                                                const Size(double.infinity, 92),
                                           ),
                                           onPressed: onPress,
                                           child: Text(
                                             element.name,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 color: Colors.black,
                                                 fontSize: 20.0),
                                           )),
@@ -202,7 +201,7 @@ class _ConfiguratorState extends State<Configurator> {
                                           style: ElevatedButton.styleFrom(
                                             primary: Colors.white,
                                             minimumSize:
-                                                Size(double.infinity, 92),
+                                                const Size(double.infinity, 92),
                                           ),
                                           onPressed: onPress,
                                           child: Row(
@@ -210,10 +209,10 @@ class _ConfiguratorState extends State<Configurator> {
                                               Image.network(
                                                   element.picture ?? "",
                                                   width: 60),
-                                              SizedBox(width: 16.0),
+                                              const SizedBox(width: 16.0),
                                               Text(
                                                 element.name,
-                                                style: TextStyle(
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 20.0),
                                               ),
@@ -221,7 +220,7 @@ class _ConfiguratorState extends State<Configurator> {
                                           )),
                                     );
                                   default:
-                                    return Text('X');
+                                    return const Text('X');
                                 }
                               })
                               .toList()
@@ -231,24 +230,25 @@ class _ConfiguratorState extends State<Configurator> {
                       padding: const EdgeInsets.all(8.0),
                       child: TextButton(
                         onPressed: () {
-                          if (stage != 0)
+                          if (stage != 0) {
                             setState(() {
                               configuratorItemIds =
                                   List.from(configuratorItemIds)..removeLast();
                               stage = stage - 1;
                             });
+                          }
                         },
                         child: Text(
                             "< Шаг ${stage + 1} из ${configuratorSteps.length}",
-                            style: TextStyle(fontSize: 20.0)),
+                            style: const TextStyle(fontSize: 20.0)),
                       ),
                     ),
                   ],
                 );
               },
             ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
+            const Padding(
+              padding: EdgeInsets.all(16.0),
               child: Text("Вам подойдет эта косметика",
                   style: TextStyle(fontSize: 32.0),
                   textAlign: TextAlign.center),
@@ -267,7 +267,7 @@ class _ConfiguratorState extends State<Configurator> {
                   }
 
                   if (result.data == null) {
-                    return Center(
+                    return const Center(
                       child: CircularProgressIndicator(),
                     );
                   }
@@ -302,7 +302,6 @@ class _ConfiguratorState extends State<Configurator> {
                   );
 
                   fetchMoreCB = () async {
-                    print("refetch children");
                     if (hasNextPage) {
                       await fetchMore!(opts);
                     }

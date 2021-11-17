@@ -6,7 +6,7 @@ import 'configurator.dart';
 import 'productsList.dart';
 
 class CatalogPage extends StatelessWidget {
-  CatalogPage(
+  const CatalogPage(
       {Key? key,
       required this.refetch,
       required this.catalog,
@@ -19,7 +19,7 @@ class CatalogPage extends StatelessWidget {
   final String title;
   final int id;
   final int? totalCount;
-  final refetch;
+  final Future<QueryResult?> Function()? refetch;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class CatalogPage extends StatelessWidget {
         children: [
           if (id != 0)
             ListTile(
-              title: Text(
+              title: const Text(
                 "Вся продукция раздела",
                 style: TextStyle(
                   color: Colors.green,
@@ -39,7 +39,7 @@ class CatalogPage extends StatelessWidget {
               ),
               trailing: Text(
                 totalCount.toString(),
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.green,
                 ),
               ),
@@ -58,14 +58,14 @@ class CatalogPage extends StatelessWidget {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => Configurator(),
+                    builder: (context) => const Configurator(),
                   ),
                 );
               },
               child: SizedBox(
                 height: 92,
                 child: Container(
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                       gradient: LinearGradient(
                           begin: Alignment.centerLeft,
                           end: Alignment.centerRight,
@@ -76,9 +76,9 @@ class CatalogPage extends StatelessWidget {
                       color: Color(0xffFFF2C4),
                     ),
                     child: Row(children: [
-                      Flexible(
+                      const Flexible(
                           child: Padding(
-                        padding: const EdgeInsets.all(16.0),
+                        padding: EdgeInsets.all(16.0),
                         child: Text("Подобрать косметику в конфигураторе"),
                       )),
                       Image.asset("assets/Bottles.png")
@@ -89,7 +89,7 @@ class CatalogPage extends StatelessWidget {
             child: RefreshIndicator(
               onRefresh: () async {
                 await refetch!();
-                await Future.delayed(Duration(seconds: 1));
+                await Future.delayed(const Duration(seconds: 1));
               },
               child: ListView.separated(
                 itemCount: catalog!.length,
@@ -99,14 +99,14 @@ class CatalogPage extends StatelessWidget {
                     dense: true,
                     title: Text(
                       section.name,
-                      style: TextStyle(fontSize: 16.0),
+                      style: const TextStyle(fontSize: 16.0),
                     ),
                     trailing: (section.childs == null)
                         ? Text(section.totalCount.toString(),
-                            style: TextStyle(fontSize: 16.0))
-                        : Icon(Icons.navigate_next),
+                            style: const TextStyle(fontSize: 16.0))
+                        : const Icon(Icons.navigate_next),
                     onTap: () {
-                      if (section.childs != null)
+                      if (section.childs != null) {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -116,7 +116,7 @@ class CatalogPage extends StatelessWidget {
                                     title: section.name,
                                     id: section.iD,
                                     totalCount: section.totalCount)));
-                      else {
+                      } else {
                         //print(section['iD'].toString());
                         Navigator.push(
                             context,
@@ -129,7 +129,7 @@ class CatalogPage extends StatelessWidget {
                   );
                 },
                 separatorBuilder: (context, index) {
-                  return Divider(
+                  return const Divider(
                     height: 1,
                     indent: 20,
                     endIndent: 20,
@@ -160,6 +160,7 @@ class _CatalogNavigatorState extends State<CatalogNavigator>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
     return Navigator(
       onGenerateRoute: (settings) => MaterialPageRoute<void>(
           builder: (BuildContext context) => Query(
