@@ -29,9 +29,17 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
         body: TabBarView(
           controller: _tabController,
-          children: [],
+          children: [
+            Text('1'),
+            Text('2'),
+            Text('3'),
+            Text('4'),
+            Text('5'),
+          ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: Colors.green[800],
+          unselectedItemColor: Colors.black,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/Icon Home.png')),
