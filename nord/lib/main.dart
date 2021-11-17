@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.forumTextTheme(
         Theme.of(context).textTheme,
       ),
-      elevatedButtonTheme: ElevatedButtonThemeData(
+/*       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0.0),
           minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
@@ -29,7 +29,7 @@ class MyApp extends StatelessWidget {
             ),
           ),
         ),
-      ),
+      ), */
     );
 
     return MaterialApp(
