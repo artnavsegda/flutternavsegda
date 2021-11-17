@@ -8,7 +8,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
 import '../../components/components.dart';
-import '../../components/productCard.dart';
+import '../../components/product_card.dart';
 import '../product/product.dart';
 
 class Poll extends StatefulWidget {

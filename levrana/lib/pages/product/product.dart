@@ -7,8 +7,8 @@ import 'package:transparent_image/transparent_image.dart';
 import 'dart:math';
 
 import '../../components/components.dart';
-import '../../components/productCard.dart';
-import '../../components/characteristicsElement.dart';
+import '../../components/product_card.dart';
+import '../../components/characteristics_element.dart';
 import '../../utils.dart';
 import '../../gql.dart';
 import 'review.dart';

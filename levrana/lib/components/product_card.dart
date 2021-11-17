@@ -4,7 +4,7 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../utils.dart';
 import '../gql.dart';
-import 'productBottomSheet.dart';
+import 'product_bottom_sheet.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({Key? key, required this.product, this.onTap})

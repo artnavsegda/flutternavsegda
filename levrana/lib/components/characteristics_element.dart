@@ -9,15 +9,16 @@ class TextCharacteristic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    if (element.type == 'TEXT')
+    if (element.type == 'TEXT') {
       return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-        Text(element.name, style: TextStyle(color: Colors.grey)),
+        Text(element.name, style: const TextStyle(color: Colors.grey)),
         Text(element.values
             .map((element) => element.value)
             .reduce((value, element) => value + ', ' + element))
       ]);
-    else
+    } else {
       return Container();
+    }
   }
 }
 

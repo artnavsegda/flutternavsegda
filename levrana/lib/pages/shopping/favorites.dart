@@ -5,7 +5,7 @@ import 'package:levrana/pages/product/product.dart';
 
 import '../../gql.dart';
 import '../../components/components.dart';
-import '../../components/productCard.dart';
+import '../../components/product_card.dart';
 
 class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);

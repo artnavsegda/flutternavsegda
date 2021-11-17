@@ -4,7 +4,7 @@ import 'package:levrana/pages/product/product.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 import '../../gql.dart';
-import '../../components/productCard.dart';
+import '../../components/product_card.dart';
 import 'filter.dart';
 
 class ProductsListPage extends StatefulWidget {

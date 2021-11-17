@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../gql.dart';
-import '../../components/productCard.dart';
+import '../../components/product_card.dart';
 import '../product/product.dart';
 
 class Configurator extends StatefulWidget {
