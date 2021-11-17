@@ -40,8 +40,9 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
 
   @override
   Widget build(BuildContext context) {
-    if (widget.element.values.length == 1 && widget.hideOne)
-      return SizedBox.shrink();
+    if (widget.element.values.length == 1 && widget.hideOne) {
+      return const SizedBox.shrink();
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,7 +79,7 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
                   });
                 },
                 child: Container(
-                  margin: EdgeInsets.all(3),
+                  margin: const EdgeInsets.all(3),
                   decoration: ShapeDecoration(
                     color: hexToColor(widget.element.values[index].value),
                     shape: RoundedRectangleBorder(
@@ -100,7 +101,7 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
                           ),
                         ),
                   ),
-                  child: SizedBox(
+                  child: const SizedBox(
                     height: 22,
                     width: 35,
                   ),
@@ -108,7 +109,7 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
               )
           ]),
         if (widget.element.values[selected].comment != null)
-          Text("${widget.element.values[selected].comment ?? ''}")
+          Text(widget.element.values[selected].comment ?? '')
       ],
     );
   }
