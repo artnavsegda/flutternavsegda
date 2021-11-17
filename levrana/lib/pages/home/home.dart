@@ -26,12 +26,12 @@ class HomePage extends StatelessWidget {
           await refetchClientInfo!();
           await refetchActions!();
           await refetchTopBlocks!();
-          await Future.delayed(Duration(seconds: 1));
+          await Future.delayed(const Duration(seconds: 1));
         },
         child: SingleChildScrollView(
             child: Stack(
           children: [
-            Image(
+            const Image(
               image: AssetImage('assets/background.png'),
               width: double.infinity,
               fit: BoxFit.cover,
@@ -58,14 +58,14 @@ class HomePage extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => QrPage()),
+                      MaterialPageRoute(builder: (context) => const QrPage()),
                     );
                   },
                   child: Container(
-                    margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
+                    margin: const EdgeInsets.fromLTRB(16, 21, 16, 0),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(16),
-                        gradient: LinearGradient(
+                        gradient: const LinearGradient(
                             begin: Alignment.centerLeft,
                             end: Alignment.centerRight,
                             colors: <Color>[
@@ -75,7 +75,7 @@ class HomePage extends StatelessWidget {
                     child: AspectRatio(
                       aspectRatio: 16 / 9,
                       child: Stack(children: [
-                        Positioned(
+                        const Positioned(
                             top: 20,
                             left: 20,
                             child: Image(
@@ -92,24 +92,21 @@ class HomePage extends StatelessWidget {
                                     fetchPolicy: FetchPolicy.cacheFirst,
                                   ),
                                   builder: (result, {fetchMore, refetch}) {
-                                    //print(result.data);
                                     refetchClientInfo = () async {
-                                      print("refetch client info");
                                       await refetch!();
                                     };
 
                                     if (result.hasException) {
-                                      return Text("0",
+                                      return const Text("0",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 40.0,
                                               fontWeight: FontWeight.bold,
                                               color: Colors.white));
-                                      return Text(result.exception.toString());
                                     }
 
                                     if (result.isLoading) {
-                                      return Center(
+                                      return const Center(
                                         child: CircularProgressIndicator(),
                                       );
                                     }
@@ -119,13 +116,13 @@ class HomePage extends StatelessWidget {
                                             result.data!['getClientInfo']);
 
                                     return Text(userInfo.points.toString(),
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 40.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.white));
                                   }),
-                              Image(
+                              const Image(
                                   fit: BoxFit.contain,
                                   width: 48,
                                   height: 48,
@@ -134,12 +131,12 @@ class HomePage extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Positioned(
+                        const Positioned(
                             top: 22,
                             right: 16,
                             child:
                                 Image(image: AssetImage('assets/Union.png'))),
-                        Positioned(
+                        const Positioned(
                             right: 16,
                             top: 100,
                             child: Image(
@@ -153,9 +150,7 @@ class HomePage extends StatelessWidget {
                         document: gql(getActions),
                         fetchPolicy: FetchPolicy.cacheFirst),
                     builder: (result, {fetchMore, refetch}) {
-                      //print(result.data);
                       refetchActions = () async {
-                        print("refetch actions");
                         await refetch!();
                       };
 
@@ -164,7 +159,7 @@ class HomePage extends StatelessWidget {
                       }
 
                       if (result.isLoading) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
@@ -199,7 +194,7 @@ class HomePage extends StatelessWidget {
                       ); */
 
                       return Container(
-                        margin: EdgeInsets.fromLTRB(0, 21, 0, 0),
+                        margin: const EdgeInsets.fromLTRB(0, 21, 0, 0),
                         //height: 160,
                         child: AspectRatio(
                           aspectRatio: 16 / 8,
@@ -223,9 +218,9 @@ class HomePage extends StatelessWidget {
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6.0),
                                     child: FadeInImage.memoryNetwork(
-                                        imageErrorBuilder:
-                                            (context, exception, stackTrace) =>
-                                                Icon(Icons.no_photography),
+                                        imageErrorBuilder: (context, exception,
+                                                stackTrace) =>
+                                            const Icon(Icons.no_photography),
                                         placeholder: kTransparentImage,
                                         image: actions[index].picture ?? "",
                                         fit: BoxFit.fill),
@@ -242,9 +237,7 @@ class HomePage extends StatelessWidget {
                         document: gql(getTopBlocks),
                         fetchPolicy: FetchPolicy.cacheFirst),
                     builder: (result, {fetchMore, refetch}) {
-                      print(result.data);
                       refetchTopBlocks = () async {
-                        print("refetch top blocks");
                         await refetch!();
                       };
 
@@ -253,7 +246,7 @@ class HomePage extends StatelessWidget {
                       }
 
                       if (result.isLoading) {
-                        return Center(
+                        return const Center(
                           child: CircularProgressIndicator(),
                         );
                       }
@@ -267,18 +260,19 @@ class HomePage extends StatelessWidget {
                           children: topBlocks
                               .map(
                                 (section) => Container(
-                                  margin: EdgeInsets.fromLTRB(8, 33, 8, 0),
+                                  margin:
+                                      const EdgeInsets.fromLTRB(8, 33, 8, 0),
                                   child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(section.name,
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 28.0,
                                               fontWeight: FontWeight.bold,
                                             )),
-                                        SizedBox(height: 16),
+                                        const SizedBox(height: 16),
                                         Wrap(
                                             spacing: 16,
                                             runSpacing: 16,
@@ -308,7 +302,7 @@ class HomePage extends StatelessWidget {
                               .toList()
                               .cast<Widget>());
                     }),
-                SizedBox(
+                const SizedBox(
                   height: 50,
                 )
               ],

@@ -11,6 +11,8 @@ import 'user/user.dart';
 import '../gql.dart';
 
 class MainPage extends StatefulWidget {
+  const MainPage({Key? key}) : super(key: key);
+
   // This widget is the root of your application.
   @override
   _MainPageState createState() => _MainPageState();
@@ -44,7 +46,7 @@ class _MainPageState extends State<MainPage>
 
           if (!result.hasException) {
             if (result.isLoading && result.data == null) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -53,7 +55,7 @@ class _MainPageState extends State<MainPage>
                 .data!['getReactions']
                 .map((model) => GraphReaction.fromJson(model)));
 
-            if (reactions[0].type == 'MESSAGE' && false) {
+            if (reactions[0].type == 'MESSAGE') {
               WidgetsBinding.instance!.addPostFrameCallback((_) async {
                 showDialog(
                   context: context,
@@ -65,7 +67,6 @@ class _MainPageState extends State<MainPage>
                           options: MutationOptions(
                             document: gql(openReactionMessage),
                             onCompleted: (resultData) {
-                              print(resultData);
                               refetch!();
                             },
                           ),
@@ -92,14 +93,14 @@ class _MainPageState extends State<MainPage>
               controller: _tabController,
               children: [
                 HomePage(),
-                CatalogNavigator(),
-                ShoppingPage(),
-                UserPage(),
-                MorePage(),
+                const CatalogNavigator(),
+                const ShoppingPage(),
+                const UserPage(),
+                const MorePage(),
               ],
             ),
             bottomNavigationBar: Container(
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                 boxShadow: <BoxShadow>[
                   BoxShadow(
                     color: Color.fromRGBO(0, 0, 0, 0.07),

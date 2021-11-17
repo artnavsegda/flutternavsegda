@@ -46,11 +46,12 @@ class _SelectorPageState extends State<SelectorPage> {
                 LevranaCheckboxTitle(
                   onChanged: (newValue) {
                     widget.onChangeFilter(newValue, widget.values[index].iD);
-                    var newFilterGroup;
-                    if (filterGroup != null)
+                    GraphFilterGroup newFilterGroup;
+                    if (filterGroup != null) {
                       newFilterGroup = GraphFilterGroup.from(filterGroup!);
-                    else
+                    } else {
                       newFilterGroup = GraphFilterGroup(iD: 0, values: <int>{});
+                    }
                     if (newValue == true) {
                       newFilterGroup.values.add(widget.values[index].iD);
                     } else {
@@ -70,7 +71,7 @@ class _SelectorPageState extends State<SelectorPage> {
             );
           },
           separatorBuilder: (context, index) {
-            return Divider();
+            return const Divider();
           },
         ),
       ),
@@ -90,18 +91,16 @@ class SelectorCharacteristic extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(element);
-
     if (type == 'COLOR') {
       return SizedBox(
         width: 200,
         height: 10,
         child: Container(color: hexToColor(element.name)),
       );
-      return Text('⬤ ',
-          style: TextStyle(fontSize: 7.0, color: hexToColor(element.name)));
+      // return Text('⬤ ',
+      //     style: TextStyle(fontSize: 7.0, color: hexToColor(element.name)));
     } else {
-      return Text(element.name, style: TextStyle(fontSize: 16.0));
+      return Text(element.name, style: const TextStyle(fontSize: 16.0));
     }
   }
 }

@@ -40,10 +40,10 @@ class _ProductsListPageState extends State<ProductsListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text("${widget.title}", style: TextStyle(color: Colors.black)),
+        title: Text(widget.title, style: const TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
         actions: <Widget>[
@@ -90,7 +90,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
           }
 
           if (result.isLoading && result.data == null) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -138,7 +138,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
               child: RefreshIndicator(
                 onRefresh: () async {
                   await refetch!();
-                  await Future.delayed(Duration(seconds: 1));
+                  await Future.delayed(const Duration(seconds: 1));
                 },
                 child: StaggeredGridView.countBuilder(
                   shrinkWrap: true,
@@ -149,7 +149,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
                   itemCount: items.length + (pageInfo.hasNextPage ? 1 : 0),
                   itemBuilder: (BuildContext context, int index) =>
                       (index == items.length && pageInfo.hasNextPage)
-                          ? Center(child: CircularProgressIndicator())
+                          ? const Center(child: CircularProgressIndicator())
                           : Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: ProductCard(
@@ -162,7 +162,8 @@ class _ProductsListPageState extends State<ProductsListPage> {
                                                 id: items[index].iD)),
                                       )),
                             ),
-                  staggeredTileBuilder: (int index) => StaggeredTile.fit(1),
+                  staggeredTileBuilder: (int index) =>
+                      const StaggeredTile.fit(1),
                   mainAxisSpacing: 4.0,
                   crossAxisSpacing: 4.0,
                 ),

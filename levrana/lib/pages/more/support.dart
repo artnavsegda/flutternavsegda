@@ -15,10 +15,10 @@ class SupportPage extends StatelessWidget {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text("Поддержка", style: TextStyle(color: Colors.black)),
+        title: const Text("Поддержка", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
@@ -30,15 +30,14 @@ class SupportPage extends StatelessWidget {
             //print(result);
 
             if (result.hasException) {
-              return Center(
+              return const Center(
                 child: Text(
                     "Чат с поддержкой доступен для зарегестрированных пользователей"),
               );
-              return Text(result.exception.toString());
             }
 
             if (result.isLoading && result.data == null) {
-              return Center(
+              return const Center(
                 child: CircularProgressIndicator(),
               );
             }
@@ -75,7 +74,7 @@ class SupportPage extends StatelessWidget {
                       primaryColor: Colors.green,
                     ),
                     messages: _messages2,
-                    l10n: ChatL10nRu(inputPlaceholder: "В чем дело ?"),
+                    l10n: const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
                     //onAttachmentPressed: _handleAtachmentPressed,
                     //onMessageTap: _handleMessageTap,
                     //onPreviewDataFetched: _handlePreviewDataFetched,

@@ -154,7 +154,7 @@ class StartRoute extends StatelessWidget {
             );
           }
 
-          return MainPage();
+          return const MainPage();
         });
   }
 }

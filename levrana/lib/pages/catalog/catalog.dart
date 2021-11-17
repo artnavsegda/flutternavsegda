@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 
 import '../../gql.dart';
 import 'configurator.dart';
-import 'productsList.dart';
+import 'products_list.dart';
 
 class CatalogPage extends StatelessWidget {
   const CatalogPage(

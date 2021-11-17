@@ -18,7 +18,7 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-      image: AssetImage('assets/Login.png'),
+      image: const AssetImage('assets/Login.png'),
       title: "Войти",
       body:
           "В личном кабинете можно будет составлять списки покупок, контролировать счет и тратить бонусы.",
@@ -27,15 +27,15 @@ class LoginPage extends StatelessWidget {
           Expanded(
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48),
+                minimumSize: const Size(double.infinity, 48),
               ),
-              child: Text("ВОЙТИ"),
+              child: const Text("ВОЙТИ"),
               onPressed: () => _userLogin(context),
             ),
           ),
           TextButton(
               style: TextButton.styleFrom(
-                minimumSize: Size(110, 48),
+                minimumSize: const Size(110, 48),
               ),
               onPressed: () {
                 Navigator.pushReplacement(
@@ -43,7 +43,7 @@ class LoginPage extends StatelessWidget {
                   MaterialPageRoute(builder: (context) => MainPage()),
                 );
               },
-              child: Text("ПОЗЖЕ")),
+              child: const Text("ПОЗЖЕ")),
         ],
       ),
     );

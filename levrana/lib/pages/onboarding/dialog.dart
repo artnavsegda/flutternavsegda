@@ -7,7 +7,7 @@ class Notifications extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-        image: AssetImage('assets/Включить оповещения.png'),
+        image: const AssetImage('assets/Включить оповещения.png'),
         title: "Будьте на связи",
         body:
             "Разрешите отправлять для вас уведомления, чтобы мы рассказывали о состоянии ваших заказов и проводящихся акциях и скидках",
@@ -19,17 +19,17 @@ class Notifications extends StatelessWidget {
                       RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0),
               ))),
-              child: Text("РАЗРЕШИТЬ"),
+              child: const Text("РАЗРЕШИТЬ"),
               onPressed: () {},
             ),
             TextButton(
                 onPressed: () {
                   Navigator.pushReplacement(
                     context,
-                    MaterialPageRoute(builder: (context) => MainPage()),
+                    MaterialPageRoute(builder: (context) => const MainPage()),
                   );
                 },
-                child: Text("ПОЗЖЕ")),
+                child: const Text("ПОЗЖЕ")),
           ],
         ));
   }
@@ -67,16 +67,16 @@ class DialogPage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  margin: const EdgeInsets.symmetric(vertical: 8.0),
                   child: Text(title,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontFamily: 'Montserrat',
                         fontSize: 28.0,
                         fontWeight: FontWeight.bold,
                       )),
                 ),
                 ConstrainedBox(
-                  constraints: new BoxConstraints(
+                  constraints: const BoxConstraints(
                     minHeight: 150.0,
                   ),
                   child: Text(body),

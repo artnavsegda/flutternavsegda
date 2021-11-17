@@ -31,16 +31,17 @@ class _QrPageState extends State<QrPage> {
     return Scaffold(
       //extendBodyBehindAppBar: true,
       appBar: AppBar(
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
-        title: Text("Бонусная карта", style: TextStyle(color: Colors.black)),
+        title:
+            const Text("Бонусная карта", style: TextStyle(color: Colors.black)),
         backgroundColor: Colors.transparent,
         elevation: 0.0,
       ),
       body: Stack(
         children: [
-          Image(
+          const Image(
             image: AssetImage('assets/QR.png'),
             width: double.infinity,
             fit: BoxFit.cover,
@@ -54,12 +55,11 @@ class _QrPageState extends State<QrPage> {
               //print(result.data);
 
               if (result.hasException) {
-                return Center(child: Text("Карта недоступна"));
-                return Text(result.exception.toString());
+                return const Center(child: Text("Карта недоступна"));
               }
 
               if (result.isLoading) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -77,7 +77,7 @@ class _QrPageState extends State<QrPage> {
                   child: Center(
                     child: Container(
                       decoration: BoxDecoration(
-                          boxShadow: <BoxShadow>[
+                          boxShadow: const <BoxShadow>[
                             BoxShadow(
                               color: Color.fromRGBO(85, 146, 80, 0.1696),
                               blurRadius: 0.0,
@@ -114,7 +114,7 @@ class _QrPageState extends State<QrPage> {
                         Wrap(
                           runSpacing: 8,
                           children: [
-                            Text("Показать на кассе",
+                            const Text("Показать на кассе",
                                 style: TextStyle(
                                     fontFamily: 'Montserrat',
                                     fontSize: 28.0,
@@ -127,29 +127,30 @@ class _QrPageState extends State<QrPage> {
                                         snapshot.data as PhoneNumber;
 
                                     return Text(phoneNumber.international,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 28.0,
                                             fontWeight: FontWeight.bold,
                                             color: Colors.green));
-                                  } else
-                                    return Center(
+                                  } else {
+                                    return const Center(
                                         child: CircularProgressIndicator());
+                                  }
                                 }),
-                            Text(
+                            const Text(
                                 "Поднесите телефон к QR сканеру чтобы начислить или списать бонусы."),
                           ],
                         ),
-                        Expanded(
+                        const Expanded(
                           flex: 1,
                           child: SizedBox(),
                         ),
                         ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             primary: Colors.black,
-                            minimumSize: Size(double.infinity, 48),
+                            minimumSize: const Size(double.infinity, 48),
                           ),
-                          child: Text("ДОБАВИТЬ В WALLET"),
+                          child: const Text("ДОБАВИТЬ В WALLET"),
                           onPressed: () {},
                         ),
                       ],

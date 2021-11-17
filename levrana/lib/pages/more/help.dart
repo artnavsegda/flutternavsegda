@@ -12,7 +12,7 @@ class HelpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Справка'),
+        title: const Text('Справка'),
       ),
       body: Query(
         options: QueryOptions(
@@ -20,19 +20,18 @@ class HelpPage extends StatelessWidget {
           document: gql(getFAQGroups),
         ),
         builder: (result, {fetchMore, refetch}) {
-          print(result);
           if (result.hasException) {
             return Text(result.exception.toString());
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
 
           return ExpandableTheme(
-            data: ExpandableThemeData(
+            data: const ExpandableThemeData(
                 headerAlignment: ExpandablePanelHeaderAlignment.center,
                 iconPlacement: ExpandablePanelIconPlacement.left,
                 iconPadding: EdgeInsets.symmetric(horizontal: 0, vertical: 7),
@@ -40,7 +39,7 @@ class HelpPage extends StatelessWidget {
                 expandIcon: Icons.chevron_right,
                 collapseIcon: Icons.chevron_right),
             child: ListView(children: [
-              SizedBox(
+              const SizedBox(
                 height: 24,
               ),
               ...result.data!['getFAQGroups']
@@ -52,12 +51,12 @@ class HelpPage extends StatelessWidget {
                             key: Key(element['iD'].toString()),
                             header: Text(
                               element['name'],
-                              style: TextStyle(
+                              style: const TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 16,
                                   fontWeight: FontWeight.bold),
                             ),
-                            collapsed: SizedBox.shrink(),
+                            collapsed: const SizedBox.shrink(),
                             expanded: Column(
                                 children: element['questions']
                                     .map((subElement) {
@@ -75,7 +74,8 @@ class HelpPage extends StatelessWidget {
                                                 child: Text(
                                                     subElement['question']),
                                               ),
-                                              collapsed: SizedBox.shrink(),
+                                              collapsed:
+                                                  const SizedBox.shrink(),
                                               expanded: Padding(
                                                 padding: const EdgeInsets.only(
                                                     right: 16, left: 24.0),
@@ -91,7 +91,6 @@ class HelpPage extends StatelessWidget {
                                                     ),
                                                     builder: (result,
                                                         {fetchMore, refetch}) {
-                                                      print(result);
                                                       if (result.hasException) {
                                                         return Text(result
                                                             .exception
@@ -99,7 +98,7 @@ class HelpPage extends StatelessWidget {
                                                       }
 
                                                       if (result.isLoading) {
-                                                        return Center(
+                                                        return const Center(
                                                           child:
                                                               CircularProgressIndicator(),
                                                         );

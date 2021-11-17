@@ -23,7 +23,7 @@ class Poll extends StatefulWidget {
 class _PollState extends State<Poll> {
   int stage = 0;
 
-  var answers = Map<int, PollAnswersClient>();
+  var answers = <int, PollAnswersClient>{};
 
   @override
   Widget build(BuildContext context) {
@@ -36,12 +36,11 @@ class _PollState extends State<Poll> {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
-            return Text('Только зарегистрированным пользователям');
-            return Text(result.exception.toString());
+            return const Text('Только зарегистрированным пользователям');
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -59,8 +58,9 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
-              Text(stageData.name, style: TextStyle(fontSize: 22.0)),
-              Text(stageData.comment ?? "", style: TextStyle(fontSize: 20.0)),
+              Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
+              Text(stageData.comment ?? "",
+                  style: const TextStyle(fontSize: 20.0)),
               if (stageData.isScale == true)
                 Slider(
                   divisions: stageData.scaleMax! - stageData.scaleMin!,
@@ -88,11 +88,11 @@ class _PollState extends State<Poll> {
                           onChanged: (value) {
                             //print(element['iD']);
                             setState(() {
-                              if (value != true)
+                              if (value != true) {
                                 answers[stageData.iD]
                                     ?.pollAnswers
                                     .remove(element.iD);
-                              else
+                              } else {
                                 (answers[stageData.iD] != null)
                                     ? answers[stageData.iD]
                                         ?.pollAnswers
@@ -100,6 +100,7 @@ class _PollState extends State<Poll> {
                                     : answers[stageData.iD] = PollAnswersClient(
                                         pollID: stageData.iD,
                                         pollAnswers: {element.iD});
+                              }
                             });
                           }))
                       .toList()
@@ -149,7 +150,7 @@ class _PollState extends State<Poll> {
                   },
                   maxLines: null,
                 ),
-              Spacer(),
+              const Spacer(),
               Row(
                 children: [
                   if (stage != 0)
@@ -159,8 +160,8 @@ class _PollState extends State<Poll> {
                             stage--;
                           });
                         },
-                        child: Text("НАЗАД")),
-                  Spacer(),
+                        child: const Text("НАЗАД")),
+                  const Spacer(),
                   (stage < poll.length - 1)
                       ? TextButton(
                           onPressed: isActive
@@ -170,7 +171,7 @@ class _PollState extends State<Poll> {
                                   });
                                 }
                               : null,
-                          child: Text("ДАЛЕЕ"))
+                          child: const Text("ДАЛЕЕ"))
                       : Mutation(
                           options: MutationOptions(
                             document: gql(setPollResult),
@@ -192,7 +193,7 @@ class _PollState extends State<Poll> {
                                         });
                                       }
                                     : null,
-                                child: Text("ЗАКОНЧИТЬ"));
+                                child: const Text("ЗАКОНЧИТЬ"));
                           }),
                 ],
               )
@@ -229,12 +230,10 @@ class _DrawState extends State<Draw> {
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
-
-          print(result);
 
           return Center(
             child: Column(
@@ -259,28 +258,27 @@ class _DrawState extends State<Draw> {
                     iAgree = newValue!;
                   }),
                 ),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
                 Mutation(
                     options: MutationOptions(
                       document: gql(setDrawTakePart),
                       onError: (error) {
-                        print(error);
                         showDialog(
                           context: context,
                           builder: (BuildContext context) => AlertDialog(
-                            title: Text('Ошибка'),
+                            title: const Text('Ошибка'),
                             content: Text(error!.graphqlErrors[0].message),
                             actions: [
                               TextButton(
                                 onPressed: () => Navigator.pop(context, 'OK'),
-                                child: Text('OK'),
+                                child: const Text('OK'),
                               ),
                             ],
                           ),
                         );
                       },
                       onCompleted: (resultData) {
-                        print(resultData);
+                        //print(resultData);
                       },
                     ),
                     builder: (runMutation, mutationResult) {
@@ -296,9 +294,9 @@ class _DrawState extends State<Draw> {
                                       'actionID': widget.actionID,
                                       'mode': 'NO'
                                     }),
-                                child: Text("ОТКАЗАТСЯ")),
+                                child: const Text("ОТКАЗАТСЯ")),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             width: 10,
                           ),
                           Expanded(
@@ -309,12 +307,12 @@ class _DrawState extends State<Draw> {
                                           'mode': 'YES'
                                         })
                                     : null,
-                                child: Text("УЧАВСТВОВАТЬ")),
+                                child: const Text("УЧАВСТВОВАТЬ")),
                           ),
                         ],
                       );
                     }),
-                SizedBox(height: 16),
+                const SizedBox(height: 16),
               ],
             ),
           );
@@ -349,7 +347,7 @@ class ActionPage extends StatelessWidget {
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -375,7 +373,7 @@ class ActionPage extends StatelessWidget {
                           FadeInImage.memoryNetwork(
                               imageErrorBuilder:
                                   (context, exception, stackTrace) =>
-                                      Icon(Icons.no_photography),
+                                      const Icon(Icons.no_photography),
                               placeholder: kTransparentImage,
                               image: action.picture ?? "",
                               fit: BoxFit.fill),
@@ -388,25 +386,25 @@ class ActionPage extends StatelessWidget {
                                       action.dateFinish != null)
                                     Text(
                                         "C ${DateFormat.yMMMd('ru_RU').format(dateStart)} по ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
-                                        style: TextStyle(fontSize: 20.0))
+                                        style: const TextStyle(fontSize: 20.0))
                                   else if (action.dateStart != null)
                                     Text(
                                         "C ${DateFormat.yMMMd('ru_RU').format(dateStart)}",
-                                        style: TextStyle(fontSize: 20.0))
+                                        style: const TextStyle(fontSize: 20.0))
                                   else if (action.dateFinish != null)
                                     Text(
                                         "По ${DateFormat.yMMMd('ru_RU').format(dateFinish)}",
-                                        style: TextStyle(fontSize: 20.0)),
-                                  SizedBox(height: 16),
+                                        style: const TextStyle(fontSize: 20.0)),
+                                  const SizedBox(height: 16),
                                   if (action.specialConditions != null)
                                     Container(
                                       width: double.infinity,
-                                      margin:
-                                          EdgeInsets.symmetric(vertical: 10),
-                                      padding: EdgeInsets.symmetric(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 10),
+                                      padding: const EdgeInsets.symmetric(
                                           horizontal: 15, vertical: 2),
                                       decoration: BoxDecoration(
-                                        gradient: LinearGradient(stops: [
+                                        gradient: const LinearGradient(stops: [
                                           0.01,
                                           0.01
                                         ], colors: [
@@ -423,7 +421,7 @@ class ActionPage extends StatelessWidget {
                                       ),
                                       child: Text(
                                           action.specialConditions ?? "",
-                                          style: TextStyle(
+                                          style: const TextStyle(
                                               fontWeight: FontWeight.bold)),
                                     ),
                                   if (action.type == 'DRAWING')
@@ -435,15 +433,15 @@ class ActionPage extends StatelessWidget {
                                       //print(url);
                                     },
                                   ),
-                                  SizedBox(height: 16),
+                                  const SizedBox(height: 16),
                                   action.products.length > 1
-                                      ? Text("Товары из акции",
+                                      ? const Text("Товары из акции",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 28.0,
                                               fontWeight: FontWeight.bold))
-                                      : SizedBox.shrink(),
-                                  SizedBox(height: 16),
+                                      : const SizedBox.shrink(),
+                                  const SizedBox(height: 16),
                                   Wrap(
                                       spacing: 16,
                                       runSpacing: 16,
@@ -484,7 +482,7 @@ class ActionPage extends StatelessWidget {
                               onPressed: () {
                                 launch(result.data!['getAction']['uRL']);
                               },
-                              child: Text("ПОДРОБНЫЕ УСЛОВИЯ АКЦИИ"),
+                              child: const Text("ПОДРОБНЫЕ УСЛОВИЯ АКЦИИ"),
                             ))
                     ],
                   ),
