@@ -66,8 +66,8 @@ class GraphFilterGroup {
   });
 
   GraphFilterGroup.from(GraphFilterGroup original) {
-    this.iD = original.iD;
-    this.values = Set<int>.from(original.values);
+    iD = original.iD;
+    values = Set<int>.from(original.values);
   }
 
   late int iD;
@@ -87,9 +87,9 @@ class GraphFilter {
   });
 
   GraphFilter.from(GraphFilter original) {
-    this.priceMin = original.priceMin;
-    this.priceMax = original.priceMax;
-    this.groups = Map<int, GraphFilterGroup>.from(original.groups);
+    priceMin = original.priceMin;
+    priceMax = original.priceMax;
+    groups = Map<int, GraphFilterGroup>.from(original.groups);
   }
 
   int priceMin = 0;

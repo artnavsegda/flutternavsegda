@@ -36,7 +36,7 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
   }
 
   void repeatSMS() {
-    _timeDilationTimer = Timer.periodic(Duration(seconds: 1), (timer) {
+    _timeDilationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
       if (smsTimeout == 0) {
         timer.cancel();
       } else {
@@ -54,19 +54,19 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
       child: Padding(
         padding: const EdgeInsets.all(15.0),
         child: Wrap(children: [
-          Text("Код",
+          const Text("Код",
               style: TextStyle(
                 fontFamily: 'Montserrat',
                 fontSize: 28,
                 fontWeight: FontWeight.bold,
               )),
           Container(
-            margin: EdgeInsets.only(top: 8.0),
+            margin: const EdgeInsets.only(top: 8.0),
             height: 48,
             child: TextField(
               controller: smsCodeController,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(hintText: '12345'),
+              decoration: const InputDecoration(hintText: '12345'),
             ),
           ),
           Consumer<AppModel>(builder: (context, model, child) {
@@ -79,12 +79,12 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                     showDialog(
                       context: context,
                       builder: (BuildContext context) => AlertDialog(
-                        title: Text('Ошибка'),
+                        title: const Text('Ошибка'),
                         content: Text(error!.graphqlErrors[0].message),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.pop(context, 'OK'),
-                            child: Text('OK'),
+                            child: const Text('OK'),
                           ),
                         ],
                       ),
@@ -123,11 +123,11 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
                   padding: const EdgeInsets.only(top: 16.0),
                   child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity,
+                        minimumSize: const Size(double.infinity,
                             48), // double.infinity is the width and 30 is the height
                       ),
-                      child:
-                          Text("ПОДТВЕРДИТЬ", style: TextStyle(fontSize: 16.0)),
+                      child: const Text("ПОДТВЕРДИТЬ",
+                          style: TextStyle(fontSize: 16.0)),
                       onPressed: () {
                         runMutation({
                           'code': smsCodeController.text,
@@ -141,17 +141,17 @@ class _ConfirmSMSPageState extends State<ConfirmSMSPage> {
             padding: const EdgeInsets.only(top: 16.0),
             child: TextButton(
                 style: ButtonStyle(
-                    minimumSize:
-                        MaterialStateProperty.all(Size(double.infinity, 48.0)),
+                    minimumSize: MaterialStateProperty.all(
+                        const Size(double.infinity, 48.0)),
                     shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                         RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(24.0),
-                            side: BorderSide(color: Colors.green)))),
+                            side: const BorderSide(color: Colors.green)))),
                 onPressed: smsTimeout == 0 ? repeatSMS : null,
                 child: Text(
                     "ПОВТОРИТЬ" +
                         (smsTimeout == 0 ? "" : " ($smsTimeout) СЕК."),
-                    style: TextStyle(fontSize: 16))),
+                    style: const TextStyle(fontSize: 16))),
           )
         ]),
       ),

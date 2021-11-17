@@ -170,8 +170,7 @@ class _CatalogNavigatorState extends State<CatalogNavigator>
                 ),
                 builder: (result, {fetchMore, refetch}) {
                   if (result.hasException) {
-                    return Center(child: Text("Каталог недоступен"));
-                    return Center(child: Text(result.exception.toString()));
+                    return const Center(child: Text("Каталог недоступен"));
                   }
 
                   if (result.isLoading && result.data == null) {

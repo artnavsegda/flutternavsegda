@@ -125,7 +125,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
             builder: (runMutation, result) {
               return ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    minimumSize: Size(double.infinity,
+                    minimumSize: const Size(double.infinity,
                         48), // double.infinity is the width and 30 is the height
                   ),
                   onPressed: () {
@@ -139,7 +139,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                   },
                   child: Text(
                       "В КОРЗИНУ • ${productPrice.price.toStringAsFixed(0)}₽",
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontSize: 16.0, fontWeight: FontWeight.w400)));
             },
           )

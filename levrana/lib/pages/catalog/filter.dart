@@ -33,7 +33,7 @@ class _FiltersPageState extends State<FiltersPage> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Фильтры"),
+          title: const Text("Фильтры"),
           actions: <Widget>[
             TextButton(
               onPressed: () {
@@ -64,7 +64,7 @@ class _FiltersPageState extends State<FiltersPage> {
               }
 
               if (result.isLoading && result.data == null) {
-                return Center(
+                return const Center(
                   child: CircularProgressIndicator(),
                 );
               }
@@ -78,7 +78,7 @@ class _FiltersPageState extends State<FiltersPage> {
                   itemCount: filterView.groups.length + 2,
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      return Text(
+                      return const Text(
                         "Упорядочить",
                         style: TextStyle(fontSize: 16.0),
                       );
@@ -87,8 +87,8 @@ class _FiltersPageState extends State<FiltersPage> {
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Цена", style: TextStyle(fontSize: 16.0)),
-                          Container(
+                          const Text("Цена", style: TextStyle(fontSize: 16.0)),
+                          SizedBox(
                             height: 38,
                             child: Row(
                               children: [
@@ -107,7 +107,7 @@ class _FiltersPageState extends State<FiltersPage> {
                                         initialValue:
                                             filter.priceMin.toString(),
                                         keyboardType: TextInputType.number)),
-                                SizedBox(width: 12),
+                                const SizedBox(width: 12),
                                 Expanded(
                                     child: TextFormField(
                                         onChanged: (value) {
@@ -161,8 +161,9 @@ class _FiltersPageState extends State<FiltersPage> {
                                           newFilter.groups[section.iD]?.values
                                               .remove(newId);
                                           if (newFilter.groups[section.iD]!
-                                              .values.isEmpty)
+                                              .values.isEmpty) {
                                             newFilter.groups.remove(section.iD);
+                                          }
                                         }
                                         setState(() {
                                           filter = newFilter;
@@ -176,7 +177,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           children: [
                             Text(
                               section.name,
-                              style: TextStyle(fontSize: 16.0),
+                              style: const TextStyle(fontSize: 16.0),
                             ),
                             filter.groups[section.iD]?.values.isNotEmpty ??
                                     false
@@ -189,14 +190,14 @@ class _FiltersPageState extends State<FiltersPage> {
                                         .toList()
                                         .map((element) => element.name)
                                         .join(', '),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontSize: 16.0, color: Colors.black45))
-                                : SizedBox.shrink(),
+                                : const SizedBox.shrink(),
                           ]),
                     );
                   },
                   separatorBuilder: (context, index) {
-                    return Divider();
+                    return const Divider();
                   },
                 ),
               );

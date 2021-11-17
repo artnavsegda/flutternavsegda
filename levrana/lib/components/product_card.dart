@@ -23,7 +23,7 @@ class ProductCard extends StatelessWidget {
             children: [
               Container(
                   decoration: BoxDecoration(
-                color: Color(0xFFECECEC),
+                color: const Color(0xFFECECEC),
                 borderRadius: BorderRadius.circular(6.0),
               )),
               InkWell(
@@ -32,7 +32,7 @@ class ProductCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(6.0),
                     child: FadeInImage.memoryNetwork(
                         imageErrorBuilder: (context, exception, stackTrace) =>
-                            Center(child: Icon(Icons.no_photography)),
+                            const Center(child: Icon(Icons.no_photography)),
                         placeholder: kTransparentImage,
                         image: product.picture ?? "")),
               ),
@@ -46,7 +46,7 @@ class ProductCard extends StatelessWidget {
                         color: Colors.white,
                       ),
                       borderRadius:
-                          BorderRadius.only(topLeft: Radius.circular(8)),
+                          const BorderRadius.only(topLeft: Radius.circular(8)),
                     ),
                     width: 40,
                     height: 40,
@@ -56,8 +56,8 @@ class ProductCard extends StatelessWidget {
                     document: gql(cartAdd),
                     onCompleted: (resultData) {
                       //print(resultData);
-                      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                        content: const Text('Добавлен в корзину'),
+                      ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+                        content: Text('Добавлен в корзину'),
                       ));
                     },
                   ),
@@ -68,12 +68,12 @@ class ProductCard extends StatelessWidget {
                       child: InkWell(
                         onTap: () {
                           //print(product['type']);
-                          if (product.type != 'SIMPLE')
+                          if (product.type != 'SIMPLE') {
                             showModalBottomSheet(
                               isScrollControlled: true,
-                              shape: RoundedRectangleBorder(
+                              shape: const RoundedRectangleBorder(
                                 borderRadius: BorderRadius.vertical(
-                                    top: const Radius.circular(16.0)),
+                                    top: Radius.circular(16.0)),
                               ),
                               context: context,
                               builder: (context) {
@@ -81,8 +81,9 @@ class ProductCard extends StatelessWidget {
                                     product: product, id: product.iD);
                               },
                             );
-                          else
+                          } else {
                             runMutation({'productID': product.iD});
+                          }
                         },
                         child: Image.asset(
                           'assets/ic-24/icon-24-shopping.png',
@@ -103,7 +104,7 @@ class ProductCard extends StatelessWidget {
                   child: ChoiceChip(
                       visualDensity: VisualDensity.compact,
                       labelStyle:
-                          TextStyle(fontSize: 16.0, color: Colors.white),
+                          const TextStyle(fontSize: 16.0, color: Colors.white),
                       selectedColor: hexToColor(element.color),
                       selected: true,
                       onSelected: (e) {},

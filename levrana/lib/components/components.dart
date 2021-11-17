@@ -59,7 +59,7 @@ class LevranaCheckboxTitle extends StatelessWidget {
           value
               ? Image.asset('assets/checkbox/checked.png')
               : Image.asset('assets/checkbox/unchecked.png'),
-          SizedBox(
+          const SizedBox(
             width: 10,
           ),
           title
@@ -130,7 +130,7 @@ class ShopCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Color(0xFFF5F5F5),
+        color: const Color(0xFFF5F5F5),
         borderRadius: BorderRadius.circular(12),
       ),
       margin: const EdgeInsets.symmetric(vertical: 5.0),
@@ -147,16 +147,18 @@ class ShopCard extends StatelessWidget {
               height: 80,
             ),
           ),
-          SizedBox(width: 10),
+          const SizedBox(width: 10),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   shop.name,
-                  style: TextStyle(fontSize: 12.0, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      fontSize: 12.0, fontWeight: FontWeight.bold),
                 ),
-                Text(shop.address ?? "", style: TextStyle(fontSize: 12.0)),
+                Text(shop.address ?? "",
+                    style: const TextStyle(fontSize: 12.0)),
                 ...shop.metroStations
                     .map((metroStation) {
                       return Row(
@@ -167,7 +169,7 @@ class ShopCard extends StatelessWidget {
                                   color: hexToColor(metroStation.colorLine))),
                           Expanded(
                             child: Text(metroStation.stationName,
-                                style: TextStyle(fontSize: 12.0)),
+                                style: const TextStyle(fontSize: 12.0)),
                           ),
                         ],
                       );

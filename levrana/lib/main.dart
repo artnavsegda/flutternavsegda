@@ -23,7 +23,7 @@ void main() async {
   runApp(
     ChangeNotifierProvider(
       create: (context) => AppModel(token: startToken),
-      child: LevranaApp(),
+      child: const LevranaApp(),
     ),
   );
 }
@@ -34,7 +34,7 @@ class AppModel with ChangeNotifier {
 
   setToken(String newToken) async {
     final prefs = await SharedPreferences.getInstance();
-    this.token = newToken;
+    token = newToken;
     prefs.setString('token', newToken);
     notifyListeners();
   }
@@ -56,7 +56,7 @@ class LevranaApp extends StatelessWidget {
         textTheme: GoogleFonts.montserratTextTheme(
           Theme.of(context).textTheme,
         ),
-        appBarTheme: AppBarTheme(
+        appBarTheme: const AppBarTheme(
           centerTitle: true,
           titleTextStyle: TextStyle(
               fontFamily: 'Montserrat',
@@ -66,7 +66,7 @@ class LevranaApp extends StatelessWidget {
         elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
             elevation: MaterialStateProperty.all(0.0),
-            minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+            minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0),
@@ -77,9 +77,9 @@ class LevranaApp extends StatelessWidget {
         outlinedButtonTheme: OutlinedButtonThemeData(
           style: ButtonStyle(
             side: MaterialStateProperty.all(
-                BorderSide(width: 1.0, color: Colors.green)),
+                const BorderSide(width: 1.0, color: Colors.green)),
             elevation: MaterialStateProperty.all(0.0),
-            minimumSize: MaterialStateProperty.all(Size(128.0, 48.0)),
+            minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(24.0),
@@ -107,17 +107,17 @@ class LevranaApp extends StatelessWidget {
         ),
         child: MaterialApp(
           //showPerformanceOverlay: true,
-          localizationsDelegates: [
+          localizationsDelegates: const [
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
           ],
-          supportedLocales: [
+          supportedLocales: const [
             Locale('ru', ''), // English, no country codeish, no country code
           ],
           title: 'Levrana',
           theme: levranaTheme,
-          home: model.token == "" ? Welcome() : StartRoute(),
+          home: model.token == "" ? const Welcome() : const StartRoute(),
         ),
       );
     });
@@ -145,11 +145,11 @@ class StartRoute extends StatelessWidget {
         builder: (result, {fetchMore, refetch}) {
           //print(result);
           if (result.hasException) {
-            return LoginPage();
+            return const LoginPage();
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
