@@ -38,6 +38,9 @@ class _MainPageState extends State<MainPage>
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          type: BottomNavigationBarType.fixed,
+          showSelectedLabels: true,
+          showUnselectedLabels: false,
           selectedItemColor: Colors.green[800],
           unselectedItemColor: Colors.black,
           items: const <BottomNavigationBarItem>[
