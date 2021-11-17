@@ -28,6 +28,7 @@ class MorePage extends StatelessWidget {
           leading: Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
         ),
         ListTile(
+          onTap: () {},
           title: Text("Уведомления"),
           leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
         ),
