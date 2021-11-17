@@ -31,7 +31,7 @@ class CheckboxTitle extends StatelessWidget {
                 onTap: () {
                   onChanged(!value);
                 },
-                child: Text(title, style: TextStyle(fontSize: 14))),
+                child: Text(title, style: const TextStyle(fontSize: 14))),
           )
         ],
       ),
@@ -49,7 +49,7 @@ class LevranaCheckboxTitle extends StatelessWidget {
 
   final bool value;
   final ValueChanged<bool?>? onChanged;
-  final title;
+  final Widget title;
 
   @override
   Widget build(BuildContext context) {

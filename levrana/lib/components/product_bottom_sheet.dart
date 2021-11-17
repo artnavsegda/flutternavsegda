@@ -20,8 +20,9 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
   Map<int, int> charMap = {};
 
   GraphProductPrice? getPrice(List<GraphProductPrice> priceList, int priceID) {
-    Map<int, GraphProductPrice> priceMap = Map.fromIterable(priceList,
-        key: (e) => e.characteristicValueID, value: (e) => e);
+    Map<int, GraphProductPrice> priceMap = {
+      for (var e in priceList) e.characteristicValueID ?? 0: e
+    };
     return priceMap[priceID];
   }
 
@@ -31,17 +32,18 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
     if (characteristic.isPrice) {
       GraphProductPrice? price =
           getPrice(prices, characteristic.values[index].iD);
-      if (price != null)
+      if (price != null) {
         setState(() {
           productPrice = price;
         });
+      }
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(16),
+      padding: const EdgeInsets.all(16),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         mainAxisSize: MainAxisSize.min,
@@ -55,8 +57,8 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
               Flexible(
                   child: Padding(
                 padding: const EdgeInsets.all(8.0),
-                child:
-                    Text(widget.product.name, style: TextStyle(fontSize: 16.0)),
+                child: Text(widget.product.name,
+                    style: const TextStyle(fontSize: 16.0)),
               )),
             ],
           ),
@@ -83,10 +85,13 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     GraphProductCard.fromJson(result.data!['getProduct']);
 
                 WidgetsBinding.instance!.addPostFrameCallback((_) {
-                  productInfo.characteristics.forEach((element) {
-                    if (element.type != "TEXT") if (!charMap.containsKey(
-                        element.iD)) selectChar(0, element, productInfo.prices);
-                  });
+                  for (var element in productInfo.characteristics) {
+                    if (element.type != "TEXT") {
+                      if (!charMap.containsKey(element.iD)) {
+                        selectChar(0, element, productInfo.prices);
+                      }
+                    }
+                  }
 
                   if (productPrice.price == 0.0 &&
                       productInfo.prices.length == 1) {
