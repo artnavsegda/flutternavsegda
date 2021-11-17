@@ -14,23 +14,26 @@ class MorePage extends StatelessWidget {
         ListTile(
           onTap: () {
             Navigator.push(context,
-                MaterialPageRoute(builder: (context) => SupportPage()));
+                MaterialPageRoute(builder: (context) => const SupportPage()));
           },
-          title: Text("Служба поддержки"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
+          title: const Text("Служба поддержки"),
+          leading: const Image(
+              image: AssetImage('assets/ic-24/icon-24-support.png')),
         ),
         ListTile(
           onTap: () {
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => HelpPage()));
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HelpPage()));
           },
-          title: Text("Справка"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
+          title: const Text("Справка"),
+          leading:
+              const Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
         ),
         ListTile(
           onTap: () {},
-          title: Text("Уведомления"),
-          leading: Image(image: AssetImage('assets/ic-24/icon-24-support.png')),
+          title: const Text("Уведомления"),
+          leading: const Image(
+              image: AssetImage('assets/ic-24/icon-24-support.png')),
         ),
         ListTile(
           onTap: () async {
@@ -40,9 +43,9 @@ class MorePage extends StatelessWidget {
               inAppReview.requestReview();
             }
           },
-          title: Text("Оценить приложение"),
-          leading:
-              Image(image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+          title: const Text("Оценить приложение"),
+          leading: const Image(
+              image: AssetImage('assets/ic-24/icon-24-feedback.png')),
         ),
       ],
     );
