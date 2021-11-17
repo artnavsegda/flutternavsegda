@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+import 'catalog/catalog.dart';
+import 'home/home.dart';
+import 'more/more.dart';
+import 'shopping/shopping.dart';
+import 'user/user.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
 
@@ -29,12 +35,12 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
         body: TabBarView(
           controller: _tabController,
-          children: [
-            Text('1'),
-            Text('2'),
-            Text('3'),
-            Text('4'),
-            Text('5'),
+          children: const [
+            HomePage(),
+            CatalogPage(),
+            ShoppingPage(),
+            UserPage(),
+            MorePage(),
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
