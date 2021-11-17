@@ -44,11 +44,18 @@ class _MainPageState extends State<MainPage>
           ],
         ),
         bottomNavigationBar: BottomNavigationBar(
+          onTap: (index) {
+            _tabController.animateTo(index);
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           type: BottomNavigationBarType.fixed,
-          showSelectedLabels: true,
+          showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.green[800],
           unselectedItemColor: Colors.black,
+          currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/Icon Home.png')),
