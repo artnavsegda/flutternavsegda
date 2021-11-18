@@ -10,26 +10,25 @@ class MorePage extends StatelessWidget {
         ListTile(
           onTap: () {},
           title: const Text("Служба поддержки"),
-          leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-support.png')),
+          leading:
+              const Image(image: AssetImage('assets/Icon Question Answer.png')),
         ),
         ListTile(
           onTap: () {},
           title: const Text("Справка"),
           leading:
-              const Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
+              const Image(image: AssetImage('assets/Icon Contact Support.png')),
         ),
         ListTile(
           onTap: () async {},
           title: const Text("Оценить приложение"),
           leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+              image: AssetImage('assets/Icon Star Rate Outlined.png')),
         ),
         ListTile(
           onTap: () async {},
           title: const Text("О приложении"),
-          leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-support.png')),
+          leading: const Image(image: AssetImage('assets/Icon Info.png')),
         ),
       ],
     );
