@@ -53,8 +53,8 @@ class _MainPageState extends State<MainPage>
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
-          selectedItemColor: Colors.green[800],
-          unselectedItemColor: Colors.black,
+          selectedItemColor: Colors.black,
+          unselectedItemColor: Colors.red,
           currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
