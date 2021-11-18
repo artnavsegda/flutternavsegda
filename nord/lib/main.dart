@@ -16,8 +16,8 @@ class MyApp extends StatelessWidget {
     ThemeData nordTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
       primarySwatch: Colors.green,
-      fontFamily: 'Forum',
-      textTheme: GoogleFonts.forumTextTheme(
+      fontFamily: 'Noto Sans',
+      textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,
       ),
 /*       elevatedButtonTheme: ElevatedButtonThemeData(

@@ -7,11 +7,11 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
+        Row(children: [Image.asset("assets/sever/Logo.png")]),
         ListTile(
           onTap: () {},
           title: const Text("Служба поддержки"),
-          leading:
-              const Image(image: AssetImage('assets/Icon Question Answer.png')),
+          leading: Image.asset('assets/Icon Question Answer.png'),
         ),
         ListTile(
           onTap: () {},
