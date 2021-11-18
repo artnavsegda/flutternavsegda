@@ -7,7 +7,7 @@ class MorePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListView(
       children: [
-        Row(children: [Image.asset("assets/sever/Logo.png")]),
+        Image.asset("assets/Logos.png"),
         ListTile(
           onTap: () {},
           title: const Text("Служба поддержки"),
