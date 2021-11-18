@@ -17,8 +17,7 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const SupportPage()));
           },
           title: const Text("Служба поддержки"),
-          leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-support.png')),
+          leading: Image.asset('assets/ic-24/icon-24-support.png'),
         ),
         ListTile(
           onTap: () {
@@ -26,14 +25,12 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const HelpPage()));
           },
           title: const Text("Справка"),
-          leading:
-              const Image(image: AssetImage('assets/ic-24/icon-24-info.png')),
+          leading: Image.asset('assets/ic-24/icon-24-info.png'),
         ),
         ListTile(
           onTap: () {},
           title: const Text("Уведомления"),
-          leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-support.png')),
+          leading: Image.asset('assets/ic-24/icon-24-support.png'),
         ),
         ListTile(
           onTap: () async {
@@ -44,8 +41,7 @@ class MorePage extends StatelessWidget {
             }
           },
           title: const Text("Оценить приложение"),
-          leading: const Image(
-              image: AssetImage('assets/ic-24/icon-24-feedback.png')),
+          leading: Image.asset('assets/ic-24/icon-24-feedback.png'),
         ),
       ],
     );
