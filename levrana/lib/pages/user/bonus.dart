@@ -72,10 +72,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
 
   void _handleInvalidPermissions(PermissionStatus permissionStatus) {
     if (permissionStatus == PermissionStatus.denied) {
-      final snackBar = SnackBar(content: Text('Access to contact data denied'));
+      const snackBar = SnackBar(content: Text('Access to contact data denied'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     } else if (permissionStatus == PermissionStatus.permanentlyDenied) {
-      final snackBar =
+      const snackBar =
           SnackBar(content: Text('Contact data not available on device'));
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
@@ -90,12 +90,12 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
         child: Wrap(
           runSpacing: 8.0,
           children: [
-            Text("Подарить бонусы",
+            const Text("Подарить бонусы",
                 style: TextStyle(
                     fontFamily: 'Montserrat',
                     fontSize: 28.0,
                     fontWeight: FontWeight.bold)),
-            Text("Укажите количество бонусов"),
+            const Text("Укажите количество бонусов"),
             Row(
               children: [
                 Expanded(
@@ -115,7 +115,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
             RadioListTile(
               value: SearchMode.phone,
               groupValue: _currentMode,
-              title: Text("По номеру телефона"),
+              title: const Text("По номеру телефона"),
               onChanged: (SearchMode? value) {
                 setState(() {
                   _currentMode = value;
@@ -125,7 +125,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
             RadioListTile(
               value: SearchMode.qr,
               groupValue: _currentMode,
-              title: Text("По QR коду"),
+              title: const Text("По QR коду"),
               onChanged: (SearchMode? value) {
                 setState(() {
                   _currentMode = value;
@@ -139,8 +139,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                     child: TextField(
                       onChanged: (value) async {
                         try {
-                          PhoneNumber phoneNumber =
-                              await PhoneNumberUtil().parse(value);
+                          await PhoneNumberUtil().parse(value);
                           setState(() {
                             phoneNumberIsCorrect = true;
                           });
@@ -153,13 +152,13 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                       controller: textController,
                       inputFormatters: [maskFormatter],
                       keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: "Введите телефон",
                       ),
                     ),
                   ),
                   IconButton(
-                    icon: Icon(Icons.contact_phone),
+                    icon: const Icon(Icons.contact_phone),
                     onPressed: () async {
                       String? phone = await _openContacts();
                       if (phone != null) {
@@ -169,11 +168,10 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                           setState(() {
                             phoneNumberIsCorrect = true;
                           });
-                          print(phoneNumber.toString());
                           textController.value =
                               TextEditingValue(text: phoneNumber.international);
                         } catch (e) {
-                          print("no phone, sorry");
+                          //print("no phone, sorry");
                         }
                       }
                     },
@@ -196,12 +194,11 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                             scanned = false;
                           });
                         });
-                        return Center(child: CircularProgressIndicator());
-                        return Text(result.exception.toString());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       if (result.isLoading) {
-                        return Center(child: CircularProgressIndicator());
+                        return const Center(child: CircularProgressIndicator());
                       }
 
                       return Row(
@@ -215,9 +212,9 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                             padding: const EdgeInsets.all(8.0),
                             child: Text(result.data!['friendFind']['name']),
                           ),
-                          Spacer(),
+                          const Spacer(),
                           IconButton(
-                            icon: Icon(Icons.close),
+                            icon: const Icon(Icons.close),
                             onPressed: () {
                               setState(() {
                                 scanned = false;
@@ -242,7 +239,6 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 options: MutationOptions(
                   document: gql(friendTransfer),
                   onCompleted: (resultData) {
-                    print(resultData);
                     if (resultData['friendTransfer']['code'] != 0) {
                       showDialog(
                         context: context,
@@ -264,7 +260,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                 builder: (runMutation, result) {
                   return ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        minimumSize: Size(double.infinity, 48),
+                        minimumSize: const Size(double.infinity, 48),
                       ),
                       onPressed: phoneNumberIsCorrect || scanned
                           ? () async {
@@ -273,7 +269,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                                   PhoneNumber phoneNumber =
                                       await PhoneNumberUtil()
                                           .parse(textController.text);
-                                  print('7' + phoneNumber.nationalNumber);
+                                  //print('7' + phoneNumber.nationalNumber);
                                   runMutation({
                                     'gUIDorPhone':
                                         '7' + phoneNumber.nationalNumber,
@@ -285,7 +281,7 @@ class _TransferBonusPageState extends State<TransferBonusPage> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                       title: const Text('Ошибка'),
-                                      content: Text("Неправильный номер"),
+                                      content: const Text("Неправильный номер"),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>

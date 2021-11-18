@@ -37,8 +37,9 @@ class _ProductPageState extends State<ProductPage> {
   Map<int, int> charMap = {};
 
   GraphProductPrice? getPrice(List<GraphProductPrice> priceList, int priceID) {
-    Map<int, GraphProductPrice> priceMap = Map.fromIterable(priceList,
-        key: (e) => e.characteristicValueID, value: (e) => e);
+    Map<int, GraphProductPrice> priceMap = {
+      for (var e in priceList) e.characteristicValueID ?? 0: e
+    };
     return priceMap[priceID];
   }
 
@@ -63,10 +64,11 @@ class _ProductPageState extends State<ProductPage> {
     if (characteristic.isPrice) {
       GraphProductPrice? price =
           getPrice(prices, characteristic.values[index].iD);
-      if (price != null)
+      if (price != null) {
         setState(() {
           productPrice = price;
         });
+      }
     }
   }
 
@@ -96,7 +98,7 @@ class _ProductPageState extends State<ProductPage> {
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("Назад"))
+                        child: const Text("Назад"))
                   ],
                 ),
               ),
@@ -131,11 +133,14 @@ class _ProductPageState extends State<ProductPage> {
               GraphProductCard.fromJson(result.data!['getProduct']);
 
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            productInfo.characteristics.forEach((element) {
-              if (element.type != "TEXT") if (!charMap.containsKey(element.iD))
-                selectChar(
-                    0, element, productInfo.prices, productInfo.pictures);
-            });
+            for (var element in productInfo.characteristics) {
+              if (element.type != "TEXT") {
+                if (!charMap.containsKey(element.iD)) {
+                  selectChar(
+                      0, element, productInfo.prices, productInfo.pictures);
+                }
+              }
+            }
 
             if (productPrice.price == 0.0 && productInfo.prices.length == 1) {
               setState(() {
@@ -150,11 +155,11 @@ class _ProductPageState extends State<ProductPage> {
 
           return Scaffold(
               appBar: AppBar(
-                iconTheme: IconThemeData(
+                iconTheme: const IconThemeData(
                   color: Colors.black, //change your color here
                 ),
                 title: Text(productInfo.name,
-                    style: TextStyle(color: Colors.black)),
+                    style: const TextStyle(color: Colors.black)),
                 backgroundColor: Colors.transparent,
                 elevation: 0.0,
               ),
@@ -162,11 +167,11 @@ class _ProductPageState extends State<ProductPage> {
                 RefreshIndicator(
                   onRefresh: () async {
                     await refetch!();
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
                   },
                   child: ListView(
                     children: [
-                      Container(
+                      SizedBox(
                         height: 340,
                         child: PageView.builder(
                             controller: _controller,
@@ -182,7 +187,7 @@ class _ProductPageState extends State<ProductPage> {
                                       placeholder: kTransparentImage,
                                       imageErrorBuilder: (context, exception,
                                               stackTrace) =>
-                                          Center(
+                                          const Center(
                                               child:
                                                   Icon(Icons.no_photography)),
                                       image: productInfo.pictures[index].full),
@@ -198,10 +203,10 @@ class _ProductPageState extends State<ProductPage> {
                               );
                             }),
                       ),
-                      new DotsIndicator(
+                      DotsIndicator(
                         dotsCount: productInfo.pictures.length,
                         position: picturePage.toDouble(),
-                        decorator: DotsDecorator(
+                        decorator: const DotsDecorator(
                           color: Colors.lightGreen, // Inactive color
                           activeColor: Colors.green,
                         ),
@@ -214,21 +219,21 @@ class _ProductPageState extends State<ProductPage> {
                             Row(
                               children: [
                                 productPrice.price == 0.0
-                                    ? SizedBox.shrink()
+                                    ? const SizedBox.shrink()
                                     : Text(
                                         productPrice.price.toStringAsFixed(0) +
                                             "₽",
-                                        style: TextStyle(fontSize: 32)),
-                                SizedBox(width: 10),
+                                        style: const TextStyle(fontSize: 32)),
+                                const SizedBox(width: 10),
                                 productPrice.oldPrice == null
-                                    ? SizedBox.shrink()
+                                    ? const SizedBox.shrink()
                                     : CustomPaint(
                                         painter: RedLine(),
                                         child: Text(
                                             productPrice.oldPrice!
                                                     .toStringAsFixed(0) +
                                                 "₽",
-                                            style: TextStyle(
+                                            style: const TextStyle(
                                                 fontSize: 32,
                                                 color: Colors.black45)),
                                       ),
@@ -242,7 +247,7 @@ class _ProductPageState extends State<ProductPage> {
                                           const EdgeInsets.only(right: 6.0),
                                       child: ChoiceChip(
                                           visualDensity: VisualDensity.compact,
-                                          labelStyle: TextStyle(
+                                          labelStyle: const TextStyle(
                                               fontSize: 16.0,
                                               color: Colors.white),
                                           selectedColor:
@@ -259,10 +264,10 @@ class _ProductPageState extends State<ProductPage> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 0.0, vertical: 8.0),
                               child: Text(productInfo.name,
-                                  style: TextStyle(fontSize: 20)),
+                                  style: const TextStyle(fontSize: 20)),
                             ),
                             Text(productInfo.comment ?? "",
-                                style: TextStyle(fontSize: 16.0)),
+                                style: const TextStyle(fontSize: 16.0)),
                             Column(
                                 children: productInfo.characteristics
                                     .map((e) => CharacteristicsElement(
@@ -275,9 +280,9 @@ class _ProductPageState extends State<ProductPage> {
                                         ))
                                     .toList()
                                     .cast<Widget>()),
-                            SizedBox(height: 16),
+                            const SizedBox(height: 16),
                             ExpandableTheme(
-                              data: ExpandableThemeData(
+                              data: const ExpandableThemeData(
                                   headerAlignment:
                                       ExpandablePanelHeaderAlignment.center,
                                   iconPlacement:
@@ -292,12 +297,12 @@ class _ProductPageState extends State<ProductPage> {
                                 children: [
                                   if (isShowChar)
                                     ExpandablePanel(
-                                      header: Text("Характеристики",
+                                      header: const Text("Характеристики",
                                           style: TextStyle(
                                               fontFamily: 'Montserrat',
                                               fontSize: 16,
                                               fontWeight: FontWeight.bold)),
-                                      collapsed: SizedBox.shrink(),
+                                      collapsed: const SizedBox.shrink(),
                                       expanded: Column(
                                           children: productInfo.characteristics
                                               .map((e) => TextCharacteristic(
@@ -306,22 +311,22 @@ class _ProductPageState extends State<ProductPage> {
                                               .cast<Widget>()),
                                     ),
                                   ExpandablePanel(
-                                    header: Text("Описание",
+                                    header: const Text("Описание",
                                         style: TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                    collapsed: SizedBox.shrink(),
+                                    collapsed: const SizedBox.shrink(),
                                     expanded: MarkdownBody(
                                         data: productInfo.description ?? ""),
                                   ),
                                   ExpandablePanel(
-                                    header: Text("Состав",
+                                    header: const Text("Состав",
                                         style: TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                    collapsed: SizedBox.shrink(),
+                                    collapsed: const SizedBox.shrink(),
                                     expanded: Column(
                                       children: [
                                         SingleChildScrollView(
@@ -346,27 +351,28 @@ class _ProductPageState extends State<ProductPage> {
                                     ),
                                   ),
                                   ExpandablePanel(
-                                    header: Text("Отзывы",
+                                    header: const Text("Отзывы",
                                         style: TextStyle(
                                             fontFamily: 'Montserrat',
                                             fontSize: 16,
                                             fontWeight: FontWeight.bold)),
-                                    collapsed: SizedBox.shrink(),
+                                    collapsed: const SizedBox.shrink(),
                                     expanded: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
                                         OutlinedButton(
-                                            child: Text("НАПИСАТЬ ОТЗЫВ"),
+                                            child: const Text("НАПИСАТЬ ОТЗЫВ"),
                                             onPressed: () {
                                               showModalBottomSheet(
                                                 context: context,
                                                 isScrollControlled: true,
-                                                shape: RoundedRectangleBorder(
+                                                shape:
+                                                    const RoundedRectangleBorder(
                                                   borderRadius:
                                                       BorderRadius.vertical(
-                                                          top: const Radius
-                                                              .circular(16.0)),
+                                                          top: Radius.circular(
+                                                              16.0)),
                                                 ),
                                                 builder: (context) {
                                                   return ReviewPage(
@@ -383,15 +389,15 @@ class _ProductPageState extends State<ProductPage> {
                                       ],
                                     ),
                                   ),
-                                  if (productInfo.link.length > 0)
+                                  if (productInfo.link.isNotEmpty)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: 24),
-                                        Text("С этим берут",
+                                        const SizedBox(height: 24),
+                                        const Text("С этим берут",
                                             style: TextStyle(fontSize: 32)),
-                                        SizedBox(height: 12),
+                                        const SizedBox(height: 12),
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
@@ -409,15 +415,15 @@ class _ProductPageState extends State<ProductPage> {
                                         ),
                                       ],
                                     ),
-                                  if (productInfo.similar.length > 0)
+                                  if (productInfo.similar.isNotEmpty)
                                     Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        SizedBox(height: 48),
-                                        Text("Похожие товары",
+                                        const SizedBox(height: 48),
+                                        const Text("Похожие товары",
                                             style: TextStyle(fontSize: 32)),
-                                        SizedBox(height: 12),
+                                        const SizedBox(height: 12),
                                         SingleChildScrollView(
                                           scrollDirection: Axis.horizontal,
                                           child: Row(
@@ -463,8 +469,8 @@ class _ProductPageState extends State<ProductPage> {
                                 // Find the ScaffoldMessenger in the widget tree
                                 // and use it to show a SnackBar.
                                 ScaffoldMessenger.of(context)
-                                    .showSnackBar(SnackBar(
-                                  content: const Text('Добавлен в корзину'),
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Добавлен в корзину'),
                                 ));
                               },
                             ),
@@ -482,14 +488,14 @@ class _ProductPageState extends State<ProductPage> {
                                   },
                                   child: Text(
                                       "В КОРЗИНУ • ${productPrice.price.toStringAsFixed(0)}₽",
-                                      style: TextStyle(
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w400,
                                       )));
                             },
                           ),
                         ),
-                        SizedBox(width: 10),
+                        const SizedBox(width: 10),
                         Mutation(
                           options: MutationOptions(
                             document: gql(setFavoritesProduct),
@@ -505,10 +511,10 @@ class _ProductPageState extends State<ProductPage> {
                               }),
                               label: Text("${productInfo.favorites}"),
                               icon: productInfo.isFavorite
-                                  ? Icon(Icons.favorite_outlined)
-                                  : Icon(Icons.favorite_border_outlined),
+                                  ? const Icon(Icons.favorite_outlined)
+                                  : const Icon(Icons.favorite_border_outlined),
                               style: ElevatedButton.styleFrom(
-                                minimumSize: Size(48, 48),
+                                minimumSize: const Size(48, 48),
                                 primary: productInfo.isFavorite
                                     ? Colors.red
                                     : Colors.green,

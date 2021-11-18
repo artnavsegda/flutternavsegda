@@ -25,14 +25,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
           //print(result);
 
           if (result.hasException) {
-            return Center(
+            return const Center(
               child: Text("Корзина недоступна"),
             );
-            return Text(result.exception.toString());
           }
 
           if (result.isLoading) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           }
@@ -41,8 +40,8 @@ class _FavouritesPageState extends State<FavouritesPage> {
               .data!['getFavoritesProducts']
               .map((model) => GraphProduct.fromJson(model)));
 
-          if (favourites.length == 0) {
-            return Center(child: Text("Жми сердечко"));
+          if (favourites.isEmpty) {
+            return const Center(child: Text("Жми сердечко"));
           }
 
           return RefreshIndicator(
@@ -51,13 +50,13 @@ class _FavouritesPageState extends State<FavouritesPage> {
               //await Future.delayed(Duration(seconds: 1));
             },
             child: SingleChildScrollView(
-              physics: AlwaysScrollableScrollPhysics(),
+              physics: const AlwaysScrollableScrollPhysics(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Padding(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8),
                     child: ListTile(
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0)),
@@ -66,7 +65,7 @@ class _FavouritesPageState extends State<FavouritesPage> {
                           height: 24.0,
                           width: 24.0,
                           child: LevranaCheckbox(
-                              value: selectedRows.length != 0 &&
+                              value: selectedRows.isNotEmpty &&
                                   selectedRows.containsAll(
                                       favourites.map((e) => e.iD).toList()),
                               onChanged: (newValue) {
@@ -95,8 +94,9 @@ class _FavouritesPageState extends State<FavouritesPage> {
                                   ),
                                   builder: (runMutation, result) {
                                     return IconButton(
-                                      constraints: BoxConstraints(maxWidth: 36),
-                                      icon: Icon(Icons.delete_outlined),
+                                      constraints:
+                                          const BoxConstraints(maxWidth: 36),
+                                      icon: const Icon(Icons.delete_outlined),
                                       onPressed: () {
                                         runMutation({
                                           'productIds': selectedRows.toList()
@@ -112,9 +112,10 @@ class _FavouritesPageState extends State<FavouritesPage> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12.0))),
                     width: double.infinity,
-                    margin: EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
-                    padding:
-                        EdgeInsets.symmetric(horizontal: 8.0, vertical: 16.0),
+                    margin: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 8.0, vertical: 16.0),
                     child: Wrap(
                         spacing: 0,
                         runSpacing: 32,

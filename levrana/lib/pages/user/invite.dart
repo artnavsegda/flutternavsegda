@@ -25,17 +25,17 @@ class InvitePage extends StatelessWidget {
                         Clipboard.setData(
                             ClipboardData(text: codeInviteFriend));
                       },
-                      child: Text("Скопировать")),
+                      child: const Text("Скопировать")),
                 ],
               ),
             ),
             ElevatedButton(
-              child: Text("ПОДЕЛИТСЯ КОДОМ"),
+              child: const Text("ПОДЕЛИТСЯ КОДОМ"),
               onPressed: () {
                 Share.share(codeInviteFriend);
               },
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48),
+                minimumSize: const Size(double.infinity, 48),
               ),
             ),
           ],

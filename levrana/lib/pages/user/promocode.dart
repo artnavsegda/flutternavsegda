@@ -30,7 +30,7 @@ class _PromocodeState extends State<Promocode> {
         child: Wrap(
           runSpacing: 8.0,
           children: [
-            Text('Промокод',
+            const Text('Промокод',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 28.0,
@@ -38,7 +38,7 @@ class _PromocodeState extends State<Promocode> {
                 )),
             TextField(
               controller: textController,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Введите промокод",
               ),
             ),
@@ -53,7 +53,7 @@ class _PromocodeState extends State<Promocode> {
                 builder: (runMutation, result) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 48),
+                      minimumSize: const Size(double.infinity, 48),
                     ),
                     child: const Text('АКТИВИРОВАТЬ ПРОМОКОД'),
                     onPressed: () {

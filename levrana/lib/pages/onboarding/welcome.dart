@@ -14,7 +14,7 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DialogPage(
-      image: AssetImage('assets/Welcome.png'),
+      image: const AssetImage('assets/Welcome.png'),
       title: "Привет!",
       body:
           "Да, теперь Леврана, это не просто магазин косметики. Мы разработали приложение, бонусную систему и много других приятностей для вас.",
@@ -23,10 +23,10 @@ class Welcome extends StatelessWidget {
           options: MutationOptions(
             document: gql(authenticate),
             onError: (error) {
-              print(error);
+              //print(error);
             },
             onCompleted: (dynamic resultData) async {
-              print(resultData);
+              //print(resultData);
               await model.setToken(resultData['authenticate']['token']);
 /*               Navigator.pushReplacement(
                 context,
@@ -40,9 +40,9 @@ class Welcome extends StatelessWidget {
           ) {
             return ElevatedButton(
               style: ElevatedButton.styleFrom(
-                minimumSize: Size(double.infinity, 48),
+                minimumSize: const Size(double.infinity, 48),
               ),
-              child: Text("ДАЛЬШЕ"),
+              child: const Text("ДАЛЬШЕ"),
               onPressed: () async {
                 DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
                 if (Platform.isAndroid) {

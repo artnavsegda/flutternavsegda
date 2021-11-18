@@ -47,11 +47,11 @@ class _EditUserPageState extends State<EditUserPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {
-        return ConfirmSMSPage();
+        return const ConfirmSMSPage();
       },
     );
   }
@@ -61,9 +61,9 @@ class _EditUserPageState extends State<EditUserPage> {
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
-        title: Text("Редактирование профиля",
+        title: const Text("Редактирование профиля",
             style: TextStyle(color: Colors.black)),
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.black, //change your color here
         ),
         backgroundColor: Colors.transparent,
@@ -72,7 +72,7 @@ class _EditUserPageState extends State<EditUserPage> {
       body: SingleChildScrollView(
         child: Stack(
           children: [
-            Image(
+            const Image(
               image: AssetImage('assets/EditUser.png'),
               width: double.infinity,
               fit: BoxFit.cover,
@@ -101,7 +101,7 @@ class _EditUserPageState extends State<EditUserPage> {
                 String clientGUID = userInfo.clientGUID;
                 return Column(
                   children: [
-                    SizedBox(height: 100.0),
+                    const SizedBox(height: 100.0),
                     Stack(
                       alignment: Alignment.bottomRight,
                       children: [
@@ -147,12 +147,12 @@ class _EditUserPageState extends State<EditUserPage> {
                                       )
                                     ],
                                   )),
-                          child: Icon(
+                          child: const Icon(
                             Icons.photo_camera_outlined,
                           ),
                           style: ElevatedButton.styleFrom(
-                            minimumSize: Size(48, 48),
-                            shape: CircleBorder(),
+                            minimumSize: const Size(48, 48),
+                            shape: const CircleBorder(),
                           ),
                         ),
                       ],
@@ -161,7 +161,7 @@ class _EditUserPageState extends State<EditUserPage> {
                       padding: const EdgeInsets.all(16.0),
                       child: Theme(
                         data: Theme.of(context).copyWith(
-                            inputDecorationTheme: InputDecorationTheme()),
+                            inputDecorationTheme: const InputDecorationTheme()),
                         child: Form(
                           key: _formKey,
                           child: Column(
@@ -180,7 +180,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                     return null;
                                   },
                                   decoration:
-                                      InputDecoration(labelText: 'Имя')),
+                                      const InputDecoration(labelText: 'Имя')),
                               Stack(
                                 alignment: Alignment.centerRight,
                                 children: [
@@ -197,14 +197,14 @@ class _EditUserPageState extends State<EditUserPage> {
                                         }
                                         return null;
                                       },
-                                      decoration:
-                                          InputDecoration(labelText: 'E-mail')),
+                                      decoration: const InputDecoration(
+                                          labelText: 'E-mail')),
                                   if (userInfo.confirmedEMail == false)
                                     OutlinedButton(
                                         style: ButtonStyle(
                                             minimumSize:
                                                 MaterialStateProperty.all(
-                                                    Size(36.0, 36.0)),
+                                                    const Size(36.0, 36.0)),
                                             shape: MaterialStateProperty.all<
                                                     RoundedRectangleBorder>(
                                                 RoundedRectangleBorder(
@@ -216,7 +216,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                             context: context,
                                             builder: (context) =>
                                                 CupertinoAlertDialog(
-                                              content: Text(
+                                              content: const Text(
                                                   'Выслать повторно код подтверждения?'),
                                               actions: [
                                                 CupertinoDialogAction(
@@ -232,7 +232,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                                           eMailConfirmRepeat),
                                                       onCompleted:
                                                           (resultData) {
-                                                        print(resultData);
+                                                        //print(resultData);
                                                       },
                                                     ),
                                                     builder:
@@ -252,7 +252,7 @@ class _EditUserPageState extends State<EditUserPage> {
 
                                           return;
 
-                                          showDialog(
+/*                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(
                                               content: Text(
@@ -268,9 +268,9 @@ class _EditUserPageState extends State<EditUserPage> {
                                                 ),
                                               ],
                                             ),
-                                          );
+                                          ); */
                                         },
-                                        child: Text("Подтвердить")),
+                                        child: const Text("Подтвердить")),
                                 ],
                               ),
                               TextFormField(
@@ -283,8 +283,8 @@ class _EditUserPageState extends State<EditUserPage> {
                                       .maskText(userInfo.phone.toString()),
                                   inputFormatters: [maskFormatter],
                                   keyboardType: TextInputType.number,
-                                  decoration:
-                                      InputDecoration(labelText: 'Телефон')),
+                                  decoration: const InputDecoration(
+                                      labelText: 'Телефон')),
                               TextFormField(
                                   key: Key(dateOfBirth ?? "dateOfBirth"),
                                   readOnly: true,
@@ -300,11 +300,11 @@ class _EditUserPageState extends State<EditUserPage> {
                                         builder: (context) {
                                           return Container(
                                             height: 300,
-                                            color: Color.fromARGB(
+                                            color: const Color.fromARGB(
                                                 255, 255, 255, 255),
                                             child: Column(
                                               children: [
-                                                Container(
+                                                SizedBox(
                                                   height: 240,
                                                   child: CupertinoDatePicker(
                                                     initialDateTime:
@@ -321,7 +321,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                                   ),
                                                 ),
                                                 CupertinoButton(
-                                                  child: Text('OK'),
+                                                  child: const Text('OK'),
                                                   onPressed: () =>
                                                       Navigator.of(context)
                                                           .pop(),
@@ -331,7 +331,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                           );
                                         });
                                   },
-                                  decoration: InputDecoration(
+                                  decoration: const InputDecoration(
                                       labelText: 'Дата рождения')),
                               TextFormField(
                                   key: Key(gender ?? "gender"),
@@ -367,8 +367,8 @@ class _EditUserPageState extends State<EditUserPage> {
                                             ));
                                   },
                                   decoration:
-                                      InputDecoration(labelText: 'Пол')),
-                              SizedBox(
+                                      const InputDecoration(labelText: 'Пол')),
+                              const SizedBox(
                                 height: 32,
                               ),
                               SizedBox(
@@ -378,11 +378,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                   return Mutation(
                                     options: MutationOptions(
                                       document: gql(editClient),
-                                      onError: (error) {
-                                        print(error);
-                                      },
                                       onCompleted: (resultData) {
-                                        print(resultData);
                                         if (resultData['editClient']
                                                 ['result'] ==
                                             0) {
@@ -437,15 +433,14 @@ class _EditUserPageState extends State<EditUserPage> {
                                                 ));
                                                 var streamedResponse =
                                                     await request.send();
-                                                var res = await streamedResponse
-                                                    .stream
+                                                await streamedResponse.stream
                                                     .bytesToString();
                                                 //print(res);
                                               }
-                                              print(phone != null
+                                              /* print(phone != null
                                                   ? int.parse(maskFormatter
                                                       .unmaskText(phone!))
-                                                  : userInfo.phone);
+                                                  : userInfo.phone); */
                                               runMutation({
                                                 'clientGUID': clientGUID,
                                                 'name': name ?? userInfo.name,
@@ -463,7 +458,7 @@ class _EditUserPageState extends State<EditUserPage> {
                                               //Navigator.pop(context);
                                             }
                                           },
-                                          child: Text("СОХРАНИТЬ",
+                                          child: const Text("СОХРАНИТЬ",
                                               style:
                                                   TextStyle(fontSize: 16.0)));
                                     },

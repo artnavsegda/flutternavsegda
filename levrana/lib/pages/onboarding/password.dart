@@ -20,11 +20,11 @@ class _PasswordPageState extends State<PasswordPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {
-        return ConfirmSMSPage();
+        return const ConfirmSMSPage();
       },
     );
   }
@@ -37,19 +37,19 @@ class _PasswordPageState extends State<PasswordPage> {
         padding: const EdgeInsets.all(15.0),
         child: Wrap(
           children: [
-            Text("Пароль",
+            const Text("Пароль",
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 )),
             Container(
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               height: 48,
               child: TextField(
                 obscureText: true,
                 controller: passwordController,
-                decoration: InputDecoration(
+                decoration: const InputDecoration(
                   labelText: "Введите пароль",
                 ),
               ),
@@ -58,13 +58,6 @@ class _PasswordPageState extends State<PasswordPage> {
               return Mutation(
                 options: MutationOptions(
                     document: gql(checkPassword),
-                    update: (cache, result) {
-                      if (result!.hasException) {
-                        //print(result.exception);
-                      } else {
-                        return cache;
-                      }
-                    },
                     onError: (error) {
                       //print("ERROR");
                       //print(error!.graphqlErrors[0].message);
@@ -115,10 +108,10 @@ class _PasswordPageState extends State<PasswordPage> {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity,
+                          minimumSize: const Size(double.infinity,
                               48), // double.infinity is the width and 30 is the height
                         ),
-                        child: Text("ПОДТВЕРДИТЬ",
+                        child: const Text("ПОДТВЕРДИТЬ",
                             style: TextStyle(fontSize: 16.0)),
                         onPressed: () {
                           runMutation({
@@ -133,7 +126,6 @@ class _PasswordPageState extends State<PasswordPage> {
                 options: MutationOptions(
                   document: gql(forgotPassword),
                   onCompleted: (dynamic resultData) async {
-                    print(resultData);
                     Navigator.pop(context);
                     _confirmSMS(context);
                   },
@@ -146,13 +138,13 @@ class _PasswordPageState extends State<PasswordPage> {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          minimumSize: Size(double.infinity,
+                          minimumSize: const Size(double.infinity,
                               48), // double.infinity is the width and 30 is the height
                         ),
                         onPressed: () {
                           runMutation({});
                         },
-                        child: Text("ЗАБЫЛ ПАРОЛЬ",
+                        child: const Text("ЗАБЫЛ ПАРОЛЬ",
                             style: TextStyle(fontSize: 16))),
                   );
                 })

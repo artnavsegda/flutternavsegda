@@ -40,7 +40,7 @@ class LoginPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => MainPage()),
+                  MaterialPageRoute(builder: (context) => const MainPage()),
                 );
               },
               child: const Text("ПОЗЖЕ")),
@@ -53,11 +53,11 @@ class LoginPage extends StatelessWidget {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {
-        return UserLoginPage();
+        return const UserLoginPage();
       },
     );
   }
@@ -92,20 +92,19 @@ class _UserLoginPageState extends State<UserLoginPage> {
         padding: const EdgeInsets.all(15.0),
         child: Wrap(
           children: [
-            Text("Вход",
+            const Text("Вход",
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 28,
                   fontWeight: FontWeight.bold,
                 )),
             Container(
-              margin: EdgeInsets.only(top: 8.0),
+              margin: const EdgeInsets.only(top: 8.0),
               height: 48,
               child: TextField(
                 onChanged: (value) async {
                   try {
-                    PhoneNumber phoneNumber =
-                        await PhoneNumberUtil().parse(value);
+                    await PhoneNumberUtil().parse(value);
                     setState(() {
                       phoneNumberIsCorrect = true;
                     });
@@ -118,7 +117,8 @@ class _UserLoginPageState extends State<UserLoginPage> {
                 controller: phoneNumberController,
                 inputFormatters: [maskFormatter],
                 keyboardType: TextInputType.number,
-                decoration: InputDecoration(hintText: '+7(___) ___-__-__'),
+                decoration:
+                    const InputDecoration(hintText: '+7(___) ___-__-__'),
               ),
             ),
             CheckboxTitle(
@@ -149,10 +149,11 @@ class _UserLoginPageState extends State<UserLoginPage> {
                     if (resultData['loginClient']['result'] == 0) {
                       await model.setToken(resultData['loginClient']['token']);
                       Navigator.pop(context);
-                      if (resultData['loginClient']['nextStep'] == 'PASSWORD')
+                      if (resultData['loginClient']['nextStep'] == 'PASSWORD') {
                         _enterPassword(context);
-                      else
+                      } else {
                         _confirmSMS(context);
+                      }
                     } else {
                       showDialog(
                         context: context,
@@ -179,7 +180,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                     padding: const EdgeInsets.only(top: 16.0),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          minimumSize: Size(double.infinity, 48),
+                          minimumSize: const Size(double.infinity, 48),
                         ),
                         onPressed: isAgreed &&
                                 isFamiliarized &&
@@ -200,7 +201,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                     builder: (BuildContext context) =>
                                         AlertDialog(
                                       title: const Text('Ошибка'),
-                                      content: Text("Неправильный номер"),
+                                      content: const Text("Неправильный номер"),
                                       actions: [
                                         TextButton(
                                           onPressed: () =>
@@ -213,7 +214,7 @@ class _UserLoginPageState extends State<UserLoginPage> {
                                 }
                               }
                             : null,
-                        child: Text("ВОЙТИ")),
+                        child: const Text("ВОЙТИ")),
                   );
                 },
               );
@@ -228,11 +229,11 @@ class _UserLoginPageState extends State<UserLoginPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {
-        return ConfirmSMSPage();
+        return const ConfirmSMSPage();
       },
     );
   }
@@ -241,11 +242,11 @@ class _UserLoginPageState extends State<UserLoginPage> {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: const Radius.circular(16.0)),
+      shape: const RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
       builder: (context) {
-        return PasswordPage();
+        return const PasswordPage();
       },
     );
   }

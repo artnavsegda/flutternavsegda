@@ -36,11 +36,12 @@ class _ReviewPageState extends State<ReviewPage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text("Написать отзыв", style: TextStyle(fontSize: 32.0)),
-                    SizedBox(
+                    const Text("Написать отзыв",
+                        style: TextStyle(fontSize: 32.0)),
+                    const SizedBox(
                       height: 24,
                     ),
-                    Text("Ваша оценка",
+                    const Text("Ваша оценка",
                         style: TextStyle(fontSize: 16.0, color: Colors.grey)),
                     RatingBar(
                       itemSize: 27,
@@ -53,7 +54,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         half: Image.asset('assets/star_half.png'),
                         empty: Image.asset('assets/star_border.png'),
                       ),
-                      itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                       onRatingUpdate: (newRating) {
                         setState(() {
                           rating = (newRating * 2).round();
@@ -61,7 +62,7 @@ class _ReviewPageState extends State<ReviewPage> {
                         //print(newRating);
                       },
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 18,
                     ),
                     TextField(
@@ -101,14 +102,14 @@ class _ReviewPageState extends State<ReviewPage> {
                                   'mark': rating
                                 });
                               },
-                              child: Text("ОТПРАВИТЬ"));
+                              child: const Text("ОТПРАВИТЬ"));
                         }),
-                    SizedBox(width: 16),
+                    const SizedBox(width: 16),
                     OutlinedButton(
                         onPressed: () {
                           Navigator.pop(context);
                         },
-                        child: Text("ОТМЕНА")),
+                        child: const Text("ОТМЕНА")),
                   ],
                 ),
               ),

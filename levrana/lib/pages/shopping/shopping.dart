@@ -9,15 +9,15 @@ class ShoppingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
+    return const DefaultTabController(
       length: 2,
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Color(0xFFF5F5F5),
           appBar: PreferredSize(
-            preferredSize: const Size.fromHeight(60.0),
+            preferredSize: Size.fromHeight(60.0),
             child: Padding(
-              padding: const EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(16.0),
               child: TabBar(
                   unselectedLabelColor: Colors.black38,
                   unselectedLabelStyle: TextStyle(

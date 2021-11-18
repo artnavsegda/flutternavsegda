@@ -6,11 +6,11 @@ import 'package:transparent_image/transparent_image.dart';
 
 import '../../gql.dart';
 import '../../main.dart';
-import 'editUser.dart';
+import 'edit_user.dart';
 import 'bonus.dart';
 import 'promocode.dart';
 import 'invite.dart';
-import 'setPassword.dart';
+import 'set_password.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -24,15 +24,14 @@ class UserPage extends StatelessWidget {
           if (result.hasException) {
             return Center(
                 child: ElevatedButton(
-              child: Text("Войти в профиль"),
+              child: const Text("Войти в профиль"),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,
-                  MaterialPageRoute(builder: (context) => StartRoute()),
+                  MaterialPageRoute(builder: (context) => const StartRoute()),
                 );
               },
             ));
-            return Center(child: Text(result.exception.toString()));
           }
 
           if (result.isLoading && result.data == null) {
@@ -55,22 +54,24 @@ class UserPage extends StatelessWidget {
                   onPressed: () async {
                     await Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => EditUserPage()),
+                      MaterialPageRoute(
+                          builder: (context) => const EditUserPage()),
                     );
                     refetch!();
                   },
                 ),
               ],
-              iconTheme: IconThemeData(
+              iconTheme: const IconThemeData(
                 color: Colors.black, //change your color here
               ),
-              title: Text("Профиль", style: TextStyle(color: Colors.black)),
+              title:
+                  const Text("Профиль", style: TextStyle(color: Colors.black)),
               backgroundColor: Colors.transparent,
               elevation: 0.0,
             ),
             body: Stack(
               children: [
-                Image(
+                const Image(
                   image: AssetImage('assets/UserPage.png'),
                   width: double.infinity,
                   fit: BoxFit.cover,
@@ -78,7 +79,7 @@ class UserPage extends StatelessWidget {
                 RefreshIndicator(
                   onRefresh: () async {
                     await refetch!();
-                    await Future.delayed(Duration(seconds: 1));
+                    await Future.delayed(const Duration(seconds: 1));
                   },
                   child: ListView(
                     children: [
@@ -93,14 +94,14 @@ class UserPage extends StatelessWidget {
                                     as ImageProvider,
                           ),
                           Text(userInfo.name ?? "Незнакомец",
-                              style: TextStyle(fontSize: 28.0))
+                              style: const TextStyle(fontSize: 28.0))
                         ],
                       ),
                       Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(12),
-                          boxShadow: <BoxShadow>[
+                          boxShadow: const <BoxShadow>[
                             BoxShadow(
                               color: Color.fromRGBO(85, 146, 80, 0.0525),
                               blurRadius: 3.13,
@@ -118,20 +119,20 @@ class UserPage extends StatelessWidget {
                             )
                           ],
                         ),
-                        padding: EdgeInsets.all(16),
-                        margin: EdgeInsets.all(16),
+                        padding: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.all(16),
                         child: Column(
                           children: [
-                            Text("Доступно бонусов"),
+                            const Text("Доступно бонусов"),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(userInfo.points.toString(),
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 40.0,
                                         fontWeight: FontWeight.bold)),
-                                Image(
+                                const Image(
                                     fit: BoxFit.contain,
                                     width: 48,
                                     height: 48,
@@ -142,7 +143,7 @@ class UserPage extends StatelessWidget {
                             OutlinedButton(
                                 style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(
-                                        Size(223.0, 36.0)),
+                                        const Size(223.0, 36.0)),
                                     shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
@@ -150,9 +151,9 @@ class UserPage extends StatelessWidget {
                                     ))),
                                 onPressed: () {
                                   showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
+                                    shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
-                                          top: const Radius.circular(16.0)),
+                                          top: Radius.circular(16.0)),
                                     ),
                                     isScrollControlled: true,
                                     context: context,
@@ -164,12 +165,12 @@ class UserPage extends StatelessWidget {
                                     },
                                   );
                                 },
-                                child: Text("ПРИГЛАСИТЬ ДРУГА",
+                                child: const Text("ПРИГЛАСИТЬ ДРУГА",
                                     style: TextStyle(fontSize: 16.0))),
                             ElevatedButton(
                                 style: ButtonStyle(
                                     minimumSize: MaterialStateProperty.all(
-                                        Size(223.0, 36.0)),
+                                        const Size(223.0, 36.0)),
                                     shape: MaterialStateProperty.all<
                                             RoundedRectangleBorder>(
                                         RoundedRectangleBorder(
@@ -177,9 +178,9 @@ class UserPage extends StatelessWidget {
                                     ))),
                                 onPressed: () {
                                   showModalBottomSheet(
-                                    shape: RoundedRectangleBorder(
+                                    shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(
-                                          top: const Radius.circular(16.0)),
+                                          top: Radius.circular(16.0)),
                                     ),
                                     isScrollControlled: true,
                                     context: context,
@@ -189,42 +190,42 @@ class UserPage extends StatelessWidget {
                                     },
                                   );
                                 },
-                                child: Text("ПОДАРИТЬ БОНУСЫ",
+                                child: const Text("ПОДАРИТЬ БОНУСЫ",
                                     style: TextStyle(fontSize: 16.0))),
                           ],
                         ),
                       ),
-                      ListTile(
+                      const ListTile(
                         title: Text("Подарки"),
                         leading: Image(
                             image: AssetImage('assets/ic-24/icon-24-gift.png')),
                       ),
                       ListTile(
-                        title: Text("Активировать промокод"),
-                        leading: Image(
+                        title: const Text("Активировать промокод"),
+                        leading: const Image(
                             image:
                                 AssetImage('assets/ic-24/icon-24-promo.png')),
                         onTap: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                                  top: const Radius.circular(16.0)),
+                                  top: Radius.circular(16.0)),
                             ),
                             context: context,
                             builder: (BuildContext context) {
-                              return Promocode();
+                              return const Promocode();
                             },
                           );
                         },
                       ),
-                      ListTile(
+                      const ListTile(
                         title: Text("История заказов"),
                         leading: Image(
                             image:
                                 AssetImage('assets/ic-24/icon-24-history.png')),
                       ),
-                      ListTile(
+                      const ListTile(
                         title: Text("Адреса доставки"),
                         leading: Image(
                             image:
@@ -234,18 +235,18 @@ class UserPage extends StatelessWidget {
                         onTap: () {
                           showModalBottomSheet(
                             isScrollControlled: true,
-                            shape: RoundedRectangleBorder(
+                            shape: const RoundedRectangleBorder(
                               borderRadius: BorderRadius.vertical(
-                                  top: const Radius.circular(16.0)),
+                                  top: Radius.circular(16.0)),
                             ),
                             context: context,
                             builder: (BuildContext context) {
-                              return SetPasswordPage();
+                              return const SetPasswordPage();
                             },
                           );
                         },
-                        title: Text("Смена пароля"),
-                        leading: Image(
+                        title: const Text("Смена пароля"),
+                        leading: const Image(
                             image: AssetImage('assets/ic-24/icon-24-pass.png')),
                       ),
                       Consumer<AppModel>(builder: (context, model, child) {
@@ -258,7 +259,7 @@ class UserPage extends StatelessWidget {
                                 Navigator.pushReplacement(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => StartRoute()),
+                                      builder: (context) => const StartRoute()),
                                 );
                               },
                             ),
@@ -267,8 +268,8 @@ class UserPage extends StatelessWidget {
                                 onTap: () async {
                                   runMutation({});
                                 },
-                                title: Text("Выйти"),
-                                leading: Image(
+                                title: const Text("Выйти"),
+                                leading: const Image(
                                     image: AssetImage(
                                         'assets/ic-24/icon-24-exit.png')),
                               );

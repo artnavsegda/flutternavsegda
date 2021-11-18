@@ -31,10 +31,11 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
     super.initState();
 
     void handleChange() {
-      if (passwordController.text.length > 0)
+      if (passwordController.text.isNotEmpty) {
         setState(() {
           _isPassValid = passwordController.text == confirmController.text;
         });
+      }
     }
 
     passwordController.addListener(handleChange);
@@ -50,7 +51,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
         child: Wrap(
           runSpacing: 8.0,
           children: <Widget>[
-            Text('Смена пароля',
+            const Text('Смена пароля',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontSize: 28.0,
@@ -59,14 +60,14 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
             TextField(
               controller: passwordController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Введите пароль",
               ),
             ),
             TextField(
               controller: confirmController,
               obscureText: true,
-              decoration: InputDecoration(
+              decoration: const InputDecoration(
                 labelText: "Подтвердите пароль",
               ),
             ),
@@ -81,7 +82,7 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 builder: (runMutation, result) {
                   return ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      minimumSize: Size(double.infinity, 48),
+                      minimumSize: const Size(double.infinity, 48),
                     ),
                     child: const Text('УСТАНОВИТЬ ПАРОЛЬ'),
                     onPressed: _isPassValid
