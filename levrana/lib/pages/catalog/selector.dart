@@ -104,3 +104,14 @@ class SelectorCharacteristic extends StatelessWidget {
     }
   }
 }
+
+class SortPage extends StatelessWidget {
+  const SortPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Упорядочить")),
+    );
+  }
+}

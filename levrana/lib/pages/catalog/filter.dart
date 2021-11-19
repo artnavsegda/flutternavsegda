@@ -78,9 +78,17 @@ class _FiltersPageState extends State<FiltersPage> {
                   itemCount: filterView.groups.length + 2,
                   itemBuilder: (context, index) {
                     if (index == 0) {
-                      return const Text(
-                        "Упорядочить",
-                        style: TextStyle(fontSize: 16.0),
+                      return InkWell(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => SortPage()));
+                        },
+                        child: const Text(
+                          "Упорядочить",
+                          style: TextStyle(fontSize: 16.0),
+                        ),
                       );
                     }
                     if (index == 1) {
