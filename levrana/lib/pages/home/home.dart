@@ -42,7 +42,10 @@ class HomePage extends StatelessWidget {
                   margin: const EdgeInsets.fromLTRB(16, 21, 16, 0),
                   child: const TextField(
                     decoration: InputDecoration(
-                        prefixIcon: Icon(Icons.search),
+                        prefixIcon: Icon(
+                          Icons.search,
+                          size: 30.0,
+                        ),
                         isDense: true,
                         contentPadding: EdgeInsets.all(10),
                         border: OutlineInputBorder(
