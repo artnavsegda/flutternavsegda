@@ -38,22 +38,22 @@ class HomePage extends StatelessWidget {
             ),
             Column(
               children: [
-                /*               Container(
-                  margin: EdgeInsets.fromLTRB(16, 21, 16, 0),
-                  child: TextField(
+                Container(
+                  margin: const EdgeInsets.fromLTRB(16, 21, 16, 0),
+                  child: const TextField(
                     decoration: InputDecoration(
                         prefixIcon: Icon(Icons.search),
                         isDense: true,
                         contentPadding: EdgeInsets.all(10),
-                        border: new OutlineInputBorder(
+                        border: OutlineInputBorder(
                           borderSide: BorderSide.none,
-                          borderRadius: const BorderRadius.all(
-                            const Radius.circular(12.0),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(12.0),
                           ),
                         ),
                         filled: true),
                   ),
-                ), */
+                ),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
