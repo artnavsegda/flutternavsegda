@@ -1,3 +1,31 @@
+class GraphAuthResult {
+
+}
+
+class GraphClientResult {
+
+}
+
+class GraphTokenResult {
+
+}
+
+class GraphBasisResult {
+
+}
+
+class GraphPromocodeResult {
+
+}
+
+class GraphPollResult {
+
+}
+
+class GraphSupportResult {
+  
+}
+
 class GraphCartCharacteristic {
   GraphCartCharacteristic({
     required this.type,
