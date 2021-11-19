@@ -1,30 +1,16 @@
-class GraphAuthResult {
+class GraphAuthResult {}
 
-}
+class GraphClientResult {}
 
-class GraphClientResult {
+class GraphTokenResult {}
 
-}
+class GraphBasisResult {}
 
-class GraphTokenResult {
+class GraphPromocodeResult {}
 
-}
+class GraphPollResult {}
 
-class GraphBasisResult {
-
-}
-
-class GraphPromocodeResult {
-
-}
-
-class GraphPollResult {
-
-}
-
-class GraphSupportResult {
-  
-}
+class GraphSupportResult {}
 
 class GraphCartCharacteristic {
   GraphCartCharacteristic({
@@ -1602,6 +1588,27 @@ mutation openReactionMessage($messageID: Int) {
   openReactionMessage(messageID: $messageID) {
     result
     errorMessage
+  }
+}
+''';
+
+const String findProducts = r'''
+query findProducts($searchBox: String) {
+  findProducts(searchBox: $searchBox) {
+    iD
+    type
+    familyID
+    topCatalogID
+    name
+    picture
+    isFavorite
+    favorites
+    stickerPictures
+    attributes {
+      iD
+      name
+      color
+    }
   }
 }
 ''';

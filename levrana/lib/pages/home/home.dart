@@ -8,6 +8,7 @@ import '../../components/product_card.dart';
 import '../product/product.dart';
 import 'action.dart';
 import 'qr.dart';
+import 'search.dart';
 
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
@@ -45,14 +46,8 @@ class HomePage extends StatelessWidget {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => Scaffold(
-                            appBar: AppBar(
-                              title: Text('Поиск $searchString'),
-                            ),
-                            body: Center(
-                              child: Text(searchString),
-                            ),
-                          ),
+                          builder: (context) =>
+                              SearchPage(searchString: searchString),
                         ),
                       );
                     },
