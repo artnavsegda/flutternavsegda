@@ -55,7 +55,7 @@ class _MainPageState extends State<MainPage>
                 .data!['getReactions']
                 .map((model) => GraphReaction.fromJson(model)));
 
-            if (reactions[0].type == 'MESSAGE') {
+            if (reactions[0].type == 'MESSAGE1') {
               WidgetsBinding.instance!.addPostFrameCallback((_) async {
                 showDialog(
                   context: context,

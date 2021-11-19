@@ -40,8 +40,23 @@ class HomePage extends StatelessWidget {
               children: [
                 Container(
                   margin: const EdgeInsets.fromLTRB(16, 21, 16, 0),
-                  child: const TextField(
-                    decoration: InputDecoration(
+                  child: TextField(
+                    onSubmitted: (searchString) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => Scaffold(
+                            appBar: AppBar(
+                              title: Text('Поиск $searchString'),
+                            ),
+                            body: Center(
+                              child: Text(searchString),
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                    decoration: const InputDecoration(
                         prefixIcon: Icon(
                           Icons.search,
                           size: 30.0,
