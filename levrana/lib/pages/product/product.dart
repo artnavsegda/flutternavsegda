@@ -270,6 +270,7 @@ class _ProductPageState extends State<ProductPage> {
                             Text(productInfo.comment ?? "",
                                 style: const TextStyle(fontSize: 16.0)),
                             Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: productInfo.characteristics
                                     .map((e) => CharacteristicsElement(
                                           element: e,

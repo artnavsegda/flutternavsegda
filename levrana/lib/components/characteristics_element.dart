@@ -72,45 +72,48 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
             ]),
           )
         else if (widget.element.type == 'COLOR')
-          Row(children: [
-            for (int index = 0; index < widget.element.values.length; index++)
-              GestureDetector(
-                onTap: () {
-                  widget.onSelected!(index);
-                  setState(() {
-                    selected = index;
-                  });
-                },
-                child: Container(
-                  margin: const EdgeInsets.all(3),
-                  decoration: ShapeDecoration(
-                    color: hexToColor(widget.element.values[index].value),
-                    shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 3,
-                            color: selected == index
-                                ? Colors.white
-                                : hexToColor(
-                                    widget.element.values[index].value),
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              for (int index = 0; index < widget.element.values.length; index++)
+                GestureDetector(
+                  onTap: () {
+                    widget.onSelected!(index);
+                    setState(() {
+                      selected = index;
+                    });
+                  },
+                  child: Container(
+                    margin: const EdgeInsets.all(3),
+                    decoration: ShapeDecoration(
+                      color: hexToColor(widget.element.values[index].value),
+                      shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                            side: BorderSide(
+                              width: 3,
+                              color: selected == index
+                                  ? Colors.white
+                                  : hexToColor(
+                                      widget.element.values[index].value),
+                            ),
+                          ) +
+                          RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16.0),
+                            side: BorderSide(
+                              width: 2,
+                              color: hexToColor(
+                                  widget.element.values[index].value),
+                            ),
                           ),
-                        ) +
-                        RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(16.0),
-                          side: BorderSide(
-                            width: 2,
-                            color:
-                                hexToColor(widget.element.values[index].value),
-                          ),
-                        ),
+                    ),
+                    child: const SizedBox(
+                      height: 22,
+                      width: 35,
+                    ),
                   ),
-                  child: const SizedBox(
-                    height: 22,
-                    width: 35,
-                  ),
-                ),
-              )
-          ]),
+                )
+            ]),
+          ),
         if (widget.element.values[selected].comment != null)
           Text(widget.element.values[selected].comment ?? '')
       ],
