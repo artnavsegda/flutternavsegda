@@ -83,7 +83,7 @@ class _ProductsListPageState extends State<ProductsListPage> {
           fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-          //print(jsonEncode(catalogFilter));
+          //print(jsonEncode(catalogFilter.toJson()));
 
           if (result.hasException) {
             return Text(result.exception.toString());

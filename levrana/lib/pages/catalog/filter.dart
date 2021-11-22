@@ -106,6 +106,8 @@ class _FiltersPageState extends State<FiltersPage> {
                               children: [
                                 Expanded(
                                     child: TextFormField(
+                                        decoration: const InputDecoration(
+                                            hintText: 'от'),
                                         onChanged: (value) {
                                           var newVal = int.tryParse(value);
                                           if (newVal != null) {
@@ -123,6 +125,8 @@ class _FiltersPageState extends State<FiltersPage> {
                                 const SizedBox(width: 12),
                                 Expanded(
                                     child: TextFormField(
+                                        decoration: const InputDecoration(
+                                            hintText: 'до'),
                                         onChanged: (value) {
                                           var newVal = int.tryParse(value);
                                           if (newVal != null) {
