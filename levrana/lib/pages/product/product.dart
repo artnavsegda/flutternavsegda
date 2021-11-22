@@ -3,7 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'dart:math';
 
 import '../../components/components.dart';
@@ -183,14 +183,15 @@ class _ProductPageState extends State<ProductPage> {
                               return Stack(
                                 alignment: Alignment.center,
                                 children: [
-                                  FadeInImage.memoryNetwork(
-                                      placeholder: kTransparentImage,
-                                      imageErrorBuilder: (context, exception,
-                                              stackTrace) =>
-                                          const Center(
-                                              child:
-                                                  Icon(Icons.no_photography)),
-                                      image: productInfo.pictures[index].full),
+                                  CachedNetworkImage(
+                                      imageUrl:
+                                          productInfo.pictures[index].full,
+                                      progressIndicatorBuilder: (context, url,
+                                              downloadProgress) =>
+                                          CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.no_photography)),
                                   if (productInfo.stickerPictures.length >
                                       index)
                                     Positioned(

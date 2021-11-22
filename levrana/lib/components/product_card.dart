@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../utils.dart';
 import '../gql.dart';
@@ -29,12 +29,19 @@ class ProductCard extends StatelessWidget {
               InkWell(
                 onTap: onTap,
                 child: ClipRRect(
-                    borderRadius: BorderRadius.circular(6.0),
-                    child: FadeInImage.memoryNetwork(
-                        imageErrorBuilder: (context, exception, stackTrace) =>
-                            const Center(child: Icon(Icons.no_photography)),
-                        placeholder: kTransparentImage,
-                        image: product.picture ?? "")),
+                  borderRadius: BorderRadius.circular(6.0),
+                  child: Center(
+                    child: CachedNetworkImage(
+                      imageUrl: product.picture ?? "",
+                      progressIndicatorBuilder:
+                          (context, url, downloadProgress) =>
+                              CircularProgressIndicator(
+                                  value: downloadProgress.progress),
+                      errorWidget: (context, url, error) =>
+                          const Icon(Icons.no_photography),
+                    ),
+                  ),
+                ),
               ),
               Positioned(
                   bottom: 0,

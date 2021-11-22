@@ -4,7 +4,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/date_symbol_data_local.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../gql.dart';
 import '../../components/components.dart';
@@ -370,12 +370,14 @@ class ActionPage extends StatelessWidget {
                     children: [
                       ListView(
                         children: [
-                          FadeInImage.memoryNetwork(
-                              imageErrorBuilder:
-                                  (context, exception, stackTrace) =>
-                                      const Icon(Icons.no_photography),
-                              placeholder: kTransparentImage,
-                              image: action.picture ?? "",
+                          CachedNetworkImage(
+                              imageUrl: action.picture ?? "",
+                              progressIndicatorBuilder:
+                                  (context, url, downloadProgress) =>
+                                      CircularProgressIndicator(
+                                          value: downloadProgress.progress),
+                              errorWidget: (context, url, error) =>
+                                  const Icon(Icons.no_photography),
                               fit: BoxFit.fill),
                           Padding(
                             padding: const EdgeInsets.all(16.0),

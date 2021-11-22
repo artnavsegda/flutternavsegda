@@ -48,26 +48,29 @@ class _CharacteristicsElementState extends State<CharacteristicsElement> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         if (widget.element.type == 'VOLUME' || widget.element.type == 'SIZE')
-          Row(children: [
-            for (int index = 0; index < widget.element.values.length; index++)
-              Padding(
-                padding: const EdgeInsets.only(right: 4.0),
-                child: ChoiceChip(
-                    labelStyle: TextStyle(
-                      fontSize: 16.0,
-                      color: selected == index ? Colors.white : Colors.black,
-                    ),
-                    selectedColor: Colors.green,
-                    label: Text(widget.element.values[index].value),
-                    selected: selected == index,
-                    onSelected: (bool newValue) {
-                      widget.onSelected!(index);
-                      setState(() {
-                        selected = index;
-                      });
-                    }),
-              )
-          ])
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(children: [
+              for (int index = 0; index < widget.element.values.length; index++)
+                Padding(
+                  padding: const EdgeInsets.only(right: 4.0),
+                  child: ChoiceChip(
+                      labelStyle: TextStyle(
+                        fontSize: 16.0,
+                        color: selected == index ? Colors.white : Colors.black,
+                      ),
+                      selectedColor: Colors.green,
+                      label: Text(widget.element.values[index].value),
+                      selected: selected == index,
+                      onSelected: (bool newValue) {
+                        widget.onSelected!(index);
+                        setState(() {
+                          selected = index;
+                        });
+                      }),
+                )
+            ]),
+          )
         else if (widget.element.type == 'COLOR')
           Row(children: [
             for (int index = 0; index < widget.element.values.length; index++)

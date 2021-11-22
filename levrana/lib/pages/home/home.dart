@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../gql.dart';
 import '../../components/product_card.dart';
@@ -230,12 +230,17 @@ class HomePage extends StatelessWidget {
                                   padding: const EdgeInsets.only(right: 16.0),
                                   child: ClipRRect(
                                     borderRadius: BorderRadius.circular(6.0),
-                                    child: FadeInImage.memoryNetwork(
-                                        imageErrorBuilder: (context, exception,
-                                                stackTrace) =>
+                                    child: CachedNetworkImage(
+                                        imageUrl: actions[index].picture ?? "",
+                                        progressIndicatorBuilder: (context, url,
+                                                downloadProgress) =>
+                                            Center(
+                                              child: CircularProgressIndicator(
+                                                  value: downloadProgress
+                                                      .progress),
+                                            ),
+                                        errorWidget: (context, url, error) =>
                                             const Icon(Icons.no_photography),
-                                        placeholder: kTransparentImage,
-                                        image: actions[index].picture ?? "",
                                         fit: BoxFit.fill),
                                   ),
                                 ),

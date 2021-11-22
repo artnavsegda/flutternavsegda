@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:transparent_image/transparent_image.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 import '../../gql.dart';
 import '../../components/components.dart';
@@ -186,10 +186,18 @@ class _ShoppingCartPageState extends State<ShoppingCartPage> {
                                           color: const Color(0xFFF6F6F6),
                                           borderRadius:
                                               BorderRadius.circular(6.0)),
-                                      child: FadeInImage.memoryNetwork(
-                                          placeholder: kTransparentImage,
-                                          image: item.picture ?? "",
-                                          width: 80),
+                                      child: CachedNetworkImage(
+                                        imageUrl: item.picture ?? "",
+                                        progressIndicatorBuilder:
+                                            (context, url, downloadProgress) =>
+                                                Center(
+                                          child: CircularProgressIndicator(
+                                              value: downloadProgress.progress),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Icon(Icons.no_photography),
+                                        width: 80,
+                                      ),
                                     ),
                                     const SizedBox(width: 9),
                                     Expanded(
