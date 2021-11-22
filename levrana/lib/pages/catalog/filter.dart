@@ -83,7 +83,7 @@ class _FiltersPageState extends State<FiltersPage> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => SortPage()));
+                                  builder: (context) => const SortPage()));
                         },
                         child: const Text(
                           "Упорядочить",

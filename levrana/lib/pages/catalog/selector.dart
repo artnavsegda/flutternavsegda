@@ -111,7 +111,11 @@ class SortPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text("Упорядочить")),
-    );
+        appBar: AppBar(title: const Text("Упорядочить")),
+        body: Column(
+          children: const [
+            //RadioListTile(),
+          ],
+        ));
   }
 }
