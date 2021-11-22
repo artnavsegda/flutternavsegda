@@ -116,8 +116,9 @@ class _FiltersPageState extends State<FiltersPage> {
                                             });
                                           }
                                         },
-                                        initialValue:
-                                            filter.priceMin.toString(),
+                                        initialValue: filter.priceMin != null
+                                            ? filter.priceMin.toString()
+                                            : "",
                                         keyboardType: TextInputType.number)),
                                 const SizedBox(width: 12),
                                 Expanded(
@@ -132,8 +133,9 @@ class _FiltersPageState extends State<FiltersPage> {
                                             });
                                           }
                                         },
-                                        initialValue:
-                                            filter.priceMax.toString(),
+                                        initialValue: filter.priceMax != null
+                                            ? filter.priceMax.toString()
+                                            : "",
                                         keyboardType: TextInputType.number)),
                               ],
                             ),

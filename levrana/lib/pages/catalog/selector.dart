@@ -120,8 +120,25 @@ class SortPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(title: const Text("Упорядочить")),
         body: Column(
-          children: const [
-            //RadioListTile(),
+          children: [
+            RadioListTile(
+              onChanged: (value) {},
+              value: 'DEFAULT',
+              groupValue: filter.sortType,
+              title: const Text("По умолчанию"),
+            ),
+            RadioListTile(
+              onChanged: (value) {},
+              value: 'NAME',
+              groupValue: filter.sortType,
+              title: const Text("По имени"),
+            ),
+            RadioListTile(
+              onChanged: (value) {},
+              value: 'PRICE',
+              groupValue: filter.sortType,
+              title: const Text("По цене"),
+            ),
           ],
         ));
   }
