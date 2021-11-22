@@ -106,7 +106,14 @@ class SelectorCharacteristic extends StatelessWidget {
 }
 
 class SortPage extends StatelessWidget {
-  const SortPage({Key? key}) : super(key: key);
+  final GraphFilter filter;
+  //final void Function(bool?, int) onChangeFilter;
+
+  const SortPage({
+    Key? key,
+    required this.filter,
+    //required this.onChangeFilter,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -81,9 +81,13 @@ class _FiltersPageState extends State<FiltersPage> {
                       return InkWell(
                         onTap: () {
                           Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => const SortPage()));
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => SortPage(
+                                filter: filter,
+                              ),
+                            ),
+                          );
                         },
                         child: const Text(
                           "Упорядочить",

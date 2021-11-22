@@ -95,8 +95,10 @@ class GraphFilterGroup {
 
 class GraphFilter {
   GraphFilter({
-    this.priceMin = 0,
-    this.priceMax = 0,
+    this.sortType,
+    this.sortOrder,
+    this.priceMin,
+    this.priceMax,
     this.groups = const <int, GraphFilterGroup>{},
   });
 
@@ -106,11 +108,15 @@ class GraphFilter {
     groups = Map<int, GraphFilterGroup>.from(original.groups);
   }
 
-  int priceMin = 0;
-  int priceMax = 0;
+  String? sortType;
+  String? sortOrder;
+  int? priceMin;
+  int? priceMax;
   Map<int, GraphFilterGroup> groups = const <int, GraphFilterGroup>{};
 
   Map<String, dynamic> toJson() => {
+        'sortType': sortType,
+        'sortOrder': sortOrder,
         'priceMin': priceMin,
         'priceMax': priceMax,
         'groups': groups.entries.map((e) => e.value).toList()
