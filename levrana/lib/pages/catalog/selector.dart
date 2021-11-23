@@ -105,15 +105,37 @@ class SelectorCharacteristic extends StatelessWidget {
   }
 }
 
-class SortPage extends StatelessWidget {
+class SortPage extends StatefulWidget {
   final GraphFilter filter;
-  //final void Function(bool?, int) onChangeFilter;
+  final void Function(GraphFilter) onChangeFilter;
 
   const SortPage({
     Key? key,
     required this.filter,
-    //required this.onChangeFilter,
+    required this.onChangeFilter,
   }) : super(key: key);
+
+  @override
+  State<SortPage> createState() => _SortPageState();
+}
+
+class _SortPageState extends State<SortPage> {
+  late GraphFilter filter;
+
+  @override
+  void initState() {
+    super.initState();
+    filter = widget.filter;
+  }
+
+  void Function(String?)? setFilter(newVal) {
+    var newFilter = GraphFilter.from(widget.filter);
+    newFilter.sortType = newVal;
+    setState(() {
+      filter = newFilter;
+    });
+    widget.onChangeFilter(newFilter);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -122,19 +144,19 @@ class SortPage extends StatelessWidget {
         body: Column(
           children: [
             RadioListTile(
-              onChanged: (value) {},
+              onChanged: setFilter,
               value: 'DEFAULT',
               groupValue: filter.sortType,
               title: const Text("По умолчанию"),
             ),
             RadioListTile(
-              onChanged: (value) {},
+              onChanged: setFilter,
               value: 'NAME',
               groupValue: filter.sortType,
               title: const Text("По имени"),
             ),
             RadioListTile(
-              onChanged: (value) {},
+              onChanged: setFilter,
               value: 'PRICE',
               groupValue: filter.sortType,
               title: const Text("По цене"),

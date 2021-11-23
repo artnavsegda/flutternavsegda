@@ -103,6 +103,8 @@ class GraphFilter {
   });
 
   GraphFilter.from(GraphFilter original) {
+    sortType = original.sortType;
+    sortOrder = original.sortOrder;
     priceMin = original.priceMin;
     priceMax = original.priceMax;
     groups = Map<int, GraphFilterGroup>.from(original.groups);

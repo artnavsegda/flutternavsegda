@@ -84,6 +84,12 @@ class _FiltersPageState extends State<FiltersPage> {
                             context,
                             MaterialPageRoute(
                               builder: (context) => SortPage(
+                                onChangeFilter: (newFilter) {
+                                  setState(() {
+                                    filter = newFilter;
+                                  });
+                                  widget.onFilterChanged(newFilter);
+                                },
                                 filter: filter,
                               ),
                             ),
@@ -111,10 +117,12 @@ class _FiltersPageState extends State<FiltersPage> {
                                         onChanged: (value) {
                                           var newVal = int.tryParse(value);
                                           if (newVal != null) {
-                                            filter.priceMin = newVal;
-                                            widget.onFilterChanged(filter);
+                                            var newFilter =
+                                                GraphFilter.from(filter);
+                                            newFilter.priceMin = newVal;
+                                            widget.onFilterChanged(newFilter);
                                             setState(() {
-                                              filter = filter;
+                                              filter = newFilter;
                                             });
                                           }
                                         },
@@ -130,10 +138,12 @@ class _FiltersPageState extends State<FiltersPage> {
                                         onChanged: (value) {
                                           var newVal = int.tryParse(value);
                                           if (newVal != null) {
-                                            filter.priceMax = newVal;
-                                            widget.onFilterChanged(filter);
+                                            var newFilter =
+                                                GraphFilter.from(filter);
+                                            newFilter.priceMax = newVal;
+                                            widget.onFilterChanged(newFilter);
                                             setState(() {
-                                              filter = filter;
+                                              filter = newFilter;
                                             });
                                           }
                                         },
