@@ -1236,6 +1236,8 @@ query getSupport {
     date
     text
     managerID
+    manager,
+    isPhoto,
   }
 }
 ''';

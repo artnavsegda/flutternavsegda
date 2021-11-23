@@ -373,9 +373,10 @@ class ActionPage extends StatelessWidget {
                           CachedNetworkImage(
                               imageUrl: action.picture ?? "",
                               progressIndicatorBuilder:
-                                  (context, url, downloadProgress) =>
-                                      CircularProgressIndicator(
-                                          value: downloadProgress.progress),
+                                  (context, url, downloadProgress) => Center(
+                                        child: CircularProgressIndicator(
+                                            value: downloadProgress.progress),
+                                      ),
                               errorWidget: (context, url, error) =>
                                   const Icon(Icons.no_photography),
                               fit: BoxFit.fill),

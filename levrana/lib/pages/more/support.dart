@@ -73,12 +73,28 @@ class SupportPage extends StatelessWidget {
                 .map((model) => GraphSupport.fromJson(model)));
 
             List<types.Message> _messages2 = messages
-                .map((message) => types.TextMessage(
-                      author: message.managerID == null ? _user : _consultant,
-                      createdAt: message.date,
-                      id: message.iD.toString(),
-                      text: message.text ?? "",
-                    ))
+                .map(
+                  (message) {
+                    if (message.isPhoto) {
+                      return types.ImageMessage(
+                        size: 10000000,
+                        name: "image",
+                        uri:
+                            "https://demo.cyberiasoft.com/LevranaService/api/tools/picture/${message.iD}?type=support",
+                        author: message.managerID == null ? _user : _consultant,
+                        createdAt: message.date,
+                        id: message.iD.toString(),
+                      );
+                    } else {
+                      return types.TextMessage(
+                        author: message.managerID == null ? _user : _consultant,
+                        createdAt: message.date,
+                        id: message.iD.toString(),
+                        text: message.text ?? "photo",
+                      );
+                    }
+                  },
+                )
                 .toList()
                 .cast<types.Message>();
 
@@ -117,6 +133,7 @@ class SupportPage extends StatelessWidget {
                                               source: ImageSource.camera);
                                       await sendImage(pickedFile, model.token);
                                       Navigator.pop(context);
+                                      refetch!();
                                     },
                                   ),
                                   CupertinoActionSheetAction(
@@ -127,6 +144,7 @@ class SupportPage extends StatelessWidget {
                                               source: ImageSource.gallery);
                                       await sendImage(pickedFile, model.token);
                                       Navigator.pop(context);
+                                      refetch!();
                                     },
                                   )
                                 ],

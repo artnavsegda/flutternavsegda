@@ -19,6 +19,7 @@ void main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final startToken = prefs.getString('token') ?? "";
+  //print(startToken);
 
   runApp(
     ChangeNotifierProvider(
