@@ -1,3 +1,28 @@
+class GraphSupport {
+  GraphSupport({
+    required this.iD,
+    required this.date,
+    required this.text,
+    required this.managerID,
+    required this.manager,
+    required this.isPhoto,
+  });
+  int iD;
+  int date;
+  String? text;
+  int? managerID;
+  String? manager;
+  bool isPhoto;
+
+  GraphSupport.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        date = json['date'],
+        text = json['text'],
+        managerID = json['managerID'],
+        manager = json['manager'],
+        isPhoto = json['isPhoto'];
+}
+
 class GraphAuthResult {}
 
 class GraphClientResult {}

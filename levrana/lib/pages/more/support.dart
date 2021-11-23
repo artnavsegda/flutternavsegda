@@ -4,13 +4,36 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:provider/provider.dart';
 
+import '../../main.dart';
 import '../../gql.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
   final _user = const types.User(id: 'user');
   final _consultant = const types.User(id: 'consultant');
+
+  Future sendImage(XFile? _imageFile, String token) async {
+    if (_imageFile != null) {
+      var request = MultipartRequest(
+        'POST',
+        Uri.parse(
+            'https://demo.cyberiasoft.com/LevranaService/api/support/addimage'),
+      );
+      request.headers['Authorization'] = 'Bearer ' + token;
+      request.files.add(await MultipartFile.fromPath(
+        'image',
+        _imageFile.path,
+        contentType: MediaType('image', 'jpg'),
+      ));
+      var streamedResponse = await request.send();
+      await streamedResponse.stream.bytesToString();
+      //print(res);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,68 +79,74 @@ class SupportPage extends StatelessWidget {
                 .toList()
                 .cast<types.Message>();
 
-            return Mutation(
-                options: MutationOptions(
-                  document: gql(addSupport),
-                  onError: (error) {
-                    //print(error);
-                  },
-                  onCompleted: (dynamic resultData) async {
-                    //print(resultData);
-                    refetch!();
-                  },
-                ),
-                builder: (
-                  RunMutation runMutation,
-                  QueryResult? mutationResult,
-                ) {
-                  return Chat(
-                    theme: const DefaultChatTheme(
-                      //sdsainputBackgroundColor: Colors.green,
-                      primaryColor: Colors.green,
-                    ),
-                    messages: _messages2,
-                    l10n: const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
-                    onAttachmentPressed: () => showCupertinoModalPopup(
-                        context: context,
-                        builder: (context) => CupertinoActionSheet(
-                              actions: <CupertinoActionSheetAction>[
-                                CupertinoActionSheetAction(
-                                  child: const Text('Камера'),
-                                  onPressed: () async {
-                                    final pickedFile = await _picker.pickImage(
-                                        source: ImageSource.camera);
-                                    Navigator.pop(context);
-                                  },
-                                ),
-                                CupertinoActionSheetAction(
-                                  child: const Text('Галерея'),
-                                  onPressed: () async {
-                                    final pickedFile = await _picker.pickImage(
-                                        source: ImageSource.gallery);
-                                    Navigator.pop(context);
-                                  },
-                                )
-                              ],
-                            )),
-                    //onMessageTap: _handleMessageTap,
-                    //onPreviewDataFetched: _handlePreviewDataFetched,
-                    onSendPressed: (types.PartialText message) {
-/*                       final textMessage = types.TextMessage(
-                        author: _user,
-                        createdAt: DateTime.now().millisecondsSinceEpoch,
-                        id: const Uuid().v4(),
-                        text: message.text,
-                      ); */
-
-                      //_addMessage(textMessage);
-                      runMutation({
-                        'message': message.text,
-                      });
+            return Consumer<AppModel>(builder: (context, model, child) {
+              return Mutation(
+                  options: MutationOptions(
+                    document: gql(addSupport),
+                    onError: (error) {
+                      //print(error);
                     },
-                    user: _user,
-                  );
-                });
+                    onCompleted: (dynamic resultData) async {
+                      //print(resultData);
+                      refetch!();
+                    },
+                  ),
+                  builder: (
+                    RunMutation runMutation,
+                    QueryResult? mutationResult,
+                  ) {
+                    return Chat(
+                      theme: const DefaultChatTheme(
+                        //sdsainputBackgroundColor: Colors.green,
+                        primaryColor: Colors.green,
+                      ),
+                      messages: _messages2,
+                      l10n: const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
+                      onAttachmentPressed: () => showCupertinoModalPopup(
+                          context: context,
+                          builder: (context) => CupertinoActionSheet(
+                                actions: <CupertinoActionSheetAction>[
+                                  CupertinoActionSheetAction(
+                                    child: const Text('Камера'),
+                                    onPressed: () async {
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.camera);
+                                      await sendImage(pickedFile, model.token);
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                  CupertinoActionSheetAction(
+                                    child: const Text('Галерея'),
+                                    onPressed: () async {
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.gallery);
+                                      await sendImage(pickedFile, model.token);
+                                      Navigator.pop(context);
+                                    },
+                                  )
+                                ],
+                              )),
+                      //onMessageTap: _handleMessageTap,
+                      //onPreviewDataFetched: _handlePreviewDataFetched,
+                      onSendPressed: (types.PartialText message) {
+                        /*                       final textMessage = types.TextMessage(
+                            author: _user,
+                            createdAt: DateTime.now().millisecondsSinceEpoch,
+                            id: const Uuid().v4(),
+                            text: message.text,
+                          ); */
+
+                        //_addMessage(textMessage);
+                        runMutation({
+                          'message': message.text,
+                        });
+                      },
+                      user: _user,
+                    );
+                  });
+            });
           }),
     );
   }
