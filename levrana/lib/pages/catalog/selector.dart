@@ -128,9 +128,18 @@ class _SortPageState extends State<SortPage> {
     filter = widget.filter;
   }
 
-  void Function(String?)? setFilter(newVal) {
-    var newFilter = GraphFilter.from(widget.filter);
+  void Function(String?)? setTypeFilter(newVal) {
+    var newFilter = GraphFilter.from(filter);
     newFilter.sortType = newVal;
+    setState(() {
+      filter = newFilter;
+    });
+    widget.onChangeFilter(newFilter);
+  }
+
+  void Function(String?)? setSortFilter(newVal) {
+    var newFilter = GraphFilter.from(filter);
+    newFilter.sortOrder = newVal;
     setState(() {
       filter = newFilter;
     });
@@ -140,28 +149,47 @@ class _SortPageState extends State<SortPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(title: const Text("Упорядочить")),
-        body: Column(
-          children: [
-            RadioListTile(
-              onChanged: setFilter,
-              value: 'DEFAULT',
-              groupValue: filter.sortType,
-              title: const Text("По умолчанию"),
+      appBar: AppBar(title: const Text("Упорядочить")),
+      body: Column(
+        children: [
+          RadioListTile(
+            onChanged: setTypeFilter,
+            value: 'DEFAULT',
+            groupValue: filter.sortType,
+            title: const Text("По умолчанию"),
+          ),
+          RadioListTile(
+            onChanged: setTypeFilter,
+            value: 'NAME',
+            groupValue: filter.sortType,
+            title: const Text("По имени"),
+          ),
+          RadioListTile(
+            onChanged: setTypeFilter,
+            value: 'PRICE',
+            groupValue: filter.sortType,
+            title: const Text("По цене"),
+          ),
+          if (filter.sortType != 'DEFAULT')
+            Column(
+              children: [
+                const Divider(),
+                RadioListTile(
+                  onChanged: setSortFilter,
+                  value: 'ASC',
+                  groupValue: filter.sortOrder,
+                  title: const Text("По возрастанию"),
+                ),
+                RadioListTile(
+                  onChanged: setSortFilter,
+                  value: 'DESC',
+                  groupValue: filter.sortOrder,
+                  title: const Text("По убыванию"),
+                ),
+              ],
             ),
-            RadioListTile(
-              onChanged: setFilter,
-              value: 'NAME',
-              groupValue: filter.sortType,
-              title: const Text("По имени"),
-            ),
-            RadioListTile(
-              onChanged: setFilter,
-              value: 'PRICE',
-              groupValue: filter.sortType,
-              title: const Text("По цене"),
-            ),
-          ],
-        ));
+        ],
+      ),
+    );
   }
 }
