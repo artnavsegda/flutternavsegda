@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../gql.dart';
 
@@ -12,6 +14,7 @@ class SupportPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
     return Scaffold(
       extendBodyBehindAppBar: true,
       appBar: AppBar(
@@ -75,7 +78,28 @@ class SupportPage extends StatelessWidget {
                     ),
                     messages: _messages2,
                     l10n: const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
-                    //onAttachmentPressed: _handleAtachmentPressed,
+                    onAttachmentPressed: () => showCupertinoModalPopup(
+                        context: context,
+                        builder: (context) => CupertinoActionSheet(
+                              actions: <CupertinoActionSheetAction>[
+                                CupertinoActionSheetAction(
+                                  child: const Text('Камера'),
+                                  onPressed: () async {
+                                    final pickedFile = await _picker.pickImage(
+                                        source: ImageSource.camera);
+                                    Navigator.pop(context);
+                                  },
+                                ),
+                                CupertinoActionSheetAction(
+                                  child: const Text('Галерея'),
+                                  onPressed: () async {
+                                    final pickedFile = await _picker.pickImage(
+                                        source: ImageSource.gallery);
+                                    Navigator.pop(context);
+                                  },
+                                )
+                              ],
+                            )),
                     //onMessageTap: _handleMessageTap,
                     //onPreviewDataFetched: _handlePreviewDataFetched,
                     onSendPressed: (types.PartialText message) {

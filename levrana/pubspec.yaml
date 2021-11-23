@@ -40,12 +40,12 @@ dependencies:
   dots_indicator: ^2.0.0
   expandable: ^5.0.1
   carousel_slider: ^4.0.0
-  image_picker: ^0.8.2
+  image_picker: ^0.8.4+4
   http: ^0.13.3
   flutter_markdown: ^0.6.2
   contacts_service: ^0.6.1
   url_launcher: ^6.0.9
-  flutter_chat_ui: ^1.1.9
+  flutter_chat_ui: ^1.5.2
   intl: ^0.17.0
   in_app_review: ^2.0.2
   flutter_rating_bar: ^4.0.0
