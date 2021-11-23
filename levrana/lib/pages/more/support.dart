@@ -68,13 +68,16 @@ class SupportPage extends StatelessWidget {
               );
             }
 
-            List<types.Message> _messages2 = result.data!['getSupport']
+            List<GraphSupport> messages = List<GraphSupport>.from(result
+                .data!['getSupport']
+                .map((model) => GraphSupport.fromJson(model)));
+
+            List<types.Message> _messages2 = messages
                 .map((message) => types.TextMessage(
-                      author:
-                          message['managerID'] == null ? _user : _consultant,
-                      createdAt: message['date'],
-                      id: message['iD'].toString(),
-                      text: message['text'],
+                      author: message.managerID == null ? _user : _consultant,
+                      createdAt: message.date,
+                      id: message.iD.toString(),
+                      text: message.text ?? "",
                     ))
                 .toList()
                 .cast<types.Message>();
