@@ -78,7 +78,7 @@ class _PollState extends State<Poll> {
                 Column(
                   children: stageData.pollAnswers
                       .map((element) => LevranaCheckboxTitle(
-                          title: Text(element.name),
+                          title: Flexible(child: Text(element.name)),
                           value: answers[stageData.iD]
                                   ?.pollAnswers
                                   .contains(element.iD) ??
