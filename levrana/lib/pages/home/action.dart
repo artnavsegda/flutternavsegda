@@ -56,160 +56,152 @@ class _PollState extends State<Poll> {
               (answers[stageData.iD]?.pollAnswers.isNotEmpty ?? false) ||
               ((answers[stageData.iD]?.scale ?? 0) != 0));
 
-          return Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(stageData.name,
-                      style: const TextStyle(fontSize: 22.0)),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(stageData.comment ?? "",
-                      style: const TextStyle(fontSize: 20.0)),
-                ),
-                if (stageData.isScale == true)
-                  Slider(
-                    divisions: stageData.scaleMax! - stageData.scaleMin!,
-                    onChanged: (value) {
-                      setState(() {
-                        answers[stageData.iD] = PollAnswersClient(
-                            pollID: stageData.iD, scale: value.round());
-                      });
-                    },
-                    value: answers[stageData.iD]?.scale.toDouble() ??
-                        stageData.scaleMin!.toDouble(),
-                    min: stageData.scaleMin!.toDouble(),
-                    max: stageData.scaleMax!.toDouble(),
-                  )
-                else if (stageData.isMultiple == true)
-                  Column(
-                    children: stageData.pollAnswers
-                        .map((element) => CheckboxListTile(
-                            controlAffinity: ListTileControlAffinity.leading,
+          return Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Text(stageData.name,
+                    style: const TextStyle(fontSize: 22.0)),
+              ),
+              Text(stageData.comment ?? "",
+                  style: const TextStyle(fontSize: 20.0)),
+              if (stageData.isScale == true)
+                Slider(
+                  divisions: stageData.scaleMax! - stageData.scaleMin!,
+                  onChanged: (value) {
+                    setState(() {
+                      answers[stageData.iD] = PollAnswersClient(
+                          pollID: stageData.iD, scale: value.round());
+                    });
+                  },
+                  value: answers[stageData.iD]?.scale.toDouble() ??
+                      stageData.scaleMin!.toDouble(),
+                  min: stageData.scaleMin!.toDouble(),
+                  max: stageData.scaleMax!.toDouble(),
+                )
+              else if (stageData.isMultiple == true)
+                Column(
+                  children: stageData.pollAnswers
+                      .map((element) => CheckboxListTile(
+                          controlAffinity: ListTileControlAffinity.leading,
+                          title: Text(element.name),
+                          value: answers[stageData.iD]
+                                  ?.pollAnswers
+                                  .contains(element.iD) ??
+                              false,
+                          onChanged: (value) {
+                            //print(element['iD']);
+                            setState(() {
+                              if (value != true) {
+                                answers[stageData.iD]
+                                    ?.pollAnswers
+                                    .remove(element.iD);
+                              } else {
+                                (answers[stageData.iD] != null)
+                                    ? answers[stageData.iD]
+                                        ?.pollAnswers
+                                        .add(element.iD)
+                                    : answers[stageData.iD] = PollAnswersClient(
+                                        pollID: stageData.iD,
+                                        pollAnswers: {element.iD});
+                              }
+                            });
+                          }))
+                      .toList()
+                      .cast<Widget>(),
+                )
+              else
+                Column(
+                  children: stageData.pollAnswers
+                      .map((element) => RadioListTile<bool?>(
                             title: Text(element.name),
                             value: answers[stageData.iD]
-                                    ?.pollAnswers
-                                    .contains(element.iD) ??
-                                false,
-                            onChanged: (value) {
-                              //print(element['iD']);
+                                ?.pollAnswers
+                                .contains(element.iD),
+                            onChanged: (v) {
+                              //print(answers);
                               setState(() {
-                                if (value != true) {
-                                  answers[stageData.iD]
-                                      ?.pollAnswers
-                                      .remove(element.iD);
-                                } else {
-                                  (answers[stageData.iD] != null)
-                                      ? answers[stageData.iD]
-                                          ?.pollAnswers
-                                          .add(element.iD)
-                                      : answers[stageData.iD] =
-                                          PollAnswersClient(
-                                              pollID: stageData.iD,
-                                              pollAnswers: {element.iD});
-                                }
+                                //print(element['iD']);
+
+                                (answers[stageData.iD] != null)
+                                    ? answers[stageData.iD]?.pollAnswers = {
+                                        element.iD
+                                      }
+                                    : answers[stageData.iD] = PollAnswersClient(
+                                        pollID: stageData.iD,
+                                        pollAnswers: {element.iD});
+
+                                answers[stageData.iD] = PollAnswersClient(
+                                    pollID: stageData.iD,
+                                    pollAnswers: {element.iD});
                               });
-                            }))
-                        .toList()
-                        .cast<Widget>(),
-                  )
-                else
-                  Column(
-                    children: stageData.pollAnswers
-                        .map((element) => RadioListTile<bool?>(
-                              title: Text(element.name),
-                              value: answers[stageData.iD]
-                                  ?.pollAnswers
-                                  .contains(element.iD),
-                              onChanged: (v) {
-                                //print(answers);
-                                setState(() {
-                                  //print(element['iD']);
-
-                                  (answers[stageData.iD] != null)
-                                      ? answers[stageData.iD]?.pollAnswers = {
-                                          element.iD
-                                        }
-                                      : answers[stageData.iD] =
-                                          PollAnswersClient(
-                                              pollID: stageData.iD,
-                                              pollAnswers: {element.iD});
-
-                                  answers[stageData.iD] = PollAnswersClient(
-                                      pollID: stageData.iD,
-                                      pollAnswers: {element.iD});
-                                });
-                              },
-                              groupValue: true,
-                            ))
-                        .toList()
-                        .cast<Widget>(),
-                  ),
-                if ((stageData.isOther == true))
-                  TextField(
-                    decoration: const InputDecoration(labelText: 'Ваш вариант'),
-                    onChanged: (text) {
-                      setState(() {
-                        (answers[stageData.iD] != null)
-                            ? answers[stageData.iD]?.other = text
-                            : answers[stageData.iD] = PollAnswersClient(
-                                pollID: stageData.iD, other: text);
-                      });
-                    },
-                    maxLines: null,
-                  ),
-                const Spacer(),
-                Row(
-                  children: [
-                    if (stage != 0)
-                      TextButton(
-                          onPressed: () {
-                            setState(() {
-                              stage--;
-                            });
-                          },
-                          child: const Text("НАЗАД")),
-                    const Spacer(),
-                    (stage < poll.length - 1)
-                        ? TextButton(
-                            onPressed: isActive
-                                ? () {
-                                    setState(() {
-                                      stage++;
-                                    });
-                                  }
-                                : null,
-                            child: const Text("ДАЛЕЕ"))
-                        : Mutation(
-                            options: MutationOptions(
-                              document: gql(setPollResult),
-                              onCompleted: (dynamic resultData) {
-                                //print(resultData);
-                                Navigator.pop(context);
-                              },
-                            ),
-                            builder: (runMutation, result) {
-                              //print(result);
-                              return TextButton(
-                                  onPressed: isActive
-                                      ? () {
-                                          //print("Finish");
-                                          //print(widget.actionID);
-                                          runMutation({
-                                            'actionID': widget.actionID,
-                                            'answers': answers.values.toList()
-                                          });
-                                        }
-                                      : null,
-                                  child: const Text("ЗАКОНЧИТЬ"));
-                            }),
-                  ],
-                )
-              ],
-            ),
+                            },
+                            groupValue: true,
+                          ))
+                      .toList()
+                      .cast<Widget>(),
+                ),
+              if ((stageData.isOther == true))
+                TextField(
+                  decoration: const InputDecoration(labelText: 'Ваш вариант'),
+                  onChanged: (text) {
+                    setState(() {
+                      (answers[stageData.iD] != null)
+                          ? answers[stageData.iD]?.other = text
+                          : answers[stageData.iD] = PollAnswersClient(
+                              pollID: stageData.iD, other: text);
+                    });
+                  },
+                  maxLines: null,
+                ),
+              const Spacer(),
+              Row(
+                children: [
+                  if (stage != 0)
+                    TextButton(
+                        onPressed: () {
+                          setState(() {
+                            stage--;
+                          });
+                        },
+                        child: const Text("НАЗАД")),
+                  const Spacer(),
+                  (stage < poll.length - 1)
+                      ? TextButton(
+                          onPressed: isActive
+                              ? () {
+                                  setState(() {
+                                    stage++;
+                                  });
+                                }
+                              : null,
+                          child: const Text("ДАЛЕЕ"))
+                      : Mutation(
+                          options: MutationOptions(
+                            document: gql(setPollResult),
+                            onCompleted: (dynamic resultData) {
+                              //print(resultData);
+                              Navigator.pop(context);
+                            },
+                          ),
+                          builder: (runMutation, result) {
+                            //print(result);
+                            return TextButton(
+                                onPressed: isActive
+                                    ? () {
+                                        //print("Finish");
+                                        //print(widget.actionID);
+                                        runMutation({
+                                          'actionID': widget.actionID,
+                                          'answers': answers.values.toList()
+                                        });
+                                      }
+                                    : null,
+                                child: const Text("ЗАКОНЧИТЬ"));
+                          }),
+                ],
+              )
+            ],
           );
         });
   }
