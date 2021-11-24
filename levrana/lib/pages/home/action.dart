@@ -57,8 +57,9 @@ class _PollState extends State<Poll> {
               ((answers[stageData.iD]?.scale ?? 0) != 0));
 
           return Padding(
+            //padding: MediaQuery.of(context).viewInsets,
             padding: const EdgeInsets.all(16.0),
-            child: Column(
+            child: ListView(
               children: [
                 Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
                 Padding(
