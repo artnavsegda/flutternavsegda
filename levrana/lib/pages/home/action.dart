@@ -242,18 +242,6 @@ class _DrawState extends State<Draw> {
           return Center(
             child: Column(
               children: [
-/*                 Column(
-                  children: result.data!['getDraw']['levels']
-                      .map((element) {
-                        return Row(children: [
-                          Text("${element['level']}"),
-                          Text("${element['position']}"),
-                          Text("${element['endPosition']}"),
-                        ]);
-                      })
-                      .toList()
-                      .cast<Widget>(),
-                ), */
                 CheckboxTitle(
                   title:
                       "Я прочитал(а) и соглашаюсь с правилами проведения акции",
