@@ -63,8 +63,10 @@ class _PollState extends State<Poll> {
                 child: Text(stageData.name,
                     style: const TextStyle(fontSize: 22.0)),
               ),
-              Text(stageData.comment ?? "",
-                  style: const TextStyle(fontSize: 20.0)),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: SpecialCondition(text: stageData.comment ?? ""),
+              ),
               if (stageData.isScale == true)
                 Slider(
                   divisions: stageData.scaleMax! - stageData.scaleMin!,
