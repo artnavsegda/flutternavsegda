@@ -56,146 +56,188 @@ class _PollState extends State<Poll> {
               (answers[stageData.iD]?.pollAnswers.isNotEmpty ?? false) ||
               ((answers[stageData.iD]?.scale ?? 0) != 0));
 
-          return Column(
-            children: [
-              Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
-              SpecialCondition(text: stageData.comment ?? ""),
-              if (stageData.isScale == true)
-                Slider(
-                  divisions: stageData.scaleMax! - stageData.scaleMin!,
-                  onChanged: (value) {
-                    setState(() {
-                      answers[stageData.iD] = PollAnswersClient(
-                          pollID: stageData.iD, scale: value.round());
-                    });
-                  },
-                  value: answers[stageData.iD]?.scale.toDouble() ??
-                      stageData.scaleMin!.toDouble(),
-                  min: stageData.scaleMin!.toDouble(),
-                  max: stageData.scaleMax!.toDouble(),
-                )
-              else if (stageData.isMultiple == true)
-                Column(
-                  children: stageData.pollAnswers
-                      .map((element) => LevranaCheckboxTitle(
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: SpecialCondition(text: stageData.comment ?? ""),
+                ),
+                if (stageData.isScale == true)
+                  Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(stageData.scaleMin.toString(),
+                              style: const TextStyle(fontSize: 18.0)),
+                          Expanded(
+                            child: Slider(
+                              divisions:
+                                  stageData.scaleMax! - stageData.scaleMin!,
+                              onChanged: (value) {
+                                setState(() {
+                                  answers[stageData.iD] = PollAnswersClient(
+                                      pollID: stageData.iD,
+                                      scale: value.round());
+                                });
+                              },
+                              value: answers[stageData.iD]?.scale.toDouble() ??
+                                  stageData.scaleMin!.toDouble(),
+                              min: stageData.scaleMin!.toDouble(),
+                              max: stageData.scaleMax!.toDouble(),
+                            ),
+                          ),
+                          Text(stageData.scaleMax.toString(),
+                              style: const TextStyle(fontSize: 18.0)),
+                        ],
+                      ),
+                      Text(answers[stageData.iD]?.scale.toString() ?? "",
+                          style: const TextStyle(fontSize: 20.0))
+                    ],
+                  )
+                else if (stageData.isMultiple == true)
+                  ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                    itemCount: stageData.pollAnswers.length,
+                    itemBuilder: (context, index) {
+                      var element = stageData.pollAnswers[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: LevranaCheckboxTitle(
+                            title: Flexible(child: Text(element.name)),
+                            value: answers[stageData.iD]
+                                    ?.pollAnswers
+                                    .contains(element.iD) ??
+                                false,
+                            onChanged: (value) {
+                              //print(element['iD']);
+                              setState(() {
+                                if (value != true) {
+                                  answers[stageData.iD]
+                                      ?.pollAnswers
+                                      .remove(element.iD);
+                                } else {
+                                  (answers[stageData.iD] != null)
+                                      ? answers[stageData.iD]
+                                          ?.pollAnswers
+                                          .add(element.iD)
+                                      : answers[stageData.iD] =
+                                          PollAnswersClient(
+                                              pollID: stageData.iD,
+                                              pollAnswers: {element.iD});
+                                }
+                              });
+                            }),
+                      );
+                    },
+                  )
+                else
+                  ListView.separated(
+                    shrinkWrap: true,
+                    separatorBuilder: (context, index) {
+                      return const Divider();
+                    },
+                    itemCount: stageData.pollAnswers.length,
+                    itemBuilder: (context, index) {
+                      var element = stageData.pollAnswers[index];
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: LevranaRadioTitle(
                           title: Flexible(child: Text(element.name)),
                           value: answers[stageData.iD]
                                   ?.pollAnswers
                                   .contains(element.iD) ??
                               false,
-                          onChanged: (value) {
-                            //print(element['iD']);
+                          onChanged: (v) {
                             setState(() {
-                              if (value != true) {
-                                answers[stageData.iD]
-                                    ?.pollAnswers
-                                    .remove(element.iD);
-                              } else {
-                                (answers[stageData.iD] != null)
-                                    ? answers[stageData.iD]
-                                        ?.pollAnswers
-                                        .add(element.iD)
-                                    : answers[stageData.iD] = PollAnswersClient(
-                                        pollID: stageData.iD,
-                                        pollAnswers: {element.iD});
-                              }
+                              (answers[stageData.iD] != null)
+                                  ? answers[stageData.iD]?.pollAnswers = {
+                                      element.iD
+                                    }
+                                  : answers[stageData.iD] = PollAnswersClient(
+                                      pollID: stageData.iD,
+                                      pollAnswers: {element.iD});
+
+                              answers[stageData.iD] = PollAnswersClient(
+                                  pollID: stageData.iD,
+                                  pollAnswers: {element.iD});
                             });
-                          }))
-                      .toList()
-                      .cast<Widget>(),
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                if ((stageData.isOther == true))
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    child: TextField(
+                      decoration:
+                          const InputDecoration(labelText: 'Ваш вариант'),
+                      onChanged: (text) {
+                        setState(() {
+                          (answers[stageData.iD] != null)
+                              ? answers[stageData.iD]?.other = text
+                              : answers[stageData.iD] = PollAnswersClient(
+                                  pollID: stageData.iD, other: text);
+                        });
+                      },
+                      maxLines: null,
+                    ),
+                  ),
+                const Spacer(),
+                Row(
+                  children: [
+                    if (stage != 0)
+                      TextButton(
+                          onPressed: () {
+                            setState(() {
+                              stage--;
+                            });
+                          },
+                          child: const Text("НАЗАД")),
+                    const Spacer(),
+                    (stage < poll.length - 1)
+                        ? TextButton(
+                            onPressed: isActive
+                                ? () {
+                                    setState(() {
+                                      stage++;
+                                    });
+                                  }
+                                : null,
+                            child: const Text("ДАЛЕЕ"))
+                        : Mutation(
+                            options: MutationOptions(
+                              document: gql(setPollResult),
+                              onCompleted: (dynamic resultData) {
+                                //print(resultData);
+                                Navigator.pop(context);
+                              },
+                            ),
+                            builder: (runMutation, result) {
+                              //print(result);
+                              return TextButton(
+                                  onPressed: isActive
+                                      ? () {
+                                          //print("Finish");
+                                          //print(widget.actionID);
+                                          runMutation({
+                                            'actionID': widget.actionID,
+                                            'answers': answers.values.toList()
+                                          });
+                                        }
+                                      : null,
+                                  child: const Text("ЗАКОНЧИТЬ"));
+                            }),
+                  ],
                 )
-              else
-                Column(
-                  children: stageData.pollAnswers
-                      .map((element) => RadioListTile<bool?>(
-                            title: Text(element.name),
-                            value: answers[stageData.iD]
-                                ?.pollAnswers
-                                .contains(element.iD),
-                            onChanged: (v) {
-                              //print(answers);
-                              setState(() {
-                                //print(element['iD']);
-
-                                (answers[stageData.iD] != null)
-                                    ? answers[stageData.iD]?.pollAnswers = {
-                                        element.iD
-                                      }
-                                    : answers[stageData.iD] = PollAnswersClient(
-                                        pollID: stageData.iD,
-                                        pollAnswers: {element.iD});
-
-                                answers[stageData.iD] = PollAnswersClient(
-                                    pollID: stageData.iD,
-                                    pollAnswers: {element.iD});
-                              });
-                            },
-                            groupValue: true,
-                          ))
-                      .toList()
-                      .cast<Widget>(),
-                ),
-              if ((stageData.isOther == true))
-                TextField(
-                  decoration: const InputDecoration(labelText: 'Ваш вариант'),
-                  onChanged: (text) {
-                    setState(() {
-                      (answers[stageData.iD] != null)
-                          ? answers[stageData.iD]?.other = text
-                          : answers[stageData.iD] = PollAnswersClient(
-                              pollID: stageData.iD, other: text);
-                    });
-                  },
-                  maxLines: null,
-                ),
-              const Spacer(),
-              Row(
-                children: [
-                  if (stage != 0)
-                    TextButton(
-                        onPressed: () {
-                          setState(() {
-                            stage--;
-                          });
-                        },
-                        child: const Text("НАЗАД")),
-                  const Spacer(),
-                  (stage < poll.length - 1)
-                      ? TextButton(
-                          onPressed: isActive
-                              ? () {
-                                  setState(() {
-                                    stage++;
-                                  });
-                                }
-                              : null,
-                          child: const Text("ДАЛЕЕ"))
-                      : Mutation(
-                          options: MutationOptions(
-                            document: gql(setPollResult),
-                            onCompleted: (dynamic resultData) {
-                              //print(resultData);
-                              Navigator.pop(context);
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            //print(result);
-                            return TextButton(
-                                onPressed: isActive
-                                    ? () {
-                                        //print("Finish");
-                                        //print(widget.actionID);
-                                        runMutation({
-                                          'actionID': widget.actionID,
-                                          'answers': answers.values.toList()
-                                        });
-                                      }
-                                    : null,
-                                child: const Text("ЗАКОНЧИТЬ"));
-                          }),
-                ],
-              )
-            ],
+              ],
+            ),
           );
         });
   }
