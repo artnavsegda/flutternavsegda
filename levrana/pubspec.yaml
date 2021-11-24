@@ -90,6 +90,7 @@ flutter:
   assets:
     - assets/
     - assets/checkbox/
+    - assets/radio/
     - assets/bigCheckbox/
     - assets/ic-24/
     - google_fonts/

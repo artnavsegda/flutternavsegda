@@ -67,6 +67,34 @@ class LevranaCheckboxTitle extends StatelessWidget {
   }
 }
 
+class LevranaRadioTitle extends StatelessWidget {
+  const LevranaRadioTitle({
+    Key? key,
+    required this.value,
+    required this.onChanged,
+    required this.title,
+  }) : super(key: key);
+
+  final bool value;
+  final ValueChanged<bool?>? onChanged;
+  final Widget title;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+        onTap: () => onChanged!(!value),
+        child: Row(children: [
+          value
+              ? Image.asset('assets/radio/checked.png')
+              : Image.asset('assets/radio/unchecked.png'),
+          const SizedBox(
+            width: 10,
+          ),
+          title
+        ]));
+  }
+}
+
 class LevranaCheckbox extends StatelessWidget {
   const LevranaCheckbox(
       {Key? key, required this.value, required this.onChanged})
