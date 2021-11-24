@@ -392,33 +392,8 @@ class ActionPage extends StatelessWidget {
                                         style: const TextStyle(fontSize: 20.0)),
                                   const SizedBox(height: 16),
                                   if (action.specialConditions != null)
-                                    Container(
-                                      width: double.infinity,
-                                      margin: const EdgeInsets.symmetric(
-                                          vertical: 10),
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 15, vertical: 2),
-                                      decoration: BoxDecoration(
-                                        gradient: const LinearGradient(stops: [
-                                          0.01,
-                                          0.01
-                                        ], colors: [
-                                          Colors.red,
-                                          Colors.black12
-                                        ]),
-                                        borderRadius:
-                                            BorderRadius.circular(3.0),
-/*                                     color: Colors.black12,
-                                        border: Border(
-                                          left: BorderSide(
-                                              width: 5.0, color: Colors.red),
-                                        ), */
-                                      ),
-                                      child: Text(
-                                          action.specialConditions ?? "",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold)),
-                                    ),
+                                    SpecialCondition(
+                                        text: action.specialConditions ?? ""),
                                   if (action.type == 'DRAWING')
                                     SafeArea(child: Draw(actionID: actionID)),
                                   MarkdownBody(
@@ -483,5 +458,34 @@ class ActionPage extends StatelessWidget {
                   ),
           );
         });
+  }
+}
+
+class SpecialCondition extends StatelessWidget {
+  const SpecialCondition({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+            stops: [0.01, 0.01], colors: [Colors.red, Colors.black12]),
+        borderRadius: BorderRadius.circular(3.0),
+/*                                     color: Colors.black12,
+        border: Border(
+          left: BorderSide(
+              width: 5.0, color: Colors.red),
+        ), */
+      ),
+      child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold)),
+    );
   }
 }
