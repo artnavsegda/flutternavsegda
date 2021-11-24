@@ -58,15 +58,8 @@ class _PollState extends State<Poll> {
 
           return Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Text(stageData.name,
-                    style: const TextStyle(fontSize: 22.0)),
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                child: SpecialCondition(text: stageData.comment ?? ""),
-              ),
+              Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
+              SpecialCondition(text: stageData.comment ?? ""),
               if (stageData.isScale == true)
                 Slider(
                   divisions: stageData.scaleMax! - stageData.scaleMin!,
@@ -84,8 +77,7 @@ class _PollState extends State<Poll> {
               else if (stageData.isMultiple == true)
                 Column(
                   children: stageData.pollAnswers
-                      .map((element) => CheckboxListTile(
-                          controlAffinity: ListTileControlAffinity.leading,
+                      .map((element) => LevranaCheckboxTitle(
                           title: Text(element.name),
                           value: answers[stageData.iD]
                                   ?.pollAnswers
@@ -144,20 +136,17 @@ class _PollState extends State<Poll> {
                       .cast<Widget>(),
                 ),
               if ((stageData.isOther == true))
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: TextField(
-                    decoration: const InputDecoration(labelText: 'Ваш вариант'),
-                    onChanged: (text) {
-                      setState(() {
-                        (answers[stageData.iD] != null)
-                            ? answers[stageData.iD]?.other = text
-                            : answers[stageData.iD] = PollAnswersClient(
-                                pollID: stageData.iD, other: text);
-                      });
-                    },
-                    maxLines: null,
-                  ),
+                TextField(
+                  decoration: const InputDecoration(labelText: 'Ваш вариант'),
+                  onChanged: (text) {
+                    setState(() {
+                      (answers[stageData.iD] != null)
+                          ? answers[stageData.iD]?.other = text
+                          : answers[stageData.iD] = PollAnswersClient(
+                              pollID: stageData.iD, other: text);
+                    });
+                  },
+                  maxLines: null,
                 ),
               const Spacer(),
               Row(

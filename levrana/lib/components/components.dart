@@ -62,7 +62,7 @@ class LevranaCheckboxTitle extends StatelessWidget {
           const SizedBox(
             width: 10,
           ),
-          title
+          Flexible(child: title)
         ]));
   }
 }
