@@ -144,17 +144,20 @@ class _PollState extends State<Poll> {
                       .cast<Widget>(),
                 ),
               if ((stageData.isOther == true))
-                TextField(
-                  decoration: const InputDecoration(labelText: 'Ваш вариант'),
-                  onChanged: (text) {
-                    setState(() {
-                      (answers[stageData.iD] != null)
-                          ? answers[stageData.iD]?.other = text
-                          : answers[stageData.iD] = PollAnswersClient(
-                              pollID: stageData.iD, other: text);
-                    });
-                  },
-                  maxLines: null,
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: TextField(
+                    decoration: const InputDecoration(labelText: 'Ваш вариант'),
+                    onChanged: (text) {
+                      setState(() {
+                        (answers[stageData.iD] != null)
+                            ? answers[stageData.iD]?.other = text
+                            : answers[stageData.iD] = PollAnswersClient(
+                                pollID: stageData.iD, other: text);
+                      });
+                    },
+                    maxLines: null,
+                  ),
                 ),
               const Spacer(),
               Row(
