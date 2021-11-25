@@ -59,119 +59,126 @@ class _PollState extends State<Poll> {
           return Padding(
             //padding: MediaQuery.of(context).viewInsets,
             padding: const EdgeInsets.all(16.0),
-            child: ListView(
+            child: Column(
               children: [
                 Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
                 Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  padding: const EdgeInsets.only(top: 16.0),
                   child: SpecialCondition(text: stageData.comment ?? ""),
                 ),
-                if (stageData.isScale == true)
-                  Column(
-                    children: [
-                      Row(
-                        children: [
-                          Text(stageData.scaleMin.toString(),
-                              style: const TextStyle(fontSize: 18.0)),
-                          Expanded(
-                            child: Slider(
-                              divisions:
-                                  stageData.scaleMax! - stageData.scaleMin!,
-                              onChanged: (value) {
-                                setState(() {
-                                  answers[stageData.iD] = PollAnswersClient(
-                                      pollID: stageData.iD,
-                                      scale: value.round());
-                                });
-                              },
-                              value: answers[stageData.iD]?.scale.toDouble() ??
-                                  stageData.scaleMin!.toDouble(),
-                              min: stageData.scaleMin!.toDouble(),
-                              max: stageData.scaleMax!.toDouble(),
+                Expanded(
+                  child: (stageData.isScale == true)
+                      ? Column(
+                          children: [
+                            Row(
+                              children: [
+                                Text(stageData.scaleMin.toString(),
+                                    style: const TextStyle(fontSize: 18.0)),
+                                Expanded(
+                                  child: Slider(
+                                    divisions: stageData.scaleMax! -
+                                        stageData.scaleMin!,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        answers[stageData.iD] =
+                                            PollAnswersClient(
+                                                pollID: stageData.iD,
+                                                scale: value.round());
+                                      });
+                                    },
+                                    value: answers[stageData.iD]
+                                            ?.scale
+                                            .toDouble() ??
+                                        stageData.scaleMin!.toDouble(),
+                                    min: stageData.scaleMin!.toDouble(),
+                                    max: stageData.scaleMax!.toDouble(),
+                                  ),
+                                ),
+                                Text(stageData.scaleMax.toString(),
+                                    style: const TextStyle(fontSize: 18.0)),
+                              ],
                             ),
-                          ),
-                          Text(stageData.scaleMax.toString(),
-                              style: const TextStyle(fontSize: 18.0)),
-                        ],
-                      ),
-                      Text(answers[stageData.iD]?.scale.toString() ?? "",
-                          style: const TextStyle(fontSize: 20.0))
-                    ],
-                  )
-                else if (stageData.isMultiple == true)
-                  ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) {
-                      return const Divider(
-                        height: 1,
-                      );
-                    },
-                    itemCount: stageData.pollAnswers.length,
-                    itemBuilder: (context, index) {
-                      var element = stageData.pollAnswers[index];
-                      return LevranaCheckboxTitle(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          title: Flexible(child: Text(element.name)),
-                          value: answers[stageData.iD]
-                                  ?.pollAnswers
-                                  .contains(element.iD) ??
-                              false,
-                          onChanged: (value) {
-                            //print(element['iD']);
-                            setState(() {
-                              if (value != true) {
-                                answers[stageData.iD]
-                                    ?.pollAnswers
-                                    .remove(element.iD);
-                              } else {
-                                (answers[stageData.iD] != null)
-                                    ? answers[stageData.iD]
-                                        ?.pollAnswers
-                                        .add(element.iD)
-                                    : answers[stageData.iD] = PollAnswersClient(
-                                        pollID: stageData.iD,
-                                        pollAnswers: {element.iD});
-                              }
-                            });
-                          });
-                    },
-                  )
-                else
-                  ListView.separated(
-                    shrinkWrap: true,
-                    separatorBuilder: (context, index) {
-                      return const Divider(
-                        height: 1,
-                      );
-                    },
-                    itemCount: stageData.pollAnswers.length,
-                    itemBuilder: (context, index) {
-                      var element = stageData.pollAnswers[index];
-                      return LevranaRadioTitle(
-                        padding: const EdgeInsets.symmetric(vertical: 16.0),
-                        title: Flexible(child: Text(element.name)),
-                        value: answers[stageData.iD]
-                                ?.pollAnswers
-                                .contains(element.iD) ??
-                            false,
-                        onChanged: (v) {
-                          setState(() {
-                            (answers[stageData.iD] != null)
-                                ? answers[stageData.iD]?.pollAnswers = {
-                                    element.iD
-                                  }
-                                : answers[stageData.iD] = PollAnswersClient(
-                                    pollID: stageData.iD,
-                                    pollAnswers: {element.iD});
+                            Text(answers[stageData.iD]?.scale.toString() ?? "",
+                                style: const TextStyle(fontSize: 20.0))
+                          ],
+                        )
+                      : (stageData.isMultiple == true)
+                          ? ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return const Divider(
+                                  height: 1,
+                                );
+                              },
+                              itemCount: stageData.pollAnswers.length,
+                              itemBuilder: (context, index) {
+                                var element = stageData.pollAnswers[index];
+                                return LevranaCheckboxTitle(
+                                    padding: const EdgeInsets.symmetric(
+                                        vertical: 16.0),
+                                    title: Flexible(child: Text(element.name)),
+                                    value: answers[stageData.iD]
+                                            ?.pollAnswers
+                                            .contains(element.iD) ??
+                                        false,
+                                    onChanged: (value) {
+                                      //print(element['iD']);
+                                      setState(() {
+                                        if (value != true) {
+                                          answers[stageData.iD]
+                                              ?.pollAnswers
+                                              .remove(element.iD);
+                                        } else {
+                                          (answers[stageData.iD] != null)
+                                              ? answers[stageData.iD]
+                                                  ?.pollAnswers
+                                                  .add(element.iD)
+                                              : answers[stageData.iD] =
+                                                  PollAnswersClient(
+                                                      pollID: stageData.iD,
+                                                      pollAnswers: {
+                                                      element.iD
+                                                    });
+                                        }
+                                      });
+                                    });
+                              },
+                            )
+                          : ListView.separated(
+                              separatorBuilder: (context, index) {
+                                return const Divider(
+                                  height: 1,
+                                );
+                              },
+                              itemCount: stageData.pollAnswers.length,
+                              itemBuilder: (context, index) {
+                                var element = stageData.pollAnswers[index];
+                                return LevranaRadioTitle(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  title: Flexible(child: Text(element.name)),
+                                  value: answers[stageData.iD]
+                                          ?.pollAnswers
+                                          .contains(element.iD) ??
+                                      false,
+                                  onChanged: (v) {
+                                    setState(() {
+                                      (answers[stageData.iD] != null)
+                                          ? answers[stageData.iD]?.pollAnswers =
+                                              {element.iD}
+                                          : answers[stageData.iD] =
+                                              PollAnswersClient(
+                                                  pollID: stageData.iD,
+                                                  pollAnswers: {element.iD});
 
-                            answers[stageData.iD] = PollAnswersClient(
-                                pollID: stageData.iD,
-                                pollAnswers: {element.iD});
-                          });
-                        },
-                      );
-                    },
-                  ),
+                                      answers[stageData.iD] = PollAnswersClient(
+                                          pollID: stageData.iD,
+                                          pollAnswers: {element.iD});
+                                    });
+                                  },
+                                );
+                              },
+                            ),
+                ),
                 if ((stageData.isOther == true))
                   Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0),
@@ -189,7 +196,6 @@ class _PollState extends State<Poll> {
                       maxLines: null,
                     ),
                   ),
-                const Spacer(),
                 Row(
                   children: [
                     if (stage != 0)
@@ -235,7 +241,7 @@ class _PollState extends State<Poll> {
                                   child: const Text("ЗАКОНЧИТЬ"));
                             }),
                   ],
-                )
+                ),
               ],
             ),
           );
