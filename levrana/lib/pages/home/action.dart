@@ -58,14 +58,15 @@ class _PollState extends State<Poll> {
 
           return Padding(
             //padding: MediaQuery.of(context).viewInsets,
-            padding: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Column(
               children: [
-                Text(stageData.name, style: const TextStyle(fontSize: 22.0)),
                 Padding(
-                  padding: const EdgeInsets.only(top: 16.0),
-                  child: SpecialCondition(text: stageData.comment ?? ""),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: Text(stageData.name,
+                      style: const TextStyle(fontSize: 22.0)),
                 ),
+                SpecialCondition(text: stageData.comment ?? ""),
                 Expanded(
                   child: (stageData.isScale == true)
                       ? Column(
