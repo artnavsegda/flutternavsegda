@@ -55,7 +55,7 @@ class LevranaCheckboxTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         onTap: () => onChanged!(!value),
         child: Container(
           padding: padding,
@@ -88,7 +88,7 @@ class LevranaRadioTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         onTap: () => onChanged!(!value),
         child: Container(
           padding: padding,
@@ -115,7 +115,7 @@ class LevranaCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         onTap: () => onChanged!(!value),
         child: value
             ? Image.asset('assets/checkbox/checked.png')
@@ -133,7 +133,7 @@ class LevranaBigCheckbox extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return InkWell(
         onTap: () => onChanged!(!value),
         child: value
             ? Image.asset('assets/bigCheckbox/checked.png')

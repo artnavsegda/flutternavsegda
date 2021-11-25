@@ -102,13 +102,15 @@ class _PollState extends State<Poll> {
                   ListView.separated(
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
-                      return const Divider();
+                      return const Divider(
+                        height: 1,
+                      );
                     },
                     itemCount: stageData.pollAnswers.length,
                     itemBuilder: (context, index) {
                       var element = stageData.pollAnswers[index];
                       return LevranaCheckboxTitle(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          padding: const EdgeInsets.symmetric(vertical: 16.0),
                           title: Flexible(child: Text(element.name)),
                           value: answers[stageData.iD]
                                   ?.pollAnswers
@@ -138,13 +140,15 @@ class _PollState extends State<Poll> {
                   ListView.separated(
                     shrinkWrap: true,
                     separatorBuilder: (context, index) {
-                      return const Divider();
+                      return const Divider(
+                        height: 1,
+                      );
                     },
                     itemCount: stageData.pollAnswers.length,
                     itemBuilder: (context, index) {
                       var element = stageData.pollAnswers[index];
                       return LevranaRadioTitle(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        padding: const EdgeInsets.symmetric(vertical: 16.0),
                         title: Flexible(child: Text(element.name)),
                         value: answers[stageData.iD]
                                 ?.pollAnswers
@@ -170,7 +174,7 @@ class _PollState extends State<Poll> {
                   ),
                 if ((stageData.isOther == true))
                   Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 16.0),
+                    padding: const EdgeInsets.symmetric(vertical: 6.0),
                     child: TextField(
                       decoration:
                           const InputDecoration(labelText: 'Ваш вариант'),
