@@ -45,25 +45,30 @@ class LevranaCheckboxTitle extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.title,
+    this.padding,
   }) : super(key: key);
 
   final bool value;
   final ValueChanged<bool?>? onChanged;
   final Widget title;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => onChanged!(!value),
-        child: Row(children: [
-          value
-              ? Image.asset('assets/checkbox/checked.png')
-              : Image.asset('assets/checkbox/unchecked.png'),
-          const SizedBox(
-            width: 10,
-          ),
-          title
-        ]));
+        child: Container(
+          padding: padding,
+          child: Row(children: [
+            value
+                ? Image.asset('assets/checkbox/checked.png')
+                : Image.asset('assets/checkbox/unchecked.png'),
+            const SizedBox(
+              width: 10,
+            ),
+            title
+          ]),
+        ));
   }
 }
 
@@ -73,25 +78,30 @@ class LevranaRadioTitle extends StatelessWidget {
     required this.value,
     required this.onChanged,
     required this.title,
+    this.padding,
   }) : super(key: key);
 
   final bool value;
   final ValueChanged<bool?>? onChanged;
   final Widget title;
+  final EdgeInsetsGeometry? padding;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
         onTap: () => onChanged!(!value),
-        child: Row(children: [
-          value
-              ? Image.asset('assets/radio/checked.png')
-              : Image.asset('assets/radio/unchecked.png'),
-          const SizedBox(
-            width: 10,
-          ),
-          title
-        ]));
+        child: Container(
+          padding: padding,
+          child: Row(children: [
+            value
+                ? Image.asset('assets/radio/checked.png')
+                : Image.asset('assets/radio/unchecked.png'),
+            const SizedBox(
+              width: 10,
+            ),
+            title
+          ]),
+        ));
   }
 }
 

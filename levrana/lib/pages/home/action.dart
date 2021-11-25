@@ -107,34 +107,31 @@ class _PollState extends State<Poll> {
                     itemCount: stageData.pollAnswers.length,
                     itemBuilder: (context, index) {
                       var element = stageData.pollAnswers[index];
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: LevranaCheckboxTitle(
-                            title: Flexible(child: Text(element.name)),
-                            value: answers[stageData.iD]
+                      return LevranaCheckboxTitle(
+                          padding: const EdgeInsets.symmetric(vertical: 8.0),
+                          title: Flexible(child: Text(element.name)),
+                          value: answers[stageData.iD]
+                                  ?.pollAnswers
+                                  .contains(element.iD) ??
+                              false,
+                          onChanged: (value) {
+                            //print(element['iD']);
+                            setState(() {
+                              if (value != true) {
+                                answers[stageData.iD]
                                     ?.pollAnswers
-                                    .contains(element.iD) ??
-                                false,
-                            onChanged: (value) {
-                              //print(element['iD']);
-                              setState(() {
-                                if (value != true) {
-                                  answers[stageData.iD]
-                                      ?.pollAnswers
-                                      .remove(element.iD);
-                                } else {
-                                  (answers[stageData.iD] != null)
-                                      ? answers[stageData.iD]
-                                          ?.pollAnswers
-                                          .add(element.iD)
-                                      : answers[stageData.iD] =
-                                          PollAnswersClient(
-                                              pollID: stageData.iD,
-                                              pollAnswers: {element.iD});
-                                }
-                              });
-                            }),
-                      );
+                                    .remove(element.iD);
+                              } else {
+                                (answers[stageData.iD] != null)
+                                    ? answers[stageData.iD]
+                                        ?.pollAnswers
+                                        .add(element.iD)
+                                    : answers[stageData.iD] = PollAnswersClient(
+                                        pollID: stageData.iD,
+                                        pollAnswers: {element.iD});
+                              }
+                            });
+                          });
                     },
                   )
                 else
@@ -146,30 +143,28 @@ class _PollState extends State<Poll> {
                     itemCount: stageData.pollAnswers.length,
                     itemBuilder: (context, index) {
                       var element = stageData.pollAnswers[index];
-                      return Padding(
+                      return LevranaRadioTitle(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
-                        child: LevranaRadioTitle(
-                          title: Flexible(child: Text(element.name)),
-                          value: answers[stageData.iD]
-                                  ?.pollAnswers
-                                  .contains(element.iD) ??
-                              false,
-                          onChanged: (v) {
-                            setState(() {
-                              (answers[stageData.iD] != null)
-                                  ? answers[stageData.iD]?.pollAnswers = {
-                                      element.iD
-                                    }
-                                  : answers[stageData.iD] = PollAnswersClient(
-                                      pollID: stageData.iD,
-                                      pollAnswers: {element.iD});
+                        title: Flexible(child: Text(element.name)),
+                        value: answers[stageData.iD]
+                                ?.pollAnswers
+                                .contains(element.iD) ??
+                            false,
+                        onChanged: (v) {
+                          setState(() {
+                            (answers[stageData.iD] != null)
+                                ? answers[stageData.iD]?.pollAnswers = {
+                                    element.iD
+                                  }
+                                : answers[stageData.iD] = PollAnswersClient(
+                                    pollID: stageData.iD,
+                                    pollAnswers: {element.iD});
 
-                              answers[stageData.iD] = PollAnswersClient(
-                                  pollID: stageData.iD,
-                                  pollAnswers: {element.iD});
-                            });
-                          },
-                        ),
+                            answers[stageData.iD] = PollAnswersClient(
+                                pollID: stageData.iD,
+                                pollAnswers: {element.iD});
+                          });
+                        },
                       );
                     },
                   ),
