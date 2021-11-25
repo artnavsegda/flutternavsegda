@@ -83,8 +83,6 @@ class _ProductPageState extends State<ProductPage> {
           fetchPolicy: FetchPolicy.cacheFirst,
         ),
         builder: (result, {fetchMore, refetch}) {
-          //print(result);
-
           if (result.hasException) {
             return Scaffold(
               body: Center(
@@ -411,6 +409,14 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
+                                                          onTap: () =>
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        ProductPage(
+                                                                            id: element.iD)),
+                                                              ),
                                                           product: element)))
                                                   .toList()
                                                   .cast<Widget>()),
@@ -437,6 +443,14 @@ class _ProductPageState extends State<ProductPage> {
                                                                   .width /
                                                               2.1,
                                                       child: ProductCard(
+                                                          onTap: () =>
+                                                              Navigator.push(
+                                                                context,
+                                                                MaterialPageRoute(
+                                                                    builder: (context) =>
+                                                                        ProductPage(
+                                                                            id: element.iD)),
+                                                              ),
                                                           product: element)))
                                                   .toList()
                                                   .cast<Widget>()),

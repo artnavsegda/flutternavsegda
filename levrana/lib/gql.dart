@@ -887,6 +887,10 @@ class GraphProductCard {
         familyID = json['familyID'],
         topCatalogID = json['topCatalogID'],
         name = json['name'],
+        comment = json['comment'],
+        description = json['description'],
+        application = json['application'],
+        composition = json['composition'],
         isFavorite = json['isFavorite'],
         favorites = json['favorites'],
         attributes = List<GraphProductAttribute>.from(json['attributes']
