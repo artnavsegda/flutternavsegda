@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'edit_user.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -8,7 +9,10 @@ class UserPage extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const EditUser()));
+          },
           title: const Text("Princess Bean"),
           trailing: Image.asset('assets/Icon Edit.png'),
         ),
