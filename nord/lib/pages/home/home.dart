@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/select_address_bottom_sheet.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -25,33 +26,6 @@ class HomePage extends StatelessWidget {
           const Text("Акции"),
           const Text("Новинки"),
           const Text("Кондитерские и кафе"),
-        ],
-      ),
-    );
-  }
-}
-
-class SelectAddressBottomSheet extends StatelessWidget {
-  const SelectAddressBottomSheet({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset('assets/Illustration New Address.png'),
-          const Text('Адрес доставки или ближайшего к вам кафе'),
-          const Text(
-              'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
-          ElevatedButton(onPressed: () {}, child: Text('Указать адрес')),
-          TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Позже'))
         ],
       ),
     );
