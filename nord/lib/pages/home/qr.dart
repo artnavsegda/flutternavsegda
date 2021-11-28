@@ -16,12 +16,13 @@ class QrPage extends StatelessWidget {
             data: "1234567890",
             size: 200.0,
           ),
-          Text('Предъявите на кассе'),
-          Text('+ 7 999 548 63 75'),
-          Text(
+          const Text('Предъявите на кассе'),
+          const Text('+ 7 999 548 63 75'),
+          const Text(
               'Поднесите телефон к сканеру на кассе, чтобы начислить или списать бонусы'),
           ElevatedButton(
-              onPressed: () {}, child: Text('Добавить карту в Google Pay')),
+              onPressed: () {},
+              child: const Text('Добавить карту в Google Pay')),
         ],
       ),
     );
