@@ -13,8 +13,8 @@ class EditUser extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
-            Text("Личная информация"),
-            Text("Другие настройки"),
+            const Text("Личная информация"),
+            const Text("Другие настройки"),
             SwitchListTile(
               title: const Text('Отказаться от бумажных чеков'),
               value: false,
@@ -29,7 +29,7 @@ class EditUser extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                child: Text("Сохранить"))
+                child: const Text("Сохранить"))
           ],
         ),
       ),
