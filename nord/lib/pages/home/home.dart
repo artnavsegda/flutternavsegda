@@ -5,6 +5,17 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: ListView(
+        children: [
+          ListTile(
+            leading:
+                Image.asset('assets/Illustration Colored Delivery Options.png'),
+            title: Text("Адрес доставки или кафе"),
+          ),
+          Text("Акции"),
+        ],
+      ),
+    );
   }
 }
