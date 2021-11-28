@@ -14,15 +14,17 @@ class HomePage extends StatelessWidget {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return SelectAddressBottomSheet();
+                  return const SelectAddressBottomSheet();
                 },
               );
             },
             leading:
                 Image.asset('assets/Illustration Colored Delivery Options.png'),
-            title: Text("Адрес доставки или кафе"),
+            title: const Text("Адрес доставки или кафе"),
           ),
-          Text("Акции"),
+          const Text("Акции"),
+          const Text("Новинки"),
+          const Text("Кондитерские и кафе"),
         ],
       ),
     );
