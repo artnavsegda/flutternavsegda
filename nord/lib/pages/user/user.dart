@@ -31,7 +31,7 @@ class UserPage extends StatelessWidget {
                         isScrollControlled: true,
                         context: context,
                         builder: (context) {
-                          return const Text('assssssssssssss');
+                          return GiftBonusModalSheet();
                         },
                       );
                     },
@@ -65,6 +65,26 @@ class UserPage extends StatelessWidget {
           title: const Text("Выход из приложения"),
           leading: Image.asset('assets/Icon Logout.png'),
         ),
+      ],
+    );
+  }
+}
+
+class GiftBonusModalSheet extends StatelessWidget {
+  const GiftBonusModalSheet({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const Text('Подарочные бонусы'),
+        TextField(),
+        Text('Вы можете подарить до 120 бонусов'),
+        TextField(),
+        ElevatedButton(onPressed: () {}, child: Text('Подарить бонусы'))
       ],
     );
   }
