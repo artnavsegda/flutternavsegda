@@ -26,7 +26,16 @@ class UserPage extends StatelessWidget {
                 ElevatedButton(
                     onPressed: () {}, child: const Text('Позвать друга')),
                 TextButton(
-                    onPressed: () {}, child: const Text('Подарить бонусы'))
+                    onPressed: () {
+                      showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return const Text('assssssssssssss');
+                        },
+                      );
+                    },
+                    child: const Text('Подарить бонусы'))
               ],
             )
           ],
