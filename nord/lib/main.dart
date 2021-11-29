@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData nordTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-      primarySwatch: Colors.green,
+      primarySwatch: Colors.red,
       fontFamily: 'Noto Sans',
       textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,

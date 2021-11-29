@@ -24,6 +24,7 @@ class CatalogPage extends StatelessWidget {
                   'assets/Illustration Colored Delivery Options.png'),
               title: const Text("Адрес доставки или кафе"),
             ),
+            TextField(),
           ],
         ),
       ),

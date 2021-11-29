@@ -16,6 +16,21 @@ class UserPage extends StatelessWidget {
           title: const Text("Princess Bean"),
           trailing: Image.asset('assets/Icon Edit.png'),
         ),
+        Container(
+            child: Column(
+          children: [
+            Text('У вас'),
+            Text('95 бонусов'),
+            Row(
+              children: [
+                ElevatedButton(
+                    onPressed: () {}, child: const Text('Позвать друга')),
+                TextButton(
+                    onPressed: () {}, child: const Text('Подарить бонусы'))
+              ],
+            )
+          ],
+        )),
         ListTile(
           onTap: () {},
           title: const Text("Подарки"),
