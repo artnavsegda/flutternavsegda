@@ -55,6 +55,7 @@ class UserPage extends StatelessWidget {
           title: const Text("Адреса доставки"),
           leading: Image.asset('assets/Icon Place.png'),
         ),
+        Divider(),
         ListTile(
           onTap: () async {},
           title: const Text("Смена пароля"),
@@ -82,6 +83,10 @@ class GiftBonusModalSheet extends StatelessWidget {
       children: [
         const Text('Подарочные бонусы'),
         TextField(),
+        Slider(
+          onChanged: (newVal) {},
+          value: 0,
+        ),
         Text('Вы можете подарить до 120 бонусов'),
         TextField(),
         ElevatedButton(onPressed: () {}, child: Text('Подарить бонусы'))
