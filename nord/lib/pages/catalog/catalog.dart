@@ -25,6 +25,7 @@ class CatalogPage extends StatelessWidget {
               title: const Text("Адрес доставки или кафе"),
             ),
             TextField(),
+            Text('Выпечка')
           ],
         ),
       ),
