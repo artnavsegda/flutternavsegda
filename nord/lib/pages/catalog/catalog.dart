@@ -25,7 +25,8 @@ class CatalogPage extends StatelessWidget {
               title: const Text("Адрес доставки или кафе"),
             ),
             TextField(),
-            Text('Выпечка')
+            Text('Выпечка'),
+            Image.asset('assets/placeholder/product1/Illustration.png'),
           ],
         ),
       ),
