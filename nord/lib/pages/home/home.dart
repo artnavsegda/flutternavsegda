@@ -36,6 +36,12 @@ class HomePage extends StatelessWidget {
           const Text("Акции"),
           const Text("Новинки"),
           const Text("Кондитерские и кафе"),
+          Container(
+            child: ElevatedButton(
+              child: Text('Показать заведения на карте'),
+              onPressed: () {},
+            ),
+          ),
         ],
       ),
     );
