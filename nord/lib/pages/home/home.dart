@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/select_address_bottom_sheet.dart';
+import '../../components/product_card.dart';
 import 'qr.dart';
 
 class HomePage extends StatelessWidget {
@@ -35,6 +36,7 @@ class HomePage extends StatelessWidget {
           ),
           const Text("Акции"),
           const Text("Новинки"),
+          ProductCard(),
           const Text("Кондитерские и кафе"),
           Container(
             child: ElevatedButton(

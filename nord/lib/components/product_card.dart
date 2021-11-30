@@ -9,7 +9,9 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/placeholder/product1/Illustration.png'),
+        InkWell(
+            onTap: () {},
+            child: Image.asset('assets/placeholder/product1/Illustration.png')),
         Text('Кекс английский с сухофруктами'),
         Text('420 ₽'),
       ],
