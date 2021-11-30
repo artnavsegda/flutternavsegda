@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/address/address.dart';
 
 class SelectAddressBottomSheet extends StatelessWidget {
   const SelectAddressBottomSheet({
@@ -14,7 +15,12 @@ class SelectAddressBottomSheet extends StatelessWidget {
         const Text('Адрес доставки или ближайшего к вам кафе'),
         const Text(
             'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
-        ElevatedButton(onPressed: () {}, child: Text('Указать адрес')),
+        ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AddressPage()));
+            },
+            child: Text('Указать адрес')),
         TextButton(
             onPressed: () {
               Navigator.pop(context);
