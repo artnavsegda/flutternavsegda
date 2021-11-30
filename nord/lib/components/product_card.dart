@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../pages/product/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -10,7 +11,10 @@ class ProductCard extends StatelessWidget {
     return Column(
       children: [
         InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ProductPage()));
+            },
             child: Image.asset('assets/placeholder/product1/Illustration.png')),
         Text('Кекс английский с сухофруктами'),
         Text('420 ₽'),
