@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/select_address_bottom_sheet.dart';
+import '../../components/product_card.dart';
 
 class CatalogPage extends StatelessWidget {
   const CatalogPage({Key? key}) : super(key: key);
@@ -26,7 +27,7 @@ class CatalogPage extends StatelessWidget {
             ),
             TextField(),
             Text('Выпечка'),
-            Image.asset('assets/placeholder/product1/Illustration.png'),
+            ProductCard(),
           ],
         ),
       ),
