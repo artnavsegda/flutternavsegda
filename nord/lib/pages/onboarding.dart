@@ -49,7 +49,11 @@ class Onboarding extends StatelessWidget {
         Positioned(
             bottom: 20,
             left: 20,
-            child: ElevatedButton(onPressed: () {}, child: const Text("Далее")))
+            child: ElevatedButton.icon(
+              onPressed: () {},
+              label: ImageIcon(AssetImage('assets/Icon East.png')),
+              icon: const Text("Далее"),
+            ))
       ],
     ));
   }
