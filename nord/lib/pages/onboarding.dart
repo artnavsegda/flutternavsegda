@@ -17,6 +17,7 @@ class Onboarding extends StatelessWidget {
             Image.asset('assets/Illustration Welcome.png'),
             Expanded(
               child: PageView(
+                physics: const NeverScrollableScrollPhysics(),
                 padEnds: false,
                 controller: _controller,
                 scrollDirection: Axis.vertical,
