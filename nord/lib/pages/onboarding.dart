@@ -65,7 +65,8 @@ class Welcome extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text('Добро пожаловать!'),
+        Text('Добро пожаловать!',
+            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
         Text(
             '''С Вами легендарная кондитерская Петербурга. C 1903 года мы создаем торты и пирожные, храним традиции талантливых советских технологов, чтобы сделать Ваш день приятней.
 Мы движемся вперед, разработали удобную бонусную систему, обновили мобильное приложение, а заодно и сайт.
