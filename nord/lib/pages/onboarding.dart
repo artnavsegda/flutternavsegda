@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
-class Onboarding extends StatelessWidget {
+class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
+
+  @override
+  State<Onboarding> createState() => _OnboardingState();
+}
+
+class _OnboardingState extends State<Onboarding> {
+  bool finalScreen = false;
 
   @override
   Widget build(BuildContext context) {
@@ -24,6 +31,9 @@ class Onboarding extends StatelessWidget {
                   controller: _controller,
                   onPageChanged: (pageNumber) {
                     print(pageNumber);
+                    setState(() {
+                      finalScreen = pageNumber == 3;
+                    });
                   },
                   scrollDirection: Axis.vertical,
                   children: const [
@@ -64,15 +74,20 @@ class Onboarding extends StatelessWidget {
         Positioned(
             bottom: 20,
             left: 20,
-            child: ElevatedButton.icon(
-              onPressed: () {
-                _controller.nextPage(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut);
-              },
-              label: ImageIcon(AssetImage('assets/Icon East.png')),
-              icon: const Text("Далее"),
-            ))
+            child: finalScreen
+                ? ElevatedButton(
+                    child: Text('Выбрать что-нибудь вкусное'),
+                    onPressed: () {},
+                  )
+                : ElevatedButton.icon(
+                    onPressed: () {
+                      _controller.nextPage(
+                          duration: const Duration(milliseconds: 400),
+                          curve: Curves.easeInOut);
+                    },
+                    label: ImageIcon(AssetImage('assets/Icon East.png')),
+                    icon: const Text("Далее"),
+                  ))
       ],
     ));
   }
