@@ -10,6 +10,7 @@ class Onboarding extends StatefulWidget {
 
 class _OnboardingState extends State<Onboarding> {
   bool finalScreen = false;
+  int pageNumber = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -29,19 +30,21 @@ class _OnboardingState extends State<Onboarding> {
                   //physics: const NeverScrollableScrollPhysics(),
                   padEnds: false,
                   controller: _controller,
-                  onPageChanged: (pageNumber) {
-                    print(pageNumber);
+                  onPageChanged: (page) {
                     setState(() {
-                      finalScreen = pageNumber == 3;
+                      pageNumber = page;
+                      finalScreen = page == 3;
                     });
                   },
                   scrollDirection: Axis.vertical,
-                  children: const [
-                    Welcome(),
-                    Push(),
-                    Location(),
-                    Login(),
-                    SizedBox.expand()
+                  children: [
+                    Opacity(
+                        child: Welcome(), opacity: pageNumber == 0 ? 1 : 0.2),
+                    Opacity(child: Push(), opacity: pageNumber == 1 ? 1 : 0.2),
+                    Opacity(
+                        child: Location(), opacity: pageNumber == 2 ? 1 : 0.2),
+                    Opacity(child: Login(), opacity: pageNumber == 3 ? 1 : 0.2),
+                    const SizedBox.expand()
                   ],
                 ),
               ),
@@ -63,14 +66,14 @@ class _OnboardingState extends State<Onboarding> {
                   activeDotColor: Color(0xFFB0063A)),
               onDotClicked: (index) {}),
         ),
-        Positioned(
+/*         Positioned(
             left: 0,
             right: 0,
             bottom: 0,
             height: 200,
             child: Container(
               color: Colors.white70,
-            )),
+            )), */
         Positioned(
             bottom: 20,
             left: 20,
