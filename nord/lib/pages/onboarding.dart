@@ -17,7 +17,7 @@ class Onboarding extends StatelessWidget {
             Image.asset('assets/Illustration Welcome.png'),
             Expanded(
               child: PageView(
-                physics: const NeverScrollableScrollPhysics(),
+                //physics: const NeverScrollableScrollPhysics(),
                 padEnds: false,
                 controller: _controller,
                 scrollDirection: Axis.vertical,
@@ -47,6 +47,14 @@ class Onboarding extends StatelessWidget {
                   activeDotColor: Color(0xFFB0063A)),
               onDotClicked: (index) {}),
         ),
+        Positioned(
+            left: 0,
+            right: 0,
+            bottom: 0,
+            height: 300,
+            child: Container(
+              color: Colors.white70,
+            )),
         Positioned(
             bottom: 20,
             left: 20,
