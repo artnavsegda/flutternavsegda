@@ -16,18 +16,24 @@ class Onboarding extends StatelessWidget {
           children: [
             Image.asset('assets/Illustration Welcome.png'),
             Expanded(
-              child: PageView(
-                //physics: const NeverScrollableScrollPhysics(),
-                padEnds: false,
-                controller: _controller,
-                scrollDirection: Axis.vertical,
-                children: const [
-                  Welcome(),
-                  Push(),
-                  Location(),
-                  Login(),
-                  SizedBox.expand()
-                ],
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: PageView(
+                  //physics: const NeverScrollableScrollPhysics(),
+                  padEnds: false,
+                  controller: _controller,
+                  onPageChanged: (pageNumber) {
+                    print(pageNumber);
+                  },
+                  scrollDirection: Axis.vertical,
+                  children: const [
+                    Welcome(),
+                    Push(),
+                    Location(),
+                    Login(),
+                    SizedBox.expand()
+                  ],
+                ),
               ),
             ),
           ],
@@ -51,7 +57,7 @@ class Onboarding extends StatelessWidget {
             left: 0,
             right: 0,
             bottom: 0,
-            height: 300,
+            height: 200,
             child: Container(
               color: Colors.white70,
             )),
@@ -59,7 +65,11 @@ class Onboarding extends StatelessWidget {
             bottom: 20,
             left: 20,
             child: ElevatedButton.icon(
-              onPressed: () {},
+              onPressed: () {
+                _controller.nextPage(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut);
+              },
               label: ImageIcon(AssetImage('assets/Icon East.png')),
               icon: const Text("Далее"),
             ))
@@ -80,6 +90,7 @@ class Welcome extends StatelessWidget {
       children: const [
         Text('Добро пожаловать!',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        SizedBox(height: 20),
         Text(
             '''С Вами легендарная кондитерская Петербурга. C 1903 года мы создаем торты и пирожные, храним традиции талантливых советских технологов, чтобы сделать Ваш день приятней.
 Мы движемся вперед, разработали удобную бонусную систему, обновили мобильное приложение, а заодно и сайт.
@@ -99,6 +110,7 @@ class Push extends StatelessWidget {
       children: const [
         Text('Уведомления',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        SizedBox(height: 20),
         Text(
             '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.'''),
       ],
@@ -116,6 +128,7 @@ class Location extends StatelessWidget {
       children: const [
         Text('Местоположение',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        SizedBox(height: 20),
         Text(
             '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.'''),
       ],
@@ -133,6 +146,7 @@ class Login extends StatelessWidget {
       children: const [
         Text('Все возможности',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        SizedBox(height: 20),
         Text('''Войдите в аккаунт и используйте все возможности приложения.
 Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
       ],
