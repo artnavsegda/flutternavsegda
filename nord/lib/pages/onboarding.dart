@@ -97,7 +97,8 @@ class Push extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text('Уведомления'),
+        Text('Уведомления',
+            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
         Text(
             '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.'''),
       ],
@@ -113,7 +114,8 @@ class Location extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text('Местоположение'),
+        Text('Местоположение',
+            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
         Text(
             '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.'''),
       ],
@@ -129,7 +131,8 @@ class Login extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
-        Text('Все возможности'),
+        Text('Все возможности',
+            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
         Text('''Войдите в аккаунт и используйте все возможности приложения.
 Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
       ],
