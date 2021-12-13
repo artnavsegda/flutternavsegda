@@ -55,6 +55,18 @@ class ProductPage extends StatelessWidget {
                 OutlinedButton(onPressed: () {}, child: Text('250')),
                 OutlinedButton(onPressed: () {}, child: Text('1000')),
               ],
+            ),
+            DefaultTabController(
+              length: 3,
+              child: TabBar(
+                unselectedLabelColor: Colors.red,
+                labelColor: Colors.black38,
+                tabs: [
+                  Tab(text: "О продукте"),
+                  Tab(text: "Состав"),
+                  Tab(text: "Отзывы"),
+                ],
+              ),
             )
           ],
         ),
