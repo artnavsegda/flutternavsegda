@@ -125,12 +125,15 @@ class Push extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text('Уведомления',
+      children: [
+        const Text('Уведомления',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
             '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.'''),
+        const SizedBox(height: 20),
+        OutlinedButton(
+            onPressed: () {}, child: const Text('Разрешить уведомления'))
       ],
     );
   }
@@ -143,12 +146,15 @@ class Location extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text('Местоположение',
+      children: [
+        const Text('Местоположение',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-        SizedBox(height: 20),
-        Text(
+        const SizedBox(height: 20),
+        const Text(
             '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.'''),
+        const SizedBox(height: 20),
+        OutlinedButton(
+            onPressed: () {}, child: const Text('Разрешить уведомления'))
       ],
     );
   }
@@ -161,12 +167,16 @@ class Login extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
-        Text('Все возможности',
+      children: [
+        const Text('Все возможности',
             style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-        SizedBox(height: 20),
-        Text('''Войдите в аккаунт и используйте все возможности приложения.
+        const SizedBox(height: 20),
+        const Text(
+            '''Войдите в аккаунт и используйте все возможности приложения.
 Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
+        const SizedBox(height: 20),
+        OutlinedButton(
+            onPressed: () {}, child: const Text('Войти или зарегистрироваться'))
       ],
     );
   }
