@@ -58,13 +58,27 @@ class ProductPage extends StatelessWidget {
             ),
             DefaultTabController(
               length: 3,
-              child: TabBar(
-                unselectedLabelColor: Colors.red,
-                labelColor: Colors.black38,
-                tabs: [
-                  Tab(text: "О продукте"),
-                  Tab(text: "Состав"),
-                  Tab(text: "Отзывы"),
+              child: Column(
+                children: [
+                  TabBar(
+                    unselectedLabelColor: Colors.red,
+                    labelColor: Colors.black38,
+                    tabs: [
+                      Tab(text: "О продукте"),
+                      Tab(text: "Состав"),
+                      Tab(text: "Отзывы"),
+                    ],
+                  ),
+                  SizedBox(
+                    height: 300,
+                    child: TabBarView(
+                      children: [
+                        Text('1'),
+                        Text('2'),
+                        Text('3'),
+                      ],
+                    ),
+                  )
                 ],
               ),
             )
