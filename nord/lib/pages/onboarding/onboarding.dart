@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../main.dart';
+import '../login/login.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -188,7 +189,11 @@ class Login extends StatelessWidget {
 Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
         const SizedBox(height: 20),
         OutlinedButton(
-            onPressed: () {}, child: const Text('Войти или зарегистрироваться'))
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()));
+            },
+            child: const Text('Войти или зарегистрироваться'))
       ],
     );
   }
