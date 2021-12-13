@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'review.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -119,7 +120,13 @@ class _ProductPageState extends State<ProductPage> {
                   Text(
                       'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
                   OutlinedButton(
-                      onPressed: () {}, child: Text('Оставить отзыв'))
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ReviewPage()));
+                      },
+                      child: Text('Оставить отзыв'))
                 ],
               )
             ][page],
