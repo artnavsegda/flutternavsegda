@@ -11,12 +11,15 @@ class ProductPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            PageView(
-              children: [
-                Image.asset('assets/placeholder/unicorn.png'),
-                Image.asset('assets/placeholder/espresso.png'),
-                Image.asset('assets/placeholder/cheesecake.png'),
-              ],
+            SizedBox(
+              height: 270,
+              child: PageView(
+                children: [
+                  Image.asset('assets/placeholder/unicorn.png'),
+                  Image.asset('assets/placeholder/espresso.png'),
+                  Image.asset('assets/placeholder/cheesecake.png'),
+                ],
+              ),
             )
           ],
         ),
