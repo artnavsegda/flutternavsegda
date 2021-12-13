@@ -20,7 +20,33 @@ class ProductPage extends StatelessWidget {
                   Image.asset('assets/placeholder/cheesecake.png'),
                 ],
               ),
-            )
+            ),
+            Row(
+              children: [
+                Column(
+                  children: [
+                    Row(
+                      children: [
+                        Text('315р'),
+                        Text('420р'),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        Text('Базовая цена.'),
+                        Text('За 1 шт.'),
+                      ],
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text('4.7'),
+                    Text('13 отзывов'),
+                  ],
+                ),
+              ],
+            ),
           ],
         ),
         bottomSheet: Row(
