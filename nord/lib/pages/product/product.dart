@@ -10,7 +10,15 @@ class ProductPage extends StatelessWidget {
           title: const Text('Печенье «Единорог в ро... '),
         ),
         body: ListView(
-          children: [],
+          children: [
+            PageView(
+              children: [
+                Image.asset('assets/placeholder/unicorn.png'),
+                Image.asset('assets/placeholder/espresso.png'),
+                Image.asset('assets/placeholder/cheesecake.png'),
+              ],
+            )
+          ],
         ),
         bottomSheet: Row(
           children: [

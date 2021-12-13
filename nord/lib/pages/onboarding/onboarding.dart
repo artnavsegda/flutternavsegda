@@ -33,6 +33,12 @@ class _OnboardingState extends State<Onboarding> {
                   padEnds: false,
                   controller: _controller,
                   onPageChanged: (page) {
+                    if (page == 4) {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainPage()));
+                    }
                     setState(() {
                       pageNumber = page;
                       finalScreen = page == 3;
