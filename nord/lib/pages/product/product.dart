@@ -1,7 +1,27 @@
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage>
+    with SingleTickerProviderStateMixin {
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController = TabController(vsync: this, length: 3);
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,31 +76,19 @@ class ProductPage extends StatelessWidget {
                 OutlinedButton(onPressed: () {}, child: Text('1000')),
               ],
             ),
-            DefaultTabController(
-              length: 3,
-              child: Column(
-                children: [
-                  TabBar(
-                    unselectedLabelColor: Colors.red,
-                    labelColor: Colors.black38,
-                    tabs: [
-                      Tab(text: "О продукте"),
-                      Tab(text: "Состав"),
-                      Tab(text: "Отзывы"),
-                    ],
-                  ),
-                  SizedBox(
-                    height: 300,
-                    child: TabBarView(
-                      children: [
-                        Text('1'),
-                        Text('2'),
-                        Text('3'),
-                      ],
-                    ),
-                  )
-                ],
-              ),
+            Column(
+              children: [
+                TabBar(
+                  controller: _tabController,
+                  unselectedLabelColor: Colors.red,
+                  labelColor: Colors.black38,
+                  tabs: [
+                    Tab(text: "О продукте"),
+                    Tab(text: "Состав"),
+                    Tab(text: "Отзывы"),
+                  ],
+                ),
+              ],
             )
           ],
         ),

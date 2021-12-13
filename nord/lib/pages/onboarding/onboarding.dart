@@ -13,11 +13,16 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   bool finalScreen = false;
   int pageNumber = 0;
+  final PageController _controller = PageController(viewportFraction: 0.7);
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    final _controller = PageController(viewportFraction: 0.7);
-
     return Scaffold(
         body: Stack(
       alignment: Alignment.centerRight,
