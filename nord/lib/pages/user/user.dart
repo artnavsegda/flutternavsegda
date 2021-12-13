@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_user.dart';
+import '../onboarding/onboarding.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -62,7 +63,10 @@ class UserPage extends StatelessWidget {
           leading: Image.asset('assets/Icon Lock.png'),
         ),
         ListTile(
-          onTap: () async {},
+          onTap: () async {
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => const Onboarding()));
+          },
           title: const Text("Выход из приложения"),
           leading: Image.asset('assets/Icon Logout.png'),
         ),

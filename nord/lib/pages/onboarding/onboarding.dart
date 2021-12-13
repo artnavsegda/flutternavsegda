@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import '../main.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -39,11 +40,17 @@ class _OnboardingState extends State<Onboarding> {
                   scrollDirection: Axis.vertical,
                   children: [
                     Opacity(
-                        child: Welcome(), opacity: pageNumber == 0 ? 1 : 0.2),
-                    Opacity(child: Push(), opacity: pageNumber == 1 ? 1 : 0.2),
+                        child: const Welcome(),
+                        opacity: pageNumber == 0 ? 1 : 0.2),
                     Opacity(
-                        child: Location(), opacity: pageNumber == 2 ? 1 : 0.2),
-                    Opacity(child: Login(), opacity: pageNumber == 3 ? 1 : 0.2),
+                        child: const Push(),
+                        opacity: pageNumber == 1 ? 1 : 0.2),
+                    Opacity(
+                        child: const Location(),
+                        opacity: pageNumber == 2 ? 1 : 0.2),
+                    Opacity(
+                        child: const Login(),
+                        opacity: pageNumber == 3 ? 1 : 0.2),
                     const SizedBox.expand()
                   ],
                 ),
@@ -79,8 +86,13 @@ class _OnboardingState extends State<Onboarding> {
             left: 20,
             child: finalScreen
                 ? ElevatedButton(
-                    child: Text('Выбрать что-нибудь вкусное'),
-                    onPressed: () {},
+                    child: const Text('Выбрать что-нибудь вкусное'),
+                    onPressed: () {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MainPage()));
+                    },
                   )
                 : ElevatedButton.icon(
                     onPressed: () {
@@ -88,7 +100,7 @@ class _OnboardingState extends State<Onboarding> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeInOut);
                     },
-                    label: ImageIcon(AssetImage('assets/Icon East.png')),
+                    label: const ImageIcon(AssetImage('assets/Icon East.png')),
                     icon: const Text("Далее"),
                   ))
       ],
