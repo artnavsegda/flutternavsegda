@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> {
+  int page = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -56,44 +63,66 @@ class ProductPage extends StatelessWidget {
                 OutlinedButton(onPressed: () {}, child: Text('1000')),
               ],
             ),
-            const DefaultTabController(
+            DefaultTabController(
               length: 3,
               child: TabBar(
+                onTap: (newPage) {
+                  setState(() {
+                    page = newPage;
+                  });
+                },
                 unselectedLabelColor: Colors.red,
                 labelColor: Colors.black38,
-                tabs: [
+                tabs: const [
                   Tab(text: "О продукте"),
                   Tab(text: "Состав"),
                   Tab(text: "Отзывы"),
                 ],
               ),
             ),
-            Divider(),
-            Row(
-              children: [
-                Column(
-                  children: [
-                    Text('36 часов'),
-                    Text('Срок хранения'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('3-25℃ – +25℃'),
-                    Text('Условия хранения'),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text('490.8 Ккал'),
-                    Text('Калорийность'),
-                  ],
-                )
-              ],
-            ),
-            Divider(),
-            Text(
-                'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
+            [
+              Column(
+                children: [
+                  Divider(),
+                  Row(
+                    children: [
+                      Column(
+                        children: const [
+                          Text('36 часов'),
+                          Text('Срок хранения'),
+                        ],
+                      ),
+                      Column(
+                        children: const [
+                          Text('3-25℃ – +25℃'),
+                          Text('Условия хранения'),
+                        ],
+                      ),
+                      Column(
+                        children: const [
+                          Text('490.8 Ккал'),
+                          Text('Калорийность'),
+                        ],
+                      )
+                    ],
+                  ),
+                  Divider(),
+                  Text(
+                      'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
+                ],
+              ),
+              Text(
+                  'Мука в/с, сахар, кондитерский жир, яичный желток, сахарная пудра, яичный белок, какао порошок, пищевые красители, ванилин, пищевая сода, лимонная кислота.'),
+              Column(
+                children: [
+                  Text('Отзывов о товаре пока нет'),
+                  Text(
+                      'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
+                  OutlinedButton(
+                      onPressed: () {}, child: Text('Оставить отзыв'))
+                ],
+              )
+            ][page],
           ],
         ),
         bottomSheet: Row(
