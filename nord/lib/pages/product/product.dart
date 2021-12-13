@@ -47,6 +47,15 @@ class ProductPage extends StatelessWidget {
                 ),
               ],
             ),
+            Text('Вес, гр'),
+            Row(
+              children: [
+                OutlinedButton(onPressed: () {}, child: Text('50')),
+                ElevatedButton(onPressed: () {}, child: Text('100')),
+                OutlinedButton(onPressed: () {}, child: Text('250')),
+                OutlinedButton(onPressed: () {}, child: Text('1000')),
+              ],
+            )
           ],
         ),
         bottomSheet: Row(
