@@ -9,7 +9,7 @@ class ProductPage extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Печенье «Единорог в ро... '),
         ),
-        body: Column(
+        body: ListView(
           children: [],
         ),
         bottomSheet: Row(
