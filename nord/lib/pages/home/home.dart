@@ -24,6 +24,7 @@ class HomePage extends StatelessWidget {
             leading:
                 Image.asset('assets/Illustration Colored Delivery Options.png'),
             title: const Text("Адрес доставки или кафе"),
+            trailing: Image.asset('assets/Icon Expand More.png'),
           ),
           Container(
             child: ElevatedButton(
