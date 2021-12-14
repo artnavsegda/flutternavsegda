@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../action/action.dart';
 
 class ActionCard extends StatelessWidget {
   const ActionCard({
@@ -16,7 +17,12 @@ class ActionCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(actionImage),
+        InkWell(
+            onTap: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const ActionPage()));
+            },
+            child: Image.asset(actionImage)),
         Text(actionName),
         Text(actionDate),
       ],
