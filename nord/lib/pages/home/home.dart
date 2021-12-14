@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import '../../components/select_address_bottom_sheet.dart';
 import '../../components/product_card.dart';
 import 'qr.dart';
+import 'action_card.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -72,6 +73,10 @@ class HomePage extends StatelessWidget {
           ),
           const Text("Акции",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          ActionCard(
+              actionName: 'Взрывная весна! Открой новые вкусы сладко...',
+              actionImage: 'assets/placeholder/action/Illustration.png',
+              actionDate: '15 октября–27 ноября'),
           const Text("Новинки",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           Row(
