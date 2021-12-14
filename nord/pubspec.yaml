@@ -65,6 +65,7 @@ flutter:
     - assets/sever/
     - assets/metropol/
     - assets/placeholder/
+    - assets/placeholder/action/
     - assets/placeholder/product1/
     - assets/placeholder/product2/
 
