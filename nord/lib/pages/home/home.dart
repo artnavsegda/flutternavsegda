@@ -27,12 +27,31 @@ class HomePage extends StatelessWidget {
             trailing: Image.asset('assets/Icon Expand More.png'),
           ),
           Container(
-            child: ElevatedButton(
-              child: Text('Войти'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const QrPage()));
-              },
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: <Color>[Color(0xffCD0643), Color(0xffB0063A)])),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Stack(
+                children: [
+                  Positioned(
+                    bottom: 16,
+                    left: 16,
+                    child: ElevatedButton(
+                      child: Text('Войти'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const QrPage()));
+                      },
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
           const Text("Акции"),
