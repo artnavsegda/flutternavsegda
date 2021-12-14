@@ -70,8 +70,10 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const Text("Акции"),
-          const Text("Новинки"),
+          const Text("Акции",
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          const Text("Новинки",
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           Row(
             children: [
               ProductCard(
@@ -86,7 +88,8 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const Text("Кондитерские и кафе"),
+          const Text("Кондитерские и кафе",
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           Container(
             child: ElevatedButton(
               child: Text('Показать заведения на карте'),
