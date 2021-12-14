@@ -4,7 +4,14 @@ import '../pages/product/product.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
+    required this.productName,
+    required this.productImage,
+    required this.productPrice,
   }) : super(key: key);
+
+  final String productName;
+  final String productImage;
+  final String productPrice;
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +22,9 @@ class ProductCard extends StatelessWidget {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const ProductPage()));
             },
-            child: Image.asset('assets/placeholder/product1/Illustration.png')),
-        Text('Кекс английский с сухофруктами'),
-        Text('420 ₽'),
+            child: Image.asset(productImage)),
+        Text(productName),
+        Text(productPrice),
       ],
     );
   }

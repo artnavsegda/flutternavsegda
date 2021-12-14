@@ -27,7 +27,11 @@ class CatalogPage extends StatelessWidget {
             ),
             TextField(),
             Text('Выпечка'),
-            ProductCard(),
+            ProductCard(
+              productImage: 'assets/placeholder/product1/Illustration.png',
+              productName: 'Торт «Сезонный» с ягодами',
+              productPrice: '420 ₽',
+            ),
           ],
         ),
       ),
