@@ -38,6 +38,22 @@ class HomePage extends StatelessWidget {
               child: Stack(
                 children: [
                   Positioned(
+                    left: 16,
+                    top: 16,
+                    child: Image.asset('assets/Logo Blue.png'),
+                  ),
+                  Positioned(
+                    left: 16,
+                    top: 40,
+                    child: Image.asset('assets/Logo Red.png'),
+                  ),
+                  Positioned(
+                    right: 22,
+                    top: 22,
+                    child:
+                        Image.asset('assets/Special Icon QR Code Scanner.png'),
+                  ),
+                  Positioned(
                     bottom: 16,
                     left: 16,
                     child: ElevatedButton(
