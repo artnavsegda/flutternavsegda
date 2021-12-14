@@ -72,15 +72,19 @@ class HomePage extends StatelessWidget {
           ),
           const Text("Акции"),
           const Text("Новинки"),
-          ProductCard(
-            productImage: 'assets/placeholder/product1/Illustration.png',
-            productName: 'Торт «Сезонный» с ягодами',
-            productPrice: '420 ₽',
-          ),
-          ProductCard(
-            productImage: 'assets/placeholder/product2/Illustration.png',
-            productName: 'Анна Павлова',
-            productPrice: '315 ₽',
+          Row(
+            children: [
+              ProductCard(
+                productImage: 'assets/placeholder/product1/Illustration.png',
+                productName: 'Торт «Сезонный» с ягодами',
+                productPrice: '420 ₽',
+              ),
+              ProductCard(
+                productImage: 'assets/placeholder/product2/Illustration.png',
+                productName: 'Анна Павлова',
+                productPrice: '315 ₽',
+              ),
+            ],
           ),
           const Text("Кондитерские и кафе"),
           Container(

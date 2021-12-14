@@ -32,6 +32,11 @@ class CatalogPage extends StatelessWidget {
               productName: 'Торт «Сезонный» с ягодами',
               productPrice: '420 ₽',
             ),
+            ProductCard(
+              productImage: 'assets/placeholder/product2/Illustration.png',
+              productName: 'Анна Павлова',
+              productPrice: '315 ₽',
+            ),
           ],
         ),
       ),
