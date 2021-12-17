@@ -23,9 +23,9 @@ class HomePage extends StatelessWidget {
               );
             },
             leading:
-                Image.asset('assets/Illustration Colored Delivery Options.png'),
+                Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
             title: const Text("Адрес доставки или кафе"),
-            trailing: Image.asset('assets/Icon Expand More.png'),
+            trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
           Container(
             decoration: BoxDecoration(
@@ -41,18 +41,18 @@ class HomePage extends StatelessWidget {
                   Positioned(
                     left: 16,
                     top: 16,
-                    child: Image.asset('assets/Logo Blue.png'),
+                    child: Image.asset('assets/Logo-Blue.png'),
                   ),
                   Positioned(
                     left: 16,
                     top: 40,
-                    child: Image.asset('assets/Logo Red.png'),
+                    child: Image.asset('assets/Logo-Red.png'),
                   ),
                   Positioned(
                     right: 22,
                     top: 22,
                     child:
-                        Image.asset('assets/Special Icon QR Code Scanner.png'),
+                        Image.asset('assets/Special-Icon-QR-Code-Scanner.png'),
                   ),
                   Positioned(
                     bottom: 16,

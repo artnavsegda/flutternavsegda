@@ -9,7 +9,7 @@ class CartIsEmpty extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset('assets/Illustration Empty Cart.png'),
+        Image.asset('assets/Illustration-Empty-Cart.png'),
         const Text('В корзине ничего нет...'),
         const Text(
             'Загляните в каталог — там всегда можно найти вкусные новинки или, если ищете что-то конкретное, воспользуйтесь поиском'),

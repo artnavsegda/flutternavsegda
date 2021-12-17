@@ -16,11 +16,11 @@ class _OnboardingState extends State<Onboarding> {
   final PageController _controller = PageController(viewportFraction: 0.7);
 
   final imageList = [
-    'assets/Illustration Welcome.png',
-    'assets/Illustration Push.png',
-    'assets/Illustration Map.png',
-    'assets/Illustration Login.png',
-    'assets/Illustration Welcome.png',
+    'assets/Illustration-Welcome.png',
+    'assets/Illustration-Push.png',
+    'assets/Illustration-Map.png',
+    'assets/Illustration-Login.png',
+    'assets/Illustration-Welcome.png',
   ];
 
   @override
@@ -42,6 +42,7 @@ class _OnboardingState extends State<Onboarding> {
               child: Image.asset(
                 imageList[pageNumber],
                 key: ValueKey<int>(pageNumber),
+                width: double.infinity,
               ),
             ),
             Expanded(
@@ -126,7 +127,7 @@ class _OnboardingState extends State<Onboarding> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeInOut);
                     },
-                    label: const ImageIcon(AssetImage('assets/Icon East.png')),
+                    label: const ImageIcon(AssetImage('assets/Icon-East.png')),
                     icon: const Text("Далее"),
                   ))
       ],

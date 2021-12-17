@@ -15,7 +15,7 @@ class UserPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const EditUser()));
           },
           title: const Text("Princess Bean"),
-          trailing: Image.asset('assets/Icon Edit.png'),
+          trailing: Image.asset('assets/Icon-Edit.png'),
         ),
         Container(
             child: Column(
@@ -44,23 +44,23 @@ class UserPage extends StatelessWidget {
         ListTile(
           onTap: () {},
           title: const Text("Подарки"),
-          leading: Image.asset('assets/Icon Present.png'),
+          leading: Image.asset('assets/Icon-Present.png'),
         ),
         ListTile(
           onTap: () {},
           title: const Text("История заказов"),
-          leading: Image.asset('assets/Icon History.png'),
+          leading: Image.asset('assets/Icon-History.png'),
         ),
         ListTile(
           onTap: () async {},
           title: const Text("Адреса доставки"),
-          leading: Image.asset('assets/Icon Place.png'),
+          leading: Image.asset('assets/Icon-Place.png'),
         ),
         Divider(),
         ListTile(
           onTap: () async {},
           title: const Text("Смена пароля"),
-          leading: Image.asset('assets/Icon Lock.png'),
+          leading: Image.asset('assets/Icon-Lock.png'),
         ),
         ListTile(
           onTap: () async {
@@ -68,7 +68,7 @@ class UserPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const Onboarding()));
           },
           title: const Text("Выход из приложения"),
-          leading: Image.asset('assets/Icon Logout.png'),
+          leading: Image.asset('assets/Icon-Logout.png'),
         ),
       ],
     );

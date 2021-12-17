@@ -58,23 +58,23 @@ class _MainPageState extends State<MainPage>
           currentIndex: _selectedIndex,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon Home.png')),
+              icon: ImageIcon(AssetImage('assets/Icon-Home.png')),
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon Grid View.png')),
+              icon: ImageIcon(AssetImage('assets/Icon-Grid-View.png')),
               label: 'Catalog',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon Shopping Bag.png')),
+              icon: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
               label: 'Shopping',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon Account Circle.png')),
+              icon: ImageIcon(AssetImage('assets/Icon-Account-Circle.png')),
               label: 'User',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon More Horizontal.png')),
+              icon: ImageIcon(AssetImage('assets/Icon-More-Horizontal.png')),
               label: 'More',
             ),
           ],

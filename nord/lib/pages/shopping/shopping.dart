@@ -25,7 +25,7 @@ class ShoppingPage extends StatelessWidget {
               );
             },
             leading:
-                Image.asset('assets/Illustration Colored Delivery Options.png'),
+                Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
             title: const Text("Адрес доставки или кафе"),
           ),
         ],

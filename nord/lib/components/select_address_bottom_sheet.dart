@@ -11,7 +11,7 @@ class SelectAddressBottomSheet extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset('assets/Illustration New Address.png'),
+        Image.asset('assets/Illustration-New-Address.png'),
         const Text('Адрес доставки или ближайшего к вам кафе'),
         const Text(
             'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),

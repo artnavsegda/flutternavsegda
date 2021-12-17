@@ -22,7 +22,7 @@ class CatalogPage extends StatelessWidget {
                 );
               },
               leading: Image.asset(
-                  'assets/Illustration Colored Delivery Options.png'),
+                  'assets/Illustration-Colored-Delivery-Options.png'),
               title: const Text("Адрес доставки или кафе"),
             ),
             TextField(),

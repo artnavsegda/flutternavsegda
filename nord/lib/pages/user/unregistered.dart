@@ -11,15 +11,15 @@ class Unregistered extends StatelessWidget {
         const Text('Расплачивайтесь баллами, покупайе с удовольствием'),
         ListTile(
           title: const Text("5% от каждой покупки на бонусный счёт"),
-          leading: Image.asset('assets/Illustration Colored Bonuses.png'),
+          leading: Image.asset('assets/Illustration-Colored-Bonuses.png'),
         ),
         ListTile(
           title: const Text("Оплачивайте до 20% от покупок бонуса"),
-          leading: Image.asset('assets/Illustration Colored Discount.png'),
+          leading: Image.asset('assets/Illustration-Colored-Discount.png'),
         ),
         ListTile(
           title: const Text("Специальные предложения, подарки и акции"),
-          leading: Image.asset('assets/Illustration Colored Gift.png'),
+          leading: Image.asset('assets/Illustration-Colored-Gift.png'),
         ),
         ElevatedButton(
             onPressed: () {}, child: const Text('Войти или зарегистрироваться'))
