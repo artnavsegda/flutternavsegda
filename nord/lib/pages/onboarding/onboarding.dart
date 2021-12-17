@@ -37,7 +37,13 @@ class _OnboardingState extends State<Onboarding> {
       children: [
         Column(
           children: [
-            Image.asset(imageList[pageNumber]),
+            AnimatedSwitcher(
+              duration: Duration(milliseconds: 300),
+              child: Image.asset(
+                imageList[pageNumber],
+                key: ValueKey<int>(pageNumber),
+              ),
+            ),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
