@@ -13,14 +13,14 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   bool finalScreen = false;
   int pageNumber = 0;
-  final PageController _controller = PageController(viewportFraction: 0.7);
+  final PageController _controller = PageController(viewportFraction: 0.8);
 
   final imageList = [
-    'assets/Illustration-Welcome.png',
-    'assets/Illustration-Push.png',
-    'assets/Illustration-Map.png',
-    'assets/Illustration-Login.png',
-    'assets/Illustration-Welcome.png',
+    'assets/3.0x/Illustration-Welcome.png',
+    'assets/3.0x/Illustration-Push.png',
+    'assets/3.0x/Illustration-Map.png',
+    'assets/3.0x/Illustration-Login.png',
+    'assets/3.0x/Illustration-Welcome.png',
   ];
 
   @override
@@ -42,7 +42,7 @@ class _OnboardingState extends State<Onboarding> {
               child: Image.asset(
                 imageList[pageNumber],
                 key: ValueKey<int>(pageNumber),
-                width: double.infinity,
+                scale: 0.5,
               ),
             ),
             Expanded(
@@ -92,11 +92,11 @@ class _OnboardingState extends State<Onboarding> {
               controller: _controller,
               count: 4,
               effect: const ExpandingDotsEffect(
-                  //spacing: 8.0,
+                  spacing: 4.0,
                   //radius: 4.0,
-                  dotWidth: 8.0,
-                  dotHeight: 8.0,
-                  expansionFactor: 5,
+                  dotWidth: 5.0,
+                  dotHeight: 5.0,
+                  expansionFactor: 6,
                   activeDotColor: Color(0xFFB0063A)),
               onDotClicked: (index) {}),
         ),
@@ -146,12 +146,13 @@ class Welcome extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: const [
         Text('Добро пожаловать!',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            style: TextStyle(fontFamily: 'Forum', fontSize: 26.0)),
         SizedBox(height: 20),
         Text(
             '''С Вами легендарная кондитерская Петербурга. C 1903 года мы создаем торты и пирожные, храним традиции талантливых советских технологов, чтобы сделать Ваш день приятней.
 Мы движемся вперед, разработали удобную бонусную систему, обновили мобильное приложение, а заодно и сайт.
-Продолжайте писать эту красивую историю с нами.'''),
+Продолжайте писать эту красивую историю с нами.''',
+            style: TextStyle(fontSize: 16.0)),
       ],
     );
   }
@@ -166,10 +167,11 @@ class Push extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Уведомления',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            style: TextStyle(fontFamily: 'Forum', fontSize: 26.0)),
         const SizedBox(height: 20),
         const Text(
-            '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.'''),
+            '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.''',
+            style: TextStyle(fontSize: 16.0)),
         const SizedBox(height: 20),
         OutlinedButton(
             onPressed: () {}, child: const Text('Разрешить уведомления'))
@@ -187,10 +189,11 @@ class Location extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Местоположение',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            style: TextStyle(fontFamily: 'Forum', fontSize: 26.0)),
         const SizedBox(height: 20),
         const Text(
-            '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.'''),
+            '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.''',
+            style: TextStyle(fontSize: 16.0)),
         const SizedBox(height: 20),
         OutlinedButton(
             onPressed: () {}, child: const Text('Разрешить уведомления'))
@@ -208,11 +211,12 @@ class Login extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const Text('Все возможности',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            style: TextStyle(fontFamily: 'Forum', fontSize: 26.0)),
         const SizedBox(height: 20),
         const Text(
             '''Войдите в аккаунт и используйте все возможности приложения.
-Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.'''),
+Копите баллы, заказывайте любимые блюда, узнавайте о новинках первыми.''',
+            style: TextStyle(fontSize: 16.0)),
         const SizedBox(height: 20),
         OutlinedButton(
             onPressed: () {
