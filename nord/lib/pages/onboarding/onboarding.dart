@@ -15,6 +15,14 @@ class _OnboardingState extends State<Onboarding> {
   int pageNumber = 0;
   final PageController _controller = PageController(viewportFraction: 0.7);
 
+  final imageList = [
+    'assets/Illustration Welcome.png',
+    'assets/Illustration Push.png',
+    'assets/Illustration Map.png',
+    'assets/Illustration Login.png',
+    'assets/Illustration Welcome.png',
+  ];
+
   @override
   void dispose() {
     _controller.dispose();
@@ -29,7 +37,7 @@ class _OnboardingState extends State<Onboarding> {
       children: [
         Column(
           children: [
-            Image.asset('assets/Illustration Welcome.png'),
+            Image.asset(imageList[pageNumber]),
             Expanded(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
