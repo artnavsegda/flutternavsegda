@@ -58,10 +58,9 @@ class HomePage extends StatelessWidget {
                   Positioned(
                     bottom: 16,
                     left: 16,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        primary: Colors.white,
-                        onPrimary: Colors.black,
+                    child: OutlinedButton(
+                      style: OutlinedButton.styleFrom(
+                        backgroundColor: Colors.white,
                       ),
                       child: Text('Войти'),
                       onPressed: () {
