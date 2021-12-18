@@ -19,29 +19,40 @@ class UserPage extends StatelessWidget {
           trailing: Image.asset('assets/Icon-Edit.png'),
         ),
         Container(
-            child: Column(
-          children: [
-            Text('У вас'),
-            Text('95 бонусов'),
-            Row(
-              children: [
-                ElevatedButton(
-                    onPressed: () {}, child: const Text('Позвать друга')),
-                TextButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return GiftBonusModalSheet();
-                        },
-                      );
-                    },
-                    child: const Text('Подарить бонусы'))
-              ],
-            )
-          ],
-        )),
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(4),
+                gradient: const LinearGradient(
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight,
+                    colors: <Color>[Color(0xffCD0643), Color(0xffB0063A)])),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('У вас'),
+                  Text('95 бонусов'),
+                  Row(
+                    children: [
+                      OutlinedButton(
+                          onPressed: () {}, child: const Text('Позвать друга')),
+                      TextButton(
+                          onPressed: () {
+                            showModalBottomSheet(
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return GiftBonusModalSheet();
+                              },
+                            );
+                          },
+                          child: const Text('Подарить бонусы'))
+                    ],
+                  )
+                ],
+              ),
+            )),
         ListTile(
           onTap: () {},
           title: const Text("Подарки"),
