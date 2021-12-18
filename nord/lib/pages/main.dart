@@ -15,13 +15,15 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage>
     with SingleTickerProviderStateMixin {
-  int _selectedIndex = 0;
   late TabController _tabController;
 
   @override
   void initState() {
     super.initState();
     _tabController = TabController(vsync: this, length: 5);
+    _tabController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -46,16 +48,13 @@ class _MainPageState extends State<MainPage>
         bottomNavigationBar: BottomNavigationBar(
           onTap: (index) {
             _tabController.animateTo(index);
-            setState(() {
-              _selectedIndex = index;
-            });
           },
           type: BottomNavigationBarType.fixed,
           showSelectedLabels: false,
           showUnselectedLabels: false,
           selectedItemColor: Colors.black,
           unselectedItemColor: Colors.red,
-          currentIndex: _selectedIndex,
+          currentIndex: _tabController.index,
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/Icon-Home.png')),

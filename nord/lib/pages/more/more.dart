@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import '../support/support.dart';
+import '../help/help.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -9,12 +11,18 @@ class MorePage extends StatelessWidget {
       children: [
         Image.asset("assets/Logos.png"),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const SupportPage()));
+          },
           title: const Text("Служба поддержки"),
           leading: Image.asset('assets/Icon-Question-Answer.png'),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const HelpPage()));
+          },
           title: const Text("Справка"),
           leading: Image.asset('assets/Icon-Contact-Support.png'),
         ),

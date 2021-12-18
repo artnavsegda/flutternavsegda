@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           side: MaterialStateProperty.all(
-              const BorderSide(width: 1.0, color: Colors.red)),
+              BorderSide(width: 1.0, color: Colors.red.shade900)),
           elevation: MaterialStateProperty.all(0.0),
 //          minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
 /*           shape: MaterialStateProperty.all<RoundedRectangleBorder>(

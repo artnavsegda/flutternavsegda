@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'edit_user.dart';
 import '../onboarding/onboarding.dart';
+import '../orders/orders.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -48,6 +49,14 @@ class UserPage extends StatelessWidget {
         ),
         ListTile(
           onTap: () {},
+          title: const Text("Промокод"),
+          leading: Image.asset('assets/Icon-Redeem-Card.png'),
+        ),
+        ListTile(
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const OrdersPage()));
+          },
           title: const Text("История заказов"),
           leading: Image.asset('assets/Icon-History.png'),
         ),
