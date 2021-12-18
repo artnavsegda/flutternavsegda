@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/onboarding/onboarding.dart';
 import 'pages/main.dart';
+import 'utils.dart';
 
 void main() {
   runApp(const MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     ThemeData nordTheme = ThemeData(
       scaffoldBackgroundColor: Colors.white,
-      primarySwatch: Colors.red,
+      primarySwatch: createMaterialColor(Colors.red.shade900),
       fontFamily: 'Noto Sans',
       textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,
@@ -33,17 +34,12 @@ class MyApp extends StatelessWidget {
           ), */
         ),
       ),
-/*       elevatedButtonTheme: ElevatedButtonThemeData(
+      elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0.0),
-          minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ),
-          ),
+          minimumSize: MaterialStateProperty.all(const Size(111.0, 48.0)),
         ),
-      ), */
+      ),
     );
 
     return MaterialApp(
