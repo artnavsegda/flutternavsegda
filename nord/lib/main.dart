@@ -20,6 +20,19 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,
       ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: ButtonStyle(
+          side: MaterialStateProperty.all(
+              const BorderSide(width: 1.0, color: Colors.red)),
+          elevation: MaterialStateProperty.all(0.0),
+//          minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
+/*           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(24.0),
+            ),
+          ), */
+        ),
+      ),
 /*       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ButtonStyle(
           elevation: MaterialStateProperty.all(0.0),
