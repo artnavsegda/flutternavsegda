@@ -3,6 +3,7 @@ import '../../components/select_address_bottom_sheet.dart';
 import '../../components/product_card.dart';
 import 'qr.dart';
 import 'action_card.dart';
+import '../map/map.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -98,7 +99,10 @@ class HomePage extends StatelessWidget {
           Container(
             child: ElevatedButton(
               child: Text('Показать заведения на карте'),
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const MapPage()));
+              },
             ),
           ),
         ],
