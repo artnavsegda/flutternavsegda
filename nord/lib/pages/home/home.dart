@@ -59,6 +59,10 @@ class HomePage extends StatelessWidget {
                     bottom: 16,
                     left: 16,
                     child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        primary: Colors.white,
+                        onPrimary: Colors.black,
+                      ),
                       child: Text('Войти'),
                       onPressed: () {
                         Navigator.push(
