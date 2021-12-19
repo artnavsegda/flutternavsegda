@@ -102,7 +102,12 @@ class UserPage extends StatelessWidget {
           title: const Text("Адреса доставки"),
           leading: Image.asset('assets/Icon-Place.png'),
         ),
-        Divider(),
+        Divider(
+          color: Color(0xFFEFF3F4),
+          thickness: 2,
+          indent: 16,
+          endIndent: 16,
+        ),
         ListTile(
           onTap: () async {},
           title: const Text("Смена пароля"),
