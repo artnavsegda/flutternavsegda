@@ -100,12 +100,29 @@ class HomePage extends StatelessWidget {
           const Text("Кондитерские и кафе",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           Container(
-            child: ElevatedButton(
-              child: Text('Показать заведения на карте'),
-              onPressed: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => const MapPage()));
-              },
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/Map.png"),
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: AspectRatio(
+              aspectRatio: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Align(
+                  alignment: Alignment.bottomLeft,
+                  child: ElevatedButton(
+                    child: Text('Показать заведения на карте'),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const MapPage()));
+                    },
+                  ),
+                ),
+              ),
             ),
           ),
         ],
