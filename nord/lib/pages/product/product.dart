@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'review.dart';
 
 class ProductPage extends StatefulWidget {
@@ -10,22 +11,63 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int page = 0;
+  final PageController _controller = PageController();
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Печенье «Единорог в ро... '),
+          actions: [
+            Image.asset('assets/Icon-Share.png'),
+          ],
         ),
         body: ListView(
           children: [
             SizedBox(
               height: 270,
-              child: PageView(
+              child: Stack(
+                alignment: Alignment.bottomCenter,
                 children: [
-                  Image.asset('assets/placeholder/unicorn.png'),
-                  Image.asset('assets/placeholder/espresso.png'),
-                  Image.asset('assets/placeholder/cheesecake.png'),
+                  PageView(
+                    controller: _controller,
+                    children: [
+                      Image.asset(
+                        'assets/placeholder/unicorn.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'assets/placeholder/espresso.png',
+                        fit: BoxFit.cover,
+                      ),
+                      Image.asset(
+                        'assets/placeholder/cheesecake.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ],
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: SmoothPageIndicator(
+                        controller: _controller,
+                        count: 3,
+                        effect: ExpandingDotsEffect(
+                          spacing: 4.0,
+                          //radius: 4.0,
+                          dotWidth: 5.0,
+                          dotHeight: 5.0,
+                          expansionFactor: 6,
+                          dotColor: Color.fromRGBO(255, 255, 255, 0.5),
+                          activeDotColor: Colors.white,
+                        ),
+                        onDotClicked: (index) {}),
+                  ),
                 ],
               ),
             ),
