@@ -29,6 +29,7 @@ class HomePage extends StatelessWidget {
             trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
           Container(
+            margin: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(4),
                 gradient: const LinearGradient(
@@ -56,7 +57,7 @@ class HomePage extends StatelessWidget {
                         Image.asset('assets/Special-Icon-QR-Code-Scanner.png'),
                   ),
                   Positioned(
-                    bottom: 16,
+                    bottom: 8,
                     left: 16,
                     child: OutlinedButton(
                       style: OutlinedButton.styleFrom(
@@ -75,10 +76,13 @@ class HomePage extends StatelessWidget {
               ),
             ),
           ),
-          const Text("Акции",
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: const Text("Акции",
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          ),
           SizedBox(
-            height: 250,
+            height: 200,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
@@ -93,8 +97,11 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          const Text("Новинки",
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: const Text("Новинки",
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          ),
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -110,8 +117,11 @@ class HomePage extends StatelessWidget {
               ),
             ],
           ),
-          const Text("Кондитерские и кафе",
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: const Text("Кондитерские и кафе",
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          ),
           Container(
             decoration: BoxDecoration(
               image: DecorationImage(
