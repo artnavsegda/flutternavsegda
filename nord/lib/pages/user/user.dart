@@ -18,24 +18,24 @@ class UserPage extends StatelessWidget {
           title: const Text("Princess\nBean"),
           trailing: Image.asset('assets/Icon-Edit.png'),
         ),
-        Container(
-            margin: const EdgeInsets.all(16.0),
-            padding: const EdgeInsets.all(16.0),
-            decoration: BoxDecoration(
-                boxShadow: const [
-                  BoxShadow(
-                    color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
-                    blurRadius: 20.0,
-                    offset: Offset(0.0, 6.0),
-                  ),
-                ],
-                borderRadius: BorderRadius.circular(4),
-                gradient: const LinearGradient(
-                    begin: Alignment.centerLeft,
-                    end: Alignment.centerRight,
-                    colors: <Color>[Color(0xffCD0643), Color(0xffB0063A)])),
-            child: AspectRatio(
-              aspectRatio: 16 / 9,
+        AspectRatio(
+          aspectRatio: 16 / 9,
+          child: Container(
+              margin: const EdgeInsets.all(16.0),
+              padding: const EdgeInsets.all(16.0),
+              decoration: BoxDecoration(
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
+                      blurRadius: 20.0,
+                      offset: Offset(0.0, 6.0),
+                    ),
+                  ],
+                  borderRadius: BorderRadius.circular(4),
+                  gradient: const LinearGradient(
+                      begin: Alignment.centerLeft,
+                      end: Alignment.centerRight,
+                      colors: <Color>[Color(0xffCD0643), Color(0xffB0063A)])),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,8 +77,8 @@ class UserPage extends StatelessWidget {
                     ],
                   )
                 ],
-              ),
-            )),
+              )),
+        ),
         ListTile(
           onTap: () {},
           title: const Text("Подарки"),
