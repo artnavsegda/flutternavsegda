@@ -77,13 +77,22 @@ class HomePage extends StatelessWidget {
           ),
           const Text("Акции",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-          ActionCard(
-              actionName: 'Взрывная весна! Открой новые вкусы сладко...',
-              actionImage: 'assets/placeholder/action/Illustration.png',
-              actionDate: '15 октября–27 ноября'),
+          Row(
+            children: [
+              ActionCard(
+                  actionName: 'Взрывная весна!\nОткрой новые вкусы сладко...',
+                  actionImage: 'assets/placeholder/action/Illustration.png',
+                  actionDate: '15 октября–27 ноября'),
+              ActionCard(
+                  actionName: 'Шокодень',
+                  actionImage: 'assets/placeholder/cake.png',
+                  actionDate: 'Только до 31 октября'),
+            ],
+          ),
           const Text("Новинки",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProductCard(
                 productImage: 'assets/placeholder/product1/Illustration.png',

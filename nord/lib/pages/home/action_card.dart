@@ -15,17 +15,23 @@ class ActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        InkWell(
-            onTap: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const ActionPage()));
-            },
-            child: Image.asset(actionImage)),
-        Text(actionName),
-        Text(actionDate),
-      ],
+    return SizedBox(
+      width: 240,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const ActionPage()));
+              },
+              child: Image.asset(actionImage)),
+          Text(actionDate),
+          Text(actionName),
+        ],
+      ),
     );
   }
 }
