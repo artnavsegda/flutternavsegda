@@ -72,6 +72,7 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   ),
+                  Positioned(child: Image.asset('assets/Union.png'))
                 ],
               ),
             ),
