@@ -16,6 +16,7 @@ class ProductCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         InkWell(
             onTap: () {
@@ -24,7 +25,10 @@ class ProductCard extends StatelessWidget {
             },
             child: Image.asset(productImage)),
         Text(productName),
-        Text(productPrice),
+        Text(
+          productPrice,
+          style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+        ),
       ],
     );
   }
