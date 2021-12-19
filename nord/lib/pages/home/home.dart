@@ -135,8 +135,9 @@ class HomePage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Align(
                   alignment: Alignment.bottomLeft,
-                  child: ElevatedButton(
-                    child: Text('Показать заведения на карте'),
+                  child: ElevatedButton.icon(
+                    label: const ImageIcon(AssetImage('assets/Icon-East.png')),
+                    icon: Text('Показать заведения на карте'),
                     onPressed: () {
                       Navigator.push(
                           context,
