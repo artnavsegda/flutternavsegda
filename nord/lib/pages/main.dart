@@ -45,38 +45,60 @@ class _MainPageState extends State<MainPage>
             MorePage(),
           ],
         ),
-        bottomNavigationBar: BottomNavigationBar(
-          onTap: (index) {
-            _tabController.animateTo(index);
-          },
-          type: BottomNavigationBarType.fixed,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          selectedItemColor: Colors.grey,
-          unselectedItemColor: Colors.red.shade900,
-          currentIndex: _tabController.index,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon-Home.png')),
-              label: 'Home',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon-Grid-View.png')),
-              label: 'Catalog',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
-              label: 'Shopping',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon-Account-Circle.png')),
-              label: 'User',
-            ),
-            BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/Icon-More-Horizontal.png')),
-              label: 'More',
-            ),
-          ],
+        bottomNavigationBar: Container(
+          decoration: const BoxDecoration(
+            boxShadow: <BoxShadow>[
+              BoxShadow(
+                color: Color(0x33000000),
+                blurRadius: 5.0,
+                offset: Offset(0.0, 5),
+              ),
+              // BoxShadow(
+              //   color: Color(0x1F000000),
+              //   blurRadius: 14,
+              //   offset: Offset(0.0, 3),
+              // ),
+              BoxShadow(
+                color: Color(0x24000000),
+                blurRadius: 10,
+                offset: Offset(0.0, 8),
+              )
+            ],
+          ),
+          child: BottomNavigationBar(
+            backgroundColor: Colors.white,
+            onTap: (index) {
+              _tabController.animateTo(index);
+            },
+            type: BottomNavigationBarType.fixed,
+            showSelectedLabels: false,
+            showUnselectedLabels: false,
+            selectedItemColor: Colors.grey,
+            unselectedItemColor: Colors.red.shade900,
+            currentIndex: _tabController.index,
+            items: const <BottomNavigationBarItem>[
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/Icon-Home.png')),
+                label: 'Home',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/Icon-Grid-View.png')),
+                label: 'Catalog',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
+                label: 'Shopping',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/Icon-Account-Circle.png')),
+                label: 'User',
+              ),
+              BottomNavigationBarItem(
+                icon: ImageIcon(AssetImage('assets/Icon-More-Horizontal.png')),
+                label: 'More',
+              ),
+            ],
+          ),
         ));
   }
 }
