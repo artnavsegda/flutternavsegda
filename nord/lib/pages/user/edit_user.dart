@@ -13,6 +13,10 @@ class EditUser extends StatelessWidget {
         padding: const EdgeInsets.all(8.0),
         child: ListView(
           children: [
+            Align(
+              alignment: Alignment.centerLeft,
+              child: CircleAvatar(),
+            ),
             const Text("Личная информация"),
             const Text("Другие настройки"),
             SwitchListTile(

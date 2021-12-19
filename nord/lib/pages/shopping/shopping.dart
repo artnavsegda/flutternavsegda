@@ -10,7 +10,7 @@ class ShoppingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Корзина'),
-        actions: [ElevatedButton(onPressed: () {}, child: Text('Очистить'))],
+        actions: [TextButton(onPressed: () {}, child: Text('Очистить'))],
       ),
       body: Column(
         children: [

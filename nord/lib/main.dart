@@ -21,6 +21,16 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,
       ),
+      appBarTheme: AppBarTheme(
+        foregroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
+        elevation: 0.0,
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontFamily: 'Forum',
+          fontSize: 24.0,
+        ),
+      ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: ButtonStyle(
           side: MaterialStateProperty.all(
