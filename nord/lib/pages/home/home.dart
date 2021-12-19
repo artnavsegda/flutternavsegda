@@ -13,7 +13,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          const AddressTile(),
+          const AddressTile2(),
           const CardLoggedIn(),
           const Padding(
             padding: EdgeInsets.all(16.0),
@@ -113,6 +113,43 @@ class AddressTile extends StatelessWidget {
       },
       leading: Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
       title: const Text("Адрес доставки или кафе"),
+      trailing: Image.asset('assets/Icon-Expand-More.png'),
+    );
+  }
+}
+
+class AddressTile2 extends StatelessWidget {
+  const AddressTile2({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: () {
+        showModalBottomSheet(
+          isScrollControlled: true,
+          context: context,
+          builder: (context) {
+            return const SelectAddressBottomSheet();
+          },
+        );
+      },
+      leading: Image.asset('assets/Illustration-Colored-Cafe.png'),
+      title: Text(
+        "Увидимся в кафе",
+        style: TextStyle(
+          color: Colors.grey,
+          fontSize: 10,
+        ),
+      ),
+      subtitle: Text(
+        "5-я Советская, 15-17/12",
+        style: TextStyle(
+          color: Colors.red[900],
+          fontSize: 16,
+        ),
+      ),
       trailing: Image.asset('assets/Icon-Expand-More.png'),
     );
   }
