@@ -11,6 +11,7 @@ class UserPage extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
+          leading: CircleAvatar(),
           onTap: () {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const EditUser()));
