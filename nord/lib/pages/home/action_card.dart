@@ -41,7 +41,7 @@ class ActionCard extends StatelessWidget {
               color: Colors.grey,
             ),
           ),
-          Text(actionName),
+          Text(actionName, style: TextStyle(fontSize: 16)),
         ],
       ),
     );
