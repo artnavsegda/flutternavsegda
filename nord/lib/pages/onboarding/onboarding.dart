@@ -111,25 +111,30 @@ class _OnboardingState extends State<Onboarding> {
         Positioned(
             bottom: 20,
             left: 20,
-            child: finalScreen
-                ? ElevatedButton(
-                    child: const Text('Выбрать что-нибудь вкусное'),
-                    onPressed: () {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainPage()));
-                    },
-                  )
-                : ElevatedButton.icon(
-                    onPressed: () {
-                      _controller.nextPage(
-                          duration: const Duration(milliseconds: 400),
-                          curve: Curves.easeInOut);
-                    },
-                    label: const ImageIcon(AssetImage('assets/Icon-East.png')),
-                    icon: const Text("Далее"),
-                  ))
+            child: AnimatedCrossFade(
+              duration: const Duration(milliseconds: 200),
+              firstChild: ElevatedButton(
+                child: const Text('Выбрать что-нибудь вкусное'),
+                onPressed: () {
+                  Navigator.pushReplacement(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const MainPage()));
+                },
+              ),
+              secondChild: ElevatedButton.icon(
+                onPressed: () {
+                  _controller.nextPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                },
+                label: const ImageIcon(AssetImage('assets/Icon-East.png')),
+                icon: const Text("Далее"),
+              ),
+              crossFadeState: finalScreen
+                  ? CrossFadeState.showFirst
+                  : CrossFadeState.showSecond,
+            ))
       ],
     ));
   }
