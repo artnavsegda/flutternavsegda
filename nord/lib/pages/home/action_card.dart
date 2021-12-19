@@ -20,15 +20,27 @@ class ActionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ActionPage()));
-              },
-              child: Image.asset(actionImage)),
-          Text(actionDate),
+          AspectRatio(
+            aspectRatio: 2,
+            child: InkWell(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ActionPage()));
+                },
+                child: Image.asset(
+                  actionImage,
+                  fit: BoxFit.cover,
+                )),
+          ),
+          Text(
+            actionDate,
+            style: TextStyle(
+              fontSize: 10,
+              color: Colors.grey,
+            ),
+          ),
           Text(actionName),
         ],
       ),
