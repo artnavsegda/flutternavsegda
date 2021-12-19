@@ -66,6 +66,7 @@ class _MainPageState extends State<MainPage>
             ],
           ),
           child: BottomNavigationBar(
+            elevation: 0,
             backgroundColor: Colors.white,
             onTap: (index) {
               _tabController.animateTo(index);
