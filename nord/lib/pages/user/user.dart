@@ -15,11 +15,20 @@ class UserPage extends StatelessWidget {
             Navigator.push(context,
                 MaterialPageRoute(builder: (context) => const EditUser()));
           },
-          title: const Text("Princess Bean"),
+          title: const Text("Princess\nBean"),
           trailing: Image.asset('assets/Icon-Edit.png'),
         ),
         Container(
+            margin: const EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             decoration: BoxDecoration(
+                boxShadow: const [
+                  BoxShadow(
+                    color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
+                    blurRadius: 20.0,
+                    offset: Offset(0.0, 6.0),
+                  ),
+                ],
                 borderRadius: BorderRadius.circular(4),
                 gradient: const LinearGradient(
                     begin: Alignment.centerLeft,
@@ -31,13 +40,30 @@ class UserPage extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.end,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text('У вас'),
-                  Text('95 бонусов'),
+                  const Text(
+                    'У вас',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  const Text(
+                    '120 бонусов',
+                    style: const TextStyle(
+                      color: Colors.white,
+                      fontFamily: 'Forum',
+                      fontSize: 24.0,
+                    ),
+                  ),
                   Row(
                     children: [
                       OutlinedButton(
-                          onPressed: () {}, child: const Text('Позвать друга')),
+                          style: OutlinedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                          ),
+                          onPressed: () {},
+                          child: const Text('Позвать друга')),
                       TextButton(
+                          style: TextButton.styleFrom(
+                            primary: Colors.white,
+                          ),
                           onPressed: () {
                             showModalBottomSheet(
                               isScrollControlled: true,
