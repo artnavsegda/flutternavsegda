@@ -8,6 +8,9 @@ class ActionPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Взрывная весна! Откр...'),
+        actions: [
+          Image.asset('assets/Icon-Share.png'),
+        ],
       ),
     );
   }
