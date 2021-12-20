@@ -30,6 +30,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
         body: ListView(
           children: [
+            Text('Печенье «Единорог в рожке»'),
             SizedBox(
               height: 270,
               child: Stack(
