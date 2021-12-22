@@ -10,15 +10,29 @@ class EditUser extends StatelessWidget {
         title: const Text("Профиль"),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: CircleAvatar(),
+              child: CircleAvatar(
+                radius: 48,
+                foregroundImage: AssetImage('assets/treska.jpg'),
+              ),
             ),
-            const Text("Личная информация"),
-            const Text("Другие настройки"),
+            const Text(
+              "Личная информация",
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+            ),
+            TextField(),
+            TextField(),
+            TextField(),
+            TextField(),
+            TextField(),
+            const Text(
+              "Другие настройки",
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+            ),
             SwitchListTile(
               title: const Text('Отказаться от бумажных чеков'),
               value: false,
