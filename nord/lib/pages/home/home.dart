@@ -68,28 +68,49 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           Container(
-            margin: EdgeInsets.all(16.0),
-            decoration: const BoxDecoration(
-              image: const DecorationImage(
-                image: AssetImage("assets/Map.png"),
-                fit: BoxFit.cover,
-              ),
+            margin: const EdgeInsets.all(16.0),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(4),
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
+                  blurRadius: 20.0,
+                  offset: Offset(0.0, 4.0),
+                ),
+              ],
             ),
-            child: AspectRatio(
-              aspectRatio: 2,
-              child: Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Align(
-                  alignment: Alignment.bottomLeft,
-                  child: ElevatedButton.icon(
-                    label: const ImageIcon(AssetImage('assets/Icon-East.png')),
-                    icon: const Text('Показать заведения на карте'),
-                    onPressed: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MapPage()));
-                    },
+            child: Container(
+              margin: const EdgeInsets.all(4.0),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(2),
+                image: const DecorationImage(
+                  image: AssetImage("assets/Map.png"),
+                  fit: BoxFit.cover,
+                ),
+              ),
+              child: AspectRatio(
+                aspectRatio: 2,
+                child: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: Align(
+                    alignment: Alignment.bottomLeft,
+                    child: ElevatedButton.icon(
+                      style: ButtonStyle(
+                        //elevation: MaterialStateProperty.all(0.0),
+                        minimumSize:
+                            MaterialStateProperty.all(const Size(111.0, 36.0)),
+                      ),
+                      label:
+                          const ImageIcon(AssetImage('assets/Icon-East.png')),
+                      icon: const Text('Показать заведения на карте'),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const MapPage()));
+                      },
+                    ),
                   ),
                 ),
               ),
