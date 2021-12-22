@@ -50,6 +50,12 @@ class MyApp extends StatelessWidget {
           minimumSize: MaterialStateProperty.all(const Size(111.0, 48.0)),
         ),
       ),
+      inputDecorationTheme: InputDecorationTheme(
+        isDense: true,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(2.0),
+        ),
+      ),
     );
 
     return MaterialApp(

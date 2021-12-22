@@ -22,7 +22,11 @@ class LoginPage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
             SizedBox(height: 9),
             Text('Мы отправим на номер SMS-сообщение с кодом потверждения'),
-            TextField(),
+            SizedBox(height: 24),
+            TextField(
+              decoration: const InputDecoration(
+                  labelText: "Номер телефона", hintText: '+7 (___) ___-__-__'),
+            ),
             CheckboxListTile(
               value: false,
               onChanged: (newValue) {},

@@ -24,11 +24,21 @@ class EditUser extends StatelessWidget {
               "Личная информация",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
-            TextField(),
-            TextField(),
-            TextField(),
-            TextField(),
-            TextField(),
+            TextField(
+              decoration: const InputDecoration(labelText: "Имя"),
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: "Номер телефона"),
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: "Email"),
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: "Номер телефона"),
+            ),
+            TextField(
+              decoration: const InputDecoration(labelText: "Номер телефона"),
+            ),
             const Text(
               "Другие настройки",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
