@@ -15,34 +15,40 @@ class ActionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 240,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AspectRatio(
-            aspectRatio: 2,
-            child: InkWell(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const ActionPage()));
-                },
-                child: Image.asset(
-                  actionImage,
-                  fit: BoxFit.cover,
-                )),
-          ),
-          Text(
-            actionDate,
-            style: TextStyle(
-              fontSize: 10,
-              color: Colors.grey,
+    return Padding(
+      padding: const EdgeInsets.all(4.0),
+      child: SizedBox(
+        width: 240,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AspectRatio(
+              aspectRatio: 2,
+              child: InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ActionPage()));
+                  },
+                  child: Image.asset(
+                    actionImage,
+                    fit: BoxFit.cover,
+                  )),
             ),
-          ),
-          Text(actionName, style: TextStyle(fontSize: 16)),
-        ],
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              actionDate,
+              style: TextStyle(
+                fontSize: 10,
+                color: Colors.grey,
+              ),
+            ),
+            Text(actionName, style: TextStyle(fontSize: 16)),
+          ],
+        ),
       ),
     );
   }

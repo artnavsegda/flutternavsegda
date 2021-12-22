@@ -21,10 +21,13 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           SizedBox(
-            height: 200,
+            height: 220,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: [
+                SizedBox(
+                  width: 12,
+                ),
                 const ActionCard(
                     actionName: 'Взрывная весна!\nОткрой новые вкусы сладко...',
                     actionImage: 'assets/placeholder/action/Illustration.png',
@@ -44,6 +47,9 @@ class HomePage extends StatelessWidget {
           Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              SizedBox(
+                width: 12,
+              ),
               const ProductCard(
                 productImage: 'assets/placeholder/product1/Illustration.png',
                 productName: 'Торт «Сезонный» с ягодами',
@@ -62,6 +68,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           Container(
+            margin: EdgeInsets.all(16.0),
             decoration: const BoxDecoration(
               image: const DecorationImage(
                 image: AssetImage("assets/Map.png"),
