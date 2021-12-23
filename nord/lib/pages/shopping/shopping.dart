@@ -7,6 +7,7 @@ class ShoppingPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    return CartIsEmpty();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Корзина'),
@@ -31,6 +32,5 @@ class ShoppingPage extends StatelessWidget {
         ],
       ),
     );
-    return CartIsEmpty();
   }
 }
