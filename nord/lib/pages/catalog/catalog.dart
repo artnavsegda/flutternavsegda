@@ -10,19 +10,36 @@ class CatalogPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AddressTile2(),
-            TextField(),
-            Text('Выпечка'),
-            ProductCard(
-              productImage: 'assets/placeholder/product1/Illustration.png',
-              productName: 'Торт «Сезонный» с ягодами',
-              productPrice: '420 ₽',
-            ),
-            ProductCard(
-              productImage: 'assets/placeholder/product2/Illustration.png',
-              productName: 'Анна Павлова',
-              productPrice: '315 ₽',
+            //TextField(),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text('Выпечка',
+                      style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      ProductCard(
+                        productImage:
+                            'assets/placeholder/product1/Illustration.png',
+                        productName: 'Торт «Сезонный» с ягодами',
+                        productPrice: '420 ₽',
+                      ),
+                      ProductCard(
+                        productImage:
+                            'assets/placeholder/product2/Illustration.png',
+                        productName: 'Анна Павлова',
+                        productPrice: '315 ₽',
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ],
         ),
