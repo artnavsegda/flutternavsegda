@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../components/components.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -15,8 +16,8 @@ class LoginPage extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ListView(
+          //crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text('Войти или\nзарегистрироваться',
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
@@ -27,23 +28,27 @@ class LoginPage extends StatelessWidget {
               decoration: const InputDecoration(
                   labelText: "Номер телефона", hintText: '+7 (___) ___-__-__'),
             ),
-            CheckboxListTile(
-              value: false,
-              onChanged: (newValue) {},
-              title: Text(
-                  'Ознакомлен с условиями положения о защите персональных данных'),
-            ),
-            CheckboxListTile(
-              value: false,
-              onChanged: (newValue) {},
-              title: Text('Даю свое согласие на обработку персональных данных'),
-            ),
+            SizedBox(height: 32),
+            NordCheckboxTile(
+                title: Text(
+              'Ознакомлен с условиями положения о защите персональных данных',
+              style: TextStyle(fontSize: 16),
+            )),
+            SizedBox(height: 32),
+            NordCheckboxTile(
+                title: Text(
+                    'Даю свое согласие на обработку персональных данных',
+                    style: TextStyle(fontSize: 16))),
+            SizedBox(height: 32),
             ElevatedButton(onPressed: () {}, child: Text('Далее')),
+            SizedBox(height: 32),
             ListTile(
               title: Text('Политика конфиденциальности'),
+              trailing: Image.asset('assets/Icon-Navigate-Next.png'),
             ),
             ListTile(
               title: Text('Правила бонусной программы'),
+              trailing: Image.asset('assets/Icon-Navigate-Next.png'),
             ),
           ],
         ),
