@@ -20,29 +20,37 @@ class EditUser extends StatelessWidget {
                 foregroundImage: AssetImage('assets/treska.jpg'),
               ),
             ),
+            SizedBox(height: 24),
             const Text(
               "Личная информация",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
+            SizedBox(height: 24),
             TextField(
               decoration: const InputDecoration(labelText: "Имя"),
             ),
+            SizedBox(height: 16),
             TextField(
               decoration: const InputDecoration(labelText: "Номер телефона"),
             ),
+            SizedBox(height: 16),
             TextField(
               decoration: const InputDecoration(labelText: "Email"),
             ),
+            SizedBox(height: 16),
             TextField(
               decoration: const InputDecoration(labelText: "Номер телефона"),
             ),
+            SizedBox(height: 16),
             TextField(
               decoration: const InputDecoration(labelText: "Номер телефона"),
             ),
+            SizedBox(height: 24),
             const Text(
               "Другие настройки",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
+            SizedBox(height: 16),
             SwitchListTile(
               title: const Text('Отказаться от бумажных чеков'),
               value: false,
@@ -53,6 +61,7 @@ class EditUser extends StatelessWidget {
               value: false,
               onChanged: (newVal) {},
             ),
+            SizedBox(height: 24),
             ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);
