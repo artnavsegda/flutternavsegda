@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import '../../components/select_address_bottom_sheet.dart';
 import '../../components/product_card.dart';
 import 'action_card.dart';
 import 'discount_card.dart';
 import '../map/map.dart';
+import '../../components/components.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -118,67 +118,6 @@ class HomePage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class AddressTile extends StatelessWidget {
-  const AddressTile({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            return const SelectAddressBottomSheet();
-          },
-        );
-      },
-      leading: Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
-      title: const Text("Адрес доставки или кафе"),
-      trailing: Image.asset('assets/Icon-Expand-More.png'),
-    );
-  }
-}
-
-class AddressTile2 extends StatelessWidget {
-  const AddressTile2({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            return const SelectAddressBottomSheet();
-          },
-        );
-      },
-      leading: Image.asset('assets/Illustration-Colored-Cafe.png'),
-      title: Text(
-        "Увидимся в кафе",
-        style: TextStyle(
-          color: Colors.grey,
-          fontSize: 10,
-        ),
-      ),
-      subtitle: Text(
-        "5-я Советская, 15-17/12",
-        style: TextStyle(
-          color: Colors.red[900],
-          fontSize: 16,
-        ),
-      ),
-      trailing: Image.asset('assets/Icon-Expand-More.png'),
     );
   }
 }
