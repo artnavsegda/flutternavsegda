@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../components/select_address_bottom_sheet.dart';
 import 'cart_is_empty.dart';
 import '../../components/components.dart';
@@ -17,22 +18,36 @@ class ShoppingPage extends StatelessWidget {
       body: Column(
         children: [
           const AddressTile2(),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+          Slidable(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Image.asset('assets/placeholder/product10/Illustration.png'),
+                  Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Чай каркаде с\nапельсином'),
+                      Text('450 мл'),
+                      Text('2'),
+                    ],
+                  ),
+                  Spacer(),
+                  Text('836 ₽'),
+                ],
+              ),
+            ),
+            endActionPane: ActionPane(
+              motion: ScrollMotion(),
               children: [
-                Image.asset('assets/placeholder/product10/Illustration.png'),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text('Чай каркаде с\nапельсином'),
-                    Text('450 мл'),
-                    Text('2'),
-                  ],
+                SlidableAction(
+                  onPressed: (context) {},
+                  backgroundColor: Color(0xFF0392CF),
+                  foregroundColor: Colors.white,
+                  icon: Icons.save,
+                  label: 'Save',
                 ),
-                Spacer(),
-                Text('836 ₽'),
               ],
             ),
           ),
