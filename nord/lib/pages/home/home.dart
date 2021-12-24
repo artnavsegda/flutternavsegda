@@ -48,13 +48,14 @@ class HomePage extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(
-                width: 12,
+                width: 16,
               ),
               const ProductCard(
                 productImage: 'assets/placeholder/product1/Illustration.png',
                 productName: 'Торт «Сезонный» с ягодами',
                 productPrice: '420 ₽',
               ),
+              SizedBox(width: 8),
               const ProductCard(
                 productImage: 'assets/placeholder/product2/Illustration.png',
                 productName: 'Анна Павлова',
