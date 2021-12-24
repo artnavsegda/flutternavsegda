@@ -18,38 +18,11 @@ class ShoppingPage extends StatelessWidget {
       body: Column(
         children: [
           const AddressTile2(),
-          Slidable(
-            child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Image.asset('assets/placeholder/product10/Illustration.png'),
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text('Чай каркаде с\nапельсином'),
-                      Text('450 мл'),
-                      Text('2'),
-                    ],
-                  ),
-                  Spacer(),
-                  Text('836 ₽'),
-                ],
-              ),
-            ),
-            endActionPane: ActionPane(
-              motion: ScrollMotion(),
-              children: [
-                SlidableAction(
-                  onPressed: (context) {},
-                  backgroundColor: Colors.red.shade900,
-                  foregroundColor: Colors.white,
-                  icon: Icons.delete,
-                ),
-              ],
-            ),
-          ),
+          CartTile(),
+          CartTile(),
+          CartTile(),
+          CartTile(),
+          CartTile(),
         ],
       ),
       bottomSheet: Padding(
@@ -69,6 +42,48 @@ class ShoppingPage extends StatelessWidget {
             ElevatedButton(onPressed: () {}, child: Text('Оформить заказ'))
           ],
         ),
+      ),
+    );
+  }
+}
+
+class CartTile extends StatelessWidget {
+  const CartTile({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Slidable(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Image.asset('assets/placeholder/product10/Illustration.png'),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Чай каркаде с\nапельсином'),
+                Text('450 мл'),
+                Text('2'),
+              ],
+            ),
+            Spacer(),
+            Text('836 ₽'),
+          ],
+        ),
+      ),
+      endActionPane: ActionPane(
+        motion: ScrollMotion(),
+        children: [
+          SlidableAction(
+            onPressed: (context) {},
+            backgroundColor: Colors.red.shade900,
+            foregroundColor: Colors.white,
+            icon: Icons.delete,
+          ),
+        ],
       ),
     );
   }
