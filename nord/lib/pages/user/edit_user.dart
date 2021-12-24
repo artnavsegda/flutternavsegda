@@ -15,9 +15,21 @@ class EditUser extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.centerLeft,
-              child: CircleAvatar(
-                radius: 48,
-                foregroundImage: AssetImage('assets/treska.jpg'),
+              child: InkWell(
+                onTap: () {
+                  showModalBottomSheet(
+                    backgroundColor: Colors.white,
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (context) {
+                      return const Text('a');
+                    },
+                  );
+                },
+                child: CircleAvatar(
+                  radius: 48,
+                  foregroundImage: AssetImage('assets/treska.jpg'),
+                ),
               ),
             ),
             SizedBox(height: 24),
