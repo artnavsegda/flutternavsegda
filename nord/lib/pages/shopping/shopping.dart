@@ -43,10 +43,9 @@ class ShoppingPage extends StatelessWidget {
               children: [
                 SlidableAction(
                   onPressed: (context) {},
-                  backgroundColor: Color(0xFF0392CF),
+                  backgroundColor: Colors.red.shade900,
                   foregroundColor: Colors.white,
-                  icon: Icons.save,
-                  label: 'Save',
+                  icon: Icons.delete,
                 ),
               ],
             ),
