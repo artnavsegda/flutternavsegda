@@ -9,23 +9,43 @@ class SelectAddressBottomSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Image.asset('assets/Illustration-New-Address.png'),
-        const Text('Адрес доставки или ближайшего к вам кафе'),
-        const Text(
-            'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
-        ElevatedButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const AddressPage()));
-            },
-            child: Text('Указать адрес')),
-        TextButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            child: Text('Позже'))
+        Image.asset(
+          'assets/Illustration-New-Address.png',
+          fit: BoxFit.cover,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const Text(
+                'Адрес доставки или ближайшего к вам кафе',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              ),
+              SizedBox(height: 8),
+              const Text(
+                  'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
+              SizedBox(height: 24),
+              ElevatedButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const AddressPage()));
+                  },
+                  child: Text('Указать адрес')),
+              SizedBox(height: 8),
+              TextButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text('Позже')),
+            ],
+          ),
+        )
       ],
     );
   }

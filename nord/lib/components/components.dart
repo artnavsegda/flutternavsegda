@@ -56,6 +56,7 @@ class AddressTile2 extends StatelessWidget {
     return ListTile(
       onTap: () {
         showModalBottomSheet(
+          backgroundColor: Colors.white,
           isScrollControlled: true,
           context: context,
           builder: (context) {
