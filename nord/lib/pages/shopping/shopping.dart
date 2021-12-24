@@ -1,13 +1,14 @@
 import 'package:flutter/material.dart';
 import '../../components/select_address_bottom_sheet.dart';
 import 'cart_is_empty.dart';
+import '../../components/components.dart';
 
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return CartIsEmpty();
+    //return CartIsEmpty();
     return Scaffold(
       appBar: AppBar(
         title: const Text('Корзина'),
@@ -15,21 +16,26 @@ class ShoppingPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          ListTile(
-            onTap: () {
-              showModalBottomSheet(
-                isScrollControlled: true,
-                context: context,
-                builder: (context) {
-                  return const SelectAddressBottomSheet();
-                },
-              );
-            },
-            leading:
-                Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
-            title: const Text("Адрес доставки или кафе"),
-          ),
+          const AddressTile2(),
         ],
+      ),
+      bottomSheet: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          children: [
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text('Итого'),
+                  Text('1 325 ₽'),
+                ],
+              ),
+            ),
+            ElevatedButton(onPressed: () {}, child: Text('Оформить заказ'))
+          ],
+        ),
       ),
     );
   }
