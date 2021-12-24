@@ -10,15 +10,28 @@ class CatalogPage extends StatelessWidget {
     return Scaffold(
       body: SafeArea(
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             AddressTile2(),
-            //TextField(),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
+                  Row(
+                    children: [
+                      Flexible(child: TextField()),
+                      OutlinedButton(
+                        style: ButtonStyle(
+                            minimumSize: MaterialStateProperty.all(
+                                const Size(36.0, 36.0)),
+                            padding:
+                                MaterialStateProperty.all(EdgeInsets.all(0.0))),
+                        onPressed: () {},
+                        child: Image.asset('assets/Icon-Favorite-Outlined.png'),
+                      ),
+                    ],
+                  ),
                   Text('Выпечка',
                       style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
                   SizedBox(height: 12),
