@@ -22,7 +22,27 @@ class EditUser extends StatelessWidget {
                     isScrollControlled: true,
                     context: context,
                     builder: (context) {
-                      return const Text('a');
+                      return Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          ListTile(
+                            title: Center(
+                                child: Text(
+                              'Изменение фотографии',
+                            )),
+                            trailing: Image.asset('assets/Icon-Close.png'),
+                          ),
+                          ListTile(
+                            leading:
+                                Image.asset('assets/Icon-Photo-Camers.png'),
+                            title: Text('Запустить камеру'),
+                          ),
+                          ListTile(
+                            leading: Image.asset('assets/Icon-List.png'),
+                            title: Text('Выбрать из галереи'),
+                          ),
+                        ],
+                      );
                     },
                   );
                 },
