@@ -15,7 +15,24 @@ class CatalogPage extends StatelessWidget {
             AddressTile2(),
             Row(
               children: [
-                Flexible(child: TextField()),
+                SizedBox(width: 16.0),
+                Flexible(
+                  child: TextField(
+                    decoration: const InputDecoration(
+                        hintText: 'Найти в каталоге',
+                        isDense: true,
+                        contentPadding:
+                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        border: OutlineInputBorder(
+                          borderSide: BorderSide.none,
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(2.0),
+                          ),
+                        ),
+                        filled: true),
+                  ),
+                ),
+                SizedBox(width: 8.0),
                 OutlinedButton(
                   style: ButtonStyle(
                       minimumSize:
@@ -24,6 +41,7 @@ class CatalogPage extends StatelessWidget {
                   onPressed: () {},
                   child: Image.asset('assets/Icon-Favorite-Outlined.png'),
                 ),
+                SizedBox(width: 8.0),
               ],
             ),
             Expanded(
