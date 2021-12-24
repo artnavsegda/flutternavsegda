@@ -17,6 +17,25 @@ class ShoppingPage extends StatelessWidget {
       body: Column(
         children: [
           const AddressTile2(),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.asset('assets/placeholder/product10/Illustration.png'),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Чай каркаде с\nапельсином'),
+                    Text('450 мл'),
+                    Text('2'),
+                  ],
+                ),
+                Spacer(),
+                Text('836 ₽'),
+              ],
+            ),
+          ),
         ],
       ),
       bottomSheet: Padding(
