@@ -12,9 +12,23 @@ class QrPage extends StatelessWidget {
       ),
       body: Column(
         children: [
-          QrImage(
-            data: "1234567890",
-            size: 200.0,
+          Container(
+            margin: const EdgeInsets.all(8.0),
+            padding: const EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: const [
+                BoxShadow(
+                  color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
+                  blurRadius: 20.0,
+                  offset: Offset(0.0, 4.0),
+                ),
+              ],
+            ),
+            child: QrImage(
+              data: "1234567890",
+              size: 200.0,
+            ),
           ),
           const Text('Предъявите на кассе'),
           const Text('+ 7 999 548 63 75'),
