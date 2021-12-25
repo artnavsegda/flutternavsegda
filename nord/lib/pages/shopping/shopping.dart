@@ -75,9 +75,38 @@ class CartTile extends StatelessWidget {
                           Text('450 мл'),
                           Row(
                             children: [
-                              TextButton(onPressed: () {}, child: Text('-')),
-                              Text('2'),
-                              TextButton(onPressed: () {}, child: Text('+')),
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Image.asset('assets/Icon-Remove.png'),
+                                  style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(
+                                          const Size(24.0, 24.0)),
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.all(0.0))),
+                                ),
+                              ),
+                              Container(
+                                alignment: Alignment.center,
+                                width: 32,
+                                height: 24,
+                                child: Text('2'),
+                              ),
+                              SizedBox(
+                                width: 24,
+                                height: 24,
+                                child: TextButton(
+                                  onPressed: () {},
+                                  child: Image.asset('assets/Icon-Add.png'),
+                                  style: ButtonStyle(
+                                      minimumSize: MaterialStateProperty.all(
+                                          const Size(24.0, 24.0)),
+                                      padding: MaterialStateProperty.all(
+                                          EdgeInsets.all(0.0))),
+                                ),
+                              ),
                             ],
                           ),
                         ],
