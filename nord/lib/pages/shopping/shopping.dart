@@ -21,6 +21,7 @@ class ShoppingPage extends StatelessWidget {
           CartTile(),
           CartTile(),
           CartTile(),
+          TextField(),
         ],
       ),
       bottomSheet: Padding(
