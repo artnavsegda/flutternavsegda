@@ -18,10 +18,29 @@ class ShoppingPage extends StatelessWidget {
       body: Column(
         children: [
           const AddressTile2(),
-          CartTile(),
-          CartTile(),
-          CartTile(),
-          TextField(),
+          Expanded(
+            child: ListView(
+              children: [
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                CartTile(),
+                TextField(),
+                Text('Сумма заказа'),
+                TextField(),
+                Text('Сумма заказа'),
+                Text('Доставка'),
+                Text('Скидка'),
+                Divider(),
+                Text('Общая сумма заказа'),
+              ],
+            ),
+          ),
         ],
       ),
       bottomSheet: Padding(
@@ -55,7 +74,7 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        padding: const EdgeInsets.only(left: 16.0, top: 10, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -116,7 +135,10 @@ class CartTile extends StatelessWidget {
                       Text('836 ₽', style: TextStyle(fontSize: 16)),
                     ],
                   ),
-                  Divider(),
+                  SizedBox(height: 13),
+                  Divider(
+                    height: 1,
+                  ),
                 ],
               ),
             ),
