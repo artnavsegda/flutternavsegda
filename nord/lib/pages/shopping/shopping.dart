@@ -22,7 +22,6 @@ class ShoppingPage extends StatelessWidget {
           CartTile(),
           CartTile(),
           CartTile(),
-          CartTile(),
         ],
       ),
       bottomSheet: Padding(
@@ -56,21 +55,35 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       child: Padding(
-        padding: const EdgeInsets.all(8.0),
+        padding: const EdgeInsets.all(16.0),
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/placeholder/product10/Illustration.png'),
-            Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text('Чай каркаде с\nапельсином'),
-                Text('450 мл'),
-                Text('2'),
-              ],
+            SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                children: [
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Чай каркаде с\nапельсином'),
+                          Text('450 мл'),
+                          Text('2'),
+                        ],
+                      ),
+                      Text('836 ₽'),
+                    ],
+                  ),
+                  Divider(),
+                ],
+              ),
             ),
-            Spacer(),
-            Text('836 ₽'),
           ],
         ),
       ),
