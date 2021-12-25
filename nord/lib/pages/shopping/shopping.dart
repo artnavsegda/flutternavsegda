@@ -21,7 +21,6 @@ class ShoppingPage extends StatelessWidget {
           CartTile(),
           CartTile(),
           CartTile(),
-          CartTile(),
         ],
       ),
       bottomSheet: Padding(
@@ -74,7 +73,13 @@ class CartTile extends StatelessWidget {
                         children: [
                           Text('Чай каркаде с\nапельсином'),
                           Text('450 мл'),
-                          Text('2'),
+                          Row(
+                            children: [
+                              TextButton(onPressed: () {}, child: Text('-')),
+                              Text('2'),
+                              TextButton(onPressed: () {}, child: Text('+')),
+                            ],
+                          ),
                         ],
                       ),
                       Text('836 ₽'),
