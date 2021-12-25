@@ -54,7 +54,7 @@ class CartTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Slidable(
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -71,8 +71,9 @@ class CartTile extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Чай каркаде с\nапельсином'),
-                          Text('450 мл'),
+                          Text('Чай каркаде с\nапельсином',
+                              style: TextStyle(fontSize: 16)),
+                          Text('450 мл', style: TextStyle(color: Colors.grey)),
                           Row(
                             children: [
                               SizedBox(
@@ -111,7 +112,7 @@ class CartTile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      Text('836 ₽'),
+                      Text('836 ₽', style: TextStyle(fontSize: 16)),
                     ],
                   ),
                   Divider(),
