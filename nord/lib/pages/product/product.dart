@@ -216,11 +216,12 @@ class _ProductPageState extends State<ProductPage> {
               fontFamily: 'Forum',
               color: Colors.black,
               fontSize: headerUp ? 20 : 34,
+              overflow: headerUp ? TextOverflow.ellipsis : null,
             ),
             child: Text(
               'Печенье «Единорог в рожке» рожке» рожке» рожке»',
               //softWrap: headerUp ? false : true,
-              overflow: headerUp ? TextOverflow.ellipsis : null,
+              //overflow: headerUp ? TextOverflow.ellipsis : null,
             ),
           ),
         ),
