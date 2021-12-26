@@ -188,7 +188,7 @@ class _ProductPageState extends State<ProductPage> {
               ][page],
             ],
           ),
-          bottomSheet: Row(
+          bottomNavigationBar: Row(
             children: [
               ElevatedButton(
                   onPressed: () {
