@@ -205,8 +205,8 @@ class _ProductPageState extends State<ProductPage> {
           duration: const Duration(milliseconds: 400),
           curve: Curves.fastOutSlowIn,
           top: headerUp ? 65 : 100,
-          left: headerUp ? 100 : 16,
-          right: headerUp ? 100 : 16,
+          left: headerUp ? 72 : 16,
+          right: headerUp ? 72 : 16,
           child: AnimatedDefaultTextStyle(
             curve: Curves.fastOutSlowIn,
             duration: Duration(milliseconds: 400),
