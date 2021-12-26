@@ -41,25 +41,25 @@ class ShoppingPage extends StatelessWidget {
               ],
             ),
           ),
-        ],
-      ),
-      bottomSheet: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text('Итого'),
-                  Text('1 325 ₽'),
-                ],
-              ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text('Итого'),
+                      Text('1 325 ₽'),
+                    ],
+                  ),
+                ),
+                ElevatedButton(onPressed: () {}, child: Text('Оформить заказ'))
+              ],
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Оформить заказ'))
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
