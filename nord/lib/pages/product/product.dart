@@ -33,14 +33,7 @@ class _ProductPageState extends State<ProductPage> {
           ),
           body: ListView(
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    setState(() {
-                      headerUp = !headerUp;
-                    });
-                  },
-                  child: Text('Push')),
-              //Text('Печенье «Единорог в рожке»'),
+              SizedBox(height: 50),
               SizedBox(
                 height: 270,
                 child: Stack(
@@ -198,7 +191,12 @@ class _ProductPageState extends State<ProductPage> {
           bottomSheet: Row(
             children: [
               ElevatedButton(
-                  onPressed: () {}, child: Text('Добавить в корзину')),
+                  onPressed: () {
+                    setState(() {
+                      headerUp = !headerUp;
+                    });
+                  },
+                  child: Text('Добавить в корзину')),
               TextButton(onPressed: () {}, child: Text('256'))
             ],
           ),
@@ -206,9 +204,9 @@ class _ProductPageState extends State<ProductPage> {
         AnimatedPositioned(
           duration: const Duration(milliseconds: 400),
           curve: Curves.fastOutSlowIn,
-          top: headerUp ? 65 : 200,
-          left: headerUp ? 100 : 0,
-          right: headerUp ? 100 : 0,
+          top: headerUp ? 65 : 100,
+          left: headerUp ? 100 : 16,
+          right: headerUp ? 100 : 16,
           child: AnimatedDefaultTextStyle(
             curve: Curves.fastOutSlowIn,
             duration: Duration(milliseconds: 400),
@@ -216,12 +214,11 @@ class _ProductPageState extends State<ProductPage> {
               fontFamily: 'Forum',
               color: Colors.black,
               fontSize: headerUp ? 20 : 34,
-              overflow: headerUp ? TextOverflow.ellipsis : null,
             ),
             child: Text(
-              'Печенье «Единорог в рожке» рожке» рожке» рожке»',
+              'Печенье «Единорог в рожке» рожке»',
               //softWrap: headerUp ? false : true,
-              //overflow: headerUp ? TextOverflow.ellipsis : null,
+              overflow: headerUp ? TextOverflow.ellipsis : null,
             ),
           ),
         ),
