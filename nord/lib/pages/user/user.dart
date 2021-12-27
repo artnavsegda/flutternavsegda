@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'edit_user.dart';
 import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
+import '../address/delivery_address.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -101,7 +102,12 @@ class UserPage extends StatelessWidget {
           leading: Image.asset('assets/Icon-History.png'),
         ),
         ListTile(
-          onTap: () async {},
+          onTap: () async {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const DeliveryAddressPage()));
+          },
           title: const Text("Адреса доставки"),
           leading: Image.asset('assets/Icon-Place.png'),
         ),
