@@ -20,14 +20,25 @@ class ProductCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          InkWell(
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const ProductPage()));
-              },
-              child: Image.asset(productImage)),
+          Stack(
+            children: [
+              InkWell(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const ProductPage()));
+                  },
+                  child: Image.asset(productImage)),
+              Positioned(
+                right: 0,
+                bottom: 0,
+                child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset('assets/Icon-Add-to-Shopping-Bag.png')),
+              ),
+            ],
+          ),
           Text(productName),
           Text(
             productPrice,
