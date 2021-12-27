@@ -86,8 +86,15 @@ class _ProductPageState extends State<ProductPage> {
                         ],
                       ),
                       Row(
-                        children: const [
-                          Text('Базовая цена.'),
+                        children: [
+                          Tooltip(
+                              triggerMode: TooltipTriggerMode.tap,
+                              message:
+                                  'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',
+                              child: Text(
+                                'Базовая цена.',
+                                style: TextStyle(color: Colors.red.shade900),
+                              )),
                           Text('За 1 шт.'),
                         ],
                       ),
