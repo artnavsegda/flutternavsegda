@@ -44,6 +44,19 @@ class CatalogPage extends StatelessWidget {
                 SizedBox(width: 8.0),
               ],
             ),
+            SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: [
+                    TextButton(onPressed: () {}, child: Text('Выпечка')),
+                    TextButton(onPressed: () {}, child: Text('Кексы')),
+                    TextButton(onPressed: () {}, child: Text('Конфеты')),
+                    TextButton(onPressed: () {}, child: Text('Мороженое')),
+                    TextButton(onPressed: () {}, child: Text('Выпечка')),
+                    TextButton(onPressed: () {}, child: Text('Выпечка')),
+                    TextButton(onPressed: () {}, child: Text('Выпечка')),
+                  ],
+                )),
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
