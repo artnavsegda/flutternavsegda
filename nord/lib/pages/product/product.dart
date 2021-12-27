@@ -198,13 +198,14 @@ class _ProductPageState extends State<ProductPage> {
           bottomNavigationBar: Row(
             children: [
               ElevatedButton(
+                  onPressed: () {}, child: Text('Добавить в корзину')),
+              TextButton(
                   onPressed: () {
                     setState(() {
                       headerUp = !headerUp;
                     });
                   },
-                  child: Text('Добавить в корзину')),
-              TextButton(onPressed: () {}, child: Text('256'))
+                  child: Text('256'))
             ],
           ),
         ),
