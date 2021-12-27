@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:badges/badges.dart';
 
 import 'catalog/catalog.dart';
 import 'home/home.dart';
@@ -77,7 +78,7 @@ class _MainPageState extends State<MainPage>
             selectedItemColor: Colors.grey,
             unselectedItemColor: Colors.red.shade900,
             currentIndex: _tabController.index,
-            items: const <BottomNavigationBarItem>[
+            items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: ImageIcon(AssetImage('assets/Icon-Home.png')),
                 label: 'Home',
@@ -87,7 +88,15 @@ class _MainPageState extends State<MainPage>
                 label: 'Catalog',
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
+                icon: Badge(
+                  position: BadgePosition.topEnd(top: -12, end: -8),
+                  child: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
+                  badgeColor: Colors.red.shade900,
+                  badgeContent: Text(
+                    '5',
+                    style: TextStyle(color: Colors.white, fontSize: 10),
+                  ),
+                ),
                 label: 'Shopping',
               ),
               BottomNavigationBarItem(

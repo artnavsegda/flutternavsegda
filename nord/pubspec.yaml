@@ -39,6 +39,7 @@ dependencies:
   qr_flutter: ^4.0.0
   flutter_slidable: ^1.1.0
   google_maps_flutter: ^2.1.1
+  badges: ^2.0.2
 
 dev_dependencies:
   flutter_test:
