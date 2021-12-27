@@ -3,6 +3,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'pages/onboarding/onboarding.dart';
 import 'pages/main.dart';
 import 'utils.dart';
+import 'intro.dart';
 
 void main() {
   runApp(const MyApp());
@@ -59,9 +60,9 @@ class MyApp extends StatelessWidget {
     );
 
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Север Метрополь',
       theme: nordTheme,
-      home: const Onboarding(),
+      home: const MainPage(),
     );
   }
 }
