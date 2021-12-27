@@ -18,7 +18,13 @@ class AddressPage extends StatelessWidget {
       ),
       bottomNavigationBar: Column(
         mainAxisSize: MainAxisSize.min,
-        children: [ElevatedButton(onPressed: () {}, child: Text('Выбрать'))],
+        children: [
+          ListTile(
+            title: Text('Адмиралтейская набережная, 10а'),
+            trailing: Image.asset('assets/Icon-Edit.png'),
+          ),
+          ElevatedButton(onPressed: () {}, child: Text('Выбрать')),
+        ],
       ),
     );
   }
