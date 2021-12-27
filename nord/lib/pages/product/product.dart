@@ -154,8 +154,9 @@ class _ProductPageState extends State<ProductPage> {
                           ],
                         ),
                         Column(
-                          children: const [
-                            Text('490.8 Ккал'),
+                          children: [
+                            TextButton(
+                                onPressed: () {}, child: Text('490.8 Ккал')),
                             Text('Калорийность'),
                           ],
                         )
@@ -198,22 +199,26 @@ class _ProductPageState extends State<ProductPage> {
           ),
           bottomNavigationBar: Row(
             children: [
-              ElevatedButton(
-                  onPressed: () {
-                    Fluttertoast.showToast(
-                        msg: "Товар добавлен в корзину",
-                        toastLength: Toast.LENGTH_SHORT,
-                        gravity: ToastGravity.TOP,
-                        timeInSecForIosWeb: 1);
-                  },
-                  child: Text('Добавить в корзину')),
-              TextButton(
+              Expanded(
+                child: ElevatedButton.icon(
+                    onPressed: () {
+                      Fluttertoast.showToast(
+                          msg: "Товар добавлен в корзину",
+                          toastLength: Toast.LENGTH_SHORT,
+                          gravity: ToastGravity.TOP,
+                          timeInSecForIosWeb: 1);
+                    },
+                    icon: Text('Добавить в корзину'),
+                    label: Text('315 ₽')),
+              ),
+              TextButton.icon(
                   onPressed: () {
                     setState(() {
                       headerUp = !headerUp;
                     });
                   },
-                  child: Text('256'))
+                  icon: Image.asset('assets/Icon-Favorite.png'),
+                  label: Text('256')),
             ],
           ),
         ),
