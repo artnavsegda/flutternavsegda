@@ -83,3 +83,12 @@ class AddressTile2 extends StatelessWidget {
     );
   }
 }
+
+class GradientButton extends StatelessWidget {
+  const GradientButton({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container();
+  }
+}
