@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import '../../components/select_address_bottom_sheet.dart';
-import 'cart_is_empty.dart';
 import '../../components/components.dart';
+import 'cart_is_empty.dart';
+import 'registration.dart';
 
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
@@ -57,7 +58,14 @@ class ShoppingPage extends StatelessWidget {
                 ],
               ),
             ),
-            ElevatedButton(onPressed: () {}, child: Text('Оформить заказ'))
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const RegistrationPage()));
+                },
+                child: Text('Оформить заказ'))
           ],
         ),
       ),
