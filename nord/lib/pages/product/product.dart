@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'review.dart';
 
 class ProductPage extends StatefulWidget {
@@ -125,7 +126,7 @@ class _ProductPageState extends State<ProductPage> {
                       page = newPage;
                     });
                   },
-                  unselectedLabelColor: Colors.red,
+                  unselectedLabelColor: Colors.red.shade900,
                   labelColor: Colors.black38,
                   tabs: const [
                     Tab(text: "О продукте"),
@@ -198,7 +199,14 @@ class _ProductPageState extends State<ProductPage> {
           bottomNavigationBar: Row(
             children: [
               ElevatedButton(
-                  onPressed: () {}, child: Text('Добавить в корзину')),
+                  onPressed: () {
+                    Fluttertoast.showToast(
+                        msg: "Товар добавлен в корзину",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.TOP,
+                        timeInSecForIosWeb: 1);
+                  },
+                  child: Text('Добавить в корзину')),
               TextButton(
                   onPressed: () {
                     setState(() {
