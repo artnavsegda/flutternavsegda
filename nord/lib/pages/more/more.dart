@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../support/support.dart';
 import '../help/help.dart';
+import 'about.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -32,7 +33,10 @@ class MorePage extends StatelessWidget {
           leading: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
         ),
         ListTile(
-          onTap: () async {},
+          onTap: () {
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AboutPage()));
+          },
           title: const Text("О приложении"),
           leading: Image.asset('assets/Icon-Info.png'),
         ),
