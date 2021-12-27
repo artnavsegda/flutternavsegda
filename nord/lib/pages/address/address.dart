@@ -16,6 +16,10 @@ class AddressPage extends StatelessWidget {
           zoom: 14.4746,
         ),
       ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [ElevatedButton(onPressed: () {}, child: Text('Выбрать'))],
+      ),
     );
   }
 }
