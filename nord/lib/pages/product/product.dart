@@ -89,6 +89,7 @@ class _ProductPageState extends State<ProductPage> {
                       Row(
                         children: [
                           Tooltip(
+                              preferBelow: false,
                               triggerMode: TooltipTriggerMode.tap,
                               message:
                                   'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',

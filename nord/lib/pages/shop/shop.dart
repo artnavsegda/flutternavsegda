@@ -5,6 +5,8 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      body: Image.asset('assets/placeholder/shop.png'),
+    );
   }
 }
