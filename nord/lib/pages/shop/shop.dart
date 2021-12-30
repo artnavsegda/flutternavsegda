@@ -31,7 +31,60 @@ class ShopPage extends StatelessWidget {
           ),
           Text('Просвещения, 19 (ТК Норд)'),
           Text('+7 (812) 611-09-27'),
-          Text('Завтра откроется в 10:00'),
+          ListTile(
+            onTap: () {
+              showModalBottomSheet(
+                backgroundColor: Colors.white,
+                isScrollControlled: true,
+                context: context,
+                builder: (context) {
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: Center(
+                            child: Text(
+                          'Режим работы',
+                        )),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Понедельник'),
+                          Text('09:30–20:00'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Вторник'),
+                          Text('09:30–20:00'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Среда'),
+                          Text('09:30–20:00'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Четверг'),
+                          Text('09:30–20:00'),
+                        ],
+                      ),
+                    ],
+                  );
+                },
+              );
+            },
+            subtitle: Text('Режим работы'),
+            title: Text('Завтра откроется в 10:00'),
+            trailing: Image.asset('assets/Icon-Expand-More.png'),
+          ),
           Spacer(),
           ElevatedButton(onPressed: () {}, child: Text('Построить маршрут'))
         ],
