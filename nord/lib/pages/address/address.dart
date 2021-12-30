@@ -17,8 +17,22 @@ class AddressPage extends StatelessWidget {
         ),
       ),
       bottomNavigationBar: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          Row(
+            children: [
+              OutlinedButton.icon(
+                  onPressed: () {},
+                  label: Text('Доставка'),
+                  icon:
+                      Image.asset('assets/Illustration-Colored-Delivery.png')),
+              OutlinedButton.icon(
+                  onPressed: () {},
+                  label: Text('Самовывоз'),
+                  icon: Image.asset('assets/Illustration-Colored-Cafe.png'))
+            ],
+          ),
           ListTile(
             title: Text('Адмиралтейская набережная, 10а'),
             trailing: Image.asset('assets/Icon-Edit.png'),
