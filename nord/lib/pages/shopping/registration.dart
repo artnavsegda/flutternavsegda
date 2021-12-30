@@ -21,7 +21,40 @@ class RegistrationPage extends StatelessWidget {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return const Text('a');
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      ListTile(
+                        title: Center(
+                            child: Text(
+                          'Дата и время доставки',
+                        )),
+                      ),
+                      SwitchListTile(
+                        title: const Text('Получить поскорее'),
+                        value: false,
+                        onChanged: (newVal) {},
+                      ),
+                      Text('Дата доставки'),
+                      Text('Время доставки'),
+                      Row(
+                        children: [
+                          OutlinedButton(
+                              onPressed: () {}, child: Text('09:00–14:00')),
+                          ElevatedButton(
+                              onPressed: () {}, child: Text('14:00–18:00')),
+                          OutlinedButton(
+                              onPressed: () {}, child: Text('18:00–21:00')),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: ElevatedButton(
+                            onPressed: () {}, child: Text('Выбрать')),
+                      )
+                    ],
+                  );
                 },
               );
             },
