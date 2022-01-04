@@ -29,9 +29,13 @@ class GradientButton extends StatelessWidget {
       ),
       child: ElevatedButton(
         style: style?.copyWith(
-                foregroundColor:
-                    MaterialStateProperty.all(Colors.transparent)) ??
-            ElevatedButton.styleFrom(primary: Colors.transparent),
+              foregroundColor: MaterialStateProperty.all(Colors.transparent),
+              shadowColor: MaterialStateProperty.all(Colors.transparent),
+            ) ??
+            ElevatedButton.styleFrom(
+              primary: Colors.transparent,
+              shadowColor: Colors.transparent,
+            ),
         key: key,
         onPressed: onPressed,
         child: child,
@@ -68,9 +72,13 @@ class _GradientButtonWithIcon extends GradientButton {
       ),
       child: ElevatedButton.icon(
         style: style?.copyWith(
-                backgroundColor:
-                    MaterialStateProperty.all(Colors.transparent)) ??
-            ElevatedButton.styleFrom(primary: Colors.transparent),
+              backgroundColor: MaterialStateProperty.all(Colors.transparent),
+              shadowColor: MaterialStateProperty.all(Colors.transparent),
+            ) ??
+            ElevatedButton.styleFrom(
+              primary: Colors.transparent,
+              shadowColor: Colors.transparent,
+            ),
         key: key,
         onPressed: onPressed,
         icon: icon,
