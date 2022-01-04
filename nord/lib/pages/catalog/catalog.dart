@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../components/components.dart';
 import '../../components/product_card.dart';
 
@@ -7,6 +8,85 @@ class CatalogPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ItemScrollController itemScrollController = ItemScrollController();
+
+    var elementList = [
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Выпечка',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            SizedBox(height: 12),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 32.0,
+              children: [
+                ProductCard(
+                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productName: 'Торт «Сезонный» с ягодами',
+                  productPrice: '420 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productName: 'Торт «Сезонный» с ягодами',
+                  productPrice: '420 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+      Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text('Кексы',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            SizedBox(height: 12),
+            Wrap(
+              spacing: 8.0,
+              runSpacing: 32.0,
+              children: [
+                ProductCard(
+                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productName: 'Торт «Сезонный» с ягодами',
+                  productPrice: '420 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productName: 'Торт «Сезонный» с ягодами',
+                  productPrice: '420 ₽',
+                ),
+                ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    ];
+
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -48,7 +128,13 @@ class CatalogPage extends StatelessWidget {
               child: TabBar(
                 isScrollable: true,
                 indicatorSize: TabBarIndicatorSize.label,
-                onTap: (newPage) {},
+                onTap: (newPage) {
+                  print(newPage);
+                  itemScrollController.scrollTo(
+                      index: newPage,
+                      duration: Duration(seconds: 2),
+                      curve: Curves.easeInOutCubic);
+                },
                 unselectedLabelColor: Colors.red.shade900,
                 labelColor: Colors.black38,
                 tabs: const [
@@ -77,83 +163,12 @@ class CatalogPage extends StatelessWidget {
                   ],
                 )), */
             Expanded(
-              child: SingleChildScrollView(
-                child: Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text('Выпечка',
-                          style:
-                              TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-                      SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8.0,
-                        runSpacing: 32.0,
-                        children: [
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product1/Illustration.png',
-                            productName: 'Торт «Сезонный» с ягодами',
-                            productPrice: '420 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product2/Illustration.png',
-                            productName: 'Анна Павлова',
-                            productPrice: '315 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product1/Illustration.png',
-                            productName: 'Торт «Сезонный» с ягодами',
-                            productPrice: '420 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product2/Illustration.png',
-                            productName: 'Анна Павлова',
-                            productPrice: '315 ₽',
-                          ),
-                        ],
-                      ),
-                      Text('Выпечка',
-                          style:
-                              TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-                      SizedBox(height: 12),
-                      Wrap(
-                        spacing: 8.0,
-                        runSpacing: 32.0,
-                        children: [
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product1/Illustration.png',
-                            productName: 'Торт «Сезонный» с ягодами',
-                            productPrice: '420 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product2/Illustration.png',
-                            productName: 'Анна Павлова',
-                            productPrice: '315 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product1/Illustration.png',
-                            productName: 'Торт «Сезонный» с ягодами',
-                            productPrice: '420 ₽',
-                          ),
-                          ProductCard(
-                            productImage:
-                                'assets/placeholder/product2/Illustration.png',
-                            productName: 'Анна Павлова',
-                            productPrice: '315 ₽',
-                          ),
-                        ],
-                      ),
-                    ],
-                  ),
-                ),
+              child: ScrollablePositionedList.builder(
+                itemCount: 2,
+                itemScrollController: itemScrollController,
+                itemBuilder: (context, index) {
+                  return elementList[index];
+                },
               ),
             ),
           ],
