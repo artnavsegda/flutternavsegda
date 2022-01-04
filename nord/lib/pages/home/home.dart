@@ -97,7 +97,7 @@ class HomePage extends StatelessWidget {
                   padding: const EdgeInsets.all(12.0),
                   child: Align(
                     alignment: Alignment.bottomLeft,
-                    child: ElevatedButton.icon(
+                    child: GradientButton.icon(
                       style: ElevatedButton.styleFrom(
                         //elevation: 0.0,
                         visualDensity: VisualDensity.compact,
