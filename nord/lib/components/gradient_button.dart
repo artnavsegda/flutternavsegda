@@ -39,11 +39,13 @@ class GradientButton extends StatelessWidget {
 class _GradientButtonWithIcon extends GradientButton {
   _GradientButtonWithIcon({
     Key? key,
+    this.style,
     required this.onPressed,
     required this.icon,
     required this.label,
   }) : super(
           key: key,
+          style: style,
           onPressed: onPressed,
           child: Row(children: [icon, label]),
         );
@@ -51,6 +53,7 @@ class _GradientButtonWithIcon extends GradientButton {
   final Widget icon;
   final Widget label;
   final VoidCallback? onPressed;
+  final ButtonStyle? style;
 
   @override
   Widget build(BuildContext context) {

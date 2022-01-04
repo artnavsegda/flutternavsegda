@@ -4,6 +4,7 @@ import 'action_card.dart';
 import 'discount_card.dart';
 import '../map/map.dart';
 import '../../components/components.dart';
+import '../../components/gradient_button.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
