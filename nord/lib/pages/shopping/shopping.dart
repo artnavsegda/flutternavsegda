@@ -110,11 +110,9 @@ class CartTile extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () {},
                                   child: Image.asset('assets/Icon-Remove.png'),
-                                  style: ButtonStyle(
-                                      minimumSize: MaterialStateProperty.all(
-                                          const Size(24.0, 24.0)),
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.all(0.0))),
+                                  style: TextButton.styleFrom(
+                                      minimumSize: const Size(24.0, 24.0),
+                                      padding: EdgeInsets.all(0.0)),
                                 ),
                               ),
                               Container(
@@ -129,11 +127,9 @@ class CartTile extends StatelessWidget {
                                 child: TextButton(
                                   onPressed: () {},
                                   child: Image.asset('assets/Icon-Add.png'),
-                                  style: ButtonStyle(
-                                      minimumSize: MaterialStateProperty.all(
-                                          const Size(24.0, 24.0)),
-                                      padding: MaterialStateProperty.all(
-                                          EdgeInsets.all(0.0))),
+                                  style: TextButton.styleFrom(
+                                      minimumSize: const Size(24.0, 24.0),
+                                      padding: EdgeInsets.all(0.0)),
                                 ),
                               ),
                             ],

@@ -36,11 +36,11 @@ class MyApp extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 1.0, color: Colors.red.shade900),
           elevation: 0.0,
-//          minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
-/*           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+//          minimumSize: const Size(128.0, 48.0),
+/*           shape: 
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(24.0),
-            ),
+            ,
           ), */
         ),
       ),

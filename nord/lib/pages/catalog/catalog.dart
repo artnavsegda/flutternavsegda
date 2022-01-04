@@ -34,10 +34,9 @@ class CatalogPage extends StatelessWidget {
                 ),
                 SizedBox(width: 8.0),
                 OutlinedButton(
-                  style: ButtonStyle(
-                      minimumSize:
-                          MaterialStateProperty.all(const Size(36.0, 36.0)),
-                      padding: MaterialStateProperty.all(EdgeInsets.all(0.0))),
+                  style: OutlinedButton.styleFrom(
+                      minimumSize: const Size(36.0, 36.0),
+                      padding: EdgeInsets.all(0.0)),
                   onPressed: () {},
                   child: Image.asset('assets/Icon-Favorite-Outlined.png'),
                 ),
