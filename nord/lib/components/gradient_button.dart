@@ -25,7 +25,8 @@ class GradientButton extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
+        gradient:
+            LinearGradient(colors: [Color(0xFFCD0643), Color(0xFFB0063A)]),
       ),
       child: ElevatedButton(
         style: style?.copyWith(
@@ -68,7 +69,8 @@ class _GradientButtonWithIcon extends GradientButton {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(4.0),
-        gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
+        gradient:
+            LinearGradient(colors: [Color(0xFFCD0643), Color(0xFFB0063A)]),
       ),
       child: ElevatedButton.icon(
         style: style?.copyWith(
