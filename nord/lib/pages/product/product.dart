@@ -122,6 +122,10 @@ class _ProductPageState extends State<ProductPage> {
               DefaultTabController(
                 length: 3,
                 child: TabBar(
+                  indicatorSize: TabBarIndicatorSize.label,
+/*                   indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.redAccent), */
                   onTap: (newPage) {
                     setState(() {
                       page = newPage;
