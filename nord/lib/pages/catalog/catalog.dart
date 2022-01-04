@@ -43,7 +43,27 @@ class CatalogPage extends StatelessWidget {
                 SizedBox(width: 8.0),
               ],
             ),
-            SingleChildScrollView(
+            DefaultTabController(
+              length: 8,
+              child: TabBar(
+                isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
+                onTap: (newPage) {},
+                unselectedLabelColor: Colors.red.shade900,
+                labelColor: Colors.black38,
+                tabs: const [
+                  Tab(text: "Выпечка"),
+                  Tab(text: "Кексы"),
+                  Tab(text: "Конфеты"),
+                  Tab(text: "Мороженое"),
+                  Tab(text: "Выпечка"),
+                  Tab(text: "Кексы"),
+                  Tab(text: "Конфеты"),
+                  Tab(text: "Мороженое"),
+                ],
+              ),
+            ),
+/*             SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
@@ -55,7 +75,7 @@ class CatalogPage extends StatelessWidget {
                     TextButton(onPressed: () {}, child: Text('Выпечка')),
                     TextButton(onPressed: () {}, child: Text('Выпечка')),
                   ],
-                )),
+                )), */
             Expanded(
               child: SingleChildScrollView(
                 child: Padding(
