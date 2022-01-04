@@ -99,7 +99,7 @@ class HomePage extends StatelessWidget {
                     child: ElevatedButton.icon(
                       style: ElevatedButton.styleFrom(
                         //elevation: 0.0,
-                        minimumSize: const Size(111.0, 36.0),
+                        visualDensity: VisualDensity.compact,
                       ),
                       label:
                           const ImageIcon(AssetImage('assets/Icon-East.png')),
