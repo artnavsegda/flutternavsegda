@@ -14,6 +14,7 @@ class GradientButton extends StatelessWidget {
 
   factory GradientButton.icon({
     Key? key,
+    ButtonStyle? style,
     required VoidCallback? onPressed,
     required Widget icon,
     required Widget label,
