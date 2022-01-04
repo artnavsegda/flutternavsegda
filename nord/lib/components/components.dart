@@ -87,7 +87,7 @@ class AddressTile2 extends StatelessWidget {
 class GradientButton extends StatelessWidget {
   const GradientButton({Key? key}) : super(key: key);
 
-  const factory GradientButton.icon() = _GradientButtonIcon;
+  const factory GradientButton.icon() = _ElevatedButtonWithIcon;
 
   @override
   Widget build(BuildContext context) {
@@ -95,8 +95,8 @@ class GradientButton extends StatelessWidget {
   }
 }
 
-class _GradientButtonIcon extends GradientButton {
-  const _GradientButtonIcon({Key? key}) : super(key: key);
+class _ElevatedButtonWithIcon extends GradientButton {
+  const _ElevatedButtonWithIcon({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
