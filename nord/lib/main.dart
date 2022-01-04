@@ -33,10 +33,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
-        style: ButtonStyle(
-          side: MaterialStateProperty.all(
-              BorderSide(width: 1.0, color: Colors.red.shade900)),
-          elevation: MaterialStateProperty.all(0.0),
+        style: OutlinedButton.styleFrom(
+          side: BorderSide(width: 1.0, color: Colors.red.shade900),
+          elevation: 0.0,
 //          minimumSize: MaterialStateProperty.all(const Size(128.0, 48.0)),
 /*           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
             RoundedRectangleBorder(
@@ -46,9 +45,9 @@ class MyApp extends StatelessWidget {
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: ButtonStyle(
-          elevation: MaterialStateProperty.all(0.0),
-          minimumSize: MaterialStateProperty.all(const Size(111.0, 48.0)),
+        style: ElevatedButton.styleFrom(
+          elevation: 0.0,
+          minimumSize: const Size(111.0, 48.0),
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(

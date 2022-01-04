@@ -23,12 +23,11 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
       ),
       child: ElevatedButton(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.transparent)),
+        style: ElevatedButton.styleFrom(primary: Colors.transparent),
         key: key,
         onPressed: onPressed,
         child: child,
@@ -57,12 +56,11 @@ class _GradientButtonWithIcon extends GradientButton {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(2.0),
+        borderRadius: BorderRadius.circular(4.0),
         gradient: LinearGradient(colors: [Colors.red, Colors.yellow]),
       ),
       child: ElevatedButton.icon(
-        style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all(Colors.transparent)),
+        style: ElevatedButton.styleFrom(primary: Colors.transparent),
         key: key,
         onPressed: onPressed,
         icon: icon,
