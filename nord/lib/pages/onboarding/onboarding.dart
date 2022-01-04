@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import '../main.dart';
 import '../login/login.dart';
+import '../../components/gradient_button.dart';
 
 class Onboarding extends StatefulWidget {
   const Onboarding({Key? key}) : super(key: key);
@@ -113,7 +114,7 @@ class _OnboardingState extends State<Onboarding> {
             left: 20,
             child: AnimatedCrossFade(
               duration: const Duration(milliseconds: 200),
-              firstChild: ElevatedButton(
+              firstChild: GradientButton(
                 child: const Text('Выбрать что-нибудь вкусное'),
                 onPressed: () {
                   Navigator.pushReplacement(
@@ -122,7 +123,7 @@ class _OnboardingState extends State<Onboarding> {
                           builder: (context) => const MainPage()));
                 },
               ),
-              secondChild: ElevatedButton.icon(
+              secondChild: GradientButton.icon(
                 onPressed: () {
                   _controller.nextPage(
                       duration: const Duration(milliseconds: 400),

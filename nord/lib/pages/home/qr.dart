@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 
+import '../../components/gradient_button.dart';
+
 class QrPage extends StatelessWidget {
   const QrPage({Key? key}) : super(key: key);
 
@@ -75,7 +77,7 @@ class QrPage extends StatelessWidget {
               ),
             ),
             Spacer(),
-            ElevatedButton(
+            GradientButton(
                 onPressed: () {},
                 child: const Text('Добавить карту в Google Pay')),
           ],
