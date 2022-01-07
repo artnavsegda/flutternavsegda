@@ -148,13 +148,43 @@ class RoomCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Stack(
+    return InkWell(
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(
+          builder: (context) {
+            return RoomPage();
+          },
+        ));
+      },
+      child: Card(
+        child: Stack(
+          children: [
+            ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(5.0)),
+                child: Image.asset(image, fit: BoxFit.cover, width: 1000.0)),
+            Positioned(child: Text(title))
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RoomPage extends StatelessWidget {
+  const RoomPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Гараж'),
+      ),
+      body: Stack(
         children: [
-          ClipRRect(
-              borderRadius: const BorderRadius.all(Radius.circular(5.0)),
-              child: Image.asset(image, fit: BoxFit.cover, width: 1000.0)),
-          Positioned(child: Text(title))
+          Positioned.fill(
+              child: Image.asset('assets/kitchen.jpg', fit: BoxFit.cover)),
         ],
       ),
     );
