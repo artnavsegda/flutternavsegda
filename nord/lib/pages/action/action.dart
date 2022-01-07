@@ -9,7 +9,34 @@ class ActionPage extends StatefulWidget {
 }
 
 class _ActionPageState extends State<ActionPage> {
-  bool headerUp = true;
+  bool headerUp = false;
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(
+      () {
+        if (_scrollController.offset > 0 && headerUp == false) {
+          setState(() {
+            headerUp = true;
+          });
+        } else if (_scrollController.offset < 1) {
+          {
+            setState(() {
+              headerUp = false;
+            });
+          }
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,6 +50,7 @@ class _ActionPageState extends State<ActionPage> {
             ],
           ),
           body: ListView(
+            controller: _scrollController,
             children: [
               SizedBox(height: 50),
               Image.asset('assets/placeholder/action1/Illustration@3x.png'),

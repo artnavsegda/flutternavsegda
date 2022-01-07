@@ -39,6 +39,7 @@ class _ProductPageState extends State<ProductPage> {
   @override
   void dispose() {
     _controller.dispose();
+    _scrollController.dispose();
     super.dispose();
   }
 
