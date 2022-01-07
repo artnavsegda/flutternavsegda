@@ -45,24 +45,39 @@ class HomePage extends StatelessWidget {
             child: Text("Новинки",
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              SizedBox(
-                width: 16,
-              ),
-              const ProductCard(
-                productImage: 'assets/placeholder/product1/Illustration.png',
-                productName: 'Торт «Сезонный» с ягодами',
-                productPrice: '420 ₽',
-              ),
-              SizedBox(width: 8),
-              const ProductCard(
-                productImage: 'assets/placeholder/product2/Illustration.png',
-                productName: 'Анна Павлова',
-                productPrice: '315 ₽',
-              ),
-            ],
+          SizedBox(
+            height: 240,
+            child: ListView(
+              scrollDirection: Axis.horizontal,
+              children: [
+                SizedBox(
+                  width: 16,
+                ),
+                const ProductCard(
+                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productName: 'Торт «Сезонный» с ягодами',
+                  productPrice: '420 ₽',
+                ),
+                SizedBox(width: 8),
+                const ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+                SizedBox(width: 8),
+                const ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+                SizedBox(width: 8),
+                const ProductCard(
+                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productName: 'Анна Павлова',
+                  productPrice: '315 ₽',
+                ),
+              ],
+            ),
           ),
           const Padding(
             padding: EdgeInsets.all(16.0),
