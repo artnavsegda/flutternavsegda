@@ -12,8 +12,29 @@ class ProductPage extends StatefulWidget {
 
 class _ProductPageState extends State<ProductPage> {
   int page = 0;
-  bool headerUp = true;
-  final PageController _controller = PageController();
+  bool headerUp = false;
+  final _controller = PageController();
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(
+      () {
+        if (_scrollController.offset > 0 && headerUp == false) {
+          setState(() {
+            headerUp = true;
+          });
+        } else if (_scrollController.offset < 1) {
+          {
+            setState(() {
+              headerUp = false;
+            });
+          }
+        }
+      },
+    );
+  }
 
   @override
   void dispose() {
@@ -33,6 +54,7 @@ class _ProductPageState extends State<ProductPage> {
             ],
           ),
           body: ListView(
+            controller: _scrollController,
             children: [
               SizedBox(height: 50),
               SizedBox(
