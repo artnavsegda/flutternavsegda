@@ -57,8 +57,10 @@ class _ActionPageState extends State<ActionPage> {
               Text(
                 'Нашему организму просто необходимо определенное количество витаминов, чтобы чувствовать себя бодрыми, быть веселыми и не болеть. Сейчас самое подходящее время запастись ими перед долгой, холодно осенью.',
               ),
-              Text(
-                  'Успейте получить подарок, количество ограничено! Акция действует только в части наших кафе и кондитерских.'),
+              SpecialCondition(
+                text:
+                    'Успейте получить подарок, количество ограничено! Акция действует только в части наших кафе и кондитерских.',
+              ),
               Text('Важно'),
               Text(
                   'Важно Сумма чека должна быть не менее 500 рублей без учёта бонусов. Приз выпадает за каждый чек на сумму более 500 рублей в акционный период. Подробнее об акции и условиях проведения читайте на сайте.'),
@@ -99,6 +101,36 @@ class _ActionPageState extends State<ActionPage> {
           ),
         ),
       ],
+    );
+  }
+}
+
+class SpecialCondition extends StatelessWidget {
+  const SpecialCondition({
+    Key? key,
+    required this.text,
+  }) : super(key: key);
+
+  final String text;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      width: double.infinity,
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+            stops: [0.01, 0.01],
+            colors: [Colors.red.shade900, Color(0xFFEFF3F4)]),
+        borderRadius: BorderRadius.circular(2.0),
+/*                                     color: Colors.black12,
+        border: Border(
+          left: BorderSide(
+              width: 5.0, color: Colors.red),
+        ), */
+      ),
+      child: Text(text, style: const TextStyle()),
     );
   }
 }
