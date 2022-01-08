@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
-
+import '../sever_metropol_icons.dart';
 import 'catalog/catalog.dart';
 import 'home/home.dart';
 import 'more/more.dart';
@@ -80,17 +80,17 @@ class _MainPageState extends State<MainPage>
             currentIndex: _tabController.index,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/Icon-Home.png')),
+                icon: Icon(SeverMetropol.Icon_Home),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/Icon-Grid-View.png')),
+                icon: Icon(SeverMetropol.Icon_Grid_View),
                 label: 'Catalog',
               ),
               BottomNavigationBarItem(
                 icon: Badge(
                   position: BadgePosition.topEnd(top: -12, end: -8),
-                  child: ImageIcon(AssetImage('assets/Icon-Shopping-Bag.png')),
+                  child: Icon(SeverMetropol.Icon_Shopping_Bag),
                   badgeColor: Colors.red.shade900,
                   badgeContent: Text(
                     '5',
@@ -100,11 +100,11 @@ class _MainPageState extends State<MainPage>
                 label: 'Shopping',
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/Icon-Account-Circle.png')),
+                icon: Icon(SeverMetropol.Icon_Account_Circle),
                 label: 'User',
               ),
               BottomNavigationBarItem(
-                icon: ImageIcon(AssetImage('assets/Icon-More-Horizontal.png')),
+                icon: Icon(SeverMetropol.Icon_More_Horizontal),
                 label: 'More',
               ),
             ],

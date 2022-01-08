@@ -93,6 +93,9 @@ flutter:
     - family: Forum
       fonts:
         - asset: google_fonts/Forum-Regular.ttf
+    - family:  SeverMetropol
+      fonts:
+        - asset: fonts/SeverMetropol.ttf
   #       - asset: fonts/Schyler-Italic.ttf
   #         style: italic
   #   - family: Trajan Pro
