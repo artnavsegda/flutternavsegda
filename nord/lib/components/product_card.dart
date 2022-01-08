@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../sever_metropol_icons.dart';
 import '../pages/product/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -34,8 +35,58 @@ class ProductCard extends StatelessWidget {
                 right: 0,
                 bottom: 0,
                 child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset('assets/Icon-Add-to-Shopping-Bag.png')),
+                  onPressed: () {},
+                  icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
+                      color: Colors.red.shade900),
+                ),
+              ),
+              Positioned(
+                right: 8,
+                top: 0,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    primary: Colors.white38,
+                    minimumSize: Size(45, 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2.0),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(
+                    SeverMetropol.Icon_Favorite,
+                    color: Colors.red.shade900,
+                    size: 12,
+                  ),
+                  label: Text(
+                    '256',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
+              ),
+              Positioned(
+                left: 8,
+                top: 0,
+                child: ElevatedButton.icon(
+                  style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    primary: Colors.white38,
+                    minimumSize: Size(45, 24),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(2.0),
+                    ),
+                  ),
+                  onPressed: () {},
+                  icon: Icon(
+                    SeverMetropol.Icon_Star_Rate,
+                    color: Color(0xFFD2AB67),
+                    size: 12,
+                  ),
+                  label: Text(
+                    '4.7',
+                    style: TextStyle(color: Colors.black),
+                  ),
+                ),
               ),
             ],
           ),
