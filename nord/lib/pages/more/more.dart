@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../sever_metropol_icons.dart';
 import '../support/support.dart';
 import '../help/help.dart';
 import 'about.dart';
@@ -17,7 +18,8 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const SupportPage()));
           },
           title: const Text("Служба поддержки"),
-          leading: Image.asset('assets/Icon-Question-Answer.png'),
+          leading: Icon(SeverMetropol.Icon_Question_Answer,
+              color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () {
@@ -25,12 +27,14 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const HelpPage()));
           },
           title: const Text("Справка"),
-          leading: Image.asset('assets/Icon-Contact-Support.png'),
+          leading: Icon(SeverMetropol.Icon_Contact_Support,
+              color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () async {},
           title: const Text("Оценить приложение"),
-          leading: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
+          leading: Icon(SeverMetropol.Icon_Star_Rate_Outlined,
+              color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () {
@@ -38,7 +42,7 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AboutPage()));
           },
           title: const Text("О приложении"),
-          leading: Image.asset('assets/Icon-Info.png'),
+          leading: Icon(SeverMetropol.Icon_Info, color: Colors.red.shade900),
         ),
       ],
     );

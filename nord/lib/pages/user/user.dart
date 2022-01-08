@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_user.dart';
+import '../../sever_metropol_icons.dart';
 import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
 import '../address/delivery_address.dart';
@@ -20,7 +21,7 @@ class UserPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const EditUser()));
           },
           title: const Text("Princess\nBean"),
-          trailing: Image.asset('assets/Icon-Edit.png'),
+          trailing: Icon(SeverMetropol.Icon_Edit, color: Colors.red.shade900),
         ),
         AspectRatio(
           aspectRatio: 16 / 9,
@@ -86,12 +87,13 @@ class UserPage extends StatelessWidget {
         ListTile(
           onTap: () {},
           title: const Text("Подарки"),
-          leading: Image.asset('assets/Icon-Present.png'),
+          leading: Icon(SeverMetropol.Icon_Present, color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () {},
           title: const Text("Промокод"),
-          leading: Image.asset('assets/Icon-Redeem-Card.png'),
+          leading:
+              Icon(SeverMetropol.Icon_Redeem_Card, color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () {
@@ -99,7 +101,7 @@ class UserPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const OrdersPage()));
           },
           title: const Text("История заказов"),
-          leading: Image.asset('assets/Icon-History.png'),
+          leading: Icon(SeverMetropol.Icon_History, color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () async {
@@ -109,7 +111,7 @@ class UserPage extends StatelessWidget {
                     builder: (context) => const DeliveryAddressPage()));
           },
           title: const Text("Адреса доставки"),
-          leading: Image.asset('assets/Icon-Place.png'),
+          leading: Icon(SeverMetropol.Icon_Place, color: Colors.red.shade900),
         ),
         Divider(
           color: Color(0xFFEFF3F4),
@@ -120,7 +122,7 @@ class UserPage extends StatelessWidget {
         ListTile(
           onTap: () async {},
           title: const Text("Смена пароля"),
-          leading: Image.asset('assets/Icon-Lock.png'),
+          leading: Icon(SeverMetropol.Icon_Lock, color: Colors.red.shade900),
         ),
         ListTile(
           onTap: () async {
@@ -128,7 +130,7 @@ class UserPage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const Onboarding()));
           },
           title: const Text("Выход из приложения"),
-          leading: Image.asset('assets/Icon-Logout.png'),
+          leading: Icon(SeverMetropol.Icon_Logout, color: Colors.red.shade900),
         ),
       ],
     );
