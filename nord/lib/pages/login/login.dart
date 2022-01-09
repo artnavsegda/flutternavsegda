@@ -23,28 +23,29 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Text('Войти или\nзарегистрироваться',
+                const Text('Войти или\nзарегистрироваться',
                     style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-                SizedBox(height: 9),
-                Text('Мы отправим на номер SMS-сообщение с кодом потверждения'),
-                SizedBox(height: 24),
-                TextField(
-                  decoration: const InputDecoration(
+                const SizedBox(height: 9),
+                const Text(
+                    'Мы отправим на номер SMS-сообщение с кодом потверждения'),
+                const SizedBox(height: 24),
+                const TextField(
+                  decoration: InputDecoration(
                       labelText: "Номер телефона",
                       hintText: '+7 (___) ___-__-__'),
                 ),
-                SizedBox(height: 32),
-                NordCheckboxTile(
+                const SizedBox(height: 32),
+                const NordCheckboxTile(
                     title: Text(
                   'Ознакомлен с условиями положения о защите персональных данных',
                   style: TextStyle(fontSize: 16),
                 )),
-                SizedBox(height: 32),
-                NordCheckboxTile(
+                const SizedBox(height: 32),
+                const NordCheckboxTile(
                     title: Text(
                         'Даю свое согласие на обработку персональных данных',
                         style: TextStyle(fontSize: 16))),
-                SizedBox(height: 32),
+                const SizedBox(height: 32),
                 ElevatedButton(
                     onPressed: () {
                       Navigator.push(
@@ -52,7 +53,7 @@ class LoginPage extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const SmsPage()));
                     },
-                    child: Text('Далее')),
+                    child: const Text('Далее')),
               ],
             ),
           ),

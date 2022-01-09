@@ -7,7 +7,7 @@ class HelpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Справка'),
+        title: const Text('Справка'),
       ),
     );
   }

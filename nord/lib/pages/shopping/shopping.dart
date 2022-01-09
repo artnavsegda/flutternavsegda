@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
-import '../../components/select_address_bottom_sheet.dart';
 import '../../components/components.dart';
-import 'cart_is_empty.dart';
 import 'registration.dart';
 
 class ShoppingPage extends StatelessWidget {
@@ -14,14 +12,14 @@ class ShoppingPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Корзина'),
-        actions: [TextButton(onPressed: () {}, child: Text('Очистить'))],
+        actions: [TextButton(onPressed: () {}, child: const Text('Очистить'))],
       ),
       body: Column(
         children: [
           const AddressTile2(),
           Expanded(
             child: ListView(
-              children: [
+              children: const [
                 CartTile(),
                 CartTile(),
                 CartTile(),
@@ -52,7 +50,7 @@ class ShoppingPage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
-                children: [
+                children: const [
                   Text('Итого'),
                   Text('1 325 ₽'),
                 ],
@@ -65,7 +63,7 @@ class ShoppingPage extends StatelessWidget {
                       MaterialPageRoute(
                           builder: (context) => const RegistrationPage()));
                 },
-                child: Text('Оформить заказ'))
+                child: const Text('Оформить заказ'))
           ],
         ),
       ),
@@ -88,7 +86,7 @@ class CartTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Image.asset('assets/placeholder/product10/Illustration.png'),
-            SizedBox(width: 12),
+            const SizedBox(width: 12),
             Expanded(
               child: Column(
                 children: [
@@ -99,9 +97,10 @@ class CartTile extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Чай каркаде с\nапельсином',
+                          const Text('Чай каркаде с\nапельсином',
                               style: TextStyle(fontSize: 16)),
-                          Text('450 мл', style: TextStyle(color: Colors.grey)),
+                          const Text('450 мл',
+                              style: TextStyle(color: Colors.grey)),
                           Row(
                             children: [
                               SizedBox(
@@ -112,14 +111,14 @@ class CartTile extends StatelessWidget {
                                   child: Image.asset('assets/Icon-Remove.png'),
                                   style: TextButton.styleFrom(
                                       minimumSize: const Size(24.0, 24.0),
-                                      padding: EdgeInsets.all(0.0)),
+                                      padding: const EdgeInsets.all(0.0)),
                                 ),
                               ),
                               Container(
                                 alignment: Alignment.center,
                                 width: 32,
                                 height: 24,
-                                child: Text('2'),
+                                child: const Text('2'),
                               ),
                               SizedBox(
                                 width: 24,
@@ -129,18 +128,18 @@ class CartTile extends StatelessWidget {
                                   child: Image.asset('assets/Icon-Add.png'),
                                   style: TextButton.styleFrom(
                                       minimumSize: const Size(24.0, 24.0),
-                                      padding: EdgeInsets.all(0.0)),
+                                      padding: const EdgeInsets.all(0.0)),
                                 ),
                               ),
                             ],
                           ),
                         ],
                       ),
-                      Text('836 ₽', style: TextStyle(fontSize: 16)),
+                      const Text('836 ₽', style: TextStyle(fontSize: 16)),
                     ],
                   ),
-                  SizedBox(height: 13),
-                  Divider(
+                  const SizedBox(height: 13),
+                  const Divider(
                     height: 1,
                   ),
                 ],
@@ -150,7 +149,7 @@ class CartTile extends StatelessWidget {
         ),
       ),
       endActionPane: ActionPane(
-        motion: ScrollMotion(),
+        motion: const ScrollMotion(),
         children: [
           SlidableAction(
             onPressed: (context) {},

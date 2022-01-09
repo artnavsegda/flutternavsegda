@@ -18,7 +18,7 @@ class ShopPage extends StatelessWidget {
                 child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(32.0, 32.0),
-                      shape: CircleBorder(),
+                      shape: const CircleBorder(),
                       primary: Colors.white54, // <-- Button color
                       onPrimary: Colors.red, // <-- Splash color
                     ),
@@ -29,8 +29,8 @@ class ShopPage extends StatelessWidget {
               )
             ],
           ),
-          Text('Просвещения, 19 (ТК Норд)'),
-          Text('+7 (812) 611-09-27'),
+          const Text('Просвещения, 19 (ТК Норд)'),
+          const Text('+7 (812) 611-09-27'),
           ListTile(
             onTap: () {
               showModalBottomSheet(
@@ -42,7 +42,7 @@ class ShopPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ListTile(
+                      const ListTile(
                         title: Center(
                             child: Text(
                           'Режим работы',
@@ -50,28 +50,28 @@ class ShopPage extends StatelessWidget {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('Понедельник'),
                           Text('09:30–20:00'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('Вторник'),
                           Text('09:30–20:00'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('Среда'),
                           Text('09:30–20:00'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
+                        children: const [
                           Text('Четверг'),
                           Text('09:30–20:00'),
                         ],
@@ -81,12 +81,13 @@ class ShopPage extends StatelessWidget {
                 },
               );
             },
-            subtitle: Text('Режим работы'),
-            title: Text('Завтра откроется в 10:00'),
+            subtitle: const Text('Режим работы'),
+            title: const Text('Завтра откроется в 10:00'),
             trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
-          Spacer(),
-          ElevatedButton(onPressed: () {}, child: Text('Построить маршрут'))
+          const Spacer(),
+          ElevatedButton(
+              onPressed: () {}, child: const Text('Построить маршрут'))
         ],
       ),
     );

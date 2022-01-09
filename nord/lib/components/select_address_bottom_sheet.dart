@@ -25,10 +25,10 @@ class SelectAddressBottomSheet extends StatelessWidget {
                 'Адрес доставки или ближайшего к вам кафе',
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24),
               ),
-              SizedBox(height: 8),
+              const SizedBox(height: 8),
               const Text(
                   'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
-              SizedBox(height: 24),
+              const SizedBox(height: 24),
               ElevatedButton(
                   onPressed: () {
                     Navigator.push(
@@ -36,13 +36,13 @@ class SelectAddressBottomSheet extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const AddressPage()));
                   },
-                  child: Text('Указать адрес')),
-              SizedBox(height: 8),
+                  child: const Text('Указать адрес')),
+              const SizedBox(height: 8),
               TextButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  child: Text('Позже')),
+                  child: const Text('Позже')),
             ],
           ),
         )

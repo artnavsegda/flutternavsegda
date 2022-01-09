@@ -8,11 +8,11 @@ class ReviewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Ваш отзыв'),
+        title: const Text('Ваш отзыв'),
       ),
       body: Column(
         children: [
-          Text('Оценка товара'),
+          const Text('Оценка товара'),
           RatingBar(
             itemSize: 27,
             initialRating: 4.0,
@@ -25,12 +25,10 @@ class ReviewPage extends StatelessWidget {
               empty: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
             ),
             itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
-            onRatingUpdate: (newRating) {
-              print(newRating);
-            },
+            onRatingUpdate: (newRating) {},
           ),
-          TextField(),
-          ElevatedButton(onPressed: () {}, child: Text('Оправить отзыв'))
+          const TextField(),
+          ElevatedButton(onPressed: () {}, child: const Text('Оправить отзыв'))
         ],
       ),
     );

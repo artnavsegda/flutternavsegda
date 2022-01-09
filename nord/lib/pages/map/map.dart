@@ -13,7 +13,7 @@ class MapPage extends StatelessWidget {
       ),
       body: Stack(
         children: [
-          GoogleMap(
+          const GoogleMap(
             initialCameraPosition: CameraPosition(
               target: LatLng(37.42796133580664, -122.085749655962),
               zoom: 14.4746,
@@ -28,7 +28,7 @@ class MapPage extends StatelessWidget {
                   child: ListView(
                     controller: scrollController,
                     children: [
-                      TextField(),
+                      const TextField(),
                       ListTile(
                         onTap: () {
                           Navigator.push(
@@ -36,8 +36,8 @@ class MapPage extends StatelessWidget {
                               MaterialPageRoute(
                                   builder: (context) => const ShopPage()));
                         },
-                        title: Text('Невский, 6'),
-                        subtitle: Text('Сегодня открыто до 22:00'),
+                        title: const Text('Невский, 6'),
+                        subtitle: const Text('Сегодня открыто до 22:00'),
                         trailing: Image.asset('assets/Icon-Direction.png'),
                       ),
                     ],

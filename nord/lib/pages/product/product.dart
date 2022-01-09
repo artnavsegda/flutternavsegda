@@ -57,7 +57,7 @@ class _ProductPageState extends State<ProductPage> {
           body: ListView(
             controller: _scrollController,
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               SizedBox(
                 height: 270,
                 child: Stack(
@@ -85,7 +85,7 @@ class _ProductPageState extends State<ProductPage> {
                       child: SmoothPageIndicator(
                           controller: _controller,
                           count: 3,
-                          effect: ExpandingDotsEffect(
+                          effect: const ExpandingDotsEffect(
                             spacing: 4.0,
                             //radius: 4.0,
                             dotWidth: 5.0,
@@ -120,7 +120,7 @@ class _ProductPageState extends State<ProductPage> {
                                 'Базовая цена.',
                                 style: TextStyle(color: Colors.red.shade900),
                               )),
-                          Text('За 1 шт.'),
+                          const Text('За 1 шт.'),
                         ],
                       ),
                     ],
@@ -133,13 +133,13 @@ class _ProductPageState extends State<ProductPage> {
                   ),
                 ],
               ),
-              Text('Вес, гр'),
+              const Text('Вес, гр'),
               Row(
                 children: [
-                  OutlinedButton(onPressed: () {}, child: Text('50')),
-                  ElevatedButton(onPressed: () {}, child: Text('100')),
-                  OutlinedButton(onPressed: () {}, child: Text('250')),
-                  OutlinedButton(onPressed: () {}, child: Text('1000')),
+                  OutlinedButton(onPressed: () {}, child: const Text('50')),
+                  ElevatedButton(onPressed: () {}, child: const Text('100')),
+                  OutlinedButton(onPressed: () {}, child: const Text('250')),
+                  OutlinedButton(onPressed: () {}, child: const Text('1000')),
                 ],
               ),
               DefaultTabController(
@@ -166,7 +166,7 @@ class _ProductPageState extends State<ProductPage> {
               [
                 Column(
                   children: [
-                    Divider(),
+                    const Divider(),
                     Row(
                       children: [
                         Column(
@@ -184,33 +184,34 @@ class _ProductPageState extends State<ProductPage> {
                         Column(
                           children: [
                             TextButton(
-                                onPressed: () {}, child: Text('490.8 Ккал')),
-                            Text('Калорийность'),
+                                onPressed: () {},
+                                child: const Text('490.8 Ккал')),
+                            const Text('Калорийность'),
                           ],
                         )
                       ],
                     ),
-                    Divider(),
-                    Text(
+                    const Divider(),
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                    Text(
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                    Text(
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                    Text(
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                    Text(
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                    Text(
+                    const Text(
                         'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
                   ],
                 ),
-                Text(
+                const Text(
                     'Мука в/с, сахар, кондитерский жир, яичный желток, сахарная пудра, яичный белок, какао порошок, пищевые красители, ванилин, пищевая сода, лимонная кислота.'),
                 Column(
                   children: [
-                    Text('Отзывов о товаре пока нет'),
-                    Text(
+                    const Text('Отзывов о товаре пока нет'),
+                    const Text(
                         'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
                     OutlinedButton(
                         onPressed: () {
@@ -219,7 +220,7 @@ class _ProductPageState extends State<ProductPage> {
                               MaterialPageRoute(
                                   builder: (context) => const ReviewPage()));
                         },
-                        child: Text('Оставить отзыв'))
+                        child: const Text('Оставить отзыв'))
                   ],
                 )
               ][page],
@@ -236,8 +237,8 @@ class _ProductPageState extends State<ProductPage> {
                           gravity: ToastGravity.TOP,
                           timeInSecForIosWeb: 1);
                     },
-                    icon: Text('Добавить в корзину'),
-                    label: Text('315 ₽')),
+                    icon: const Text('Добавить в корзину'),
+                    label: const Text('315 ₽')),
               ),
               TextButton.icon(
                   onPressed: () {
@@ -246,7 +247,7 @@ class _ProductPageState extends State<ProductPage> {
                     });
                   },
                   icon: Image.asset('assets/Icon-Favorite.png'),
-                  label: Text('256')),
+                  label: const Text('256')),
             ],
           ),
         ),
@@ -258,7 +259,7 @@ class _ProductPageState extends State<ProductPage> {
           right: headerUp ? 72 : 16,
           child: AnimatedDefaultTextStyle(
             curve: Curves.fastOutSlowIn,
-            duration: Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 400),
             style: TextStyle(
               fontFamily: 'Forum',
               color: Colors.black,

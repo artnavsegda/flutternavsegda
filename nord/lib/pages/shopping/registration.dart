@@ -8,12 +8,12 @@ class RegistrationPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Оформление заказа'),
+        title: const Text('Оформление заказа'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          AddressTile2(),
+          const AddressTile2(),
           ListTile(
             onTap: () {
               showModalBottomSheet(
@@ -25,7 +25,7 @@ class RegistrationPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ListTile(
+                      const ListTile(
                         title: Center(
                             child: Text(
                           'Дата и время доставки',
@@ -36,22 +36,25 @@ class RegistrationPage extends StatelessWidget {
                         value: false,
                         onChanged: (newVal) {},
                       ),
-                      Text('Дата доставки'),
-                      Text('Время доставки'),
+                      const Text('Дата доставки'),
+                      const Text('Время доставки'),
                       Row(
                         children: [
                           OutlinedButton(
-                              onPressed: () {}, child: Text('09:00–14:00')),
+                              onPressed: () {},
+                              child: const Text('09:00–14:00')),
                           ElevatedButton(
-                              onPressed: () {}, child: Text('14:00–18:00')),
+                              onPressed: () {},
+                              child: const Text('14:00–18:00')),
                           OutlinedButton(
-                              onPressed: () {}, child: Text('18:00–21:00')),
+                              onPressed: () {},
+                              child: const Text('18:00–21:00')),
                         ],
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: ElevatedButton(
-                            onPressed: () {}, child: Text('Выбрать')),
+                            onPressed: () {}, child: const Text('Выбрать')),
                       )
                     ],
                   );
@@ -59,7 +62,7 @@ class RegistrationPage extends StatelessWidget {
               );
             },
             leading: Image.asset('assets/Illustration-Colored-Clocks.png'),
-            title: Text(
+            title: const Text(
               "Заберу",
               style: TextStyle(
                 color: Colors.grey,
@@ -75,9 +78,9 @@ class RegistrationPage extends StatelessWidget {
             ),
             trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
-          Text('Способы оплаты'),
-          TextField(),
-          ElevatedButton(onPressed: () {}, child: Text('Оплатить')),
+          const Text('Способы оплаты'),
+          const TextField(),
+          ElevatedButton(onPressed: () {}, child: const Text('Оплатить')),
         ],
       ),
     );

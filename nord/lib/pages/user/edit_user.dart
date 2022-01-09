@@ -26,7 +26,7 @@ class EditUser extends StatelessWidget {
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           ListTile(
-                            title: Center(
+                            title: const Center(
                                 child: Text(
                               'Изменение фотографии',
                             )),
@@ -35,54 +35,54 @@ class EditUser extends StatelessWidget {
                           ListTile(
                             leading:
                                 Image.asset('assets/Icon-Photo-Camers.png'),
-                            title: Text('Запустить камеру'),
+                            title: const Text('Запустить камеру'),
                           ),
                           ListTile(
                             leading: Image.asset('assets/Icon-List.png'),
-                            title: Text('Выбрать из галереи'),
+                            title: const Text('Выбрать из галереи'),
                           ),
                         ],
                       );
                     },
                   );
                 },
-                child: CircleAvatar(
+                child: const CircleAvatar(
                   radius: 48,
                   foregroundImage: AssetImage('assets/treska.jpg'),
                 ),
               ),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             const Text(
               "Личная информация",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
-            SizedBox(height: 24),
-            TextField(
-              decoration: const InputDecoration(labelText: "Имя"),
+            const SizedBox(height: 24),
+            const TextField(
+              decoration: InputDecoration(labelText: "Имя"),
             ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(labelText: "Номер телефона"),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(labelText: "Номер телефона"),
             ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(labelText: "Email"),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(labelText: "Email"),
             ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(labelText: "Номер телефона"),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(labelText: "Номер телефона"),
             ),
-            SizedBox(height: 16),
-            TextField(
-              decoration: const InputDecoration(labelText: "Номер телефона"),
+            const SizedBox(height: 16),
+            const TextField(
+              decoration: InputDecoration(labelText: "Номер телефона"),
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             const Text(
               "Другие настройки",
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
             SwitchListTile(
               title: const Text('Отказаться от бумажных чеков'),
               value: false,
@@ -93,7 +93,7 @@ class EditUser extends StatelessWidget {
               value: false,
               onChanged: (newVal) {},
             ),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             ElevatedButton(
                 onPressed: () {
                   Navigator.pop(context);

@@ -45,9 +45,9 @@ class ProductCard extends StatelessWidget {
                 top: 0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     primary: Colors.white38,
-                    minimumSize: Size(45, 24),
+                    minimumSize: const Size(45, 24),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(2.0),
                     ),
@@ -58,7 +58,7 @@ class ProductCard extends StatelessWidget {
                     color: Colors.red.shade900,
                     size: 12,
                   ),
-                  label: Text(
+                  label: const Text(
                     '256',
                     style: TextStyle(color: Colors.black),
                   ),
@@ -69,20 +69,20 @@ class ProductCard extends StatelessWidget {
                 top: 0,
                 child: ElevatedButton.icon(
                   style: ElevatedButton.styleFrom(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     primary: Colors.white38,
-                    minimumSize: Size(45, 24),
+                    minimumSize: const Size(45, 24),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(2.0),
                     ),
                   ),
                   onPressed: () {},
-                  icon: Icon(
+                  icon: const Icon(
                     SeverMetropol.Icon_Star_Rate,
                     color: Color(0xFFD2AB67),
                     size: 12,
                   ),
-                  label: Text(
+                  label: const Text(
                     '4.7',
                     style: TextStyle(color: Colors.black),
                   ),
@@ -93,7 +93,7 @@ class ProductCard extends StatelessWidget {
           Text(productName),
           Text(
             productPrice,
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+            style: const TextStyle(fontFamily: 'Forum', fontSize: 24),
           ),
         ],
       ),

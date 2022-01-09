@@ -79,31 +79,31 @@ class _MainPageState extends State<MainPage>
             unselectedItemColor: Colors.red.shade900,
             currentIndex: _tabController.index,
             items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(SeverMetropol.Icon_Home),
                 label: 'Home',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(SeverMetropol.Icon_Grid_View),
                 label: 'Catalog',
               ),
               BottomNavigationBarItem(
                 icon: Badge(
                   position: BadgePosition.topEnd(top: -12, end: -8),
-                  child: Icon(SeverMetropol.Icon_Shopping_Bag),
+                  child: const Icon(SeverMetropol.Icon_Shopping_Bag),
                   badgeColor: Colors.red.shade900,
-                  badgeContent: Text(
+                  badgeContent: const Text(
                     '5',
                     style: TextStyle(color: Colors.white, fontSize: 10),
                   ),
                 ),
                 label: 'Shopping',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(SeverMetropol.Icon_Account_Circle),
                 label: 'User',
               ),
-              BottomNavigationBarItem(
+              const BottomNavigationBarItem(
                 icon: Icon(SeverMetropol.Icon_More_Horizontal),
                 label: 'More',
               ),

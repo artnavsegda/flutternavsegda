@@ -10,7 +10,7 @@ class AddressPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Адрес доставки или кафе'),
       ),
-      body: GoogleMap(
+      body: const GoogleMap(
         initialCameraPosition: CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962),
           zoom: 14.4746,
@@ -24,20 +24,20 @@ class AddressPage extends StatelessWidget {
             children: [
               OutlinedButton.icon(
                   onPressed: () {},
-                  label: Text('Доставка'),
+                  label: const Text('Доставка'),
                   icon:
                       Image.asset('assets/Illustration-Colored-Delivery.png')),
               OutlinedButton.icon(
                   onPressed: () {},
-                  label: Text('Самовывоз'),
+                  label: const Text('Самовывоз'),
                   icon: Image.asset('assets/Illustration-Colored-Cafe.png'))
             ],
           ),
           ListTile(
-            title: Text('Адмиралтейская набережная, 10а'),
+            title: const Text('Адмиралтейская набережная, 10а'),
             trailing: Image.asset('assets/Icon-Edit.png'),
           ),
-          ElevatedButton(onPressed: () {}, child: Text('Выбрать')),
+          ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
         ],
       ),
     );

@@ -18,14 +18,14 @@ class QrPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Spacer(),
+            const Spacer(),
             Center(
               child: Container(
                 margin: const EdgeInsets.all(16.0),
                 padding: const EdgeInsets.all(8.0),
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   color: Colors.white,
-                  boxShadow: const [
+                  boxShadow: [
                     BoxShadow(
                       color: Color(0x1F000000), //Color.fromRGBO(0, 0, 0, 0.12),
                       blurRadius: 20.0,
@@ -48,7 +48,7 @@ class QrPage extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Column(
-                          children: [
+                          children: const [
                             SizedBox(height: 8),
                             Text('Предъявите\nна кассе',
                                 style: TextStyle(fontSize: 16)),
@@ -60,14 +60,14 @@ class QrPage extends StatelessWidget {
                                 color: Colors.black)),
                       ],
                     ),
-                    SizedBox(height: 32),
+                    const SizedBox(height: 32),
                     Text('+ 7 999 548 63 75',
                         style: TextStyle(
                           fontFamily: 'Forum',
                           fontSize: 34,
                           color: Colors.red[900],
                         )),
-                    SizedBox(height: 10),
+                    const SizedBox(height: 10),
                     const Text(
                       'Поднесите телефон к сканеру на кассе, чтобы начислить или списать бонусы',
                       style: TextStyle(fontSize: 16),
@@ -76,7 +76,7 @@ class QrPage extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             GradientButton(
                 onPressed: () {},
                 child: const Text('Добавить карту в Google Pay')),

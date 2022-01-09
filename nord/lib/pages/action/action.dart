@@ -52,26 +52,27 @@ class _ActionPageState extends State<ActionPage> {
           body: ListView(
             controller: _scrollController,
             children: [
-              SizedBox(height: 50),
+              const SizedBox(height: 50),
               Image.asset('assets/placeholder/action1/Illustration@3x.png'),
-              Text(
+              const Text(
                 'Нашему организму просто необходимо определенное количество витаминов, чтобы чувствовать себя бодрыми, быть веселыми и не болеть. Сейчас самое подходящее время запастись ими перед долгой, холодно осенью.',
               ),
-              SpecialCondition(
+              const SpecialCondition(
                 text:
                     'Успейте получить подарок, количество ограничено! Акция действует только в части наших кафе и кондитерских.',
               ),
-              Text('Важно'),
-              Text(
+              const Text('Важно'),
+              const Text(
                   'Важно Сумма чека должна быть не менее 500 рублей без учёта бонусов. Приз выпадает за каждый чек на сумму более 500 рублей в акционный период. Подробнее об акции и условиях проведения читайте на сайте.'),
-              TextButton(onPressed: () {}, child: Text('Найти ближайшее кафе')),
-              Text('Товары, участвующие в акции'),
-              ProductCard(
+              TextButton(
+                  onPressed: () {}, child: const Text('Найти ближайшее кафе')),
+              const Text('Товары, участвующие в акции'),
+              const ProductCard(
                 productImage: 'assets/placeholder/product1/Illustration.png',
                 productName: 'Торт «Сезонный» с ягодами',
                 productPrice: '420 ₽',
               ),
-              ProductCard(
+              const ProductCard(
                 productImage: 'assets/placeholder/product2/Illustration.png',
                 productName: 'Анна Павлова',
                 productPrice: '315 ₽',
@@ -87,7 +88,7 @@ class _ActionPageState extends State<ActionPage> {
           right: headerUp ? 72 : 16,
           child: AnimatedDefaultTextStyle(
             curve: Curves.fastOutSlowIn,
-            duration: Duration(milliseconds: 400),
+            duration: const Duration(milliseconds: 400),
             style: TextStyle(
               fontFamily: 'Forum',
               color: Colors.black,
@@ -121,8 +122,8 @@ class SpecialCondition extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 2),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-            stops: [0.01, 0.01],
-            colors: [Colors.red.shade900, Color(0xFFEFF3F4)]),
+            stops: const [0.01, 0.01],
+            colors: [Colors.red.shade900, const Color(0xFFEFF3F4)]),
         borderRadius: BorderRadius.circular(2.0),
 /*                                     color: Colors.black12,
         border: Border(

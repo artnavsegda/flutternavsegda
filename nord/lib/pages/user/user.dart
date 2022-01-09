@@ -13,7 +13,7 @@ class UserPage extends StatelessWidget {
     return ListView(
       children: [
         ListTile(
-          leading: CircleAvatar(
+          leading: const CircleAvatar(
             foregroundImage: AssetImage('assets/treska.jpg'),
           ),
           onTap: () {
@@ -51,7 +51,7 @@ class UserPage extends StatelessWidget {
                   ),
                   const Text(
                     '120 бонусов',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Forum',
                       fontSize: 24.0,
@@ -74,7 +74,7 @@ class UserPage extends StatelessWidget {
                               isScrollControlled: true,
                               context: context,
                               builder: (context) {
-                                return GiftBonusModalSheet();
+                                return const GiftBonusModalSheet();
                               },
                             );
                           },
@@ -113,7 +113,7 @@ class UserPage extends StatelessWidget {
           title: const Text("Адреса доставки"),
           leading: Icon(SeverMetropol.Icon_Place, color: Colors.red.shade900),
         ),
-        Divider(
+        const Divider(
           color: Color(0xFFEFF3F4),
           thickness: 2,
           indent: 16,
@@ -148,14 +148,14 @@ class GiftBonusModalSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Подарочные бонусы'),
-        TextField(),
+        const TextField(),
         Slider(
           onChanged: (newVal) {},
           value: 0,
         ),
-        Text('Вы можете подарить до 120 бонусов'),
-        TextField(),
-        ElevatedButton(onPressed: () {}, child: Text('Подарить бонусы'))
+        const Text('Вы можете подарить до 120 бонусов'),
+        const TextField(),
+        ElevatedButton(onPressed: () {}, child: const Text('Подарить бонусы'))
       ],
     );
   }

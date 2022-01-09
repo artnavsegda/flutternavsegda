@@ -22,7 +22,7 @@ class MyApp extends StatelessWidget {
       textTheme: GoogleFonts.notoSansTextTheme(
         Theme.of(context).textTheme,
       ),
-      appBarTheme: AppBarTheme(
+      appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
         backgroundColor: Colors.transparent,
         elevation: 0.0,

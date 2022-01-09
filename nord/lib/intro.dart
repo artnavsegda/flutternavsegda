@@ -8,7 +8,7 @@ class IntroPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
-        children: [
+        children: const [
           RiveAnimation.asset(
             'assets/sever.riv',
             fit: BoxFit.cover,

@@ -12,6 +12,7 @@ class DeliveryAddressPage extends StatelessWidget {
       ),
       body: Container(
         child: ElevatedButton(
+          // ignore: prefer_const_constructors
           child: Text('Добавить адрес'),
           onPressed: () {
             Navigator.push(context,

@@ -15,7 +15,7 @@ class NordCheckboxTile extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(child: Image.asset('assets/Icon-Checkbox-Checked.png')),
-        SizedBox(width: 38),
+        const SizedBox(width: 38),
         Flexible(child: title)
       ],
     );
@@ -65,7 +65,7 @@ class AddressTile2 extends StatelessWidget {
         );
       },
       leading: Image.asset('assets/Illustration-Colored-Cafe.png'),
-      title: Text(
+      title: const Text(
         "Увидимся в кафе",
         style: TextStyle(
           color: Colors.grey,

@@ -16,13 +16,13 @@ class CatalogPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Выпечка',
+            const Text('Выпечка',
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Wrap(
               spacing: 8.0,
               runSpacing: 32.0,
-              children: [
+              children: const [
                 ProductCard(
                   productImage: 'assets/placeholder/product1/Illustration.png',
                   productName: 'Торт «Сезонный» с ягодами',
@@ -53,13 +53,13 @@ class CatalogPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Кексы',
+            const Text('Кексы',
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-            SizedBox(height: 12),
+            const SizedBox(height: 12),
             Wrap(
               spacing: 8.0,
               runSpacing: 32.0,
-              children: [
+              children: const [
                 ProductCard(
                   productImage: 'assets/placeholder/product1/Illustration.png',
                   productName: 'Торт «Сезонный» с ягодами',
@@ -92,13 +92,13 @@ class CatalogPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            AddressTile2(),
+            const AddressTile2(),
             Row(
               children: [
-                SizedBox(width: 16.0),
-                Flexible(
+                const SizedBox(width: 16.0),
+                const Flexible(
                   child: TextField(
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                         hintText: 'Найти в каталоге',
                         isDense: true,
                         contentPadding:
@@ -112,15 +112,15 @@ class CatalogPage extends StatelessWidget {
                         filled: true),
                   ),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
                 OutlinedButton(
                   style: OutlinedButton.styleFrom(
                       minimumSize: const Size(36.0, 36.0),
-                      padding: EdgeInsets.all(0.0)),
+                      padding: const EdgeInsets.all(0.0)),
                   onPressed: () {},
                   child: Image.asset('assets/Icon-Favorite-Outlined.png'),
                 ),
-                SizedBox(width: 8.0),
+                const SizedBox(width: 8.0),
               ],
             ),
             DefaultTabController(
@@ -129,10 +129,9 @@ class CatalogPage extends StatelessWidget {
                 isScrollable: true,
                 indicatorSize: TabBarIndicatorSize.label,
                 onTap: (newPage) {
-                  print(newPage);
                   itemScrollController.scrollTo(
                       index: newPage,
-                      duration: Duration(seconds: 2),
+                      duration: const Duration(seconds: 2),
                       curve: Curves.easeInOutCubic);
                 },
                 unselectedLabelColor: Colors.red.shade900,

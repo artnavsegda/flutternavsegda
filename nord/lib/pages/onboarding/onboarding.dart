@@ -39,7 +39,7 @@ class _OnboardingState extends State<Onboarding> {
         Column(
           children: [
             AnimatedSwitcher(
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               child: Image.asset(
                 imageList[pageNumber],
                 key: ValueKey<int>(pageNumber),

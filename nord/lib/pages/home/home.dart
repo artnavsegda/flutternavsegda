@@ -25,15 +25,15 @@ class HomePage extends StatelessWidget {
             height: 220,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: [
+              children: const [
                 SizedBox(
                   width: 12,
                 ),
-                const ActionCard(
+                ActionCard(
                     actionName: 'Взрывная весна!\nОткрой новые вкусы сладко...',
                     actionImage: 'assets/placeholder/action/Illustration.png',
                     actionDate: '15 октября–27 ноября'),
-                const ActionCard(
+                ActionCard(
                     actionName: 'Шокодень',
                     actionImage: 'assets/placeholder/cake.png',
                     actionDate: 'Только до 31 октября'),
@@ -49,29 +49,29 @@ class HomePage extends StatelessWidget {
             height: 240,
             child: ListView(
               scrollDirection: Axis.horizontal,
-              children: [
+              children: const [
                 SizedBox(
                   width: 16,
                 ),
-                const ProductCard(
+                ProductCard(
                   productImage: 'assets/placeholder/product1/Illustration.png',
                   productName: 'Торт «Сезонный» с ягодами',
                   productPrice: '420 ₽',
                 ),
                 SizedBox(width: 8),
-                const ProductCard(
+                ProductCard(
                   productImage: 'assets/placeholder/product2/Illustration.png',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 SizedBox(width: 8),
-                const ProductCard(
+                ProductCard(
                   productImage: 'assets/placeholder/product2/Illustration.png',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 SizedBox(width: 8),
-                const ProductCard(
+                ProductCard(
                   productImage: 'assets/placeholder/product2/Illustration.png',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',

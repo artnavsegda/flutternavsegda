@@ -65,7 +65,7 @@ class CardNotLoggedIn extends StatelessWidget {
             const Positioned(
               bottom: 87,
               left: 85,
-              child: const Text(
+              child: Text(
                 'Сюрпризы ждут вас!',
                 style: TextStyle(color: Colors.white),
               ),
@@ -142,7 +142,7 @@ class CardLoggedIn extends StatelessWidget {
                 const Positioned(
                   bottom: 48,
                   left: 16,
-                  child: const Text(
+                  child: Text(
                     'У вас',
                     style: TextStyle(color: Colors.white),
                   ),
@@ -150,9 +150,9 @@ class CardLoggedIn extends StatelessWidget {
                 const Positioned(
                   bottom: 16,
                   left: 16,
-                  child: const Text(
+                  child: Text(
                     '120 бонусов',
-                    style: const TextStyle(
+                    style: TextStyle(
                       color: Colors.white,
                       fontFamily: 'Forum',
                       fontSize: 24.0,

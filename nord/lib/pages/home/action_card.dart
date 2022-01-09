@@ -36,17 +36,17 @@ class ActionCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   )),
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Text(
               actionDate,
-              style: TextStyle(
+              style: const TextStyle(
                 fontSize: 10,
                 color: Colors.grey,
               ),
             ),
-            Text(actionName, style: TextStyle(fontSize: 16)),
+            Text(actionName, style: const TextStyle(fontSize: 16)),
           ],
         ),
       ),

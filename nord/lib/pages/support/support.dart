@@ -7,7 +7,7 @@ class SupportPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Чат'),
+        title: const Text('Чат'),
       ),
     );
   }
