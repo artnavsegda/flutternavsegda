@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'review.dart';
+import '../../components/gradient_button.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -187,14 +188,26 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
                 ),
-                const Text('Вес, гр'),
-                Row(
-                  children: [
-                    OutlinedButton(onPressed: () {}, child: const Text('50')),
-                    ElevatedButton(onPressed: () {}, child: const Text('100')),
-                    OutlinedButton(onPressed: () {}, child: const Text('250')),
-                    OutlinedButton(onPressed: () {}, child: const Text('1000')),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text('Вес, гр'),
+                      Row(
+                        children: [
+                          OutlinedButton(
+                              onPressed: () {}, child: const Text('50')),
+                          ElevatedButton(
+                              onPressed: () {}, child: const Text('100')),
+                          OutlinedButton(
+                              onPressed: () {}, child: const Text('250')),
+                          OutlinedButton(
+                              onPressed: () {}, child: const Text('1000')),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 DefaultTabController(
                   length: 3,
@@ -270,29 +283,28 @@ class _ProductPageState extends State<ProductPage> {
                 ][page],
               ],
             ),
-            bottomNavigationBar: Row(
-              children: [
-                Expanded(
-                  child: ElevatedButton.icon(
-                      onPressed: () {
-                        Fluttertoast.showToast(
-                            msg: "Товар добавлен в корзину",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.TOP,
-                            timeInSecForIosWeb: 1);
-                      },
-                      icon: const Text('Добавить в корзину'),
-                      label: const Text('315 ₽')),
-                ),
-                TextButton.icon(
-                    onPressed: () {
-                      setState(() {
-                        headerUp = !headerUp;
-                      });
-                    },
-                    icon: Image.asset('assets/Icon-Favorite.png'),
-                    label: const Text('256')),
-              ],
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: GradientButton.icon(
+                        onPressed: () {
+                          Fluttertoast.showToast(
+                              msg: "Товар добавлен в корзину",
+                              toastLength: Toast.LENGTH_SHORT,
+                              gravity: ToastGravity.TOP,
+                              timeInSecForIosWeb: 1);
+                        },
+                        icon: const Text('Добавить в корзину'),
+                        label: const Text('315 ₽')),
+                  ),
+                  TextButton.icon(
+                      onPressed: () {},
+                      icon: Image.asset('assets/Icon-Favorite.png'),
+                      label: const Text('256')),
+                ],
+              ),
             ),
           ),
           AnimatedPositioned(
