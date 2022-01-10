@@ -306,18 +306,27 @@ class _ProductPageState extends State<ProductPage> {
                     padding: const EdgeInsets.all(16.0),
                     child: Column(
                       children: [
-                        const Text('Отзывов о товаре пока нет'),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: const Text(
+                            'Отзывов о товаре пока нет',
+                            style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                          ),
+                        ),
                         const Text(
                             'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
-                        OutlinedButton(
-                            onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const ReviewPage()));
-                            },
-                            child: const Text('Оставить отзыв'))
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            const ReviewPage()));
+                              },
+                              child: const Text('Оставить отзыв')),
+                        )
                       ],
                     ),
                   )
