@@ -322,12 +322,12 @@ class BadgeIcon extends StatelessWidget {
         width: 32,
         height: 32,
         child: Container(
-          padding: EdgeInsets.symmetric(horizontal: 1, vertical: 2),
+          padding: EdgeInsets.symmetric(horizontal: 1, vertical: 5),
           alignment: Alignment.bottomLeft,
           color: color,
           child: Text(
             title,
-            style: TextStyle(fontSize: 10, color: Colors.white),
+            style: TextStyle(fontSize: 10, color: Colors.white, height: 1.1),
           ),
         ),
       ),
