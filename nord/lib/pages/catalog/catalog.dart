@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../components/components.dart';
 import '../../components/product_card.dart';
+import 'search.dart';
 
 class CatalogPage extends StatelessWidget {
   const CatalogPage({Key? key}) : super(key: key);
@@ -96,8 +97,14 @@ class CatalogPage extends StatelessWidget {
             Row(
               children: [
                 const SizedBox(width: 16.0),
-                const Flexible(
+                Flexible(
                   child: TextField(
+                    onTap: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const SearchPage()));
+                    },
                     decoration: InputDecoration(
                         hintText: 'Найти в каталоге',
                         isDense: true,
