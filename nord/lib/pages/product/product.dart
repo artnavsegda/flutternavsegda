@@ -256,7 +256,17 @@ class _ProductPageState extends State<ProductPage> {
                                       isScrollControlled: true,
                                       context: context,
                                       builder: (context) {
-                                        return const Text('A');
+                                        return Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            ListTile(
+                                              title: Text(
+                                                  'Пищевая ценность на 100 г'),
+                                              trailing: Image.asset(
+                                                  'assets/Icon-Close.png'),
+                                            ),
+                                          ],
+                                        );
                                       },
                                     );
                                   },
