@@ -331,11 +331,35 @@ class _ProductPageState extends State<ProductPage> {
                   Expanded(
                     child: GradientButton(
                       onPressed: () {
-                        Fluttertoast.showToast(
-                            msg: "Товар добавлен в корзину",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.TOP,
-                            timeInSecForIosWeb: 1);
+                        showModalBottomSheet(
+                          isScrollControlled: true,
+                          context: context,
+                          builder: (context) {
+                            return Column(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                Text('Дополнительный ингредиент'),
+                                ListTile(
+                                  title: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Без дополнительных'),
+                                      Text('0 Р'),
+                                    ],
+                                  ),
+                                  onTap: () {
+                                    Fluttertoast.showToast(
+                                        msg: "Товар добавлен в корзину",
+                                        toastLength: Toast.LENGTH_SHORT,
+                                        gravity: ToastGravity.TOP,
+                                        timeInSecForIosWeb: 1);
+                                  },
+                                ),
+                              ],
+                            );
+                          },
+                        );
                       },
                       child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
