@@ -251,7 +251,15 @@ class _ProductPageState extends State<ProductPage> {
                           Column(
                             children: [
                               TextButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showModalBottomSheet(
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return const Text('A');
+                                      },
+                                    );
+                                  },
                                   child: const Text('490.8 Ккал')),
                               const Text('Калорийность'),
                             ],
