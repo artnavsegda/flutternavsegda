@@ -19,7 +19,7 @@ class ShoppingPage extends StatelessWidget {
           const AddressTile2(),
           Expanded(
             child: ListView(
-              children: const [
+              children: [
                 CartTile(),
                 CartTile(),
                 CartTile(),
@@ -29,14 +29,57 @@ class ShoppingPage extends StatelessWidget {
                 CartTile(),
                 CartTile(),
                 CartTile(),
-                TextField(),
-                Text('Сумма заказа'),
-                TextField(),
-                Text('Сумма заказа'),
-                Text('Доставка'),
-                Text('Скидка'),
-                Divider(),
-                Text('Общая сумма заказа'),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: TextField(),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text(
+                    'Сумма заказа',
+                    style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: TextField(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Сумма заказа'),
+                          Text('1 435 ₽'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Доставка'),
+                          Text('Бесплатно'),
+                        ],
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Скидка'),
+                          Text('- 110 ₽'),
+                        ],
+                      ),
+                      Divider(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text('Общая сумма заказа'),
+                          Text('1 325 ₽'),
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
               ],
             ),
           ),
