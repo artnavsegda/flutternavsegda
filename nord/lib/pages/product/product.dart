@@ -235,17 +235,26 @@ class _ProductPageState extends State<ProductPage> {
                     children: [
                       const Divider(),
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           Column(
                             children: const [
                               Text('36 часов'),
-                              Text('Срок хранения'),
+                              Text(
+                                'Срок хранения',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              ),
                             ],
                           ),
                           Column(
                             children: const [
                               Text('3-25℃ – +25℃'),
-                              Text('Условия хранения'),
+                              Text(
+                                'Условия хранения',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              ),
                             ],
                           ),
                           Column(
@@ -271,7 +280,11 @@ class _ProductPageState extends State<ProductPage> {
                                     );
                                   },
                                   child: const Text('490.8 Ккал')),
-                              const Text('Калорийность'),
+                              const Text(
+                                'Калорийность',
+                                style:
+                                    TextStyle(color: Colors.grey, fontSize: 10),
+                              ),
                             ],
                           )
                         ],
