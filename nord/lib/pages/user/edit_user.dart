@@ -46,9 +46,18 @@ class EditUser extends StatelessWidget {
                     },
                   );
                 },
-                child: const CircleAvatar(
-                  radius: 48,
-                  foregroundImage: AssetImage('assets/treska.jpg'),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    const CircleAvatar(
+                      radius: 48,
+                      foregroundImage: AssetImage('assets/treska.jpg'),
+                    ),
+                    Image.asset(
+                      'assets/Icon-Photo-Camers.png',
+                      color: Colors.white,
+                    ),
+                  ],
                 ),
               ),
             ),
