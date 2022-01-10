@@ -78,9 +78,27 @@ class RegistrationPage extends StatelessWidget {
             ),
             trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
-          const Text('Способы оплаты'),
-          const TextField(),
-          ElevatedButton(onPressed: () {}, child: const Text('Оплатить')),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text('Способы оплаты',
+                style: TextStyle(
+                  fontFamily: 'Forum',
+                  fontSize: 24,
+                )),
+          ),
+          Row(
+            children: [
+              OutlinedButton(onPressed: () {}, child: Text('Новая Карта')),
+              ElevatedButton(onPressed: () {}, child: Text('На месте')),
+            ],
+          ),
+          TextField(),
+          Spacer(),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child:
+                ElevatedButton(onPressed: () {}, child: const Text('Оплатить')),
+          ),
         ],
       ),
     );
