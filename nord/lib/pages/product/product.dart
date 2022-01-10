@@ -21,11 +21,11 @@ class _ProductPageState extends State<ProductPage> {
     super.initState();
     _scrollController.addListener(
       () {
-        if (_scrollController.offset > 0 && headerUp == false) {
+        if (_scrollController.offset > 50 && headerUp == false) {
           setState(() {
             headerUp = true;
           });
-        } else if (_scrollController.offset < 1) {
+        } else if (_scrollController.offset < 51) {
           {
             setState(() {
               headerUp = false;
@@ -125,39 +125,67 @@ class _ProductPageState extends State<ProductPage> {
                     ],
                   ),
                 ),
-                Row(
-                  children: [
-                    Column(
-                      children: [
-                        Row(
-                          children: const [
-                            Text('315р'),
-                            Text('420р'),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Tooltip(
-                                preferBelow: false,
-                                triggerMode: TooltipTriggerMode.tap,
-                                message:
-                                    'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',
-                                child: Text(
-                                  'Базовая цена.',
-                                  style: TextStyle(color: Colors.red.shade900),
-                                )),
-                            const Text('За 1 шт.'),
-                          ],
-                        ),
-                      ],
-                    ),
-                    Column(
-                      children: const [
-                        Text('4.7'),
-                        Text('13 отзывов'),
-                      ],
-                    ),
-                  ],
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            crossAxisAlignment: CrossAxisAlignment.baseline,
+                            textBaseline: TextBaseline.ideographic,
+                            children: const [
+                              Text(
+                                '250 P ',
+                                style: TextStyle(
+                                    fontFamily: 'Forum', fontSize: 34),
+                              ),
+                              Text(
+                                '420 P',
+                                style: TextStyle(
+                                    fontFamily: 'Forum',
+                                    fontSize: 20,
+                                    color: Colors.grey),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            children: [
+                              Tooltip(
+                                  preferBelow: false,
+                                  triggerMode: TooltipTriggerMode.tap,
+                                  message:
+                                      'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',
+                                  child: Text(
+                                    'Базовая цена. ',
+                                    style:
+                                        TextStyle(color: Colors.red.shade900),
+                                  )),
+                              const Text('За 1 шт.'),
+                            ],
+                          ),
+                        ],
+                      ),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Row(
+                            children: [
+                              Image.asset(
+                                'assets/Icon-Star-Rate.png',
+                                color: Color(0xFFD2AB67),
+                              ),
+                              Text('4.7'),
+                            ],
+                          ),
+                          Text('13 отзывов'),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
                 const Text('Вес, гр'),
                 Row(
