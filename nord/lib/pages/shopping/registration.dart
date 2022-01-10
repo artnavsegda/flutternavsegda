@@ -36,8 +36,30 @@ class RegistrationPage extends StatelessWidget {
                         value: false,
                         onChanged: (newVal) {},
                       ),
-                      const Text('Дата доставки'),
-                      const Text('Время доставки'),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: const Text('Дата доставки',
+                            style: TextStyle(
+                              fontFamily: 'Forum',
+                              fontSize: 24,
+                            )),
+                      ),
+                      Row(
+                        children: [
+                          ElevatedButton(
+                              onPressed: () {}, child: const Text('20.10')),
+                          OutlinedButton(
+                              onPressed: () {}, child: const Text('21.10')),
+                        ],
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: const Text('Время доставки',
+                            style: TextStyle(
+                              fontFamily: 'Forum',
+                              fontSize: 24,
+                            )),
+                      ),
                       Row(
                         children: [
                           OutlinedButton(
