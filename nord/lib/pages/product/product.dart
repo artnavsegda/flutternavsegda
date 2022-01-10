@@ -329,16 +329,21 @@ class _ProductPageState extends State<ProductPage> {
               child: Row(
                 children: [
                   Expanded(
-                    child: GradientButton.icon(
-                        onPressed: () {
-                          Fluttertoast.showToast(
-                              msg: "Товар добавлен в корзину",
-                              toastLength: Toast.LENGTH_SHORT,
-                              gravity: ToastGravity.TOP,
-                              timeInSecForIosWeb: 1);
-                        },
-                        icon: const Text('Добавить в корзину'),
-                        label: const Text('315 ₽')),
+                    child: GradientButton(
+                      onPressed: () {
+                        Fluttertoast.showToast(
+                            msg: "Товар добавлен в корзину",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.TOP,
+                            timeInSecForIosWeb: 1);
+                      },
+                      child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('Добавить в корзину'),
+                            Text('256 P')
+                          ]),
+                    ),
                   ),
                   TextButton.icon(
                       onPressed: () {},
