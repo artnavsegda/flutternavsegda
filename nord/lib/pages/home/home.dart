@@ -17,12 +17,12 @@ class HomePage extends StatelessWidget {
           const AddressTile2(),
           const CardLoggedIn(),
           const Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
             child: Text("Акции",
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           SizedBox(
-            height: 220,
+            height: 225,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: const [
@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           SizedBox(
-            height: 240,
+            height: 280,
             child: ListView(
               scrollDirection: Axis.horizontal,
               children: const [
@@ -80,7 +80,7 @@ class HomePage extends StatelessWidget {
             ),
           ),
           const Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Кондитерские и кафе",
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
