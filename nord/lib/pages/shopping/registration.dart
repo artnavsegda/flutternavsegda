@@ -124,9 +124,12 @@ class RegistrationPage extends StatelessWidget {
             child: Stack(
               alignment: Alignment.bottomCenter,
               children: [
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 24.0),
-                  child: TextField(),
+                Column(
+                  children: [
+                    TextField(),
+                    SizedBox(height: 4),
+                    Text('Вы можете использовать до 120 бонусов'),
+                  ],
                 ),
                 Slider(
                   onChanged: (newVal) {},
@@ -135,8 +138,7 @@ class RegistrationPage extends StatelessWidget {
               ],
             ),
           ),
-          const Text('Вы можете использовать до 120 бонусов'),
-          Spacer(),
+          const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child:

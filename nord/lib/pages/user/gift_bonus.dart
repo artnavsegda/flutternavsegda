@@ -8,19 +8,29 @@ class GiftBonusModalSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Подарочные бонусы'),
-        Stack(
-          children: [
-            TextField(),
-            Slider(
-              onChanged: (newVal) {},
-              value: 0,
-            ),
-          ],
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Stack(
+            alignment: Alignment.bottomCenter,
+            children: [
+              Column(
+                children: [
+                  TextField(),
+                  SizedBox(height: 4),
+                  Text('Вы можете подарить до 120 бонусов'),
+                ],
+              ),
+              Slider(
+                onChanged: (newVal) {},
+                value: 0,
+              ),
+            ],
+          ),
         ),
-        const Text('Вы можете подарить до 120 бонусов'),
         const TextField(),
         ElevatedButton(onPressed: () {}, child: const Text('Подарить бонусы'))
       ],
