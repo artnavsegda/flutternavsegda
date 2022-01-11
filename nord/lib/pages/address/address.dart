@@ -20,24 +20,33 @@ class AddressPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
-          Row(
-            children: [
-              OutlinedButton.icon(
-                  onPressed: () {},
-                  label: const Text('Доставка'),
-                  icon:
-                      Image.asset('assets/Illustration-Colored-Delivery.png')),
-              OutlinedButton.icon(
-                  onPressed: () {},
-                  label: const Text('Самовывоз'),
-                  icon: Image.asset('assets/Illustration-Colored-Cafe.png'))
-            ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SizedBox(width: 16),
+                OutlinedButton.icon(
+                    onPressed: () {},
+                    label: const Text('Доставка'),
+                    icon: Image.asset(
+                        'assets/Illustration-Colored-Delivery.png')),
+                SizedBox(width: 8),
+                OutlinedButton.icon(
+                    onPressed: () {},
+                    label: const Text('Самовывоз'),
+                    icon: Image.asset('assets/Illustration-Colored-Cafe.png'))
+              ],
+            ),
           ),
           ListTile(
             title: const Text('Адмиралтейская набережная, 10а'),
             trailing: Image.asset('assets/Icon-Edit.png'),
           ),
-          ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child:
+                ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
+          ),
         ],
       ),
     );
