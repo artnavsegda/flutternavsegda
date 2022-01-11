@@ -11,10 +11,14 @@ class GiftBonusModalSheet extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         const Text('Подарочные бонусы'),
-        const TextField(),
-        Slider(
-          onChanged: (newVal) {},
-          value: 0,
+        Stack(
+          children: [
+            TextField(),
+            Slider(
+              onChanged: (newVal) {},
+              value: 0,
+            ),
+          ],
         ),
         const Text('Вы можете подарить до 120 бонусов'),
         const TextField(),
