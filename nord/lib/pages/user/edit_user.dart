@@ -8,6 +8,11 @@ class EditUser extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset('assets/Icon-West.png')),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

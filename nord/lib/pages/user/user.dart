@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'edit_user.dart';
+import 'gift_bonus.dart';
 import '../../sever_metropol_icons.dart';
 import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
@@ -132,30 +133,6 @@ class UserPage extends StatelessWidget {
           title: const Text("Выход из приложения"),
           leading: Icon(SeverMetropol.Icon_Logout, color: Colors.red.shade900),
         ),
-      ],
-    );
-  }
-}
-
-class GiftBonusModalSheet extends StatelessWidget {
-  const GiftBonusModalSheet({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        const Text('Подарочные бонусы'),
-        const TextField(),
-        Slider(
-          onChanged: (newVal) {},
-          value: 0,
-        ),
-        const Text('Вы можете подарить до 120 бонусов'),
-        const TextField(),
-        ElevatedButton(onPressed: () {}, child: const Text('Подарить бонусы'))
       ],
     );
   }
