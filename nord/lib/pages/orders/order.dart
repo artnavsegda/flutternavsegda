@@ -9,6 +9,11 @@ class OrderPage extends StatelessWidget {
     return Scaffold(
         appBar: AppBar(
           title: Text('Заказ №2564848'),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset('assets/Icon-West.png')),
         ),
         body: ListView(
           children: [
@@ -37,7 +42,13 @@ class OrderPage extends StatelessWidget {
                 ],
               ),
             ),
-            Text('Детали заказа'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Детали заказа',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              ),
+            ),
             ListTile(
               subtitle: Text('Доставка по адресу'),
               title:
@@ -51,7 +62,13 @@ class OrderPage extends StatelessWidget {
               subtitle: Text('Получатель'),
               title: Text('Антон Горький, +7 (999) 102-17-32'),
             ),
-            Text('Детали оплаты'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Детали оплаты',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              ),
+            ),
             Row(
               children: [Text('Оплачено'), Text('1 325 ₽')],
             ),
@@ -72,7 +89,13 @@ class OrderPage extends StatelessWidget {
               title: Text('Чек оплаты'),
               trailing: Image.asset('assets/Icon-Site.png'),
             ),
-            Text('Состав заказа'),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Text(
+                'Состав заказа',
+                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              ),
+            ),
             OrderCartTile(),
             OrderCartTile(),
             OrderCartTile(),
