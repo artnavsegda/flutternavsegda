@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -11,10 +12,30 @@ class OrderPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            Row(
-              children: [
-                Text('Оценка заказа'),
-              ],
+            Container(
+              color: Colors.grey[200],
+              padding: const EdgeInsets.all(16.0),
+              margin: const EdgeInsets.all(16.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Оценка заказа'),
+                  RatingBar(
+                    itemSize: 27,
+                    initialRating: 4.0,
+                    direction: Axis.horizontal,
+                    allowHalfRating: false,
+                    itemCount: 5,
+                    ratingWidget: RatingWidget(
+                      full: Image.asset('assets/Icon-Star-Rate.png'),
+                      half: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
+                      empty: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
+                    ),
+                    itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                    onRatingUpdate: (newRating) {},
+                  ),
+                ],
+              ),
             ),
             Text('Детали заказа'),
             ListTile(
