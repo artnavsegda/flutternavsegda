@@ -33,6 +33,7 @@ class MapPage extends StatelessWidget {
                         child: const TextField(),
                       ),
                       ListTile(
+                        isThreeLine: true,
                         onTap: () {
                           Navigator.push(
                               context,
@@ -40,7 +41,8 @@ class MapPage extends StatelessWidget {
                                   builder: (context) => const ShopPage()));
                         },
                         title: const Text('Невский, 6'),
-                        subtitle: const Text('Сегодня открыто до 22:00'),
+                        subtitle: const Text(
+                            'Сегодня открыто до 22:00\nАдмиралтейская'),
                         trailing: Image.asset('assets/Icon-Direction.png'),
                       ),
                     ],

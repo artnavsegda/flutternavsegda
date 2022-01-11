@@ -29,65 +29,88 @@ class ShopPage extends StatelessWidget {
               )
             ],
           ),
-          const Text('Просвещения, 19 (ТК Норд)'),
-          const Text('+7 (812) 611-09-27'),
-          ListTile(
-            onTap: () {
-              showModalBottomSheet(
-                backgroundColor: Colors.white,
-                isScrollControlled: true,
-                context: context,
-                builder: (context) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const ListTile(
-                        title: Center(
-                            child: Text(
-                          'Режим работы',
-                        )),
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('Понедельник'),
-                          Text('09:30–20:00'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('Вторник'),
-                          Text('09:30–20:00'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('Среда'),
-                          Text('09:30–20:00'),
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: const [
-                          Text('Четверг'),
-                          Text('09:30–20:00'),
-                        ],
-                      ),
-                    ],
-                  );
-                },
-              );
-            },
-            subtitle: const Text('Режим работы'),
-            title: const Text('Завтра откроется в 10:00'),
-            trailing: Image.asset('assets/Icon-Expand-More.png'),
-          ),
-          const Spacer(),
-          ElevatedButton(
-              onPressed: () {}, child: const Text('Построить маршрут'))
+          Expanded(
+            child: ListView(
+              shrinkWrap: true,
+              children: [
+                ListTile(
+                  isThreeLine: true,
+                  subtitle:
+                      Text('194358, Санкт-Петербург, проспект Просвещения, 19'),
+                  title: Text('Просвещения, 19 (ТК Норд)'),
+                ),
+                ListTile(
+                  subtitle: Text('Метро'),
+                  title: Text('Гражданский проспект Озерки'),
+                ),
+                Divider(),
+                ListTile(
+                  subtitle: Text('Телефон'),
+                  title: Text('+7 (812) 611-09-27'),
+                ),
+                Divider(),
+                ListTile(
+                  onTap: () {
+                    showModalBottomSheet(
+                      backgroundColor: Colors.white,
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        return Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const ListTile(
+                              title: Center(
+                                  child: Text(
+                                'Режим работы',
+                              )),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text('Понедельник'),
+                                Text('09:30–20:00'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text('Вторник'),
+                                Text('09:30–20:00'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text('Среда'),
+                                Text('09:30–20:00'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: const [
+                                Text('Четверг'),
+                                Text('09:30–20:00'),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  subtitle: const Text('Режим работы'),
+                  title: const Text('Завтра откроется в 10:00'),
+                  trailing: Image.asset('assets/Icon-Expand-More.png'),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: ElevatedButton(
+                      onPressed: () {}, child: const Text('Построить маршрут')),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
