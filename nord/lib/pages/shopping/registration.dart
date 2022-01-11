@@ -119,14 +119,21 @@ class RegistrationPage extends StatelessWidget {
               ElevatedButton(onPressed: () {}, child: Text('На месте')),
             ],
           ),
-          Stack(
-            children: [
-              TextField(),
-              Slider(
-                onChanged: (newVal) {},
-                value: 0,
-              ),
-            ],
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 24.0),
+                  child: TextField(),
+                ),
+                Slider(
+                  onChanged: (newVal) {},
+                  value: 0,
+                ),
+              ],
+            ),
           ),
           const Text('Вы можете использовать до 120 бонусов'),
           Spacer(),
