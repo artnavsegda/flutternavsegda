@@ -12,9 +12,7 @@ class OrdersPage extends StatelessWidget {
       ),
       body: ListView(
         children: [
-          ListTile(
-            title: Text('18 апреля'),
-          ),
+          Text('18 апреля'),
           InkWell(
             onTap: () {
               Navigator.push(
