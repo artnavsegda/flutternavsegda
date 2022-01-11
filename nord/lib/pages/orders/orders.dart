@@ -14,22 +14,25 @@ class OrdersPage extends StatelessWidget {
           ListTile(
             title: Text('18 апреля'),
           ),
-          Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text('Доставлен'),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [Text('Заказ №2564848 от 21:40'), Text('1020 ₽')],
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text('Дачный проспект, 36к3, кв. 218'),
-                  Text('+500 Б')
-                ],
-              )
-            ],
+          InkWell(
+            onTap: () {},
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text('Доставлен'),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [Text('Заказ №2564848 от 21:40'), Text('1020 ₽')],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text('Дачный проспект, 36к3, кв. 218'),
+                    Text('+500 Б')
+                  ],
+                )
+              ],
+            ),
           )
         ],
       ),
