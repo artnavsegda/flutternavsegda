@@ -28,7 +28,10 @@ class MapPage extends StatelessWidget {
                   child: ListView(
                     controller: scrollController,
                     children: [
-                      const TextField(),
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: const TextField(),
+                      ),
                       ListTile(
                         onTap: () {
                           Navigator.push(
