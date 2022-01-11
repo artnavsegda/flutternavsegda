@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'order.dart';
 
 class OrdersPage extends StatelessWidget {
   const OrdersPage({Key? key}) : super(key: key);
@@ -15,7 +16,14 @@ class OrdersPage extends StatelessWidget {
             title: Text('18 апреля'),
           ),
           InkWell(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const OrderPage(),
+                ),
+              );
+            },
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
