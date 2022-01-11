@@ -9,6 +9,30 @@ class OrdersPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('История заказов'),
       ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text('18 апреля'),
+          ),
+          Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text('Доставлен'),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [Text('Заказ №2564848 от 21:40'), Text('1020 ₽')],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text('Дачный проспект, 36к3, кв. 218'),
+                  Text('+500 Б')
+                ],
+              )
+            ],
+          )
+        ],
+      ),
     );
   }
 }
