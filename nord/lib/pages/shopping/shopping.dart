@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:dotted_line/dotted_line.dart';
 import '../../components/components.dart';
 import 'registration.dart';
 
@@ -50,30 +51,39 @@ class ShoppingPage extends StatelessWidget {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        textBaseline: TextBaseline.ideographic,
                         children: [
                           Text('Сумма заказа'),
+                          Expanded(child: DottedLine(dashColor: Colors.grey)),
                           Text('1 435 ₽'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('Доставка'),
+                          Expanded(child: DottedLine(dashColor: Colors.grey)),
                           Text('Бесплатно'),
                         ],
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('Скидка'),
+                          Expanded(child: DottedLine(dashColor: Colors.grey)),
                           Text('- 110 ₽'),
                         ],
                       ),
                       Divider(),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('Общая сумма заказа'),
+                          Expanded(child: DottedLine(dashColor: Colors.grey)),
                           Text('1 325 ₽'),
                         ],
                       ),
@@ -178,7 +188,14 @@ class CartTile extends StatelessWidget {
                           ),
                         ],
                       ),
-                      const Text('836 ₽', style: TextStyle(fontSize: 16)),
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Text('836 ₽', style: TextStyle(fontSize: 16)),
+                          const Text('250 ₽',
+                              style: TextStyle(color: Colors.grey)),
+                        ],
+                      ),
                     ],
                   ),
                   const SizedBox(height: 13),
