@@ -65,6 +65,11 @@ class HelpTopicPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Бонусная программа'),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset('assets/Icon-West.png')),
       ),
     );
   }
