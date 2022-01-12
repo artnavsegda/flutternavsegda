@@ -19,6 +19,14 @@ class HelpPage extends StatelessWidget {
           ListTile(
             title: Text('Бонусная программа'),
             trailing: Image.asset('assets/Icon-East.png'),
+            onTap: () => {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HelpTopicPage(),
+                ),
+              )
+            },
           ),
           ListTile(
             title: Text('Доставка и оплата'),
@@ -44,6 +52,19 @@ class HelpPage extends StatelessWidget {
 Основные положения сбора и хранения информации вы можете найти в Положении об Обработке и защите персональных данных.'''),
           )
         ],
+      ),
+    );
+  }
+}
+
+class HelpTopicPage extends StatelessWidget {
+  const HelpTopicPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Бонусная программа'),
       ),
     );
   }
