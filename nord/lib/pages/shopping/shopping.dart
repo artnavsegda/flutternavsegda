@@ -192,8 +192,11 @@ class CartTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('836 ₽', style: TextStyle(fontSize: 16)),
-                          const Text('250 ₽',
-                              style: TextStyle(color: Colors.grey)),
+                          CustomPaint(
+                            painter: RedLine(),
+                            child: const Text('250 ₽',
+                                style: TextStyle(color: Colors.grey)),
+                          ),
                         ],
                       ),
                     ],

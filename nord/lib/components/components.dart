@@ -83,3 +83,18 @@ class AddressTile2 extends StatelessWidget {
     );
   }
 }
+
+class RedLine extends CustomPainter {
+  @override
+  void paint(canvas, size) {
+    canvas.drawLine(
+        Offset(0, size.height),
+        Offset(size.width, 0),
+        Paint()
+          ..color = Colors.red.shade900
+          ..strokeWidth = 1);
+  }
+
+  @override
+  bool shouldRepaint(oldDelegate) => false;
+}

@@ -3,6 +3,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'review.dart';
 import '../../components/gradient_button.dart';
+import '../../components/components.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key}) : super(key: key);
@@ -138,18 +139,21 @@ class _ProductPageState extends State<ProductPage> {
                           Row(
                             crossAxisAlignment: CrossAxisAlignment.baseline,
                             textBaseline: TextBaseline.ideographic,
-                            children: const [
+                            children: [
                               Text(
                                 '250 P ',
                                 style: TextStyle(
                                     fontFamily: 'Forum', fontSize: 34),
                               ),
-                              Text(
-                                '420 P',
-                                style: TextStyle(
-                                    fontFamily: 'Forum',
-                                    fontSize: 20,
-                                    color: Colors.grey),
+                              CustomPaint(
+                                painter: RedLine(),
+                                child: Text(
+                                  '420 P',
+                                  style: TextStyle(
+                                      fontFamily: 'Forum',
+                                      fontSize: 20,
+                                      color: Colors.grey),
+                                ),
                               ),
                             ],
                           ),
