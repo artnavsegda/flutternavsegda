@@ -63,14 +63,35 @@ class HelpTopicPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Бонусная программа'),
-        leading: IconButton(
-            onPressed: () {
-              Navigator.pop(context);
-            },
-            icon: Image.asset('assets/Icon-West.png')),
-      ),
-    );
+        appBar: AppBar(
+          title: Text('Бонусная программа'),
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Image.asset('assets/Icon-West.png')),
+        ),
+        body: ListView(
+          children: [
+            ExpansionTile(
+              title: Text('Термины и определения'),
+              children: [],
+            ),
+            ExpansionTile(
+              title: Text('Общие положения'),
+              children: [],
+            ),
+            ExpansionTile(
+              title: Text('Как копить и тратить бонусы'),
+              children: [
+                Text(
+                    '''5% от каждой покупки на бонусный счёт и оплачивайте до 20% от покупок бонусными рублями.
+При оплате покупки сообщите сотруднику кондитерской о наличии бонусной карты и вашем желании начислить или списать бонусные рубли.
+Отсканируйте QR-код или назовите цифровой код из мобильного приложения. В том случае, если у вас не установлено мобильное приложение, назовите свой номер телефона.
+Бонусная программа действительна только в мобильном приложении или по номеру телефона в наших кафе-кондитерских.''')
+              ],
+            ),
+          ],
+        ));
   }
 }
