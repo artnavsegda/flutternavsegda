@@ -82,13 +82,20 @@ class PasswordPage extends StatelessWidget {
         TextEditingController();
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(controller: passwordInputController),
-          ElevatedButton(onPressed: () {}, child: Text('Password'))
-        ],
-      ),
+      child: Mutation(
+          options: MutationOptions(
+            document: gql(checkPassword),
+            onCompleted: (dynamic resultData) {},
+          ),
+          builder: (runMutation, result) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(controller: passwordInputController),
+                ElevatedButton(onPressed: () {}, child: Text('Password'))
+              ],
+            );
+          }),
     );
   }
 }
