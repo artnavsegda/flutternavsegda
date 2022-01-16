@@ -22,8 +22,12 @@ class WelcomePage extends StatelessWidget {
       body: Mutation(
           options: MutationOptions(
             document: gql(authenticate),
+            onError: (error) {
+              print("ERROR");
+              print(error);
+            },
             onCompleted: (dynamic resultData) {
-              //print('token:' + resultData['authenticate']['token']);
+              print(resultData);
               Provider.of<LoginState>(context, listen: false).token =
                   resultData['authenticate']['token'];
             },
@@ -32,9 +36,10 @@ class WelcomePage extends StatelessWidget {
             return Center(
               child: ElevatedButton(
                 onPressed: () async {
-                  var data = await DeviceInfoPlugin().iosInfo;
+                  //var data = await DeviceInfoPlugin().iosInfo;
                   runMutation({
-                    'gUID': data.identifierForVendor,
+                    //'gUID': data.identifierForVendor,
+                    'gUID': 'test',
                     'bundleID': "ru.levrana.mobile",
                     'oSType': "IOS",
                   });
