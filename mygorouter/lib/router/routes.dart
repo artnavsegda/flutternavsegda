@@ -55,7 +55,7 @@ class LevranaRouter {
       if (loginState.token == '' && !welcomeIn) {
         return welcomeLoc;
       }
-      if (loginState.token != '' && !loggingIn) {
+      if (loginState.token != '' && !loginState.loggedIn && !loggingIn) {
         return loginLoc;
       }
       if (loginState.loggedIn && loggingIn) {
