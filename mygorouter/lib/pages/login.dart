@@ -91,6 +91,10 @@ class PasswordPage extends StatelessWidget {
       child: Mutation(
           options: MutationOptions(
             document: gql(checkPassword),
+            onError: (error) {
+              print("ERROR");
+              print(error);
+            },
             onCompleted: (dynamic resultData) {
               if (resultData['checkClient']['result'] == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
@@ -106,8 +110,7 @@ class PasswordPage extends StatelessWidget {
                 TextField(controller: passwordInputController),
                 ElevatedButton(
                     onPressed: () {
-                      runMutation(
-                          {'clientPhone': passwordInputController.text});
+                      runMutation({'password': passwordInputController.text});
                       print(passwordInputController.text);
                     },
                     child: Text('Password'))
@@ -139,6 +142,10 @@ class ConfirmSMSPage extends StatelessWidget {
       child: Mutation(
           options: MutationOptions(
             document: gql(checkSms),
+            onError: (error) {
+              print("ERROR");
+              print(error);
+            },
             onCompleted: (dynamic resultData) {
               if (resultData['checkClient']['result'] == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
@@ -154,7 +161,7 @@ class ConfirmSMSPage extends StatelessWidget {
                 TextField(controller: smsInputController),
                 ElevatedButton(
                     onPressed: () {
-                      runMutation({'clientPhone': smsInputController.text});
+                      runMutation({'code': smsInputController.text});
                       print(smsInputController.text);
                     },
                     child: Text('SMS'))
