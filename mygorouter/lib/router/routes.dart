@@ -3,6 +3,7 @@ import 'package:go_router/go_router.dart';
 
 import '../login_state.dart';
 import '../pages/login.dart';
+import '../pages/welcome.dart';
 
 class LevranaRouter {
   final LoginState loginState;
@@ -17,7 +18,15 @@ class LevranaRouter {
         path: '/',
         redirect: (state) =>
             // TODO: Change to Home Route
-            state.namedLocation('login'),
+            state.namedLocation('welcome'),
+      ),
+      GoRoute(
+        name: 'welcome',
+        path: '/welcome',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const WelcomePage(),
+        ),
       ),
       GoRoute(
         name: 'login',
