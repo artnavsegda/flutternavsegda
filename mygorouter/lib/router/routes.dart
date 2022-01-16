@@ -17,7 +17,8 @@ class LevranaRouter {
       GoRoute(
         name: 'root',
         path: '/',
-        redirect: (state) => state.namedLocation('home'),
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'main'}),
       ),
       GoRoute(
         name: 'welcome',
@@ -37,11 +38,39 @@ class LevranaRouter {
       ),
       GoRoute(
         name: 'home',
-        path: '/home',
-        pageBuilder: (context, state) => MaterialPage<void>(
-          key: state.pageKey,
-          child: const HomePage(),
-        ),
+        path: '/home/:tab(main|shop|cart|profile|more)',
+        pageBuilder: (context, state) {
+          final tab = state.params['tab']!;
+          return MaterialPage<void>(
+            key: state.pageKey,
+            child: HomePage(tab: tab),
+          );
+        },
+      ),
+      GoRoute(
+        path: '/main',
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'main'}),
+      ),
+      GoRoute(
+        path: '/shop',
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'shop'}),
+      ),
+      GoRoute(
+        path: '/cart',
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'cart'}),
+      ),
+      GoRoute(
+        path: '/profile',
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'profile'}),
+      ),
+      GoRoute(
+        path: '/more',
+        redirect: (state) =>
+            state.namedLocation('home', params: {'tab': 'more'}),
       ),
     ],
     redirect: (state) {
