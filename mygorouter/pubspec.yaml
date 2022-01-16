@@ -37,6 +37,7 @@ dependencies:
   go_router: ^3.0.1
   shared_preferences: ^2.0.12
   provider: ^6.0.2
+  graphql_flutter: ^5.0.0
 
 dev_dependencies:
   flutter_test:
