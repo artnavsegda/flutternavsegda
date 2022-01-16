@@ -61,6 +61,16 @@ class LoginPage extends StatelessWidget {
   }
 }
 
+const String checkPassword = r'''
+mutation checkPassword($password: String!){
+  checkClient(checkUser: {step: PASSWORD, code: $password}) {
+    result
+    errorMessage
+    token
+  }
+}
+''';
+
 class PasswordPage extends StatelessWidget {
   const PasswordPage({Key? key}) : super(key: key);
 
@@ -80,6 +90,16 @@ class PasswordPage extends StatelessWidget {
     );
   }
 }
+
+const String checkSms = r'''
+mutation checkClient($code: String!){
+  checkClient(checkUser: {step: SMS_CONFIRMED_PHONE, code: $code}) {
+    result
+    errorMessage
+    token
+  }
+}
+''';
 
 class ConfirmSMSPage extends StatelessWidget {
   const ConfirmSMSPage({Key? key}) : super(key: key);
