@@ -85,7 +85,12 @@ class PasswordPage extends StatelessWidget {
       child: Mutation(
           options: MutationOptions(
             document: gql(checkPassword),
-            onCompleted: (dynamic resultData) {},
+            onCompleted: (dynamic resultData) {
+              if (resultData['checkClient']['result'] == 0) {
+                Provider.of<LoginState>(context, listen: false).token =
+                    resultData['checkClient']['token'];
+              }
+            },
           ),
           builder: (runMutation, result) {
             return Column(
@@ -118,13 +123,25 @@ class ConfirmSMSPage extends StatelessWidget {
     final TextEditingController smsInputController = TextEditingController();
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          TextField(controller: smsInputController),
-          ElevatedButton(onPressed: () {}, child: Text('SMS'))
-        ],
-      ),
+      child: Mutation(
+          options: MutationOptions(
+            document: gql(checkSms),
+            onCompleted: (dynamic resultData) {
+              if (resultData['checkClient']['result'] == 0) {
+                Provider.of<LoginState>(context, listen: false).token =
+                    resultData['checkClient']['token'];
+              }
+            },
+          ),
+          builder: (runMutation, result) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                TextField(controller: smsInputController),
+                ElevatedButton(onPressed: () {}, child: Text('SMS'))
+              ],
+            );
+          }),
     );
   }
 }
