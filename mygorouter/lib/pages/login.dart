@@ -25,7 +25,12 @@ class LoginPage extends StatelessWidget {
       body: Mutation(
           options: MutationOptions(
             document: gql(loginClient),
-            onCompleted: (dynamic resultData) {
+            onError: (error) {
+              print("ERROR");
+              print(error);
+            },
+            onCompleted: (resultData) {
+              print(resultData);
               if (resultData['loginClient']['result'] == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['loginClient']['token'];
@@ -50,11 +55,12 @@ class LoginPage extends StatelessWidget {
                   TextField(controller: phoneNumberController),
                   ElevatedButton(
                       onPressed: () {
-                        runMutation(
-                            {'clientPhone': phoneNumberController.text});
+                        runMutation({
+                          'clientPhone': int.parse(phoneNumberController.text)
+                        });
                         print(phoneNumberController.text);
                       },
-                      child: Text('Enter'))
+                      child: Text('Login'))
                 ],
               ),
             );
@@ -98,7 +104,13 @@ class PasswordPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(controller: passwordInputController),
-                ElevatedButton(onPressed: () {}, child: Text('Password'))
+                ElevatedButton(
+                    onPressed: () {
+                      runMutation(
+                          {'clientPhone': passwordInputController.text});
+                      print(passwordInputController.text);
+                    },
+                    child: Text('Password'))
               ],
             );
           }),
@@ -140,7 +152,12 @@ class ConfirmSMSPage extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 TextField(controller: smsInputController),
-                ElevatedButton(onPressed: () {}, child: Text('SMS'))
+                ElevatedButton(
+                    onPressed: () {
+                      runMutation({'clientPhone': smsInputController.text});
+                      print(smsInputController.text);
+                    },
+                    child: Text('SMS'))
               ],
             );
           }),

@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../login_state.dart';
 import '../pages/login.dart';
 import '../pages/welcome.dart';
+import '../pages/home.dart';
 
 class LevranaRouter {
   final LoginState loginState;
@@ -16,9 +17,7 @@ class LevranaRouter {
       GoRoute(
         name: 'root',
         path: '/',
-        redirect: (state) =>
-            // TODO: Change to Home Route
-            state.namedLocation('login'),
+        redirect: (state) => state.namedLocation('home'),
       ),
       GoRoute(
         name: 'welcome',
@@ -36,6 +35,14 @@ class LevranaRouter {
           child: const LoginPage(),
         ),
       ),
+      GoRoute(
+        name: 'home',
+        path: '/home',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const HomePage(),
+        ),
+      ),
     ],
     redirect: (state) {
       //print('device token ' + loginState.token);
@@ -43,11 +50,16 @@ class LevranaRouter {
       final welcomeIn = state.subloc == welcomeLoc;
       final loginLoc = state.namedLocation('login');
       final loggingIn = state.subloc == loginLoc;
+      final rootLoc = state.namedLocation('root');
+
       if (loginState.token == '' && !welcomeIn) {
-        return state.namedLocation('welcome');
+        return welcomeLoc;
       }
       if (loginState.token != '' && !loggingIn) {
-        return state.namedLocation('login');
+        return loginLoc;
+      }
+      if (loginState.loggedIn && loggingIn) {
+        return rootLoc;
       }
       return null;
     },
