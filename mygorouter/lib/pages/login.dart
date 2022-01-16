@@ -5,6 +5,16 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      body: Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            TextField(),
+            ElevatedButton(onPressed: () {}, child: Text('Enter'))
+          ],
+        ),
+      ),
+    );
   }
 }
