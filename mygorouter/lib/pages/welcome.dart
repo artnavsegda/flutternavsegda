@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import '../login_state.dart';
 
 const String authenticate = r'''
@@ -22,6 +23,7 @@ class WelcomePage extends StatelessWidget {
           options: MutationOptions(
             document: gql(authenticate),
             onCompleted: (dynamic resultData) {
+              //print('token:' + resultData['authenticate']['token']);
               Provider.of<LoginState>(context, listen: false).token =
                   resultData['authenticate']['token'];
             },
@@ -29,7 +31,14 @@ class WelcomePage extends StatelessWidget {
           builder: (runMutation, result) {
             return Center(
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () async {
+                  var data = await DeviceInfoPlugin().iosInfo;
+                  runMutation({
+                    'gUID': data.identifierForVendor,
+                    'bundleID': "ru.levrana.mobile",
+                    'oSType': "IOS",
+                  });
+                },
                 child: Text('Enter'),
               ),
             );

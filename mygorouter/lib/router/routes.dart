@@ -18,7 +18,7 @@ class LevranaRouter {
         path: '/',
         redirect: (state) =>
             // TODO: Change to Home Route
-            state.namedLocation('welcome'),
+            state.namedLocation('login'),
       ),
       GoRoute(
         name: 'welcome',
@@ -37,5 +37,19 @@ class LevranaRouter {
         ),
       ),
     ],
+    redirect: (state) {
+      //print('device token ' + loginState.token);
+      final welcomeLoc = state.namedLocation('welcome');
+      final welcomeIn = state.subloc == welcomeLoc;
+      final loginLoc = state.namedLocation('login');
+      final loggingIn = state.subloc == loginLoc;
+      if (loginState.token == '' && !welcomeIn) {
+        return state.namedLocation('welcome');
+      }
+      if (loginState.token != '' && !loggingIn) {
+        return state.namedLocation('login');
+      }
+      return null;
+    },
   );
 }
