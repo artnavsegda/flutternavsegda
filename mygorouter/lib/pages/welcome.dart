@@ -26,7 +26,7 @@ class WelcomePage extends StatelessWidget {
                   resultData['authenticate']['token'];
             },
           ),
-          builder: (context, snapshot) {
+          builder: (runMutation, result) {
             return Center(
               child: ElevatedButton(
                 onPressed: () {},
