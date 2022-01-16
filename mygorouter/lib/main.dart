@@ -53,7 +53,7 @@ class LevranaApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Levrana App',
               theme: ThemeData(
-                primarySwatch: Colors.green,
+                primarySwatch: Colors.red,
               ),
             ),
           );
