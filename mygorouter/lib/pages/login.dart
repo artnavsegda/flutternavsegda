@@ -89,6 +89,7 @@ class PasswordPage extends StatelessWidget {
               if (resultData['checkClient']['result'] == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['checkClient']['token'];
+                Provider.of<LoginState>(context, listen: false).loggedIn = true;
               }
             },
           ),
@@ -130,6 +131,7 @@ class ConfirmSMSPage extends StatelessWidget {
               if (resultData['checkClient']['result'] == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['checkClient']['token'];
+                Provider.of<LoginState>(context, listen: false).loggedIn = true;
               }
             },
           ),
