@@ -66,12 +66,14 @@ class PasswordPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController passwordInputController =
+        TextEditingController();
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(),
+          TextField(controller: passwordInputController),
           ElevatedButton(onPressed: () {}, child: Text('Password'))
         ],
       ),
@@ -84,12 +86,13 @@ class ConfirmSMSPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TextEditingController smsInputController = TextEditingController();
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          TextField(),
+          TextField(controller: smsInputController),
           ElevatedButton(onPressed: () {}, child: Text('SMS'))
         ],
       ),
