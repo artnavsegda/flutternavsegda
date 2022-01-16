@@ -50,6 +50,8 @@ class LoginPage extends StatelessWidget {
                   TextField(controller: phoneNumberController),
                   ElevatedButton(
                       onPressed: () {
+                        runMutation(
+                            {'clientPhone': phoneNumberController.text});
                         print(phoneNumberController.text);
                       },
                       child: Text('Enter'))
