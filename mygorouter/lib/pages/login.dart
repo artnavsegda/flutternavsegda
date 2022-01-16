@@ -34,15 +34,11 @@ class LoginPage extends StatelessWidget {
                   context: context,
                   isScrollControlled: true,
                   builder: (context) {
-                    return const PasswordPage();
+                    return resultData['loginClient']['nextStep'] == 'PASSWORD'
+                        ? const PasswordPage()
+                        : const ConfirmSMSPage();
                   },
                 );
-
-                if (resultData['loginClient']['nextStep'] == 'PASSWORD') {
-                  _enterPassword(context);
-                } else {
-                  _confirmSMS(context);
-                }
               }
             },
           ),
@@ -61,6 +57,42 @@ class LoginPage extends StatelessWidget {
               ),
             );
           }),
+    );
+  }
+}
+
+class PasswordPage extends StatelessWidget {
+  const PasswordPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(),
+          ElevatedButton(onPressed: () {}, child: Text('Password'))
+        ],
+      ),
+    );
+  }
+}
+
+class ConfirmSMSPage extends StatelessWidget {
+  const ConfirmSMSPage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: MediaQuery.of(context).viewInsets,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          TextField(),
+          ElevatedButton(onPressed: () {}, child: Text('SMS'))
+        ],
+      ),
     );
   }
 }
