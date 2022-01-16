@@ -10,7 +10,7 @@ class LevranaRouter {
   LevranaRouter(this.loginState);
   late final router = GoRouter(
     refreshListenable: loginState,
-    debugLogDiagnostics: true,
+    debugLogDiagnostics: false,
     urlPathStrategy: UrlPathStrategy.path,
     routes: [
       GoRoute(
