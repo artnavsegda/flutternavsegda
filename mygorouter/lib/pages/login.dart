@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import '../login_state.dart';
 
 const String loginClient = r'''
@@ -63,7 +64,9 @@ class LoginPage extends StatelessWidget {
                       child: Text('Login')),
                   TextButton(
                     child: Text('Skip'),
-                    onPressed: () {},
+                    onPressed: () {
+                      context.goNamed('home', params: {'tab': 'main'});
+                    },
                   )
                 ],
               ),
