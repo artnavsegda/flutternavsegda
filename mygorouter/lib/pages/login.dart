@@ -60,7 +60,11 @@ class LoginPage extends StatelessWidget {
                         });
                         print(phoneNumberController.text);
                       },
-                      child: Text('Login'))
+                      child: Text('Login')),
+                  TextButton(
+                    child: Text('Skip'),
+                    onPressed: () {},
+                  )
                 ],
               ),
             );
