@@ -1,7 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import '../login_state.dart';
+
+const String logoffClient = r'''
+mutation logoffClient
+{
+  logoffClient
+  {
+    result
+    errorMessage
+    token
+  }
+}
+''';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);
@@ -9,7 +22,22 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     if (Provider.of<LoginState>(context, listen: false).loggedIn) {
-      return TextButton(onPressed: () {}, child: Text('logout'));
+      return Mutation(
+        options: MutationOptions(
+          document: gql(logoffClient),
+          onCompleted: (result) {
+            Provider.of<LoginState>(context, listen: false).loggedIn = false;
+          },
+        ),
+        builder: (runMutation, result) {
+          return TextButton(
+            onPressed: () {
+              runMutation({});
+            },
+            child: Text('logout'),
+          );
+        },
+      );
     } else {
       return TextButton(
           onPressed: () {
