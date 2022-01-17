@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import '../login_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({required this.tab, Key? key}) : super(key: key);
@@ -22,14 +24,21 @@ class HomePage extends StatelessWidget {
     }
   }
 
-  static Widget pageFrom(String tab) {
+  static Widget pageFrom(String tab, BuildContext context) {
     switch (tab) {
       case 'shop':
         return Text('shop');
       case 'cart':
         return Text('cart');
       case 'profile':
-        return Text('profile');
+        return Provider.of<LoginState>(context, listen: false).loggedIn
+            ? TextButton(onPressed: () {}, child: Text('logout'))
+            : TextButton(
+                onPressed: () {
+                  Provider.of<LoginState>(context, listen: false).skipLogin =
+                      false;
+                },
+                child: Text('login'));
       case 'more':
         return Text('more');
       case 'main':
@@ -42,7 +51,7 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: pageFrom(tab),
+        child: pageFrom(tab, context),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
