@@ -156,11 +156,11 @@ class ConfirmSMSPage extends StatelessWidget {
                     onPressed: () {
                       runMutation({
                         'code': smsInputController.text,
-                        'step': 'PASSWORD',
+                        'step': 'SMS_CONFIRMED_PHONE',
                       });
                       print(smsInputController.text);
                     },
-                    child: Text('SMS_CONFIRMED_PHONE'))
+                    child: Text('SMS'))
               ],
             );
           }),
