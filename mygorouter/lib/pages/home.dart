@@ -22,11 +22,27 @@ class HomePage extends StatelessWidget {
     }
   }
 
+  static Widget pageFrom(String tab) {
+    switch (tab) {
+      case 'shop':
+        return Text('shop');
+      case 'cart':
+        return Text('cart');
+      case 'profile':
+        return Text('profile');
+      case 'more':
+        return Text('more');
+      case 'main':
+      default:
+        return Text('main');
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text(tab),
+        child: pageFrom(tab),
       ),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
