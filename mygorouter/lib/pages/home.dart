@@ -3,6 +3,23 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../login_state.dart';
 
+class ProfilePage extends StatelessWidget {
+  const ProfilePage({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (Provider.of<LoginState>(context, listen: false).loggedIn) {
+      return TextButton(onPressed: () {}, child: Text('logout'));
+    } else {
+      return TextButton(
+          onPressed: () {
+            Provider.of<LoginState>(context, listen: false).skipLogin = false;
+          },
+          child: Text('login'));
+    }
+  }
+}
+
 class HomePage extends StatelessWidget {
   const HomePage({required this.tab, Key? key}) : super(key: key);
 
@@ -31,14 +48,7 @@ class HomePage extends StatelessWidget {
       case 'cart':
         return Text('cart');
       case 'profile':
-        return Provider.of<LoginState>(context, listen: false).loggedIn
-            ? TextButton(onPressed: () {}, child: Text('logout'))
-            : TextButton(
-                onPressed: () {
-                  Provider.of<LoginState>(context, listen: false).skipLogin =
-                      false;
-                },
-                child: Text('login'));
+        return ProfilePage();
       case 'more':
         return Text('more');
       case 'main':
