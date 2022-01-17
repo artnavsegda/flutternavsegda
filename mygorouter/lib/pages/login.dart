@@ -69,9 +69,9 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-const String checkPassword = r'''
-mutation checkPassword($password: String!){
-  checkClient(checkUser: {step: PASSWORD, code: $password}) {
+const String checkClient = r'''
+mutation checkClient($step: StepType, $code: String!){
+  checkClient(checkUser: {step: $step, code: $code}) {
     result
     errorMessage
     token
@@ -90,7 +90,7 @@ class PasswordPage extends StatelessWidget {
       padding: MediaQuery.of(context).viewInsets,
       child: Mutation(
           options: MutationOptions(
-            document: gql(checkPassword),
+            document: gql(checkClient),
             onError: (error) {
               print("ERROR");
               print(error);
@@ -110,7 +110,10 @@ class PasswordPage extends StatelessWidget {
                 TextField(controller: passwordInputController),
                 ElevatedButton(
                     onPressed: () {
-                      runMutation({'password': passwordInputController.text});
+                      runMutation({
+                        'code': passwordInputController.text,
+                        'step': 'PASSWORD',
+                      });
                       print(passwordInputController.text);
                     },
                     child: Text('Password'))
@@ -120,16 +123,6 @@ class PasswordPage extends StatelessWidget {
     );
   }
 }
-
-const String checkSms = r'''
-mutation checkClient($code: String!){
-  checkClient(checkUser: {step: SMS_CONFIRMED_PHONE, code: $code}) {
-    result
-    errorMessage
-    token
-  }
-}
-''';
 
 class ConfirmSMSPage extends StatelessWidget {
   const ConfirmSMSPage({Key? key}) : super(key: key);
@@ -141,7 +134,7 @@ class ConfirmSMSPage extends StatelessWidget {
       padding: MediaQuery.of(context).viewInsets,
       child: Mutation(
           options: MutationOptions(
-            document: gql(checkSms),
+            document: gql(checkClient),
             onError: (error) {
               print("ERROR");
               print(error);
@@ -161,10 +154,13 @@ class ConfirmSMSPage extends StatelessWidget {
                 TextField(controller: smsInputController),
                 ElevatedButton(
                     onPressed: () {
-                      runMutation({'code': smsInputController.text});
+                      runMutation({
+                        'code': smsInputController.text,
+                        'step': 'PASSWORD',
+                      });
                       print(smsInputController.text);
                     },
-                    child: Text('SMS'))
+                    child: Text('SMS_CONFIRMED_PHONE'))
               ],
             );
           }),
