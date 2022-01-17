@@ -65,7 +65,8 @@ class LoginPage extends StatelessWidget {
                   TextButton(
                     child: Text('Skip'),
                     onPressed: () {
-                      context.goNamed('home', params: {'tab': 'main'});
+                      Provider.of<LoginState>(context, listen: false)
+                          .skipLogin = true;
                     },
                   )
                 ],

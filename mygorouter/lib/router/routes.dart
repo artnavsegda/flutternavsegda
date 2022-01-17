@@ -84,10 +84,12 @@ class LevranaRouter {
       if (loginState.token == '' && !welcomeIn) {
         return welcomeLoc;
       }
-      if (loginState.token != '' && !loginState.loggedIn && !loggingIn) {
+      if (loginState.token != '' &&
+          !(loginState.loggedIn || loginState.skipLogin) &&
+          !loggingIn) {
         return loginLoc;
       }
-      if (loginState.loggedIn && loggingIn) {
+      if ((loginState.loggedIn || loginState.skipLogin) && loggingIn) {
         return rootLoc;
       }
       return null;

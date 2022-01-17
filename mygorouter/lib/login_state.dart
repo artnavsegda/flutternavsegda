@@ -5,6 +5,7 @@ class LoginState extends ChangeNotifier {
   final SharedPreferences prefs;
   bool _loggedIn = false;
   String _token = '';
+  bool _skipLogin = false;
 
   LoginState(this.prefs) {
     loggedIn = prefs.getBool('LoggedIn') ?? false;
@@ -15,6 +16,13 @@ class LoginState extends ChangeNotifier {
   set loggedIn(bool value) {
     _loggedIn = value;
     prefs.setBool('LoggedIn', value);
+    notifyListeners();
+  }
+
+  bool get skipLogin => _skipLogin;
+  set skipLogin(bool value) {
+    _skipLogin = value;
+    //prefs.setBool('SkipLogin', value);
     notifyListeners();
   }
 
