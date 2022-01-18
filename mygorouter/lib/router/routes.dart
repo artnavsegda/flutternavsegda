@@ -56,6 +56,14 @@ class LevranaRouter {
                 child: Product(id: int.parse(state.params['id']!)),
               ),
             ),
+/*             GoRoute(
+              name: 'catalog',
+              path: 'catalog/:id',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                child: Catlog(id: int.parse(state.params['id']!)),
+              ),
+            ), */
           ]),
       GoRoute(
         path: '/main',
@@ -86,6 +94,13 @@ class LevranaRouter {
         path: '/product/:id',
         redirect: (state) => state.namedLocation(
           'product',
+          params: {'tab': 'shop', 'id': state.params['id']!},
+        ),
+      ),
+      GoRoute(
+        path: '/catalog/:id',
+        redirect: (state) => state.namedLocation(
+          'catalog',
           params: {'tab': 'shop', 'id': state.params['id']!},
         ),
       ),
