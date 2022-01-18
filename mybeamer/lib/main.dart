@@ -217,8 +217,8 @@ class MyApp extends StatelessWidget {
   final routerDelegate = BeamerDelegate(
     locationBuilder: BeamerLocationBuilder(
       beamLocations: [
-        HomeLocation(),
         LoginLocation(),
+        HomeLocation(),
         BooksLocation(),
       ],
     ),
