@@ -20,24 +20,6 @@ const List<Map<String, String>> books = [
   },
 ];
 
-const List<Map<String, String>> articles = [
-  {
-    'id': '1',
-    'title': 'Explaining Flutter Nav 2.0 and Beamer',
-    'author': 'Toby Lewis',
-  },
-  {
-    'id': '2',
-    'title': 'Flutter Navigator 2.0 for mobile dev: 101',
-    'author': 'Lulupointu',
-  },
-  {
-    'id': '3',
-    'title': 'Flutter: An Easy and Pragmatic Approach to Navigator 2.0',
-    'author': 'Marco Muccinelli',
-  },
-];
-
 // SCREENS
 class BooksScreen extends StatelessWidget {
   @override
@@ -80,26 +62,6 @@ class BookDetailsScreen extends StatelessWidget {
             print('a');
           },
         ));
-  }
-}
-
-class ArticlesScreen extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: Text('Articles')),
-      body: ListView(
-        children: articles
-            .map(
-              (article) => ListTile(
-                title: Text(article['title']!),
-                subtitle: Text(article['author']!),
-                onTap: () => context.beamToNamed('/articles/${article['id']}'),
-              ),
-            )
-            .toList(),
-      ),
-    );
   }
 }
 
@@ -149,33 +111,6 @@ class BooksLocation extends BeamLocation<BeamState> {
       ];
 }
 
-class ArticlesLocation extends BeamLocation<BeamState> {
-  ArticlesLocation(RouteInformation routeInformation) : super(routeInformation);
-
-  @override
-  List<String> get pathPatterns => ['/articles/:articleId'];
-
-  @override
-  List<BeamPage> buildPages(BuildContext context, BeamState state) => [
-        BeamPage(
-          key: ValueKey('articles'),
-          title: 'Articles',
-          type: BeamPageType.noTransition,
-          child: ArticlesScreen(),
-        ),
-        if (state.pathParameters.containsKey('articleId'))
-          BeamPage(
-            key: ValueKey('articles-${state.pathParameters['articleId']}'),
-            title: articles.firstWhere((article) =>
-                article['id'] == state.pathParameters['articleId'])['title'],
-            child: ArticleDetailsScreen(
-              article: articles.firstWhere((article) =>
-                  article['id'] == state.pathParameters['articleId']),
-            ),
-          ),
-      ];
-}
-
 // APP
 class AppScreen extends StatefulWidget {
   @override
@@ -191,16 +126,6 @@ class _AppScreenState extends State<AppScreen> {
       locationBuilder: (routeInformation, _) {
         if (routeInformation.location!.contains('books')) {
           return BooksLocation(routeInformation);
-        }
-        return NotFound(path: routeInformation.location!);
-      },
-    ),
-    BeamerDelegate(
-      initialPath: '/articles',
-      updateFromParent: false,
-      locationBuilder: (routeInformation, _) {
-        if (routeInformation.location!.contains('articles')) {
-          return ArticlesLocation(routeInformation);
         }
         return NotFound(path: routeInformation.location!);
       },
