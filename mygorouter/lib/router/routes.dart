@@ -97,13 +97,13 @@ class LevranaRouter {
           params: {'tab': 'shop', 'id': state.params['id']!},
         ),
       ),
-      GoRoute(
+/*       GoRoute(
         path: '/catalog/:id',
         redirect: (state) => state.namedLocation(
           'catalog',
           params: {'tab': 'shop', 'id': state.params['id']!},
         ),
-      ),
+      ), */
     ],
     redirect: (state) {
       //print('device token ' + loginState.token);

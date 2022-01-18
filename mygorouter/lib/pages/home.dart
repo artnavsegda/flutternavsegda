@@ -50,9 +50,11 @@ class ProfilePage extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({required this.tab, Key? key}) : super(key: key);
+  const HomePage({required this.tab, this.catalogID, Key? key})
+      : super(key: key);
 
   final String tab;
+  final int? catalogID;
 
   static int indexFrom(String tab) {
     switch (tab) {
@@ -75,7 +77,11 @@ class HomePage extends StatelessWidget {
       case 'shop':
         return Text('shop');
       case 'cart':
-        return Text('cart');
+        return TextButton(
+            onPressed: () {
+              context.go('/shop');
+            },
+            child: Text('Go to catalog'));
       case 'profile':
         return ProfilePage();
       case 'more':
