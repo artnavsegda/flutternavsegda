@@ -5,6 +5,7 @@ import '../login_state.dart';
 import '../pages/login.dart';
 import '../pages/welcome.dart';
 import '../pages/home.dart';
+import '../pages/product.dart';
 
 class LevranaRouter {
   final LoginState loginState;
@@ -37,16 +38,25 @@ class LevranaRouter {
         ),
       ),
       GoRoute(
-        name: 'home',
-        path: '/home/:tab(main|shop|cart|profile|more)',
-        pageBuilder: (context, state) {
-          final tab = state.params['tab']!;
-          return MaterialPage<void>(
-            key: state.pageKey,
-            child: HomePage(tab: tab),
-          );
-        },
-      ),
+          name: 'home',
+          path: '/home/:tab(main|shop|cart|profile|more)',
+          pageBuilder: (context, state) {
+            final tab = state.params['tab']!;
+            return MaterialPage<void>(
+              key: state.pageKey,
+              child: HomePage(tab: tab),
+            );
+          },
+          routes: [
+            GoRoute(
+              name: 'product',
+              path: 'product/:id',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                child: Product(id: int.parse(state.params['id']!)),
+              ),
+            ),
+          ]),
       GoRoute(
         path: '/main',
         redirect: (state) =>
@@ -71,6 +81,13 @@ class LevranaRouter {
         path: '/more',
         redirect: (state) =>
             state.namedLocation('home', params: {'tab': 'more'}),
+      ),
+      GoRoute(
+        path: '/product',
+        redirect: (state) => state.namedLocation(
+          'product',
+          params: {'tab': 'shop', 'id': state.params['id']!},
+        ),
       ),
     ],
     redirect: (state) {
