@@ -60,6 +60,7 @@ class BookDetailsScreen extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () {
             print('a');
+            Beamer.of(context, root: true).beamToNamed('/test');
           },
         ));
   }
@@ -118,7 +119,7 @@ class AppScreen extends StatefulWidget {
 }
 
 class _AppScreenState extends State<AppScreen> {
-  late int currentIndex;
+  int currentIndex = 0;
 
   final routerDelegates = [
     BeamerDelegate(
@@ -163,7 +164,6 @@ class _AppScreenState extends State<AppScreen> {
         onTap: (index) {
           if (index != currentIndex) {
             setState(() => currentIndex = index);
-
             routerDelegates[0].update(rebuild: false);
           }
         },
@@ -180,10 +180,15 @@ class _AppScreenState extends State<AppScreen> {
 
 class MyApp extends StatelessWidget {
   final routerDelegate = BeamerDelegate(
-    initialPath: '/books',
+    initialPath: '/',
     locationBuilder: RoutesLocationBuilder(
       routes: {
-        '*': (context, state, data) => AppScreen(),
+        '/': (context, state, data) => AppScreen(),
+        '/test': (context, state, data) => Scaffold(
+              appBar: AppBar(
+                title: Text('hello'),
+              ),
+            ),
       },
     ),
   );
