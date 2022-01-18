@@ -83,7 +83,7 @@ class LevranaRouter {
             state.namedLocation('home', params: {'tab': 'more'}),
       ),
       GoRoute(
-        path: '/product',
+        path: '/product/:id',
         redirect: (state) => state.namedLocation(
           'product',
           params: {'tab': 'shop', 'id': state.params['id']!},

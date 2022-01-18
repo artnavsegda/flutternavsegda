@@ -9,8 +9,8 @@ class Product extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Text('$id'),
+      appBar: AppBar(
+        title: Text('$id'),
       ),
     );
   }

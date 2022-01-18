@@ -267,7 +267,17 @@ class MainPage extends StatelessWidget {
                   Column(
                       children: topBlocks[index]
                           .products
-                          .map((e) => ListTile(title: Text(e.name)))
+                          .map(
+                            (e) => ListTile(
+                              title: Text(e.name),
+                              onTap: () {
+                                context.goNamed('product', params: {
+                                  'tab': 'main',
+                                  'id': '${e.iD}',
+                                });
+                              },
+                            ),
+                          )
                           .toList()
                           .cast<Widget>()),
                 ],
