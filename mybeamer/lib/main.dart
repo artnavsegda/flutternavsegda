@@ -217,11 +217,7 @@ class _AppScreenState extends State<AppScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final uriString = Beamer.of(context).configuration.location!;
-    currentIndex = uriString.contains('books') ? 0 : 1;
-
-    routerDelegates[currentIndex].active = true;
-    routerDelegates[1 - currentIndex].active = false;
+    routerDelegates[0].active = true;
 
     return Scaffold(
       body: IndexedStack(
@@ -230,29 +226,20 @@ class _AppScreenState extends State<AppScreen> {
           Beamer(
             routerDelegate: routerDelegates[0],
           ),
-          Container(
-            color: Colors.blueAccent,
-            padding: const EdgeInsets.all(32.0),
-            child: Beamer(
-              routerDelegate: routerDelegates[1],
-            ),
-          ),
+          Center(child: Text('Profile'))
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: currentIndex,
         items: [
           BottomNavigationBarItem(label: 'Books', icon: Icon(Icons.book)),
-          BottomNavigationBarItem(label: 'Articles', icon: Icon(Icons.article)),
+          BottomNavigationBarItem(label: 'Profile', icon: Icon(Icons.portrait)),
         ],
         onTap: (index) {
           if (index != currentIndex) {
-            routerDelegates[currentIndex].active = false;
-            routerDelegates[1 - currentIndex].active = true;
-
             setState(() => currentIndex = index);
 
-            routerDelegates[currentIndex].update(rebuild: false);
+            routerDelegates[0].update(rebuild: false);
           }
         },
       ),
