@@ -43,6 +43,12 @@ class Details extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.ac_unit),
+          onPressed: () {
+            context.pop();
+          },
+        ),
         elevation: 0,
         backgroundColor: Colors.lightBlue,
         title: const Text(
