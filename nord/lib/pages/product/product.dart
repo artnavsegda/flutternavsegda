@@ -312,35 +312,39 @@ class _ProductPageState extends State<ProductPage> {
                               ),
                             ],
                           ),
-                          Column(
-                            children: [
-                              TextButton(
-                                  onPressed: () {
-                                    showModalBottomSheet(
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            ListTile(
-                                              title: Text(
-                                                  'Пищевая ценность на 100 г'),
-                                              trailing: Image.asset(
-                                                  'assets/Icon-Close.png'),
-                                            ),
-                                          ],
-                                        );
-                                      },
-                                    );
-                                  },
-                                  child: const Text('490.8 Ккал')),
-                              const Text(
-                                'Калорийность',
-                                style:
-                                    TextStyle(color: Colors.grey, fontSize: 10),
-                              ),
-                            ],
+                          InkWell(
+                            onTap: () {
+                              showModalBottomSheet(
+                                isScrollControlled: true,
+                                context: context,
+                                builder: (context) {
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: [
+                                      ListTile(
+                                        title:
+                                            Text('Пищевая ценность на 100 г'),
+                                        trailing: Image.asset(
+                                            'assets/Icon-Close.png'),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            child: Column(
+                              children: [
+                                Text(
+                                  '490.8 Ккал',
+                                  style: TextStyle(color: Colors.red.shade900),
+                                ),
+                                const Text(
+                                  'Калорийность',
+                                  style: TextStyle(
+                                      color: Colors.grey, fontSize: 10),
+                                ),
+                              ],
+                            ),
                           )
                         ],
                       ),
