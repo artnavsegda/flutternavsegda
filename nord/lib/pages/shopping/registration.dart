@@ -125,7 +125,11 @@ class RegistrationPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: TextField(),
+            child: TextField(
+              decoration: InputDecoration(
+                labelText: 'Комментарий или пожелания по заказу',
+              ),
+            ),
           ),
           CheckboxListTile(
             value: false,
