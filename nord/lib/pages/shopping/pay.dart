@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import '../../components/components.dart';
 
-class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+class PayPage extends StatelessWidget {
+  const PayPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +18,7 @@ class RegistrationPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          ListTile(
-            title: Text(
-              'Время доставки',
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
-            ),
-          ),
+          const AddressTile2(),
           ListTile(
             onTap: () {
               showModalBottomSheet(
@@ -110,18 +105,44 @@ class RegistrationPage extends StatelessWidget {
             ),
             trailing: Image.asset('assets/Icon-Expand-More.png'),
           ),
-          SwitchListTile(
-            value: false,
-            onChanged: (value) {},
-            title: Text('Экспресс-доставка'),
-            subtitle: Text('Курьером в течении 3-х часов\n+ 300 ₽'),
-            secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const Text('Способы оплаты',
+                style: TextStyle(
+                  fontFamily: 'Forum',
+                  fontSize: 24,
+                )),
+          ),
+          Row(
+            children: [
+              OutlinedButton(onPressed: () {}, child: Text('Новая Карта')),
+              ElevatedButton(onPressed: () {}, child: Text('На месте')),
+            ],
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                Column(
+                  children: [
+                    TextField(),
+                    SizedBox(height: 4),
+                    Text('Вы можете использовать до 120 бонусов'),
+                  ],
+                ),
+                Slider(
+                  onChanged: (newVal) {},
+                  value: 0,
+                ),
+              ],
+            ),
           ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-                onPressed: () {}, child: const Text('Перейти к оплатите')),
+            child:
+                ElevatedButton(onPressed: () {}, child: const Text('Оплатить')),
           ),
         ],
       ),
