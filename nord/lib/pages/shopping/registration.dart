@@ -117,6 +117,12 @@ class RegistrationPage extends StatelessWidget {
             subtitle: Text('Курьером в течении 3-х часов\n+ 300 ₽'),
             secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
           ),
+          ListTile(
+            title: Text(
+              'Отдельные пожелания',
+              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+            ),
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
