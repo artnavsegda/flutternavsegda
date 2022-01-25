@@ -200,14 +200,65 @@ class _ProductPageState extends State<ProductPage> {
                       const Text('Вес, гр'),
                       Row(
                         children: [
-                          OutlinedButton(
-                              onPressed: () {}, child: const Text('50')),
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text('100')),
-                          OutlinedButton(
-                              onPressed: () {}, child: const Text('250')),
-                          OutlinedButton(
-                              onPressed: () {}, child: const Text('1000')),
+                          ChoiceChip(
+                            backgroundColor: Colors.transparent,
+                            selectedColor: Colors.red.shade900,
+                            side: BorderSide(
+                                width: 1.0, color: Colors.red.shade900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            labelStyle: TextStyle(color: Colors.red.shade900),
+                            label: Text('50'),
+                            selected: false,
+                            onSelected: (value) {},
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          ),
+                          SizedBox(width: 8),
+                          ChoiceChip(
+                            backgroundColor: Colors.transparent,
+                            selectedColor: Colors.red.shade900,
+                            side: BorderSide(
+                                width: 1.0, color: Colors.red.shade900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            labelStyle: TextStyle(color: Colors.white),
+                            label: Text('100'),
+                            selected: true,
+                            onSelected: (value) {},
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          ),
+                          SizedBox(width: 8),
+                          ChoiceChip(
+                            backgroundColor: Colors.transparent,
+                            selectedColor: Colors.red.shade900,
+                            side: BorderSide(
+                                width: 1.0, color: Colors.red.shade900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            labelStyle: TextStyle(color: Colors.red.shade900),
+                            label: Text('250'),
+                            selected: false,
+                            onSelected: (value) {},
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          ),
+                          SizedBox(width: 8),
+                          ChoiceChip(
+                            backgroundColor: Colors.transparent,
+                            selectedColor: Colors.red.shade900,
+                            side: BorderSide(
+                                width: 1.0, color: Colors.red.shade900),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                            labelStyle: TextStyle(color: Colors.red.shade900),
+                            label: Text('1000'),
+                            selected: false,
+                            onSelected: (value) {},
+                            padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          ),
                         ],
                       ),
                     ],
