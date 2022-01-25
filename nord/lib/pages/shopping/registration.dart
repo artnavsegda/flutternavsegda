@@ -123,6 +123,20 @@ class RegistrationPage extends StatelessWidget {
               style: TextStyle(fontFamily: 'Forum', fontSize: 24),
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: TextField(),
+          ),
+          CheckboxListTile(
+            value: false,
+            onChanged: (value) {},
+            title: Text('Бесконтактная доставка'),
+          ),
+          CheckboxListTile(
+            value: false,
+            onChanged: (value) {},
+            title: Text('Разогреть блюда'),
+          ),
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
