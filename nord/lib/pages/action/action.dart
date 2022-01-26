@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/product_card.dart';
+import '../../components/components.dart';
 
 class ActionPage extends StatefulWidget {
   const ActionPage({Key? key}) : super(key: key);
@@ -150,36 +151,6 @@ class _ActionPageState extends State<ActionPage> {
           ),
         ],
       ),
-    );
-  }
-}
-
-class SpecialCondition extends StatelessWidget {
-  const SpecialCondition({
-    Key? key,
-    required this.text,
-  }) : super(key: key);
-
-  final String text;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: double.infinity,
-      //margin: const EdgeInsets.symmetric(vertical: 10),
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-            stops: const [0.01, 0.01],
-            colors: [Colors.red.shade900, const Color(0xFFEFF3F4)]),
-        borderRadius: BorderRadius.circular(2.0),
-/*                                     color: Colors.black12,
-        border: Border(
-          left: BorderSide(
-              width: 5.0, color: Colors.red),
-        ), */
-      ),
-      child: Text(text, style: const TextStyle(fontSize: 16)),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../../components/components.dart';
+import 'pay.dart';
 
 class RegistrationPage extends StatelessWidget {
   const RegistrationPage({Key? key}) : super(key: key);
@@ -145,7 +146,11 @@ class RegistrationPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-                onPressed: () {}, child: const Text('Перейти к оплатите')),
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const PayPage()));
+                },
+                child: const Text('Перейти к оплатите')),
           ),
         ],
       ),
