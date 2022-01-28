@@ -109,6 +109,7 @@ class MainPage extends StatelessWidget {
         document: gql(getTopBlocks),
       ),
       builder: (result, {fetchMore, refetch}) {
+        print(result);
         if (result.isLoading || result.hasException) {
           return Center(
             child: CircularProgressIndicator(),

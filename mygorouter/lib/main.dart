@@ -41,7 +41,7 @@ class LevranaApp extends StatelessWidget {
               GraphQLClient(
                 link: AuthLink(getToken: () => 'Bearer ' + model.token).concat(
                   HttpLink(
-                    'https://demo.cyberiasoft.com/levranaservice/graphql',
+                    'https://demo.cyberiasoft.com/severmetropolservice/graphql',
                   ),
                 ),
                 cache: GraphQLCache(store: HiveStore()),

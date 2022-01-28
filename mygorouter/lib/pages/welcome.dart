@@ -40,7 +40,7 @@ class WelcomePage extends StatelessWidget {
                   runMutation({
                     //'gUID': data.identifierForVendor,
                     'gUID': 'test',
-                    'bundleID': "ru.levrana.mobile",
+                    'bundleID': "ru.severmetropol.mobile",
                     'oSType': "IOS",
                   });
                 },
