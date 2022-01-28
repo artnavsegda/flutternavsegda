@@ -15,6 +15,7 @@ class OnboardingPage extends StatelessWidget {
     return Scaffold(
       body: Center(
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             ElevatedButton(
               onPressed: () {

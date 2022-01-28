@@ -132,7 +132,10 @@ class NordRouter {
           !welcomeIn) {
         return welcomeLoc;
       }
-      if ((loginState.loggedIn || loginState.skipLogin) && loggingIn) {
+      if (loginState.loggedIn && loggingIn) {
+        return rootLoc;
+      }
+      if (loginState.skipLogin && welcomeIn) {
         return rootLoc;
       }
       return null;
