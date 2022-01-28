@@ -27,15 +27,14 @@ class LevranaApp extends StatelessWidget {
           lazy: false,
           create: (BuildContext createContext) => loginState,
         ),
-        Provider<LevranaRouter>(
+        Provider<NordRouter>(
           lazy: false,
-          create: (BuildContext createContext) => LevranaRouter(loginState),
+          create: (BuildContext createContext) => NordRouter(loginState),
         ),
       ],
       child: Consumer<LoginState>(
         builder: (BuildContext context, model, child) {
-          final router =
-              Provider.of<LevranaRouter>(context, listen: false).router;
+          final router = Provider.of<NordRouter>(context, listen: false).router;
           return GraphQLProvider(
             client: ValueNotifier(
               GraphQLClient(
@@ -51,7 +50,7 @@ class LevranaApp extends StatelessWidget {
               routeInformationParser: router.routeInformationParser,
               routerDelegate: router.routerDelegate,
               debugShowCheckedModeBanner: false,
-              title: 'Levrana App',
+              title: 'Nord App',
               theme: ThemeData(
                 primarySwatch: Colors.red,
               ),

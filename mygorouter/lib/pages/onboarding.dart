@@ -5,8 +5,8 @@ import 'package:device_info_plus/device_info_plus.dart';
 import '../login_state.dart';
 import '../gql.dart';
 
-class WelcomePage extends StatelessWidget {
-  const WelcomePage({Key? key}) : super(key: key);
+class OnboardingPage extends StatelessWidget {
+  const OnboardingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

@@ -3,13 +3,13 @@ import 'package:go_router/go_router.dart';
 
 import '../login_state.dart';
 import '../pages/login.dart';
-import '../pages/welcome.dart';
+import '../pages/onboarding.dart';
 import '../pages/home.dart';
 import '../pages/product.dart';
 
-class LevranaRouter {
+class NordRouter {
   final LoginState loginState;
-  LevranaRouter(this.loginState);
+  NordRouter(this.loginState);
   late final router = GoRouter(
     refreshListenable: loginState,
     debugLogDiagnostics: false,
@@ -26,7 +26,7 @@ class LevranaRouter {
         path: '/welcome',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: const WelcomePage(),
+          child: const OnboardingPage(),
         ),
       ),
       GoRoute(
