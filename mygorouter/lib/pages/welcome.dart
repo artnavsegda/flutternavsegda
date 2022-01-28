@@ -3,15 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:device_info_plus/device_info_plus.dart';
 import '../login_state.dart';
-
-const String authenticate = r'''
-mutation authenticate($gUID: String!, $bundleID: String!, $oSType: graphOSTypeEnum!) {
-  authenticate(device: {gUID: $gUID, bundleID: $bundleID, oSType: $oSType}) 
-  {
-    token
-  }
-}
-''';
+import '../gql.dart';
 
 class WelcomePage extends StatelessWidget {
   const WelcomePage({Key? key}) : super(key: key);

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import '../gql.dart';
 
 class GraphProductAttribute {
   GraphProductAttribute({
@@ -72,32 +73,6 @@ class GraphTopBlock {
         products = List<GraphProduct>.from(
             json['products'].map((model) => GraphProduct.fromJson(model)));
 }
-
-const String getTopBlocks = r'''
-query getTopBlocks {
-  getTopBlocks
-  {
-    iD
-    name
-    products {
-      iD
-      type
-      familyID
-      topCatalogID
-      name
-      picture
-      isFavorite
-      favorites
-      stickerPictures
-      attributes {
-        iD
-        name
-        color
-      }
-    }
-  }
-}
-''';
 
 class MainPage extends StatelessWidget {
   const MainPage({Key? key}) : super(key: key);

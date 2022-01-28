@@ -4,18 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import '../login_state.dart';
 import 'main.dart';
-
-const String logoffClient = r'''
-mutation logoffClient
-{
-  logoffClient
-  {
-    result
-    errorMessage
-    token
-  }
-}
-''';
+import '../gql.dart';
 
 class ProfilePage extends StatelessWidget {
   const ProfilePage({Key? key}) : super(key: key);

@@ -3,18 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../login_state.dart';
-
-const String loginClient = r'''
-mutation loginClient($clientPhone: Long!) {
-  loginClient(clientPhone: $clientPhone) {
-    result
-    errorMessage
-    clientGUID
-    token
-    nextStep
-  }
-}
-''';
+import '../gql.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -76,16 +65,6 @@ class LoginPage extends StatelessWidget {
     );
   }
 }
-
-const String checkClient = r'''
-mutation checkClient($step: StepType, $code: String!){
-  checkClient(checkUser: {step: $step, code: $code}) {
-    result
-    errorMessage
-    token
-  }
-}
-''';
 
 class PasswordPage extends StatelessWidget {
   const PasswordPage({Key? key}) : super(key: key);
