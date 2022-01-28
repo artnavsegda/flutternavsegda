@@ -1,20 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'pages/onboarding/onboarding.dart';
 import 'pages/main.dart';
 import 'utils.dart';
 import 'intro.dart';
+import 'login_state.dart';
 
 Future<void> main() async {
   await initHiveForFlutter();
   WidgetsFlutterBinding.ensureInitialized();
-
-  runApp(const MyApp());
+  final state = LoginState(await SharedPreferences.getInstance());
+  state.checkLoggedIn();
+  runApp(NordApp(loginState: state));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class NordApp extends StatelessWidget {
+  final LoginState loginState;
+
+  const NordApp({Key? key, required this.loginState}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -40,12 +46,6 @@ class MyApp extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 1.0, color: Colors.red.shade900),
           elevation: 0.0,
-//          minimumSize: const Size(128.0, 48.0),
-/*           shape: 
-            RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(24.0),
-            ,
-          ), */
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
