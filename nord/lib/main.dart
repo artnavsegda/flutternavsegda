@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'pages/onboarding/onboarding.dart';
 import 'pages/main.dart';
 import 'utils.dart';
 import 'intro.dart';
 
-void main() {
+Future<void> main() async {
+  await initHiveForFlutter();
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
