@@ -6,6 +6,7 @@ import '../pages/login.dart';
 import '../pages/onboarding.dart';
 import '../pages/home.dart';
 import '../pages/product.dart';
+import '../pages/splash.dart';
 
 class NordRouter {
   final LoginState loginState;
@@ -27,6 +28,14 @@ class NordRouter {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: const OnboardingPage(),
+        ),
+      ),
+      GoRoute(
+        name: 'splash',
+        path: '/splash',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const SplashPage(),
         ),
       ),
       GoRoute(
@@ -107,19 +116,21 @@ class NordRouter {
     ],
     redirect: (state) {
       //print('device token ' + loginState.token);
+      final splashLoc = state.namedLocation('splash');
+      final splashIn = state.subloc == splashLoc;
       final welcomeLoc = state.namedLocation('welcome');
       final welcomeIn = state.subloc == welcomeLoc;
       final loginLoc = state.namedLocation('login');
       final loggingIn = state.subloc == loginLoc;
       final rootLoc = state.namedLocation('root');
 
-      if (loginState.token == '' && !welcomeIn) {
-        return welcomeLoc;
+      if (loginState.token == '' && !splashIn) {
+        return splashLoc;
       }
       if (loginState.token != '' &&
           !(loginState.loggedIn || loginState.skipLogin) &&
-          !loggingIn) {
-        return loginLoc;
+          !welcomeIn) {
+        return welcomeLoc;
       }
       if ((loginState.loggedIn || loginState.skipLogin) && loggingIn) {
         return rootLoc;

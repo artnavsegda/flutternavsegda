@@ -51,13 +51,6 @@ class LoginPage extends StatelessWidget {
                         print(phoneNumberController.text);
                       },
                       child: Text('Login')),
-                  TextButton(
-                    child: Text('Skip'),
-                    onPressed: () {
-                      Provider.of<LoginState>(context, listen: false)
-                          .skipLogin = true;
-                    },
-                  )
                 ],
               ),
             );
