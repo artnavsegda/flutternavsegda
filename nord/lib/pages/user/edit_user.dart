@@ -1,7 +1,50 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 class EditUser extends StatelessWidget {
   const EditUser({Key? key}) : super(key: key);
+
+  void _showCameraModal(BuildContext context) {
+    final ImagePicker _picker = ImagePicker();
+    showModalBottomSheet(
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            ListTile(
+              title: const Center(
+                  child: Text(
+                'Изменение фотографии',
+              )),
+              trailing: Image.asset('assets/Icon-Close.png'),
+              onTap: () => Navigator.pop(context),
+            ),
+            ListTile(
+              leading: Image.asset('assets/Icon-Photo-Camers.png'),
+              title: const Text('Запустить камеру'),
+              onTap: () async {
+                final pickedFile =
+                    await _picker.pickImage(source: ImageSource.camera);
+                Navigator.pop(context);
+              },
+            ),
+            ListTile(
+              leading: Image.asset('assets/Icon-List.png'),
+              title: const Text('Выбрать из галереи'),
+              onTap: () async {
+                final pickedFile =
+                    await _picker.pickImage(source: ImageSource.gallery);
+                Navigator.pop(context);
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,37 +69,7 @@ class EditUser extends StatelessWidget {
                   Align(
                     alignment: Alignment.centerLeft,
                     child: InkWell(
-                      onTap: () {
-                        showModalBottomSheet(
-                          backgroundColor: Colors.white,
-                          isScrollControlled: true,
-                          context: context,
-                          builder: (context) {
-                            return Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                ListTile(
-                                  title: const Center(
-                                      child: Text(
-                                    'Изменение фотографии',
-                                  )),
-                                  trailing:
-                                      Image.asset('assets/Icon-Close.png'),
-                                ),
-                                ListTile(
-                                  leading: Image.asset(
-                                      'assets/Icon-Photo-Camers.png'),
-                                  title: const Text('Запустить камеру'),
-                                ),
-                                ListTile(
-                                  leading: Image.asset('assets/Icon-List.png'),
-                                  title: const Text('Выбрать из галереи'),
-                                ),
-                              ],
-                            );
-                          },
-                        );
-                      },
+                      onTap: () => _showCameraModal(context),
                       child: Stack(
                         alignment: Alignment.center,
                         children: [
