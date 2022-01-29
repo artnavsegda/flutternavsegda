@@ -11,36 +11,33 @@ class SplashPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Mutation(
-          options: MutationOptions(
-            document: gql(authenticate),
-            onError: (error) {
-              print("ERROR");
-              print(error);
-            },
-            onCompleted: (dynamic resultData) {
-              print(resultData);
-              Provider.of<LoginState>(context, listen: false).token =
-                  resultData['authenticate']['token'];
-              context.go('/welcome');
-            },
-          ),
-          builder: (runMutation, result) {
-            return Center(
-              child: ElevatedButton(
-                onPressed: () async {
-                  //var data = await DeviceInfoPlugin().iosInfo;
-                  runMutation({
-                    //'gUID': data.identifierForVendor,
-                    'gUID': 'test',
-                    'bundleID': "ru.severmetropol.mobile",
-                    'oSType': "IOS",
-                  });
-                },
-                child: Text('Enter'),
-              ),
-            );
-          }),
+      body: Center(
+        child: Mutation(
+            options: MutationOptions(
+              document: gql(authenticate),
+              onError: (error) {
+                print("ERROR");
+                print(error);
+              },
+              onCompleted: (dynamic resultData) {
+                print(resultData);
+                Provider.of<LoginState>(context, listen: false).token =
+                    resultData['authenticate']['token'];
+                context.go('/welcome');
+              },
+            ),
+            builder: (runMutation, result) {
+              Future.delayed(const Duration(seconds: 5), () {
+                runMutation({
+                  //'gUID': data.identifierForVendor,
+                  'gUID': 'test',
+                  'bundleID': "ru.severmetropol.mobile",
+                  'oSType': "IOS",
+                });
+              });
+              return const CircularProgressIndicator();
+            }),
+      ),
     );
   }
 }
