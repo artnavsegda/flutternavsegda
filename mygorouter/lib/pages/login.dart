@@ -21,12 +21,13 @@ class LoginPage extends StatelessWidget {
               print(error);
             },
             onCompleted: (resultData) {
-              print(resultData);
-              if (resultData['loginClient']['result'] == 0) {
+              GraphClientResult nordClientResult =
+                  GraphClientResult.fromJson(resultData['loginClient']);
+              if (nordClientResult.result == 0) {
                 Provider.of<LoginState>(context, listen: false).token =
-                    resultData['loginClient']['token'];
+                    nordClientResult.token ?? '';
 
-                if (resultData['loginClient']['nextStep'] == 'PASSWORD')
+                if (nordClientResult.nextStep == 'PASSWORD')
                   context.push('/password');
                 else
                   context.push('/sms');
