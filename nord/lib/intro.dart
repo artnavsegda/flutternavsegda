@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+import 'gql.dart';
+import 'login_state.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -7,26 +12,48 @@ class IntroPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: const [
-          RiveAnimation.asset(
-            'assets/sever.riv',
-            fit: BoxFit.cover,
+      body: Mutation(
+          options: MutationOptions(
+            document: gql(authenticate),
+            onError: (error) {
+              print("ERROR");
+              print(error);
+            },
+            onCompleted: (dynamic resultData) {
+              GraphAuthResult nordAuthResult =
+                  GraphAuthResult.fromJson(resultData['authenticate']);
+              Provider.of<LoginState>(context, listen: false).token =
+                  nordAuthResult.token;
+              context.go('/welcome');
+            },
           ),
-          Positioned(
-              bottom: 48,
-              left: 32,
-              right: 32,
-              child: Text(
-                'Легендарные, любимые, особенные.\nТеперь всегда под рукой!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontFamily: 'Forum',
-                  fontSize: 24,
+          builder: (runMutation, result) {
+            Future.delayed(const Duration(seconds: 5), () {
+              GraphDevice nordGraphDevice = GraphDevice(
+                  bundleID: "com.levrana", gUID: 'test', oSType: "IOS");
+              runMutation(nordGraphDevice.toJson());
+            });
+            return Stack(
+              children: const [
+                RiveAnimation.asset(
+                  'assets/sever.riv',
+                  fit: BoxFit.cover,
                 ),
-              ))
-        ],
-      ),
+                Positioned(
+                    bottom: 48,
+                    left: 32,
+                    right: 32,
+                    child: Text(
+                      'Легендарные, любимые, особенные.\nТеперь всегда под рукой!',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontFamily: 'Forum',
+                        fontSize: 24,
+                      ),
+                    ))
+              ],
+            );
+          }),
     );
   }
 }
