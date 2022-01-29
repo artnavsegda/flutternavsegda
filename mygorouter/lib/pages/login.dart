@@ -19,6 +19,19 @@ class LoginPage extends StatelessWidget {
             onError: (error) {
               print("ERROR");
               print(error);
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Ошибка'),
+                  content: const Text('AlertDialog description'),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
             },
             onCompleted: (resultData) {
               GraphClientResult nordClientResult =
@@ -31,6 +44,21 @@ class LoginPage extends StatelessWidget {
                   context.push('/password');
                 else
                   context.push('/sms');
+              } else {
+                print(resultData);
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Ошибка'),
+                    content: Text('${nordClientResult.errorMessage}'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
               }
             },
           ),
