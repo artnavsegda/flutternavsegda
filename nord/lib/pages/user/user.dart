@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 import 'edit_user.dart';
 import 'gift_bonus.dart';
+import '../../login_state.dart';
 import '../../sever_metropol_icons.dart';
 import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
 import '../address/delivery_address.dart';
+import '../../gql.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -125,13 +130,24 @@ class UserPage extends StatelessWidget {
           title: const Text("Смена пароля"),
           leading: Icon(SeverMetropol.Icon_Lock, color: Colors.red.shade900),
         ),
-        ListTile(
-          onTap: () async {
-            Navigator.pushReplacement(context,
-                MaterialPageRoute(builder: (context) => const Onboarding()));
+        Mutation(
+          options: MutationOptions(
+            document: gql(logoffClient),
+            onCompleted: (result) {
+              Provider.of<LoginState>(context, listen: false).loggedIn = false;
+              context.push('/login');
+            },
+          ),
+          builder: (runMutation, result) {
+            return ListTile(
+              onTap: () async {
+                runMutation({});
+              },
+              title: const Text("Выход из приложения"),
+              leading:
+                  Icon(SeverMetropol.Icon_Logout, color: Colors.red.shade900),
+            );
           },
-          title: const Text("Выход из приложения"),
-          leading: Icon(SeverMetropol.Icon_Logout, color: Colors.red.shade900),
         ),
       ],
     );
