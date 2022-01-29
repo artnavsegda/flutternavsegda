@@ -50,23 +50,23 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
-  late final TabController _controller;
+  late final TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-    _controller = TabController(
+    _tabController = TabController(
         length: 5, vsync: this, initialIndex: int.parse(widget.tab));
-    _controller.addListener(() {
+    _tabController.addListener(() {
       WidgetsBinding.instance!.addPostFrameCallback((_) {
-        context.goNamed('home', params: {'tab': '${_controller.index}'});
+        context.goNamed('home', params: {'tab': '${_tabController.index}'});
       });
     });
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
@@ -74,13 +74,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void didUpdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);
     //_controller.index = HomePage.indexFrom(widget.tab);
-    _controller.animateTo(int.parse(widget.tab));
+    _tabController.animateTo(int.parse(widget.tab));
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: TabBarView(controller: _controller, children: [
+      body: TabBarView(controller: _tabController, children: [
         MainPage(),
         Center(child: Text('shop')),
         Center(

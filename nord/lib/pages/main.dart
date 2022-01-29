@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
+import 'package:go_router/go_router.dart';
 import '../sever_metropol_icons.dart';
 import 'catalog/catalog.dart';
 import 'home/home.dart';
@@ -23,9 +24,12 @@ class _MainPageState extends State<MainPage>
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(vsync: this, length: 5);
+    _tabController = TabController(
+        vsync: this, length: 5, initialIndex: int.parse(widget.tab));
     _tabController.addListener(() {
-      setState(() {});
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        context.goNamed('home', params: {'tab': '${_tabController.index}'});
+      });
     });
   }
 
@@ -33,6 +37,13 @@ class _MainPageState extends State<MainPage>
   void dispose() {
     _tabController.dispose();
     super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    //_controller.index = HomePage.indexFrom(widget.tab);
+    _tabController.animateTo(int.parse(widget.tab));
   }
 
   @override
@@ -72,7 +83,7 @@ class _MainPageState extends State<MainPage>
             elevation: 0,
             backgroundColor: Colors.white,
             onTap: (index) {
-              _tabController.animateTo(index);
+              context.goNamed('home', params: {'tab': '$index'});
             },
             type: BottomNavigationBarType.fixed,
             showSelectedLabels: false,
