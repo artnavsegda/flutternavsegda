@@ -30,7 +30,9 @@ class IntroPage extends StatelessWidget {
           builder: (runMutation, result) {
             Future.delayed(const Duration(seconds: 5), () {
               GraphDevice nordGraphDevice = GraphDevice(
-                  bundleID: "com.levrana", gUID: 'test', oSType: "IOS");
+                  bundleID: "ru.severmetropol.mobile",
+                  gUID: 'test',
+                  oSType: "IOS");
               runMutation(nordGraphDevice.toJson());
             });
             return Stack(
