@@ -90,7 +90,7 @@ class _MainPageState extends State<MainPage>
             showUnselectedLabels: false,
             selectedItemColor: Colors.grey,
             unselectedItemColor: Colors.red.shade900,
-            currentIndex: _tabController.index,
+            currentIndex: int.parse(widget.tab),
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(
                 icon: Icon(SeverMetropol.Icon_Home),
