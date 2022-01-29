@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import '../../components/components.dart';
 import 'sms.dart';
 
@@ -7,6 +8,11 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var maskFormatter = new MaskTextInputFormatter(
+        mask: '+7 (###) ###-##-##',
+        filter: {"#": RegExp(r'[0-9]')},
+        type: MaskAutoCompletionType.lazy);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -29,7 +35,8 @@ class LoginPage extends StatelessWidget {
                 const Text(
                     'Мы отправим на номер SMS-сообщение с кодом потверждения'),
                 const SizedBox(height: 24),
-                const TextField(
+                TextField(
+                  inputFormatters: [maskFormatter],
                   decoration: InputDecoration(
                       labelText: "Номер телефона",
                       hintText: '+7 (___) ___-__-__'),
@@ -48,10 +55,11 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 32),
                 ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
+                      print(maskFormatter.getUnmaskedText());
+/*                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const SmsPage()));
+                              builder: (context) => const SmsPage())); */
                     },
                     child: const Text('Далее')),
               ],
