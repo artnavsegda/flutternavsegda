@@ -1,6 +1,8 @@
 import 'dart:math';
-import 'qr.dart';
 import 'package:flutter/material.dart';
+
+import 'qr.dart';
+import 'package:go_router/go_router.dart';
 
 class CardNotLoggedIn extends StatelessWidget {
   const CardNotLoggedIn({
@@ -52,8 +54,7 @@ class CardNotLoggedIn extends StatelessWidget {
                 ),
                 child: const Text('Войти'),
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const QrPage()));
+                  context.push('/login');
                 },
               ),
             ),

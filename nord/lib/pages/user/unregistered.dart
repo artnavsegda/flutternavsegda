@@ -29,7 +29,7 @@ class Unregistered extends StatelessWidget {
           title: const Text("Специальные предложения, подарки и акции"),
           leading: Image.asset('assets/Illustration-Colored-Gift.png'),
         ),
-        Spacer(),
+        //Spacer(),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: GradientButton(
