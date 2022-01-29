@@ -96,6 +96,18 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       vsync: this,
       initialIndex: HomePage.indexFrom(widget.tab),
     );
+    _controller.addListener(() {
+      if (_controller.index == 0) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          context.go('/main');
+        });
+      }
+      if (_controller.index == 1) {
+        WidgetsBinding.instance!.addPostFrameCallback((_) {
+          context.go('/shop');
+        });
+      }
+    });
   }
 
   @override
