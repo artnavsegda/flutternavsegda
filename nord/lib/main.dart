@@ -91,9 +91,7 @@ class NordApp extends StatelessWidget {
               routerDelegate: router.routerDelegate,
               debugShowCheckedModeBanner: false,
               title: 'Север Метрополь',
-              theme: ThemeData(
-                primarySwatch: Colors.red,
-              ),
+              theme: nordTheme,
             ),
           );
         },
