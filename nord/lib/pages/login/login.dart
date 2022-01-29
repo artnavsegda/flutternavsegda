@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+
 import '../../components/components.dart';
-import 'sms.dart';
+import '../../gql.dart';
+import '../../login_state.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var maskFormatter = new MaskTextInputFormatter(
+    var maskFormatter = MaskTextInputFormatter(
         mask: '+7 (###) ###-##-##',
         filter: {"#": RegExp(r'[0-9]')},
         type: MaskAutoCompletionType.lazy);
@@ -37,7 +42,7 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(height: 24),
                 TextField(
                   inputFormatters: [maskFormatter],
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                       labelText: "Номер телефона",
                       hintText: '+7 (___) ___-__-__'),
                 ),
@@ -53,15 +58,50 @@ class LoginPage extends StatelessWidget {
                         'Даю свое согласие на обработку персональных данных',
                         style: TextStyle(fontSize: 16))),
                 const SizedBox(height: 32),
-                ElevatedButton(
-                    onPressed: () {
-                      print(maskFormatter.getUnmaskedText());
-/*                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SmsPage())); */
-                    },
-                    child: const Text('Далее')),
+                Mutation(
+                    options: MutationOptions(
+                      document: gql(loginClient),
+                      onCompleted: (resultData) {
+                        GraphClientResult nordClientResult =
+                            GraphClientResult.fromJson(
+                                resultData['loginClient']);
+                        if (nordClientResult.result == 0) {
+                          Provider.of<LoginState>(context, listen: false)
+                              .token = nordClientResult.token ?? '';
+
+                          if (nordClientResult.nextStep == 'PASSWORD')
+                            context.push('/password');
+                          else
+                            context.pushNamed('sms', params: {
+                              'phone': maskFormatter.getMaskedText()
+                            });
+                        } else {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) => AlertDialog(
+                              title: const Text('Ошибка'),
+                              content: Text('${nordClientResult.errorMessage}'),
+                              actions: [
+                                TextButton(
+                                  onPressed: () => Navigator.pop(context, 'OK'),
+                                  child: const Text('OK'),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                      },
+                    ),
+                    builder: (runMutation, result) {
+                      return ElevatedButton(
+                          onPressed: () {
+                            runMutation({
+                              'clientPhone': int.parse(
+                                  '7' + maskFormatter.getUnmaskedText())
+                            });
+                          },
+                          child: Text('Далее'));
+                    }),
               ],
             ),
           ),

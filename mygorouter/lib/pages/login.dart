@@ -16,23 +16,6 @@ class LoginPage extends StatelessWidget {
       body: Mutation(
           options: MutationOptions(
             document: gql(loginClient),
-            onError: (error) {
-              print("ERROR");
-              print(error);
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Ошибка'),
-                  content: const Text('AlertDialog description'),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
-            },
             onCompleted: (resultData) {
               GraphClientResult nordClientResult =
                   GraphClientResult.fromJson(resultData['loginClient']);
