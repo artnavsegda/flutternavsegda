@@ -12,6 +12,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController phoneNumberController = TextEditingController();
     return Scaffold(
+      appBar: AppBar(),
       body: Mutation(
           options: MutationOptions(
             document: gql(loginClient),
@@ -25,15 +26,10 @@ class LoginPage extends StatelessWidget {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['loginClient']['token'];
 
-                showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  builder: (context) {
-                    return resultData['loginClient']['nextStep'] == 'PASSWORD'
-                        ? const PasswordPage()
-                        : const ConfirmSMSPage();
-                  },
-                );
+                if (resultData['loginClient']['nextStep'] == 'PASSWORD')
+                  context.push('/password');
+                else
+                  context.push('/sms');
               }
             },
           ),
@@ -66,9 +62,9 @@ class PasswordPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final TextEditingController passwordInputController =
         TextEditingController();
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Mutation(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Mutation(
           options: MutationOptions(
             document: gql(checkClient),
             onError: (error) {
@@ -80,6 +76,7 @@ class PasswordPage extends StatelessWidget {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['checkClient']['token'];
                 Provider.of<LoginState>(context, listen: false).loggedIn = true;
+                context.go('/main');
               }
             },
           ),
@@ -110,9 +107,9 @@ class ConfirmSMSPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final TextEditingController smsInputController = TextEditingController();
-    return Padding(
-      padding: MediaQuery.of(context).viewInsets,
-      child: Mutation(
+    return Scaffold(
+      appBar: AppBar(),
+      body: Mutation(
           options: MutationOptions(
             document: gql(checkClient),
             onError: (error) {
@@ -124,6 +121,7 @@ class ConfirmSMSPage extends StatelessWidget {
                 Provider.of<LoginState>(context, listen: false).token =
                     resultData['checkClient']['token'];
                 Provider.of<LoginState>(context, listen: false).loggedIn = true;
+                context.go('/main');
               }
             },
           ),

@@ -17,6 +17,7 @@ class ProfilePage extends StatelessWidget {
           document: gql(logoffClient),
           onCompleted: (result) {
             Provider.of<LoginState>(context, listen: false).loggedIn = false;
+            context.push('/login');
           },
         ),
         builder: (runMutation, result) {
@@ -31,7 +32,8 @@ class ProfilePage extends StatelessWidget {
     } else {
       return TextButton(
           onPressed: () {
-            Provider.of<LoginState>(context, listen: false).skipLogin = false;
+            //Provider.of<LoginState>(context, listen: false).skipLogin = false;
+            context.push('/login');
           },
           child: Text('login'));
     }

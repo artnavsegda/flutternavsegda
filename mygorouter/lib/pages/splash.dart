@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import '../login_state.dart';
 import '../gql.dart';
@@ -21,6 +22,7 @@ class SplashPage extends StatelessWidget {
               print(resultData);
               Provider.of<LoginState>(context, listen: false).token =
                   resultData['authenticate']['token'];
+              context.go('/welcome');
             },
           ),
           builder: (runMutation, result) {

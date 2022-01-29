@@ -47,6 +47,22 @@ class NordRouter {
         ),
       ),
       GoRoute(
+        name: 'password',
+        path: '/password',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const PasswordPage(),
+        ),
+      ),
+      GoRoute(
+        name: 'sms',
+        path: '/sms',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const ConfirmSMSPage(),
+        ),
+      ),
+      GoRoute(
           name: 'home',
           path: '/home/:tab(main|shop|cart|profile|more)',
           pageBuilder: (context, state) {
@@ -118,25 +134,9 @@ class NordRouter {
       //print('device token ' + loginState.token);
       final splashLoc = state.namedLocation('splash');
       final splashIn = state.subloc == splashLoc;
-      final welcomeLoc = state.namedLocation('welcome');
-      final welcomeIn = state.subloc == welcomeLoc;
-      final loginLoc = state.namedLocation('login');
-      final loggingIn = state.subloc == loginLoc;
-      final rootLoc = state.namedLocation('root');
 
       if (loginState.token == '' && !splashIn) {
         return splashLoc;
-      }
-      if (loginState.token != '' &&
-          !(loginState.loggedIn || loginState.skipLogin) &&
-          !welcomeIn) {
-        return welcomeLoc;
-      }
-      if (loginState.loggedIn && loggingIn) {
-        return rootLoc;
-      }
-      if (loginState.skipLogin && welcomeIn) {
-        return rootLoc;
       }
       return null;
     },
