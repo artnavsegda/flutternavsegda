@@ -33,7 +33,7 @@ class IntroPage extends StatelessWidget {
           builder: (runMutation, result) {
             Future.delayed(const Duration(seconds: 5), () async {
               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
-              String? fcmToken = await FirebaseMessaging.instance.getToken();
+              //String? fcmToken = await FirebaseMessaging.instance.getToken();
 
               if (Platform.isAndroid) {
                 var build = await deviceInfo.androidInfo;
@@ -41,7 +41,7 @@ class IntroPage extends StatelessWidget {
                   bundleID: "com.severmetropol",
                   gUID: build.androidId ?? "",
                   oSType: "ANDROID",
-                  pushNotificationToken: fcmToken,
+                  //pushNotificationToken: fcmToken,
                 );
                 runMutation(levranaGraphDevice.toJson());
               } else if (Platform.isIOS) {
@@ -50,7 +50,7 @@ class IntroPage extends StatelessWidget {
                   bundleID: "ru.severmetropol.mobile",
                   gUID: data.identifierForVendor ?? "",
                   oSType: "IOS",
-                  pushNotificationToken: fcmToken,
+                  //pushNotificationToken: fcmToken,
                 );
                 runMutation(nordGraphDevice.toJson());
               }

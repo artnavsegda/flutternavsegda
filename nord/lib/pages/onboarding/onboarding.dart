@@ -178,7 +178,7 @@ class Push extends StatelessWidget {
         const SizedBox(height: 20),
         OutlinedButton(
             onPressed: () async {
-              FirebaseMessaging messaging = FirebaseMessaging.instance;
+/*               FirebaseMessaging messaging = FirebaseMessaging.instance;
 
               NotificationSettings settings = await messaging.requestPermission(
                 alert: true,
@@ -198,7 +198,7 @@ class Push extends StatelessWidget {
                 print('User granted provisional permission');
               } else {
                 print('User declined or has not accepted permission');
-              }
+              } */
             },
             child: const Text('Разрешить уведомления'))
       ],

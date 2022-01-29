@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:provider/provider.dart';
 
 import 'router/routes.dart';
@@ -11,6 +13,13 @@ import 'login_state.dart';
 Future<void> main() async {
   await initHiveForFlutter();
   WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
+
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
   final state = LoginState(await SharedPreferences.getInstance());
   state.checkLoggedIn();
   runApp(NordApp(loginState: state));
