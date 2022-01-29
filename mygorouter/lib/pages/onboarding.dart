@@ -20,7 +20,7 @@ class OnboardingPage extends StatelessWidget {
             TextButton(
               child: Text('Skip'),
               onPressed: () {
-                context.go('/home');
+                context.go('/main');
               },
             )
           ],
