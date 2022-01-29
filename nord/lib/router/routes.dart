@@ -65,7 +65,7 @@ class NordRouter {
       ),
       GoRoute(
           name: 'home',
-          path: '/home/:tab(main|shop|cart|profile|more)',
+          path: '/home/:tab(0|1|2|3|4)',
           pageBuilder: (context, state) {
             final tab = state.params['tab']!;
             return MaterialPage<void>(

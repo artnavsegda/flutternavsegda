@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:badges/badges.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
+
 import '../sever_metropol_icons.dart';
 import 'catalog/catalog.dart';
 import 'home/home.dart';
 import 'more/more.dart';
 import 'shopping/shopping.dart';
 import 'user/user.dart';
+import 'user/unregistered.dart';
+import '../login_state.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key, required this.tab}) : super(key: key);
@@ -51,11 +55,13 @@ class _MainPageState extends State<MainPage>
     return Scaffold(
         body: TabBarView(
           controller: _tabController,
-          children: const [
+          children: [
             HomePage(),
             CatalogPage(),
             ShoppingPage(),
-            UserPage(),
+            Provider.of<LoginState>(context, listen: false).loggedIn
+                ? UserPage()
+                : Unregistered(),
             MorePage(),
           ],
         ),
