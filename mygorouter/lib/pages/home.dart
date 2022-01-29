@@ -45,42 +45,6 @@ class HomePage extends StatefulWidget {
 
   final String tab;
 
-  static int indexFrom(String tab) {
-    switch (tab) {
-      case 'shop':
-        return 1;
-      case 'cart':
-        return 2;
-      case 'profile':
-        return 3;
-      case 'more':
-        return 4;
-      case 'main':
-      default:
-        return 0;
-    }
-  }
-
-  static Widget pageFrom(String tab, BuildContext context) {
-    switch (tab) {
-      case 'shop':
-        return Text('shop');
-      case 'cart':
-        return TextButton(
-            onPressed: () {
-              context.go('/shop');
-            },
-            child: Text('Go to catalog'));
-      case 'profile':
-        return ProfilePage();
-      case 'more':
-        return Text('more');
-      case 'main':
-      default:
-        return MainPage();
-    }
-  }
-
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -92,21 +56,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void initState() {
     super.initState();
     _controller = TabController(
-      length: 5,
-      vsync: this,
-      initialIndex: HomePage.indexFrom(widget.tab),
-    );
+        length: 5, vsync: this, initialIndex: int.parse(widget.tab));
     _controller.addListener(() {
-      if (_controller.index == 0) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
-          context.go('/main');
-        });
-      }
-      if (_controller.index == 1) {
-        WidgetsBinding.instance!.addPostFrameCallback((_) {
-          context.go('/shop');
-        });
-      }
+      WidgetsBinding.instance!.addPostFrameCallback((_) {
+        context.goNamed('home', params: {'tab': '${_controller.index}'});
+      });
     });
   }
 
@@ -120,7 +74,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   void didUpdateWidget(oldWidget) {
     super.didUpdateWidget(oldWidget);
     //_controller.index = HomePage.indexFrom(widget.tab);
-    _controller.animateTo(HomePage.indexFrom(widget.tab));
+    _controller.animateTo(int.parse(widget.tab));
   }
 
   @override
@@ -141,7 +95,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
       ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: HomePage.indexFrom(widget.tab),
+        currentIndex: int.parse(widget.tab),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -165,23 +119,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           ),
         ],
         onTap: (index) {
-          switch (index) {
-            case 0:
-              context.go('/main');
-              break;
-            case 1:
-              context.go('/shop');
-              break;
-            case 2:
-              context.go('/cart');
-              break;
-            case 3:
-              context.go('/profile');
-              break;
-            case 4:
-              context.go('/more');
-              break;
-          }
+          context.goNamed('home', params: {'tab': '$index'});
         },
       ),
     );

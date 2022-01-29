@@ -19,8 +19,7 @@ class NordRouter {
       GoRoute(
         name: 'root',
         path: '/',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'main'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '0'}),
       ),
       GoRoute(
         name: 'welcome',
@@ -64,7 +63,7 @@ class NordRouter {
       ),
       GoRoute(
           name: 'home',
-          path: '/home/:tab(main|shop|cart|profile|more)',
+          path: '/home/:tab(0|1|2|3|4)',
           pageBuilder: (context, state) {
             final tab = state.params['tab']!;
             return MaterialPage<void>(
@@ -92,28 +91,23 @@ class NordRouter {
           ]),
       GoRoute(
         path: '/main',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'main'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '0'}),
       ),
       GoRoute(
         path: '/shop',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'shop'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '1'}),
       ),
       GoRoute(
         path: '/cart',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'cart'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '2'}),
       ),
       GoRoute(
         path: '/profile',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'profile'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '3'}),
       ),
       GoRoute(
         path: '/more',
-        redirect: (state) =>
-            state.namedLocation('home', params: {'tab': 'more'}),
+        redirect: (state) => state.namedLocation('home', params: {'tab': '4'}),
       ),
       GoRoute(
         path: '/product/:id',
