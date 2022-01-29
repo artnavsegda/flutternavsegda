@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import '../main.dart';
 import '../login/login.dart';
 import '../../components/gradient_button.dart';
@@ -176,7 +177,30 @@ class Push extends StatelessWidget {
             style: TextStyle(fontSize: 14.0)),
         const SizedBox(height: 20),
         OutlinedButton(
-            onPressed: () {}, child: const Text('Разрешить уведомления'))
+            onPressed: () async {
+              FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+              NotificationSettings settings = await messaging.requestPermission(
+                alert: true,
+                announcement: false,
+                badge: true,
+                carPlay: false,
+                criticalAlert: false,
+                provisional: false,
+                sound: true,
+              );
+
+              if (settings.authorizationStatus ==
+                  AuthorizationStatus.authorized) {
+                print('User granted permission');
+              } else if (settings.authorizationStatus ==
+                  AuthorizationStatus.provisional) {
+                print('User granted provisional permission');
+              } else {
+                print('User declined or has not accepted permission');
+              }
+            },
+            child: const Text('Разрешить уведомления'))
       ],
     );
   }
