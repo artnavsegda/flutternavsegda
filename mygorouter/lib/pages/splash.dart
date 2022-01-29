@@ -20,20 +20,18 @@ class SplashPage extends StatelessWidget {
                 print(error);
               },
               onCompleted: (dynamic resultData) {
-                print(resultData);
+                GraphAuthResult nordAuthResult =
+                    GraphAuthResult.fromJson(resultData['authenticate']);
                 Provider.of<LoginState>(context, listen: false).token =
-                    resultData['authenticate']['token'];
+                    nordAuthResult.token;
                 context.go('/welcome');
               },
             ),
             builder: (runMutation, result) {
               Future.delayed(const Duration(seconds: 5), () {
-                runMutation({
-                  //'gUID': data.identifierForVendor,
-                  'gUID': 'test',
-                  'bundleID': "ru.severmetropol.mobile",
-                  'oSType': "IOS",
-                });
+                GraphDevice nordGraphDevice = GraphDevice(
+                    bundleID: "com.levrana", gUID: 'test', oSType: "IOS");
+                runMutation(nordGraphDevice.toJson());
               });
               return const CircularProgressIndicator();
             }),
