@@ -40,7 +40,7 @@ class ProfilePage extends StatelessWidget {
   }
 }
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({required this.tab, Key? key}) : super(key: key);
 
   final String tab;
@@ -82,14 +82,54 @@ class HomePage extends StatelessWidget {
   }
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
+  late final TabController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = TabController(
+      length: 5,
+      vsync: this,
+      initialIndex: HomePage.indexFrom(widget.tab),
+    );
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    //_controller.index = HomePage.indexFrom(widget.tab);
+    _controller.animateTo(HomePage.indexFrom(widget.tab));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: pageFrom(tab, context),
-      ),
+      body: TabBarView(controller: _controller, children: [
+        MainPage(),
+        Center(child: Text('shop')),
+        Center(
+          child: TextButton(
+              onPressed: () {
+                context.go('/shop');
+              },
+              child: Text('Go to catalog')),
+        ),
+        ProfilePage(),
+        Center(child: Text('more')),
+      ]),
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        currentIndex: indexFrom(tab),
+        currentIndex: HomePage.indexFrom(widget.tab),
         items: [
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
