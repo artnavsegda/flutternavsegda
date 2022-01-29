@@ -41,11 +41,9 @@ class ProfilePage extends StatelessWidget {
 }
 
 class HomePage extends StatelessWidget {
-  const HomePage({required this.tab, this.catalogID, Key? key})
-      : super(key: key);
+  const HomePage({required this.tab, Key? key}) : super(key: key);
 
   final String tab;
-  final int? catalogID;
 
   static int indexFrom(String tab) {
     switch (tab) {

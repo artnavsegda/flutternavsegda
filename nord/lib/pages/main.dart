@@ -8,7 +8,9 @@ import 'shopping/shopping.dart';
 import 'user/user.dart';
 
 class MainPage extends StatefulWidget {
-  const MainPage({Key? key}) : super(key: key);
+  const MainPage({Key? key, required this.tab}) : super(key: key);
+
+  final String tab;
 
   @override
   _MainPageState createState() => _MainPageState();

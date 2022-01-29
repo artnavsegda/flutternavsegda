@@ -4,10 +4,8 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 
-import 'pages/onboarding/onboarding.dart';
-import 'pages/main.dart';
+import 'router/routes.dart';
 import 'utils.dart';
-import 'intro.dart';
 import 'login_state.dart';
 
 Future<void> main() async {
@@ -63,10 +61,43 @@ class NordApp extends StatelessWidget {
       ),
     );
 
-    return MaterialApp(
-      title: 'Север Метрополь',
-      theme: nordTheme,
-      home: const MainPage(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider<LoginState>(
+          lazy: false,
+          create: (BuildContext createContext) => loginState,
+        ),
+        Provider<NordRouter>(
+          lazy: false,
+          create: (BuildContext createContext) => NordRouter(loginState),
+        ),
+      ],
+      child: Consumer<LoginState>(
+        builder: (BuildContext context, model, child) {
+          final router = Provider.of<NordRouter>(context, listen: false).router;
+          return GraphQLProvider(
+            client: ValueNotifier(
+              GraphQLClient(
+                link: AuthLink(getToken: () => 'Bearer ' + model.token).concat(
+                  HttpLink(
+                    'https://demo.cyberiasoft.com/severmetropolservice/graphql',
+                  ),
+                ),
+                cache: GraphQLCache(store: HiveStore()),
+              ),
+            ),
+            child: MaterialApp.router(
+              routeInformationParser: router.routeInformationParser,
+              routerDelegate: router.routerDelegate,
+              debugShowCheckedModeBanner: false,
+              title: 'Север Метрополь',
+              theme: ThemeData(
+                primarySwatch: Colors.red,
+              ),
+            ),
+          );
+        },
+      ),
     );
   }
 }

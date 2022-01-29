@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import '../main.dart';
 
 class SmsPage extends StatelessWidget {
@@ -30,10 +31,7 @@ class SmsPage extends StatelessWidget {
             const SizedBox(height: 16),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainPage()));
+                  context.go('/main');
                 },
                 child: const Text('Подтвердить')),
             const SizedBox(height: 8),

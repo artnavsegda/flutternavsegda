@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
+import 'package:go_router/go_router.dart';
 import '../main.dart';
 import '../login/login.dart';
 import '../../components/gradient_button.dart';
@@ -55,10 +56,7 @@ class _OnboardingState extends State<Onboarding> {
                   controller: _controller,
                   onPageChanged: (page) {
                     if (page == 4) {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const MainPage()));
+                      context.go('/main');
                     }
                     setState(() {
                       pageNumber = page;
@@ -117,10 +115,7 @@ class _OnboardingState extends State<Onboarding> {
               firstChild: GradientButton(
                 child: const Text('Выбрать что-нибудь вкусное'),
                 onPressed: () {
-                  Navigator.pushReplacement(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const MainPage()));
+                  context.go('/main');
                 },
               ),
               secondChild: GradientButton.icon(
