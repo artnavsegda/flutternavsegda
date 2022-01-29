@@ -9,6 +9,7 @@ import '../pages/login/sms.dart';
 import '../pages/onboarding/onboarding.dart';
 import '../pages/main.dart';
 import '../pages/product/product.dart';
+import '../pages/user/edit_user.dart';
 
 class NordRouter {
   final LoginState loginState;
@@ -126,6 +127,14 @@ class NordRouter {
           params: {'tab': 'shop', 'id': state.params['id']!},
         ),
       ), */
+      GoRoute(
+        name: 'editProfile',
+        path: '/editProfile',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const EditUser(),
+        ),
+      ),
     ],
     redirect: (state) {
       //print('device token ' + loginState.token);

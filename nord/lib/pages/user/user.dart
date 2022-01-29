@@ -23,8 +23,7 @@ class UserPage extends StatelessWidget {
             foregroundImage: AssetImage('assets/treska.jpg'),
           ),
           onTap: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const EditUser()));
+            context.push('/editProfile');
           },
           title: const Text("Princess\nBean"),
           trailing: Icon(SeverMetropol.Icon_Edit, color: Colors.red.shade900),
