@@ -57,10 +57,10 @@ class NordRouter {
       ),
       GoRoute(
         name: 'sms',
-        path: '/sms',
+        path: '/sms/:phone',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: const SmsPage(),
+          child: SmsPage(phone: state.params['phone']),
         ),
       ),
       GoRoute(

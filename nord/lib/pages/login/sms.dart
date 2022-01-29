@@ -3,7 +3,9 @@ import 'package:go_router/go_router.dart';
 import '../main.dart';
 
 class SmsPage extends StatelessWidget {
-  const SmsPage({Key? key}) : super(key: key);
+  const SmsPage({Key? key, this.phone}) : super(key: key);
+
+  final String? phone;
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,7 @@ class SmsPage extends StatelessWidget {
             const Text('Введите\nкод подтверждения',
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
             const SizedBox(height: 9),
-            const Text(
-                'Код подтверждения был отправлен на номер:\n+7 999 102-17-32'),
+            Text('Код подтверждения был отправлен на номер:\n$phone'),
             const SizedBox(height: 24),
             const TextField(
               decoration: InputDecoration(labelText: "Код подтверждения"),
