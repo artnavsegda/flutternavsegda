@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class CartIsEmpty extends StatelessWidget {
   const CartIsEmpty({
@@ -21,7 +22,7 @@ class CartIsEmpty extends StatelessWidget {
           const SizedBox(height: 24),
           ElevatedButton(
               onPressed: () {
-                //DefaultTabController.of(context)!.animateTo(1);
+                context.go('/shop');
               },
               child: const Text('Перейти в каталог'))
         ],
