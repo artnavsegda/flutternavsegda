@@ -1,14 +1,51 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../components/components.dart';
 import 'registration.dart';
+import 'cart_is_empty.dart';
+import '../../gql.dart';
 
 class ShoppingPage extends StatelessWidget {
   const ShoppingPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    return Query(
+        options: QueryOptions(document: gql(getCart)),
+        builder: (result, {refetch, fetchMore}) {
+          //print(result);
+
+          if (result.hasException) {
+            return const Center(
+              child: Text("Корзина недоступна"),
+            );
+          }
+
+          if (result.isLoading) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                await refetch!();
+                //await Future.delayed(Duration(seconds: 5));
+              },
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
+            );
+          }
+
+          List<GraphCartRow> cart = List<GraphCartRow>.from(result
+              .data!['getCart']
+              .map((model) => GraphCartRow.fromJson(model)));
+
+          if (cart.isEmpty) {
+            return CartIsEmpty();
+          }
+
+          return Text('a');
+        });
+
     //return CartIsEmpty();
     return Scaffold(
       appBar: AppBar(
