@@ -10,6 +10,11 @@ class MapPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Кондитерские и кафе'),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset('assets/Icon-West.png')),
       ),
       body: Stack(
         children: [
@@ -30,7 +35,20 @@ class MapPage extends StatelessWidget {
                     children: [
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: const TextField(),
+                        child: const TextField(
+                          decoration: InputDecoration(
+                              hintText: 'Поиск по названию или адресу',
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.0),
+                                ),
+                              ),
+                              filled: true),
+                        ),
                       ),
                       ListTile(
                         isThreeLine: true,
