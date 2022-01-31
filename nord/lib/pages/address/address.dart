@@ -20,21 +20,52 @@ class AddressPage extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.stretch,
         mainAxisSize: MainAxisSize.min,
         children: [
+          SizedBox(height: 28),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
               children: [
                 SizedBox(width: 16),
                 OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                        side: BorderSide(color: Colors.grey),
+                        padding: EdgeInsets.only(right: 16)),
                     onPressed: () {},
                     label: const Text('Доставка'),
-                    icon: Image.asset(
-                        'assets/Illustration-Colored-Delivery.png')),
+                    icon: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset(
+                              'assets/Illustration-Colored-Delivery.png'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child:
+                              Image.asset('assets/Icon-Checkbox-Checked.png'),
+                        ),
+                      ],
+                    )),
                 SizedBox(width: 8),
                 OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.only(right: 16)),
                     onPressed: () {},
                     label: const Text('Самовывоз'),
-                    icon: Image.asset('assets/Illustration-Colored-Cafe.png'))
+                    icon: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset(
+                              'assets/Illustration-Colored-Cafe.png'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child:
+                              Image.asset('assets/Icon-Checkbox-Unchecked.png'),
+                        ),
+                      ],
+                    ))
               ],
             ),
           ),
