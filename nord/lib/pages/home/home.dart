@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:shimmer/shimmer.dart';
 
+import '../../gql.dart';
 import '../../components/product_card.dart';
 import 'action_card.dart';
 import 'discount_card.dart';
@@ -11,6 +14,70 @@ import '../../login_state.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
+
+  _buildActionsBlock(BuildContext context) {
+    return Query(
+      options: QueryOptions(
+        document: gql(getActions),
+        //fetchPolicy: FetchPolicy.cacheFirst,
+      ),
+      builder: (result, {fetchMore, refetch}) {
+        if (result.isLoading || result.hasException) {
+          return Container(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            decoration: BoxDecoration(borderRadius: BorderRadius.circular(6.0)),
+            child: AspectRatio(
+              aspectRatio: 16 / 9,
+              child: Shimmer.fromColors(
+                baseColor: const Color(0xFFECECEC),
+                highlightColor: Colors.white,
+                child: Container(
+                    decoration: BoxDecoration(
+                  color: const Color(0xFFECECEC),
+                  borderRadius: BorderRadius.circular(6.0),
+                )),
+              ),
+            ),
+          );
+        }
+
+        List<GraphAction> actions = List<GraphAction>.from(result
+            .data!['getActions']
+            .map((model) => GraphAction.fromJson(model)));
+
+        return SizedBox(
+          height: 225,
+          child: ListView(
+            scrollDirection: Axis.horizontal,
+            children: [
+              SizedBox(
+                width: 12,
+              ),
+/*               ActionCard(
+                  actionName: 'Взрывная весна!\nОткрой новые вкусы сладко...',
+                  actionImage: 'assets/placeholder/action/Illustration.png',
+                  actionDate: '15 октября–27 ноября'),
+              ActionCard(
+                  actionName: 'Шокодень',
+                  actionImage: 'assets/placeholder/cake.png',
+                  actionDate: 'Только до 31 октября'), */
+              ...actions
+                  .map(
+                    (action) {
+                      return ActionCard(
+                          actionName: action.name,
+                          actionImage: action.picture,
+                          actionDate: 'Только до 31 октября');
+                    },
+                  )
+                  .toList()
+                  .cast<Widget>(),
+            ],
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,25 +93,7 @@ class HomePage extends StatelessWidget {
             child: Text("Акции",
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
-          SizedBox(
-            height: 225,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(
-                  width: 12,
-                ),
-                ActionCard(
-                    actionName: 'Взрывная весна!\nОткрой новые вкусы сладко...',
-                    actionImage: 'assets/placeholder/action/Illustration.png',
-                    actionDate: '15 октября–27 ноября'),
-                ActionCard(
-                    actionName: 'Шокодень',
-                    actionImage: 'assets/placeholder/cake.png',
-                    actionDate: 'Только до 31 октября'),
-              ],
-            ),
-          ),
+          _buildActionsBlock(context),
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text("Новинки",

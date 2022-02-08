@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import '../action/action.dart';
 
 class ActionCard extends StatelessWidget {
@@ -10,7 +12,7 @@ class ActionCard extends StatelessWidget {
   }) : super(key: key);
 
   final String actionName;
-  final String actionImage;
+  final String? actionImage;
   final String actionDate;
 
   @override
@@ -25,16 +27,25 @@ class ActionCard extends StatelessWidget {
             AspectRatio(
               aspectRatio: 2,
               child: InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const ActionPage()));
-                  },
-                  child: Image.asset(
-                    actionImage,
-                    fit: BoxFit.cover,
-                  )),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ActionPage()));
+                },
+                child: CachedNetworkImage(
+                    imageUrl: actionImage ?? "",
+                    placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: const Color(0xFFECECEC),
+                          highlightColor: Colors.white,
+                          child: Container(
+                            color: const Color(0xFFECECEC),
+                          ),
+                        ),
+                    errorWidget: (context, url, error) =>
+                        const Icon(Icons.no_photography),
+                    fit: BoxFit.cover),
+              ),
             ),
             const SizedBox(
               height: 20,
