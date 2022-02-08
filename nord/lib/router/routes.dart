@@ -9,6 +9,7 @@ import '../pages/login/sms.dart';
 import '../pages/onboarding/onboarding.dart';
 import '../pages/main.dart';
 import '../pages/product/product.dart';
+import '../pages/action/action.dart';
 import '../pages/user/edit_user.dart';
 
 class NordRouter {
@@ -84,6 +85,15 @@ class NordRouter {
                 //child: ProductPage(id: int.parse(state.params['id']!)),
               ),
             ),
+            GoRoute(
+              name: 'action',
+              path: 'action/:id',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                child: ActionPage(),
+                //child: ActionPage(id: int.parse(state.params['id']!)),
+              ),
+            ),
 /*             GoRoute(
               name: 'catalog',
               path: 'catalog/:id',
@@ -117,7 +127,14 @@ class NordRouter {
         path: '/product/:id',
         redirect: (state) => state.namedLocation(
           'product',
-          params: {'tab': 'shop', 'id': state.params['id']!},
+          params: {'tab': '1', 'id': state.params['id']!},
+        ),
+      ),
+      GoRoute(
+        path: '/action/:id',
+        redirect: (state) => state.namedLocation(
+          'product',
+          params: {'tab': '0', 'id': state.params['id']!},
         ),
       ),
 /*       GoRoute(
