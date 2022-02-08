@@ -79,6 +79,143 @@ class HomePage extends StatelessWidget {
     );
   }
 
+  _buildLoadingShimmerPlaceholder(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(8, 33, 8, 0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 32,
+            width: 100,
+            child: Shimmer.fromColors(
+              baseColor: const Color(0xFFECECEC),
+              highlightColor: Colors.white,
+              child: Container(
+                  decoration: const BoxDecoration(
+                color: Color(0xFFECECEC),
+              )),
+            ),
+          ),
+          const SizedBox(height: 24),
+          Wrap(
+            spacing: 16,
+            runSpacing: 16,
+            children: [
+              FractionallySizedBox(
+                widthFactor: 0.45,
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Shimmer.fromColors(
+                    baseColor: const Color(0xFFECECEC),
+                    highlightColor: Colors.white,
+                    child: Container(
+                        decoration: BoxDecoration(
+                      color: const Color(0xFFECECEC),
+                      borderRadius: BorderRadius.circular(6.0),
+                    )),
+                  ),
+                ),
+              ),
+              FractionallySizedBox(
+                widthFactor: 0.45,
+                child: AspectRatio(
+                  aspectRatio: 1.0,
+                  child: Shimmer.fromColors(
+                    baseColor: const Color(0xFFECECEC),
+                    highlightColor: Colors.white,
+                    child: Container(
+                        decoration: BoxDecoration(
+                      color: const Color(0xFFECECEC),
+                      borderRadius: BorderRadius.circular(6.0),
+                    )),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildTopBlocks(BuildContext context) {
+    return Query(
+        options: QueryOptions(
+          document: gql(getTopBlocks),
+          //fetchPolicy: FetchPolicy.cacheFirst,
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.isLoading || result.hasException) {
+            return _buildLoadingShimmerPlaceholder(context);
+          }
+
+          List<GraphTopBlock> topBlocks = List<GraphTopBlock>.from(result
+              .data!['getTopBlocks']
+              .map((model) => GraphTopBlock.fromJson(model)));
+
+          return Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: topBlocks
+                  .map(
+                    (section) => Container(
+                      margin: const EdgeInsets.fromLTRB(8, 33, 8, 0),
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: EdgeInsets.all(16.0),
+                              child: Text(section.name,
+                                  style: TextStyle(
+                                      fontFamily: 'Forum', fontSize: 24.0)),
+                            ),
+                            const SizedBox(height: 16),
+                            SizedBox(
+                              height: 280,
+                              child: ListView(
+                                scrollDirection: Axis.horizontal,
+                                children: const [
+                                  SizedBox(
+                                    width: 16,
+                                  ),
+                                  ProductCard(
+                                    productImage:
+                                        'assets/placeholder/product1/Illustration.png',
+                                    productName: 'Торт «Сезонный» с ягодами',
+                                    productPrice: '420 ₽',
+                                  ),
+                                  SizedBox(width: 8),
+                                  ProductCard(
+                                    productImage:
+                                        'assets/placeholder/product2/Illustration.png',
+                                    productName: 'Анна Павлова',
+                                    productPrice: '315 ₽',
+                                  ),
+                                  SizedBox(width: 8),
+                                  ProductCard(
+                                    productImage:
+                                        'assets/placeholder/product2/Illustration.png',
+                                    productName: 'Анна Павлова',
+                                    productPrice: '315 ₽',
+                                  ),
+                                  SizedBox(width: 8),
+                                  ProductCard(
+                                    productImage:
+                                        'assets/placeholder/product2/Illustration.png',
+                                    productName: 'Анна Павлова',
+                                    productPrice: '315 ₽',
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ]),
+                    ),
+                  )
+                  .toList()
+                  .cast<Widget>());
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -133,6 +270,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
+          _buildTopBlocks(context),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Кондитерские и кафе",
