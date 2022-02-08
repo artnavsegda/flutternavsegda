@@ -39,7 +39,7 @@ class MainPage extends StatelessWidget {
                               title: Text(e.name),
                               onTap: () {
                                 context.goNamed('product', params: {
-                                  'tab': 'main',
+                                  'tab': '0',
                                   'id': '${e.iD}',
                                 });
                               },

@@ -109,11 +109,21 @@ class NordRouter {
         path: '/more',
         redirect: (state) => state.namedLocation('home', params: {'tab': '4'}),
       ),
+/*       GoRoute(
+        name: 'product',
+        path: '/product/:id',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: Product(
+            id: int.parse(state.params['id']!),
+          ),
+        ),
+      ), */
       GoRoute(
         path: '/product/:id',
         redirect: (state) => state.namedLocation(
           'product',
-          params: {'tab': 'shop', 'id': state.params['id']!},
+          params: {'tab': '1', 'id': state.params['id']!},
         ),
       ),
 /*       GoRoute(
