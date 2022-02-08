@@ -90,8 +90,7 @@ class NordRouter {
               path: 'action/:id',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
-                child: ActionPage(),
-                //child: ActionPage(id: int.parse(state.params['id']!)),
+                child: ActionPage(id: int.parse(state.params['id']!)),
               ),
             ),
 /*             GoRoute(

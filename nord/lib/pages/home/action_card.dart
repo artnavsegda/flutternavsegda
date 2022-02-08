@@ -9,11 +9,13 @@ class ActionCard extends StatelessWidget {
     required this.actionName,
     required this.actionImage,
     required this.actionDate,
+    required this.actionID,
   }) : super(key: key);
 
   final String actionName;
   final String? actionImage;
   final String actionDate;
+  final int actionID;
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +33,7 @@ class ActionCard extends StatelessWidget {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ActionPage()));
+                          builder: (context) => ActionPage(id: actionID)));
                 },
                 child: CachedNetworkImage(
                     imageUrl: actionImage ?? "",

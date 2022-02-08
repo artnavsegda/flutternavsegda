@@ -610,22 +610,19 @@ class GraphAction {
     this.dateStart,
     this.dateFinish,
     this.picture,
-    this.squarePicture,
   });
   int iD;
   String name;
   int? dateStart;
   int? dateFinish;
   String? picture;
-  String? squarePicture;
 
   GraphAction.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         name = json['name'],
         dateStart = json['dateStart'],
         dateFinish = json['dateFinish'],
-        picture = json['picture'],
-        squarePicture = json['squarePicture'];
+        picture = json['picture'];
 }
 
 class GraphActionCard {
@@ -639,7 +636,6 @@ class GraphActionCard {
     this.dateStart,
     this.dateFinish,
     this.picture,
-    this.squarePicture,
     this.type,
     required this.products,
     required this.shops,
@@ -653,7 +649,6 @@ class GraphActionCard {
   int? dateStart;
   int? dateFinish;
   String? picture;
-  String? squarePicture;
   String? type;
   List<GraphProduct> products;
   List<GraphShop> shops;
@@ -668,7 +663,6 @@ class GraphActionCard {
         dateStart = json['dateStart'],
         dateFinish = json['dateFinish'],
         picture = json['picture'],
-        squarePicture = json['squarePicture'],
         type = json['type'],
         products = List<GraphProduct>.from(
             json['products'].map((model) => GraphProduct.fromJson(model))),
@@ -1064,7 +1058,6 @@ query getAction($actionID: Int) {
     dateStart
     dateFinish
     picture
-    squarePicture
     type
     products {
       iD

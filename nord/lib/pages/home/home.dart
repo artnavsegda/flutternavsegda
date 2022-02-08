@@ -65,6 +65,7 @@ class HomePage extends StatelessWidget {
                   .map(
                     (action) {
                       return ActionCard(
+                          actionID: action.iD,
                           actionName: action.name,
                           actionImage: action.picture,
                           actionDate: 'Только до 31 октября');
@@ -270,7 +271,7 @@ class HomePage extends StatelessWidget {
               ],
             ),
           ),
-          _buildTopBlocks(context),
+          //_buildTopBlocks(context),
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Кондитерские и кафе",
