@@ -744,11 +744,11 @@ class GraphCatalog {
   GraphCatalog({
     required this.iD,
     required this.name,
-    this.products,
+    required this.products,
   });
   int iD;
   String name;
-  List<GraphProduct>? products;
+  List<GraphProduct> products;
   GraphCatalog.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         name = json['name'],

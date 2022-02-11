@@ -13,91 +13,6 @@ class CatalogPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final ItemScrollController itemScrollController = ItemScrollController();
 
-    var elementList = [
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Выпечка',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 32.0,
-              children: const [
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product1/Illustration.png',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product2/Illustration.png',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product1/Illustration.png',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product2/Illustration.png',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-      Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Text('Кексы',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-            const SizedBox(height: 12),
-            Wrap(
-              spacing: 8.0,
-              runSpacing: 32.0,
-              children: const [
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product1/Illustration.png',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product2/Illustration.png',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product1/Illustration.png',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage: 'assets/placeholder/product2/Illustration.png',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    ];
-
     return Query(
         options: QueryOptions(
           document: gql(getProducts),
@@ -108,6 +23,10 @@ class CatalogPage extends StatelessWidget {
               child: CircularProgressIndicator(),
             );
           }
+
+          List<GraphCatalog> nordCatalog = List<GraphCatalog>.from(result
+              .data!['getProducts']
+              .map((model) => GraphCatalog.fromJson(model)));
 
           return Scaffold(
             body: SafeArea(
@@ -152,19 +71,26 @@ class CatalogPage extends StatelessWidget {
                     ],
                   ),
                   DefaultTabController(
-                    length: 8,
+                    length: nordCatalog.length,
                     child: TabBar(
                       isScrollable: true,
                       indicatorSize: TabBarIndicatorSize.label,
                       onTap: (newPage) {
                         itemScrollController.scrollTo(
                             index: newPage,
-                            duration: const Duration(seconds: 2),
+                            duration: const Duration(seconds: 1),
                             curve: Curves.easeInOutCubic);
                       },
                       unselectedLabelColor: Colors.red.shade900,
                       labelColor: Colors.black38,
-                      tabs: const [
+                      tabs: nordCatalog
+                          .map((category) {
+                            return Tab(text: category.name);
+                          })
+                          .toList()
+                          .cast<Widget>(),
+
+/*                       [
                         Tab(text: "Выпечка"),
                         Tab(text: "Кексы"),
                         Tab(text: "Конфеты"),
@@ -173,15 +99,42 @@ class CatalogPage extends StatelessWidget {
                         Tab(text: "Кексы"),
                         Tab(text: "Конфеты"),
                         Tab(text: "Мороженое"),
-                      ],
+                      ], */
                     ),
                   ),
                   Expanded(
                     child: ScrollablePositionedList.builder(
-                      itemCount: 2,
+                      itemCount: nordCatalog.length,
                       itemScrollController: itemScrollController,
                       itemBuilder: (context, index) {
-                        return elementList[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(nordCatalog[index].name,
+                                  style: TextStyle(
+                                      fontFamily: 'Forum', fontSize: 24.0)),
+                              const SizedBox(height: 12),
+                              Wrap(
+                                //spacing: 8.0,
+                                runSpacing: 32.0,
+                                children: nordCatalog[index]
+                                    .products
+                                    .map((product) {
+                                      return ProductCard(
+                                        productID: product.iD,
+                                        productImage: product.picture ?? '',
+                                        productName: product.name,
+                                        productPrice: '420 ₽',
+                                      );
+                                    })
+                                    .toList()
+                                    .cast<Widget>(),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                     ),
                   ),
