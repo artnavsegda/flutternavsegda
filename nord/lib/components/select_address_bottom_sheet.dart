@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import '../pages/address/address.dart';
+import '../../components/gradient_button.dart';
 
 class SelectAddressBottomSheet extends StatelessWidget {
   const SelectAddressBottomSheet({
@@ -29,7 +30,7 @@ class SelectAddressBottomSheet extends StatelessWidget {
               const Text(
                   'Чтобы предложить полный и точный ассортимент товаров, нам важно знать, где Вы собираетесь их получать'),
               const SizedBox(height: 24),
-              ElevatedButton(
+              GradientButton(
                   onPressed: () {
                     Navigator.push(
                         context,

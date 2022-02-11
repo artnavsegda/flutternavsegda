@@ -232,51 +232,6 @@ class HomePage extends StatelessWidget {
           _buildActionsBlock(context),
           _buildTopBlocks(context),
           const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text("Новинки",
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
-          ),
-          SizedBox(
-            height: 280,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: const [
-                SizedBox(
-                  width: 12,
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage:
-                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage:
-                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage:
-                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-                ProductCard(
-                  productID: 1,
-                  productImage:
-                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ),
-              ],
-            ),
-          ),
-          //_buildTopBlocks(context),
-          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Кондитерские и кафе",
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
