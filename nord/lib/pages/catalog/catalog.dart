@@ -73,6 +73,7 @@ class CatalogPage extends StatelessWidget {
                   DefaultTabController(
                     length: nordCatalog.length,
                     child: TabBar(
+                      indicatorPadding: EdgeInsets.only(bottom: 8.0),
                       isScrollable: true,
                       indicatorSize: TabBarIndicatorSize.label,
                       onTap: (newPage) {

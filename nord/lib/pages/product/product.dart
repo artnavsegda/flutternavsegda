@@ -303,6 +303,7 @@ class _ProductPageState extends State<ProductPage> {
                       DefaultTabController(
                         length: 3,
                         child: TabBar(
+                          indicatorPadding: EdgeInsets.only(bottom: 8.0),
                           indicatorSize: TabBarIndicatorSize.label,
                           /*                   indicator: BoxDecoration(
                         borderRadius: BorderRadius.circular(50),
@@ -515,10 +516,16 @@ class _ProductPageState extends State<ProductPage> {
                       color: Colors.black,
                       fontSize: headerUp ? 20 : 34,
                     ),
-                    child: Text(
-                      productInfo.name,
-                      //softWrap: headerUp ? false : true,
-                      overflow: headerUp ? TextOverflow.ellipsis : null,
+                    child: AnimatedAlign(
+                      curve: Curves.fastOutSlowIn,
+                      duration: const Duration(milliseconds: 400),
+                      alignment:
+                          headerUp ? Alignment.center : Alignment.centerLeft,
+                      child: Text(
+                        productInfo.name,
+                        //softWrap: headerUp ? false : true,
+                        overflow: headerUp ? TextOverflow.ellipsis : null,
+                      ),
                     ),
                   ),
                 ),
