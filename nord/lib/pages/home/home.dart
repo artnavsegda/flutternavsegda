@@ -46,7 +46,7 @@ class HomePage extends StatelessWidget {
             .map((model) => GraphAction.fromJson(model)));
 
         return SizedBox(
-          height: 225,
+          height: 190,
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
@@ -160,7 +160,7 @@ class HomePage extends StatelessWidget {
               children: topBlocks
                   .map(
                     (section) => Container(
-                      margin: const EdgeInsets.fromLTRB(8, 33, 8, 0),
+                      //margin: const EdgeInsets.fromLTRB(8, 33, 8, 0),
                       child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
@@ -172,19 +172,38 @@ class HomePage extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             SizedBox(
-                              height: 280,
+                              height: 240,
                               child: ListView(
-                                  scrollDirection: Axis.horizontal,
-                                  children: section.products
+                                scrollDirection: Axis.horizontal,
+                                children: [
+                                  SizedBox(
+                                    width: 12,
+                                  ),
+                                  ...section.products
                                       .map((product) {
                                         return ProductCard(
                                           productImage: product.picture ?? '',
-                                          productName: product.name,
+                                          productName:
+                                              'Торт «Сезонный» с ягодами',
                                           productPrice: '420 ₽',
                                         );
                                       })
                                       .toList()
-                                      .cast<Widget>()),
+                                      .cast<Widget>(),
+                                  ProductCard(
+                                    productImage:
+                                        'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
+                                    productName: 'Анна Павлова',
+                                    productPrice: '315 ₽',
+                                  ),
+                                  ProductCard(
+                                    productImage:
+                                        'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
+                                    productName: 'Торт «Сезонный» с ягодами',
+                                    productPrice: '420 ₽',
+                                  ),
+                                ],
+                              ),
                             ),
                           ]),
                     ),
@@ -221,7 +240,7 @@ class HomePage extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               children: const [
                 SizedBox(
-                  width: 16,
+                  width: 12,
                 ),
                 ProductCard(
                   productImage:
@@ -229,21 +248,18 @@ class HomePage extends StatelessWidget {
                   productName: 'Торт «Сезонный» с ягодами',
                   productPrice: '420 ₽',
                 ),
-                SizedBox(width: 8),
                 ProductCard(
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
-                SizedBox(width: 8),
                 ProductCard(
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
-                SizedBox(width: 8),
                 ProductCard(
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
