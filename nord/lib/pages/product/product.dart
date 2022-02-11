@@ -105,26 +105,21 @@ class _ProductPageState extends State<ProductPage> {
                           children: [
                             PageView(
                               controller: _controller,
-                              children: [
-                                Image.asset(
-                                  'assets/placeholder/unicorn.png',
-                                  fit: BoxFit.cover,
-                                ),
-                                Image.asset(
-                                  'assets/placeholder/espresso.png',
-                                  fit: BoxFit.cover,
-                                ),
-                                Image.asset(
-                                  'assets/placeholder/cheesecake.png',
-                                  fit: BoxFit.cover,
-                                ),
-                              ],
+                              children: productInfo.pictures
+                                  .map((picture) {
+                                    return Image.network(
+                                      picture.full,
+                                      fit: BoxFit.cover,
+                                    );
+                                  })
+                                  .toList()
+                                  .cast<Widget>(),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: SmoothPageIndicator(
                                   controller: _controller,
-                                  count: 3,
+                                  count: productInfo.pictures.length,
                                   effect: const ExpandingDotsEffect(
                                     spacing: 4.0,
                                     //radius: 4.0,
@@ -395,7 +390,7 @@ class _ProductPageState extends State<ProductPage> {
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 16.0, vertical: 8.0),
-                                child: Text(
+                                child: Text(productInfo.description ??
                                     'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
                               ),
                               Padding(
