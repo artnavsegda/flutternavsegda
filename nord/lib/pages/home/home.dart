@@ -174,40 +174,17 @@ class HomePage extends StatelessWidget {
                             SizedBox(
                               height: 280,
                               child: ListView(
-                                scrollDirection: Axis.horizontal,
-                                children: const [
-                                  SizedBox(
-                                    width: 16,
-                                  ),
-                                  ProductCard(
-                                    productImage:
-                                        'assets/placeholder/product1/Illustration.png',
-                                    productName: 'Торт «Сезонный» с ягодами',
-                                    productPrice: '420 ₽',
-                                  ),
-                                  SizedBox(width: 8),
-                                  ProductCard(
-                                    productImage:
-                                        'assets/placeholder/product2/Illustration.png',
-                                    productName: 'Анна Павлова',
-                                    productPrice: '315 ₽',
-                                  ),
-                                  SizedBox(width: 8),
-                                  ProductCard(
-                                    productImage:
-                                        'assets/placeholder/product2/Illustration.png',
-                                    productName: 'Анна Павлова',
-                                    productPrice: '315 ₽',
-                                  ),
-                                  SizedBox(width: 8),
-                                  ProductCard(
-                                    productImage:
-                                        'assets/placeholder/product2/Illustration.png',
-                                    productName: 'Анна Павлова',
-                                    productPrice: '315 ₽',
-                                  ),
-                                ],
-                              ),
+                                  scrollDirection: Axis.horizontal,
+                                  children: section.products
+                                      .map((product) {
+                                        return ProductCard(
+                                          productImage: product.picture ?? '',
+                                          productName: product.name,
+                                          productPrice: '420 ₽',
+                                        );
+                                      })
+                                      .toList()
+                                      .cast<Widget>()),
                             ),
                           ]),
                     ),
@@ -232,6 +209,7 @@ class HomePage extends StatelessWidget {
                 style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
           ),
           _buildActionsBlock(context),
+          _buildTopBlocks(context),
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Text("Новинки",

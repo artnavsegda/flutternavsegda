@@ -1326,7 +1326,7 @@ query getActions {
 
 const String getTopBlocks = r'''
 query getTopBlocks {
-  getTopBlocks
+  getTopBlocks(typeDeliveryOrder: {deliveryAddressID: null})
   {
     iD
     name
