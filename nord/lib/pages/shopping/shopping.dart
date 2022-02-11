@@ -43,121 +43,125 @@ class ShoppingPage extends StatelessWidget {
             return CartIsEmpty();
           }
 
-          return Text('a');
-        });
-
-    //return CartIsEmpty();
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Корзина'),
-        actions: [TextButton(onPressed: () {}, child: const Text('Очистить'))],
-      ),
-      body: Column(
-        children: [
-          const AddressTile2(),
-          Expanded(
-            child: ListView(
+          return Scaffold(
+            appBar: AppBar(
+              title: const Text('Корзина'),
+              actions: [
+                TextButton(onPressed: () {}, child: const Text('Очистить'))
+              ],
+            ),
+            body: Column(
               children: [
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                CartTile(),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Text(
-                    'Сумма заказа',
-                    style: TextStyle(fontFamily: 'Forum', fontSize: 24),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: TextField(),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
+                const AddressTile2(),
+                Expanded(
+                  child: ListView(
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        textBaseline: TextBaseline.ideographic,
-                        children: [
-                          Text('Сумма заказа'),
-                          Expanded(child: DottedLine(dashColor: Colors.grey)),
-                          Text('1 435 ₽'),
-                        ],
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      CartTile(),
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: TextField(),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('Доставка'),
-                          Expanded(child: DottedLine(dashColor: Colors.grey)),
-                          Text('Бесплатно'),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: Text(
+                          'Сумма заказа',
+                          style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                        ),
                       ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('Скидка'),
-                          Expanded(child: DottedLine(dashColor: Colors.grey)),
-                          Text('- 110 ₽'),
-                        ],
+                      Padding(
+                        padding: EdgeInsets.all(16.0),
+                        child: TextField(),
                       ),
-                      Divider(),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('Общая сумма заказа'),
-                          Expanded(child: DottedLine(dashColor: Colors.grey)),
-                          Text('1 325 ₽'),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              textBaseline: TextBaseline.ideographic,
+                              children: [
+                                Text('Сумма заказа'),
+                                Expanded(
+                                    child: DottedLine(dashColor: Colors.grey)),
+                                Text('1 435 ₽'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('Доставка'),
+                                Expanded(
+                                    child: DottedLine(dashColor: Colors.grey)),
+                                Text('Бесплатно'),
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('Скидка'),
+                                Expanded(
+                                    child: DottedLine(dashColor: Colors.grey)),
+                                Text('- 110 ₽'),
+                              ],
+                            ),
+                            Divider(),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('Общая сумма заказа'),
+                                Expanded(
+                                    child: DottedLine(dashColor: Colors.grey)),
+                                Text('1 325 ₽'),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Row(
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisSize: MainAxisSize.min,
-                children: const [
-                  Text('Итого'),
-                  Text('1 325 ₽'),
+            bottomNavigationBar: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.min,
+                      children: const [
+                        Text('Итого'),
+                        Text('1 325 ₽'),
+                      ],
+                    ),
+                  ),
+                  ElevatedButton(
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    const RegistrationPage()));
+                      },
+                      child: const Text('Оформить заказ'))
                 ],
               ),
             ),
-            ElevatedButton(
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const RegistrationPage()));
-                },
-                child: const Text('Оформить заказ'))
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
 
