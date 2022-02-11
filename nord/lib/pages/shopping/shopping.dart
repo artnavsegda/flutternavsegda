@@ -59,7 +59,10 @@ class ShoppingPage extends StatelessWidget {
                     children: [
                       ...cart.map(
                         (item) {
-                          return CartTile(name: item.productName);
+                          return CartTile(
+                            name: item.productName,
+                            image: item.picture ?? '',
+                          );
                         },
                       ),
                       Padding(
@@ -163,9 +166,14 @@ class ShoppingPage extends StatelessWidget {
 }
 
 class CartTile extends StatelessWidget {
-  const CartTile({Key? key, required this.name}) : super(key: key);
+  const CartTile({
+    Key? key,
+    required this.name,
+    required this.image,
+  }) : super(key: key);
 
   final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +184,11 @@ class CartTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset('assets/placeholder/product10/Illustration.png'),
+            Image.network(
+              image,
+              width: 64,
+              height: 64,
+            ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
