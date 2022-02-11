@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../../components/components.dart';
 import '../../components/product_card.dart';
+import '../../gql.dart';
 import 'search.dart';
 
 class CatalogPage extends StatelessWidget {
@@ -96,98 +98,97 @@ class CatalogPage extends StatelessWidget {
       ),
     ];
 
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const AddressTile2(),
-            Row(
-              children: [
-                const SizedBox(width: 16.0),
-                Flexible(
-                  child: TextField(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const SearchPage()));
-                    },
-                    decoration: InputDecoration(
-                        hintText: 'Найти в каталоге',
-                        isDense: true,
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide.none,
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(2.0),
-                          ),
+    return Query(
+        options: QueryOptions(
+          document: gql(getProducts),
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.isLoading || result.hasException) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          }
+
+          return Scaffold(
+            body: SafeArea(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  const AddressTile2(),
+                  Row(
+                    children: [
+                      const SizedBox(width: 16.0),
+                      Flexible(
+                        child: TextField(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => const SearchPage()));
+                          },
+                          decoration: InputDecoration(
+                              hintText: 'Найти в каталоге',
+                              isDense: true,
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 16, vertical: 8),
+                              border: OutlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius: BorderRadius.all(
+                                  Radius.circular(2.0),
+                                ),
+                              ),
+                              filled: true),
                         ),
-                        filled: true),
+                      ),
+                      const SizedBox(width: 8.0),
+                      OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                            minimumSize: const Size(36.0, 36.0),
+                            padding: const EdgeInsets.all(0.0)),
+                        onPressed: () {},
+                        child: Image.asset('assets/Icon-Favorite-Outlined.png'),
+                      ),
+                      const SizedBox(width: 8.0),
+                    ],
                   ),
-                ),
-                const SizedBox(width: 8.0),
-                OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                      minimumSize: const Size(36.0, 36.0),
-                      padding: const EdgeInsets.all(0.0)),
-                  onPressed: () {},
-                  child: Image.asset('assets/Icon-Favorite-Outlined.png'),
-                ),
-                const SizedBox(width: 8.0),
-              ],
-            ),
-            DefaultTabController(
-              length: 8,
-              child: TabBar(
-                isScrollable: true,
-                indicatorSize: TabBarIndicatorSize.label,
-                onTap: (newPage) {
-                  itemScrollController.scrollTo(
-                      index: newPage,
-                      duration: const Duration(seconds: 2),
-                      curve: Curves.easeInOutCubic);
-                },
-                unselectedLabelColor: Colors.red.shade900,
-                labelColor: Colors.black38,
-                tabs: const [
-                  Tab(text: "Выпечка"),
-                  Tab(text: "Кексы"),
-                  Tab(text: "Конфеты"),
-                  Tab(text: "Мороженое"),
-                  Tab(text: "Выпечка"),
-                  Tab(text: "Кексы"),
-                  Tab(text: "Конфеты"),
-                  Tab(text: "Мороженое"),
+                  DefaultTabController(
+                    length: 8,
+                    child: TabBar(
+                      isScrollable: true,
+                      indicatorSize: TabBarIndicatorSize.label,
+                      onTap: (newPage) {
+                        itemScrollController.scrollTo(
+                            index: newPage,
+                            duration: const Duration(seconds: 2),
+                            curve: Curves.easeInOutCubic);
+                      },
+                      unselectedLabelColor: Colors.red.shade900,
+                      labelColor: Colors.black38,
+                      tabs: const [
+                        Tab(text: "Выпечка"),
+                        Tab(text: "Кексы"),
+                        Tab(text: "Конфеты"),
+                        Tab(text: "Мороженое"),
+                        Tab(text: "Выпечка"),
+                        Tab(text: "Кексы"),
+                        Tab(text: "Конфеты"),
+                        Tab(text: "Мороженое"),
+                      ],
+                    ),
+                  ),
+                  Expanded(
+                    child: ScrollablePositionedList.builder(
+                      itemCount: 2,
+                      itemScrollController: itemScrollController,
+                      itemBuilder: (context, index) {
+                        return elementList[index];
+                      },
+                    ),
+                  ),
                 ],
               ),
             ),
-/*             SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  children: [
-                    TextButton(onPressed: () {}, child: Text('Выпечка')),
-                    TextButton(onPressed: () {}, child: Text('Кексы')),
-                    TextButton(onPressed: () {}, child: Text('Конфеты')),
-                    TextButton(onPressed: () {}, child: Text('Мороженое')),
-                    TextButton(onPressed: () {}, child: Text('Выпечка')),
-                    TextButton(onPressed: () {}, child: Text('Выпечка')),
-                    TextButton(onPressed: () {}, child: Text('Выпечка')),
-                  ],
-                )), */
-            Expanded(
-              child: ScrollablePositionedList.builder(
-                itemCount: 2,
-                itemScrollController: itemScrollController,
-                itemBuilder: (context, index) {
-                  return elementList[index];
-                },
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+          );
+        });
   }
 }
