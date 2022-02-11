@@ -98,7 +98,10 @@ class ProductCard extends StatelessWidget {
             Text(productName),
             Text(
               productPrice,
-              style: const TextStyle(fontFamily: 'Forum', fontSize: 24),
+              style: const TextStyle(
+                  fontFamily: 'Forum',
+                  fontSize: 24,
+                  fontFamilyFallback: ['Noto Sans']),
             ),
           ],
         ),

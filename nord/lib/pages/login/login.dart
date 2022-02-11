@@ -41,6 +41,7 @@ class LoginPage extends StatelessWidget {
                     'Мы отправим на номер SMS-сообщение с кодом потверждения'),
                 const SizedBox(height: 24),
                 TextField(
+                  keyboardType: TextInputType.number,
                   inputFormatters: [maskFormatter],
                   decoration: const InputDecoration(
                       labelText: "Номер телефона",
