@@ -246,25 +246,29 @@ class HomePage extends StatelessWidget {
                   width: 16,
                 ),
                 ProductCard(
-                  productImage: 'assets/placeholder/product1/Illustration.png',
+                  productImage:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                   productName: 'Торт «Сезонный» с ягодами',
                   productPrice: '420 ₽',
                 ),
                 SizedBox(width: 8),
                 ProductCard(
-                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productImage:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 SizedBox(width: 8),
                 ProductCard(
-                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productImage:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 SizedBox(width: 8),
                 ProductCard(
-                  productImage: 'assets/placeholder/product2/Illustration.png',
+                  productImage:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),

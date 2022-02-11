@@ -30,7 +30,7 @@ class ProductCard extends StatelessWidget {
                         MaterialPageRoute(
                             builder: (context) => const ProductPage()));
                   },
-                  child: Image.asset(productImage)),
+                  child: Image.network(productImage)),
               Positioned(
                 right: 0,
                 bottom: 0,
