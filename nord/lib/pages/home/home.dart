@@ -184,8 +184,7 @@ class HomePage extends StatelessWidget {
                                         return ProductCard(
                                           productID: product.iD,
                                           productImage: product.picture ?? '',
-                                          productName:
-                                              'Торт «Сезонный» с ягодами',
+                                          productName: product.name,
                                           productPrice: '420 ₽',
                                         );
                                       })

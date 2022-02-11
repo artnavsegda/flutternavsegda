@@ -77,12 +77,14 @@ class _ProductPageState extends State<ProductPage> {
             );
           }
 
+          GraphProductCard productInfo =
+              GraphProductCard.fromJson(result.data!['getProduct']);
+
           return SafeArea(
             child: Stack(
               children: [
                 Scaffold(
                   appBar: AppBar(
-                    //title: const Text('Печенье «Единорог в ро... '),
                     actions: [
                       Image.asset('assets/Icon-Share.png'),
                     ],
@@ -519,7 +521,7 @@ class _ProductPageState extends State<ProductPage> {
                       fontSize: headerUp ? 20 : 34,
                     ),
                     child: Text(
-                      'Печенье «Единорог в рожке»',
+                      productInfo.name,
                       //softWrap: headerUp ? false : true,
                       overflow: headerUp ? TextOverflow.ellipsis : null,
                     ),
