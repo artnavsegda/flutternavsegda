@@ -81,8 +81,7 @@ class NordRouter {
               path: 'product/:id',
               pageBuilder: (context, state) => MaterialPage<void>(
                 key: state.pageKey,
-                child: ProductPage(),
-                //child: ProductPage(id: int.parse(state.params['id']!)),
+                child: ProductPage(id: int.parse(state.params['id']!)),
               ),
             ),
             GoRoute(
