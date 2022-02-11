@@ -182,6 +182,7 @@ class HomePage extends StatelessWidget {
                                   ...section.products
                                       .map((product) {
                                         return ProductCard(
+                                          productID: product.iD,
                                           productImage: product.picture ?? '',
                                           productName:
                                               'Торт «Сезонный» с ягодами',
@@ -191,12 +192,14 @@ class HomePage extends StatelessWidget {
                                       .toList()
                                       .cast<Widget>(),
                                   ProductCard(
+                                    productID: 1,
                                     productImage:
                                         'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                                     productName: 'Анна Павлова',
                                     productPrice: '315 ₽',
                                   ),
                                   ProductCard(
+                                    productID: 1,
                                     productImage:
                                         'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                                     productName: 'Торт «Сезонный» с ягодами',
@@ -243,24 +246,28 @@ class HomePage extends StatelessWidget {
                   width: 12,
                 ),
                 ProductCard(
+                  productID: 1,
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                   productName: 'Торт «Сезонный» с ягодами',
                   productPrice: '420 ₽',
                 ),
                 ProductCard(
+                  productID: 1,
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 ProductCard(
+                  productID: 1,
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
                   productName: 'Анна Павлова',
                   productPrice: '315 ₽',
                 ),
                 ProductCard(
+                  productID: 1,
                   productImage:
                       'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   productName: 'Анна Павлова',

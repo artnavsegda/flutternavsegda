@@ -8,11 +8,13 @@ class ProductCard extends StatelessWidget {
     required this.productName,
     required this.productImage,
     required this.productPrice,
+    required this.productID,
   }) : super(key: key);
 
   final String productName;
   final String productImage;
   final String productPrice;
+  final int productID;
 
   @override
   Widget build(BuildContext context) {
