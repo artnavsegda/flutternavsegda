@@ -475,23 +475,44 @@ class _ProductPageState extends State<ProductPage> {
                     child: Row(
                       children: [
                         Expanded(
-                          child: GradientButton(
-                            onPressed: () {
-                              showModalBottomSheet(
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) {
-                                  return ExtraIngredientBottomSheet();
+                          child: Mutation(
+                            options: MutationOptions(
+                              document: gql(cartAdd),
+                              onCompleted: (resultData) {
+                                //print(resultData);
+
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(const SnackBar(
+                                  content: Text('Добавлен в корзину'),
+                                ));
+                              },
+                            ),
+                            builder: (runMutation, result) {
+                              return GradientButton(
+                                onPressed: () {
+                                  runMutation({'productID': widget.id});
+                                  Fluttertoast.showToast(
+                                      msg: "Товар добавлен в корзину",
+                                      toastLength: Toast.LENGTH_SHORT,
+                                      gravity: ToastGravity.TOP,
+                                      timeInSecForIosWeb: 1);
+                                  /* showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return ExtraIngredientBottomSheet();
+                                    },
+                                  ); */
                                 },
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('Добавить в корзину'),
+                                      Text('256 P')
+                                    ]),
                               );
                             },
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text('Добавить в корзину'),
-                                  Text('256 P')
-                                ]),
                           ),
                         ),
                         TextButton.icon(
