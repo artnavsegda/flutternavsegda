@@ -1181,17 +1181,12 @@ query getCatalog {
 ''';
 
 const String getProducts = r'''
-query getProducts($catalogID: Int!, $cursor: String, $filter: graphFilter) {
-  getProducts(catalogID: $catalogID, first: 44, after: $cursor, filter: $filter)
+query getProducts {
+  getProducts(typeDeliveryOrder: {deliveryAddressID: null})
   {
-    totalCount
-    pageInfo {
-      endCursor
-      hasNextPage
-      hasPreviousPage
-      startCursor
-    }
-    items {
+    name
+    iD
+    products {
       iD
       type
       familyID
