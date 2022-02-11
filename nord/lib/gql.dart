@@ -744,24 +744,16 @@ class GraphCatalog {
   GraphCatalog({
     required this.iD,
     required this.name,
-    this.picture,
-    this.totalCount,
-    this.childs,
+    this.products,
   });
   int iD;
   String name;
-  String? picture;
-  int? totalCount;
-  List<GraphCatalog>? childs;
+  List<GraphProduct>? products;
   GraphCatalog.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         name = json['name'],
-        picture = json['picture'],
-        totalCount = json['totalCount'],
-        childs = json['childs'] != null
-            ? List<GraphCatalog>.from(
-                json['childs'].map((model) => GraphCatalog.fromJson(model)))
-            : null;
+        products = List<GraphProduct>.from(
+            json['products'].map((model) => GraphProduct.fromJson(model)));
 }
 
 class GraphClientFullInfo {
