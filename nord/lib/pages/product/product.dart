@@ -481,21 +481,18 @@ class _ProductPageState extends State<ProductPage> {
                               onCompleted: (resultData) {
                                 //print(resultData);
 
-                                ScaffoldMessenger.of(context)
-                                    .showSnackBar(const SnackBar(
-                                  content: Text('Добавлен в корзину'),
-                                ));
+                                Fluttertoast.showToast(
+                                    msg: "Товар добавлен в корзину",
+                                    toastLength: Toast.LENGTH_SHORT,
+                                    gravity: ToastGravity.TOP,
+                                    timeInSecForIosWeb: 1);
                               },
                             ),
                             builder: (runMutation, result) {
                               return GradientButton(
                                 onPressed: () {
                                   runMutation({'productID': widget.id});
-                                  Fluttertoast.showToast(
-                                      msg: "Товар добавлен в корзину",
-                                      toastLength: Toast.LENGTH_SHORT,
-                                      gravity: ToastGravity.TOP,
-                                      timeInSecForIosWeb: 1);
+
                                   /* showModalBottomSheet(
                                     isScrollControlled: true,
                                     context: context,
