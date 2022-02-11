@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../../components/components.dart';
+import '../../components/gradient_button.dart';
 import 'registration.dart';
 import 'cart_is_empty.dart';
 import '../../gql.dart';
@@ -56,15 +57,11 @@ class ShoppingPage extends StatelessWidget {
                 Expanded(
                   child: ListView(
                     children: [
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
-                      CartTile(),
+                      ...cart.map(
+                        (item) {
+                          return CartTile(name: item.productName);
+                        },
+                      ),
                       Padding(
                         padding: EdgeInsets.all(16.0),
                         child: TextField(),
@@ -148,7 +145,7 @@ class ShoppingPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                  ElevatedButton(
+                  GradientButton(
                       onPressed: () {
                         Navigator.push(
                             context,
@@ -166,9 +163,9 @@ class ShoppingPage extends StatelessWidget {
 }
 
 class CartTile extends StatelessWidget {
-  const CartTile({
-    Key? key,
-  }) : super(key: key);
+  const CartTile({Key? key, required this.name}) : super(key: key);
+
+  final String name;
 
   @override
   Widget build(BuildContext context) {
@@ -191,7 +188,7 @@ class CartTile extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Text('Чай каркаде с\nапельсином',
+                          Text(name /* 'Чай каркаде с\nапельсином' */,
                               style: TextStyle(fontSize: 16)),
                           const Text('450 мл',
                               style: TextStyle(color: Colors.grey)),
