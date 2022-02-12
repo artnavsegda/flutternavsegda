@@ -96,12 +96,19 @@ class ProductCard extends StatelessWidget {
               ],
             ),
             Text(productName),
-            Text(
-              productPrice,
-              style: const TextStyle(
-                  fontFamily: 'Forum',
-                  fontSize: 24,
-                  fontFamilyFallback: ['Noto Sans']),
+            RichText(
+              text: TextSpan(
+                style: DefaultTextStyle.of(context).style,
+                children: <TextSpan>[
+                  TextSpan(
+                      text: productPrice,
+                      style: TextStyle(
+                        fontFamily: 'Forum',
+                        fontSize: 24,
+                      )),
+                  TextSpan(text: ' ₽', style: TextStyle(fontSize: 16)),
+                ],
+              ),
             ),
           ],
         ),
