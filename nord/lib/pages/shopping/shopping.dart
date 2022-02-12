@@ -75,7 +75,11 @@ class ShoppingPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: TextField(),
+                        child: TextField(
+                          decoration: const InputDecoration(
+                            labelText: "Промокод",
+                          ),
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
