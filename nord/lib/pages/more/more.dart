@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:in_app_review/in_app_review.dart';
 import '../../sever_metropol_icons.dart';
 import '../support/support.dart';
 import '../help/help.dart';
@@ -31,7 +32,13 @@ class MorePage extends StatelessWidget {
               color: Colors.red.shade900),
         ),
         ListTile(
-          onTap: () async {},
+          onTap: () async {
+            final InAppReview inAppReview = InAppReview.instance;
+
+            if (await inAppReview.isAvailable()) {
+              inAppReview.requestReview();
+            }
+          },
           title: const Text("Оценить приложение"),
           leading: Icon(SeverMetropol.Icon_Star_Rate_Outlined,
               color: Colors.red.shade900),
