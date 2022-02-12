@@ -23,6 +23,10 @@ class HelpPage extends StatelessWidget {
             );
           }
 
+          List<GraphFAQGroup> faqGroups = List<GraphFAQGroup>.from(result
+              .data!['getFAQGroups']
+              .map((model) => GraphFAQGroup.fromJson(model)));
+
           return Scaffold(
             appBar: AppBar(
               title: const Text('Справка'),
@@ -34,6 +38,15 @@ class HelpPage extends StatelessWidget {
             ),
             body: ListView(
               children: [
+                ...faqGroups
+                    .map((faqGroup) {
+                      return ListTile(
+                        title: Text(faqGroup.name),
+                        trailing: Image.asset('assets/Icon-East.png'),
+                      );
+                    })
+                    .toList()
+                    .cast<Widget>(),
                 ListTile(
                   title: Text('Бонусная программа'),
                   trailing: Image.asset('assets/Icon-East.png'),
@@ -45,22 +58,6 @@ class HelpPage extends StatelessWidget {
                       ),
                     )
                   },
-                ),
-                ListTile(
-                  title: Text('Доставка и оплата'),
-                  trailing: Image.asset('assets/Icon-East.png'),
-                ),
-                ListTile(
-                  title: Text('О компании'),
-                  trailing: Image.asset('assets/Icon-East.png'),
-                ),
-                ListTile(
-                  title: Text('Оптовые продажи'),
-                  trailing: Image.asset('assets/Icon-East.png'),
-                ),
-                ListTile(
-                  title: Text('О компании'),
-                  trailing: Image.asset('assets/Icon-East.png'),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),

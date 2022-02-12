@@ -68,10 +68,6 @@ class ShoppingPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: EdgeInsets.all(16.0),
-                        child: TextField(),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.all(16.0),
                         child: Text(
                           'Сумма заказа',
                           style: TextStyle(fontFamily: 'Forum', fontSize: 24),
