@@ -25,6 +25,12 @@ class UserPage extends StatelessWidget {
             );
           }
 
+          if (result.hasException) {
+            return Center(
+              child: Text(result.exception.toString()),
+            );
+          }
+
           GraphClientFullInfo userInfo =
               GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 

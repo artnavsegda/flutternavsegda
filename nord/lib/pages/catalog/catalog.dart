@@ -127,7 +127,7 @@ class CatalogPage extends StatelessWidget {
                                         productID: product.iD,
                                         productImage: product.picture ?? '',
                                         productName: product.name,
-                                        productPrice: '420 ₽',
+                                        productPrice: '420',
                                       );
                                     })
                                     .toList()
