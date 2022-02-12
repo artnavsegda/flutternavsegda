@@ -1,3 +1,49 @@
+class GraphFAQ {
+  GraphFAQ({
+    required this.question,
+    required this.answer,
+  });
+
+  String question;
+  String answer;
+
+  GraphFAQ.fromJson(Map<String, dynamic> json)
+      : question = json['question'],
+        answer = json['answer'];
+}
+
+class GraphFAQQuestion {
+  GraphFAQQuestion({
+    required this.iD,
+    required this.question,
+  });
+
+  int iD;
+  String question;
+
+  GraphFAQQuestion.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        question = json['question'];
+}
+
+class GraphFAQGroup {
+  GraphFAQGroup({
+    required this.iD,
+    required this.name,
+    required this.questions,
+  });
+
+  int iD;
+  String name;
+  List<GraphFAQQuestion> questions;
+
+  GraphFAQGroup.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        questions = List<GraphFAQQuestion>.from(
+            json['questions'].map((model) => GraphFAQQuestion.fromJson(model)));
+}
+
 class GraphDevice {
   GraphDevice({
     required this.gUID,
