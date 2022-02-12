@@ -26,7 +26,7 @@ class UserPage extends StatelessWidget {
           }
 
           if (result.hasException) {
-            return Center(
+            return SingleChildScrollView(
               child: Text(result.exception.toString()),
             );
           }
