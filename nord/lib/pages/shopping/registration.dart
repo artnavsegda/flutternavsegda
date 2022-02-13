@@ -16,8 +16,7 @@ class RegistrationPage extends StatelessWidget {
             icon: Image.asset('assets/Icon-West.png')),
         title: const Text('Оформление заказа'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: ListView(
         children: [
           ListTile(
             title: Text(
@@ -142,17 +141,16 @@ class RegistrationPage extends StatelessWidget {
             onChanged: (value) {},
             title: Text('Разогреть блюда'),
           ),
-          const Spacer(),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => const PayPage()));
-                },
-                child: const Text('Перейти к оплатите')),
-          ),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const PayPage()));
+            },
+            child: const Text('Перейти к оплатите')),
       ),
     );
   }

@@ -425,7 +425,7 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: const Text(
+                        child: Text(productInfo.composition ??
                             'Мука в/с, сахар, кондитерский жир, яичный желток, сахарная пудра, яичный белок, какао порошок, пищевые красители, ванилин, пищевая сода, лимонная кислота.'),
                       ),
                       Padding(
