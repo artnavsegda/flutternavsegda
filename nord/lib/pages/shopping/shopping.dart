@@ -48,7 +48,19 @@ class ShoppingPage extends StatelessWidget {
             appBar: AppBar(
               title: const Text('Корзина'),
               actions: [
-                TextButton(onPressed: () {}, child: const Text('Очистить'))
+                Mutation(
+                    options: MutationOptions(
+                        document: gql(cartClear),
+                        onCompleted: (resultData) {
+                          refetch!();
+                        }),
+                    builder: (runMutation, result) {
+                      return TextButton(
+                          onPressed: () {
+                            runMutation({});
+                          },
+                          child: const Text('Очистить'));
+                    }),
               ],
             ),
             body: Column(
