@@ -1,12 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import '../shop/shop.dart';
+import '../../gql.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+/*     return Query(
+      options: QueryOptions(
+        document: gql(getActions),
+      ),
+    ); */
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Кондитерские и кафе'),
