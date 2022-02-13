@@ -73,109 +73,143 @@ class _ActionPageState extends State<ActionPage> {
           GraphActionCard action =
               GraphActionCard.fromJson(result.data!['getAction']);
 
-          return SafeArea(
-            child: Stack(
-              children: [
-                Scaffold(
-                  appBar: AppBar(
-                    //title: Text('Взрывная весна! Откр...'),
-                    actions: [
-                      Image.asset('assets/Icon-Share.png'),
-                    ],
-                    leading: IconButton(
-                        onPressed: () {
-                          Navigator.pop(context);
-                        },
-                        icon: Image.asset('assets/Icon-West.png')),
-                  ),
-                  body: ListView(
-                    controller: _scrollController,
-                    children: [
-                      const SizedBox(height: 3),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16.0, vertical: 8),
-                        child: Text(
-                          '15 октября–27 ноября',
-                          style: TextStyle(
-                              fontFamily: 'Forum',
-                              fontSize: 24,
-                              color: Colors.grey),
-                        ),
+          return Stack(
+            children: [
+              Scaffold(
+                appBar: AppBar(
+                  //title: Text('Взрывная весна! Откр...'),
+                  actions: [
+                    Image.asset('assets/Icon-Share.png'),
+                  ],
+                  leading: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Image.asset('assets/Icon-West.png')),
+                ),
+                body: ListView(
+                  controller: _scrollController,
+                  children: [
+                    const SizedBox(height: 3),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16.0, vertical: 8),
+                      child: Text(
+                        '15 октября–27 ноября',
+                        style: TextStyle(
+                            fontFamily: 'Forum',
+                            fontSize: 24,
+                            color: Colors.grey),
                       ),
-                      Image.network(action.picture ?? ""),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          action.description ?? '',
-                          style: TextStyle(fontSize: 16),
-                        ),
+                    ),
+                    Image.network(action.picture ?? ""),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text(
+                        action.description ?? '',
+                        style: TextStyle(fontSize: 16),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: const SpecialCondition(
-                          text:
-                              'Успейте получить подарок, количество ограничено! Акция действует только в части наших кафе и кондитерских.',
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: const SpecialCondition(
+                        text:
+                            'Успейте получить подарок, количество ограничено! Акция действует только в части наших кафе и кондитерских.',
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'Важно',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w600, fontSize: 16),
-                            ),
-                            const Text(
-                              '''Сумма чека должна быть не менее 500 рублей без учёта бонусов.
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Важно',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 16),
+                          ),
+                          const Text(
+                            '''Сумма чека должна быть не менее 500 рублей без учёта бонусов.
 Приз выпадает за каждый чек на сумму более 500 рублей в акционный период.
-                        
+                      
 Подробнее об акции и условиях проведения читайте на сайте.''',
-                              style: TextStyle(fontSize: 16),
-                            ),
-                          ],
-                        ),
+                            style: TextStyle(fontSize: 16),
+                          ),
+                        ],
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: TextButton.icon(
-                              onPressed: () {},
-                              label: Image.asset('assets/Icon-East.png'),
-                              icon: const Text('Найти ближайшее кафе')),
-                        ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: TextButton.icon(
+                            onPressed: () {},
+                            label: Image.asset('assets/Icon-East.png'),
+                            icon: const Text('Найти ближайшее кафе')),
                       ),
-                      /*               const Text('Товары, участвующие в акции'),
-                const ProductCard(
-                  productImage: 'assets/placeholder/product1/Illustration.png',
-                  productName: 'Торт «Сезонный» с ягодами',
-                  productPrice: '420 ₽',
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Text('Товары, участвующие в акции',
+                          style: TextStyle(
+                            fontFamily: 'Forum',
+                            fontSize: 24,
+                          )),
+                    ),
+                    ListView(
+                      scrollDirection: Axis.horizontal,
+                      children: [
+                        SizedBox(
+                          width: 12,
+                        ),
+                        ...action.products
+                            .map((product) {
+                              return ProductCard(
+                                productID: product.iD,
+                                productImage: product.picture ?? '',
+                                productName: product.name,
+                                productPrice: '420',
+                              );
+                            })
+                            .toList()
+                            .cast<Widget>(),
+                        ProductCard(
+                          productID: 1,
+                          productImage:
+                              'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
+                          productName: 'Анна Павлова',
+                          productPrice: '315',
+                        ),
+                        ProductCard(
+                          productID: 1,
+                          productImage:
+                              'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
+                          productName: 'Торт «Сезонный» с ягодами',
+                          productPrice: '420',
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                const ProductCard(
-                  productImage: 'assets/placeholder/product2/Illustration.png',
-                  productName: 'Анна Павлова',
-                  productPrice: '315 ₽',
-                ), */
-                    ],
-                  ),
-                ),
-                AnimatedPositioned(
-                  duration: const Duration(milliseconds: 400),
+              ),
+              AnimatedPositioned(
+                duration: const Duration(milliseconds: 400),
+                curve: Curves.fastOutSlowIn,
+                top: MediaQuery.of(context).padding.top + (headerUp ? 18 : 90),
+                left: headerUp ? 72 : 16,
+                right: headerUp ? 72 : 16,
+                child: AnimatedDefaultTextStyle(
                   curve: Curves.fastOutSlowIn,
-                  top: headerUp ? 18 : 90,
-                  left: headerUp ? 72 : 16,
-                  right: headerUp ? 72 : 16,
-                  child: AnimatedDefaultTextStyle(
+                  duration: const Duration(milliseconds: 400),
+                  style: TextStyle(
+                    fontFamily: 'Forum',
+                    color: Colors.black,
+                    fontSize: headerUp ? 20 : 34,
+                  ),
+                  child: AnimatedAlign(
                     curve: Curves.fastOutSlowIn,
                     duration: const Duration(milliseconds: 400),
-                    style: TextStyle(
-                      fontFamily: 'Forum',
-                      color: Colors.black,
-                      fontSize: headerUp ? 20 : 34,
-                    ),
+                    alignment:
+                        headerUp ? Alignment.center : Alignment.centerLeft,
                     child: Text(
                       action.name,
                       //softWrap: headerUp ? false : true,
@@ -183,8 +217,8 @@ class _ActionPageState extends State<ActionPage> {
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           );
         });
   }
