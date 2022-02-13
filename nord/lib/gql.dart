@@ -1832,3 +1832,32 @@ mutation cartClear {
   }
 }
 ''';
+
+const String getShops = r'''
+query getShops {
+  getShops {
+    iD
+    name
+    description
+    address
+    longitude
+    latitude
+    start
+    finish
+    regionId
+    regionName
+    isPickup
+    pictures
+    metroStations {
+      lineName
+      colorLine
+      stationName
+      distance
+    }
+    openingHours {
+      weekDay
+      start
+      finish
+    }
+  }
+''';
