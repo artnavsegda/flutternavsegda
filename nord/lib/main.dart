@@ -42,7 +42,7 @@ class NordApp extends StatelessWidget {
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,
-        backgroundColor: Colors.transparent,
+        backgroundColor: Colors.white,
         elevation: 0.0,
         titleTextStyle: TextStyle(
           color: Colors.black,
