@@ -51,7 +51,8 @@ class UserPage extends StatelessWidget {
                 aspectRatio: 16 / 9,
                 child: Container(
                     margin: const EdgeInsets.all(16.0),
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 12.0, horizontal: 16.0),
                     decoration: BoxDecoration(
                         boxShadow: const [
                           BoxShadow(
