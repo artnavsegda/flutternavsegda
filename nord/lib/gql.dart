@@ -1823,3 +1823,12 @@ query findProducts($searchBox: String) {
   }
 }
 ''';
+
+const String cartClear = r'''
+mutation cartClear {
+  cartClear {
+    result
+    errorMessage
+  }
+}
+''';
