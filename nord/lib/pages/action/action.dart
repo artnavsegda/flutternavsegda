@@ -155,38 +155,27 @@ class _ActionPageState extends State<ActionPage> {
                             fontSize: 24,
                           )),
                     ),
-                    ListView(
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        SizedBox(
-                          width: 12,
-                        ),
-                        ...action.products
-                            .map((product) {
-                              return ProductCard(
-                                productID: product.iD,
-                                productImage: product.picture ?? '',
-                                productName: product.name,
-                                productPrice: '420',
-                              );
-                            })
-                            .toList()
-                            .cast<Widget>(),
-                        ProductCard(
-                          productID: 1,
-                          productImage:
-                              'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
-                          productName: 'Анна Павлова',
-                          productPrice: '315',
-                        ),
-                        ProductCard(
-                          productID: 1,
-                          productImage:
-                              'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
-                          productName: 'Торт «Сезонный» с ягодами',
-                          productPrice: '420',
-                        ),
-                      ],
+                    SizedBox(
+                      height: 240,
+                      child: ListView(
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          SizedBox(
+                            width: 12,
+                          ),
+                          ...action.products
+                              .map((product) {
+                                return ProductCard(
+                                  productID: product.iD,
+                                  productImage: product.picture ?? '',
+                                  productName: product.name,
+                                  productPrice: '420',
+                                );
+                              })
+                              .toList()
+                              .cast<Widget>(),
+                        ],
+                      ),
                     ),
                   ],
                 ),
