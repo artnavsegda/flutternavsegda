@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:location/location.dart';
+
 import '../main.dart';
 import '../login/login.dart';
 import '../../components/gradient_button.dart';
@@ -73,7 +75,7 @@ class _OnboardingState extends State<Onboarding> {
                         child: const Push(),
                         opacity: pageNumber == 1 ? 1 : 0.2),
                     Opacity(
-                        child: const Location(),
+                        child: const GeoData(),
                         opacity: pageNumber == 2 ? 1 : 0.2),
                     Opacity(
                         child: const Login(),
@@ -206,8 +208,8 @@ class Push extends StatelessWidget {
   }
 }
 
-class Location extends StatelessWidget {
-  const Location({Key? key}) : super(key: key);
+class GeoData extends StatelessWidget {
+  const GeoData({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -222,7 +224,10 @@ class Location extends StatelessWidget {
             style: TextStyle(fontSize: 14.0)),
         const SizedBox(height: 20),
         OutlinedButton(
-            onPressed: () {},
+            onPressed: () {
+              Location location = new Location();
+              location.requestPermission();
+            },
             child: const Text('Предоставить доступ к геоданным'))
       ],
     );

@@ -56,6 +56,7 @@ dependencies:
   shimmer: ^2.0.0
   cached_network_image: ^3.2.0
   in_app_review: ^2.0.4
+  location: ^4.3.0
 
 dev_dependencies:
   flutter_test:
