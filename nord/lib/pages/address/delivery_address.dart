@@ -8,6 +8,11 @@ class DeliveryAddressPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset('assets/Icon-West.png')),
         title: const Text('Адреса доставки'),
       ),
       body: Container(
