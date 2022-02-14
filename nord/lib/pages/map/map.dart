@@ -45,12 +45,20 @@ class MapPage extends StatelessWidget {
           ),
           body: Stack(
             children: [
-              const GoogleMap(
+              GoogleMap(
                 myLocationEnabled: true,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(37.42796133580664, -122.085749655962),
                   zoom: 14.4746,
                 ),
+                markers: shops.map(
+                  (shop) {
+                    return Marker(
+                        markerId: MarkerId(shop.name),
+                        position:
+                            LatLng(shop.latitude ?? 0, shop.longitude ?? 0));
+                  },
+                ).toSet(),
               ),
               SizedBox.expand(
                 child: DraggableScrollableSheet(
