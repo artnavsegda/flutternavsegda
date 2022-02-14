@@ -108,6 +108,9 @@ class ShopPage extends StatelessWidget {
                   child: ElevatedButton(
                       onPressed: () {}, child: const Text('Построить маршрут')),
                 ),
+                TextButton(
+                    onPressed: () {},
+                    child: const Text('Заберу заказ в этом заведении')),
               ],
             ),
           )
