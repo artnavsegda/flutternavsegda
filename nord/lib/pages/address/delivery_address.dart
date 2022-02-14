@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+
+import '../../sever_metropol_icons.dart';
+import '../../components/gradient_button.dart';
 import 'address.dart';
 
 class DeliveryAddressPage extends StatelessWidget {
@@ -15,15 +18,29 @@ class DeliveryAddressPage extends StatelessWidget {
             icon: Image.asset('assets/Icon-West.png')),
         title: const Text('Адреса доставки'),
       ),
-      body: Container(
-        child: ElevatedButton(
-          // ignore: prefer_const_constructors
-          child: Text('Добавить адрес'),
-          onPressed: () {
-            Navigator.push(context,
-                MaterialPageRoute(builder: (context) => const AddressPage()));
-          },
-        ),
+      body: ListView(
+        children: [
+          ListTile(
+            title: Text('Домашний адрес'),
+            subtitle: Text('Дачный проспект, 36к3, квартира 410'),
+            trailing: Icon(
+              SeverMetropol.Icon_Edit,
+              color: Colors.red[900],
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: GradientButton(
+              child: Text('Добавить новый адрес'),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const AddressPage()));
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
