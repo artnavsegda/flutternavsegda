@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import '../sever_metropol_icons.dart';
 import '../pages/product/product.dart';
 
@@ -20,22 +22,38 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
-      child: SizedBox(
-        width: 160,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            width: 160,
+            height: 160,
+            child: Stack(
               children: [
                 InkWell(
-                    onTap: () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) =>
-                                  ProductPage(id: productID)));
-                    },
-                    child: Image.network(productImage)),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => ProductPage(id: productID)));
+                  },
+                  child: CachedNetworkImage(
+                    imageUrl: productImage,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: const Color(0xFFECECEC),
+                      highlightColor: Colors.white,
+                      child: Container(
+                        color: const Color(0xFFECECEC),
+                      ),
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: const Color(0xFFECECEC),
+                      child: Center(
+                        child: const Icon(Icons.no_photography),
+                      ),
+                    ),
+                  ),
+                ),
                 Positioned(
                   right: 0,
                   bottom: 0,
@@ -95,23 +113,23 @@ class ProductCard extends StatelessWidget {
                 ),
               ],
             ),
-            Text(productName),
-            RichText(
-              text: TextSpan(
-                style: DefaultTextStyle.of(context).style,
-                children: <TextSpan>[
-                  TextSpan(
-                      text: productPrice,
-                      style: TextStyle(
-                        fontFamily: 'Forum',
-                        fontSize: 24,
-                      )),
-                  TextSpan(text: ' ₽', style: TextStyle(fontSize: 16)),
-                ],
-              ),
+          ),
+          Text(productName),
+          RichText(
+            text: TextSpan(
+              style: DefaultTextStyle.of(context).style,
+              children: <TextSpan>[
+                TextSpan(
+                    text: productPrice,
+                    style: TextStyle(
+                      fontFamily: 'Forum',
+                      fontSize: 24,
+                    )),
+                TextSpan(text: ' ₽', style: TextStyle(fontSize: 16)),
+              ],
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
