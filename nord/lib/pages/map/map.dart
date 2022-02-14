@@ -46,6 +46,7 @@ class MapPage extends StatelessWidget {
           body: Stack(
             children: [
               const GoogleMap(
+                myLocationEnabled: true,
                 initialCameraPosition: CameraPosition(
                   target: LatLng(37.42796133580664, -122.085749655962),
                   zoom: 14.4746,
