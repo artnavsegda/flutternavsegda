@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../components/gradient_button.dart';
+
 class CartIsEmpty extends StatelessWidget {
   const CartIsEmpty({
     Key? key,
@@ -20,7 +22,7 @@ class CartIsEmpty extends StatelessWidget {
           const Text(
               'Загляните в каталог — там всегда можно найти вкусные новинки или, если ищете что-то конкретное, воспользуйтесь поиском'),
           const SizedBox(height: 24),
-          ElevatedButton(
+          GradientButton(
               onPressed: () {
                 context.go('/shop');
               },
