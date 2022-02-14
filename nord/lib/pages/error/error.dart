@@ -9,6 +9,13 @@ class ErrorPage extends StatelessWidget {
       body: Column(
         children: [
           Image.asset('assets/Illustration-No-Data.png'),
+          Text('Что-то пошло не так...'),
+          Text(
+              'Возникла непредвиденная ситуация. Пожалуйста, проверьте подключение и повторите запрос.'),
+          ElevatedButton(
+            onPressed: () {},
+            child: Text('Повторить'),
+          ),
         ],
       ),
     );
