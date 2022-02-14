@@ -1860,4 +1860,5 @@ query getShops {
       finish
     }
   }
+}
 ''';
