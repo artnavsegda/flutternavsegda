@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import '../../components/product_card.dart';
 import '../../components/components.dart';
 import '../../gql.dart';
@@ -102,7 +104,20 @@ class _ActionPageState extends State<ActionPage> {
                             color: Colors.grey),
                       ),
                     ),
-                    Image.network(action.picture ?? ""),
+                    CachedNetworkImage(
+                        imageUrl: action.picture ?? "",
+                        placeholder: (context, url) => Shimmer.fromColors(
+                              baseColor: Colors.white,
+                              highlightColor: const Color(0xFFECECEC),
+                              child: Container(
+                                color: Colors.white,
+                              ),
+                            ),
+                        errorWidget: (context, url, error) => Container(
+                              color: const Color(0xFFECECEC),
+                              child: Center(
+                                  child: const Icon(Icons.no_photography)),
+                            )),
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Text(
@@ -147,36 +162,38 @@ class _ActionPageState extends State<ActionPage> {
                             icon: const Text('Найти ближайшее кафе')),
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Text('Товары, участвующие в акции',
-                          style: TextStyle(
-                            fontFamily: 'Forum',
-                            fontSize: 24,
-                          )),
-                    ),
-                    SizedBox(
-                      height: 240,
-                      child: ListView(
-                        scrollDirection: Axis.horizontal,
-                        children: [
-                          SizedBox(
-                            width: 12,
-                          ),
-                          ...action.products
-                              .map((product) {
-                                return ProductCard(
-                                  productID: product.iD,
-                                  productImage: product.picture ?? '',
-                                  productName: product.name,
-                                  productPrice: '420',
-                                );
-                              })
-                              .toList()
-                              .cast<Widget>(),
-                        ],
+                    if (action.type == 'PRODUCT') ...[
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text('Товары, участвующие в акции',
+                            style: TextStyle(
+                              fontFamily: 'Forum',
+                              fontSize: 24,
+                            )),
                       ),
-                    ),
+                      SizedBox(
+                        height: 240,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
+                          children: [
+                            SizedBox(
+                              width: 12,
+                            ),
+                            ...action.products
+                                .map((product) {
+                                  return ProductCard(
+                                    productID: product.iD,
+                                    productImage: product.picture ?? '',
+                                    productName: product.name,
+                                    productPrice: '420',
+                                  );
+                                })
+                                .toList()
+                                .cast<Widget>(),
+                          ],
+                        ),
+                      ),
+                    ]
                   ],
                 ),
               ),
