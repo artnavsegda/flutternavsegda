@@ -9,6 +9,7 @@ import 'review.dart';
 import '../../components/gradient_button.dart';
 import '../../components/components.dart';
 import '../../gql.dart';
+import '../error/error.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key, required this.id}) : super(key: key);
@@ -64,6 +65,7 @@ class _ProductPageState extends State<ProductPage> {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
+            return ErrorPage();
             return Scaffold(
               appBar: AppBar(),
               body: Center(

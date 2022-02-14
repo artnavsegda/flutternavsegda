@@ -6,15 +6,41 @@ class ErrorPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Column(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Image.asset('assets/Icon-West.png')),
+      ),
+      body: ListView(
         children: [
-          Image.asset('assets/Illustration-No-Data.png'),
-          Text('Что-то пошло не так...'),
-          Text(
-              'Возникла непредвиденная ситуация. Пожалуйста, проверьте подключение и повторите запрос.'),
-          ElevatedButton(
-            onPressed: () {},
-            child: Text('Повторить'),
+          Image.asset(
+            'assets/Illustration-No-Data.png',
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              'Что-то пошло не так...',
+              style: TextStyle(
+                fontFamily: 'Forum',
+                fontSize: 24.0,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+                'Возникла непредвиденная ситуация. Пожалуйста, проверьте подключение и повторите запрос.'),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: ElevatedButton(
+              onPressed: () {},
+              child: Text('Повторить'),
+            ),
           ),
         ],
       ),
