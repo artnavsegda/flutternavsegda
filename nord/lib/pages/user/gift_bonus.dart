@@ -24,9 +24,17 @@ class GiftBonusModalSheet extends StatelessWidget {
                   Text('Вы можете подарить до 120 бонусов'),
                 ],
               ),
-              Slider(
-                onChanged: (newVal) {},
-                value: 0,
+              SliderTheme(
+                data: SliderThemeData(
+                  trackShape: RectangularSliderTrackShape(),
+                  trackHeight: 2.0,
+                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7),
+                ),
+                child: Slider(
+                  inactiveColor: Colors.grey,
+                  onChanged: (newVal) {},
+                  value: 0.2,
+                ),
               ),
             ],
           ),
