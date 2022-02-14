@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'review.dart';
 import '../../components/gradient_button.dart';
@@ -102,18 +104,40 @@ class _ProductPageState extends State<ProductPage> {
                       child: Stack(
                         alignment: Alignment.bottomCenter,
                         children: [
-                          PageView(
-                            controller: _controller,
-                            children: productInfo.pictures
-                                .map((picture) {
-                                  return Image.network(
-                                    picture.full,
-                                    fit: BoxFit.cover,
-                                  );
-                                })
-                                .toList()
-                                .cast<Widget>(),
-                          ),
+                          productInfo.pictures.length > 0
+                              ? PageView(
+                                  controller: _controller,
+                                  children: productInfo.pictures
+                                      .map((picture) {
+                                        return CachedNetworkImage(
+                                            imageUrl: picture.full,
+                                            placeholder: (context, url) =>
+                                                Shimmer.fromColors(
+                                                  baseColor: Colors.white,
+                                                  highlightColor:
+                                                      const Color(0xFFECECEC),
+                                                  child: Container(
+                                                    color: Colors.white,
+                                                  ),
+                                                ),
+                                            errorWidget: (context, url,
+                                                    error) =>
+                                                Container(
+                                                  color:
+                                                      const Color(0xFFECECEC),
+                                                  child: Center(
+                                                      child: const Icon(Icons
+                                                          .no_photography)),
+                                                ));
+                                      })
+                                      .toList()
+                                      .cast<Widget>(),
+                                )
+                              : Container(
+                                  color: const Color(0xFFECECEC),
+                                  child: Center(
+                                      child: const Icon(Icons.no_photography)),
+                                ),
                           Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: SmoothPageIndicator(
