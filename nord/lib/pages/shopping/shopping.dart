@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
+
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
 import 'registration.dart';
@@ -203,10 +206,23 @@ class CartTile extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.network(
-              image,
+            CachedNetworkImage(
               width: 64,
               height: 64,
+              imageUrl: image,
+              placeholder: (context, url) => Shimmer.fromColors(
+                baseColor: const Color(0xFFECECEC),
+                highlightColor: Colors.white,
+                child: Container(
+                  color: const Color(0xFFECECEC),
+                ),
+              ),
+              errorWidget: (context, url, error) => Container(
+                color: const Color(0xFFECECEC),
+                child: Center(
+                  child: const Icon(Icons.no_photography),
+                ),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
