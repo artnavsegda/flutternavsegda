@@ -105,7 +105,8 @@ class ShoppingPage extends StatelessWidget {
                                 Text('Сумма заказа'),
                                 Expanded(
                                     child: DottedLine(dashColor: Colors.grey)),
-                                Text('1 435 ₽'),
+                                Text('1 435 ₽',
+                                    style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
                             ),
                             Row(
@@ -125,7 +126,8 @@ class ShoppingPage extends StatelessWidget {
                                 Text('Скидка'),
                                 Expanded(
                                     child: DottedLine(dashColor: Colors.grey)),
-                                Text('- 110 ₽'),
+                                Text('- 110 ₽',
+                                    style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
                             ),
                             Divider(),
@@ -136,7 +138,8 @@ class ShoppingPage extends StatelessWidget {
                                 Text('Общая сумма заказа'),
                                 Expanded(
                                     child: DottedLine(dashColor: Colors.grey)),
-                                Text('1 325 ₽'),
+                                Text('1 325 ₽',
+                                    style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
                             ),
                           ],
@@ -157,7 +160,8 @@ class ShoppingPage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       children: const [
                         Text('Итого'),
-                        Text('1 325 ₽'),
+                        Text('1 325 ₽',
+                            style: TextStyle(fontFamily: 'Noto Sans')),
                       ],
                     ),
                   ),
@@ -257,11 +261,14 @@ class CartTile extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.end,
                         children: [
                           Text('${price.floor()} ₽',
-                              style: TextStyle(fontSize: 16)),
+                              style: TextStyle(
+                                  fontFamily: 'Noto Sans', fontSize: 16)),
                           CustomPaint(
                             painter: RedLine(),
                             child: const Text('250 ₽',
-                                style: TextStyle(color: Colors.grey)),
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans',
+                                    color: Colors.grey)),
                           ),
                         ],
                       ),

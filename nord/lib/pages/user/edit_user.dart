@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
+import '../../components/gradient_button.dart';
+
 class EditUser extends StatelessWidget {
   const EditUser({Key? key}) : super(key: key);
 
@@ -102,6 +104,7 @@ class EditUser extends StatelessWidget {
                   const TextField(
                     decoration: InputDecoration(labelText: "Email"),
                   ),
+                  Text('Неподтвержденный адрес Email. Подтвердить'),
                   const SizedBox(height: 16),
                   const TextField(
                     decoration: InputDecoration(labelText: "Номер телефона"),
@@ -130,7 +133,7 @@ class EditUser extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: ElevatedButton(
+              child: GradientButton(
                   onPressed: () {
                     Navigator.pop(context);
                   },

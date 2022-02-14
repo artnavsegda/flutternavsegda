@@ -125,7 +125,9 @@ class ProductCard extends StatelessWidget {
                       fontFamily: 'Forum',
                       fontSize: 24,
                     )),
-                TextSpan(text: ' ₽', style: TextStyle(fontSize: 16)),
+                TextSpan(
+                    text: ' ₽',
+                    style: TextStyle(fontFamily: 'Noto Sans', fontSize: 16)),
               ],
             ),
           ),
