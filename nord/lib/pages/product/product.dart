@@ -199,13 +199,11 @@ class _ProductPageState extends State<ProductPage> {
                                   ),
                                   CustomPaint(
                                     painter: RedLine(),
-                                    child: Text(
-                                      '420 P',
-                                      style: TextStyle(
-                                          fontFamily: 'Forum',
-                                          fontSize: 20,
-                                          color: Colors.grey),
-                                    ),
+                                    child: Text('420 P',
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(color: Colors.grey)),
                                   ),
                                 ],
                               ),
@@ -460,10 +458,10 @@ class _ProductPageState extends State<ProductPage> {
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
-                              child: const Text(
+                              child: Text(
                                 'Отзывов о товаре пока нет',
-                                style: TextStyle(
-                                    fontFamily: 'Forum', fontSize: 24),
+                                style:
+                                    Theme.of(context).textTheme.headlineSmall,
                               ),
                             ),
                             const Text(

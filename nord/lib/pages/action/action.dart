@@ -96,13 +96,11 @@ class _ActionPageState extends State<ActionPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8),
-                      child: Text(
-                        '15 октября–27 ноября',
-                        style: TextStyle(
-                            fontFamily: 'Forum',
-                            fontSize: 24,
-                            color: Colors.grey),
-                      ),
+                      child: Text('15 октября–27 ноября',
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall!
+                              .copyWith(color: Colors.grey)),
                     ),
                     CachedNetworkImage(
                         imageUrl: action.picture ?? "",
@@ -166,10 +164,7 @@ class _ActionPageState extends State<ActionPage> {
                       Padding(
                         padding: const EdgeInsets.all(16.0),
                         child: Text('Товары, участвующие в акции',
-                            style: TextStyle(
-                              fontFamily: 'Forum',
-                              fontSize: 24,
-                            )),
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                       SizedBox(
                         height: 240,

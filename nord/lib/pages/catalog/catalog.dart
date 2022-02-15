@@ -114,8 +114,9 @@ class CatalogPage extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(nordCatalog[index].name,
-                                  style: TextStyle(
-                                      fontFamily: 'Forum', fontSize: 24.0)),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                               const SizedBox(height: 12),
                               Wrap(
                                 //spacing: 8.0,

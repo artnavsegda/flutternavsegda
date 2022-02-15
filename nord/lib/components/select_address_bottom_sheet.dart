@@ -22,9 +22,9 @@ class SelectAddressBottomSheet extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              const Text(
+              Text(
                 'Адрес доставки или ближайшего к вам кафе',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               const Text(

@@ -46,7 +46,7 @@ class OrderPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Детали заказа',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             ListTile(
@@ -66,7 +66,7 @@ class OrderPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Детали оплаты',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                style: Theme.of(context).textTheme.headlineSmall
               ),
             ),
             Row(
@@ -93,7 +93,7 @@ class OrderPage extends StatelessWidget {
               padding: const EdgeInsets.all(16.0),
               child: Text(
                 'Состав заказа',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                style: Theme.of(context).textTheme.headlineSmall,
               ),
             ),
             OrderCartTile(),

@@ -21,7 +21,7 @@ class RegistrationPage extends StatelessWidget {
           ListTile(
             title: Text(
               'Время доставки',
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           ListTile(
@@ -48,11 +48,8 @@ class RegistrationPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: const Text('Дата доставки',
-                            style: TextStyle(
-                              fontFamily: 'Forum',
-                              fontSize: 24,
-                            )),
+                        child: Text('Дата доставки',
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                       Row(
                         children: [
@@ -64,11 +61,8 @@ class RegistrationPage extends StatelessWidget {
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
-                        child: const Text('Время доставки',
-                            style: TextStyle(
-                              fontFamily: 'Forum',
-                              fontSize: 24,
-                            )),
+                        child: Text('Время доставки',
+                            style: Theme.of(context).textTheme.headlineSmall),
                       ),
                       Row(
                         children: [
@@ -120,7 +114,7 @@ class RegistrationPage extends StatelessWidget {
           ListTile(
             title: Text(
               'Отдельные пожелания',
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           Padding(

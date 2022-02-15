@@ -34,8 +34,8 @@ class LoginPage extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                const Text('Войти или\nзарегистрироваться',
-                    style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+                Text('Войти или\nзарегистрироваться',
+                    style: Theme.of(context).textTheme.headlineSmall),
                 const SizedBox(height: 9),
                 const Text(
                     'Мы отправим на номер SMS-сообщение с кодом потверждения'),

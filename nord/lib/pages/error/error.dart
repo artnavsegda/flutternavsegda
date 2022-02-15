@@ -24,10 +24,7 @@ class ErrorPage extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text(
               'Что-то пошло не так...',
-              style: TextStyle(
-                fontFamily: 'Forum',
-                fontSize: 24.0,
-              ),
+              style: Theme.of(context).textTheme.headlineSmall,
             ),
           ),
           Padding(

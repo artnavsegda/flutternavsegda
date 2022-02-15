@@ -14,8 +14,8 @@ class Unregistered extends StatelessWidget {
         Image.asset('assets/Illustration-Login.png'),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: const Text('Расплачивайтесь баллами, покупайе с удовольствием',
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          child: Text('Расплачивайтесь баллами, покупайе с удовольствием',
+              style: Theme.of(context).textTheme.headlineSmall),
         ),
         ListTile(
           title: const Text("5% от каждой покупки на бонусный счёт"),

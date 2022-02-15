@@ -67,11 +67,10 @@ class QrPage extends StatelessWidget {
                     ),
                     const SizedBox(height: 32),
                     Text('+ 7 999 548 63 75',
-                        style: TextStyle(
-                          fontFamily: 'Forum',
-                          fontSize: 34,
-                          color: Colors.red[900],
-                        )),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: Colors.red[900])),
                     const SizedBox(height: 10),
                     const Text(
                       'Поднесите телефон к сканеру на кассе, чтобы начислить или списать бонусы',

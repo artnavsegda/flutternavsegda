@@ -25,8 +25,8 @@ class SmsPage extends StatelessWidget {
         padding: const EdgeInsets.all(16.0),
         child: ListView(
           children: [
-            const Text('Введите\nкод подтверждения',
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            Text('Введите\nкод подтверждения',
+                style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 9),
             Text('Код подтверждения был отправлен на номер:\n$phone'),
             const SizedBox(height: 24),

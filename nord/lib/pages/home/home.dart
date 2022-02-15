@@ -167,8 +167,9 @@ class HomePage extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.all(16.0),
                               child: Text(section.name,
-                                  style: TextStyle(
-                                      fontFamily: 'Forum', fontSize: 24.0)),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall),
                             ),
                             const SizedBox(height: 16),
                             SizedBox(
@@ -224,17 +225,17 @@ class HomePage extends StatelessWidget {
           Provider.of<LoginState>(context, listen: false).loggedIn
               ? CardLoggedIn()
               : CardNotLoggedIn(),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
-            child: Text("Акции",
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            child:
+                Text("Акции", style: Theme.of(context).textTheme.headlineSmall),
           ),
           _buildActionsBlock(context),
           _buildTopBlocks(context),
-          const Padding(
+          Padding(
             padding: EdgeInsets.symmetric(horizontal: 16.0),
             child: Text("Кондитерские и кафе",
-                style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+                style: Theme.of(context).textTheme.headlineSmall),
           ),
           Container(
             margin: const EdgeInsets.all(16.0),

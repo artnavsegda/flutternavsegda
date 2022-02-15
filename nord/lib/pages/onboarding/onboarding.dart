@@ -148,9 +148,9 @@ class Welcome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: const [
+      children: [
         Text('Добро пожаловать!',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+            style: Theme.of(context).textTheme.headlineSmall),
         SizedBox(height: 20),
         Text(
           '''С Вами легендарная кондитерская Петербурга. C 1903 года мы создаем торты и пирожные, храним традиции талантливых советских технологов, чтобы сделать Ваш день приятней.
@@ -171,8 +171,7 @@ class Push extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Уведомления',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        Text('Уведомления', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 20),
         const Text(
             '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.''',
@@ -216,8 +215,8 @@ class GeoData extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Местоположение',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        Text('Местоположение',
+            style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 20),
         const Text(
             '''А теперь ―  геолокация. Разрешите доступ, это упростит поиск адреса для доставки или самовывоза Ваших любимых пирожных.''',
@@ -242,8 +241,8 @@ class Login extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const Text('Все возможности',
-            style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+        Text('Все возможности',
+            style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 20),
         const Text(
             '''Войдите в аккаунт и используйте все возможности приложения.

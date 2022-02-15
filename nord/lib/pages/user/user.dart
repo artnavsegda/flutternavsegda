@@ -78,14 +78,11 @@ class UserPage extends StatelessWidget {
                           'У вас',
                           style: TextStyle(color: Colors.white),
                         ),
-                        Text(
-                          userInfo.points.toString() + ' бонусов',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontFamily: 'Forum',
-                            fontSize: 24.0,
-                          ),
-                        ),
+                        Text(userInfo.points.toString() + ' бонусов',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Colors.white)),
                         Row(
                           children: [
                             OutlinedButton(

@@ -88,9 +88,9 @@ class EditUser extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     "Личная информация",
-                    style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                   const SizedBox(height: 24),
                   const TextField(
@@ -114,9 +114,9 @@ class EditUser extends StatelessWidget {
                     decoration: InputDecoration(labelText: "Номер телефона"),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
+                  Text(
                     "Другие настройки",
-                    style: TextStyle(fontFamily: 'Forum', fontSize: 24),
+                    style: Theme.of(context).textTheme.headlineSmall,
                   ),
                 ],
               ),

@@ -37,8 +37,9 @@ class NordApp extends StatelessWidget {
       scaffoldBackgroundColor: Colors.white,
       primarySwatch: createMaterialColor(Colors.red.shade900),
       fontFamily: 'Noto Sans',
-      textTheme: GoogleFonts.notoSansTextTheme(
-        Theme.of(context).textTheme,
+      textTheme:
+          GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme).copyWith(
+        headlineSmall: TextStyle(fontSize: 24.0, fontFamily: 'Forum'),
       ),
       appBarTheme: const AppBarTheme(
         foregroundColor: Colors.black,

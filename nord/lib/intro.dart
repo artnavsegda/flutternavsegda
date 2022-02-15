@@ -56,7 +56,7 @@ class IntroPage extends StatelessWidget {
               }
             });
             return Stack(
-              children: const [
+              children: [
                 RiveAnimation.asset(
                   'assets/sever.riv',
                   fit: BoxFit.cover,
@@ -67,11 +67,10 @@ class IntroPage extends StatelessWidget {
                     right: 32,
                     child: Text(
                       'Легендарные, любимые, особенные.\nТеперь всегда под рукой!',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontFamily: 'Forum',
-                        fontSize: 24,
-                      ),
+                      style: Theme.of(context)
+                          .textTheme
+                          .headlineSmall!
+                          .copyWith(color: Colors.white),
                     ))
               ],
             );

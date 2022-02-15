@@ -22,8 +22,10 @@ class OrdersPage extends StatelessWidget {
           Center(
             child: Text(
               '18 апреля',
-              style: TextStyle(
-                  fontFamily: 'Forum', fontSize: 24, color: Color(0xFF9CA4AC)),
+              style: Theme.of(context)
+                  .textTheme
+                  .headlineSmall!
+                  .copyWith(color: Color(0xFF9CA4AC)),
             ),
           ),
           InkWell(

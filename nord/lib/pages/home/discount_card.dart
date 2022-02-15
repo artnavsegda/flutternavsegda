@@ -148,16 +148,15 @@ class CardLoggedIn extends StatelessWidget {
                     style: TextStyle(color: Colors.white),
                   ),
                 ),
-                const Positioned(
+                Positioned(
                   bottom: 16,
                   left: 16,
                   child: Text(
                     '120 бонусов',
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontFamily: 'Forum',
-                      fontSize: 24.0,
-                    ),
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(color: Colors.white),
                   ),
                 )
               ],

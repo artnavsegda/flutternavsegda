@@ -121,10 +121,7 @@ class ProductCard extends StatelessWidget {
               children: <TextSpan>[
                 TextSpan(
                     text: productPrice,
-                    style: TextStyle(
-                      fontFamily: 'Forum',
-                      fontSize: 24,
-                    )),
+                    style: Theme.of(context).textTheme.headlineSmall),
                 TextSpan(
                     text: ' ₽',
                     style: TextStyle(fontFamily: 'Noto Sans', fontSize: 16)),

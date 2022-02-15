@@ -16,8 +16,8 @@ class CartIsEmpty extends StatelessWidget {
         children: [
           Image.asset('assets/Illustration-Empty-Cart.png'),
           const SizedBox(height: 24),
-          const Text('В корзине ничего нет...',
-              style: TextStyle(fontFamily: 'Forum', fontSize: 24.0)),
+          Text('В корзине ничего нет...',
+              style: Theme.of(context).textTheme.headlineSmall),
           const SizedBox(height: 9),
           const Text(
               'Загляните в каталог — там всегда можно найти вкусные новинки или, если ищете что-то конкретное, воспользуйтесь поиском'),
