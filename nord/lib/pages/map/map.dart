@@ -86,28 +86,21 @@ class MapPage extends StatelessWidget {
                                   filled: true),
                             ),
                           ),
-                          ...shops
-                              .map(
-                                (shop) {
-                                  return ListTile(
-                                    isThreeLine: true,
-                                    onTap: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) =>
-                                                  ShopPage(shop: shop)));
-                                    },
-                                    title: Text(shop.address ?? 'Невский, 6'),
-                                    subtitle: const Text(
-                                        'Сегодня открыто до 22:00\nАдмиралтейская'),
-                                    trailing: Image.asset(
-                                        'assets/Icon-Direction.png'),
-                                  );
+                          ...shops.map((shop) => ListTile(
+                                isThreeLine: true,
+                                onTap: () {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ShopPage(shop: shop)));
                                 },
-                              )
-                              .toList()
-                              .cast<Widget>(),
+                                title: Text(shop.address ?? 'Невский, 6'),
+                                subtitle: const Text(
+                                    'Сегодня открыто до 22:00\nАдмиралтейская'),
+                                trailing:
+                                    Image.asset('assets/Icon-Direction.png'),
+                              )),
                         ],
                       ),
                     );

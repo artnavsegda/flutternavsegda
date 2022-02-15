@@ -110,28 +110,24 @@ class _ProductPageState extends State<ProductPage> {
                               ? PageView(
                                   controller: _controller,
                                   children: productInfo.pictures
-                                      .map((picture) {
-                                        return CachedNetworkImage(
-                                            imageUrl: picture.full,
-                                            placeholder: (context, url) =>
-                                                Shimmer.fromColors(
-                                                  baseColor: Colors.white,
-                                                  highlightColor:
-                                                      const Color(0xFFECECEC),
-                                                  child: Container(
-                                                    color: Colors.white,
-                                                  ),
+                                      .map((picture) => CachedNetworkImage(
+                                          imageUrl: picture.full,
+                                          placeholder: (context, url) =>
+                                              Shimmer.fromColors(
+                                                baseColor: Colors.white,
+                                                highlightColor:
+                                                    const Color(0xFFECECEC),
+                                                child: Container(
+                                                  color: Colors.white,
                                                 ),
-                                            errorWidget: (context, url,
-                                                    error) =>
-                                                Container(
-                                                  color:
-                                                      const Color(0xFFECECEC),
-                                                  child: Center(
-                                                      child: const Icon(Icons
-                                                          .no_photography)),
-                                                ));
-                                      })
+                                              ),
+                                          errorWidget: (context, url, error) =>
+                                              Container(
+                                                color: const Color(0xFFECECEC),
+                                                child: Center(
+                                                    child: const Icon(
+                                                        Icons.no_photography)),
+                                              )))
                                       .toList()
                                       .cast<Widget>(),
                                 )

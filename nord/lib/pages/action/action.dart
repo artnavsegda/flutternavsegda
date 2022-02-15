@@ -174,17 +174,14 @@ class _ActionPageState extends State<ActionPage> {
                             SizedBox(
                               width: 12,
                             ),
-                            ...action.products
-                                .map((product) {
-                                  return ProductCard(
-                                    productID: product.iD,
-                                    productImage: product.picture ?? '',
-                                    productName: product.name,
-                                    productPrice: '420',
-                                  );
-                                })
-                                .toList()
-                                .cast<Widget>(),
+                            ...action.products.map((product) {
+                              return ProductCard(
+                                productID: product.iD,
+                                productImage: product.picture ?? '',
+                                productName: product.name,
+                                productPrice: '420',
+                              );
+                            }),
                           ],
                         ),
                       ),

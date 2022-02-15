@@ -38,15 +38,10 @@ class HelpPage extends StatelessWidget {
             ),
             body: ListView(
               children: [
-                ...faqGroups
-                    .map((faqGroup) {
-                      return ListTile(
-                        title: Text(faqGroup.name),
-                        trailing: Image.asset('assets/Icon-East.png'),
-                      );
-                    })
-                    .toList()
-                    .cast<Widget>(),
+                ...faqGroups.map((faqGroup) => ListTile(
+                      title: Text(faqGroup.name),
+                      trailing: Image.asset('assets/Icon-East.png'),
+                    )),
                 ListTile(
                   title: Text('Бонусная программа'),
                   trailing: Image.asset('assets/Icon-East.png'),

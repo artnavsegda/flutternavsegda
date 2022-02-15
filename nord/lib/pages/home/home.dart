@@ -61,18 +61,13 @@ class HomePage extends StatelessWidget {
                   actionName: 'Шокодень',
                   actionImage: 'assets/placeholder/cake.png',
                   actionDate: 'Только до 31 октября'), */
-              ...actions
-                  .map(
-                    (action) {
-                      return ActionCard(
-                          actionID: action.iD,
-                          actionName: action.name,
-                          actionImage: action.picture,
-                          actionDate: 'Только до 31 октября');
-                    },
-                  )
-                  .toList()
-                  .cast<Widget>(),
+              ...actions.map(
+                (action) => ActionCard(
+                    actionID: action.iD,
+                    actionName: action.name,
+                    actionImage: action.picture,
+                    actionDate: 'Только до 31 октября'),
+              ),
             ],
           ),
         );
@@ -180,17 +175,12 @@ class HomePage extends StatelessWidget {
                                   SizedBox(
                                     width: 12,
                                   ),
-                                  ...section.products
-                                      .map((product) {
-                                        return ProductCard(
+                                  ...section.products.map((product) =>
+                                      ProductCard(
                                           productID: product.iD,
                                           productImage: product.picture ?? '',
                                           productName: product.name,
-                                          productPrice: '420',
-                                        );
-                                      })
-                                      .toList()
-                                      .cast<Widget>(),
+                                          productPrice: '420')),
                                   ProductCard(
                                     productID: 1,
                                     productImage:

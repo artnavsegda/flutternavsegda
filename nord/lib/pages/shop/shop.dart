@@ -18,7 +18,17 @@ class ShopPage extends StatelessWidget {
         children: [
           Stack(
             children: [
-              Image.asset('assets/placeholder/shop.png'),
+              SizedBox(
+                height: 300,
+                child: PageView(
+                  children: [
+                    Image.asset('assets/placeholder/shop.png',
+                        fit: BoxFit.cover),
+                    ...shop.pictures.map(
+                        (picture) => Image.network(picture, fit: BoxFit.cover))
+                  ],
+                ),
+              ),
               Positioned(
                 top: 36,
                 left: 12,
@@ -50,18 +60,16 @@ class ShopPage extends StatelessWidget {
                   subtitle: Text('Метро'),
                   title: Row(
                     children: shop.metroStations
-                        .map((metroStation) {
-                          return Row(
-                            children: [
-                              Text('⬤ ',
-                                  style: TextStyle(
-                                      fontSize: 7.0,
-                                      color:
-                                          hexToColor(metroStation.colorLine))),
-                              Text(metroStation.stationName),
-                            ],
-                          );
-                        })
+                        .map((metroStation) => Row(
+                              children: [
+                                Text('⬤ ',
+                                    style: TextStyle(
+                                        fontSize: 7.0,
+                                        color: hexToColor(
+                                            metroStation.colorLine))),
+                                Text(metroStation.stationName),
+                              ],
+                            ))
                         .toList()
                         .cast<Widget>(),
                   ),

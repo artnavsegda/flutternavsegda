@@ -85,9 +85,7 @@ class CatalogPage extends StatelessWidget {
                       unselectedLabelColor: Colors.red.shade900,
                       labelColor: Colors.black38,
                       tabs: nordCatalog
-                          .map((category) {
-                            return Tab(text: category.name);
-                          })
+                          .map((category) => Tab(text: category.name))
                           .toList()
                           .cast<Widget>(),
 
@@ -123,14 +121,12 @@ class CatalogPage extends StatelessWidget {
                                 runSpacing: 32.0,
                                 children: nordCatalog[index]
                                     .products
-                                    .map((product) {
-                                      return ProductCard(
-                                        productID: product.iD,
-                                        productImage: product.picture ?? '',
-                                        productName: product.name,
-                                        productPrice: '420',
-                                      );
-                                    })
+                                    .map((product) => ProductCard(
+                                          productID: product.iD,
+                                          productImage: product.picture ?? '',
+                                          productName: product.name,
+                                          productPrice: '420',
+                                        ))
                                     .toList()
                                     .cast<Widget>(),
                               ),
