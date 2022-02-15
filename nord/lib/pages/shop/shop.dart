@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
+import '../../gql.dart';
+
+Color hexToColor(String code) {
+  return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
+}
 
 class ShopPage extends StatelessWidget {
-  const ShopPage({Key? key}) : super(key: key);
+  const ShopPage({Key? key, required this.shop}) : super(key: key);
+
+  final GraphShop shop;
 
   @override
   Widget build(BuildContext context) {
@@ -35,13 +42,29 @@ class ShopPage extends StatelessWidget {
               children: [
                 ListTile(
                   isThreeLine: true,
-                  subtitle:
-                      Text('194358, Санкт-Петербург, проспект Просвещения, 19'),
-                  title: Text('Просвещения, 19 (ТК Норд)'),
+                  subtitle: Text(shop.address ??
+                      '194358, Санкт-Петербург, проспект Просвещения, 19'),
+                  title: Text(shop.name),
                 ),
                 ListTile(
                   subtitle: Text('Метро'),
-                  title: Text('Гражданский проспект Озерки'),
+                  title: Row(
+                    children: shop.metroStations
+                        .map((metroStation) {
+                          return Row(
+                            children: [
+                              Text('⬤ ',
+                                  style: TextStyle(
+                                      fontSize: 7.0,
+                                      color:
+                                          hexToColor(metroStation.colorLine))),
+                              Text(metroStation.stationName),
+                            ],
+                          );
+                        })
+                        .toList()
+                        .cast<Widget>(),
+                  ),
                 ),
                 Divider(),
                 ListTile(

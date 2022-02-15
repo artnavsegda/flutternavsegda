@@ -96,7 +96,7 @@ class MapPage extends StatelessWidget {
                                           context,
                                           MaterialPageRoute(
                                               builder: (context) =>
-                                                  const ShopPage()));
+                                                  ShopPage(shop: shop)));
                                     },
                                     title: Text(shop.address ?? 'Невский, 6'),
                                     subtitle: const Text(
@@ -108,19 +108,6 @@ class MapPage extends StatelessWidget {
                               )
                               .toList()
                               .cast<Widget>(),
-                          ListTile(
-                            isThreeLine: true,
-                            onTap: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => const ShopPage()));
-                            },
-                            title: const Text('Невский, 6'),
-                            subtitle: const Text(
-                                'Сегодня открыто до 22:00\nАдмиралтейская'),
-                            trailing: Image.asset('assets/Icon-Direction.png'),
-                          ),
                         ],
                       ),
                     );
