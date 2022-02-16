@@ -38,7 +38,7 @@ class HelpPage extends StatelessWidget {
                   },
                   icon: Icon(
                     SeverMetropol.Icon_West,
-                    color: Colors.red[900],
+                    color: Theme.of(context).colorScheme.primary,
                   )),
             ),
             body: ListView(
@@ -47,14 +47,14 @@ class HelpPage extends StatelessWidget {
                       title: Text(faqGroup.name),
                       trailing: Icon(
                         SeverMetropol.Icon_East,
-                        color: Colors.red[900],
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     )),
                 ListTile(
                   title: Text('Бонусная программа'),
                   trailing: Icon(
                     SeverMetropol.Icon_East,
-                    color: Colors.red[900],
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                   onTap: () => {
                     Navigator.push(
@@ -93,7 +93,7 @@ class HelpTopicPage extends StatelessWidget {
               },
               icon: Icon(
                 SeverMetropol.Icon_West,
-                color: Colors.red[900],
+                color: Theme.of(context).colorScheme.primary,
               )),
         ),
         body: ListView(

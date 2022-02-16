@@ -48,8 +48,8 @@ class UserPage extends StatelessWidget {
                   context.push('/editProfile');
                 },
                 title: Text(userInfo.name ?? "Незнакомец"),
-                trailing:
-                    Icon(SeverMetropol.Icon_Edit, color: Colors.red.shade900),
+                trailing: Icon(SeverMetropol.Icon_Edit,
+                    color: Theme.of(context).colorScheme.primary),
               ),
               AspectRatio(
                 aspectRatio: 16 / 9,
@@ -118,13 +118,13 @@ class UserPage extends StatelessWidget {
                 onTap: () {},
                 title: const Text("Подарки"),
                 leading: Icon(SeverMetropol.Icon_Present,
-                    color: Colors.red.shade900),
+                    color: Theme.of(context).colorScheme.primary),
               ),
               ListTile(
                 onTap: () {},
                 title: const Text("Промокод"),
                 leading: Icon(SeverMetropol.Icon_Redeem_Card,
-                    color: Colors.red.shade900),
+                    color: Theme.of(context).colorScheme.primary),
               ),
               ListTile(
                 onTap: () {
@@ -135,7 +135,7 @@ class UserPage extends StatelessWidget {
                 },
                 title: const Text("История заказов"),
                 leading: Icon(SeverMetropol.Icon_History,
-                    color: Colors.red.shade900),
+                    color: Theme.of(context).colorScheme.primary),
               ),
               ListTile(
                 onTap: () async {
@@ -145,8 +145,8 @@ class UserPage extends StatelessWidget {
                           builder: (context) => const DeliveryAddressPage()));
                 },
                 title: const Text("Адреса доставки"),
-                leading:
-                    Icon(SeverMetropol.Icon_Place, color: Colors.red.shade900),
+                leading: Icon(SeverMetropol.Icon_Place,
+                    color: Theme.of(context).colorScheme.primary),
               ),
               const Divider(
                 color: Color(0xFFEFF3F4),
@@ -157,8 +157,8 @@ class UserPage extends StatelessWidget {
               ListTile(
                 onTap: () async {},
                 title: const Text("Смена пароля"),
-                leading:
-                    Icon(SeverMetropol.Icon_Lock, color: Colors.red.shade900),
+                leading: Icon(SeverMetropol.Icon_Lock,
+                    color: Theme.of(context).colorScheme.primary),
               ),
               Mutation(
                 options: MutationOptions(
@@ -176,7 +176,7 @@ class UserPage extends StatelessWidget {
                     },
                     title: const Text("Выход из приложения"),
                     leading: Icon(SeverMetropol.Icon_Logout,
-                        color: Colors.red.shade900),
+                        color: Theme.of(context).colorScheme.primary),
                   );
                 },
               ),

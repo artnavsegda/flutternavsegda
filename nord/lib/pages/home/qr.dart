@@ -18,7 +18,7 @@ class QrPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
         title: const Text('Карта клиента'),
       ),
@@ -74,7 +74,8 @@ class QrPage extends StatelessWidget {
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!
-                            .copyWith(color: Colors.red[900])),
+                            .copyWith(
+                                color: Theme.of(context).colorScheme.primary)),
                     const SizedBox(height: 10),
                     const Text(
                       'Поднесите телефон к сканеру на кассе, чтобы начислить или списать бонусы',

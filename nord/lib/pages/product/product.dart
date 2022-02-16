@@ -97,7 +97,7 @@ class _ProductPageState extends State<ProductPage> {
                         onPressed: () {},
                         icon: Icon(
                           SeverMetropol.Icon_Share,
-                          color: Colors.red[900],
+                          color: Theme.of(context).colorScheme.primary,
                         )),
                   ],
                   leading: IconButton(
@@ -106,7 +106,7 @@ class _ProductPageState extends State<ProductPage> {
                       },
                       icon: Icon(
                         SeverMetropol.Icon_West,
-                        color: Colors.red[900],
+                        color: Theme.of(context).colorScheme.primary,
                       )),
                 ),
                 body: ListView(
@@ -226,7 +226,9 @@ class _ProductPageState extends State<ProductPage> {
                                       child: Text(
                                         'Базовая цена. ',
                                         style: TextStyle(
-                                            color: Colors.red.shade900),
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary),
                                       )),
                                   const Text('За 1 шт.'),
                                 ],
@@ -261,14 +263,18 @@ class _ProductPageState extends State<ProductPage> {
                             children: [
                               ChoiceChip(
                                 backgroundColor: Colors.transparent,
-                                selectedColor: Colors.red.shade900,
+                                selectedColor:
+                                    Theme.of(context).colorScheme.primary,
                                 side: BorderSide(
-                                    width: 1.0, color: Colors.red.shade900),
+                                    width: 1.0,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(2.0),
                                 ),
-                                labelStyle:
-                                    TextStyle(color: Colors.red.shade900),
+                                labelStyle: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 label: Text('50'),
                                 selected: false,
                                 onSelected: (value) {},
@@ -277,9 +283,12 @@ class _ProductPageState extends State<ProductPage> {
                               SizedBox(width: 8),
                               ChoiceChip(
                                 backgroundColor: Colors.transparent,
-                                selectedColor: Colors.red.shade900,
+                                selectedColor:
+                                    Theme.of(context).colorScheme.primary,
                                 side: BorderSide(
-                                    width: 1.0, color: Colors.red.shade900),
+                                    width: 1.0,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(2.0),
                                 ),
@@ -292,14 +301,18 @@ class _ProductPageState extends State<ProductPage> {
                               SizedBox(width: 8),
                               ChoiceChip(
                                 backgroundColor: Colors.transparent,
-                                selectedColor: Colors.red.shade900,
+                                selectedColor:
+                                    Theme.of(context).colorScheme.primary,
                                 side: BorderSide(
-                                    width: 1.0, color: Colors.red.shade900),
+                                    width: 1.0,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(2.0),
                                 ),
-                                labelStyle:
-                                    TextStyle(color: Colors.red.shade900),
+                                labelStyle: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 label: Text('250'),
                                 selected: false,
                                 onSelected: (value) {},
@@ -308,14 +321,18 @@ class _ProductPageState extends State<ProductPage> {
                               SizedBox(width: 8),
                               ChoiceChip(
                                 backgroundColor: Colors.transparent,
-                                selectedColor: Colors.red.shade900,
+                                selectedColor:
+                                    Theme.of(context).colorScheme.primary,
                                 side: BorderSide(
-                                    width: 1.0, color: Colors.red.shade900),
+                                    width: 1.0,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(2.0),
                                 ),
-                                labelStyle:
-                                    TextStyle(color: Colors.red.shade900),
+                                labelStyle: TextStyle(
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                                 label: Text('1000'),
                                 selected: false,
                                 onSelected: (value) {},
@@ -339,7 +356,8 @@ class _ProductPageState extends State<ProductPage> {
                             page = newPage;
                           });
                         },
-                        unselectedLabelColor: Colors.red.shade900,
+                        unselectedLabelColor:
+                            Theme.of(context).colorScheme.primary,
                         labelColor: Colors.black38,
                         tabs: const [
                           Tab(text: "О продукте"),
@@ -394,7 +412,9 @@ class _ProductPageState extends State<ProductPage> {
                                                 },
                                                 icon: Icon(
                                                   SeverMetropol.Icon_Close,
-                                                  color: Colors.red[900],
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .primary,
                                                 )),
                                           ),
                                         ],
@@ -406,8 +426,10 @@ class _ProductPageState extends State<ProductPage> {
                                   children: [
                                     Text(
                                       '490.8 Ккал',
-                                      style:
-                                          TextStyle(color: Colors.red.shade900),
+                                      style: TextStyle(
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary),
                                     ),
                                     const Text(
                                       'Калорийность',
@@ -570,7 +592,7 @@ class _ProductPageState extends State<ProductPage> {
                           onPressed: () {},
                           icon: Icon(
                             SeverMetropol.Icon_Favorite,
-                            color: Colors.red[900],
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                           label: const Text('256')),
                     ],

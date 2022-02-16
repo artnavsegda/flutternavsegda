@@ -69,7 +69,7 @@ class CatalogPage extends StatelessWidget {
                         onPressed: () {},
                         child: Icon(
                           SeverMetropol.Icon_Favorite_Outlined,
-                          color: Colors.red[900],
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(width: 8.0),
@@ -87,7 +87,8 @@ class CatalogPage extends StatelessWidget {
                             duration: const Duration(seconds: 1),
                             curve: Curves.easeInOutCubic);
                       },
-                      unselectedLabelColor: Colors.red.shade900,
+                      unselectedLabelColor:
+                          Theme.of(context).colorScheme.primary,
                       labelColor: Colors.black38,
                       tabs: nordCatalog
                           .map((category) => Tab(text: category.name))

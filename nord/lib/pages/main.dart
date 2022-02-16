@@ -97,7 +97,7 @@ class _MainPageState extends State<MainPage>
             showSelectedLabels: false,
             showUnselectedLabels: false,
             selectedItemColor: Colors.grey,
-            unselectedItemColor: Colors.red.shade900,
+            unselectedItemColor: Theme.of(context).colorScheme.primary,
             currentIndex: int.parse(widget.tab),
             items: <BottomNavigationBarItem>[
               const BottomNavigationBarItem(
@@ -112,7 +112,7 @@ class _MainPageState extends State<MainPage>
                 icon: Badge(
                   position: BadgePosition.topEnd(top: -12, end: -8),
                   child: const Icon(SeverMetropol.Icon_Shopping_Bag),
-                  badgeColor: Colors.red.shade900,
+                  badgeColor: Theme.of(context).colorScheme.primary,
                   badgeContent: const Text(
                     '5',
                     style: TextStyle(color: Colors.white, fontSize: 10),

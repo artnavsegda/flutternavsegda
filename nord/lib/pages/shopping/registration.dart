@@ -17,7 +17,7 @@ class RegistrationPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
         title: const Text('Оформление заказа'),
       ),
@@ -103,13 +103,13 @@ class RegistrationPage extends StatelessWidget {
             subtitle: Text(
               "В ближайшее время",
               style: TextStyle(
-                color: Colors.red[900],
+                color: Theme.of(context).colorScheme.primary,
                 fontSize: 16,
               ),
             ),
             trailing: Icon(
               SeverMetropol.Icon_Expand_More,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           SwitchListTile(

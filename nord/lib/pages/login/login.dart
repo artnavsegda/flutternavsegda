@@ -27,7 +27,7 @@ class LoginPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_Close,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
       ),
       body: ListView(
@@ -122,21 +122,21 @@ class LoginPage extends StatelessWidget {
           ListTile(
             title: Text(
               'Политика конфиденциальности',
-              style: TextStyle(color: Colors.red.shade900),
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             ),
             trailing: Icon(
               SeverMetropol.Icon_Navigate_Next,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           ListTile(
             title: Text(
               'Правила бонусной программы',
-              style: TextStyle(color: Colors.red.shade900),
+              style: TextStyle(color: Theme.of(context).colorScheme.primary),
             ),
             trailing: Icon(
               SeverMetropol.Icon_Navigate_Next,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
         ],

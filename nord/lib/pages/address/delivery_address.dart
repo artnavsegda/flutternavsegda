@@ -17,7 +17,7 @@ class DeliveryAddressPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
         title: const Text('Адреса доставки'),
       ),
@@ -28,7 +28,7 @@ class DeliveryAddressPage extends StatelessWidget {
             subtitle: Text('Дачный проспект, 36к3, квартира 410'),
             trailing: Icon(
               SeverMetropol.Icon_Edit,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           Padding(

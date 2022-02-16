@@ -20,7 +20,7 @@ class MorePage extends StatelessWidget {
           },
           title: const Text("Служба поддержки"),
           leading: Icon(SeverMetropol.Icon_Question_Answer,
-              color: Colors.red.shade900),
+              color: Theme.of(context).colorScheme.primary),
         ),
         ListTile(
           onTap: () {
@@ -29,7 +29,7 @@ class MorePage extends StatelessWidget {
           },
           title: const Text("Справка"),
           leading: Icon(SeverMetropol.Icon_Contact_Support,
-              color: Colors.red.shade900),
+              color: Theme.of(context).colorScheme.primary),
         ),
         ListTile(
           onTap: () async {
@@ -41,7 +41,7 @@ class MorePage extends StatelessWidget {
           },
           title: const Text("Оценить приложение"),
           leading: Icon(SeverMetropol.Icon_Star_Rate_Outlined,
-              color: Colors.red.shade900),
+              color: Theme.of(context).colorScheme.primary),
         ),
         ListTile(
           onTap: () {
@@ -49,7 +49,8 @@ class MorePage extends StatelessWidget {
                 MaterialPageRoute(builder: (context) => const AboutPage()));
           },
           title: const Text("О приложении"),
-          leading: Icon(SeverMetropol.Icon_Info, color: Colors.red.shade900),
+          leading: Icon(SeverMetropol.Icon_Info,
+              color: Theme.of(context).colorScheme.primary),
         ),
       ],
     );

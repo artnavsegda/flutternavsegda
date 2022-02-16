@@ -14,7 +14,7 @@ class AboutPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
         title: const Text('О приложении'),
       ),

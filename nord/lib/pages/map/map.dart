@@ -44,7 +44,7 @@ class MapPage extends StatelessWidget {
                 },
                 icon: Icon(
                   SeverMetropol.Icon_West,
-                  color: Colors.red[900],
+                  color: Theme.of(context).colorScheme.primary,
                 )),
           ),
           body: Stack(
@@ -104,7 +104,7 @@ class MapPage extends StatelessWidget {
                                     'Сегодня открыто до 22:00\nАдмиралтейская'),
                                 trailing: Icon(
                                   SeverMetropol.Icon_Direction,
-                                  color: Colors.red[900],
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               )),
                         ],

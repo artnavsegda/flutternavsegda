@@ -17,7 +17,7 @@ class NordCheckboxTile extends StatelessWidget {
       children: [
         Icon(
           SeverMetropol.Icon_Checkbox_Checked,
-          color: Colors.red[900],
+          color: Theme.of(context).colorScheme.primary,
         ),
         const SizedBox(width: 38),
         Flexible(child: title)
@@ -47,7 +47,7 @@ class AddressTile extends StatelessWidget {
       title: const Text("Адрес доставки или кафе"),
       trailing: Icon(
         SeverMetropol.Icon_Expand_More,
-        color: Colors.red[900],
+        color: Theme.of(context).colorScheme.primary,
       ),
     );
   }
@@ -82,13 +82,13 @@ class AddressTile2 extends StatelessWidget {
       subtitle: Text(
         "5-я Советская, 15-17/12",
         style: TextStyle(
-          color: Colors.red[900],
+          color: Theme.of(context).colorScheme.primary,
           fontSize: 16,
         ),
       ),
       trailing: Icon(
         SeverMetropol.Icon_Expand_More,
-        color: Colors.red[900],
+        color: Theme.of(context).colorScheme.primary,
       ),
     );
   }
@@ -124,15 +124,14 @@ class SpecialCondition extends StatelessWidget {
       //margin: const EdgeInsets.symmetric(vertical: 10),
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
-        gradient: LinearGradient(
-            stops: const [0.01, 0.01],
-            colors: [Colors.red.shade900, const Color(0xFFEFF3F4)]),
+        gradient: LinearGradient(stops: const [
+          0.01,
+          0.01
+        ], colors: [
+          Theme.of(context).colorScheme.primary,
+          const Color(0xFFEFF3F4)
+        ]),
         borderRadius: BorderRadius.circular(2.0),
-/*                                     color: Colors.black12,
-        border: Border(
-          left: BorderSide(
-              width: 5.0, color: Colors.red),
-        ), */
       ),
       child: Text(text, style: const TextStyle(fontSize: 16)),
     );

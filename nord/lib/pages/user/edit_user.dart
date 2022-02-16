@@ -35,14 +35,14 @@ class _EditUserState extends State<EditUser> {
               )),
               trailing: Icon(
                 SeverMetropol.Icon_Close,
-                color: Colors.red[900],
+                color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
               leading: Icon(
                 SeverMetropol.Icon_Photo_Camers,
-                color: Colors.red[900],
+                color: Theme.of(context).colorScheme.primary,
               ),
               title: const Text('Запустить камеру'),
               onTap: () async {
@@ -57,7 +57,7 @@ class _EditUserState extends State<EditUser> {
             ListTile(
               leading: Icon(
                 SeverMetropol.Icon_List,
-                color: Colors.red[900],
+                color: Theme.of(context).colorScheme.primary,
               ),
               title: const Text('Выбрать из галереи'),
               onTap: () async {
@@ -89,7 +89,7 @@ class _EditUserState extends State<EditUser> {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
       ),
       body: SingleChildScrollView(
@@ -204,7 +204,7 @@ class _EditUserState extends State<EditUser> {
                             icon: Icon(
                               SeverMetropol.Icon_Expand_More,
                               size: 24.0,
-                              color: Colors.red[900],
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             onSelected: (WhyFarther result) {},
                             itemBuilder: (BuildContext context) =>

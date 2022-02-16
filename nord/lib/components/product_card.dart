@@ -60,7 +60,7 @@ class ProductCard extends StatelessWidget {
                   child: IconButton(
                     onPressed: () {},
                     icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
-                        color: Colors.red.shade900),
+                        color: Theme.of(context).colorScheme.primary),
                   ),
                 ),
                 Positioned(
@@ -78,7 +78,7 @@ class ProductCard extends StatelessWidget {
                     onPressed: () {},
                     icon: Icon(
                       SeverMetropol.Icon_Favorite,
-                      color: Colors.red.shade900,
+                      color: Theme.of(context).colorScheme.primary,
                       size: 12,
                     ),
                     label: const Text(

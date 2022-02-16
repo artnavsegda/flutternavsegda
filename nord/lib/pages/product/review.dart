@@ -18,7 +18,7 @@ class ReviewPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
       ),
       body: Padding(
@@ -39,15 +39,15 @@ class ReviewPage extends StatelessWidget {
                   ratingWidget: RatingWidget(
                     full: Icon(
                       SeverMetropol.Icon_Star_Rate,
-                      color: Colors.red[900],
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     half: Icon(
                       SeverMetropol.Icon_Star_Rate_Outlined,
-                      color: Colors.red[900],
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                     empty: Icon(
                       SeverMetropol.Icon_Star_Rate_Outlined,
-                      color: Colors.red[900],
+                      color: Theme.of(context).colorScheme.primary,
                     ),
                   ),
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),

@@ -46,7 +46,7 @@ class ShopPage extends StatelessWidget {
                     },
                     child: Icon(
                       SeverMetropol.Icon_Close,
-                      color: Colors.red[900],
+                      color: Theme.of(context).colorScheme.primary,
                     )),
               )
             ],
@@ -139,7 +139,7 @@ class ShopPage extends StatelessWidget {
                   title: const Text('Завтра откроется в 10:00'),
                   trailing: Icon(
                     SeverMetropol.Icon_Expand_More,
-                    color: Colors.red[900],
+                    color: Theme.of(context).colorScheme.primary,
                   ),
                 ),
                 Padding(

@@ -87,7 +87,7 @@ class _ActionPageState extends State<ActionPage> {
                       onPressed: () {},
                       icon: Icon(
                         SeverMetropol.Icon_Share,
-                        color: Colors.red[900],
+                        color: Theme.of(context).colorScheme.primary,
                       ),
                     ),
                   ],
@@ -97,7 +97,7 @@ class _ActionPageState extends State<ActionPage> {
                       },
                       icon: Icon(
                         SeverMetropol.Icon_West,
-                        color: Colors.red[900],
+                        color: Theme.of(context).colorScheme.primary,
                       )),
                 ),
                 body: ListView(
@@ -169,7 +169,7 @@ class _ActionPageState extends State<ActionPage> {
                             onPressed: () {},
                             label: Icon(
                               SeverMetropol.Icon_East,
-                              color: Colors.red[900],
+                              color: Theme.of(context).colorScheme.primary,
                             ),
                             icon: const Text('Найти ближайшее кафе')),
                       ),

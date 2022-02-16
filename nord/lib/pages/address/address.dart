@@ -15,7 +15,7 @@ class AddressPage extends StatelessWidget {
             },
             icon: Icon(
               SeverMetropol.Icon_West,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             )),
         title: const Text('Адрес доставки или кафе'),
       ),
@@ -53,7 +53,7 @@ class AddressPage extends StatelessWidget {
                             padding: const EdgeInsets.all(4.0),
                             child: Icon(
                               SeverMetropol.Icon_Checkbox_Checked,
-                              color: Colors.red[900],
+                              color: Theme.of(context).colorScheme.primary,
                             )),
                       ],
                     )),
@@ -74,7 +74,7 @@ class AddressPage extends StatelessWidget {
                           padding: const EdgeInsets.all(4.0),
                           child: Icon(
                             SeverMetropol.Icon_Checkbox_Unchecked,
-                            color: Colors.red[900],
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],
@@ -86,7 +86,7 @@ class AddressPage extends StatelessWidget {
             title: const Text('Адмиралтейская набережная, 10а'),
             trailing: Icon(
               SeverMetropol.Icon_Edit,
-              color: Colors.red[900],
+              color: Theme.of(context).colorScheme.primary,
             ),
           ),
           Padding(

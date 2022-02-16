@@ -366,7 +366,7 @@ class CartTile extends StatelessWidget {
                       'rowIDs': [id]
                     });
                   },
-                  backgroundColor: Colors.red.shade900,
+                  backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
                   icon: Icons.delete,
                 );
