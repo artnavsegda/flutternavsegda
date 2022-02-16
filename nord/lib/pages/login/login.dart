@@ -19,6 +19,8 @@ class LoginPage extends StatelessWidget {
         filter: {"#": RegExp(r'[0-9]')},
         type: MaskAutoCompletionType.lazy);
 
+    var textController = TextEditingController();
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -45,12 +47,13 @@ class LoginPage extends StatelessWidget {
                     'Мы отправим на номер SMS-сообщение с кодом потверждения'),
                 const SizedBox(height: 24),
                 TextField(
+                  controller: textController,
                   keyboardType: TextInputType.number,
                   inputFormatters: [maskFormatter],
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         onPressed: () {
-                          print('clear');
+                          textController.clear();
                         },
                         icon: Icon(
                           SeverMetropol.Icon_Clear,
