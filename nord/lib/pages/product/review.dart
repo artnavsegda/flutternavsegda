@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../components/gradient_button.dart';
 
 class ReviewPage extends StatelessWidget {
@@ -14,7 +16,10 @@ class ReviewPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -32,9 +37,18 @@ class ReviewPage extends StatelessWidget {
                   allowHalfRating: false,
                   itemCount: 5,
                   ratingWidget: RatingWidget(
-                    full: Image.asset('assets/Icon-Star-Rate.png'),
-                    half: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
-                    empty: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
+                    full: Icon(
+                      SeverMetropol.Icon_Star_Rate,
+                      color: Colors.red[900],
+                    ),
+                    half: Icon(
+                      SeverMetropol.Icon_Star_Rate_Outlined,
+                      color: Colors.red[900],
+                    ),
+                    empty: Icon(
+                      SeverMetropol.Icon_Star_Rate_Outlined,
+                      color: Colors.red[900],
+                    ),
                   ),
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   onRatingUpdate: (newRating) {},
