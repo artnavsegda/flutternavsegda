@@ -37,7 +37,15 @@ class SmsPage extends StatelessWidget {
             TextField(
               controller: smsCodeController,
               keyboardType: TextInputType.number,
-              decoration: const InputDecoration(labelText: "Код подтверждения"),
+              decoration: InputDecoration(
+                  labelText: "Код подтверждения",
+                  suffixIcon: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      SeverMetropol.Icon_Clear,
+                      size: 24.0,
+                    ),
+                  )),
             ),
             const SizedBox(height: 16),
             Mutation(
