@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nord/sever_metropol_icons.dart';
@@ -6,8 +8,15 @@ import '../../components/gradient_button.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
-class EditUser extends StatelessWidget {
+class EditUser extends StatefulWidget {
   const EditUser({Key? key}) : super(key: key);
+
+  @override
+  State<EditUser> createState() => _EditUserState();
+}
+
+class _EditUserState extends State<EditUser> {
+  XFile? _imageFile;
 
   void _showCameraModal(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
@@ -39,6 +48,9 @@ class EditUser extends StatelessWidget {
               onTap: () async {
                 final pickedFile =
                     await _picker.pickImage(source: ImageSource.camera);
+                setState(() {
+                  _imageFile = pickedFile;
+                });
                 Navigator.pop(context);
               },
             ),
@@ -51,6 +63,9 @@ class EditUser extends StatelessWidget {
               onTap: () async {
                 final pickedFile =
                     await _picker.pickImage(source: ImageSource.gallery);
+                setState(() {
+                  _imageFile = pickedFile;
+                });
                 Navigator.pop(context);
               },
             ),
@@ -94,9 +109,12 @@ class EditUser extends StatelessWidget {
                         child: Stack(
                           alignment: Alignment.center,
                           children: [
-                            const CircleAvatar(
+                            CircleAvatar(
                               radius: 48,
-                              foregroundImage: AssetImage('assets/treska.jpg'),
+                              foregroundImage: _imageFile != null
+                                  ? FileImage(File(_imageFile?.path ?? ""))
+                                  : AssetImage('assets/treska.jpg')
+                                      as ImageProvider,
                             ),
                             Image.asset(
                               'assets/Icon-Photo-Camers.png',
