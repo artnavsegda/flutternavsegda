@@ -5,6 +5,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:dotted_line/dotted_line.dart';
 
 import 'review.dart';
 import '../../components/gradient_button.dart';
@@ -431,8 +432,16 @@ class _ProductPageState extends State<ProductPage> {
                                 horizontal: 16.0, vertical: 8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              textBaseline: TextBaseline.ideographic,
                               children: [
                                 Text('Какая-то причуда'),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
                                 Text('Неизвстное')
                               ],
                             ),
@@ -442,7 +451,18 @@ class _ProductPageState extends State<ProductPage> {
                                 horizontal: 16.0, vertical: 8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [Text('ШxДxВ'), Text('10X15X25 см')],
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              textBaseline: TextBaseline.ideographic,
+                              children: [
+                                Text('ШxДxВ'),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
+                                Text('10X15X25 см'),
+                              ],
                             ),
                           ),
                           Padding(
@@ -450,12 +470,21 @@ class _ProductPageState extends State<ProductPage> {
                                 horizontal: 16.0, vertical: 8.0),
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              textBaseline: TextBaseline.ideographic,
                               children: [
                                 Text('Материал'),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
                                 Text('Кожа, бархат, кровь')
                               ],
                             ),
                           ),
+                          SizedBox(height: 24),
                         ],
                       ),
                       Padding(

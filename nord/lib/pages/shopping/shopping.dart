@@ -111,40 +111,58 @@ class ShoppingPage extends StatelessWidget {
                               children: [
                                 Text('Сумма заказа'),
                                 Expanded(
-                                    child: DottedLine(dashColor: Colors.grey)),
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
                                 Text('1 435 ₽',
                                     style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text('Доставка'),
-                                Expanded(
-                                    child: DottedLine(dashColor: Colors.grey)),
-                                Text('Бесплатно'),
-                              ],
-                            ),
+                            SizedBox(height: 16),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text('Скидка'),
                                 Expanded(
-                                    child: DottedLine(dashColor: Colors.grey)),
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
+                                Text('Бесплатно'),
+                              ],
+                            ),
+                            SizedBox(height: 16),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('Промокод'),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
                                 Text('- 110 ₽',
                                     style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
                             ),
-                            Divider(),
+                            Divider(height: 32),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               crossAxisAlignment: CrossAxisAlignment.end,
                               children: [
                                 Text('Общая сумма заказа'),
                                 Expanded(
-                                    child: DottedLine(dashColor: Colors.grey)),
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
                                 Text('1 325 ₽',
                                     style: TextStyle(fontFamily: 'Noto Sans')),
                               ],
