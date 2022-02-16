@@ -78,102 +78,106 @@ class EditUser extends StatelessWidget {
           children: [
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Align(
-                    alignment: Alignment.centerLeft,
-                    child: InkWell(
-                      onTap: () => _showCameraModal(context),
-                      child: Stack(
-                        alignment: Alignment.center,
-                        children: [
-                          const CircleAvatar(
-                            radius: 48,
-                            foregroundImage: AssetImage('assets/treska.jpg'),
-                          ),
-                          Image.asset(
-                            'assets/Icon-Photo-Camers.png',
-                            color: Colors.white,
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    "Личная информация",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                  const SizedBox(height: 24),
-                  TextField(
-                    decoration: InputDecoration(
-                      labelText: "Имя",
-                      suffixIcon: IconButton(
-                        onPressed: () {},
-                        icon: Icon(
-                          SeverMetropol.Icon_Clear,
-                          size: 24.0,
+              child: Form(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: InkWell(
+                        onTap: () => _showCameraModal(context),
+                        child: Stack(
+                          alignment: Alignment.center,
+                          children: [
+                            const CircleAvatar(
+                              radius: 48,
+                              foregroundImage: AssetImage('assets/treska.jpg'),
+                            ),
+                            Image.asset(
+                              'assets/Icon-Photo-Camers.png',
+                              color: Colors.white,
+                            ),
+                          ],
                         ),
                       ),
                     ),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: "Номер телефона",
+                    const SizedBox(height: 24),
+                    Text(
+                      "Личная информация",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                    const SizedBox(height: 24),
+                    TextFormField(
+                      decoration: InputDecoration(
+                        labelText: "Имя",
                         suffixIcon: IconButton(
                           onPressed: () {},
                           icon: Icon(
                             SeverMetropol.Icon_Clear,
                             size: 24.0,
                           ),
-                        )),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: "Email",
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            SeverMetropol.Icon_Clear,
-                            size: 24.0,
-                          ),
-                        )),
-                  ),
-                  Text('Неподтвержденный адрес Email. Подтвердить'),
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: "Дата рождения",
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            SeverMetropol.Icon_Calendar_Today,
-                            size: 24.0,
-                          ),
-                        )),
-                  ),
-                  const SizedBox(height: 16),
-                  TextField(
-                    decoration: InputDecoration(
-                        labelText: "Пол",
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            SeverMetropol.Icon_Expand_More,
-                            size: 24.0,
-                            color: Colors.red[900],
-                          ),
-                        )),
-                  ),
-                  const SizedBox(height: 24),
-                  Text(
-                    "Другие настройки",
-                    style: Theme.of(context).textTheme.headlineSmall,
-                  ),
-                ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Номер телефона",
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_Clear,
+                              size: 24.0,
+                            ),
+                          )),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      decoration: InputDecoration(
+                          labelText: "Email",
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_Clear,
+                              size: 24.0,
+                            ),
+                          )),
+                    ),
+                    Text('Неподтвержденный адрес Email. Подтвердить'),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      readOnly: true,
+                      decoration: InputDecoration(
+                          labelText: "Дата рождения",
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_Calendar_Today,
+                              size: 24.0,
+                            ),
+                          )),
+                    ),
+                    const SizedBox(height: 16),
+                    TextFormField(
+                      readOnly: true,
+                      decoration: InputDecoration(
+                          labelText: "Пол",
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_Expand_More,
+                              size: 24.0,
+                              color: Colors.red[900],
+                            ),
+                          )),
+                    ),
+                    const SizedBox(height: 24),
+                    Text(
+                      "Другие настройки",
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ],
+                ),
               ),
             ),
             SwitchListTile(
