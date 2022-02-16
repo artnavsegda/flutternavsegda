@@ -60,6 +60,8 @@ class EditUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController userNameController = TextEditingController();
+    TextEditingController eMailController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
@@ -108,10 +110,13 @@ class EditUser extends StatelessWidget {
                     ),
                     const SizedBox(height: 24),
                     TextFormField(
+                      controller: userNameController,
                       decoration: InputDecoration(
                         labelText: "Имя",
                         suffixIcon: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            userNameController.clear();
+                          },
                           icon: Icon(
                             SeverMetropol.Icon_Clear,
                             size: 24.0,
@@ -136,7 +141,9 @@ class EditUser extends StatelessWidget {
                       decoration: InputDecoration(
                           labelText: "Email",
                           suffixIcon: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              eMailController.clear();
+                            },
                             icon: Icon(
                               SeverMetropol.Icon_Clear,
                               size: 24.0,
@@ -148,28 +155,24 @@ class EditUser extends StatelessWidget {
                     TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(
-                          labelText: "Дата рождения",
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              SeverMetropol.Icon_Calendar_Today,
-                              size: 24.0,
-                            ),
-                          )),
+                        labelText: "Дата рождения",
+                        suffixIcon: Icon(
+                          SeverMetropol.Icon_Calendar_Today,
+                          size: 24.0,
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       readOnly: true,
                       decoration: InputDecoration(
-                          labelText: "Пол",
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              SeverMetropol.Icon_Expand_More,
-                              size: 24.0,
-                              color: Colors.red[900],
-                            ),
-                          )),
+                        labelText: "Пол",
+                        suffixIcon: Icon(
+                          SeverMetropol.Icon_Expand_More,
+                          size: 24.0,
+                          color: Colors.red[900],
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 24),
                     Text(
