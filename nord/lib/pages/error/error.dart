@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import '../../components/gradient_button.dart';
 
 class ErrorPage extends StatelessWidget {
   const ErrorPage({
@@ -43,7 +44,7 @@ class ErrorPage extends StatelessWidget {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
+            child: GradientButton(
               onPressed: reload,
               child: Text('Повторить'),
             ),
