@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../components/components.dart';
 
 class PayPage extends StatelessWidget {
@@ -12,7 +14,10 @@ class PayPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('Оплата'),
       ),
       body: Column(

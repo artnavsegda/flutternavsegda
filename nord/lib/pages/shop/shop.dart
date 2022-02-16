@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../gql.dart';
 
 Color hexToColor(String code) {
@@ -36,13 +38,16 @@ class ShopPage extends StatelessWidget {
                     style: ElevatedButton.styleFrom(
                       minimumSize: const Size(32.0, 32.0),
                       shape: const CircleBorder(),
-                      primary: Colors.white54, // <-- Button color
-                      onPrimary: Colors.red, // <-- Splash color
+                      primary: Colors.white54,
+                      onPrimary: Colors.red,
                     ),
                     onPressed: () {
                       Navigator.pop(context);
                     },
-                    child: Image.asset('assets/Icon-Close.png')),
+                    child: Icon(
+                      SeverMetropol.Icon_Close,
+                      color: Colors.red[900],
+                    )),
               )
             ],
           ),
@@ -132,7 +137,10 @@ class ShopPage extends StatelessWidget {
                   },
                   subtitle: const Text('Режим работы'),
                   title: const Text('Завтра откроется в 10:00'),
-                  trailing: Image.asset('assets/Icon-Expand-More.png'),
+                  trailing: Icon(
+                    SeverMetropol.Icon_Expand_More,
+                    color: Colors.red[900],
+                  ),
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),

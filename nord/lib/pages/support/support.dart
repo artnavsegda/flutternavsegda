@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -11,7 +12,10 @@ class SupportPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('Чат'),
       ),
     );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import '../../components/gradient_button.dart';
 
@@ -21,11 +22,17 @@ class EditUser extends StatelessWidget {
                   child: Text(
                 'Изменение фотографии',
               )),
-              trailing: Image.asset('assets/Icon-Close.png'),
+              trailing: Icon(
+                SeverMetropol.Icon_Close,
+                color: Colors.red[900],
+              ),
               onTap: () => Navigator.pop(context),
             ),
             ListTile(
-              leading: Image.asset('assets/Icon-Photo-Camers.png'),
+              leading: Icon(
+                SeverMetropol.Icon_Photo_Camers,
+                color: Colors.red[900],
+              ),
               title: const Text('Запустить камеру'),
               onTap: () async {
                 final pickedFile =
@@ -34,7 +41,10 @@ class EditUser extends StatelessWidget {
               },
             ),
             ListTile(
-              leading: Image.asset('assets/Icon-List.png'),
+              leading: Icon(
+                SeverMetropol.Icon_List,
+                color: Colors.red[900],
+              ),
               title: const Text('Выбрать из галереи'),
               onTap: () async {
                 final pickedFile =
@@ -57,7 +67,10 @@ class EditUser extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
       ),
       body: SingleChildScrollView(
         child: Column(

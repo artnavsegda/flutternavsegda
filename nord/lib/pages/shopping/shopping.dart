@@ -4,6 +4,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
@@ -246,7 +247,9 @@ class CartTile extends StatelessWidget {
                                 height: 24,
                                 child: TextButton(
                                   onPressed: () {},
-                                  child: Image.asset('assets/Icon-Remove.png'),
+                                  child: Icon(
+                                    SeverMetropol.Icon_Remove,
+                                  ),
                                   style: TextButton.styleFrom(
                                       minimumSize: const Size(24.0, 24.0),
                                       padding: const EdgeInsets.all(0.0)),
@@ -263,7 +266,9 @@ class CartTile extends StatelessWidget {
                                 height: 24,
                                 child: TextButton(
                                   onPressed: () {},
-                                  child: Image.asset('assets/Icon-Add.png'),
+                                  child: Icon(
+                                    SeverMetropol.Icon_Add,
+                                  ),
                                   style: TextButton.styleFrom(
                                       minimumSize: const Size(24.0, 24.0),
                                       padding: const EdgeInsets.all(0.0)),

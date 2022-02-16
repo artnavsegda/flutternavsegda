@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../components/components.dart';
 import 'pay.dart';
 
@@ -13,7 +15,10 @@ class RegistrationPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('Оформление заказа'),
       ),
       body: ListView(
@@ -102,7 +107,10 @@ class RegistrationPage extends StatelessWidget {
                 fontSize: 16,
               ),
             ),
-            trailing: Image.asset('assets/Icon-Expand-More.png'),
+            trailing: Icon(
+              SeverMetropol.Icon_Expand_More,
+              color: Colors.red[900],
+            ),
           ),
           SwitchListTile(
             value: false,
