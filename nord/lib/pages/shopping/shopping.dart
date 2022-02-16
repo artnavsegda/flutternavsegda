@@ -249,42 +249,60 @@ class CartTile extends StatelessWidget {
                               style: TextStyle(fontSize: 16)),
                           const Text('450 мл',
                               style: TextStyle(color: Colors.grey)),
-                          Row(
-                            children: [
-                              SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: Icon(
-                                    SeverMetropol.Icon_Remove,
-                                  ),
-                                  style: TextButton.styleFrom(
-                                      minimumSize: const Size(24.0, 24.0),
-                                      padding: const EdgeInsets.all(0.0)),
-                                ),
-                              ),
-                              Container(
-                                alignment: Alignment.center,
-                                width: 32,
-                                height: 24,
-                                child: Text('$quantity'),
-                              ),
-                              SizedBox(
-                                width: 24,
-                                height: 24,
-                                child: TextButton(
-                                  onPressed: () {},
-                                  child: Icon(
-                                    SeverMetropol.Icon_Add,
-                                  ),
-                                  style: TextButton.styleFrom(
-                                      minimumSize: const Size(24.0, 24.0),
-                                      padding: const EdgeInsets.all(0.0)),
-                                ),
-                              ),
-                            ],
-                          ),
+                          Mutation(
+                              options: MutationOptions(
+                                  document: gql(cartEdit),
+                                  onCompleted: (resultData) {
+                                    reload();
+                                  }),
+                              builder: (runMutation, result) {
+                                return Row(
+                                  children: [
+                                    SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          runMutation({
+                                            'rowIDs': [id],
+                                            'quantity': quantity - 1,
+                                          });
+                                        },
+                                        child: Icon(
+                                          SeverMetropol.Icon_Remove,
+                                        ),
+                                        style: TextButton.styleFrom(
+                                            minimumSize: const Size(24.0, 24.0),
+                                            padding: const EdgeInsets.all(0.0)),
+                                      ),
+                                    ),
+                                    Container(
+                                      alignment: Alignment.center,
+                                      width: 32,
+                                      height: 24,
+                                      child: Text('$quantity'),
+                                    ),
+                                    SizedBox(
+                                      width: 24,
+                                      height: 24,
+                                      child: TextButton(
+                                        onPressed: () {
+                                          runMutation({
+                                            'rowIDs': [id],
+                                            'quantity': quantity + 1,
+                                          });
+                                        },
+                                        child: Icon(
+                                          SeverMetropol.Icon_Add,
+                                        ),
+                                        style: TextButton.styleFrom(
+                                            minimumSize: const Size(24.0, 24.0),
+                                            padding: const EdgeInsets.all(0.0)),
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              }),
                         ],
                       ),
                       Column(
