@@ -79,6 +79,9 @@ class ShoppingPage extends StatelessWidget {
                             name: item.productName,
                             image: item.picture ?? '',
                             price: item.amount,
+                            id: item.rowID,
+                            reload: () => refetch!(),
+                            quantity: item.quantity,
                           );
                         },
                       ),
@@ -192,11 +195,17 @@ class CartTile extends StatelessWidget {
     required this.name,
     required this.image,
     required this.price,
+    required this.id,
+    required this.quantity,
+    required this.reload,
   }) : super(key: key);
 
   final String name;
   final String image;
   final double price;
+  final int id;
+  final int quantity;
+  final Function() reload;
 
   @override
   Widget build(BuildContext context) {
@@ -259,7 +268,7 @@ class CartTile extends StatelessWidget {
                                 alignment: Alignment.center,
                                 width: 32,
                                 height: 24,
-                                child: const Text('2'),
+                                child: Text('$quantity'),
                               ),
                               SizedBox(
                                 width: 24,
@@ -308,12 +317,24 @@ class CartTile extends StatelessWidget {
       endActionPane: ActionPane(
         motion: const ScrollMotion(),
         children: [
-          SlidableAction(
-            onPressed: (context) {},
-            backgroundColor: Colors.red.shade900,
-            foregroundColor: Colors.white,
-            icon: Icons.delete,
-          ),
+          Mutation(
+              options: MutationOptions(
+                  document: gql(cartDelete),
+                  onCompleted: (resultData) {
+                    reload();
+                  }),
+              builder: (runMutation, result) {
+                return SlidableAction(
+                  onPressed: (context) {
+                    runMutation({
+                      'rowIDs': [id]
+                    });
+                  },
+                  backgroundColor: Colors.red.shade900,
+                  foregroundColor: Colors.white,
+                  icon: Icons.delete,
+                );
+              }),
         ],
       ),
     );
