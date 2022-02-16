@@ -2,7 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
 
 class ErrorPage extends StatelessWidget {
-  const ErrorPage({Key? key}) : super(key: key);
+  const ErrorPage({
+    Key? key,
+    required this.reload,
+  }) : super(key: key);
+
+  final Function() reload;
 
   @override
   Widget build(BuildContext context) {
@@ -10,14 +15,14 @@ class ErrorPage extends StatelessWidget {
       extendBodyBehindAppBar: true,
       appBar: AppBar(
         backgroundColor: Colors.transparent,
-        leading: IconButton(
+/*         leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
             },
             icon: Icon(
               SeverMetropol.Icon_West,
               color: Colors.red[900],
-            )),
+            )), */
       ),
       body: ListView(
         children: [
@@ -39,7 +44,7 @@ class ErrorPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: reload,
               child: Text('Повторить'),
             ),
           ),

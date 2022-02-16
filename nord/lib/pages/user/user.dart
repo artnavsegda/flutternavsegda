@@ -10,6 +10,7 @@ import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
 import '../address/delivery_address.dart';
 import '../../gql.dart';
+import '../error/error.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -26,6 +27,9 @@ class UserPage extends StatelessWidget {
           }
 
           if (result.hasException) {
+            return ErrorPage(reload: () {
+              refetch!();
+            });
             return SingleChildScrollView(
               child: Text(result.exception.toString()),
             );

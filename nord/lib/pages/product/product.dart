@@ -66,7 +66,9 @@ class _ProductPageState extends State<ProductPage> {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
-            return ErrorPage();
+            return ErrorPage(reload: () {
+              refetch!();
+            });
             return Scaffold(
               appBar: AppBar(),
               body: Center(
@@ -120,6 +122,7 @@ class _ProductPageState extends State<ProductPage> {
                                   controller: _controller,
                                   children: productInfo.pictures
                                       .map((picture) => CachedNetworkImage(
+                                          fit: BoxFit.cover,
                                           imageUrl: picture.full,
                                           placeholder: (context, url) =>
                                               Shimmer.fromColors(
