@@ -4,6 +4,8 @@ import 'package:nord/sever_metropol_icons.dart';
 
 import '../../components/gradient_button.dart';
 
+enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
+
 class EditUser extends StatelessWidget {
   const EditUser({Key? key}) : super(key: key);
 
@@ -60,6 +62,7 @@ class EditUser extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey _menuKey = GlobalKey();
     TextEditingController userNameController = TextEditingController();
     TextEditingController eMailController = TextEditingController();
     return Scaffold(
@@ -164,15 +167,33 @@ class EditUser extends StatelessWidget {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      onTap: (() {
+                        dynamic state = _menuKey.currentState;
+                        state.showButtonMenu();
+                      }),
                       readOnly: true,
                       decoration: InputDecoration(
-                        labelText: "Пол",
-                        suffixIcon: Icon(
-                          SeverMetropol.Icon_Expand_More,
-                          size: 24.0,
-                          color: Colors.red[900],
-                        ),
-                      ),
+                          labelText: "Пол",
+                          suffixIcon: PopupMenuButton<WhyFarther>(
+                            key: _menuKey,
+                            icon: Icon(
+                              SeverMetropol.Icon_Expand_More,
+                              size: 24.0,
+                              color: Colors.red[900],
+                            ),
+                            onSelected: (WhyFarther result) {},
+                            itemBuilder: (BuildContext context) =>
+                                <PopupMenuEntry<WhyFarther>>[
+                              const PopupMenuItem<WhyFarther>(
+                                value: WhyFarther.harder,
+                                child: Text('Мужской'),
+                              ),
+                              const PopupMenuItem<WhyFarther>(
+                                value: WhyFarther.smarter,
+                                child: Text('Женский'),
+                              ),
+                            ],
+                          )),
                     ),
                     const SizedBox(height: 24),
                     Text(
