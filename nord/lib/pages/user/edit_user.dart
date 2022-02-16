@@ -156,6 +156,13 @@ class EditUser extends StatelessWidget {
                     Text('Неподтвержденный адрес Email. Подтвердить'),
                     const SizedBox(height: 16),
                     TextFormField(
+                      onTap: (() {
+                        showDatePicker(
+                            context: context,
+                            initialDate: DateTime(2016, 8),
+                            firstDate: DateTime(2015, 8),
+                            lastDate: DateTime(2101));
+                      }),
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: "Дата рождения",
