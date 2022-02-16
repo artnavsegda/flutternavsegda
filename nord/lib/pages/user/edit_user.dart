@@ -1,8 +1,11 @@
 import 'dart:io';
-
+import 'package:http/http.dart';
+import 'package:http_parser/http_parser.dart';
+import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/login_state.dart';
 
 import '../../components/gradient_button.dart';
 
@@ -242,7 +245,24 @@ class _EditUserState extends State<EditUser> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: GradientButton(
-                  onPressed: () {
+                  onPressed: () async {
+                    if (_imageFile != null) {
+                      var request = MultipartRequest(
+                        'POST',
+                        Uri.parse(
+                            'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
+                      );
+                      request.headers['Authorization'] = 'Bearer ' +
+                          Provider.of<LoginState>(context, listen: false).token;
+                      request.files.add(await MultipartFile.fromPath(
+                        'image',
+                        _imageFile!.path,
+                        contentType: MediaType('image', 'jpg'),
+                      ));
+                      var streamedResponse = await request.send();
+                      await streamedResponse.stream.bytesToString();
+                      //print(res);
+                    }
                     Navigator.pop(context);
                   },
                   child: const Text("Сохранить")),

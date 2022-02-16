@@ -368,7 +368,7 @@ class CartTile extends StatelessWidget {
                   },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
-                  icon: Icons.delete,
+                  icon: SeverMetropol.Icon_Delete,
                 );
               }),
         ],
