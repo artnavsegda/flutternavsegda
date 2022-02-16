@@ -40,7 +40,9 @@ class SmsPage extends StatelessWidget {
               decoration: InputDecoration(
                   labelText: "Код подтверждения",
                   suffixIcon: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      smsCodeController.clear();
+                    },
                     icon: Icon(
                       SeverMetropol.Icon_Clear,
                       size: 24.0,
