@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -12,7 +13,10 @@ class AddressPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('Адрес доставки или кафе'),
       ),
       body: const GoogleMap(
@@ -46,10 +50,11 @@ class AddressPage extends StatelessWidget {
                               'assets/Illustration-Colored-Delivery.png'),
                         ),
                         Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child:
-                              Image.asset('assets/Icon-Checkbox-Checked.png'),
-                        ),
+                            padding: const EdgeInsets.all(4.0),
+                            child: Icon(
+                              SeverMetropol.Icon_Checkbox_Checked,
+                              color: Colors.red[900],
+                            )),
                       ],
                     )),
                 SizedBox(width: 8),
@@ -67,8 +72,10 @@ class AddressPage extends StatelessWidget {
                         ),
                         Padding(
                           padding: const EdgeInsets.all(4.0),
-                          child:
-                              Image.asset('assets/Icon-Checkbox-Unchecked.png'),
+                          child: Icon(
+                            SeverMetropol.Icon_Checkbox_Unchecked,
+                            color: Colors.red[900],
+                          ),
                         ),
                       ],
                     ))
@@ -77,7 +84,10 @@ class AddressPage extends StatelessWidget {
           ),
           ListTile(
             title: const Text('Адмиралтейская набережная, 10а'),
-            trailing: Image.asset('assets/Icon-Edit.png'),
+            trailing: Icon(
+              SeverMetropol.Icon_Edit,
+              color: Colors.red[900],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),

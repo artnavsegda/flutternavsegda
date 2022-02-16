@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import '../shop/shop.dart';
 import '../../gql.dart';
@@ -41,7 +42,10 @@ class MapPage extends StatelessWidget {
                 onPressed: () {
                   Navigator.pop(context);
                 },
-                icon: Image.asset('assets/Icon-West.png')),
+                icon: Icon(
+                  SeverMetropol.Icon_West,
+                  color: Colors.red[900],
+                )),
           ),
           body: Stack(
             children: [
@@ -98,8 +102,10 @@ class MapPage extends StatelessWidget {
                                 title: Text(shop.address ?? 'Невский, 6'),
                                 subtitle: const Text(
                                     'Сегодня открыто до 22:00\nАдмиралтейская'),
-                                trailing:
-                                    Image.asset('assets/Icon-Direction.png'),
+                                trailing: Icon(
+                                  SeverMetropol.Icon_Direction,
+                                  color: Colors.red[900],
+                                ),
                               )),
                         ],
                       ),

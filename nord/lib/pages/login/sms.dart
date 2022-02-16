@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../login_state.dart';
@@ -19,7 +20,10 @@ class SmsPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),

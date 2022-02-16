@@ -1,6 +1,7 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import '../../components/gradient_button.dart';
 
@@ -15,7 +16,10 @@ class QrPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('Карта клиента'),
       ),
       body: Padding(

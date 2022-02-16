@@ -4,6 +4,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import 'review.dart';
 import '../../components/gradient_button.dart';
@@ -89,13 +90,21 @@ class _ProductPageState extends State<ProductPage> {
               Scaffold(
                 appBar: AppBar(
                   actions: [
-                    Image.asset('assets/Icon-Share.png'),
+                    IconButton(
+                        onPressed: () {},
+                        icon: Icon(
+                          SeverMetropol.Icon_Share,
+                          color: Colors.red[900],
+                        )),
                   ],
                   leading: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Image.asset('assets/Icon-West.png')),
+                      icon: Icon(
+                        SeverMetropol.Icon_West,
+                        color: Colors.red[900],
+                      )),
                 ),
                 body: ListView(
                   controller: _scrollController,
@@ -225,8 +234,8 @@ class _ProductPageState extends State<ProductPage> {
                             children: [
                               Row(
                                 children: [
-                                  Image.asset(
-                                    'assets/Icon-Star-Rate.png',
+                                  Icon(
+                                    SeverMetropol.Icon_Star_Rate,
                                     color: Color(0xFFD2AB67),
                                   ),
                                   Text('4.7'),
@@ -374,8 +383,14 @@ class _ProductPageState extends State<ProductPage> {
                                           ListTile(
                                             title: Text(
                                                 'Пищевая ценность на 100 г'),
-                                            trailing: Image.asset(
-                                                'assets/Icon-Close.png'),
+                                            trailing: IconButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                icon: Icon(
+                                                  SeverMetropol.Icon_Close,
+                                                  color: Colors.red[900],
+                                                )),
                                           ),
                                         ],
                                       );
@@ -524,7 +539,10 @@ class _ProductPageState extends State<ProductPage> {
                       ),
                       TextButton.icon(
                           onPressed: () {},
-                          icon: Image.asset('assets/Icon-Favorite.png'),
+                          icon: Icon(
+                            SeverMetropol.Icon_Favorite,
+                            color: Colors.red[900],
+                          ),
                           label: const Text('256')),
                     ],
                   ),

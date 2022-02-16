@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 
@@ -24,7 +25,10 @@ class LoginPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-Close.png')),
+            icon: Icon(
+              SeverMetropol.Icon_Close,
+              color: Colors.red[900],
+            )),
       ),
       body: ListView(
         //crossAxisAlignment: CrossAxisAlignment.start,
@@ -43,7 +47,16 @@ class LoginPage extends StatelessWidget {
                 TextField(
                   keyboardType: TextInputType.number,
                   inputFormatters: [maskFormatter],
-                  decoration: const InputDecoration(
+                  decoration: InputDecoration(
+                      suffixIcon: IconButton(
+                        onPressed: () {
+                          print('clear');
+                        },
+                        icon: Icon(
+                          SeverMetropol.Icon_Clear,
+                          size: 24.0,
+                        ),
+                      ),
                       labelText: "Номер телефона",
                       hintText: '+7 (___) ___-__-__'),
                 ),
@@ -111,14 +124,20 @@ class LoginPage extends StatelessWidget {
               'Политика конфиденциальности',
               style: TextStyle(color: Colors.red.shade900),
             ),
-            trailing: Image.asset('assets/Icon-Navigate-Next.png'),
+            trailing: Icon(
+              SeverMetropol.Icon_Navigate_Next,
+              color: Colors.red[900],
+            ),
           ),
           ListTile(
             title: Text(
               'Правила бонусной программы',
               style: TextStyle(color: Colors.red.shade900),
             ),
-            trailing: Image.asset('assets/Icon-Navigate-Next.png'),
+            trailing: Icon(
+              SeverMetropol.Icon_Navigate_Next,
+              color: Colors.red[900],
+            ),
           ),
         ],
       ),

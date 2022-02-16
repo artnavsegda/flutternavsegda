@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../components/components.dart';
 import '../../components/product_card.dart';
 import '../../gql.dart';
@@ -65,7 +67,10 @@ class CatalogPage extends StatelessWidget {
                             minimumSize: const Size(36.0, 36.0),
                             padding: const EdgeInsets.all(0.0)),
                         onPressed: () {},
-                        child: Image.asset('assets/Icon-Favorite-Outlined.png'),
+                        child: Icon(
+                          SeverMetropol.Icon_Favorite_Outlined,
+                          color: Colors.red[900],
+                        ),
                       ),
                       const SizedBox(width: 8.0),
                     ],

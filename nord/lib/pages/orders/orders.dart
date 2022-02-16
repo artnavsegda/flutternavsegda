@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 import 'order.dart';
 
@@ -14,7 +15,10 @@ class OrdersPage extends StatelessWidget {
             onPressed: () {
               Navigator.pop(context);
             },
-            icon: Image.asset('assets/Icon-West.png')),
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Colors.red[900],
+            )),
         title: const Text('История заказов'),
       ),
       body: ListView(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import 'select_address_bottom_sheet.dart';
 
 class NordCheckboxTile extends StatelessWidget {
@@ -14,7 +15,10 @@ class NordCheckboxTile extends StatelessWidget {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(child: Image.asset('assets/Icon-Checkbox-Checked.png')),
+        Icon(
+          SeverMetropol.Icon_Checkbox_Checked,
+          color: Colors.red[900],
+        ),
         const SizedBox(width: 38),
         Flexible(child: title)
       ],
@@ -41,7 +45,10 @@ class AddressTile extends StatelessWidget {
       },
       leading: Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
       title: const Text("Адрес доставки или кафе"),
-      trailing: Image.asset('assets/Icon-Expand-More.png'),
+      trailing: Icon(
+        SeverMetropol.Icon_Expand_More,
+        color: Colors.red[900],
+      ),
     );
   }
 }
@@ -79,7 +86,10 @@ class AddressTile2 extends StatelessWidget {
           fontSize: 16,
         ),
       ),
-      trailing: Image.asset('assets/Icon-Expand-More.png'),
+      trailing: Icon(
+        SeverMetropol.Icon_Expand_More,
+        color: Colors.red[900],
+      ),
     );
   }
 }

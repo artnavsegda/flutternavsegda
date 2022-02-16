@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../gql.dart';
 
 class HelpPage extends StatelessWidget {
@@ -34,17 +36,26 @@ class HelpPage extends StatelessWidget {
                   onPressed: () {
                     Navigator.pop(context);
                   },
-                  icon: Image.asset('assets/Icon-West.png')),
+                  icon: Icon(
+                    SeverMetropol.Icon_West,
+                    color: Colors.red[900],
+                  )),
             ),
             body: ListView(
               children: [
                 ...faqGroups.map((faqGroup) => ListTile(
                       title: Text(faqGroup.name),
-                      trailing: Image.asset('assets/Icon-East.png'),
+                      trailing: Icon(
+                        SeverMetropol.Icon_East,
+                        color: Colors.red[900],
+                      ),
                     )),
                 ListTile(
                   title: Text('Бонусная программа'),
-                  trailing: Image.asset('assets/Icon-East.png'),
+                  trailing: Icon(
+                    SeverMetropol.Icon_East,
+                    color: Colors.red[900],
+                  ),
                   onTap: () => {
                     Navigator.push(
                       context,
@@ -80,7 +91,10 @@ class HelpTopicPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Image.asset('assets/Icon-West.png')),
+              icon: Icon(
+                SeverMetropol.Icon_West,
+                color: Colors.red[900],
+              )),
         ),
         body: ListView(
           children: [

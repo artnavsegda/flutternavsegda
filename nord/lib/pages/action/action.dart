@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:nord/sever_metropol_icons.dart';
+
 import '../../components/product_card.dart';
 import '../../components/components.dart';
 import '../../gql.dart';
@@ -81,13 +83,22 @@ class _ActionPageState extends State<ActionPage> {
                 appBar: AppBar(
                   //title: Text('Взрывная весна! Откр...'),
                   actions: [
-                    Image.asset('assets/Icon-Share.png'),
+                    IconButton(
+                      onPressed: () {},
+                      icon: Icon(
+                        SeverMetropol.Icon_Share,
+                        color: Colors.red[900],
+                      ),
+                    ),
                   ],
                   leading: IconButton(
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      icon: Image.asset('assets/Icon-West.png')),
+                      icon: Icon(
+                        SeverMetropol.Icon_West,
+                        color: Colors.red[900],
+                      )),
                 ),
                 body: ListView(
                   controller: _scrollController,
@@ -156,7 +167,10 @@ class _ActionPageState extends State<ActionPage> {
                         alignment: Alignment.centerLeft,
                         child: TextButton.icon(
                             onPressed: () {},
-                            label: Image.asset('assets/Icon-East.png'),
+                            label: Icon(
+                              SeverMetropol.Icon_East,
+                              color: Colors.red[900],
+                            ),
                             icon: const Text('Найти ближайшее кафе')),
                       ),
                     ),

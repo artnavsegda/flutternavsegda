@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key}) : super(key: key);
@@ -13,7 +14,10 @@ class OrderPage extends StatelessWidget {
               onPressed: () {
                 Navigator.pop(context);
               },
-              icon: Image.asset('assets/Icon-West.png')),
+              icon: Icon(
+                SeverMetropol.Icon_West,
+                color: Colors.red[900],
+              )),
         ),
         body: ListView(
           children: [
@@ -32,9 +36,18 @@ class OrderPage extends StatelessWidget {
                     allowHalfRating: false,
                     itemCount: 5,
                     ratingWidget: RatingWidget(
-                      full: Image.asset('assets/Icon-Star-Rate.png'),
-                      half: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
-                      empty: Image.asset('assets/Icon-Star-Rate-Outlined.png'),
+                      full: Icon(
+                        SeverMetropol.Icon_Star_Rate,
+                        color: Colors.red[900],
+                      ),
+                      half: Icon(
+                        SeverMetropol.Icon_Star_Rate_Outlined,
+                        color: Colors.red[900],
+                      ),
+                      empty: Icon(
+                        SeverMetropol.Icon_Star_Rate_Outlined,
+                        color: Colors.red[900],
+                      ),
                     ),
                     itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                     onRatingUpdate: (newRating) {},
@@ -64,10 +77,8 @@ class OrderPage extends StatelessWidget {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: Text(
-                'Детали оплаты',
-                style: Theme.of(context).textTheme.headlineSmall
-              ),
+              child: Text('Детали оплаты',
+                  style: Theme.of(context).textTheme.headlineSmall),
             ),
             Row(
               children: [Text('Оплачено'), Text('1 325 ₽')],
@@ -87,7 +98,10 @@ class OrderPage extends StatelessWidget {
             ),
             ListTile(
               title: Text('Чек оплаты'),
-              trailing: Image.asset('assets/Icon-Site.png'),
+              trailing: Icon(
+                SeverMetropol.Icon_Site,
+                color: Colors.red[900],
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),

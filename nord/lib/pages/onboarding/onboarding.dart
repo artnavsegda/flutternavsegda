@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -127,7 +128,7 @@ class _OnboardingState extends State<Onboarding> {
                       duration: const Duration(milliseconds: 400),
                       curve: Curves.easeInOut);
                 },
-                label: const ImageIcon(AssetImage('assets/Icon-East.png')),
+                label: const Icon(SeverMetropol.Icon_East),
                 icon: const Text("Далее"),
               ),
               crossFadeState: finalScreen
