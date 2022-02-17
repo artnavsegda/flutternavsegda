@@ -20,15 +20,22 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   ); */
 
-  final state = LoginState(await SharedPreferences.getInstance());
-  state.checkLoggedIn();
-  runApp(NordApp(loginState: state));
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  final loginState = LoginState(prefs);
+  final cartState = CartState(prefs);
+  loginState.checkLoggedIn();
+  runApp(NordApp(loginState: loginState, cartState: cartState));
 }
 
 class NordApp extends StatelessWidget {
   final LoginState loginState;
+  final CartState cartState;
 
-  const NordApp({Key? key, required this.loginState}) : super(key: key);
+  const NordApp({
+    Key? key,
+    required this.loginState,
+    required this.cartState,
+  }) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -75,11 +82,15 @@ class NordApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider<LoginState>(
           lazy: false,
-          create: (BuildContext createContext) => loginState,
+          create: (context) => loginState,
+        ),
+        ChangeNotifierProvider(
+          lazy: false,
+          create: (context) => cartState,
         ),
         Provider<NordRouter>(
           lazy: false,
-          create: (BuildContext createContext) => NordRouter(loginState),
+          create: (context) => NordRouter(loginState),
         ),
       ],
       child: Consumer<LoginState>(

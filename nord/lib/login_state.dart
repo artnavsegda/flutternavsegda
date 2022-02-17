@@ -30,3 +30,12 @@ class LoginState extends ChangeNotifier {
     loggedIn = prefs.getBool('LoggedIn') ?? false;
   }
 }
+
+class CartState with ChangeNotifier {
+  final SharedPreferences prefs;
+  int cartAmount = 0;
+
+  CartState(this.prefs) {
+    cartAmount = prefs.getInt('cart') ?? 0;
+  }
+}
