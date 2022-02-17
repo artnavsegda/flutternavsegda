@@ -93,12 +93,14 @@ class ProductCard extends StatelessWidget {
                     ),
                     onPressed: () {},
                     icon: Icon(
-                      SeverMetropol.Icon_Favorite,
+                      product.isFavorite
+                          ? SeverMetropol.Icon_Favorite
+                          : SeverMetropol.Icon_Favorite_Outlined,
                       color: Theme.of(context).colorScheme.primary,
                       size: 12,
                     ),
-                    label: const Text(
-                      '256',
+                    label: Text(
+                      '${product.favorites}',
                       style: TextStyle(color: Colors.black),
                     ),
                   ),
