@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nord/components/components.dart';
 
 class GiftBonusModalSheet extends StatelessWidget {
   const GiftBonusModalSheet({
@@ -14,30 +15,7 @@ class GiftBonusModalSheet extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const Text('Подарочные бонусы'),
-          Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Column(
-                children: [
-                  TextField(),
-                  SizedBox(height: 4),
-                  Text('Вы можете подарить до 120 бонусов'),
-                ],
-              ),
-              SliderTheme(
-                data: SliderThemeData(
-                  trackShape: RectangularSliderTrackShape(),
-                  trackHeight: 2.0,
-                  thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7),
-                ),
-                child: Slider(
-                  inactiveColor: Colors.grey,
-                  onChanged: (newVal) {},
-                  value: 0.2,
-                ),
-              ),
-            ],
-          ),
+          SliderCombo(),
           const TextField(),
           SizedBox(height: 16),
           ElevatedButton(onPressed: () {}, child: const Text('Подарить бонусы'))

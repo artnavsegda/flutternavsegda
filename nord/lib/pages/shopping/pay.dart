@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/components.dart';
 
 import '../../components/components.dart';
 
@@ -25,28 +26,53 @@ class PayPage extends StatelessWidget {
         children: [
           Row(
             children: [
-              OutlinedButton(onPressed: () {}, child: Text('Новая Карта')),
-              ElevatedButton(onPressed: () {}, child: Text('На месте')),
+              OutlinedButton(
+                  style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.only(right: 16)),
+                  onPressed: () {},
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child:
+                            Text('Новая\nКарта', textAlign: TextAlign.center),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          SeverMetropol.Icon_Checkbox_Unchecked,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
+                      ),
+                    ],
+                  )),
+              ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                      padding: EdgeInsets.only(right: 16)),
+                  onPressed: () {},
+                  child: Stack(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          'На\nместе',
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          SeverMetropol.Icon_Checkbox_Unchecked,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ],
+                  )),
             ],
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Stack(
-              alignment: Alignment.bottomCenter,
-              children: [
-                Column(
-                  children: [
-                    TextField(),
-                    SizedBox(height: 4),
-                    Text('Вы можете использовать до 120 бонусов'),
-                  ],
-                ),
-                Slider(
-                  onChanged: (newVal) {},
-                  value: 0,
-                ),
-              ],
-            ),
+            child: SliderCombo(),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),

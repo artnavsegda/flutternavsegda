@@ -137,3 +137,37 @@ class SpecialCondition extends StatelessWidget {
     );
   }
 }
+
+class SliderCombo extends StatelessWidget {
+  const SliderCombo({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      alignment: Alignment.bottomCenter,
+      children: [
+        Column(
+          children: [
+            TextField(),
+            SizedBox(height: 4),
+            Text('Вы можете подарить до 120 бонусов'),
+          ],
+        ),
+        SliderTheme(
+          data: SliderThemeData(
+            trackShape: RectangularSliderTrackShape(),
+            trackHeight: 2.0,
+            thumbShape: RoundSliderThumbShape(enabledThumbRadius: 7),
+          ),
+          child: Slider(
+            inactiveColor: Colors.grey,
+            onChanged: (newVal) {},
+            value: 0.2,
+          ),
+        ),
+      ],
+    );
+  }
+}
