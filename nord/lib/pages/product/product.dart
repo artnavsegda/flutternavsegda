@@ -70,18 +70,13 @@ class _ProductPageState extends State<ProductPage> {
             return ErrorPage(reload: () {
               refetch!();
             });
-            return Scaffold(
-              appBar: AppBar(),
-              body: Center(
-                  child: Text(
-                result.exception.toString(),
-              )),
-            );
           }
 
           if (result.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              body: const Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
@@ -588,13 +583,28 @@ class _ProductPageState extends State<ProductPage> {
                           },
                         ),
                       ),
-                      TextButton.icon(
-                          onPressed: () {},
-                          icon: Icon(
-                            SeverMetropol.Icon_Favorite,
-                            color: Theme.of(context).colorScheme.primary,
-                          ),
-                          label: const Text('256')),
+                      Mutation(
+                        options: MutationOptions(
+                          document: gql(setFavoritesProduct),
+                          onCompleted: (resultData) {
+                            refetch!();
+                          },
+                        ),
+                        builder: (runMutation, result) {
+                          return TextButton.icon(
+                            onPressed: () {
+                              runMutation({'productID': widget.id});
+                            },
+                            icon: Icon(
+                              productInfo.isFavorite
+                                  ? SeverMetropol.Icon_Favorite
+                                  : SeverMetropol.Icon_Favorite_Outlined,
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                            label: Text('${productInfo.favorites}'),
+                          );
+                        },
+                      ),
                     ],
                   ),
                 ),
