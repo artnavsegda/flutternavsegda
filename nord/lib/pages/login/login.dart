@@ -75,34 +75,43 @@ class LoginPage extends StatelessWidget {
                 Mutation(
                     options: MutationOptions(
                       document: gql(loginClient),
+                      onError: (error) {
+                        print("ERROR");
+                        print(error);
+                      },
                       onCompleted: (resultData) {
-                        GraphClientResult nordClientResult =
-                            GraphClientResult.fromJson(
-                                resultData['loginClient']);
-                        if (nordClientResult.result == 0) {
-                          Provider.of<LoginState>(context, listen: false)
-                              .token = nordClientResult.token ?? '';
+                        print(resultData);
+                        if (resultData != null) {
+                          GraphClientResult nordClientResult =
+                              GraphClientResult.fromJson(
+                                  resultData['loginClient']);
+                          if (nordClientResult.result == 0) {
+                            Provider.of<LoginState>(context, listen: false)
+                                .token = nordClientResult.token ?? '';
 
-                          if (nordClientResult.nextStep == 'PASSWORD')
-                            context.push('/password');
-                          else
-                            context.pushNamed('sms', params: {
-                              'phone': maskFormatter.getMaskedText()
-                            });
-                        } else {
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) => AlertDialog(
-                              title: const Text('Ошибка'),
-                              content: Text('${nordClientResult.errorMessage}'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () => Navigator.pop(context, 'OK'),
-                                  child: const Text('OK'),
-                                ),
-                              ],
-                            ),
-                          );
+                            if (nordClientResult.nextStep == 'PASSWORD')
+                              context.push('/password');
+                            else
+                              context.pushNamed('sms', params: {
+                                'phone': maskFormatter.getMaskedText()
+                              });
+                          } else {
+                            showDialog(
+                              context: context,
+                              builder: (BuildContext context) => AlertDialog(
+                                title: const Text('Ошибка'),
+                                content:
+                                    Text('${nordClientResult.errorMessage}'),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () =>
+                                        Navigator.pop(context, 'OK'),
+                                    child: const Text('OK'),
+                                  ),
+                                ],
+                              ),
+                            );
+                          }
                         }
                       },
                     ),

@@ -172,6 +172,8 @@ class UserPage extends StatelessWidget {
                 builder: (runMutation, result) {
                   return ListTile(
                     onTap: () async {
+                      Provider.of<CartState>(context, listen: false)
+                          .cartAmount = 0;
                       runMutation({});
                     },
                     title: const Text("Выход из приложения"),
