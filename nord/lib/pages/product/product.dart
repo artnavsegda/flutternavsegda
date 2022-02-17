@@ -10,7 +10,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'review.dart';
 import '../../components/gradient_button.dart';
 import '../../components/components.dart';
-import '../../gql.dart';
+import 'package:nord/gql.dart';
 import '../error/error.dart';
 
 class ProductPage extends StatefulWidget {

@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
-import '../sever_metropol_icons.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
+import 'package:nord/gql.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import '../pages/product/product.dart';
 
 class ProductCard extends StatelessWidget {
@@ -57,10 +61,28 @@ class ProductCard extends StatelessWidget {
                 Positioned(
                   right: 0,
                   bottom: 0,
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
-                        color: Theme.of(context).colorScheme.primary),
+                  child: Mutation(
+                    options: MutationOptions(
+                      document: gql(cartAdd),
+                      onCompleted: (resultData) {
+                        //print(resultData);
+
+                        Fluttertoast.showToast(
+                            msg: "Товар добавлен в корзину",
+                            toastLength: Toast.LENGTH_SHORT,
+                            gravity: ToastGravity.TOP,
+                            timeInSecForIosWeb: 1);
+                      },
+                    ),
+                    builder: (runMutation, result) {
+                      return IconButton(
+                        onPressed: () {
+                          runMutation({'productID': productID});
+                        },
+                        icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
+                            color: Theme.of(context).colorScheme.primary),
+                      );
+                    },
                   ),
                 ),
                 Positioned(
