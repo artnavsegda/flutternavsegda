@@ -72,7 +72,7 @@ class _ProductPageState extends State<ProductPage> {
             });
           }
 
-          if (result.isLoading) {
+          if (result.isLoading && result.data == null) {
             return Scaffold(
               body: const Center(
                 child: CircularProgressIndicator(),
