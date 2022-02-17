@@ -33,9 +33,16 @@ class LoginState extends ChangeNotifier {
 
 class CartState with ChangeNotifier {
   final SharedPreferences prefs;
-  int cartAmount = 0;
+  int _cartAmount = 0;
 
   CartState(this.prefs) {
-    cartAmount = prefs.getInt('cart') ?? 0;
+    _cartAmount = prefs.getInt('cart') ?? 0;
+  }
+
+  int get cartAmount => _cartAmount;
+  set cartAmount(int newAmount) {
+    _cartAmount = newAmount;
+    prefs.setInt('cart', newAmount);
+    notifyListeners();
   }
 }

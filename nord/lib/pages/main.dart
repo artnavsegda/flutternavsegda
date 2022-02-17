@@ -109,15 +109,18 @@ class _MainPageState extends State<MainPage>
                 label: 'Catalog',
               ),
               BottomNavigationBarItem(
-                icon: Badge(
-                  position: BadgePosition.topEnd(top: -12, end: -8),
-                  child: const Icon(SeverMetropol.Icon_Shopping_Bag),
-                  badgeColor: Theme.of(context).colorScheme.primary,
-                  badgeContent: const Text(
-                    '5',
-                    style: TextStyle(color: Colors.white, fontSize: 10),
-                  ),
-                ),
+                icon: Consumer<CartState>(builder: (context, model, child) {
+                  return Badge(
+                    position: BadgePosition.topEnd(top: -12, end: -8),
+                    showBadge: model.cartAmount != 0,
+                    child: const Icon(SeverMetropol.Icon_Shopping_Bag),
+                    badgeColor: Theme.of(context).colorScheme.primary,
+                    badgeContent: Text(
+                      '${model.cartAmount}',
+                      style: const TextStyle(color: Colors.white, fontSize: 10),
+                    ),
+                  );
+                }),
                 label: 'Shopping',
               ),
               const BottomNavigationBarItem(

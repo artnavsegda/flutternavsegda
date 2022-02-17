@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:nord/pages/error/error.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:provider/provider.dart';
+import 'package:nord/login_state.dart';
 
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
@@ -44,6 +46,11 @@ class ShoppingPage extends StatelessWidget {
           List<GraphCartRow> cart = List<GraphCartRow>.from(result
               .data!['getCart']
               .map((model) => GraphCartRow.fromJson(model)));
+
+          WidgetsBinding.instance!.addPostFrameCallback((_) {
+            Provider.of<CartState>(context, listen: false).cartAmount =
+                cart.length;
+          });
 
           if (cart.isEmpty) {
             return CartIsEmpty();
