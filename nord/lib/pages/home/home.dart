@@ -176,25 +176,35 @@ class HomePage extends StatelessWidget {
                                   SizedBox(
                                     width: 12,
                                   ),
-                                  ...section.products.map((product) =>
-                                      ProductCard(
-                                          productID: product.iD,
-                                          productImage: product.picture ?? '',
-                                          productName: product.name,
-                                          productPrice: '420')),
+                                  ...section.products
+                                      .map((product) => ProductCard(
+                                            product: product,
+                                          )),
                                   ProductCard(
-                                    productID: 1,
-                                    productImage:
-                                        'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
-                                    productName: 'Анна Павлова',
-                                    productPrice: '315',
+                                    product: GraphProduct(
+                                        iD: 1,
+                                        familyID: 1,
+                                        topCatalogID: 1,
+                                        name: 'Анна Павлова',
+                                        picture:
+                                            'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
+                                        isFavorite: true,
+                                        favorites: 256,
+                                        stickerPictures: [],
+                                        attributes: []),
                                   ),
                                   ProductCard(
-                                    productID: 1,
-                                    productImage:
-                                        'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
-                                    productName: 'Торт «Сезонный» с ягодами',
-                                    productPrice: '420',
+                                    product: GraphProduct(
+                                        iD: 1,
+                                        familyID: 1,
+                                        topCatalogID: 1,
+                                        name: 'Торт «Сезонный» с ягодами',
+                                        picture:
+                                            'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/48.png?IsPreview=true&refresh=637797839489000000',
+                                        isFavorite: true,
+                                        favorites: 256,
+                                        stickerPictures: [],
+                                        attributes: []),
                                   ),
                                 ],
                               ),

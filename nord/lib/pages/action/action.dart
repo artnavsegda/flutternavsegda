@@ -190,10 +190,7 @@ class _ActionPageState extends State<ActionPage> {
                             ),
                             ...action.products.map((product) {
                               return ProductCard(
-                                productID: product.iD,
-                                productImage: product.picture ?? '',
-                                productName: product.name,
-                                productPrice: '420',
+                                product: product,
                               );
                             }),
                           ],

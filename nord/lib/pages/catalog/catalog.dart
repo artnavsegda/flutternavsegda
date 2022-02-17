@@ -148,10 +148,7 @@ class _CatalogPageState extends State<CatalogPage> {
                                 children: nordCatalog[index]
                                     .products
                                     .map((product) => ProductCard(
-                                          productID: product.iD,
-                                          productImage: product.picture ?? '',
-                                          productName: product.name,
-                                          productPrice: '420',
+                                          product: product,
                                         ))
                                     .toList()
                                     .cast<Widget>(),

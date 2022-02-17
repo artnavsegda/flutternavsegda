@@ -11,16 +11,10 @@ import '../pages/product/product.dart';
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
-    required this.productName,
-    required this.productImage,
-    required this.productPrice,
-    required this.productID,
+    required this.product,
   }) : super(key: key);
 
-  final String productName;
-  final String productImage;
-  final String productPrice;
-  final int productID;
+  final GraphProduct product;
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +33,10 @@ class ProductCard extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => ProductPage(id: productID)));
+                            builder: (context) => ProductPage(id: product.iD)));
                   },
                   child: CachedNetworkImage(
-                    imageUrl: productImage,
+                    imageUrl: product.picture ?? '',
                     placeholder: (context, url) => Shimmer.fromColors(
                       baseColor: const Color(0xFFECECEC),
                       highlightColor: Colors.white,
@@ -77,7 +71,7 @@ class ProductCard extends StatelessWidget {
                     builder: (runMutation, result) {
                       return IconButton(
                         onPressed: () {
-                          runMutation({'productID': productID});
+                          runMutation({'productID': product.iD});
                         },
                         icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
                             color: Theme.of(context).colorScheme.primary),
@@ -136,13 +130,13 @@ class ProductCard extends StatelessWidget {
               ],
             ),
           ),
-          Text(productName),
+          Text(product.name),
           RichText(
             text: TextSpan(
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                    text: productPrice,
+                    text: '420',
                     style: Theme.of(context).textTheme.headlineSmall),
                 TextSpan(
                     text: ' ₽',
