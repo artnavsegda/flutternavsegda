@@ -37,6 +37,13 @@ class _CatalogPageState extends State<CatalogPage> {
               .data!['getProducts']
               .map((model) => GraphCatalog.fromJson(model)));
 
+          if (favMode) {
+            for (final element in nordCatalog) {
+              element.products.retainWhere((product) => product.isFavorite);
+            }
+            nordCatalog.retainWhere((element) => element.products.isNotEmpty);
+          }
+
           return Scaffold(
             body: SafeArea(
               child: Column(
