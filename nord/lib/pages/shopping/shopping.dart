@@ -21,7 +21,10 @@ class ShoppingPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Query(
-        options: QueryOptions(document: gql(getCart)),
+        options: QueryOptions(
+          document: gql(getCart),
+          fetchPolicy: FetchPolicy.networkOnly,
+        ),
         builder: (result, {refetch, fetchMore}) {
           //print(result);
 

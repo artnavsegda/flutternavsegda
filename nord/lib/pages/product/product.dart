@@ -6,6 +6,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:provider/provider.dart';
+import 'package:nord/login_state.dart';
 
 import 'review.dart';
 import '../../components/gradient_button.dart';
@@ -563,6 +565,8 @@ class _ProductPageState extends State<ProductPage> {
                             return GradientButton(
                               onPressed: () {
                                 runMutation({'productID': widget.id});
+                                Provider.of<CartState>(context, listen: false)
+                                    .cartAmount++;
 
                                 /* showModalBottomSheet(
                                   isScrollControlled: true,

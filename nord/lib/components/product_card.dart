@@ -3,6 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:nord/login_state.dart';
 
 import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
@@ -56,6 +58,8 @@ class ProductCard extends StatelessWidget {
                       document: gql(cartAdd),
                       onCompleted: (resultData) {
                         //print(resultData);
+                        Provider.of<CartState>(context, listen: false)
+                            .cartAmount++;
 
                         Fluttertoast.showToast(
                             msg: "Товар добавлен в корзину",
