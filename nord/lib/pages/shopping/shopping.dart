@@ -3,6 +3,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:nord/pages/error/error.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 
@@ -23,9 +24,9 @@ class ShoppingPage extends StatelessWidget {
           //print(result);
 
           if (result.hasException) {
-            return const Center(
-              child: Text("Корзина недоступна"),
-            );
+            return ErrorPage(reload: () {
+              refetch!();
+            });
           }
 
           if (result.isLoading && result.data == null) {

@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/pages/error/error.dart';
 
 import '../../components/components.dart';
 import '../../components/product_card.dart';
 import '../../gql.dart';
+import '../product/product.dart';
 import 'search.dart';
 
 class CatalogPage extends StatefulWidget {
@@ -27,9 +29,21 @@ class _CatalogPageState extends State<CatalogPage> {
           document: gql(getProducts),
         ),
         builder: (result, {fetchMore, refetch}) {
-          if (result.isLoading || result.hasException) {
-            return Center(
-              child: CircularProgressIndicator(),
+          if (result.hasException) {
+            return ErrorPage(reload: () {
+              refetch!();
+            });
+          }
+
+          if (result.isLoading && result.data == null) {
+            return RefreshIndicator(
+              onRefresh: () async {
+                await refetch!();
+                //await Future.delayed(Duration(seconds: 5));
+              },
+              child: const Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
@@ -149,6 +163,15 @@ class _CatalogPageState extends State<CatalogPage> {
                                     .products
                                     .map((product) => ProductCard(
                                           product: product,
+                                          onTap: () async {
+                                            await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ProductPage(
+                                                            id: product.iD)));
+                                            refetch!();
+                                          },
                                         ))
                                     .toList()
                                     .cast<Widget>(),

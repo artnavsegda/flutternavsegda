@@ -6,15 +6,16 @@ import 'package:fluttertoast/fluttertoast.dart';
 
 import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
-import '../pages/product/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     Key? key,
     required this.product,
+    required this.onTap,
   }) : super(key: key);
 
   final GraphProduct product;
+  final void Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +30,7 @@ class ProductCard extends StatelessWidget {
             child: Stack(
               children: [
                 InkWell(
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => ProductPage(id: product.iD)));
-                  },
+                  onTap: onTap,
                   child: CachedNetworkImage(
                     imageUrl: product.picture ?? '',
                     placeholder: (context, url) => Shimmer.fromColors(

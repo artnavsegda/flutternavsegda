@@ -3,6 +3,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import '../product/product.dart';
 
 import '../../gql.dart';
 import '../../components/product_card.dart';
@@ -179,6 +180,15 @@ class HomePage extends StatelessWidget {
                                   ...section.products
                                       .map((product) => ProductCard(
                                             product: product,
+                                            onTap: () async {
+                                              await Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          ProductPage(
+                                                              id: product.iD)));
+                                              refetch!();
+                                            },
                                           )),
                                   ProductCard(
                                     product: GraphProduct(
@@ -192,6 +202,7 @@ class HomePage extends StatelessWidget {
                                         favorites: 256,
                                         stickerPictures: [],
                                         attributes: []),
+                                    onTap: () {},
                                   ),
                                   ProductCard(
                                     product: GraphProduct(
@@ -205,6 +216,7 @@ class HomePage extends StatelessWidget {
                                         favorites: 256,
                                         stickerPictures: [],
                                         attributes: []),
+                                    onTap: () {},
                                   ),
                                 ],
                               ),

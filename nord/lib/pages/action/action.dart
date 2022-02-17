@@ -6,6 +6,7 @@ import 'package:nord/sever_metropol_icons.dart';
 
 import '../../components/product_card.dart';
 import '../../components/components.dart';
+import '../product/product.dart';
 import '../../gql.dart';
 
 class ActionPage extends StatefulWidget {
@@ -191,6 +192,14 @@ class _ActionPageState extends State<ActionPage> {
                             ...action.products.map((product) {
                               return ProductCard(
                                 product: product,
+                                onTap: () async {
+                                  await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              ProductPage(id: product.iD)));
+                                  refetch!();
+                                },
                               );
                             }),
                           ],
