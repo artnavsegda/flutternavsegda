@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/shop_tile.dart';
 
 import '../../components/product_card.dart';
 import '../../components/components.dart';
@@ -205,6 +206,9 @@ class _ActionPageState extends State<ActionPage> {
                           ],
                         ),
                       ),
+                    ],
+                    if (action.type == 'SHOP') ...[
+                      ...action.shops.map((shop) => ShopTile(shop: shop)),
                     ]
                   ],
                 ),
