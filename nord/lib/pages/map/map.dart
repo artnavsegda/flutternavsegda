@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 
 import '../shop/shop.dart';
-import '../../gql.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -99,9 +100,39 @@ class MapPage extends StatelessWidget {
                                           builder: (context) =>
                                               ShopPage(shop: shop)));
                                 },
-                                title: Text(shop.address ?? 'Невский, 6'),
-                                subtitle: const Text(
-                                    'Сегодня открыто до 22:00\nАдмиралтейская'),
+                                title: Text(
+                                  shop.address ?? 'Невский, 6',
+                                  style: TextStyle(color: Colors.red[900]),
+                                ),
+                                subtitle: Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  children: [
+                                    Text('Сегодня открыто до 22:00'),
+                                    Wrap(
+                                      children: [
+                                        ...shop.metroStations
+                                            .map((metroStation) => Wrap(
+                                                  crossAxisAlignment:
+                                                      WrapCrossAlignment.center,
+                                                  children: [
+                                                    Text('⬤ ',
+                                                        style: TextStyle(
+                                                            fontSize: 7.0,
+                                                            color: hexToColor(
+                                                                metroStation
+                                                                    .colorLine))),
+                                                    Text(metroStation
+                                                        .stationName),
+                                                    SizedBox(width: 10)
+                                                  ],
+                                                ))
+                                            .toList()
+                                            .cast<Widget>(),
+                                      ],
+                                    ),
+                                  ],
+                                ),
                                 trailing: Icon(
                                   SeverMetropol.Icon_Direction,
                                   color: Theme.of(context).colorScheme.primary,

@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
-
-import '../../gql.dart';
-
-Color hexToColor(String code) {
-  return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
-}
+import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 
 class ShopPage extends StatelessWidget {
   const ShopPage({Key? key, required this.shop}) : super(key: key);
@@ -63,9 +59,10 @@ class ShopPage extends StatelessWidget {
                 ),
                 ListTile(
                   subtitle: Text('Метро'),
-                  title: Row(
+                  title: Wrap(
                     children: shop.metroStations
-                        .map((metroStation) => Row(
+                        .map((metroStation) => Wrap(
+                              crossAxisAlignment: WrapCrossAlignment.center,
                               children: [
                                 Text('⬤ ',
                                     style: TextStyle(
@@ -73,6 +70,7 @@ class ShopPage extends StatelessWidget {
                                         color: hexToColor(
                                             metroStation.colorLine))),
                                 Text(metroStation.stationName),
+                                SizedBox(width: 10)
                               ],
                             ))
                         .toList()
