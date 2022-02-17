@@ -8,8 +8,15 @@ import '../../components/product_card.dart';
 import '../../gql.dart';
 import 'search.dart';
 
-class CatalogPage extends StatelessWidget {
+class CatalogPage extends StatefulWidget {
   const CatalogPage({Key? key}) : super(key: key);
+
+  @override
+  State<CatalogPage> createState() => _CatalogPageState();
+}
+
+class _CatalogPageState extends State<CatalogPage> {
+  bool favMode = false;
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +73,15 @@ class CatalogPage extends StatelessWidget {
                         style: OutlinedButton.styleFrom(
                             minimumSize: const Size(36.0, 36.0),
                             padding: const EdgeInsets.all(0.0)),
-                        onPressed: () {},
+                        onPressed: () {
+                          setState(() {
+                            favMode = !favMode;
+                          });
+                        },
                         child: Icon(
-                          SeverMetropol.Icon_Favorite_Outlined,
+                          favMode
+                              ? SeverMetropol.Icon_Favorite
+                              : SeverMetropol.Icon_Favorite_Outlined,
                           color: Theme.of(context).colorScheme.primary,
                         ),
                       ),
