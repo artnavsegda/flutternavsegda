@@ -28,7 +28,7 @@ class ShoppingPage extends StatelessWidget {
             );
           }
 
-          if (result.isLoading) {
+          if (result.isLoading && result.data == null) {
             return RefreshIndicator(
               onRefresh: () async {
                 await refetch!();
