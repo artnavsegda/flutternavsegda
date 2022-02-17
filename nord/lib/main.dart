@@ -49,6 +49,7 @@ class NordApp extends StatelessWidget {
         headlineSmall: TextStyle(fontSize: 24.0, fontFamily: 'Forum'),
       ),
       appBarTheme: const AppBarTheme(
+        centerTitle: true,
         foregroundColor: Colors.black,
         backgroundColor: Colors.white,
         elevation: 0.0,
