@@ -21,10 +21,10 @@ Future<void> main() async {
   ); */
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  final loginState = LoginState(prefs);
-  final cartState = CartState(prefs);
-  loginState.checkLoggedIn();
-  runApp(NordApp(loginState: loginState, cartState: cartState));
+  runApp(NordApp(
+    loginState: LoginState(prefs),
+    cartState: CartState(prefs),
+  ));
 }
 
 class NordApp extends StatelessWidget {
