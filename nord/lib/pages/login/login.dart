@@ -78,6 +78,23 @@ class LoginPage extends StatelessWidget {
                       onError: (error) {
                         print("ERROR");
                         print(error);
+                        showDialog(
+                          context: context,
+                          builder: (BuildContext context) => AlertDialog(
+                            title: const Text('Ошибка'),
+                            content: SingleChildScrollView(
+                                child: Text(
+                              '$error',
+                              style: TextStyle(fontSize: 10),
+                            )),
+                            actions: [
+                              TextButton(
+                                onPressed: () => Navigator.pop(context, 'OK'),
+                                child: const Text('OK'),
+                              ),
+                            ],
+                          ),
+                        );
                       },
                       onCompleted: (resultData) {
                         print(resultData);
