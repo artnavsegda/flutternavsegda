@@ -38,16 +38,21 @@ class UserPage extends StatelessWidget {
           GraphClientFullInfo userInfo =
               GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 
+          print(userInfo.picture);
+
           return ListView(
             children: [
               ListTile(
-                leading: const CircleAvatar(
-                  foregroundImage: AssetImage('assets/treska.jpg'),
+                leading: CircleAvatar(
+                  foregroundImage: userInfo.picture!.isNotEmpty
+                      ? NetworkImage(userInfo.picture ?? '')
+                      : AssetImage('assets/Round-Metropol.png')
+                          as ImageProvider,
                 ),
                 onTap: () {
                   context.push('/editProfile');
                 },
-                title: Text(userInfo.name ?? "Незнакомец"),
+                title: Text(userInfo.name ?? "Север Метрополь"),
                 trailing: Icon(SeverMetropol.Icon_Edit,
                     color: Theme.of(context).colorScheme.primary),
               ),
