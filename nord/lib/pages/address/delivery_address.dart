@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/gradient_button.dart';
 
-import '../../components/gradient_button.dart';
 import 'address.dart';
 
 class DeliveryAddressPage extends StatelessWidget {

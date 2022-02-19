@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/gradient_button.dart';
 
 import '../../components/components.dart';
 import 'pay.dart';
@@ -147,7 +148,7 @@ class RegistrationPage extends StatelessWidget {
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: ElevatedButton(
+        child: GradientButton(
             onPressed: () {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const PayPage()));
