@@ -57,6 +57,7 @@ dependencies:
   cached_network_image: ^3.2.0
   in_app_review: ^2.0.4
   location: ^4.3.0
+  flutter_chat_ui: ^1.5.5
 
 dev_dependencies:
   flutter_test:
