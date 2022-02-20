@@ -93,6 +93,9 @@ class _CatalogPageState extends State<CatalogPage> {
                       const SizedBox(width: 8.0),
                       OutlinedButton(
                         style: OutlinedButton.styleFrom(
+                            backgroundColor: favMode
+                                ? Theme.of(context).colorScheme.primary
+                                : Colors.transparent,
                             minimumSize: const Size(36.0, 36.0),
                             padding: const EdgeInsets.all(0.0)),
                         onPressed: () {
@@ -104,7 +107,9 @@ class _CatalogPageState extends State<CatalogPage> {
                           favMode
                               ? SeverMetropol.Icon_Favorite
                               : SeverMetropol.Icon_Favorite_Outlined,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: favMode
+                              ? Colors.white
+                              : Theme.of(context).colorScheme.primary,
                         ),
                       ),
                       const SizedBox(width: 8.0),
