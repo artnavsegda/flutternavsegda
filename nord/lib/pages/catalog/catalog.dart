@@ -69,6 +69,7 @@ class _CatalogPageState extends State<CatalogPage> {
                       const SizedBox(width: 16.0),
                       Flexible(
                         child: TextField(
+                          readOnly: true,
                           onTap: () {
                             Navigator.push(
                                 context,

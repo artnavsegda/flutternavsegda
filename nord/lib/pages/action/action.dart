@@ -5,7 +5,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/shop_tile.dart';
 
-import '../../components/product_card.dart';
+import 'package:nord/components/product_card.dart';
 import '../../components/components.dart';
 import '../product/product.dart';
 import '../../gql.dart';
