@@ -92,6 +92,7 @@ class ShoppingPage extends StatelessWidget {
                         ...cart.map(
                           (item) {
                             return CartTile(
+                              key: ValueKey(item.rowID),
                               name: item.productName,
                               image: item.picture ?? '',
                               price: item.amount,
@@ -267,7 +268,7 @@ class _CartTileState extends State<CartTile> {
             }),
         builder: (runMutation, result) {
           return Slidable(
-            key: ValueKey(widget.id),
+            key: UniqueKey(),
             child: Padding(
               padding: const EdgeInsets.only(left: 16.0, top: 10, right: 16),
               child: Row(
