@@ -8,10 +8,9 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
+import 'package:nord/components/components.dart';
 
 import 'review.dart';
-import '../../components/gradient_button.dart';
-import '../../components/components.dart';
 import 'package:nord/gql.dart';
 import '../error/error.dart';
 
@@ -29,6 +28,7 @@ class _ProductPageState extends State<ProductPage> {
   bool headerUp = false;
   final _controller = PageController();
   final _scrollController = ScrollController();
+  late FToast fToast;
 
   @override
   void initState() {
@@ -48,6 +48,9 @@ class _ProductPageState extends State<ProductPage> {
         }
       },
     );
+
+    fToast = FToast();
+    fToast.init(context);
   }
 
   @override
@@ -96,6 +99,7 @@ class _ProductPageState extends State<ProductPage> {
                           SeverMetropol.Icon_Share,
                           color: Theme.of(context).colorScheme.primary,
                         )),
+                    SizedBox(width: 10),
                   ],
                   leading: IconButton(
                       onPressed: () {
@@ -554,11 +558,25 @@ class _ProductPageState extends State<ProductPage> {
                             onCompleted: (resultData) {
                               //print(resultData);
 
-                              Fluttertoast.showToast(
+                              fToast.showToast(
+                                  child: NordToast("Товар добавлен в корзину"),
+                                  gravity: ToastGravity.TOP,
+                                  toastDuration: Duration(seconds: 1),
+                                  positionedToastBuilder: (context, child) {
+                                    return Positioned(
+                                      child: child,
+                                      right: 16.0,
+                                      left: 16.0,
+                                      top: MediaQuery.of(context).padding.top +
+                                          4,
+                                    );
+                                  });
+
+/*                               Fluttertoast.showToast(
                                   msg: "Товар добавлен в корзину",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 1);
+                                  timeInSecForIosWeb: 1); */
                             },
                           ),
                           builder: (runMutation, result) {

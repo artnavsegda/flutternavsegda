@@ -1,6 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'select_address_bottom_sheet.dart';
+export 'gradient_button.dart';
+
+class NordToast extends StatelessWidget {
+  const NordToast(this.title, {Key? key}) : super(key: key);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 48,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(2.0),
+        color: Color(0xFF1D242C),
+      ),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        children: [
+          Expanded(
+            child: Text(
+              title,
+              style: TextStyle(color: Colors.white),
+              textAlign: TextAlign.center,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
 
 class NordCheckboxTile extends StatelessWidget {
   const NordCheckboxTile({

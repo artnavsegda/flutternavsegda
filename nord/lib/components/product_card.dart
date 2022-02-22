@@ -8,6 +8,7 @@ import 'package:nord/login_state.dart';
 
 import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/components.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -21,6 +22,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
       child: Column(
@@ -61,11 +65,24 @@ class ProductCard extends StatelessWidget {
                         Provider.of<CartState>(context, listen: false)
                             .cartAmount++;
 
-                        Fluttertoast.showToast(
+/*                         Fluttertoast.showToast(
                             msg: "Товар добавлен в корзину",
                             toastLength: Toast.LENGTH_SHORT,
                             gravity: ToastGravity.TOP,
-                            timeInSecForIosWeb: 1);
+                            timeInSecForIosWeb: 1); */
+
+                        fToast.showToast(
+                            child: NordToast("Товар добавлен в корзину"),
+                            gravity: ToastGravity.TOP,
+                            toastDuration: Duration(seconds: 1),
+                            positionedToastBuilder: (context, child) {
+                              return Positioned(
+                                child: child,
+                                right: 16.0,
+                                left: 16.0,
+                                top: MediaQuery.of(context).padding.top + 4,
+                              );
+                            });
                       },
                     ),
                     builder: (runMutation, result) {
