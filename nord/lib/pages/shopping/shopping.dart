@@ -412,10 +412,18 @@ class _CartTileState extends State<CartTile> {
               motion: const DrawerMotion(),
               children: [
                 SlidableAction(
+                  autoClose: false,
                   onPressed: (context) {
-                    runMutation({
-                      'rowIDs': [widget.id]
-                    });
+                    print(Slidable.of(context));
+                    Slidable.of(context)!
+                        .dismiss(ResizeRequest(Duration(milliseconds: 300), () {
+                      setState(() {
+                        _visible = false;
+                      });
+                      runMutation({
+                        'rowIDs': [widget.id]
+                      });
+                    }));
                   },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
