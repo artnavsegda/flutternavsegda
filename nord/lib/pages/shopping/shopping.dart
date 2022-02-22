@@ -231,7 +231,7 @@ class ShoppingPage extends StatelessWidget {
   }
 }
 
-class CartTile extends StatelessWidget {
+class CartTile extends StatefulWidget {
   const CartTile({
     Key? key,
     required this.name,
@@ -250,153 +250,178 @@ class CartTile extends StatelessWidget {
   final Function() reload;
 
   @override
+  State<CartTile> createState() => _CartTileState();
+}
+
+class _CartTileState extends State<CartTile> {
+  bool _visible = true;
+
+  @override
   Widget build(BuildContext context) {
-    return Slidable(
-      child: Padding(
-        padding: const EdgeInsets.only(left: 16.0, top: 10, right: 16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            CachedNetworkImage(
-              width: 64,
-              height: 64,
-              imageUrl: image,
-              placeholder: (context, url) => Shimmer.fromColors(
-                baseColor: const Color(0xFFECECEC),
-                highlightColor: Colors.white,
-                child: Container(
-                  color: const Color(0xFFECECEC),
-                ),
-              ),
-              errorWidget: (context, url, error) => Container(
-                color: const Color(0xFFECECEC),
-                child: Center(
-                  child: const Icon(Icons.no_photography),
-                ),
-              ),
-            ),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Column(
+    if (!_visible) return const SizedBox.shrink();
+    return Mutation(
+        options: MutationOptions(
+            document: gql(cartDelete),
+            onCompleted: (resultData) {
+              widget.reload();
+            }),
+        builder: (runMutation, result) {
+          return Slidable(
+            key: ValueKey(widget.id),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 16.0, top: 10, right: 16),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(name /* 'Чай каркаде с\nапельсином' */,
-                              style: TextStyle(fontSize: 16)),
-                          const Text('450 мл',
-                              style: TextStyle(color: Colors.grey)),
-                          Mutation(
-                              options: MutationOptions(
-                                  document: gql(cartEdit),
-                                  onCompleted: (resultData) {
-                                    reload();
-                                  }),
-                              builder: (runMutation, result) {
-                                return Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          runMutation({
-                                            'rowIDs': [id],
-                                            'quantity': quantity - 1,
-                                          });
-                                        },
-                                        child: Icon(
-                                          SeverMetropol.Icon_Remove,
-                                        ),
-                                        style: TextButton.styleFrom(
-                                            minimumSize: const Size(24.0, 24.0),
-                                            padding: const EdgeInsets.all(0.0)),
-                                      ),
-                                    ),
-                                    Container(
-                                      alignment: Alignment.center,
-                                      width: 32,
-                                      height: 24,
-                                      child: Text('$quantity'),
-                                    ),
-                                    SizedBox(
-                                      width: 24,
-                                      height: 24,
-                                      child: TextButton(
-                                        onPressed: () {
-                                          runMutation({
-                                            'rowIDs': [id],
-                                            'quantity': quantity + 1,
-                                          });
-                                        },
-                                        child: Icon(
-                                          SeverMetropol.Icon_Add,
-                                        ),
-                                        style: TextButton.styleFrom(
-                                            minimumSize: const Size(24.0, 24.0),
-                                            padding: const EdgeInsets.all(0.0)),
-                                      ),
-                                    ),
-                                  ],
-                                );
-                              }),
-                        ],
+                  CachedNetworkImage(
+                    width: 64,
+                    height: 64,
+                    imageUrl: widget.image,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: const Color(0xFFECECEC),
+                      highlightColor: Colors.white,
+                      child: Container(
+                        color: const Color(0xFFECECEC),
                       ),
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Text('${price.floor()} ₽',
-                              style: TextStyle(
-                                  fontFamily: 'Noto Sans', fontSize: 16)),
-                          CustomPaint(
-                            painter: RedLine(),
-                            child: const Text('250 ₽',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    color: Colors.grey)),
-                          ),
-                        ],
+                    ),
+                    errorWidget: (context, url, error) => Container(
+                      color: const Color(0xFFECECEC),
+                      child: Center(
+                        child: const Icon(Icons.no_photography),
                       ),
-                    ],
+                    ),
                   ),
-                  const SizedBox(height: 13),
-                  const Divider(
-                    height: 1,
+                  const SizedBox(width: 12),
+                  Expanded(
+                    child: Column(
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                    widget
+                                        .name /* 'Чай каркаде с\nапельсином' */,
+                                    style: TextStyle(fontSize: 16)),
+                                const Text('450 мл',
+                                    style: TextStyle(color: Colors.grey)),
+                                Mutation(
+                                    options: MutationOptions(
+                                        document: gql(cartEdit),
+                                        onCompleted: (resultData) {
+                                          widget.reload();
+                                        }),
+                                    builder: (runMutation, result) {
+                                      return Row(
+                                        children: [
+                                          SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                runMutation({
+                                                  'rowIDs': [widget.id],
+                                                  'quantity':
+                                                      widget.quantity - 1,
+                                                });
+                                              },
+                                              child: Icon(
+                                                SeverMetropol.Icon_Remove,
+                                              ),
+                                              style: TextButton.styleFrom(
+                                                  minimumSize:
+                                                      const Size(24.0, 24.0),
+                                                  padding: const EdgeInsets.all(
+                                                      0.0)),
+                                            ),
+                                          ),
+                                          Container(
+                                            alignment: Alignment.center,
+                                            width: 32,
+                                            height: 24,
+                                            child: Text('${widget.quantity}'),
+                                          ),
+                                          SizedBox(
+                                            width: 24,
+                                            height: 24,
+                                            child: TextButton(
+                                              onPressed: () {
+                                                runMutation({
+                                                  'rowIDs': [widget.id],
+                                                  'quantity':
+                                                      widget.quantity + 1,
+                                                });
+                                              },
+                                              child: Icon(
+                                                SeverMetropol.Icon_Add,
+                                              ),
+                                              style: TextButton.styleFrom(
+                                                  minimumSize:
+                                                      const Size(24.0, 24.0),
+                                                  padding: const EdgeInsets.all(
+                                                      0.0)),
+                                            ),
+                                          ),
+                                        ],
+                                      );
+                                    }),
+                              ],
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('${widget.price.floor()} ₽',
+                                    style: TextStyle(
+                                        fontFamily: 'Noto Sans', fontSize: 16)),
+                                CustomPaint(
+                                  painter: RedLine(),
+                                  child: const Text('250 ₽',
+                                      style: TextStyle(
+                                          fontFamily: 'Noto Sans',
+                                          color: Colors.grey)),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 13),
+                        const Divider(
+                          height: 1,
+                        ),
+                      ],
+                    ),
                   ),
                 ],
               ),
             ),
-          ],
-        ),
-      ),
-      endActionPane: ActionPane(
-        motion: const ScrollMotion(),
-        children: [
-          Mutation(
-              options: MutationOptions(
-                  document: gql(cartDelete),
-                  onCompleted: (resultData) {
-                    reload();
-                  }),
-              builder: (runMutation, result) {
-                return SlidableAction(
+            endActionPane: ActionPane(
+              dismissible: DismissiblePane(onDismissed: () {
+                setState(() {
+                  _visible = false;
+                });
+                runMutation({
+                  'rowIDs': [widget.id]
+                });
+              }),
+              motion: const ScrollMotion(),
+              children: [
+                SlidableAction(
                   onPressed: (context) {
                     runMutation({
-                      'rowIDs': [id]
+                      'rowIDs': [widget.id]
                     });
                   },
                   backgroundColor: Theme.of(context).colorScheme.primary,
                   foregroundColor: Colors.white,
                   icon: SeverMetropol.Icon_Delete,
-                );
-              }),
-        ],
-      ),
-    );
+                )
+              ],
+            ),
+          );
+        });
   }
 }
