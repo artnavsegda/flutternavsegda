@@ -399,6 +399,7 @@ class _CartTileState extends State<CartTile> {
               ),
             ),
             endActionPane: ActionPane(
+              extentRatio: 0.2,
               dismissible: DismissiblePane(onDismissed: () {
                 setState(() {
                   _visible = false;
@@ -407,7 +408,7 @@ class _CartTileState extends State<CartTile> {
                   'rowIDs': [widget.id]
                 });
               }),
-              motion: const ScrollMotion(),
+              motion: const DrawerMotion(),
               children: [
                 SlidableAction(
                   onPressed: (context) {
