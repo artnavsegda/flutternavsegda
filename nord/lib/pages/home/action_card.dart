@@ -36,17 +36,21 @@ class ActionCard extends StatelessWidget {
                           builder: (context) => ActionPage(id: actionID)));
                 },
                 child: CachedNetworkImage(
-                    imageUrl: actionImage ?? "",
-                    placeholder: (context, url) => Shimmer.fromColors(
-                          baseColor: const Color(0xFFECECEC),
-                          highlightColor: Colors.white,
-                          child: Container(
-                            color: const Color(0xFFECECEC),
-                          ),
-                        ),
-                    errorWidget: (context, url, error) =>
-                        const Icon(Icons.no_photography),
-                    fit: BoxFit.cover),
+                  imageUrl: actionImage ?? "",
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: const Color(0xFFECECEC),
+                    highlightColor: Colors.white,
+                    child: Container(
+                      color: const Color(0xFFECECEC),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) =>
+                      const Icon(Icons.no_photography),
+                  imageBuilder: (context, imageProvider) => Ink.image(
+                    image: imageProvider,
+                    fit: BoxFit.cover,
+                  ),
+                ),
               ),
             ),
             const SizedBox(
