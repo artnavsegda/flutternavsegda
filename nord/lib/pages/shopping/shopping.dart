@@ -15,8 +15,15 @@ import 'registration.dart';
 import 'cart_is_empty.dart';
 import '../../gql.dart';
 
-class ShoppingPage extends StatelessWidget {
+class ShoppingPage extends StatefulWidget {
   const ShoppingPage({Key? key}) : super(key: key);
+
+  @override
+  State<ShoppingPage> createState() => _ShoppingPageState();
+}
+
+class _ShoppingPageState extends State<ShoppingPage> {
+  bool headerUp = false;
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +207,27 @@ class ShoppingPage extends StatelessWidget {
                 ),
               ],
             ),
-            bottomNavigationBar: Padding(
+            bottomNavigationBar: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                boxShadow: [
+                  BoxShadow(
+                    color: Color(0x33000000),
+                    blurRadius: 4,
+                    offset: Offset(0, 2),
+                  ),
+                  // BoxShadow(
+                  //   color: Color(0x1F000000),
+                  //   blurRadius: 10,
+                  //   offset: Offset(0, 1),
+                  // ),
+                  BoxShadow(
+                    color: Color(0x24000000),
+                    blurRadius: 5,
+                    offset: Offset(0, 4),
+                  )
+                ],
+              ),
               padding: const EdgeInsets.all(16.0),
               child: Row(
                 children: [

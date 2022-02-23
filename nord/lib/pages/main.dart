@@ -69,7 +69,7 @@ class _MainPageState extends State<MainPage>
         ),
         bottomNavigationBar: Container(
           decoration: const BoxDecoration(
-            boxShadow: <BoxShadow>[
+            boxShadow: [
               BoxShadow(
                 color: Color(0x33000000),
                 blurRadius: 5,
