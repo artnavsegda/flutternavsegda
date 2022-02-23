@@ -50,57 +50,48 @@ class ProductCard extends StatelessWidget {
                       child: const Icon(Icons.no_photography),
                     ),
                   ),
+                  imageBuilder: (context, imageProvider) =>
+                      Ink.image(image: imageProvider),
                 ),
-                Material(
-                    color: Colors.transparent,
-                    child: Stack(
-                      children: [
-                        InkWell(
-                          onTap: onTap,
-                        ),
-                        Positioned(
-                          right: 0,
-                          bottom: 0,
-                          child: Mutation(
-                            options: MutationOptions(
-                              document: gql(cartAdd),
-                              onCompleted: (resultData) {
-                                //print(resultData);
-                                Provider.of<CartState>(context, listen: false)
-                                    .cartAmount++;
+                InkWell(
+                  onTap: onTap,
+                ),
+                Positioned(
+                  right: 0,
+                  bottom: 0,
+                  child: Mutation(
+                    options: MutationOptions(
+                      document: gql(cartAdd),
+                      onCompleted: (resultData) {
+                        //print(resultData);
+                        Provider.of<CartState>(context, listen: false)
+                            .cartAmount++;
 
-                                fToast.showToast(
-                                    child:
-                                        NordToast("Товар добавлен в корзину"),
-                                    gravity: ToastGravity.TOP,
-                                    toastDuration: Duration(seconds: 1),
-                                    positionedToastBuilder: (context, child) {
-                                      return Positioned(
-                                        child: child,
-                                        right: 16.0,
-                                        left: 16.0,
-                                        top:
-                                            MediaQuery.of(context).padding.top +
-                                                4,
-                                      );
-                                    });
-                              },
-                            ),
-                            builder: (runMutation, result) {
-                              return IconButton(
-                                onPressed: () {
-                                  runMutation({'productID': product.iD});
-                                },
-                                icon: Icon(
-                                    SeverMetropol.Icon_Add_to_Shopping_Bag,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
+                        fToast.showToast(
+                            child: NordToast("Товар добавлен в корзину"),
+                            gravity: ToastGravity.TOP,
+                            toastDuration: Duration(seconds: 1),
+                            positionedToastBuilder: (context, child) {
+                              return Positioned(
+                                child: child,
+                                right: 16.0,
+                                left: 16.0,
+                                top: MediaQuery.of(context).padding.top + 4,
                               );
-                            },
-                          ),
-                        ),
-                      ],
-                    )),
+                            });
+                      },
+                    ),
+                    builder: (runMutation, result) {
+                      return IconButton(
+                        onPressed: () {
+                          runMutation({'productID': product.iD});
+                        },
+                        icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
+                            color: Theme.of(context).colorScheme.primary),
+                      );
+                    },
+                  ),
+                ),
                 Positioned(
                   right: 8,
                   top: 0,
