@@ -49,8 +49,16 @@ class HelpPage extends StatelessWidget {
                         SeverMetropol.Icon_East,
                         color: Theme.of(context).colorScheme.primary,
                       ),
+                      onTap: () => {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => HelpTopicPage(faqGroup),
+                          ),
+                        )
+                      },
                     )),
-                ListTile(
+/*                 ListTile(
                   title: Text('Бонусная программа'),
                   trailing: Icon(
                     SeverMetropol.Icon_East,
@@ -64,7 +72,7 @@ class HelpPage extends StatelessWidget {
                       ),
                     )
                   },
-                ),
+                ), */
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
@@ -80,13 +88,15 @@ class HelpPage extends StatelessWidget {
 }
 
 class HelpTopicPage extends StatelessWidget {
-  const HelpTopicPage({Key? key}) : super(key: key);
+  const HelpTopicPage(this.faqGroup, {Key? key}) : super(key: key);
+
+  final GraphFAQGroup faqGroup;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Бонусная программа'),
+          title: Text(faqGroup.name),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
