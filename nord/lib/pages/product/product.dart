@@ -92,6 +92,7 @@ class _ProductPageState extends State<ProductPage> {
             children: [
               Scaffold(
                 appBar: AppBar(
+                  elevation: headerUp ? 5 : null,
                   actions: [
                     IconButton(
                         onPressed: () {},
