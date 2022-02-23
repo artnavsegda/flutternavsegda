@@ -28,6 +28,7 @@ class _CatalogPageState extends State<CatalogPage>
       ItemPositionsListener.create();
 
   late TabController tabController;
+  int initialIndex = 0;
 
   @override
   void initState() {
@@ -242,8 +243,10 @@ class _CatalogPageState extends State<CatalogPage>
             nordCatalog.retainWhere((element) => element.products.isNotEmpty);
           }
 
-          tabController =
-              TabController(length: nordCatalog.length, vsync: this);
+          tabController = TabController(
+              length: nordCatalog.length,
+              vsync: this,
+              initialIndex: initialIndex);
 
           return Scaffold(
             appBar: AppBar(
@@ -312,6 +315,7 @@ class _CatalogPageState extends State<CatalogPage>
                 isScrollable: true,
                 indicatorSize: TabBarIndicatorSize.label,
                 onTap: (newPage) async {
+                  initialIndex = newPage;
                   noFlick = true;
                   await itemScrollController.scrollTo(
                       index: newPage,
