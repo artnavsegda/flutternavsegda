@@ -66,7 +66,8 @@ class PasswordPage extends StatelessWidget {
                     if (nordTokenResult.result == 0) {
                       Provider.of<LoginState>(context, listen: false).token =
                           nordTokenResult.token ?? '';
-                      Navigator.pop(context);
+                      Provider.of<LoginState>(context, listen: false).loggedIn =
+                          true;
                     } else {
                       showDialog(
                         context: context,
