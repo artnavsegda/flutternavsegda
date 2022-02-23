@@ -2,15 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import 'edit_user.dart';
-import 'gift_bonus.dart';
+
 import '../../login_state.dart';
 import '../../sever_metropol_icons.dart';
-import '../onboarding/onboarding.dart';
 import '../orders/orders.dart';
 import '../address/delivery_address.dart';
 import '../../gql.dart';
 import '../error/error.dart';
+
+import 'edit_user.dart';
+import 'gift_bonus.dart';
+import 'set_password.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -160,7 +162,15 @@ class UserPage extends StatelessWidget {
                 endIndent: 16,
               ),
               ListTile(
-                onTap: () async {},
+                onTap: () async {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const SetPasswordPage();
+                    },
+                  );
+                },
                 title: const Text("Смена пароля"),
                 leading: Icon(SeverMetropol.Icon_Lock,
                     color: Theme.of(context).colorScheme.primary),
