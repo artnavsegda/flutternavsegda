@@ -84,6 +84,7 @@ class _ActionPageState extends State<ActionPage> {
             children: [
               Scaffold(
                 appBar: AppBar(
+                  elevation: headerUp ? 5 : null,
                   //title: Text('Взрывная весна! Откр...'),
                   actions: [
                     IconButton(
