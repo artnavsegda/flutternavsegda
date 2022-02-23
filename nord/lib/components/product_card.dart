@@ -35,24 +35,32 @@ class ProductCard extends StatelessWidget {
             height: 160,
             child: Stack(
               children: [
-                CachedNetworkImage(
-                  imageUrl: product.picture ?? '',
-                  placeholder: (context, url) => Shimmer.fromColors(
-                    baseColor: const Color(0xFFECECEC),
-                    highlightColor: Colors.white,
-                    child: Container(
-                      color: const Color(0xFFECECEC),
+                if (product.picture!.isNotEmpty)
+                  CachedNetworkImage(
+                    imageUrl: product.picture ?? '',
+                    placeholder: (context, url) => Shimmer.fromColors(
+                      baseColor: const Color(0xFFECECEC),
+                      highlightColor: Colors.white,
+                      child: Container(
+                        color: const Color(0xFFECECEC),
+                      ),
                     ),
-                  ),
-                  errorWidget: (context, url, error) => Container(
+                    errorWidget: (context, url, error) => Container(
+                      color: const Color(0xFFECECEC),
+                      child: Center(
+                        child: const Icon(Icons.no_photography),
+                      ),
+                    ),
+                    imageBuilder: (context, imageProvider) =>
+                        Ink.image(image: imageProvider),
+                  )
+                else
+                  Container(
                     color: const Color(0xFFECECEC),
                     child: Center(
                       child: const Icon(Icons.no_photography),
                     ),
                   ),
-                  imageBuilder: (context, imageProvider) =>
-                      Ink.image(image: imageProvider),
-                ),
                 InkWell(
                   onTap: onTap,
                 ),
