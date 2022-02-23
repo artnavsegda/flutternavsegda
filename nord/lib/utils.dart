@@ -24,6 +24,13 @@ Color hexToColor(String code) {
   return Color(int.parse(code.substring(1, 7), radix: 16) + 0xFF000000);
 }
 
-String periodDate(int dateStart, int dateEnd) {
-  return "";
+String periodDate(int? dateStart, int? dateEnd) {
+  if (dateStart == null && dateEnd == null)
+    return '';
+  else if (dateStart == null)
+    return 'Только до 31 октября';
+  else if (dateEnd == null)
+    return 'C 31 октября';
+  else
+    return '15 октября–27 ноября';
 }

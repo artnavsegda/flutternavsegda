@@ -1349,9 +1349,12 @@ mutation editClient($clientGUID: String!, $name: String, $eMail: String, $phone:
 
 const String getActions = r'''
 query getActions {
-  getActions {
+  getActions
+  {
     iD
     name
+    dateStart
+    dateFinish
     picture
   }
 }

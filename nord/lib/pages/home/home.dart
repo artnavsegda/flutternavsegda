@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shimmer/shimmer.dart';
-import '../product/product.dart';
 
+import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/utils.dart';
+import '../product/product.dart';
 import '../../gql.dart';
 import '../../components/product_card.dart';
 import 'action_card.dart';
@@ -68,7 +69,8 @@ class HomePage extends StatelessWidget {
                     actionID: action.iD,
                     actionName: action.name,
                     actionImage: action.picture,
-                    actionDate: 'Только до 31 октября'),
+                    actionDate:
+                        periodDate(action.dateStart, action.dateFinish)),
               ),
             ],
           ),
