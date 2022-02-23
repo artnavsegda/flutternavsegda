@@ -13,6 +13,8 @@ import '../error/error.dart';
 import 'edit_user.dart';
 import 'gift_bonus.dart';
 import 'set_password.dart';
+import 'promocode.dart';
+import 'invite.dart';
 
 class UserPage extends StatelessWidget {
   const UserPage({Key? key}) : super(key: key);
@@ -100,7 +102,18 @@ class UserPage extends StatelessWidget {
                                 style: OutlinedButton.styleFrom(
                                   backgroundColor: Colors.white,
                                 ),
-                                onPressed: () {},
+                                onPressed: () {
+                                  showModalBottomSheet(
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return InvitePage(
+                                          codeInviteFriend:
+                                              userInfo.codeInviteFriend ??
+                                                  "no codes");
+                                    },
+                                  );
+                                },
                                 child: const Text('Позвать друга')),
                             TextButton(
                                 style: TextButton.styleFrom(
@@ -128,7 +141,15 @@ class UserPage extends StatelessWidget {
                     color: Theme.of(context).colorScheme.primary),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  showModalBottomSheet(
+                    isScrollControlled: true,
+                    context: context,
+                    builder: (BuildContext context) {
+                      return const Promocode();
+                    },
+                  );
+                },
                 title: const Text("Промокод"),
                 leading: Icon(SeverMetropol.Icon_Redeem_Card,
                     color: Theme.of(context).colorScheme.primary),
