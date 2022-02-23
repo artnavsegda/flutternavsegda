@@ -20,10 +20,20 @@ class CatalogPage extends StatefulWidget {
 class _CatalogPageState extends State<CatalogPage> {
   bool favMode = false;
 
+  final ItemScrollController itemScrollController = ItemScrollController();
+  final ItemPositionsListener itemPositionsListener =
+      ItemPositionsListener.create();
+
+  @override
+  void initState() {
+    super.initState();
+    itemPositionsListener.itemPositions.addListener(() {
+      print(itemPositionsListener.itemPositions.value.first.index);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
-    final ItemScrollController itemScrollController = ItemScrollController();
-
     return Query(
         options: QueryOptions(
           document: gql(getProducts),
@@ -50,6 +60,67 @@ class _CatalogPageState extends State<CatalogPage> {
           List<GraphCatalog> nordCatalog = List<GraphCatalog>.from(result
               .data!['getProducts']
               .map((model) => GraphCatalog.fromJson(model)));
+
+          nordCatalog.addAll([
+            GraphCatalog(iD: 12, name: 'AAAA', products: [
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+            ]),
+            GraphCatalog(iD: 12, name: 'BBBB', products: [
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+            ])
+          ]);
 
           if (favMode) {
             for (final element in nordCatalog) {
@@ -158,6 +229,7 @@ class _CatalogPageState extends State<CatalogPage> {
                         child: ScrollablePositionedList.builder(
                           itemCount: nordCatalog.length,
                           itemScrollController: itemScrollController,
+                          itemPositionsListener: itemPositionsListener,
                           itemBuilder: (context, index) {
                             return Padding(
                               padding: const EdgeInsets.all(16.0),
