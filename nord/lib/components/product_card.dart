@@ -35,67 +35,72 @@ class ProductCard extends StatelessWidget {
             height: 160,
             child: Stack(
               children: [
-                InkWell(
-                  onTap: onTap,
-                  child: CachedNetworkImage(
-                    imageUrl: product.picture ?? '',
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: const Color(0xFFECECEC),
-                      highlightColor: Colors.white,
-                      child: Container(
-                        color: const Color(0xFFECECEC),
-                      ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
+                CachedNetworkImage(
+                  imageUrl: product.picture ?? '',
+                  placeholder: (context, url) => Shimmer.fromColors(
+                    baseColor: const Color(0xFFECECEC),
+                    highlightColor: Colors.white,
+                    child: Container(
                       color: const Color(0xFFECECEC),
-                      child: Center(
-                        child: const Icon(Icons.no_photography),
-                      ),
+                    ),
+                  ),
+                  errorWidget: (context, url, error) => Container(
+                    color: const Color(0xFFECECEC),
+                    child: Center(
+                      child: const Icon(Icons.no_photography),
                     ),
                   ),
                 ),
-                Positioned(
-                  right: 0,
-                  bottom: 0,
-                  child: Mutation(
-                    options: MutationOptions(
-                      document: gql(cartAdd),
-                      onCompleted: (resultData) {
-                        //print(resultData);
-                        Provider.of<CartState>(context, listen: false)
-                            .cartAmount++;
+                Material(
+                    color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        InkWell(
+                          onTap: onTap,
+                        ),
+                        Positioned(
+                          right: 0,
+                          bottom: 0,
+                          child: Mutation(
+                            options: MutationOptions(
+                              document: gql(cartAdd),
+                              onCompleted: (resultData) {
+                                //print(resultData);
+                                Provider.of<CartState>(context, listen: false)
+                                    .cartAmount++;
 
-/*                         Fluttertoast.showToast(
-                            msg: "Товар добавлен в корзину",
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.TOP,
-                            timeInSecForIosWeb: 1); */
-
-                        fToast.showToast(
-                            child: NordToast("Товар добавлен в корзину"),
-                            gravity: ToastGravity.TOP,
-                            toastDuration: Duration(seconds: 1),
-                            positionedToastBuilder: (context, child) {
-                              return Positioned(
-                                child: child,
-                                right: 16.0,
-                                left: 16.0,
-                                top: MediaQuery.of(context).padding.top + 4,
+                                fToast.showToast(
+                                    child:
+                                        NordToast("Товар добавлен в корзину"),
+                                    gravity: ToastGravity.TOP,
+                                    toastDuration: Duration(seconds: 1),
+                                    positionedToastBuilder: (context, child) {
+                                      return Positioned(
+                                        child: child,
+                                        right: 16.0,
+                                        left: 16.0,
+                                        top:
+                                            MediaQuery.of(context).padding.top +
+                                                4,
+                                      );
+                                    });
+                              },
+                            ),
+                            builder: (runMutation, result) {
+                              return IconButton(
+                                onPressed: () {
+                                  runMutation({'productID': product.iD});
+                                },
+                                icon: Icon(
+                                    SeverMetropol.Icon_Add_to_Shopping_Bag,
+                                    color:
+                                        Theme.of(context).colorScheme.primary),
                               );
-                            });
-                      },
-                    ),
-                    builder: (runMutation, result) {
-                      return IconButton(
-                        onPressed: () {
-                          runMutation({'productID': product.iD});
-                        },
-                        icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
-                            color: Theme.of(context).colorScheme.primary),
-                      );
-                    },
-                  ),
-                ),
+                            },
+                          ),
+                        ),
+                      ],
+                    )),
                 Positioned(
                   right: 8,
                   top: 0,
