@@ -27,7 +27,8 @@ class _CatalogPageState extends State<CatalogPage>
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
 
-  late TabController tabController;
+  late TabController tabController =
+      TabController(length: 0, vsync: this, initialIndex: 0);
   int initialIndex = 0;
 
   @override
@@ -44,6 +45,7 @@ class _CatalogPageState extends State<CatalogPage>
         tabController.animateTo(lowestPosition.index);
       }
 
+      //if (!noFlick) {
       if (headerUp) {
         if (lowestPosition.index == 0 &&
             lowestPosition.itemLeadingEdge == 0.0) {
@@ -58,6 +60,7 @@ class _CatalogPageState extends State<CatalogPage>
           });
         }
       }
+      //}
     });
   }
 
@@ -245,10 +248,11 @@ class _CatalogPageState extends State<CatalogPage>
             nordCatalog.retainWhere((element) => element.products.isNotEmpty);
           }
 
-          tabController = TabController(
-              length: nordCatalog.length,
-              vsync: this,
-              initialIndex: initialIndex);
+          if (tabController.length != nordCatalog.length)
+            tabController = TabController(
+                length: nordCatalog.length,
+                vsync: this,
+                initialIndex: initialIndex);
 
           return Scaffold(
             appBar: AppBar(
