@@ -74,7 +74,7 @@ class _CatalogPageState extends State<CatalogPage>
               .map((model) => GraphCatalog.fromJson(model)));
 
           nordCatalog.addAll([
-            GraphCatalog(iD: 12, name: 'AAAA', products: [
+            GraphCatalog(iD: 12, name: 'Выпечка', products: [
               GraphProduct(
                   iD: 12,
                   familyID: 23,
@@ -103,7 +103,7 @@ class _CatalogPageState extends State<CatalogPage>
                   stickerPictures: [],
                   attributes: []),
             ]),
-            GraphCatalog(iD: 12, name: 'BBBB', products: [
+            GraphCatalog(iD: 13, name: 'Кексы', products: [
               GraphProduct(
                   iD: 12,
                   familyID: 23,
@@ -131,7 +131,94 @@ class _CatalogPageState extends State<CatalogPage>
                   favorites: 10,
                   stickerPictures: [],
                   attributes: []),
-            ])
+            ]),
+            GraphCatalog(iD: 14, name: 'Конфеты', products: [
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+            ]),
+            GraphCatalog(iD: 15, name: 'Мороженое', products: [
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                iD: 12,
+                familyID: 23,
+                topCatalogID: 43,
+                name: 'sdsd',
+                isFavorite: true,
+                favorites: 10,
+                stickerPictures: [],
+                attributes: [],
+              ),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                  iD: 12,
+                  familyID: 23,
+                  topCatalogID: 43,
+                  name: 'sdsd',
+                  isFavorite: true,
+                  favorites: 10,
+                  stickerPictures: [],
+                  attributes: []),
+              GraphProduct(
+                iD: 12,
+                familyID: 23,
+                topCatalogID: 43,
+                name: 'sdsd',
+                isFavorite: true,
+                favorites: 10,
+                stickerPictures: [],
+                attributes: [],
+              ),
+            ]),
           ]);
 
           if (favMode) {
@@ -222,10 +309,6 @@ class _CatalogPageState extends State<CatalogPage>
                         .cast<Widget>(),
 
 /*                       [
-                      Tab(text: "Выпечка"),
-                      Tab(text: "Кексы"),
-                      Tab(text: "Конфеты"),
-                      Tab(text: "Мороженое"),
                       Tab(text: "Выпечка"),
                       Tab(text: "Кексы"),
                       Tab(text: "Конфеты"),
