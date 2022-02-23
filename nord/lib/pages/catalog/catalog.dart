@@ -17,18 +17,30 @@ class CatalogPage extends StatefulWidget {
   State<CatalogPage> createState() => _CatalogPageState();
 }
 
-class _CatalogPageState extends State<CatalogPage> {
+class _CatalogPageState extends State<CatalogPage>
+    with TickerProviderStateMixin {
   bool favMode = false;
+  bool noFlick = false;
 
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
       ItemPositionsListener.create();
 
+  late TabController tabController;
+
   @override
   void initState() {
     super.initState();
     itemPositionsListener.itemPositions.addListener(() {
-      print(itemPositionsListener.itemPositions.value.first.index);
+/*       tabController
+          .animateTo(itemPositionsListener.itemPositions.value.first.index); */
+      if (itemPositionsListener.itemPositions.value.first.index !=
+              tabController.index &&
+          noFlick == false) {
+        tabController
+            .animateTo(itemPositionsListener.itemPositions.value.first.index);
+      }
+      //print(itemPositionsListener.itemPositions.value.first.index);
     });
   }
 
@@ -129,6 +141,9 @@ class _CatalogPageState extends State<CatalogPage> {
             nordCatalog.retainWhere((element) => element.products.isNotEmpty);
           }
 
+          tabController =
+              TabController(length: nordCatalog.length, vsync: this);
+
           return Scaffold(
             body: SafeArea(
               child: Column(
@@ -186,37 +201,36 @@ class _CatalogPageState extends State<CatalogPage> {
                       const SizedBox(width: 8.0),
                     ],
                   ),
-                  DefaultTabController(
-                    length: nordCatalog.length,
-                    child: TabBar(
-                      indicatorPadding: EdgeInsets.only(bottom: 8.0),
-                      isScrollable: true,
-                      indicatorSize: TabBarIndicatorSize.label,
-                      onTap: (newPage) {
-                        itemScrollController.scrollTo(
-                            index: newPage,
-                            duration: const Duration(seconds: 1),
-                            curve: Curves.easeInOutCubic);
-                      },
-                      unselectedLabelColor:
-                          Theme.of(context).colorScheme.primary,
-                      labelColor: Colors.black38,
-                      tabs: nordCatalog
-                          .map((category) => Tab(text: category.name))
-                          .toList()
-                          .cast<Widget>(),
+                  TabBar(
+                    controller: tabController,
+                    indicatorPadding: EdgeInsets.only(bottom: 8.0),
+                    isScrollable: true,
+                    indicatorSize: TabBarIndicatorSize.label,
+                    onTap: (newPage) async {
+                      noFlick = true;
+                      await itemScrollController.scrollTo(
+                          index: newPage,
+                          duration: const Duration(seconds: 1),
+                          curve: Curves.easeInOutCubic);
+                      noFlick = false;
+                    },
+                    unselectedLabelColor: Theme.of(context).colorScheme.primary,
+                    labelColor: Colors.black38,
+                    tabs: nordCatalog
+                        .map((category) => Tab(text: category.name))
+                        .toList()
+                        .cast<Widget>(),
 
 /*                       [
-                        Tab(text: "Выпечка"),
-                        Tab(text: "Кексы"),
-                        Tab(text: "Конфеты"),
-                        Tab(text: "Мороженое"),
-                        Tab(text: "Выпечка"),
-                        Tab(text: "Кексы"),
-                        Tab(text: "Конфеты"),
-                        Tab(text: "Мороженое"),
-                      ], */
-                    ),
+                      Tab(text: "Выпечка"),
+                      Tab(text: "Кексы"),
+                      Tab(text: "Конфеты"),
+                      Tab(text: "Мороженое"),
+                      Tab(text: "Выпечка"),
+                      Tab(text: "Кексы"),
+                      Tab(text: "Конфеты"),
+                      Tab(text: "Мороженое"),
+                    ], */
                   ),
                   Expanded(
                     child: Material(
