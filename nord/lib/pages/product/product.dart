@@ -31,35 +31,38 @@ class _ProductPageState extends State<ProductPage> {
   final _scrollController = ScrollController();
   late FToast fToast;
 
+  void checkPos() {
+    if (_scrollController.offset > 50 && headerUp == false) {
+      setState(() {
+        headerUp = true;
+      });
+    } else if (_scrollController.offset < 51 && headerUp == true) {
+      {
+        setState(() {
+          headerUp = false;
+        });
+      }
+    }
+
+    if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent &&
+        scrollAtBottom == false) {
+      setState(() {
+        scrollAtBottom = true;
+      });
+    } else if (_scrollController.offset <
+            _scrollController.position.maxScrollExtent &&
+        scrollAtBottom == true) {
+      setState(() {
+        scrollAtBottom = false;
+      });
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    _scrollController.addListener(
-      () {
-        if (_scrollController.offset > 50 && headerUp == false) {
-          setState(() {
-            headerUp = true;
-          });
-        } else if (_scrollController.offset < 51) {
-          {
-            setState(() {
-              headerUp = false;
-            });
-          }
-        }
-
-        if (_scrollController.offset >=
-            _scrollController.position.maxScrollExtent) {
-          setState(() {
-            scrollAtBottom = true;
-          });
-        } else {
-          setState(() {
-            scrollAtBottom = false;
-          });
-        }
-      },
-    );
+    _scrollController.addListener(checkPos);
 
     fToast = FToast();
     fToast.init(context);
@@ -368,6 +371,10 @@ class _ProductPageState extends State<ProductPage> {
                         onTap: (newPage) {
                           setState(() {
                             page = newPage;
+                          });
+
+                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                            checkPos();
                           });
                         },
                         unselectedLabelColor:

@@ -33,7 +33,7 @@ class _ActionPageState extends State<ActionPage> {
           setState(() {
             headerUp = true;
           });
-        } else if (_scrollController.offset < 1) {
+        } else if (_scrollController.offset < 1 && headerUp == true) {
           {
             setState(() {
               headerUp = false;
