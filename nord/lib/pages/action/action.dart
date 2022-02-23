@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/shop_tile.dart';
-
+import 'package:nord/utils.dart';
 import 'package:nord/components/product_card.dart';
 import '../../components/components.dart';
 import '../product/product.dart';
@@ -109,7 +110,8 @@ class _ActionPageState extends State<ActionPage> {
                     Padding(
                       padding: const EdgeInsets.symmetric(
                           horizontal: 16.0, vertical: 8),
-                      child: Text('15 октября–27 ноября',
+                      child: Text(
+                          periodDate(action.dateStart, action.dateFinish),
                           style: Theme.of(context)
                               .textTheme
                               .headlineSmall!
