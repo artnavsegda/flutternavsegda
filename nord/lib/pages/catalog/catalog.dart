@@ -38,6 +38,8 @@ class _CatalogPageState extends State<CatalogPage>
           .reduce((value, element) =>
               value.index > element.index ? element : value);
 
+      if (!noFlick) initialIndex = lowestPosition.index;
+
       if (lowestPosition.index != tabController.index && noFlick == false) {
         tabController.animateTo(lowestPosition.index);
       }
