@@ -148,49 +148,53 @@ class _CatalogPageState extends State<CatalogPage> {
                     ),
                   ),
                   Expanded(
-                    child: RefreshIndicator(
-                      onRefresh: () async {
-                        await refetch!();
-                        await Future.delayed(const Duration(seconds: 1));
-                      },
-                      child: ScrollablePositionedList.builder(
-                        itemCount: nordCatalog.length,
-                        itemScrollController: itemScrollController,
-                        itemBuilder: (context, index) {
-                          return Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(nordCatalog[index].name,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headlineSmall),
-                                const SizedBox(height: 12),
-                                Wrap(
-                                  //spacing: 8.0,
-                                  runSpacing: 32.0,
-                                  children: nordCatalog[index]
-                                      .products
-                                      .map((product) => ProductCard(
-                                            product: product,
-                                            onTap: () async {
-                                              await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                      builder: (context) =>
-                                                          ProductPage(
-                                                              id: product.iD)));
-                                              refetch!();
-                                            },
-                                          ))
-                                      .toList()
-                                      .cast<Widget>(),
-                                ),
-                              ],
-                            ),
-                          );
+                    child: Material(
+                      color: Colors.white,
+                      child: RefreshIndicator(
+                        onRefresh: () async {
+                          await refetch!();
+                          await Future.delayed(const Duration(seconds: 1));
                         },
+                        child: ScrollablePositionedList.builder(
+                          itemCount: nordCatalog.length,
+                          itemScrollController: itemScrollController,
+                          itemBuilder: (context, index) {
+                            return Padding(
+                              padding: const EdgeInsets.all(16.0),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(nordCatalog[index].name,
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .headlineSmall),
+                                  const SizedBox(height: 12),
+                                  Wrap(
+                                    //spacing: 8.0,
+                                    runSpacing: 32.0,
+                                    children: nordCatalog[index]
+                                        .products
+                                        .map((product) => ProductCard(
+                                              product: product,
+                                              onTap: () async {
+                                                await Navigator.push(
+                                                    context,
+                                                    MaterialPageRoute(
+                                                        builder: (context) =>
+                                                            ProductPage(
+                                                                id: product
+                                                                    .iD)));
+                                                refetch!();
+                                              },
+                                            ))
+                                        .toList()
+                                        .cast<Widget>(),
+                                  ),
+                                ],
+                              ),
+                            );
+                          },
+                        ),
                       ),
                     ),
                   ),

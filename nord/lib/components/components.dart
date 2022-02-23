@@ -91,6 +91,7 @@ class AddressTile2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListTile(
+      tileColor: Colors.white,
       onTap: () {
         showModalBottomSheet(
           backgroundColor: Colors.white,
