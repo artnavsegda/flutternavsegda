@@ -108,14 +108,10 @@ class HelpTopicPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            ExpansionTile(
-              title: Text('Термины и определения'),
-              children: [],
-            ),
-            ExpansionTile(
-              title: Text('Общие положения'),
-              children: [],
-            ),
+            ...faqGroup.questions.map((question) => ExpansionTile(
+                  title: Text(question.question),
+                  children: [],
+                )),
             ExpansionTile(
               title: Text('Как копить и тратить бонусы'),
               children: [
