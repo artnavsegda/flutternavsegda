@@ -26,6 +26,7 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> {
   int page = 0;
   bool headerUp = false;
+  bool scrollAtBottom = false;
   final _controller = PageController();
   final _scrollController = ScrollController();
   late FToast fToast;
@@ -45,6 +46,17 @@ class _ProductPageState extends State<ProductPage> {
               headerUp = false;
             });
           }
+        }
+
+        if (_scrollController.offset >=
+            _scrollController.position.maxScrollExtent) {
+          setState(() {
+            scrollAtBottom = true;
+          });
+        } else {
+          setState(() {
+            scrollAtBottom = false;
+          });
         }
       },
     );
@@ -548,7 +560,29 @@ class _ProductPageState extends State<ProductPage> {
                     ][page],
                   ],
                 ),
-                bottomNavigationBar: Padding(
+                bottomNavigationBar: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: scrollAtBottom
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: Color(0x33000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                            BoxShadow(
+                              color: Color(0x1F000000),
+                              blurRadius: 10,
+                              offset: Offset(0, 1),
+                            ),
+                            BoxShadow(
+                              color: Color(0x24000000),
+                              blurRadius: 5,
+                              offset: Offset(0, 4),
+                            )
+                          ],
+                  ),
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
@@ -573,7 +607,7 @@ class _ProductPageState extends State<ProductPage> {
                                     );
                                   });
 
-/*                               Fluttertoast.showToast(
+                              /*                               Fluttertoast.showToast(
                                   msg: "Товар добавлен в корзину",
                                   toastLength: Toast.LENGTH_SHORT,
                                   gravity: ToastGravity.TOP,

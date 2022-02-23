@@ -72,18 +72,18 @@ class _MainPageState extends State<MainPage>
             boxShadow: <BoxShadow>[
               BoxShadow(
                 color: Color(0x33000000),
-                blurRadius: 5.0,
-                offset: Offset(0.0, 5),
+                blurRadius: 5,
+                offset: Offset(0, 5),
               ),
               // BoxShadow(
               //   color: Color(0x1F000000),
               //   blurRadius: 14,
-              //   offset: Offset(0.0, 3),
+              //   offset: Offset(0, 3),
               // ),
               BoxShadow(
                 color: Color(0x24000000),
                 blurRadius: 10,
-                offset: Offset(0.0, 8),
+                offset: Offset(0, 8),
               )
             ],
           ),
