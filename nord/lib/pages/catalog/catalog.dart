@@ -21,6 +21,7 @@ class _CatalogPageState extends State<CatalogPage>
     with TickerProviderStateMixin {
   bool favMode = false;
   bool noFlick = false;
+  bool headerUp = false;
 
   final ItemScrollController itemScrollController = ItemScrollController();
   final ItemPositionsListener itemPositionsListener =
@@ -32,15 +33,28 @@ class _CatalogPageState extends State<CatalogPage>
   void initState() {
     super.initState();
     itemPositionsListener.itemPositions.addListener(() {
-/*       tabController
-          .animateTo(itemPositionsListener.itemPositions.value.first.index); */
-      if (itemPositionsListener.itemPositions.value.first.index !=
-              tabController.index &&
-          noFlick == false) {
-        tabController
-            .animateTo(itemPositionsListener.itemPositions.value.first.index);
+      ItemPosition lowestPosition = itemPositionsListener.itemPositions.value
+          .reduce((value, element) =>
+              value.index > element.index ? element : value);
+
+      if (lowestPosition.index != tabController.index && noFlick == false) {
+        tabController.animateTo(lowestPosition.index);
       }
-      //print(itemPositionsListener.itemPositions.value.first.index);
+
+      if (headerUp) {
+        if (lowestPosition.index == 0 &&
+            lowestPosition.itemLeadingEdge == 0.0) {
+          setState(() {
+            headerUp = false;
+          });
+        }
+      } else {
+        if (lowestPosition.index > 0 || lowestPosition.itemLeadingEdge < 0.0) {
+          setState(() {
+            headerUp = true;
+          });
+        }
+      }
     });
   }
 
@@ -232,11 +246,13 @@ class _CatalogPageState extends State<CatalogPage>
               TabController(length: nordCatalog.length, vsync: this);
 
           return Scaffold(
-            body: SafeArea(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
+            appBar: AppBar(
+              elevation: headerUp ? 3 : null,
+              toolbarHeight: 120,
+              flexibleSpace: SafeArea(
+                  child: Column(
                 children: [
-                  const AddressTile2(),
+                  AddressTile2(),
                   Row(
                     children: [
                       const SizedBox(width: 16.0),
@@ -288,86 +304,74 @@ class _CatalogPageState extends State<CatalogPage>
                       const SizedBox(width: 8.0),
                     ],
                   ),
-                  TabBar(
-                    controller: tabController,
-                    indicatorPadding: EdgeInsets.only(bottom: 8.0),
-                    isScrollable: true,
-                    indicatorSize: TabBarIndicatorSize.label,
-                    onTap: (newPage) async {
-                      noFlick = true;
-                      await itemScrollController.scrollTo(
-                          index: newPage,
-                          duration: const Duration(seconds: 1),
-                          curve: Curves.easeInOutCubic);
-                      noFlick = false;
-                    },
-                    unselectedLabelColor: Theme.of(context).colorScheme.primary,
-                    labelColor: Colors.black38,
-                    tabs: nordCatalog
-                        .map((category) => Tab(text: category.name))
-                        .toList()
-                        .cast<Widget>(),
-
-/*                       [
-                      Tab(text: "Выпечка"),
-                      Tab(text: "Кексы"),
-                      Tab(text: "Конфеты"),
-                      Tab(text: "Мороженое"),
-                    ], */
-                  ),
-                  Expanded(
-                    child: Material(
-                      color: Colors.white,
-                      child: RefreshIndicator(
-                        onRefresh: () async {
-                          await refetch!();
-                          await Future.delayed(const Duration(seconds: 1));
-                        },
-                        child: ScrollablePositionedList.builder(
-                          itemCount: nordCatalog.length,
-                          itemScrollController: itemScrollController,
-                          itemPositionsListener: itemPositionsListener,
-                          itemBuilder: (context, index) {
-                            return Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(nordCatalog[index].name,
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall),
-                                  const SizedBox(height: 12),
-                                  Wrap(
-                                    //spacing: 8.0,
-                                    runSpacing: 32.0,
-                                    children: nordCatalog[index]
-                                        .products
-                                        .map((product) => ProductCard(
-                                              product: product,
-                                              onTap: () async {
-                                                await Navigator.push(
-                                                    context,
-                                                    MaterialPageRoute(
-                                                        builder: (context) =>
-                                                            ProductPage(
-                                                                id: product
-                                                                    .iD)));
-                                                refetch!();
-                                              },
-                                            ))
-                                        .toList()
-                                        .cast<Widget>(),
-                                  ),
-                                ],
-                              ),
-                            );
-                          },
-                        ),
-                      ),
-                    ),
-                  ),
                 ],
+              )),
+              bottom: TabBar(
+                controller: tabController,
+                indicatorPadding: EdgeInsets.only(bottom: 8.0),
+                isScrollable: true,
+                indicatorSize: TabBarIndicatorSize.label,
+                onTap: (newPage) async {
+                  noFlick = true;
+                  await itemScrollController.scrollTo(
+                      index: newPage,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.easeInOutCubic);
+                  noFlick = false;
+                },
+                unselectedLabelColor: Theme.of(context).colorScheme.primary,
+                labelColor: Colors.black38,
+                tabs: nordCatalog
+                    .map((category) => Tab(text: category.name))
+                    .toList()
+                    .cast<Widget>(),
+              ),
+            ),
+            body: Material(
+              color: Colors.white,
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  await refetch!();
+                  await Future.delayed(const Duration(seconds: 1));
+                },
+                child: ScrollablePositionedList.builder(
+                  itemCount: nordCatalog.length,
+                  itemScrollController: itemScrollController,
+                  itemPositionsListener: itemPositionsListener,
+                  itemBuilder: (context, index) {
+                    return Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(nordCatalog[index].name,
+                              style: Theme.of(context).textTheme.headlineSmall),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            //spacing: 8.0,
+                            runSpacing: 32.0,
+                            children: nordCatalog[index]
+                                .products
+                                .map((product) => ProductCard(
+                                      product: product,
+                                      onTap: () async {
+                                        await Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProductPage(
+                                                        id: product.iD)));
+                                        refetch!();
+                                      },
+                                    ))
+                                .toList()
+                                .cast<Widget>(),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           );
