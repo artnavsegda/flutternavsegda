@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
@@ -57,32 +58,29 @@ class PasswordPage extends StatelessWidget {
                     ),
                   );
                 },
-                onCompleted: (dynamic resultData) async {
-                  //print(resultData);
-                  if (resultData != null) {
-                    GraphTokenResult nordTokenResult =
-                        GraphTokenResult.fromJson(resultData['checkClient']);
-
-                    if (nordTokenResult.result == 0) {
-                      Provider.of<LoginState>(context, listen: false).token =
-                          nordTokenResult.token ?? '';
-                      Provider.of<LoginState>(context, listen: false).loggedIn =
-                          true;
-                    } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Ошибка'),
-                          content: Text('${nordTokenResult.errorMessage}'),
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
-                    }
+                onCompleted: (dynamic resultData) {
+                  GraphClientResult nordClientResult =
+                      GraphClientResult.fromJson(resultData['checkClient']);
+                  if (nordClientResult.result == 0) {
+                    Provider.of<LoginState>(context, listen: false).token =
+                        nordClientResult.token ?? '';
+                    Provider.of<LoginState>(context, listen: false).loggedIn =
+                        true;
+                    context.go('/main');
+                  } else {
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) => AlertDialog(
+                        title: const Text('Ошибка'),
+                        content: Text('${nordClientResult.errorMessage}'),
+                        actions: [
+                          TextButton(
+                            onPressed: () => Navigator.pop(context, 'OK'),
+                            child: const Text('OK'),
+                          ),
+                        ],
+                      ),
+                    );
                   }
                 }),
             builder: (runMutation, result) {
