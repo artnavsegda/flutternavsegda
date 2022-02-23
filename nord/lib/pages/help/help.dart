@@ -110,7 +110,32 @@ class HelpTopicPage extends StatelessWidget {
           children: [
             ...faqGroup.questions.map((question) => ExpansionTile(
                   title: Text(question.question),
-                  children: [],
+                  children: [
+                    Query(
+                        options: QueryOptions(
+                          document: gql(getFAQ),
+                          fetchPolicy: FetchPolicy.cacheFirst,
+                          variables: {
+                            'fAQQuestionID': question.iD,
+                          },
+                        ),
+                        builder: (result, {fetchMore, refetch}) {
+                          if (result.hasException) {
+                            return Text(result.exception.toString());
+                          }
+
+                          if (result.isLoading) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          GraphFAQ faq =
+                              GraphFAQ.fromJson(result.data!['getFAQ']);
+
+                          return Text(faq.answer);
+                        })
+                  ],
                 )),
             ExpansionTile(
               title: Text('Как копить и тратить бонусы'),
