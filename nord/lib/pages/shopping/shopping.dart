@@ -84,128 +84,120 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           child: const Text('Очистить'));
                     }),
               ],
+              bottom: PreferredSize(
+                preferredSize: Size.fromHeight(50.0),
+                child: AddressTile2(),
+              ),
+              shadowColor: Colors.white,
+              elevation: headerUp ? 2 : null,
             ),
-            body: Column(
-              children: [
-                const AddressTile2(),
-                Expanded(
-                  child: RefreshIndicator(
-                    onRefresh: () async {
-                      await refetch!();
-                      await Future.delayed(const Duration(seconds: 1));
+            body: RefreshIndicator(
+              onRefresh: () async {
+                await refetch!();
+                await Future.delayed(const Duration(seconds: 1));
+              },
+              child: ListView(
+                children: [
+                  ...cart.map(
+                    (item) {
+                      return CartTile(
+                        key: ValueKey(item.rowID),
+                        name: item.productName,
+                        image: item.picture ?? '',
+                        price: item.amount,
+                        id: item.rowID,
+                        reload: () => refetch!(),
+                        quantity: item.quantity,
+                      );
                     },
-                    child: ListView(
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: Text(
+                      'Сумма заказа',
+                      style: Theme.of(context).textTheme.headlineSmall,
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(16.0),
+                    child: TextField(
+                      decoration: const InputDecoration(
+                        labelText: "Промокод",
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
                       children: [
-                        ...cart.map(
-                          (item) {
-                            return CartTile(
-                              key: ValueKey(item.rowID),
-                              name: item.productName,
-                              image: item.picture ?? '',
-                              price: item.amount,
-                              id: item.rowID,
-                              reload: () => refetch!(),
-                              quantity: item.quantity,
-                            );
-                          },
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          textBaseline: TextBaseline.ideographic,
+                          children: [
+                            Text('Сумма заказа'),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: DottedLine(
+                                  dashColor: Colors.grey, dashLength: 2),
+                            )),
+                            Text('1 435 ₽',
+                                style: TextStyle(fontFamily: 'Noto Sans')),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: Text(
-                            'Сумма заказа',
-                            style: Theme.of(context).textTheme.headlineSmall,
-                          ),
+                        SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Скидка'),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: DottedLine(
+                                  dashColor: Colors.grey, dashLength: 2),
+                            )),
+                            Text('Бесплатно'),
+                          ],
                         ),
-                        Padding(
-                          padding: EdgeInsets.all(16.0),
-                          child: TextField(
-                            decoration: const InputDecoration(
-                              labelText: "Промокод",
-                            ),
-                          ),
+                        SizedBox(height: 16),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Промокод'),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: DottedLine(
+                                  dashColor: Colors.grey, dashLength: 2),
+                            )),
+                            Text('- 110 ₽',
+                                style: TextStyle(fontFamily: 'Noto Sans')),
+                          ],
                         ),
-                        Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                textBaseline: TextBaseline.ideographic,
-                                children: [
-                                  Text('Сумма заказа'),
-                                  Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: DottedLine(
-                                        dashColor: Colors.grey, dashLength: 2),
-                                  )),
-                                  Text('1 435 ₽',
-                                      style:
-                                          TextStyle(fontFamily: 'Noto Sans')),
-                                ],
-                              ),
-                              SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text('Скидка'),
-                                  Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: DottedLine(
-                                        dashColor: Colors.grey, dashLength: 2),
-                                  )),
-                                  Text('Бесплатно'),
-                                ],
-                              ),
-                              SizedBox(height: 16),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text('Промокод'),
-                                  Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: DottedLine(
-                                        dashColor: Colors.grey, dashLength: 2),
-                                  )),
-                                  Text('- 110 ₽',
-                                      style:
-                                          TextStyle(fontFamily: 'Noto Sans')),
-                                ],
-                              ),
-                              Divider(height: 32),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                crossAxisAlignment: CrossAxisAlignment.end,
-                                children: [
-                                  Text('Общая сумма заказа'),
-                                  Expanded(
-                                      child: Padding(
-                                    padding: const EdgeInsets.all(4.0),
-                                    child: DottedLine(
-                                        dashColor: Colors.grey, dashLength: 2),
-                                  )),
-                                  Text('1 325 ₽',
-                                      style:
-                                          TextStyle(fontFamily: 'Noto Sans')),
-                                ],
-                              ),
-                            ],
-                          ),
+                        Divider(height: 32),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text('Общая сумма заказа'),
+                            Expanded(
+                                child: Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: DottedLine(
+                                  dashColor: Colors.grey, dashLength: 2),
+                            )),
+                            Text('1 325 ₽',
+                                style: TextStyle(fontFamily: 'Noto Sans')),
+                          ],
                         ),
                       ],
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
