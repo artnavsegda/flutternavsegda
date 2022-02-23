@@ -103,6 +103,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -112,6 +114,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -121,6 +125,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
             ]),
             GraphCatalog(iD: 13, name: 'Кексы', products: [
@@ -132,6 +138,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -141,6 +149,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -150,6 +160,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
             ]),
             GraphCatalog(iD: 14, name: 'Конфеты', products: [
@@ -161,6 +173,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -170,6 +184,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -179,6 +195,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
             ]),
             GraphCatalog(iD: 15, name: 'Мороженое', products: [
@@ -190,6 +208,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -199,6 +219,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                 iD: 12,
@@ -208,6 +230,8 @@ class _CatalogPageState extends State<CatalogPage>
                 isFavorite: true,
                 favorites: 10,
                 stickerPictures: [],
+                picture:
+                    'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                 attributes: [],
               ),
               GraphProduct(
@@ -218,6 +242,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                   iD: 12,
@@ -227,6 +253,8 @@ class _CatalogPageState extends State<CatalogPage>
                   isFavorite: true,
                   favorites: 10,
                   stickerPictures: [],
+                  picture:
+                      'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                   attributes: []),
               GraphProduct(
                 iD: 12,
@@ -236,6 +264,8 @@ class _CatalogPageState extends State<CatalogPage>
                 isFavorite: true,
                 favorites: 10,
                 stickerPictures: [],
+                picture:
+                    'https://demo.cyberiasoft.com/SeverMetropolService/api/tools/picture/52.png?IsPreview=true&refresh=637797843623200000',
                 attributes: [],
               ),
             ]),
