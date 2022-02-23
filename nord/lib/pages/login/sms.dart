@@ -4,7 +4,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../login_state.dart';
-import '../../gql.dart';
+import 'package:nord/gql.dart';
 
 class SmsPage extends StatelessWidget {
   const SmsPage({Key? key, this.phone}) : super(key: key);
