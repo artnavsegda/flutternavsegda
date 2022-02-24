@@ -24,18 +24,23 @@ class GradientButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(2.0),
         gradient: const LinearGradient(
             colors: [Color(0xFFCD0643), Color(0xFFB0063A)]),
       ),
       child: ElevatedButton(
         style: style?.copyWith(
-              foregroundColor: MaterialStateProperty.all(Colors.transparent),
-              shadowColor: MaterialStateProperty.all(Colors.transparent),
-            ) ??
+                foregroundColor: MaterialStateProperty.all(Colors.transparent),
+                shadowColor: MaterialStateProperty.all(Colors.transparent),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ))) ??
             ElevatedButton.styleFrom(
               primary: Colors.transparent,
               shadowColor: Colors.transparent,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(2.0),
+              ),
             ),
         key: key,
         onPressed: onPressed,

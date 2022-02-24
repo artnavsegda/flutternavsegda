@@ -63,10 +63,16 @@ class NordApp extends StatelessWidget {
         style: OutlinedButton.styleFrom(
           side: BorderSide(width: 1.0, color: Colors.red.shade900),
           elevation: 0.0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2.0),
+          ),
         ),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(2.0),
+          ),
           elevation: 0.0,
           minimumSize: const Size(111.0, 48.0),
         ),

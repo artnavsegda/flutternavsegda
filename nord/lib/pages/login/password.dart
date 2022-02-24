@@ -87,7 +87,7 @@ class PasswordPage extends StatelessWidget {
               return Padding(
                 padding: const EdgeInsets.only(top: 16.0),
                 child: ElevatedButton(
-                    child: const Text("ПОДТВЕРДИТЬ"),
+                    child: const Text("Войти"),
                     onPressed: () {
                       runMutation(
                         GraphCheckUser(
