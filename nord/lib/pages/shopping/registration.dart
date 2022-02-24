@@ -117,7 +117,11 @@ class RegistrationPage extends StatelessWidget {
             value: false,
             onChanged: (value) {},
             title: Text('Экспресс-доставка'),
-            subtitle: Text('Курьером в течении 3-х часов\n+ 300 ₽'),
+            subtitle: Text(
+              'Курьером в течении 3-х часов\n+ 300 ₽',
+              style: TextStyle(
+                  fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+            ),
             secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
           ),
           ListTile(

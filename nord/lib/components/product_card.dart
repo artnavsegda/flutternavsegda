@@ -165,7 +165,10 @@ class ProductCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.headlineSmall),
                 TextSpan(
                     text: ' ₽',
-                    style: TextStyle(fontFamily: 'Noto Sans', fontSize: 16)),
+                    style: TextStyle(
+                        fontFamily: 'Noto Sans',
+                        fontSize: 16,
+                        fontFamilyFallback: ['Roboto'])),
               ],
             ),
           ),

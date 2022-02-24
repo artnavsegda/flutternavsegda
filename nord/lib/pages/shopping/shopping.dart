@@ -186,7 +186,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           children: [
                             Text('Сумма заказа',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -195,7 +197,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             )),
                             Text('1 435 ₽',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
                         SizedBox(height: 16),
@@ -205,7 +209,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           children: [
                             Text('Скидка',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -214,7 +220,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             )),
                             Text('Бесплатно',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
                         SizedBox(height: 16),
@@ -224,7 +232,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           children: [
                             Text('Промокод',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -233,7 +243,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             )),
                             Text('- 110 ₽',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
                         Divider(height: 32),
@@ -243,7 +255,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           children: [
                             Text('Общая сумма заказа',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -252,7 +266,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             )),
                             Text('1 325 ₽',
                                 style: TextStyle(
-                                    fontFamily: 'Noto Sans', fontSize: 16)),
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
                       ],
@@ -299,11 +315,14 @@ class _ShoppingPageState extends State<ShoppingPage> {
                               style: TextStyle(
                                   fontFamily: 'Noto Sans',
                                   fontSize: 10,
-                                  color: Color(0xFF56626C))),
+                                  color: Color(0xFF56626C),
+                                  fontFamilyFallback: ['Roboto'])),
                           SizedBox(height: 3),
                           Text('1 325 ₽',
                               style: TextStyle(
-                                  fontFamily: 'Noto Sans', fontSize: 16)),
+                                  fontFamily: 'Noto Sans',
+                                  fontSize: 16,
+                                  fontFamilyFallback: ['Roboto'])),
                         ],
                       ),
                     ),
@@ -485,7 +504,8 @@ class _CartTileState extends State<CartTile> {
                                   child: const Text('250 ₽',
                                       style: TextStyle(
                                           fontFamily: 'Noto Sans',
-                                          color: Colors.grey)),
+                                          color: Colors.grey,
+                                          fontFamilyFallback: ['Roboto'])),
                                 ),
                               ],
                             ),

@@ -219,13 +219,18 @@ class _ProductPageState extends State<ProductPage> {
                                 textBaseline: TextBaseline.ideographic,
                                 children: [
                                   Text(
-                                    '250 P ',
+                                    '250 ₽ ',
                                     style: TextStyle(
-                                        fontFamily: 'Forum', fontSize: 34),
+                                        fontFamily: 'Forum',
+                                        fontSize: 34,
+                                        fontFamilyFallback: [
+                                          'Noto Sans',
+                                          'Roboto',
+                                        ]),
                                   ),
                                   CustomPaint(
                                     painter: RedLine(),
-                                    child: Text('420 P',
+                                    child: Text('420 ₽',
                                         style: Theme.of(context)
                                             .textTheme
                                             .headlineSmall!
