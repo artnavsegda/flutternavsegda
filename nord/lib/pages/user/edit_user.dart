@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/login_state.dart';
@@ -160,6 +161,10 @@ class _EditUserState extends State<EditUser> {
     final GlobalKey _menuKey = GlobalKey();
     TextEditingController userNameController = TextEditingController();
     TextEditingController eMailController = TextEditingController();
+    var maskFormatter = MaskTextInputFormatter(
+        mask: '+7 (###) ###-##-##',
+        filter: {"#": RegExp(r'[0-9]')},
+        type: MaskAutoCompletionType.lazy);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
@@ -238,20 +243,33 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      keyboardType: TextInputType.number,
+                      inputFormatters: [maskFormatter],
                       initialValue: clientInfo.phone.toString(),
                       decoration: InputDecoration(
-                          labelText: "Номер телефона",
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              SeverMetropol.Icon_Clear,
-                              size: 24.0,
-                            ),
-                          )),
+                        labelText: "Номер телефона",
+                        hintText: '+7 (___) ___-__-__',
+                        suffixIcon: IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            SeverMetropol.Icon_Clear,
+                            size: 24.0,
+                          ),
+                        ),
+                      ),
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
                       initialValue: clientInfo.eMail,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Введите e-Mail';
+                        }
+                        return null;
+                      },
+                      onChanged: (newMail) {
+                        clientInfo.eMail = newMail;
+                      },
                       decoration: InputDecoration(
                           labelText: "Email",
                           suffixIcon: IconButton(
