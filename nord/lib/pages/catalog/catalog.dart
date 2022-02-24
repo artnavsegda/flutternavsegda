@@ -282,7 +282,9 @@ class _CatalogPageState extends State<CatalogPage>
             tabController = TabController(
                 length: nordCatalog.length,
                 vsync: this,
-                initialIndex: initialIndex);
+                initialIndex: initialIndex >= nordCatalog.length
+                    ? nordCatalog.length - 1
+                    : initialIndex);
 
           return Scaffold(
             appBar: AppBar(
