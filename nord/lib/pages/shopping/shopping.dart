@@ -243,54 +243,64 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ),
             ),
             bottomNavigationBar: Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
-                boxShadow: scrollAtBottom
-                    ? null
-                    : [
-                        BoxShadow(
-                          color: Color(0x33000000),
-                          blurRadius: 4,
-                          offset: Offset(0, 2),
-                        ),
-                        // BoxShadow(
-                        //   color: Color(0x1F000000),
-                        //   blurRadius: 10,
-                        //   offset: Offset(0, 1),
-                        // ),
-                        BoxShadow(
-                          color: Color(0x24000000),
-                          blurRadius: 5,
-                          offset: Offset(0, 4),
-                        )
-                      ],
-              ),
-              padding: const EdgeInsets.all(16.0),
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisSize: MainAxisSize.min,
-                      children: const [
-                        Text('Итого'),
-                        Text('1 325 ₽',
-                            style: TextStyle(fontFamily: 'Noto Sans')),
-                      ],
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  boxShadow: scrollAtBottom
+                      ? null
+                      : [
+                          BoxShadow(
+                            color: Color(0x33000000),
+                            blurRadius: 4,
+                            offset: Offset(0, 2),
+                          ),
+                          // BoxShadow(
+                          //   color: Color(0x1F000000),
+                          //   blurRadius: 10,
+                          //   offset: Offset(0, 1),
+                          // ),
+                          BoxShadow(
+                            color: Color(0x24000000),
+                            blurRadius: 5,
+                            offset: Offset(0, 4),
+                          )
+                        ],
+                ),
+                padding: const EdgeInsets.all(16.0),
+                child: Stack(
+                  alignment: AlignmentDirectional.centerEnd,
+                  children: [
+                    AnimatedOpacity(
+                      duration: const Duration(milliseconds: 500),
+                      opacity: scrollAtBottom ? 0 : 1.0,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        mainAxisSize: MainAxisSize.min,
+                        children: const [
+                          Text('Итого'),
+                          Text('1 325 ₽',
+                              style: TextStyle(fontFamily: 'Noto Sans')),
+                        ],
+                      ),
                     ),
-                  ),
-                  GradientButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) =>
-                                    const RegistrationPage()));
-                      },
-                      child: const Text('Оформить заказ'))
-                ],
-              ),
-            ),
+                    AnimatedContainer(
+                      height: 48,
+                      width: scrollAtBottom
+                          ? MediaQuery.of(context).size.width - 32
+                          : 157,
+                      duration: const Duration(seconds: 1),
+                      curve: Curves.fastOutSlowIn,
+                      child: GradientButton(
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) =>
+                                        const RegistrationPage()));
+                          },
+                          child: const Text('Оформить заказ')),
+                    ),
+                  ],
+                )),
           );
         });
   }
