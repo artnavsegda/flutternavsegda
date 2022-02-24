@@ -162,7 +162,7 @@ class _EditUserState extends State<EditUser> {
     TextEditingController userNameController = TextEditingController();
     TextEditingController eMailController = TextEditingController();
     var maskFormatter = MaskTextInputFormatter(
-        mask: '+7 (###) ###-##-##',
+        mask: '+# (###) ###-##-##',
         filter: {"#": RegExp(r'[0-9]')},
         type: MaskAutoCompletionType.lazy);
     return Scaffold(
@@ -245,7 +245,8 @@ class _EditUserState extends State<EditUser> {
                     TextFormField(
                       keyboardType: TextInputType.number,
                       inputFormatters: [maskFormatter],
-                      initialValue: clientInfo.phone.toString(),
+                      initialValue:
+                          maskFormatter.maskText(clientInfo.phone.toString()),
                       decoration: InputDecoration(
                         labelText: "Номер телефона",
                         hintText: '+7 (___) ___-__-__',
