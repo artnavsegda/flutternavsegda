@@ -164,9 +164,15 @@ class _ShoppingPageState extends State<ShoppingPage> {
                   Padding(
                     padding: EdgeInsets.all(16.0),
                     child: TextField(
-                      decoration: const InputDecoration(
-                        labelText: "Промокод",
-                      ),
+                      decoration: InputDecoration(
+                          labelText: "Промокод",
+                          suffixIcon: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_East,
+                              size: 24.0,
+                            ),
+                          )),
                     ),
                   ),
                   Padding(
@@ -178,7 +184,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           crossAxisAlignment: CrossAxisAlignment.end,
                           textBaseline: TextBaseline.ideographic,
                           children: [
-                            Text('Сумма заказа'),
+                            Text('Сумма заказа',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -186,7 +194,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
                             Text('1 435 ₽',
-                                style: TextStyle(fontFamily: 'Noto Sans')),
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                           ],
                         ),
                         SizedBox(height: 16),
@@ -194,14 +203,18 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Скидка'),
+                            Text('Скидка',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: DottedLine(
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
-                            Text('Бесплатно'),
+                            Text('Бесплатно',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                           ],
                         ),
                         SizedBox(height: 16),
@@ -209,7 +222,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Промокод'),
+                            Text('Промокод',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -217,7 +232,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
                             Text('- 110 ₽',
-                                style: TextStyle(fontFamily: 'Noto Sans')),
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                           ],
                         ),
                         Divider(height: 32),
@@ -225,7 +241,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
-                            Text('Общая сумма заказа'),
+                            Text('Общая сумма заказа',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                             Expanded(
                                 child: Padding(
                               padding: const EdgeInsets.all(4.0),
@@ -233,7 +251,8 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
                             Text('1 325 ₽',
-                                style: TextStyle(fontFamily: 'Noto Sans')),
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans', fontSize: 16)),
                           ],
                         ),
                       ],
