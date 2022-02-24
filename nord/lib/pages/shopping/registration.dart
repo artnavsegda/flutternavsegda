@@ -139,11 +139,13 @@ class RegistrationPage extends StatelessWidget {
             ),
           ),
           CheckboxListTile(
+            controlAffinity: ListTileControlAffinity.leading,
             value: false,
             onChanged: (value) {},
             title: Text('Бесконтактная доставка'),
           ),
           CheckboxListTile(
+            controlAffinity: ListTileControlAffinity.leading,
             value: false,
             onChanged: (value) {},
             title: Text('Разогреть блюда'),
