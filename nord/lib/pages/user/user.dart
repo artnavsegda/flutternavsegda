@@ -57,7 +57,7 @@ class UserPage extends StatelessWidget {
                   //context.push('/editProfile');
                   await Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => const EditUser()),
+                    MaterialPageRoute(builder: (context) => EditUser(userInfo)),
                   );
                   refetch!();
                 },

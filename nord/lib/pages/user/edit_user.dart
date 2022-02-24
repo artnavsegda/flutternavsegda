@@ -4,15 +4,20 @@ import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/login_state.dart';
 
 import '../../components/gradient_button.dart';
+import '../../gql.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
 class EditUser extends StatefulWidget {
-  const EditUser({Key? key}) : super(key: key);
+  const EditUser(this.userInfo, {Key? key}) : super(key: key);
+
+  final GraphClientFullInfo userInfo;
 
   @override
   State<EditUser> createState() => _EditUserState();
@@ -20,6 +25,8 @@ class EditUser extends StatefulWidget {
 
 class _EditUserState extends State<EditUser> {
   XFile? _imageFile;
+
+  GraphClientInfo clientInfo;
 
   void _showCameraModal(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
@@ -78,6 +85,56 @@ class _EditUserState extends State<EditUser> {
     );
   }
 
+  Widget _sendFormButton(BuildContext context, GraphClientFullInfo userInfo) {
+    return Mutation(
+        options: MutationOptions(
+          document: gql(editClient),
+          onCompleted: (resultData) {
+            if (resultData['editClient']['result'] == 0) {
+              Navigator.pop(context);
+            } else {
+              showDialog(
+                context: context,
+                builder: (BuildContext context) => AlertDialog(
+                  title: const Text('Ошибка'),
+                  content: Text(resultData['editClient']['errorMessage']),
+                  actions: [
+                    TextButton(
+                      onPressed: () => Navigator.pop(context, 'OK'),
+                      child: const Text('OK'),
+                    ),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+        builder: (runMutation, mutationResult) {
+          return GradientButton(
+              onPressed: () async {
+                if (_imageFile != null) {
+                  var request = MultipartRequest(
+                    'POST',
+                    Uri.parse(
+                        'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
+                  );
+                  request.headers['Authorization'] = 'Bearer ' +
+                      Provider.of<LoginState>(context, listen: false).token;
+                  request.files.add(await MultipartFile.fromPath(
+                    'image',
+                    _imageFile!.path,
+                    contentType: MediaType('image', 'jpg'),
+                  ));
+                  var streamedResponse = await request.send();
+                  await streamedResponse.stream.bytesToString();
+                  //print(res);
+                }
+                Navigator.pop(context);
+              },
+              child: const Text("Сохранить"));
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey _menuKey = GlobalKey();
@@ -134,6 +191,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 24),
                     TextFormField(
+                      initialValue: widget.userInfo.name,
                       controller: userNameController,
                       decoration: InputDecoration(
                         labelText: "Имя",
@@ -150,6 +208,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      initialValue: widget.userInfo.phone.toString(),
                       decoration: InputDecoration(
                           labelText: "Номер телефона",
                           suffixIcon: IconButton(
@@ -244,28 +303,7 @@ class _EditUserState extends State<EditUser> {
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
-              child: GradientButton(
-                  onPressed: () async {
-                    if (_imageFile != null) {
-                      var request = MultipartRequest(
-                        'POST',
-                        Uri.parse(
-                            'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
-                      );
-                      request.headers['Authorization'] = 'Bearer ' +
-                          Provider.of<LoginState>(context, listen: false).token;
-                      request.files.add(await MultipartFile.fromPath(
-                        'image',
-                        _imageFile!.path,
-                        contentType: MediaType('image', 'jpg'),
-                      ));
-                      var streamedResponse = await request.send();
-                      await streamedResponse.stream.bytesToString();
-                      //print(res);
-                    }
-                    Navigator.pop(context);
-                  },
-                  child: const Text("Сохранить")),
+              child: _sendFormButton(context, widget.userInfo),
             )
           ],
         ),
