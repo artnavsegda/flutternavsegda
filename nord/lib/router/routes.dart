@@ -142,14 +142,14 @@ class NordRouter {
           params: {'tab': 'shop', 'id': state.params['id']!},
         ),
       ), */
-      GoRoute(
+/*       GoRoute(
         name: 'editProfile',
         path: '/editProfile',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: const EditUser(),
         ),
-      ),
+      ), */
     ],
     redirect: (state) {
       //print('device token ' + loginState.token);

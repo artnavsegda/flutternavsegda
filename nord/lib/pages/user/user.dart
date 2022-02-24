@@ -53,8 +53,13 @@ class UserPage extends StatelessWidget {
                       : AssetImage('assets/Round-Metropol.png')
                           as ImageProvider,
                 ),
-                onTap: () {
-                  context.push('/editProfile');
+                onTap: () async {
+                  //context.push('/editProfile');
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => const EditUser()),
+                  );
+                  refetch!();
                 },
                 title: Text(userInfo.name ?? "Север Метрополь"),
                 trailing: Icon(SeverMetropol.Icon_Edit,
