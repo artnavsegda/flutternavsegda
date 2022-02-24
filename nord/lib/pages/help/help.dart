@@ -109,6 +109,7 @@ class HelpTopicPage extends StatelessWidget {
         body: ListView(
           children: [
             ...faqGroup.questions.map((question) => ExpansionTile(
+                  trailing: Icon(SeverMetropol.Icon_Expand_More),
                   title: Text(question.question),
                   children: [
                     Query(
