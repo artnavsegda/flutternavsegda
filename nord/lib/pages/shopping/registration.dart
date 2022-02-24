@@ -138,7 +138,7 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
           ),
-          CheckboxListTile(
+/*           CheckboxListTile(
             controlAffinity: ListTileControlAffinity.leading,
             value: false,
             onChanged: (value) {},
@@ -148,6 +148,20 @@ class RegistrationPage extends StatelessWidget {
             controlAffinity: ListTileControlAffinity.leading,
             value: false,
             onChanged: (value) {},
+            title: Text('Разогреть блюда'),
+          ), */
+          ListTile(
+            leading: Icon(
+              SeverMetropol.Icon_Checkbox_Checked,
+              color: Colors.red[900],
+            ),
+            title: Text('Бесконтактная доставка'),
+          ),
+          ListTile(
+            leading: Icon(
+              SeverMetropol.Icon_Checkbox_Unchecked,
+              color: Colors.red[900],
+            ),
             title: Text('Разогреть блюда'),
           ),
         ],
