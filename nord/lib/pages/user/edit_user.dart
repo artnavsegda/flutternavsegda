@@ -38,6 +38,7 @@ class _EditUserState extends State<EditUser> {
       dateOfBirth: widget.userInfo.dateOfBirth,
       gender: widget.userInfo.gender,
       eMail: widget.userInfo.eMail,
+      greenMode: widget.userInfo.greenMode,
     );
   }
 

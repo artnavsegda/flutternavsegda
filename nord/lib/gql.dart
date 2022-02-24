@@ -840,6 +840,7 @@ class GraphClientFullInfo {
     this.dateOfBirth,
     this.gender,
     this.eMail,
+    this.greenMode,
     required this.confirmedPhone,
     required this.confirmedEMail,
     required this.isPassword,
@@ -854,6 +855,7 @@ class GraphClientFullInfo {
   String? dateOfBirth;
   String? gender;
   String? eMail;
+  bool? greenMode;
   bool confirmedPhone;
   bool confirmedEMail;
   bool isPassword;
@@ -869,6 +871,7 @@ class GraphClientFullInfo {
         dateOfBirth = json['dateOfBirth'],
         gender = json['gender'],
         eMail = json['eMail'],
+        greenMode = json['greenMode'],
         confirmedPhone = json['confirmedPhone'],
         confirmedEMail = json['confirmedEMail'],
         isPassword = json['isPassword'],
