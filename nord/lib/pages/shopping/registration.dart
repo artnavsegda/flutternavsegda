@@ -151,6 +151,7 @@ class RegistrationPage extends StatelessWidget {
             title: Text('Разогреть блюда'),
           ), */
           ListTile(
+            onTap: () {},
             leading: Icon(
               SeverMetropol.Icon_Checkbox_Checked,
               color: Colors.red[900],
@@ -158,6 +159,7 @@ class RegistrationPage extends StatelessWidget {
             title: Text('Бесконтактная доставка'),
           ),
           ListTile(
+            onTap: () {},
             leading: Icon(
               SeverMetropol.Icon_Checkbox_Unchecked,
               color: Colors.red[900],
