@@ -143,7 +143,7 @@ class _EditUserState extends State<EditUser> {
                   await streamedResponse.stream.bytesToString();
                   //print(res);
                 }
-                Navigator.pop(context);
+                runMutation(clientInfo.toJson());
               },
               child: const Text("Сохранить"));
         });
@@ -205,7 +205,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 24),
                     TextFormField(
-                      initialValue: widget.userInfo.name,
+                      initialValue: clientInfo.name,
                       controller: userNameController,
                       decoration: InputDecoration(
                         labelText: "Имя",
@@ -222,7 +222,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      initialValue: widget.userInfo.phone.toString(),
+                      initialValue: clientInfo.phone.toString(),
                       decoration: InputDecoration(
                           labelText: "Номер телефона",
                           suffixIcon: IconButton(
@@ -235,6 +235,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      initialValue: clientInfo.eMail,
                       decoration: InputDecoration(
                           labelText: "Email",
                           suffixIcon: IconButton(
