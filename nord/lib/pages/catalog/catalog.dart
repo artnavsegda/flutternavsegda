@@ -384,12 +384,13 @@ class _CatalogPageState extends State<CatalogPage>
                     return Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
                           Text(nordCatalog[index].name,
                               style: Theme.of(context).textTheme.headlineSmall),
                           const SizedBox(height: 12),
                           Wrap(
+                            alignment: WrapAlignment.spaceBetween,
                             //spacing: 8.0,
                             runSpacing: 32.0,
                             children: nordCatalog[index]

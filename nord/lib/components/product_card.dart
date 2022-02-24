@@ -31,8 +31,8 @@ class ProductCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
-            width: 160,
-            height: 160,
+            width: MediaQuery.of(context).size.width / 2.25,
+            height: MediaQuery.of(context).size.width / 2.25,
             child: Stack(
               children: [
                 if (product.picture!.isNotEmpty)

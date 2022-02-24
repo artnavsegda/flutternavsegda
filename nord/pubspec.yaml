@@ -107,6 +107,9 @@ flutter:
     - family: Forum
       fonts:
         - asset: google_fonts/Forum-Regular.ttf
+    - family: Noto Sans
+      fonts:
+        - asset: google_fonts/NotoSans-Regular.ttf
     - family:  SeverMetropol
       fonts:
         - asset: fonts/SeverMetropol.ttf
