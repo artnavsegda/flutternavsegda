@@ -476,7 +476,10 @@ class _CartTileState extends State<CartTile> {
                               children: [
                                 Text('${widget.price.floor()} ₽',
                                     style: TextStyle(
-                                        fontFamily: 'Noto Sans', fontSize: 16)),
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'],
+                                    )),
                                 CustomPaint(
                                   painter: RedLine(),
                                   child: const Text('250 ₽',

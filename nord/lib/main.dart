@@ -46,7 +46,11 @@ class NordApp extends StatelessWidget {
       fontFamily: 'Noto Sans',
       textTheme:
           GoogleFonts.notoSansTextTheme(Theme.of(context).textTheme).copyWith(
-        headlineSmall: TextStyle(fontSize: 24.0, fontFamily: 'Forum'),
+        headlineSmall: TextStyle(
+          fontSize: 24.0,
+          fontFamily: 'Forum',
+          fontFamilyFallback: ['Roboto'],
+        ),
       ),
       appBarTheme: const AppBarTheme(
         centerTitle: true,

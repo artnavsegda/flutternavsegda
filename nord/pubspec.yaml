@@ -110,6 +110,9 @@ flutter:
     - family: Noto Sans
       fonts:
         - asset: google_fonts/NotoSans-Regular.ttf
+    - family: Roboto
+      fonts:
+        - asset: google_fonts/Roboto-Regular.ttf
     - family:  SeverMetropol
       fonts:
         - asset: fonts/SeverMetropol.ttf
