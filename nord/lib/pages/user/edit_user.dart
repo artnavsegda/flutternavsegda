@@ -222,7 +222,7 @@ class _EditUserState extends State<EditUser> {
                       onChanged: (newName) {
                         clientInfo.name = newName;
                       },
-                      controller: userNameController,
+                      //controller: userNameController,
                       decoration: InputDecoration(
                         labelText: "Имя",
                         suffixIcon: IconButton(

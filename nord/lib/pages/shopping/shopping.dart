@@ -393,24 +393,34 @@ class _CartTileState extends State<CartTile> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  CachedNetworkImage(
-                    width: 64,
-                    height: 64,
-                    imageUrl: widget.image,
-                    placeholder: (context, url) => Shimmer.fromColors(
-                      baseColor: const Color(0xFFECECEC),
-                      highlightColor: Colors.white,
-                      child: Container(
-                        color: const Color(0xFFECECEC),
+                  if (widget.image.isNotEmpty)
+                    CachedNetworkImage(
+                      width: 64,
+                      height: 64,
+                      imageUrl: widget.image,
+                      placeholder: (context, url) => Shimmer.fromColors(
+                        baseColor: const Color(0xFFECECEC),
+                        highlightColor: Colors.white,
+                        child: Container(
+                          color: const Color(0xFFECECEC),
+                        ),
                       ),
-                    ),
-                    errorWidget: (context, url, error) => Container(
+                      errorWidget: (context, url, error) => Container(
+                        color: const Color(0xFFECECEC),
+                        child: Center(
+                          child: const Icon(Icons.no_photography),
+                        ),
+                      ),
+                    )
+                  else
+                    Container(
+                      width: 64,
+                      height: 64,
                       color: const Color(0xFFECECEC),
                       child: Center(
                         child: const Icon(Icons.no_photography),
                       ),
                     ),
-                  ),
                   const SizedBox(width: 12),
                   Expanded(
                     child: Column(
