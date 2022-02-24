@@ -24,8 +24,8 @@ class EditUser extends StatefulWidget {
 }
 
 class _EditUserState extends State<EditUser> {
+  final _formKey = GlobalKey<FormState>();
   XFile? _imageFile;
-
   late GraphClientInfo clientInfo;
 
   @override
@@ -130,24 +130,26 @@ class _EditUserState extends State<EditUser> {
         builder: (runMutation, mutationResult) {
           return GradientButton(
               onPressed: () async {
-                if (_imageFile != null) {
-                  var request = MultipartRequest(
-                    'POST',
-                    Uri.parse(
-                        'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
-                  );
-                  request.headers['Authorization'] = 'Bearer ' +
-                      Provider.of<LoginState>(context, listen: false).token;
-                  request.files.add(await MultipartFile.fromPath(
-                    'image',
-                    _imageFile!.path,
-                    contentType: MediaType('image', 'jpg'),
-                  ));
-                  var streamedResponse = await request.send();
-                  await streamedResponse.stream.bytesToString();
-                  //print(res);
+                if (_formKey.currentState!.validate()) {
+                  if (_imageFile != null) {
+                    var request = MultipartRequest(
+                      'POST',
+                      Uri.parse(
+                          'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
+                    );
+                    request.headers['Authorization'] = 'Bearer ' +
+                        Provider.of<LoginState>(context, listen: false).token;
+                    request.files.add(await MultipartFile.fromPath(
+                      'image',
+                      _imageFile!.path,
+                      contentType: MediaType('image', 'jpg'),
+                    ));
+                    var streamedResponse = await request.send();
+                    await streamedResponse.stream.bytesToString();
+                    //print(res);
+                  }
+                  runMutation(clientInfo.toJson());
                 }
-                runMutation(clientInfo.toJson());
               },
               child: const Text("Сохранить"));
         });
@@ -177,6 +179,7 @@ class _EditUserState extends State<EditUser> {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Form(
+                key: _formKey,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -210,6 +213,12 @@ class _EditUserState extends State<EditUser> {
                     const SizedBox(height: 24),
                     TextFormField(
                       initialValue: clientInfo.name,
+                      validator: (value) {
+                        if (value == null || value.isEmpty) {
+                          return 'Введите имя';
+                        }
+                        return null;
+                      },
                       controller: userNameController,
                       decoration: InputDecoration(
                         labelText: "Имя",
