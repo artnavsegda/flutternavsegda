@@ -276,9 +276,15 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         mainAxisSize: MainAxisSize.min,
                         children: const [
-                          Text('Итого'),
+                          Text('Итого',
+                              style: TextStyle(
+                                  fontFamily: 'Noto Sans',
+                                  fontSize: 10,
+                                  color: Color(0xFF56626C))),
+                          SizedBox(height: 3),
                           Text('1 325 ₽',
-                              style: TextStyle(fontFamily: 'Noto Sans')),
+                              style: TextStyle(
+                                  fontFamily: 'Noto Sans', fontSize: 16)),
                         ],
                       ),
                     ),
