@@ -24,6 +24,48 @@ class ShoppingPage extends StatefulWidget {
 
 class _ShoppingPageState extends State<ShoppingPage> {
   bool headerUp = false;
+  bool scrollAtBottom = false;
+  final _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController.addListener(
+      () {
+        if (_scrollController.offset > 0 && headerUp == false) {
+          setState(() {
+            headerUp = true;
+          });
+        } else if (_scrollController.offset < 1 && headerUp == true) {
+          {
+            setState(() {
+              headerUp = false;
+            });
+          }
+        }
+
+        if (_scrollController.offset >=
+                _scrollController.position.maxScrollExtent &&
+            scrollAtBottom == false) {
+          setState(() {
+            scrollAtBottom = true;
+          });
+        } else if (_scrollController.offset <
+                _scrollController.position.maxScrollExtent &&
+            scrollAtBottom == true) {
+          setState(() {
+            scrollAtBottom = false;
+          });
+        }
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -97,6 +139,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                 await Future.delayed(const Duration(seconds: 1));
               },
               child: ListView(
+                controller: _scrollController,
                 children: [
                   ...cart.map(
                     (item) {
@@ -202,23 +245,25 @@ class _ShoppingPageState extends State<ShoppingPage> {
             bottomNavigationBar: Container(
               decoration: BoxDecoration(
                 color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    color: Color(0x33000000),
-                    blurRadius: 4,
-                    offset: Offset(0, 2),
-                  ),
-                  // BoxShadow(
-                  //   color: Color(0x1F000000),
-                  //   blurRadius: 10,
-                  //   offset: Offset(0, 1),
-                  // ),
-                  BoxShadow(
-                    color: Color(0x24000000),
-                    blurRadius: 5,
-                    offset: Offset(0, 4),
-                  )
-                ],
+                boxShadow: scrollAtBottom
+                    ? null
+                    : [
+                        BoxShadow(
+                          color: Color(0x33000000),
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                        // BoxShadow(
+                        //   color: Color(0x1F000000),
+                        //   blurRadius: 10,
+                        //   offset: Offset(0, 1),
+                        // ),
+                        BoxShadow(
+                          color: Color(0x24000000),
+                          blurRadius: 5,
+                          offset: Offset(0, 4),
+                        )
+                      ],
               ),
               padding: const EdgeInsets.all(16.0),
               child: Row(
