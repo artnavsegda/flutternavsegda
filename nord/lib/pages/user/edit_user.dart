@@ -104,22 +104,26 @@ class _EditUserState extends State<EditUser> {
         options: MutationOptions(
           document: gql(editClient),
           onCompleted: (resultData) {
-            if (resultData['editClient']['result'] == 0) {
-              Navigator.pop(context);
-            } else {
-              showDialog(
-                context: context,
-                builder: (BuildContext context) => AlertDialog(
-                  title: const Text('Ошибка'),
-                  content: Text(resultData['editClient']['errorMessage']),
-                  actions: [
-                    TextButton(
-                      onPressed: () => Navigator.pop(context, 'OK'),
-                      child: const Text('OK'),
-                    ),
-                  ],
-                ),
-              );
+            if (resultData != null) {
+              GraphClientResult nordClientResult =
+                  GraphClientResult.fromJson(resultData['editClient']);
+              if (nordClientResult.result == 0) {
+                Navigator.pop(context);
+              } else {
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    title: const Text('Ошибка'),
+                    content: Text(nordClientResult.errorMessage ?? ''),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              }
             }
           },
         ),
