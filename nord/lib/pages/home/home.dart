@@ -172,7 +172,7 @@ class HomePage extends StatelessWidget {
                             ),
                             const SizedBox(height: 16),
                             SizedBox(
-                              height: 240,
+                              height: MediaQuery.of(context).size.width / 1.5,
                               child: ListView(
                                 scrollDirection: Axis.horizontal,
                                 children: [
