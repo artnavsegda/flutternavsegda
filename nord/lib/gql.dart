@@ -1,3 +1,33 @@
+class GraphClientInfo {
+  GraphClientInfo({
+    required this.clientGUID,
+    this.phone,
+    this.name,
+    this.dateOfBirth,
+    this.gender,
+    this.eMail,
+    this.greenMode,
+  });
+
+  String clientGUID;
+  int? phone;
+  String? name;
+  String? dateOfBirth;
+  String? gender;
+  String? eMail;
+  bool? greenMode;
+
+  Map<String, dynamic> toJson() => {
+        'clientGUID': clientGUID,
+        'phone': phone,
+        'name': name,
+        'dateOfBirth': dateOfBirth,
+        'gender': gender,
+        'eMail': eMail,
+        'greenMode': greenMode,
+      };
+}
+
 class GraphFAQ {
   GraphFAQ({
     required this.question,

@@ -26,7 +26,20 @@ class EditUser extends StatefulWidget {
 class _EditUserState extends State<EditUser> {
   XFile? _imageFile;
 
-  GraphClientInfo clientInfo;
+  late GraphClientInfo clientInfo;
+
+  @override
+  void initState() {
+    super.initState();
+    clientInfo = GraphClientInfo(
+      clientGUID: widget.userInfo.clientGUID,
+      phone: widget.userInfo.phone,
+      name: widget.userInfo.name,
+      dateOfBirth: widget.userInfo.dateOfBirth,
+      gender: widget.userInfo.gender,
+      eMail: widget.userInfo.eMail,
+    );
+  }
 
   void _showCameraModal(BuildContext context) {
     final ImagePicker _picker = ImagePicker();
