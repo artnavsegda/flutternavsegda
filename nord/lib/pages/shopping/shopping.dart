@@ -202,7 +202,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -225,7 +225,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
-                        SizedBox(height: 16),
+                        SizedBox(height: 24),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
@@ -248,7 +248,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     fontFamilyFallback: ['Roboto'])),
                           ],
                         ),
-                        Divider(height: 32),
+                        Divider(height: 48),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           crossAxisAlignment: CrossAxisAlignment.end,
