@@ -169,17 +169,16 @@ class RegistrationPage extends StatelessWidget {
             ),
             title: Text('Разогреть блюда'),
           ),
+          Container(
+            padding: const EdgeInsets.all(16.0),
+            child: GradientButton(
+                onPressed: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const PayPage()));
+                },
+                child: const Text('Перейти к оплатите')),
+          ),
         ],
-      ),
-      bottomSheet: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.all(16.0),
-        child: GradientButton(
-            onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => const PayPage()));
-            },
-            child: const Text('Перейти к оплатите')),
       ),
     );
   }
