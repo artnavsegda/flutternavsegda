@@ -140,6 +140,25 @@ class ShopPage extends StatelessWidget {
                                         ],
                                       ),
                                     ),
+                                    ListTile(
+                                      title: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Вторник'),
+                                          Expanded(
+                                              child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: DottedLine(
+                                                dashColor: Colors.grey,
+                                                dashLength: 2),
+                                          )),
+                                          Text('09:30–20:00'),
+                                        ],
+                                      ),
+                                    ),
                                   ],
                                 );
                               },
