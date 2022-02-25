@@ -58,6 +58,7 @@ dependencies:
   in_app_review: ^2.0.4
   location: ^4.3.0
   flutter_chat_ui: ^1.5.5
+  expandable: ^5.0.1
 
 dev_dependencies:
   flutter_test:

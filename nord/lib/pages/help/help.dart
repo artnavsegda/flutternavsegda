@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:expandable/expandable.dart';
 import 'package:nord/sever_metropol_icons.dart';
 
 import '../../gql.dart';
@@ -108,35 +109,50 @@ class HelpTopicPage extends StatelessWidget {
         ),
         body: ListView(
           children: [
-            ...faqGroup.questions.map((question) => ExpansionTile(
-                  trailing: Icon(SeverMetropol.Icon_Expand_More),
-                  title: Text(question.question),
-                  children: [
-                    Query(
-                        options: QueryOptions(
-                          document: gql(getFAQ),
-                          fetchPolicy: FetchPolicy.cacheFirst,
-                          variables: {
-                            'fAQQuestionID': question.iD,
-                          },
-                        ),
-                        builder: (result, {fetchMore, refetch}) {
-                          if (result.hasException) {
-                            return Text(result.exception.toString());
-                          }
+            ...faqGroup.questions.map((question) => ExpandablePanel(
+                  theme: ExpandableThemeData(
+                    iconPadding: EdgeInsets.all(16.0),
+                    iconColor: Colors.red[900],
+                    expandIcon: SeverMetropol.Icon_Expand_More,
+                    collapseIcon: SeverMetropol.Icon_Expand_More,
+                  ),
+                  key: ValueKey(question.iD),
+                  //trailing: Icon(SeverMetropol.Icon_Expand_More),
+                  header: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      question.question,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ),
+                  collapsed: const SizedBox.shrink(),
+                  expanded: Query(
+                      options: QueryOptions(
+                        document: gql(getFAQ),
+                        fetchPolicy: FetchPolicy.cacheFirst,
+                        variables: {
+                          'fAQQuestionID': question.iD,
+                        },
+                      ),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return Text(result.exception.toString());
+                        }
 
-                          if (result.isLoading) {
-                            return const Center(
-                              child: CircularProgressIndicator(),
-                            );
-                          }
+                        if (result.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
 
-                          GraphFAQ faq =
-                              GraphFAQ.fromJson(result.data!['getFAQ']);
+                        GraphFAQ faq =
+                            GraphFAQ.fromJson(result.data!['getFAQ']);
 
-                          return Text(faq.answer);
-                        })
-                  ],
+                        return Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(faq.answer),
+                        );
+                      }),
                 )),
           ],
         ));
