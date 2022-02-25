@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
@@ -24,8 +25,8 @@ class ShopPage extends StatelessWidget {
             ),
           ),
           Positioned(
-            top: 36,
-            left: 12,
+            top: MediaQuery.of(context).padding.top + 4,
+            left: 0,
             child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   minimumSize: const Size(32.0, 32.0),
@@ -51,15 +52,17 @@ class ShopPage extends StatelessWidget {
                     child: ListView(
                       controller: scrollController,
                       children: [
+                        SizedBox(height: 8),
                         ListTile(
-                          isThreeLine: true,
                           subtitle: Text(shop.address ??
                               '194358, Санкт-Петербург, проспект Просвещения, 19'),
                           title: Text(shop.name),
                         ),
                         ListTile(
-                          subtitle: Text('Метро'),
-                          title: Wrap(
+                          title: Text('Метро',
+                              style: TextStyle(
+                                  fontSize: 10, color: Color(0xFF56626C))),
+                          subtitle: Wrap(
                             children: shop.metroStations
                                 .map((metroStation) => Wrap(
                                       crossAxisAlignment:
@@ -67,10 +70,13 @@ class ShopPage extends StatelessWidget {
                                       children: [
                                         Text('⬤ ',
                                             style: TextStyle(
-                                                fontSize: 7.0,
+                                                fontSize: 12.0,
                                                 color: hexToColor(
                                                     metroStation.colorLine))),
-                                        Text(metroStation.stationName),
+                                        Text(metroStation.stationName,
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Colors.black)),
                                         SizedBox(width: 10)
                                       ],
                                     ))
@@ -80,13 +86,21 @@ class ShopPage extends StatelessWidget {
                         ),
                         Divider(),
                         ListTile(
-                          subtitle: Text('Телефон'),
-                          title: Text('+7 (812) 611-09-27'),
+                          title: Text('Телефон',
+                              style: TextStyle(
+                                  fontSize: 10, color: Color(0xFF56626C))),
+                          subtitle: Text('+7 (812) 611-09-27',
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.red[900])),
                         ),
                         Divider(),
                         ListTile(
                           onTap: () {
                             showModalBottomSheet(
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.vertical(
+                                    top: Radius.circular(4.0)),
+                              ),
                               backgroundColor: Colors.white,
                               isScrollControlled: true,
                               context: context,
@@ -96,51 +110,47 @@ class ShopPage extends StatelessWidget {
                                       CrossAxisAlignment.stretch,
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
-                                    const ListTile(
+                                    ListTile(
+                                      onTap: () => Navigator.pop(context),
                                       title: Center(
                                           child: Text(
                                         'Режим работы',
                                       )),
+                                      trailing: Icon(
+                                        SeverMetropol.Icon_Close,
+                                        color: Colors.red[900],
+                                      ),
                                     ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text('Понедельник'),
-                                        Text('09:30–20:00'),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text('Вторник'),
-                                        Text('09:30–20:00'),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text('Среда'),
-                                        Text('09:30–20:00'),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: const [
-                                        Text('Четверг'),
-                                        Text('09:30–20:00'),
-                                      ],
+                                    ListTile(
+                                      title: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text('Понедельник'),
+                                          Expanded(
+                                              child: Padding(
+                                            padding: const EdgeInsets.all(5.0),
+                                            child: DottedLine(
+                                                dashColor: Colors.grey,
+                                                dashLength: 2),
+                                          )),
+                                          Text('09:30–20:00'),
+                                        ],
+                                      ),
                                     ),
                                   ],
                                 );
                               },
                             );
                           },
-                          subtitle: const Text('Режим работы'),
-                          title: const Text('Завтра откроется в 10:00'),
+                          title: const Text('Режим работы',
+                              style: TextStyle(
+                                  fontSize: 10, color: Color(0xFF56626C))),
+                          subtitle: Text('Завтра откроется в 10:00',
+                              style: TextStyle(
+                                  fontSize: 16, color: Colors.red[900])),
                           trailing: Icon(
                             SeverMetropol.Icon_Expand_More,
                             color: Theme.of(context).colorScheme.primary,
