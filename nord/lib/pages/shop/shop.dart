@@ -17,7 +17,7 @@ class ShopPage extends StatelessWidget {
           body: Stack(
             children: [
               FractionallySizedBox(
-                heightFactor: 0.5,
+                heightFactor: 0.55,
                 child: PageView(
                   children: [
                     Image.asset('assets/placeholder/shop.png',
@@ -45,13 +45,13 @@ class ShopPage extends StatelessWidget {
                       color: Theme.of(context).colorScheme.primary,
                     )),
               ),
-              SafeArea(
-                child: SizedBox.expand(
-                  child: DraggableScrollableSheet(
-                      minChildSize: 0.5,
-                      maxChildSize: 0.9,
-                      builder: (context, scrollController) {
-                        return Container(
+              SizedBox.expand(
+                child: DraggableScrollableSheet(
+                    minChildSize: 0.5,
+                    maxChildSize: 0.9,
+                    builder: (context, scrollController) {
+                      return SafeArea(
+                        child: Container(
                           color: Colors.white,
                           child: ListView(
                             controller: scrollController,
@@ -164,9 +164,9 @@ class ShopPage extends StatelessWidget {
                                       'Заберу заказ в этом заведении')),
                             ],
                           ),
-                        );
-                      }),
-                ),
+                        ),
+                      );
+                    }),
               ),
             ],
           ),
