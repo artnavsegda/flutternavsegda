@@ -5,6 +5,7 @@ import 'package:shimmer/shimmer.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/utils.dart';
+import 'package:nord/pages/error/error.dart';
 import '../product/product.dart';
 import '../../gql.dart';
 import '../../components/product_card.dart';
@@ -146,7 +147,13 @@ class HomePage extends StatelessWidget {
           //fetchPolicy: FetchPolicy.cacheFirst,
         ),
         builder: (result, {fetchMore, refetch}) {
-          if (result.isLoading || result.hasException) {
+          if (result.hasException) {
+            return ErrorPage(reload: () {
+              refetch!();
+            });
+          }
+
+          if (result.isLoading && result.data == null) {
             return _buildLoadingShimmerPlaceholder(context);
           }
 
