@@ -133,8 +133,11 @@ class RegistrationPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              maxLines: 3,
               decoration: InputDecoration(
+                alignLabelWithHint: true,
                 labelText: 'Комментарий или пожелания по заказу',
+                hintText: 'Комментарий или пожелания по заказу',
               ),
             ),
           ),
@@ -168,7 +171,8 @@ class RegistrationPage extends StatelessWidget {
           ),
         ],
       ),
-      bottomNavigationBar: Padding(
+      bottomSheet: Container(
+        width: double.infinity,
         padding: const EdgeInsets.all(16.0),
         child: GradientButton(
             onPressed: () {
