@@ -41,124 +41,121 @@ class ShopPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 )),
           ),
-          SizedBox.expand(
+          SafeArea(
             child: DraggableScrollableSheet(
                 minChildSize: 0.5,
                 maxChildSize: 0.9,
                 builder: (context, scrollController) {
-                  return SafeArea(
-                    child: Container(
-                      color: Colors.white,
-                      child: ListView(
-                        controller: scrollController,
-                        children: [
-                          ListTile(
-                            isThreeLine: true,
-                            subtitle: Text(shop.address ??
-                                '194358, Санкт-Петербург, проспект Просвещения, 19'),
-                            title: Text(shop.name),
+                  return Container(
+                    color: Colors.white,
+                    child: ListView(
+                      controller: scrollController,
+                      children: [
+                        ListTile(
+                          isThreeLine: true,
+                          subtitle: Text(shop.address ??
+                              '194358, Санкт-Петербург, проспект Просвещения, 19'),
+                          title: Text(shop.name),
+                        ),
+                        ListTile(
+                          subtitle: Text('Метро'),
+                          title: Wrap(
+                            children: shop.metroStations
+                                .map((metroStation) => Wrap(
+                                      crossAxisAlignment:
+                                          WrapCrossAlignment.center,
+                                      children: [
+                                        Text('⬤ ',
+                                            style: TextStyle(
+                                                fontSize: 7.0,
+                                                color: hexToColor(
+                                                    metroStation.colorLine))),
+                                        Text(metroStation.stationName),
+                                        SizedBox(width: 10)
+                                      ],
+                                    ))
+                                .toList()
+                                .cast<Widget>(),
                           ),
-                          ListTile(
-                            subtitle: Text('Метро'),
-                            title: Wrap(
-                              children: shop.metroStations
-                                  .map((metroStation) => Wrap(
-                                        crossAxisAlignment:
-                                            WrapCrossAlignment.center,
-                                        children: [
-                                          Text('⬤ ',
-                                              style: TextStyle(
-                                                  fontSize: 7.0,
-                                                  color: hexToColor(
-                                                      metroStation.colorLine))),
-                                          Text(metroStation.stationName),
-                                          SizedBox(width: 10)
-                                        ],
-                                      ))
-                                  .toList()
-                                  .cast<Widget>(),
-                            ),
+                        ),
+                        Divider(),
+                        ListTile(
+                          subtitle: Text('Телефон'),
+                          title: Text('+7 (812) 611-09-27'),
+                        ),
+                        Divider(),
+                        ListTile(
+                          onTap: () {
+                            showModalBottomSheet(
+                              backgroundColor: Colors.white,
+                              isScrollControlled: true,
+                              context: context,
+                              builder: (context) {
+                                return Column(
+                                  crossAxisAlignment:
+                                      CrossAxisAlignment.stretch,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    const ListTile(
+                                      title: Center(
+                                          child: Text(
+                                        'Режим работы',
+                                      )),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text('Понедельник'),
+                                        Text('09:30–20:00'),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text('Вторник'),
+                                        Text('09:30–20:00'),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text('Среда'),
+                                        Text('09:30–20:00'),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: const [
+                                        Text('Четверг'),
+                                        Text('09:30–20:00'),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                          subtitle: const Text('Режим работы'),
+                          title: const Text('Завтра откроется в 10:00'),
+                          trailing: Icon(
+                            SeverMetropol.Icon_Expand_More,
+                            color: Theme.of(context).colorScheme.primary,
                           ),
-                          Divider(),
-                          ListTile(
-                            subtitle: Text('Телефон'),
-                            title: Text('+7 (812) 611-09-27'),
-                          ),
-                          Divider(),
-                          ListTile(
-                            onTap: () {
-                              showModalBottomSheet(
-                                backgroundColor: Colors.white,
-                                isScrollControlled: true,
-                                context: context,
-                                builder: (context) {
-                                  return Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.stretch,
-                                    mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      const ListTile(
-                                        title: Center(
-                                            child: Text(
-                                          'Режим работы',
-                                        )),
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text('Понедельник'),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text('Вторник'),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text('Среда'),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: const [
-                                          Text('Четверг'),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                    ],
-                                  );
-                                },
-                              );
-                            },
-                            subtitle: const Text('Режим работы'),
-                            title: const Text('Завтра откроется в 10:00'),
-                            trailing: Icon(
-                              SeverMetropol.Icon_Expand_More,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                child: const Text('Построить маршрут')),
-                          ),
-                          TextButton(
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: ElevatedButton(
                               onPressed: () {},
-                              child:
-                                  const Text('Заберу заказ в этом заведении')),
-                        ],
-                      ),
+                              child: const Text('Построить маршрут')),
+                        ),
+                        TextButton(
+                            onPressed: () {},
+                            child: const Text('Заберу заказ в этом заведении')),
+                      ],
                     ),
                   );
                 }),
