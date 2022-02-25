@@ -37,7 +37,7 @@ class ShopTile extends StatelessWidget {
                         children: [
                           Text('⬤ ',
                               style: TextStyle(
-                                  fontSize: 7.0,
+                                  fontSize: 12.0,
                                   color: hexToColor(metroStation.colorLine))),
                           Text(metroStation.stationName),
                           SizedBox(width: 10)

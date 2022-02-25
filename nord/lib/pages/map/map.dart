@@ -63,37 +63,53 @@ class MapPage extends StatelessWidget {
                   },
                 ).toSet(),
               ),
-              SizedBox.expand(
-                child: DraggableScrollableSheet(
-                  builder: (context, scrollController) {
-                    return Container(
+              DraggableScrollableSheet(
+                minChildSize: 0.15,
+                builder: (context, scrollController) {
+                  return Container(
+                    decoration: BoxDecoration(
                       color: Colors.white,
-                      child: ListView(
-                        controller: scrollController,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: const TextField(
-                              decoration: InputDecoration(
-                                  hintText: 'Поиск по названию или адресу',
-                                  isDense: true,
-                                  contentPadding: EdgeInsets.symmetric(
-                                      horizontal: 16, vertical: 8),
-                                  border: OutlineInputBorder(
-                                    borderSide: BorderSide.none,
-                                    borderRadius: BorderRadius.all(
-                                      Radius.circular(2.0),
-                                    ),
-                                  ),
-                                  filled: true),
+                      borderRadius: BorderRadius.circular(4.0),
+                    ),
+                    child: ListView(
+                      controller: scrollController,
+                      children: [
+                        Container(
+                          alignment: Alignment.center,
+                          padding: EdgeInsets.only(top: 8.0),
+                          child: SizedBox(
+                            width: 32,
+                            height: 4,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                color: Colors.red[900],
+                                borderRadius: BorderRadius.circular(4.0),
+                              ),
                             ),
                           ),
-                          ...shops.map((shop) => ShopTile(shop: shop)),
-                        ],
-                      ),
-                    );
-                  },
-                ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: const TextField(
+                            decoration: InputDecoration(
+                                hintText: 'Поиск по названию или адресу',
+                                isDense: true,
+                                contentPadding: EdgeInsets.symmetric(
+                                    horizontal: 16, vertical: 8),
+                                border: OutlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius: BorderRadius.all(
+                                    Radius.circular(2.0),
+                                  ),
+                                ),
+                                filled: true),
+                          ),
+                        ),
+                        ...shops.map((shop) => ShopTile(shop: shop)),
+                      ],
+                    ),
+                  );
+                },
               ),
             ],
           ),
