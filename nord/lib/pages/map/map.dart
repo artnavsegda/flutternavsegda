@@ -65,8 +65,7 @@ class MapPage extends StatelessWidget {
               ),
               SizedBox.expand(
                 child: DraggableScrollableSheet(
-                  builder: (BuildContext context,
-                      ScrollController scrollController) {
+                  builder: (context, scrollController) {
                     return Container(
                       color: Colors.white,
                       child: ListView(
