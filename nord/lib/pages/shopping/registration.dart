@@ -59,10 +59,46 @@ class RegistrationPage extends StatelessWidget {
                       ),
                       Row(
                         children: [
-                          ElevatedButton(
-                              onPressed: () {}, child: const Text('20.10')),
-                          OutlinedButton(
-                              onPressed: () {}, child: const Text('21.10')),
+                          SizedBox(width: 16),
+                          SizedBox.square(
+                            dimension: 80,
+                            child: ElevatedButton(
+                                onPressed: () {},
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'ср',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                    Text(
+                                      '20.10',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                )),
+                          ),
+                          SizedBox(width: 8),
+                          SizedBox.square(
+                            dimension: 80,
+                            child: OutlinedButton(
+                                onPressed: () {},
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Text(
+                                      'чт',
+                                      style: TextStyle(fontSize: 10),
+                                    ),
+                                    Text(
+                                      '21.10',
+                                      style: TextStyle(fontSize: 16),
+                                    ),
+                                  ],
+                                )),
+                          ),
                         ],
                       ),
                       Padding(
@@ -70,18 +106,25 @@ class RegistrationPage extends StatelessWidget {
                         child: Text('Время доставки',
                             style: Theme.of(context).textTheme.headlineSmall),
                       ),
-                      Row(
-                        children: [
-                          OutlinedButton(
-                              onPressed: () {},
-                              child: const Text('09:00–14:00')),
-                          ElevatedButton(
-                              onPressed: () {},
-                              child: const Text('14:00–18:00')),
-                          OutlinedButton(
-                              onPressed: () {},
-                              child: const Text('18:00–21:00')),
-                        ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            OutlinedButton(
+                                onPressed: () {},
+                                child: const Text('09:00–14:00')),
+                            ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: Size(111.0, 36.0),
+                                ),
+                                onPressed: () {},
+                                child: const Text('14:00–18:00')),
+                            OutlinedButton(
+                                onPressed: () {},
+                                child: const Text('18:00–21:00')),
+                          ],
+                        ),
                       ),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -176,7 +219,7 @@ class RegistrationPage extends StatelessWidget {
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const PayPage()));
                 },
-                child: const Text('Перейти к оплатите')),
+                child: const Text('Перейти к оплате')),
           ),
         ],
       ),
