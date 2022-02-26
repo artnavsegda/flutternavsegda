@@ -26,47 +26,70 @@ class PayPage extends StatelessWidget {
         children: [
           Row(
             children: [
+              SizedBox(width: 16),
               OutlinedButton(
                   style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.only(right: 16)),
+                    minimumSize: Size(72.0, 96.0),
+                    padding: EdgeInsets.zero,
+                  ),
                   onPressed: () {},
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child:
-                            Text('Новая\nКарта', textAlign: TextAlign.center),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(
-                          SeverMetropol.Icon_Checkbox_Unchecked,
-                          color: Theme.of(context).colorScheme.primary,
+                  child: SizedBox(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        SizedBox(
+                          width: 72,
+                          height: 96,
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          bottom: 8,
+                          child: Text(
+                            'Новая\nКарта',
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                        Positioned(
+                          bottom: 53,
+                          child: Icon(
+                            SeverMetropol.Icon_Add,
+                            color: Colors.red[900],
+                          ),
+                        ),
+                      ],
+                    ),
                   )),
+              SizedBox(width: 8),
               ElevatedButton(
                   style: OutlinedButton.styleFrom(
-                      padding: EdgeInsets.only(right: 16)),
+                    minimumSize: Size(72.0, 96.0),
+                    padding: EdgeInsets.zero,
+                  ),
                   onPressed: () {},
-                  child: Stack(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          'На\nместе',
-                          textAlign: TextAlign.center,
+                  child: SizedBox(
+                    child: Stack(
+                      alignment: Alignment.bottomCenter,
+                      children: [
+                        SizedBox(
+                          width: 72,
+                          height: 96,
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(
-                          SeverMetropol.Icon_Checkbox_Unchecked,
-                          color: Colors.white,
+                        Positioned(
+                          bottom: 8,
+                          child: Text(
+                            'На\nместе',
+                            textAlign: TextAlign.center,
+                          ),
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          left: 4,
+                          top: 4,
+                          child: Icon(
+                            SeverMetropol.Icon_Checkbox_Unchecked,
+                            color: Colors.white,
+                          ),
+                        ),
+                      ],
+                    ),
                   )),
             ],
           ),
