@@ -3,6 +3,7 @@ import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
@@ -156,6 +157,41 @@ class _EditUserState extends State<EditUser> {
         });
   }
 
+  void _showDatePicker() {
+    if (Platform.isAndroid) {
+      showDatePicker(
+          context: context,
+          initialDate: DateTime(2016, 8),
+          firstDate: DateTime(2015, 8),
+          lastDate: DateTime(2101));
+    } else if (Platform.isIOS) {
+      showCupertinoModalPopup(
+          context: context,
+          builder: (context) {
+            return Container(
+              height: 300,
+              color: const Color.fromARGB(255, 255, 255, 255),
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 240,
+                    child: CupertinoDatePicker(
+                      initialDateTime: DateTime(2016, 8),
+                      mode: CupertinoDatePickerMode.date,
+                      onDateTimeChanged: (value) {},
+                    ),
+                  ),
+                  CupertinoButton(
+                    child: const Text('OK'),
+                    onPressed: () => Navigator.of(context).pop(),
+                  )
+                ],
+              ),
+            );
+          });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final GlobalKey _menuKey = GlobalKey();
@@ -286,13 +322,7 @@ class _EditUserState extends State<EditUser> {
                     Text('Неподтвержденный адрес Email. Подтвердить'),
                     const SizedBox(height: 16),
                     TextFormField(
-                      onTap: (() {
-                        showDatePicker(
-                            context: context,
-                            initialDate: DateTime(2016, 8),
-                            firstDate: DateTime(2015, 8),
-                            lastDate: DateTime(2101));
-                      }),
+                      onTap: _showDatePicker,
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: "Дата рождения",
