@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 MaterialColor createMaterialColor(Color color) {
   List strengths = <double>[.05];
@@ -25,12 +26,18 @@ Color hexToColor(String code) {
 }
 
 String periodDate(int? dateStart, int? dateEnd) {
+  final DateFormat formatter = DateFormat('yyyy-MM-dd');
+  DateTime dateStartDate = DateTime.fromMillisecondsSinceEpoch(dateStart ?? 0);
+  String dateStartString = DateFormat.MMMMd('ru_RU').format(dateStartDate);
+  DateTime dateEndDate = DateTime.fromMillisecondsSinceEpoch(dateEnd ?? 0);
+  String dateEndString = DateFormat.MMMMd('ru_RU').format(dateEndDate);
+
   if (dateStart == null && dateEnd == null)
     return '';
   else if (dateStart == null)
-    return 'Только до 31 октября';
+    return 'Только до $dateEndString';
   else if (dateEnd == null)
-    return 'C 31 октября';
+    return 'C $dateStartString';
   else
-    return '15 октября–27 ноября';
+    return '$dateStartString–$dateEndString';
 }
