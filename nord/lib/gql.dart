@@ -1041,6 +1041,23 @@ class GraphProductReview {
         mark = json['mark'];
 }
 
+class GraphAward {
+  GraphAward({
+    required this.iD,
+    required this.name,
+    required this.picture,
+  });
+
+  int iD;
+  String name;
+  String picture;
+
+  GraphAward.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        picture = json['picture'];
+}
+
 class GraphProductCard {
   GraphProductCard({
     required this.iD,
@@ -1063,6 +1080,7 @@ class GraphProductCard {
     required this.link,
     required this.similar,
     required this.reviews,
+    required this.awards,
   });
   int iD;
   String? type;
@@ -1084,6 +1102,7 @@ class GraphProductCard {
   List<GraphProduct> link;
   List<GraphProduct> similar;
   List<GraphProductReview> reviews;
+  List<GraphAward> awards;
 
   GraphProductCard.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
@@ -1113,6 +1132,8 @@ class GraphProductCard {
             json['link'].map((model) => GraphProduct.fromJson(model))),
         similar = List<GraphProduct>.from(
             json['similar'].map((model) => GraphProduct.fromJson(model))),
+        awards = List<GraphAward>.from(
+            json['awards'].map((model) => GraphAward.fromJson(model))),
         reviews = List<GraphProductReview>.from(
             json['reviews'].map((model) => GraphProductReview.fromJson(model)));
 }

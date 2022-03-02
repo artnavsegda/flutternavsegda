@@ -532,6 +532,11 @@ class _ProductPageState extends State<ProductPage> {
                               ],
                             ),
                           ),
+                          ...productInfo.characteristics
+                              .where((e) => e.type == 'TEXT')
+                              .map((e) => TextCharacteristic(element: e))
+                              .toList()
+                              .cast<Widget>(),
                           SizedBox(height: 24),
                         ],
                       ),

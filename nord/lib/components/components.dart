@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/gql.dart';
 import 'select_address_bottom_sheet.dart';
 export 'gradient_button.dart';
 
@@ -211,6 +213,35 @@ class SliderCombo extends StatelessWidget {
           ),
         ),
       ],
+    );
+  }
+}
+
+class TextCharacteristic extends StatelessWidget {
+  const TextCharacteristic({Key? key, required this.element}) : super(key: key);
+
+  final GraphCharacteristics element;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        textBaseline: TextBaseline.ideographic,
+        children: [
+          Text(element.name),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+          )),
+          Text(element.values
+              .map((element) => element.value)
+              .reduce((value, element) => value + ', ' + element))
+        ],
+      ),
     );
   }
 }
