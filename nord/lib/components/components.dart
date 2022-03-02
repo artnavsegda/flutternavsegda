@@ -176,14 +176,26 @@ class SliderCombo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _controller = TextEditingController(text: '25');
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(),
-            SizedBox(height: 4),
-            Text('Вы можете подарить до 120 бонусов'),
+            TextField(
+                controller: _controller,
+                decoration: InputDecoration(
+                  labelText: 'Бонусы',
+                )),
+            SizedBox(height: 7),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Вы можете подарить до 120 бонусов',
+                style: TextStyle(fontSize: 12),
+              ),
+            ),
           ],
         ),
         SliderTheme(
