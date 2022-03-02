@@ -199,6 +199,8 @@ class _ProductPageState extends State<ProductPage> {
                                   title: 'С собой',
                                   color: Color(0xFFB0063A),
                                 ),
+                                ...productInfo.awards
+                                    .map((e) => Image.network(e.picture))
                               ],
                             ),
                           ))
@@ -534,9 +536,7 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                           ...productInfo.characteristics
                               .where((e) => e.type == 'TEXT')
-                              .map((e) => TextCharacteristic(element: e))
-                              .toList()
-                              .cast<Widget>(),
+                              .map((e) => TextCharacteristic(element: e)),
                           SizedBox(height: 24),
                         ],
                       ),
