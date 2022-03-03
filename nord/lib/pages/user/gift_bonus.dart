@@ -30,7 +30,10 @@ class GiftBonusModalSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SliderCombo(),
-              const TextField(),
+              TextField(
+                  decoration: InputDecoration(
+                labelText: 'Номер телефона получателя',
+              )),
               SizedBox(height: 16),
               ElevatedButton(
                   onPressed: () {}, child: const Text('Подарить бонусы')),
