@@ -133,7 +133,8 @@ class UserPage extends StatelessWidget {
                                     isScrollControlled: true,
                                     context: context,
                                     builder: (context) {
-                                      return const GiftBonusModalSheet();
+                                      return GiftBonusModalSheet(
+                                          maxBonus: userInfo.points);
                                     },
                                   );
                                 },

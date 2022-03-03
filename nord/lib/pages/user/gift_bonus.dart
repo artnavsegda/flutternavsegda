@@ -6,7 +6,10 @@ import 'package:nord/sever_metropol_icons.dart';
 class GiftBonusModalSheet extends StatelessWidget {
   const GiftBonusModalSheet({
     Key? key,
+    required this.maxBonus,
   }) : super(key: key);
+
+  final int maxBonus;
 
   @override
   Widget build(BuildContext context) {
