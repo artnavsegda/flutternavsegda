@@ -30,6 +30,7 @@ class GiftBonusModalSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SliderCombo(),
+              SizedBox(height: 12),
               TextField(
                   decoration: InputDecoration(
                 labelText: 'Номер телефона получателя',
