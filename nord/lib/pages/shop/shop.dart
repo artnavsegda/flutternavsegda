@@ -1,8 +1,20 @@
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
+
+const List<String> weekNames = [
+  'Нульник',
+  'Понедельник',
+  'Вторник',
+  'Среда',
+  'Четверг',
+  'Пятница',
+  'Суббота',
+  'Воскресенье',
+];
 
 class ShopPage extends StatelessWidget {
   const ShopPage({Key? key, required this.shop}) : super(key: key);
@@ -11,6 +23,7 @@ class ShopPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    NumberFormat f = NumberFormat("00");
     return Scaffold(
       body: Stack(
         children: [
@@ -126,44 +139,27 @@ class ShopPage extends StatelessWidget {
                                         color: Colors.red[900],
                                       ),
                                     ),
-                                    ListTile(
-                                      title: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Понедельник'),
-                                          Expanded(
-                                              child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: DottedLine(
-                                                dashColor: Colors.grey,
-                                                dashLength: 2),
-                                          )),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                    ),
-                                    ListTile(
-                                      title: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('Вторник'),
-                                          Expanded(
-                                              child: Padding(
-                                            padding: const EdgeInsets.all(5.0),
-                                            child: DottedLine(
-                                                dashColor: Colors.grey,
-                                                dashLength: 2),
-                                          )),
-                                          Text('09:30–20:00'),
-                                        ],
-                                      ),
-                                    ),
+                                    ...shop.openingHours.map((e) => ListTile(
+                                          title: Row(
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.end,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Text(weekNames[e.weekDay]),
+                                              Expanded(
+                                                  child: Padding(
+                                                padding:
+                                                    const EdgeInsets.all(5.0),
+                                                child: DottedLine(
+                                                    dashColor: Colors.grey,
+                                                    dashLength: 2),
+                                              )),
+                                              Text(
+                                                  '${e.start! ~/ 100}:${f.format(e.start! % 100)}–${e.finish! ~/ 100}:${f.format(e.finish! % 100)}'),
+                                            ],
+                                          ),
+                                        )),
                                   ],
                                 );
                               },
