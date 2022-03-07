@@ -68,16 +68,21 @@ class ShopPage extends StatelessWidget {
                                       crossAxisAlignment:
                                           WrapCrossAlignment.center,
                                       children: [
-                                        Text('⬤ ',
-                                            style: TextStyle(
-                                                fontSize: 12.0,
-                                                color: hexToColor(
-                                                    metroStation.colorLine))),
+                                        Container(
+                                          width: 8,
+                                          height: 8,
+                                          decoration: BoxDecoration(
+                                            color: hexToColor(
+                                                metroStation.colorLine),
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                        SizedBox(width: 4),
                                         Text(metroStation.stationName,
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 color: Colors.black)),
-                                        SizedBox(width: 10)
+                                        SizedBox(width: 8),
                                       ],
                                     ))
                                 .toList()
