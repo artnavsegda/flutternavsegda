@@ -365,7 +365,7 @@ class CartTile extends StatefulWidget {
   final String image;
   final double price;
   final int id;
-  final int quantity;
+  final double quantity;
   final Function() reload;
 
   @override
@@ -472,7 +472,8 @@ class _CartTileState extends State<CartTile> {
                                             alignment: Alignment.center,
                                             width: 32,
                                             height: 24,
-                                            child: Text('${widget.quantity}'),
+                                            child: Text(
+                                                '${widget.quantity.round()}'),
                                           ),
                                           SizedBox(
                                             width: 24,

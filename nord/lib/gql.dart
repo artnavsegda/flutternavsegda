@@ -286,7 +286,7 @@ class GraphCartRow {
   int rowID;
   int productID;
   String productName;
-  int quantity;
+  double quantity;
   double amount;
   double? oldAmount;
   String? modifiers;
