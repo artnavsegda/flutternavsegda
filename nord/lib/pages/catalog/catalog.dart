@@ -202,6 +202,7 @@ class _CatalogPageState extends State<CatalogPage>
                   await Future.delayed(const Duration(seconds: 1));
                 },
                 child: ScrollablePositionedList.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
                   itemCount: nordCatalog.length,
                   itemScrollController: itemScrollController,
                   itemPositionsListener: itemPositionsListener,

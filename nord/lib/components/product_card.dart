@@ -37,6 +37,8 @@ class ProductCard extends StatelessWidget {
               children: [
                 if (product.picture!.isNotEmpty)
                   CachedNetworkImage(
+                    width: MediaQuery.of(context).size.width / 2.25,
+                    height: MediaQuery.of(context).size.width / 2.25,
                     imageUrl: product.picture ?? '',
                     placeholder: (context, url) => Shimmer.fromColors(
                       baseColor: const Color(0xFFECECEC),
@@ -51,8 +53,11 @@ class ProductCard extends StatelessWidget {
                         child: const Icon(Icons.no_photography),
                       ),
                     ),
-                    imageBuilder: (context, imageProvider) =>
-                        Ink.image(image: imageProvider),
+                    imageBuilder: (context, imageProvider) => Ink.image(
+                      image: imageProvider,
+                      width: MediaQuery.of(context).size.width / 2.25,
+                      height: MediaQuery.of(context).size.width / 2.25,
+                    ),
                   )
                 else
                   Container(
