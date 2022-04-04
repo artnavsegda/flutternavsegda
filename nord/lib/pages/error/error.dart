@@ -6,9 +6,11 @@ class ErrorPage extends StatelessWidget {
   const ErrorPage({
     Key? key,
     required this.reload,
+    this.errorText,
   }) : super(key: key);
 
   final Function() reload;
+  final String? errorText;
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +50,10 @@ class ErrorPage extends StatelessWidget {
               onPressed: reload,
               child: Text('Повторить'),
             ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text('$errorText'),
           ),
         ],
       ),

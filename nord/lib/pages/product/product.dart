@@ -87,9 +87,12 @@ class _ProductPageState extends State<ProductPage> {
         ),
         builder: (result, {fetchMore, refetch}) {
           if (result.hasException) {
-            return ErrorPage(reload: () {
-              refetch!();
-            });
+            return ErrorPage(
+              reload: () {
+                refetch!();
+              },
+              errorText: result.exception?.graphqlErrors[0].message ?? '',
+            );
           }
 
           if (result.isLoading && result.data == null) {
