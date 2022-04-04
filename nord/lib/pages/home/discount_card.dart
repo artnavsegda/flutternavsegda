@@ -141,7 +141,7 @@ class CardLoggedIn extends StatelessWidget {
                   ),
                 ),
                 const Positioned(
-                  bottom: 48,
+                  bottom: 64,
                   left: 16,
                   child: Text(
                     'У вас',
@@ -149,7 +149,7 @@ class CardLoggedIn extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 16,
+                  bottom: 32,
                   left: 16,
                   child: Text(
                     '120 бонусов',
@@ -158,7 +158,15 @@ class CardLoggedIn extends StatelessWidget {
                         .headlineSmall!
                         .copyWith(color: Colors.white),
                   ),
-                )
+                ),
+                Positioned(
+                  bottom: 16,
+                  left: 16,
+                  child: Text(
+                    '5% начисление',
+                    style: TextStyle(color: Color(0xB2FFFFFF), fontSize: 12),
+                  ),
+                ),
               ],
             ),
           ),
