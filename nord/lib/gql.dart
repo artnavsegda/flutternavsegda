@@ -857,12 +857,25 @@ class GraphClientFullInfo {
   String? eMail;
   bool? greenMode;
   bool confirmedPhone;
+  String qRSufix;
   bool confirmedEMail;
   bool isPassword;
   int points;
   int orders;
   String? picture;
   String? codeInviteFriend;
+  String? bonusCardBack;
+  String? bonusCardBack2x;
+  String? bonusCardBack3x;
+  List<GraphDeliveryAddress> deliveryAddresses;
+  List<GraphBankCard> bankCards;
+  String filterType;
+  int? filterDeliveryAddressId;
+  int? filterShopId;
+  String? filterMessage;
+  int? loyaltyTierId;
+  int? loyaltyTierPointOrder;
+  String? loyaltyTierPictureCard;
 
   GraphClientFullInfo.fromJson(Map<String, dynamic> json)
       : clientGUID = json['clientGUID'],
