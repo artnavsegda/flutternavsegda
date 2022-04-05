@@ -181,11 +181,14 @@ class CardLoggedIn extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  top: 16,
-                  right: 16,
-                  child: Icon(
-                    SeverMetropol.Icon_Info,
-                    color: Colors.white,
+                  top: 4,
+                  right: 4,
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Icon(
+                      SeverMetropol.Icon_Info,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ],
