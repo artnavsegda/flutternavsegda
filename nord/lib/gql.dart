@@ -832,6 +832,29 @@ class GraphCatalog {
             json['products'].map((model) => GraphProduct.fromJson(model)));
 }
 
+class GraphDeliveryAddress {
+  GraphDeliveryAddress({
+    required this.iD,
+    required this.address,
+    required this.longitude,
+    required this.latitude,
+    required this.description,
+  });
+  int iD;
+  String address;
+  double longitude;
+  double latitude;
+  String? description;
+  GraphDeliveryAddress.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        address = json['address'],
+        longitude = json['longitude'],
+        latitude = json['latitude'],
+        description = json['description'];
+}
+
+class GraphBankCard {}
+
 class GraphClientFullInfo {
   GraphClientFullInfo({
     required this.clientGUID,
