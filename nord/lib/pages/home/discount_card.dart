@@ -1,8 +1,9 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import '../../sever_metropol_icons.dart';
 
 import 'qr.dart';
-import 'package:go_router/go_router.dart';
 
 class CardNotLoggedIn extends StatelessWidget {
   const CardNotLoggedIn({
@@ -177,6 +178,14 @@ class CardLoggedIn extends StatelessWidget {
                     ),
                     onPressed: () {},
                     child: Text('QR-код'),
+                  ),
+                ),
+                Positioned(
+                  top: 16,
+                  right: 16,
+                  child: Icon(
+                    SeverMetropol.Icon_Info,
+                    color: Colors.white,
                   ),
                 ),
               ],
