@@ -853,7 +853,20 @@ class GraphDeliveryAddress {
         description = json['description'];
 }
 
-class GraphBankCard {}
+class GraphBankCard {
+  GraphBankCard({
+    required this.iD,
+    required this.mask,
+    this.picture,
+  });
+  int iD;
+  String mask;
+  String? picture;
+  GraphBankCard.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        mask = json['mask'],
+        picture = json['picture'];
+}
 
 class GraphClientFullInfo {
   GraphClientFullInfo({
