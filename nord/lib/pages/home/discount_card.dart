@@ -121,7 +121,7 @@ class CardLoggedIn extends StatelessWidget {
                   top: 40,
                   child: Image.asset('assets/Logo-Red.png'),
                 ),
-                Positioned(
+/*                 Positioned(
                   right: 16,
                   top: 16,
                   child: Image.asset('assets/Special-Icon-QR-Code-Scanner.png'),
@@ -139,7 +139,7 @@ class CardLoggedIn extends StatelessWidget {
                     'Ваша карта',
                     style: TextStyle(color: Colors.white),
                   ),
-                ),
+                ), */
                 const Positioned(
                   bottom: 64,
                   left: 16,
@@ -149,7 +149,7 @@ class CardLoggedIn extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  bottom: 32,
+                  bottom: 34,
                   left: 16,
                   child: Text(
                     '120 бонусов',
@@ -165,6 +165,18 @@ class CardLoggedIn extends StatelessWidget {
                   child: Text(
                     '5% начисление',
                     style: TextStyle(color: Color(0xB2FFFFFF), fontSize: 12),
+                  ),
+                ),
+                Positioned(
+                  bottom: 12,
+                  right: 16,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: Colors.white),
+                      primary: Colors.white,
+                    ),
+                    onPressed: () {},
+                    child: Text('QR-код'),
                   ),
                 ),
               ],
