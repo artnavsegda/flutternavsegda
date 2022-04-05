@@ -842,12 +842,25 @@ class GraphClientFullInfo {
     this.eMail,
     this.greenMode,
     required this.confirmedPhone,
+    required this.qRSufix,
     required this.confirmedEMail,
     required this.isPassword,
     required this.points,
     required this.orders,
     this.picture,
     this.codeInviteFriend,
+    this.bonusCardBack,
+    this.bonusCardBack2x,
+    this.bonusCardBack3x,
+    required this.deliveryAddresses,
+    required this.bankCards,
+    required this.filterType,
+    this.filterDeliveryAddressId,
+    this.filterShopId,
+    this.filterMessage,
+    this.loyaltyTierId,
+    this.loyaltyTierPointOrder,
+    this.loyaltyTierPictureCard,
   });
   String clientGUID;
   int? phone;
@@ -886,12 +899,28 @@ class GraphClientFullInfo {
         eMail = json['eMail'],
         greenMode = json['greenMode'],
         confirmedPhone = json['confirmedPhone'],
+        qRSufix = json['qRSufix'],
         confirmedEMail = json['confirmedEMail'],
         isPassword = json['isPassword'],
         points = json['points'],
         orders = json['orders'],
         picture = json['picture'],
-        codeInviteFriend = json['codeInviteFriend'];
+        codeInviteFriend = json['codeInviteFriend'],
+        bonusCardBack = json['bonusCardBack'],
+        bonusCardBack2x = json['bonusCardBack2x'],
+        bonusCardBack3x = json['bonusCardBack3x'],
+        deliveryAddresses = List<GraphDeliveryAddress>.from(
+            json['deliveryAddresses']
+                .map((model) => GraphDeliveryAddress.fromJson(model))),
+        bankCards = List<GraphBankCard>.from(
+            json['bankCards'].map((model) => GraphBankCard.fromJson(model))),
+        filterType = json['filterType'],
+        filterDeliveryAddressId = json['filterDeliveryAddressId'],
+        filterShopId = json['filterShopId'],
+        filterMessage = json['filterMessage'],
+        loyaltyTierId = json['loyaltyTierId'],
+        loyaltyTierPointOrder = json['loyaltyTierPointOrder'],
+        loyaltyTierPictureCard = json['loyaltyTierPictureCard'];
 }
 
 class GraphCharacteristicsValue {
