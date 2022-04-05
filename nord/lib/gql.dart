@@ -1783,12 +1783,35 @@ query getClientInfo {
     gender,
     eMail,
     confirmedPhone,
+    qRSufix,
     confirmedEMail
     isPassword,
     points,
     orders,
     picture,
-    codeInviteFriend
+    codeInviteFriend,
+    bonusCardBack,
+    bonusCardBack2x,
+    bonusCardBack3x,
+    deliveryAddresses {
+      iD,
+      address,
+      longitude,
+      latitude,
+      description,
+    },
+    bankCards {
+      iD,
+      mask,
+      picture,
+    },
+    filterType,
+    filterDeliveryAddressId,
+    filterShopId,
+    filterMessage,
+    loyaltyTierId,
+    loyaltyTierPointOrder,
+    loyaltyTierPictureCard,
   }
 }
 ''';
