@@ -176,7 +176,12 @@ class CardLoggedIn extends StatelessWidget {
                       side: BorderSide(color: Colors.white),
                       primary: Colors.white,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const QrPage()));
+                    },
                     child: Text('QR-код'),
                   ),
                 ),
