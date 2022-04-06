@@ -86,79 +86,87 @@ class UserPage extends StatelessWidget {
                             Color(0xffCD0643),
                             Color(0xffB0063A)
                           ])),
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        bottom: 12,
-                        left: 16,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              'У вас',
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            Text(userInfo.points.toString() + ' бонусов',
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .headlineSmall!
-                                    .copyWith(color: Colors.white)),
-                            Row(
-                              children: [
-                                OutlinedButton(
-                                    style: OutlinedButton.styleFrom(
-                                      backgroundColor: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return InvitePage(
-                                              codeInviteFriend:
-                                                  userInfo.codeInviteFriend ??
-                                                      "no codes");
-                                        },
-                                      );
-                                    },
-                                    child: const Text('Позвать друга')),
-                                TextButton(
-                                    style: TextButton.styleFrom(
-                                      primary: Colors.white,
-                                    ),
-                                    onPressed: () {
-                                      showModalBottomSheet(
-                                        shape: const RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.vertical(
-                                              top: Radius.circular(4.0)),
-                                        ),
-                                        isScrollControlled: true,
-                                        context: context,
-                                        builder: (context) {
-                                          return GiftBonusModalSheet(
-                                              maxBonus: userInfo.points);
-                                        },
-                                      );
-                                    },
-                                    child: const Text('Подарить бонусы'))
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                      Positioned(
-                        top: 4,
-                        right: 4,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            SeverMetropol.Icon_Info,
-                            color: Colors.white,
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Stack(
+                      children: [
+                        Positioned(
+                          bottom: 12,
+                          left: 16,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'У вас',
+                                style: TextStyle(color: Colors.white),
+                              ),
+                              Text(userInfo.points.toString() + ' бонусов',
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headlineSmall!
+                                      .copyWith(color: Colors.white)),
+                              Text(
+                                '5% начисление',
+                                style: TextStyle(
+                                    color: Color(0xB2FFFFFF), fontSize: 12),
+                              ),
+                              Row(
+                                children: [
+                                  OutlinedButton(
+                                      style: OutlinedButton.styleFrom(
+                                        backgroundColor: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return InvitePage(
+                                                codeInviteFriend:
+                                                    userInfo.codeInviteFriend ??
+                                                        "no codes");
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Позвать друга')),
+                                  TextButton(
+                                      style: TextButton.styleFrom(
+                                        primary: Colors.white,
+                                      ),
+                                      onPressed: () {
+                                        showModalBottomSheet(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(4.0)),
+                                          ),
+                                          isScrollControlled: true,
+                                          context: context,
+                                          builder: (context) {
+                                            return GiftBonusModalSheet(
+                                                maxBonus: userInfo.points);
+                                          },
+                                        );
+                                      },
+                                      child: const Text('Подарить бонусы'))
+                                ],
+                              )
+                            ],
                           ),
                         ),
-                      ),
-                    ],
+                        Positioned(
+                          top: 4,
+                          right: 4,
+                          child: IconButton(
+                            onPressed: () {},
+                            icon: Icon(
+                              SeverMetropol.Icon_Info,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
