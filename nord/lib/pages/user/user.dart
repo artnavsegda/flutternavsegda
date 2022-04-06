@@ -107,7 +107,8 @@ class UserPage extends StatelessWidget {
                                       .headlineSmall!
                                       .copyWith(color: Colors.white)),
                               Text(
-                                '5% начисление',
+                                userInfo.loyaltyTierPointOrder.toString() +
+                                    '% начисление',
                                 style: TextStyle(
                                     color: Color(0xB2FFFFFF), fontSize: 12),
                               ),
