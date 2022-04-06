@@ -9,6 +9,7 @@ import '../orders/orders.dart';
 import '../address/delivery_address.dart';
 import '../../gql.dart';
 import '../error/error.dart';
+import '../loyalty/loyalty.dart';
 
 import 'edit_user.dart';
 import 'gift_bonus.dart';
@@ -159,7 +160,13 @@ class UserPage extends StatelessWidget {
                           top: 4,
                           right: 4,
                           child: IconButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const LoyaltyPage()));
+                            },
                             icon: Icon(
                               SeverMetropol.Icon_Info,
                               color: Colors.white,

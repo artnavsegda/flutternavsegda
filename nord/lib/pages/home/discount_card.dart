@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import '../../sever_metropol_icons.dart';
 
 import 'qr.dart';
+import '../loyalty/loyalty.dart';
 
 class CardNotLoggedIn extends StatelessWidget {
   const CardNotLoggedIn({
@@ -189,7 +190,12 @@ class CardLoggedIn extends StatelessWidget {
                   top: 4,
                   right: 4,
                   child: IconButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const LoyaltyPage()));
+                    },
                     icon: Icon(
                       SeverMetropol.Icon_Info,
                       color: Colors.white,
