@@ -1026,6 +1026,7 @@ class GraphProduct {
     required this.favorites,
     required this.stickerPictures,
     required this.attributes,
+    required this.prices,
   });
   int iD;
   String? type;
@@ -1037,6 +1038,7 @@ class GraphProduct {
   int favorites;
   List<String> stickerPictures;
   List<GraphProductAttribute> attributes;
+  List<GraphProductPrice> prices;
 
   GraphProduct.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
@@ -1049,7 +1051,9 @@ class GraphProduct {
         favorites = json['favorites'],
         stickerPictures = List<String>.from(json['stickerPictures']),
         attributes = List<GraphProductAttribute>.from(json['attributes']
-            .map((model) => GraphProductAttribute.fromJson(model)));
+            .map((model) => GraphProductAttribute.fromJson(model))),
+        prices = List<GraphProductPrice>.from(
+            json['prices'].map((model) => GraphProductPrice.fromJson(model)));
 }
 
 class GraphProductPrice {
@@ -1244,6 +1248,11 @@ query getAction($actionID: Int) {
         name
         color
       }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
+      }
     }
     shops {
       iD
@@ -1371,6 +1380,11 @@ query getProducts {
         name
         color
       }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
+      }
     }
   }
 }
@@ -1438,6 +1452,11 @@ query getConfiguratorProducts($configuratorItemIds: [Int], $cursor: String)
         iD
         name
         color
+      }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
       }
     }
   }
@@ -1512,6 +1531,11 @@ query getTopBlocks {
         iD
         name
         color
+      }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
       }
     }
   }
@@ -1636,6 +1660,11 @@ query getProduct($productID: Int!) {
         name
         color
       }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
+      }
     }
     similar {
       iD
@@ -1651,6 +1680,11 @@ query getProduct($productID: Int!) {
         iD
         name
         color
+      }
+      prices {
+        price
+        oldPrice
+        characteristicValueID
       }
     }
     modifiers {
@@ -1741,6 +1775,11 @@ query getFavoritesProducts {
       iD
       name
       color
+    }
+    prices {
+      price
+      oldPrice
+      characteristicValueID
     }
   }
 }
@@ -1977,6 +2016,11 @@ query findProducts($searchBox: String) {
       iD
       name
       color
+    }
+    prices {
+      price
+      oldPrice
+      characteristicValueID
     }
   }
 }

@@ -166,7 +166,7 @@ class ProductCard extends StatelessWidget {
               style: DefaultTextStyle.of(context).style,
               children: <TextSpan>[
                 TextSpan(
-                    text: '420',
+                    text: product.prices[0].price.toInt().toString(),
                     style: Theme.of(context).textTheme.headlineSmall),
                 TextSpan(
                     text: ' ₽',
