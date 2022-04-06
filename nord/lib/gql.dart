@@ -1694,7 +1694,7 @@ mutation setFavoritesProduct($productID: Int!) {
 ''';
 
 const String cartEdit = r'''
-mutation cartEdit($rowID: Int, $quantity: Int) {
+mutation cartEdit($rowID: Long, $quantity: Decimal) {
   cartEdit(rowID: $rowID, quantity: $quantity) {
     result
     errorMessage
@@ -1747,7 +1747,7 @@ query getFavoritesProducts {
 ''';
 
 const String cartDelete = r'''
-mutation cartDelete($rowIDs: [Int]) {
+mutation cartDelete($rowIDs: [Long]) {
   cartDelete(rowIDs: $rowIDs) {
     result
     errorMessage

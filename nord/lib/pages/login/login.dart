@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import '../../components/components.dart';
 import '../../gql.dart';
 import '../../login_state.dart';
+import '../../utils.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -76,25 +77,7 @@ class LoginPage extends StatelessWidget {
                     options: MutationOptions(
                       document: gql(loginClient),
                       onError: (error) {
-                        print("ERROR");
-                        print(error);
-                        showDialog(
-                          context: context,
-                          builder: (BuildContext context) => AlertDialog(
-                            title: const Text('Ошибка'),
-                            content: SingleChildScrollView(
-                                child: Text(
-                              '$error',
-                              style: TextStyle(fontSize: 10),
-                            )),
-                            actions: [
-                              TextButton(
-                                onPressed: () => Navigator.pop(context, 'OK'),
-                                child: const Text('OK'),
-                              ),
-                            ],
-                          ),
-                        );
+                        showErrorAlert(context, '$error');
                       },
                       onCompleted: (resultData) {
                         print(resultData);

@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
+import 'package:nord/utils.dart';
 
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
@@ -381,6 +382,9 @@ class _CartTileState extends State<CartTile> {
     return Mutation(
         options: MutationOptions(
             document: gql(cartDelete),
+            onError: (error) {
+              showErrorAlert(context, '$error');
+            },
             onCompleted: (resultData) {
               widget.reload();
             }),
@@ -441,6 +445,9 @@ class _CartTileState extends State<CartTile> {
                                 Mutation(
                                     options: MutationOptions(
                                         document: gql(cartEdit),
+                                        onError: (error) {
+                                          showErrorAlert(context, '$error');
+                                        },
                                         onCompleted: (resultData) {
                                           widget.reload();
                                         }),
