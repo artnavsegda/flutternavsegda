@@ -46,80 +46,138 @@ class LoyaltyPage extends StatelessWidget {
                 );
               }
 
-              PageController _controller =
-                  PageController(viewportFraction: 0.9);
-
               List<GraphLoyaltyTier> loyaltyTiers = List<GraphLoyaltyTier>.from(
                   result.data!['getLoyaltyTiers']
                       .map((model) => GraphLoyaltyTier.fromJson(model)));
 
+              int activeTier =
+                  loyaltyTiers.indexWhere((element) => element.active);
+
+              PageController _controller = PageController(
+                viewportFraction: 0.93,
+                initialPage: activeTier,
+              );
+
               return ListView(
                 children: [
-                  AspectRatio(
-                    aspectRatio: 16 / 9,
-                    child: PageView.builder(
-                      controller: _controller,
-                      itemCount: loyaltyTiers.length,
-                      itemBuilder: (context, index) {
-                        GraphLoyaltyTier loyaltyTier = loyaltyTiers[index];
-                        return Container(
-                          decoration: loyaltyTier.active
-                              ? BoxDecoration(
-                                  border: Border.all(),
-                                )
-                              : BoxDecoration(
-                                  borderRadius: BorderRadius.circular(4),
-                                  gradient: const LinearGradient(
-                                      begin: Alignment.centerLeft,
-                                      end: Alignment.centerRight,
-                                      colors: <Color>[
-                                        Color(0xffCD0643),
-                                        Color(0xffB0063A)
-                                      ])),
-                          child: Column(
-                            children: [
-                              ListTile(
-                                subtitle: Text('Уровень'),
-                                title: Text(loyaltyTier.name),
-                                leading: Image.network(
-                                  loyaltyTier.picture ?? '',
-                                  width: 42,
-                                  height: 42,
+                  Container(
+                    height: 280,
+                    child: Stack(
+                      alignment: AlignmentDirectional.bottomCenter,
+                      children: [
+                        PageView.builder(
+                          controller: _controller,
+                          itemCount: loyaltyTiers.length,
+                          itemBuilder: (context, index) {
+                            GraphLoyaltyTier loyaltyTier = loyaltyTiers[index];
+                            return Container(
+                              margin: const EdgeInsets.only(
+                                left: 4.0,
+                                right: 4.0,
+                                top: 16,
+                                bottom: 32,
+                              ),
+                              decoration: loyaltyTier.active
+                                  ? BoxDecoration(
+                                      borderRadius: BorderRadius.circular(4),
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: Color(0x1F000000),
+                                          blurRadius: 20,
+                                          offset: Offset(0, 4),
+                                        ),
+                                      ],
+                                      border:
+                                          Border.all(color: Color(0xffB0063A)),
+                                    )
+                                  : BoxDecoration(
+                                      boxShadow: [
+                                          BoxShadow(
+                                            color: Color(0x1F000000),
+                                            blurRadius: 20,
+                                            offset: Offset(0, 4),
+                                          ),
+                                        ],
+                                      borderRadius: BorderRadius.circular(4),
+                                      gradient: const LinearGradient(
+                                          begin: Alignment.centerLeft,
+                                          end: Alignment.centerRight,
+                                          colors: <Color>[
+                                            Color(0xffCD0643),
+                                            Color(0xffB0063A)
+                                          ])),
+                              child: ListTileTheme(
+                                textColor:
+                                    loyaltyTier.active ? null : Colors.white,
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      title: Text(
+                                          loyaltyTier.active
+                                              ? 'Ваш уровень'
+                                              : 'Уровень',
+                                          style: TextStyle(fontSize: 10)),
+                                      subtitle: Text(loyaltyTier.name,
+                                          style: TextStyle(fontSize: 16)),
+                                      leading: Image.network(
+                                        loyaltyTier.picture ?? '',
+                                        width: 42,
+                                        height: 42,
+                                      ),
+                                    ),
+                                    ListTile(
+                                      subtitle: Text('Начисление за покупки'),
+                                      title: Text(
+                                          loyaltyTier.pointOrder.toString() +
+                                              '%'),
+                                      leading: Image.asset(
+                                          'assets/Illustration-Colored-Bonuses.png'),
+                                    ),
+                                    loyaltyTier.condition == 0
+                                        ? ListTile(
+                                            subtitle: Text(
+                                                'Этот уровень для каждого клиента'),
+                                            title: Text('С вами навсегда!'),
+                                            leading: Image.asset(
+                                                'assets/Illustration-Colored-Infinte.png'),
+                                          )
+                                        : ListTile(
+                                            onTap: () {},
+                                            subtitle:
+                                                Text('Начисление за покупки'),
+                                            title: Text(
+                                                'От ${loyaltyTier.condition.toString()} ₽'),
+                                            leading: Image.asset(
+                                                'assets/Illustration-Colored-New-Level.png'),
+                                            trailing: Icon(
+                                              SeverMetropol.Icon_Info,
+                                              color: Colors.white,
+                                            ),
+                                          ),
+                                  ],
                                 ),
                               ),
-                              ListTile(
-                                subtitle: Text('Начисление за покупки'),
-                                title: Text(
-                                    loyaltyTier.pointOrder.toString() + '%'),
-                                leading: Image.asset(
-                                    'assets/Illustration-Colored-Bonuses.png'),
-                              ),
-                              ListTile(
-                                subtitle: Text('Начисление за покупки'),
-                                title: Text(
-                                    'От ${loyaltyTier.condition.toString()} ₽'),
-                                leading: Image.asset(
-                                    'assets/Illustration-Colored-Bonuses.png'),
-                              ),
-                            ],
-                          ),
-                        );
-                      },
+                            );
+                          },
+                        ),
+                        Positioned(
+                          bottom: 20,
+                          child: SmoothPageIndicator(
+                              axisDirection: Axis.horizontal,
+                              controller: _controller,
+                              count: 4,
+                              effect: const ExpandingDotsEffect(
+                                  spacing: 4.0,
+                                  //radius: 4.0,
+                                  dotWidth: 5.0,
+                                  dotHeight: 5.0,
+                                  expansionFactor: 6,
+                                  activeDotColor: Color(0xFFB0063A)),
+                              onDotClicked: (index) {}),
+                        )
+                      ],
                     ),
-                  ),
-                  Center(
-                    child: SmoothPageIndicator(
-                        axisDirection: Axis.horizontal,
-                        controller: _controller,
-                        count: 4,
-                        effect: const ExpandingDotsEffect(
-                            spacing: 4.0,
-                            //radius: 4.0,
-                            dotWidth: 5.0,
-                            dotHeight: 5.0,
-                            expansionFactor: 6,
-                            activeDotColor: Color(0xFFB0063A)),
-                        onDotClicked: (index) {}),
                   ),
                   ExpandableNotifier(
                     initialExpanded: true,
