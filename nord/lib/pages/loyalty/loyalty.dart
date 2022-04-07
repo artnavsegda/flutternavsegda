@@ -150,7 +150,8 @@ class LoyaltyPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  Align(
+                  Container(
+                    padding: const EdgeInsets.all(8.0),
                     alignment: Alignment.centerLeft,
                     child: TextButton.icon(
                         onPressed: () {},
