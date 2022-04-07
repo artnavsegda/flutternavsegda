@@ -1252,6 +1252,21 @@ class GraphProductCard {
             json['reviews'].map((model) => GraphProductReview.fromJson(model)));
 }
 
+const String getLoyaltyTiers = r'''
+query getLoyaltyTiers {
+  getLoyaltyTiers {
+    iD
+    active
+    name
+    description
+    pointOrder
+    condition
+    message
+    picture
+  }
+}
+''';
+
 const String getAction = r'''
 query getAction($actionID: Int) {
   getAction(actionID: $actionID) {
