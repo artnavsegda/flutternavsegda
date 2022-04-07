@@ -2,14 +2,22 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:qr_flutter/qr_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
+import '../../gql.dart';
 import '../../components/gradient_button.dart';
 
 class QrPage extends StatelessWidget {
-  const QrPage({Key? key}) : super(key: key);
+  const QrPage({Key? key, required this.userInfo}) : super(key: key);
+
+  final GraphClientFullInfo userInfo;
 
   @override
   Widget build(BuildContext context) {
+    var maskFormatter = MaskTextInputFormatter(
+        mask: '+# ### ### ## ##',
+        filter: {"#": RegExp(r'[0-9]')},
+        type: MaskAutoCompletionType.lazy);
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -43,7 +51,7 @@ class QrPage extends StatelessWidget {
                   ],
                 ),
                 child: QrImage(
-                  data: "1234567890",
+                  data: "APP.${userInfo.clientGUID}.${userInfo.qRSufix}",
                   size: 200.0,
                 ),
               ),
@@ -70,7 +78,7 @@ class QrPage extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 32),
-                    Text('+ 7 999 548 63 75',
+                    Text(maskFormatter.maskText(userInfo.phone.toString()),
                         style: Theme.of(context)
                             .textTheme
                             .headlineSmall!

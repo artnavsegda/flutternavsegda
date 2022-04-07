@@ -198,7 +198,9 @@ class CardLoggedIn extends StatelessWidget {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => const QrPage()));
+                                  builder: (context) => QrPage(
+                                        userInfo: userInfo,
+                                      )));
                         },
                         child: Text('QR-код'),
                       ),

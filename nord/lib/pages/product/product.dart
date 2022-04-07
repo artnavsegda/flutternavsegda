@@ -224,7 +224,10 @@ class _ProductPageState extends State<ProductPage> {
                                 textBaseline: TextBaseline.ideographic,
                                 children: [
                                   Text(
-                                    '250 ₽ ',
+                                    productInfo.prices[0].price
+                                            .toInt()
+                                            .toString() +
+                                        ' ₽ ',
                                     style: TextStyle(
                                         fontFamily: 'Forum',
                                         fontSize: 34,
@@ -233,14 +236,15 @@ class _ProductPageState extends State<ProductPage> {
                                           'Roboto',
                                         ]),
                                   ),
-                                  CustomPaint(
-                                    painter: RedLine(),
-                                    child: Text('420 ₽',
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headlineSmall!
-                                            .copyWith(color: Colors.grey)),
-                                  ),
+                                  if (productInfo.prices[0].oldPrice != null)
+                                    CustomPaint(
+                                      painter: RedLine(),
+                                      child: Text('420 ₽',
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .headlineSmall!
+                                              .copyWith(color: Colors.grey)),
+                                    ),
                                 ],
                               ),
                               Row(
