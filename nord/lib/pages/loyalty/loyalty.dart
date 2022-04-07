@@ -44,12 +44,33 @@ class LoyaltyPage extends StatelessWidget {
                 );
               }
 
-              List<GraphLoyaltyTier> cart = List<GraphLoyaltyTier>.from(result
-                  .data!['getLoyaltyTiers']
-                  .map((model) => GraphLoyaltyTier.fromJson(model)));
+              List<GraphLoyaltyTier> loyaltyTiers = List<GraphLoyaltyTier>.from(
+                  result.data!['getLoyaltyTiers']
+                      .map((model) => GraphLoyaltyTier.fromJson(model)));
 
               return ListView(
-                children: [],
+                children: [
+                  AspectRatio(
+                    aspectRatio: 16 / 8,
+                    child: PageView.builder(
+                      controller: PageController(viewportFraction: 0.9),
+                      itemCount: loyaltyTiers.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              gradient: const LinearGradient(
+                                  begin: Alignment.centerLeft,
+                                  end: Alignment.centerRight,
+                                  colors: <Color>[
+                                    Color(0xffCD0643),
+                                    Color(0xffB0063A)
+                                  ])),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
             }));
   }
