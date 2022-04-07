@@ -1,8 +1,10 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import '../../sever_metropol_icons.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
+import '../../sever_metropol_icons.dart';
+import '../../gql.dart';
 import 'qr.dart';
 import '../loyalty/loyalty.dart';
 
@@ -104,102 +106,123 @@ class CardLoggedIn extends StatelessWidget {
               colors: <Color>[Color(0xff0057B8), Color(0xff0A478B)])),
       child: AspectRatio(
         aspectRatio: 16 / 9,
-        child: Material(
-          color: Colors.transparent,
-          child: Stack(
-            children: [
-              Positioned(
-                left: 16,
-                top: 16,
-                child: Image.asset('assets/Logo-Blue.png'),
-              ),
-              Positioned(
-                left: 16,
-                top: 40,
-                child: Image.asset('assets/Logo-Red.png'),
-              ),
-/*                 Positioned(
-                right: 16,
-                top: 16,
-                child: Image.asset('assets/Special-Icon-QR-Code-Scanner.png'),
-              ),
-              Positioned(
-                top: 88,
-                right: 43,
-                child: Transform.rotate(
-                    angle: pi, child: Image.asset('assets/Union.png')),
-              ),
-              const Positioned(
-                top: 113,
-                right: 97,
-                child: Text(
-                  'Ваша карта',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ), */
-              const Positioned(
-                bottom: 64,
-                left: 16,
-                child: Text(
-                  'У вас',
-                  style: TextStyle(color: Colors.white),
-                ),
-              ),
-              Positioned(
-                bottom: 34,
-                left: 16,
-                child: Text(
-                  '120 бонусов',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(color: Colors.white),
-                ),
-              ),
-              Positioned(
-                bottom: 16,
-                left: 16,
-                child: Text(
-                  '5% начисление',
-                  style: TextStyle(color: Color(0xB2FFFFFF), fontSize: 12),
-                ),
-              ),
-              Positioned(
-                bottom: 12,
-                right: 16,
-                child: OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    side: BorderSide(color: Colors.white),
-                    primary: Colors.white,
+        child: Query(
+            options: QueryOptions(document: gql(getClientInfo)),
+            builder: (result, {fetchMore, refetch}) {
+              if (result.isLoading && result.data == null) {
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+
+              if (result.hasException) {
+                return SingleChildScrollView(
+                  child: Text(result.exception.toString()),
+                );
+              }
+
+              GraphClientFullInfo userInfo =
+                  GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
+
+              return Material(
+                color: Colors.transparent,
+                child: Stack(
+                  children: [
+                    Positioned(
+                      left: 16,
+                      top: 16,
+                      child: Image.asset('assets/Logo-Blue.png'),
+                    ),
+                    Positioned(
+                      left: 16,
+                      top: 40,
+                      child: Image.asset('assets/Logo-Red.png'),
+                    ),
+                    /*                 Positioned(
+                    right: 16,
+                    top: 16,
+                    child: Image.asset('assets/Special-Icon-QR-Code-Scanner.png'),
                   ),
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const QrPage()));
-                  },
-                  child: Text('QR-код'),
-                ),
-              ),
-              Positioned(
-                top: 4,
-                right: 4,
-                child: IconButton(
-                  onPressed: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const LoyaltyPage()));
-                  },
-                  icon: Icon(
-                    SeverMetropol.Icon_Info,
-                    color: Colors.white,
+                  Positioned(
+                    top: 88,
+                    right: 43,
+                    child: Transform.rotate(
+                        angle: pi, child: Image.asset('assets/Union.png')),
                   ),
+                  const Positioned(
+                    top: 113,
+                    right: 97,
+                    child: Text(
+                      'Ваша карта',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ), */
+                    const Positioned(
+                      bottom: 64,
+                      left: 16,
+                      child: Text(
+                        'У вас',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 34,
+                      left: 16,
+                      child: Text(
+                        userInfo.points.toString() + ' бонусов',
+                        style: Theme.of(context)
+                            .textTheme
+                            .headlineSmall!
+                            .copyWith(color: Colors.white),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 16,
+                      left: 16,
+                      child: Text(
+                        userInfo.loyaltyTierPointOrder.toString() +
+                            '% начисление',
+                        style:
+                            TextStyle(color: Color(0xB2FFFFFF), fontSize: 12),
+                      ),
+                    ),
+                    Positioned(
+                      bottom: 12,
+                      right: 16,
+                      child: OutlinedButton(
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: Colors.white),
+                          primary: Colors.white,
+                        ),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const QrPage()));
+                        },
+                        child: Text('QR-код'),
+                      ),
+                    ),
+                    Positioned(
+                      top: 4,
+                      right: 4,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => const LoyaltyPage()));
+                        },
+                        icon: Icon(
+                          SeverMetropol.Icon_Info,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-        ),
+              );
+            }),
       ),
     );
   }

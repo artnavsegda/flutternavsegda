@@ -150,10 +150,20 @@ class LoyaltyPage extends StatelessWidget {
                                                 'От ${loyaltyTier.condition.toString()} ₽'),
                                             leading: Image.asset(
                                                 'assets/Illustration-Colored-New-Level.png'),
-                                            trailing: Icon(
-                                              SeverMetropol.Icon_Info,
-                                              color: Colors.white,
-                                            ),
+                                            trailing: loyaltyTier
+                                                    .message!.isNotEmpty
+                                                ? Tooltip(
+                                                    preferBelow: false,
+                                                    triggerMode:
+                                                        TooltipTriggerMode.tap,
+                                                    message:
+                                                        loyaltyTier.message,
+                                                    child: Icon(
+                                                      SeverMetropol.Icon_Info,
+                                                      color: Colors.white,
+                                                    ),
+                                                  )
+                                                : null,
                                           ),
                                   ],
                                 ),
