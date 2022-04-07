@@ -1,3 +1,35 @@
+class GraphLoyaltyTier {
+  GraphLoyaltyTier({
+    required this.iD,
+    required this.active,
+    required this.name,
+    this.description,
+    required this.pointOrder,
+    required this.condition,
+    this.message,
+    this.picture,
+  });
+
+  int iD;
+  bool active;
+  String name;
+  String? description;
+  int pointOrder;
+  int condition;
+  String? message;
+  String? picture;
+
+  GraphLoyaltyTier.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        active = json['active'],
+        name = json['name'],
+        description = json['description'],
+        pointOrder = json['pointOrder'],
+        condition = json['condition'],
+        message = json['message'],
+        picture = json['picture'];
+}
+
 class GraphClientInfo {
   GraphClientInfo({
     required this.clientGUID,

@@ -18,6 +18,9 @@ class LoyaltyPage extends StatelessWidget {
             )),
         title: const Text('Ваш уровень'),
       ),
+      body: ListView(
+        children: [],
+      ),
     );
   }
 }
