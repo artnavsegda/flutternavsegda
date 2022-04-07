@@ -56,7 +56,7 @@ class LoyaltyPage extends StatelessWidget {
               return ListView(
                 children: [
                   AspectRatio(
-                    aspectRatio: 16 / 8,
+                    aspectRatio: 16 / 9,
                     child: PageView.builder(
                       controller: _controller,
                       itemCount: loyaltyTiers.length,
@@ -76,6 +76,33 @@ class LoyaltyPage extends StatelessWidget {
                                         Color(0xffCD0643),
                                         Color(0xffB0063A)
                                       ])),
+                          child: Column(
+                            children: [
+                              ListTile(
+                                subtitle: Text('Уровень'),
+                                title: Text(loyaltyTier.name),
+                                leading: Image.network(
+                                  loyaltyTier.picture ?? '',
+                                  width: 42,
+                                  height: 42,
+                                ),
+                              ),
+                              ListTile(
+                                subtitle: Text('Начисление за покупки'),
+                                title: Text(
+                                    loyaltyTier.pointOrder.toString() + '%'),
+                                leading: Image.asset(
+                                    'assets/Illustration-Colored-Bonuses.png'),
+                              ),
+                              ListTile(
+                                subtitle: Text('Начисление за покупки'),
+                                title: Text(
+                                    'От ${loyaltyTier.condition.toString()} ₽'),
+                                leading: Image.asset(
+                                    'assets/Illustration-Colored-Bonuses.png'),
+                              ),
+                            ],
+                          ),
                         );
                       },
                     ),
