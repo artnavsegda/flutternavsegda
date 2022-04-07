@@ -9,12 +9,12 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
 import 'package:nord/utils.dart';
+import 'package:nord/gql.dart';
 
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
 import 'registration.dart';
 import 'cart_is_empty.dart';
-import '../../gql.dart';
 
 class ShoppingPage extends StatefulWidget {
   const ShoppingPage({Key? key}) : super(key: key);
