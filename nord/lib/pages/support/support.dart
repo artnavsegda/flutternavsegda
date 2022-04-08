@@ -7,9 +7,10 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
-import 'package:nord/login_state.dart';
 
+import 'package:nord/login_state.dart';
 import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -103,7 +104,7 @@ class SupportPage extends StatelessWidget {
                 options: MutationOptions(
                   document: gql(addSupport),
                   onError: (error) {
-                    //print(error);
+                    showErrorAlert(context, '$error');
                   },
                   onCompleted: (dynamic resultData) async {
                     //print(resultData);

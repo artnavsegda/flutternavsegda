@@ -8,6 +8,7 @@ import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'gql.dart';
 import 'login_state.dart';
+import '../../utils.dart';
 
 class IntroPage extends StatelessWidget {
   const IntroPage({Key? key}) : super(key: key);
@@ -19,8 +20,7 @@ class IntroPage extends StatelessWidget {
           options: MutationOptions(
             document: gql(authenticate),
             onError: (error) {
-              print("ERROR");
-              print(error);
+              showErrorAlert(context, '$error');
             },
             onCompleted: (dynamic resultData) {
               GraphAuthResult nordAuthResult =

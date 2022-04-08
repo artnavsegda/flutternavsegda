@@ -4,6 +4,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
 import '../../login_state.dart';
+import '../../utils.dart';
 import 'package:nord/gql.dart';
 
 class SmsPage extends StatelessWidget {
@@ -54,8 +55,7 @@ class SmsPage extends StatelessWidget {
                 options: MutationOptions(
                   document: gql(checkClient),
                   onError: (error) {
-                    print("ERROR");
-                    print(error);
+                    showErrorAlert(context, '$error');
                   },
                   onCompleted: (dynamic resultData) {
                     GraphClientResult nordClientResult =

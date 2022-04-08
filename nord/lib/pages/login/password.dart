@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/login_state.dart';
+import '../../utils.dart';
 
 class PasswordPage extends StatelessWidget {
   const PasswordPage({Key? key}) : super(key: key);
@@ -44,19 +45,7 @@ class PasswordPage extends StatelessWidget {
             options: MutationOptions(
                 document: gql(checkClient),
                 onError: (error) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) => AlertDialog(
-                      title: const Text('Ошибка'),
-                      content: Text(error!.graphqlErrors[0].message),
-                      actions: <Widget>[
-                        TextButton(
-                          onPressed: () => Navigator.pop(context, 'OK'),
-                          child: const Text('OK'),
-                        ),
-                      ],
-                    ),
-                  );
+                  showErrorAlert(context, '$error');
                 },
                 onCompleted: (dynamic resultData) {
                   GraphClientResult nordClientResult =

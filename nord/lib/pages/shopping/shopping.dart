@@ -432,7 +432,6 @@ class _CartTileState extends State<CartTile> {
                                       options: MutationOptions(
                                           document: gql(cartEdit),
                                           onError: (error) {
-                                            print('ero');
                                             showErrorAlert(context, '$error');
                                           },
                                           onCompleted: (resultData) {
