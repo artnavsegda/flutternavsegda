@@ -22,6 +22,19 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Для обновления фотографий профиля и поиска QRCode</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Для предоставления информации о ближайших магазинов нашей сети</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Для предоставления информации о ближайших магазинов нашей сети</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Для использования фотографий из Вашей фотогалереи в качестве фото профиля или для оценок продукции</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
@@ -39,15 +52,7 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Для использования фотографий из Вашей фотогалереи в качестве фото профиля или для оценок продукции</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Для обновления фотографий профиля и поиска QRCode</string>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Для предоставления информации о ближайших магазинов нашей сети</string>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Для предоставления информации о ближайших магазинов нашей сети</string>
 </dict>
 </plist>
