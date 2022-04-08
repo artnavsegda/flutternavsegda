@@ -47,7 +47,7 @@ class IntroPage extends StatelessWidget {
               } else if (Platform.isIOS) {
                 var data = await deviceInfo.iosInfo;
                 GraphDevice nordGraphDevice = GraphDevice(
-                  bundleID: "ru.severmetropol.mobile",
+                  bundleID: "ru.premiumbonus.severmetropol",
                   gUID: data.identifierForVendor ?? "",
                   oSType: "IOS",
                   //pushNotificationToken: fcmToken,
