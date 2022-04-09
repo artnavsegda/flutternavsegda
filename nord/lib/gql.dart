@@ -646,21 +646,27 @@ class GraphOpeningHours {
 
 class GraphMetroStation {
   GraphMetroStation({
+    required this.iD,
     required this.lineName,
     required this.colorLine,
     required this.stationName,
-    required this.distance,
+    this.distance,
+    this.regionID,
   });
+  int iD;
   String lineName;
   String colorLine;
   String stationName;
-  String distance;
+  String? distance;
+  int? regionID;
 
   GraphMetroStation.fromJson(Map<String, dynamic> json)
-      : lineName = json['lineName'],
+      : iD = json['iD'],
+        lineName = json['lineName'],
         colorLine = json['colorLine'],
         stationName = json['stationName'],
-        distance = json['distance'];
+        distance = json['distance'],
+        regionID = json['regionID'];
 }
 
 class GraphShop {
@@ -2098,10 +2104,12 @@ query getShops {
     isPickup
     pictures
     metroStations {
+      iD
       lineName
       colorLine
       stationName
       distance
+      regionID
     }
     openingHours {
       weekDay
