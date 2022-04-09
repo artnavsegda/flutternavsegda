@@ -3,7 +3,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:go_router/go_router.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 
 import '../main.dart';
 import '../login/login.dart';
@@ -224,9 +224,23 @@ class GeoData extends StatelessWidget {
             style: TextStyle(fontSize: 14.0)),
         const SizedBox(height: 20),
         OutlinedButton(
-            onPressed: () {
-              Location location = new Location();
-              location.requestPermission();
+            onPressed: () async {
+              bool serviceEnabled;
+              LocationPermission permission;
+              serviceEnabled = await Geolocator.isLocationServiceEnabled();
+              if (!serviceEnabled) {
+                return;
+              }
+              permission = await Geolocator.checkPermission();
+              if (permission == LocationPermission.denied) {
+                permission = await Geolocator.requestPermission();
+                if (permission == LocationPermission.denied) {
+                  return;
+                }
+              }
+              if (permission == LocationPermission.deniedForever) {
+                return;
+              }
             },
             child: const Text('Предоставить доступ к геоданным'))
       ],
