@@ -5,6 +5,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/components/shop_tile.dart';
 import 'package:nord/pages/error/error.dart';
+import '../shop/shop.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -51,12 +52,18 @@ class MapPage extends StatelessWidget {
               GoogleMap(
                 myLocationEnabled: true,
                 initialCameraPosition: CameraPosition(
-                  target: LatLng(37.42796133580664, -122.085749655962),
-                  zoom: 14.4746,
+                  target: LatLng(59.9311, 30.3609),
+                  zoom: 10,
                 ),
                 markers: shops.map(
                   (shop) {
                     return Marker(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ShopPage(shop: shop)));
+                        },
                         markerId: MarkerId(shop.name),
                         position:
                             LatLng(shop.latitude ?? 0, shop.longitude ?? 0));
