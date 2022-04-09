@@ -40,4 +40,7 @@
         <meta-data android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyArLAGgB0ve7ZZ3yxdbNyHVGl0HCq16kFQ"/>
     </application>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 </manifest>
