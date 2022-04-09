@@ -4,6 +4,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/components/shop_tile.dart';
+import 'package:nord/pages/error/error.dart';
 
 class MapPage extends StatelessWidget {
   const MapPage({Key? key}) : super(key: key);
@@ -16,12 +17,11 @@ class MapPage extends StatelessWidget {
       ),
       builder: (result, {fetchMore, refetch}) {
         if (result.hasException) {
-          return Scaffold(
-            appBar: AppBar(),
-            body: Center(
-                child: Text(
-              result.exception.toString(),
-            )),
+          return ErrorPage(
+            reload: () {
+              refetch!();
+            },
+            errorText: result.exception?.graphqlErrors[0].message ?? '',
           );
         }
 
