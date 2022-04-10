@@ -43,6 +43,16 @@ class MapPage extends StatelessWidget {
             if (snapshot.hasData) {
               myLocation =
                   LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
+              shops.sort((a, b) => Geolocator.distanceBetween(
+                      a.latitude ?? 0,
+                      a.longitude ?? 0,
+                      myLocation.latitude,
+                      myLocation.longitude)
+                  .compareTo(Geolocator.distanceBetween(
+                      b.latitude ?? 0,
+                      b.longitude ?? 0,
+                      myLocation.latitude,
+                      myLocation.longitude)));
             }
 
             return Scaffold(
@@ -75,7 +85,7 @@ class MapPage extends StatelessWidget {
                                       builder: (context) =>
                                           ShopPage(shop: shop)));
                             },
-                            markerId: MarkerId(shop.name),
+                            markerId: MarkerId(shop.iD.toString()),
                             position: LatLng(
                                 shop.latitude ?? 0, shop.longitude ?? 0));
                       },
@@ -92,20 +102,7 @@ class MapPage extends StatelessWidget {
                         child: ListView(
                           controller: scrollController,
                           children: [
-                            Container(
-                              alignment: Alignment.center,
-                              padding: EdgeInsets.only(top: 8.0),
-                              child: SizedBox(
-                                width: 32,
-                                height: 4,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: Colors.red[900],
-                                    borderRadius: BorderRadius.circular(4.0),
-                                  ),
-                                ),
-                              ),
-                            ),
+                            DragHandle(),
                             Padding(
                               padding: const EdgeInsets.all(16.0),
                               child: const TextField(
@@ -135,6 +132,30 @@ class MapPage extends StatelessWidget {
           },
         );
       },
+    );
+  }
+}
+
+class DragHandle extends StatelessWidget {
+  const DragHandle({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      padding: EdgeInsets.only(top: 8.0),
+      child: SizedBox(
+        width: 32,
+        height: 4,
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.red[900],
+            borderRadius: BorderRadius.circular(4.0),
+          ),
+        ),
+      ),
     );
   }
 }
