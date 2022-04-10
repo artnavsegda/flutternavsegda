@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -27,22 +27,33 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: FutureBuilder<List<FileSystemEntity>>(
-          future: Directory('/').list().toList(),
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView(
-                children: [
-                  ...snapshot.data!.map((e) => Text(e.path)),
-                ],
-              );
-            } else
-              return Center(
-                child: CircularProgressIndicator(),
-              );
-          },
-        ),
-      ),
+          body: Row(
+        children: [
+          SizedBox(
+            width: 300,
+            child: FutureBuilder<List<FileSystemEntity>>(
+              future: Directory('/').list().toList(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return ListView(
+                    children: [
+                      ...snapshot.data!.map((e) => Text(e.path)),
+                    ],
+                  );
+                } else
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+              },
+            ),
+          ),
+          SizedBox(
+            width: 300,
+            child: SfPdfViewer.file(
+                File("C:\\EFF_charts_2202\\BIKF_KEFLAVIK\\APP\\H01.pdf")),
+          ),
+        ],
+      )),
     );
   }
 }
