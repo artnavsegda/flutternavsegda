@@ -94,35 +94,50 @@ class MapPage extends StatelessWidget {
                   DraggableScrollableSheet(
                     minChildSize: 0.15,
                     builder: (context, scrollController) {
+                      String textFilter = '';
                       return Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(4.0),
                         ),
-                        child: ListView(
-                          controller: scrollController,
-                          children: [
-                            DragHandle(),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: const TextField(
-                                decoration: InputDecoration(
-                                    hintText: 'Поиск по названию или адресу',
-                                    isDense: true,
-                                    contentPadding: EdgeInsets.symmetric(
-                                        horizontal: 16, vertical: 8),
-                                    border: OutlineInputBorder(
-                                      borderSide: BorderSide.none,
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(2.0),
+                        child: StatefulBuilder(builder: (context, setState) {
+                          return ListView(
+                            controller: scrollController,
+                            children: [
+                              DragHandle(),
+                              Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: TextField(
+                                  onChanged: (value) {
+                                    setState(() => textFilter = value);
+                                  },
+                                  decoration: InputDecoration(
+                                      hintText: 'Поиск по названию или адресу',
+                                      isDense: true,
+                                      contentPadding: EdgeInsets.symmetric(
+                                          horizontal: 16, vertical: 8),
+                                      border: OutlineInputBorder(
+                                        borderSide: BorderSide.none,
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(2.0),
+                                        ),
                                       ),
-                                    ),
-                                    filled: true),
+                                      filled: true),
+                                ),
                               ),
-                            ),
-                            ...shops.map((shop) => ShopTile(shop: shop)),
-                          ],
-                        ),
+                              ...shops
+                                  .map((shop) => ShopTile(shop: shop))
+                                  .where((element) {
+                                return element.shop.address!
+                                        .toLowerCase()
+                                        .contains(textFilter) ||
+                                    element.shop.name
+                                        .toLowerCase()
+                                        .contains(textFilter);
+                              })
+                            ],
+                          );
+                        }),
                       );
                     },
                   ),
