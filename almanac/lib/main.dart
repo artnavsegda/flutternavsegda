@@ -45,7 +45,7 @@ class _MainPageState extends State<MainPage> {
           leadingWidth: 200.0,
           leading: TextButton(
             child: Text(
-              'Choose',
+              'Choose $activeDir',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () => showDialog(
@@ -87,7 +87,15 @@ class _MainPageState extends State<MainPage> {
             ],
           ),
         ),
-        body: AlmanacPage(),
+        body: TabBarView(
+          children: [
+            AlmanacPage(),
+            AlmanacPage(),
+            AlmanacPage(),
+            AlmanacPage(),
+            AlmanacPage(),
+          ],
+        ),
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             String? result = await FilePicker.platform.getDirectoryPath();
