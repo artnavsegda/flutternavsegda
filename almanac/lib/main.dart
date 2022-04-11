@@ -93,11 +93,11 @@ class _MainPageState extends State<MainPage> {
         ),
         body: TabBarView(
           children: [
-            AlmanacPage(),
-            AlmanacPage(),
-            AlmanacPage(),
-            AlmanacPage(),
-            AlmanacPage(),
+            AlmanacPage(path: activeDir + '/' + activeAirport + '/TAXI'),
+            AlmanacPage(path: activeDir + '/' + activeAirport + '/SID'),
+            AlmanacPage(path: activeDir + '/' + activeAirport + '/STAR'),
+            AlmanacPage(path: activeDir + '/' + activeAirport + '/APP'),
+            AlmanacPage(path: activeDir + '/' + activeAirport + '/GEN'),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -113,10 +113,20 @@ class _MainPageState extends State<MainPage> {
   }
 }
 
-class AlmanacPage extends StatelessWidget {
+class AlmanacPage extends StatefulWidget {
   const AlmanacPage({
     Key? key,
+    required this.path,
   }) : super(key: key);
+
+  final String path;
+
+  @override
+  State<AlmanacPage> createState() => _AlmanacPageState();
+}
+
+class _AlmanacPageState extends State<AlmanacPage> {
+  String selected = '';
 
   @override
   Widget build(BuildContext context) {
@@ -125,12 +135,21 @@ class AlmanacPage extends StatelessWidget {
         SizedBox(
           width: 300,
           child: FutureBuilder<List<FileSystemEntity>>(
-            future: Directory('/').list().toList(),
+            future: Directory(widget.path).list().toList(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
                 return ListView(
                   children: [
-                    ...snapshot.data!.map((e) => ListTile(title: Text(e.path))),
+                    ...snapshot.data!.map(
+                      (e) => ListTile(
+                        onTap: () {
+                          setState(() {
+                            selected = e.path;
+                          });
+                        },
+                        title: Text(basename(e.path)),
+                      ),
+                    ),
                   ],
                 );
               } else
@@ -141,7 +160,7 @@ class AlmanacPage extends StatelessWidget {
           ),
         ),
         Expanded(
-          child: SfPdfViewer.file(File("C:\\L01.pdf")),
+          child: SfPdfViewer.file(File(selected)),
         ),
       ],
     );
