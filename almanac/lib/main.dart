@@ -24,10 +24,17 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatelessWidget {
+class MainPage extends StatefulWidget {
   const MainPage({
     Key? key,
   }) : super(key: key);
+
+  @override
+  State<MainPage> createState() => _MainPageState();
+}
+
+class _MainPageState extends State<MainPage> {
+  String activeDir = '/EFF_charts_2202';
 
   @override
   Widget build(BuildContext context) {
@@ -48,7 +55,7 @@ class MainPage extends StatelessWidget {
                         width: 300,
                         height: 300,
                         child: FutureBuilder<List<FileSystemEntity>>(
-                          future: Directory('/EFF_charts_2202').list().toList(),
+                          future: Directory(activeDir).list().toList(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return ListView(
@@ -84,6 +91,9 @@ class MainPage extends StatelessWidget {
         floatingActionButton: FloatingActionButton(
           onPressed: () async {
             String? result = await FilePicker.platform.getDirectoryPath();
+            setState(() {
+              activeDir = result ?? '/';
+            });
           },
         ),
       ),
