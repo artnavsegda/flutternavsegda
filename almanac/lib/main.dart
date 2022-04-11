@@ -43,6 +43,21 @@ class MainPage extends StatelessWidget {
                       child: Container(
                         width: 300,
                         height: 300,
+                        child: FutureBuilder<List<FileSystemEntity>>(
+                          future: Directory('/').list().toList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView(
+                                children: [
+                                  ...snapshot.data!.map((e) => Text(e.path)),
+                                ],
+                              );
+                            } else
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                          },
+                        ),
                       ),
                     )),
           ),
