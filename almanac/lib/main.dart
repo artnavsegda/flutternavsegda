@@ -32,54 +32,61 @@ class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 3,
+      length: 5,
       child: Scaffold(
-          appBar: AppBar(
-            leadingWidth: 200.0,
-            leading: TextButton(
-              child: Text(
-                'Choose',
-                style: TextStyle(color: Colors.white),
-              ),
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                        child: Container(
-                          width: 300,
-                          height: 300,
-                          child: FutureBuilder<List<FileSystemEntity>>(
-                            future:
-                                Directory('/EFF_charts_2202').list().toList(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return ListView(
-                                  children: [
-                                    ...snapshot.data!.map((e) => ListTile(
-                                          title: Text(basename(e.path)),
-                                          onTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                        )),
-                                  ],
-                                );
-                              } else
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                            },
-                          ),
+        appBar: AppBar(
+          leadingWidth: 200.0,
+          leading: TextButton(
+            child: Text(
+              'Choose',
+              style: TextStyle(color: Colors.white),
+            ),
+            onPressed: () => showDialog(
+                context: context,
+                builder: (context) => Dialog(
+                      child: Container(
+                        width: 300,
+                        height: 300,
+                        child: FutureBuilder<List<FileSystemEntity>>(
+                          future: Directory('/EFF_charts_2202').list().toList(),
+                          builder: (context, snapshot) {
+                            if (snapshot.hasData) {
+                              return ListView(
+                                children: [
+                                  ...snapshot.data!.map((e) => ListTile(
+                                        title: Text(basename(e.path)),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )),
+                                ],
+                              );
+                            } else
+                              return Center(
+                                child: CircularProgressIndicator(),
+                              );
+                          },
                         ),
-                      )),
-            ),
-            bottom: TabBar(
-              tabs: [
-                Tab(text: 'aaa'),
-                Tab(text: 'aaa'),
-                Tab(text: 'aaa'),
-              ],
-            ),
+                      ),
+                    )),
           ),
-          body: AlmanacPage()),
+          bottom: TabBar(
+            tabs: [
+              Tab(text: 'TAXI'),
+              Tab(text: 'SID'),
+              Tab(text: 'STAR'),
+              Tab(text: 'APP'),
+              Tab(text: 'GEN'),
+            ],
+          ),
+        ),
+        body: AlmanacPage(),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () async {
+            String? result = await FilePicker.platform.getDirectoryPath();
+          },
+        ),
+      ),
     );
   }
 }
@@ -93,11 +100,6 @@ class AlmanacPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        ElevatedButton(
-            onPressed: () async {
-              String? result = await FilePicker.platform.getDirectoryPath();
-            },
-            child: Text('AAA')),
         SizedBox(
           width: 300,
           child: FutureBuilder<List<FileSystemEntity>>(
@@ -106,7 +108,7 @@ class AlmanacPage extends StatelessWidget {
               if (snapshot.hasData) {
                 return ListView(
                   children: [
-                    ...snapshot.data!.map((e) => Text(e.path)),
+                    ...snapshot.data!.map((e) => ListTile(title: Text(e.path))),
                   ],
                 );
               } else
