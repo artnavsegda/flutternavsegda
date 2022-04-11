@@ -50,8 +50,12 @@ class MainPage extends StatelessWidget {
                             if (snapshot.hasData) {
                               return ListView(
                                 children: [
-                                  ...snapshot.data!
-                                      .map((e) => Text(basename(e.path))),
+                                  ...snapshot.data!.map((e) => ListTile(
+                                        title: Text(basename(e.path)),
+                                        onTap: () {
+                                          Navigator.pop(context);
+                                        },
+                                      )),
                                 ],
                               );
                             } else
