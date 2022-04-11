@@ -2,6 +2,7 @@ import 'dart:io';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
+import 'package:file_picker/file_picker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -92,6 +93,11 @@ class AlmanacPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
+        ElevatedButton(
+            onPressed: () async {
+              String? result = await FilePicker.platform.getDirectoryPath();
+            },
+            child: Text('AAA')),
         SizedBox(
           width: 300,
           child: FutureBuilder<List<FileSystemEntity>>(
