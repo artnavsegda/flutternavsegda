@@ -24,36 +24,46 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.indigo,
       ),
       home: Scaffold(
-          body: Row(
-        children: [
-          SizedBox(
-            width: 300,
-            child: FutureBuilder<List<FileSystemEntity>>(
-              future: Directory('/').list().toList(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return ListView(
-                    children: [
-                      ...snapshot.data!.map((e) => Text(e.path)),
-                    ],
-                  );
-                } else
-                  return Center(
-                    child: CircularProgressIndicator(),
-                  );
-              },
+          appBar: AppBar(
+            leadingWidth: 200.0,
+            leading: TextButton(
+              child: Text(
+                'Choose',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () {},
             ),
           ),
-          SizedBox(
-            width: 300,
-            child: SfPdfViewer.file(
-                File("C:\\EFF_charts_2202\\BIKF_KEFLAVIK\\APP\\H01.pdf")),
-          ),
-        ],
-      )),
+          body: Row(
+            children: [
+              SizedBox(
+                width: 300,
+                child: FutureBuilder<List<FileSystemEntity>>(
+                  future: Directory('/').list().toList(),
+                  builder: (context, snapshot) {
+                    if (snapshot.hasData) {
+                      return ListView(
+                        children: [
+                          ...snapshot.data!.map((e) => Text(e.path)),
+                        ],
+                      );
+                    } else
+                      return Center(
+                        child: CircularProgressIndicator(),
+                      );
+                  },
+                ),
+              ),
+              SizedBox(
+                width: 300,
+                child: SfPdfViewer.file(
+                    File("C:\\EFF_charts_2202\\BIKF_KEFLAVIK\\APP\\H01.pdf")),
+              ),
+            ],
+          )),
     );
   }
 }
