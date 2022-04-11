@@ -68,8 +68,7 @@ class MainPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: SfPdfViewer.file(
-                  File("C:\\EFF_charts_2202\\BIKF_KEFLAVIK\\APP\\H01.pdf")),
+              child: SfPdfViewer.file(File("C:\\LH01.pdf")),
             ),
           ],
         ));
