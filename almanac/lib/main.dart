@@ -57,8 +57,7 @@ class MyApp extends StatelessWidget {
                   },
                 ),
               ),
-              SizedBox(
-                width: 300,
+              Expanded(
                 child: SfPdfViewer.file(
                     File("C:\\EFF_charts_2202\\BIKF_KEFLAVIK\\APP\\H01.pdf")),
               ),
