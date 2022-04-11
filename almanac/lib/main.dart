@@ -35,6 +35,7 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   String activeDir = '/EFF_charts_2202';
+  String activeAirport = 'BIAR_AKUREYRI';
 
   @override
   Widget build(BuildContext context) {
@@ -45,7 +46,7 @@ class _MainPageState extends State<MainPage> {
           leadingWidth: 200.0,
           leading: TextButton(
             child: Text(
-              'Choose $activeDir',
+              'Choose $activeAirport',
               style: TextStyle(color: Colors.white),
             ),
             onPressed: () => showDialog(
@@ -63,6 +64,9 @@ class _MainPageState extends State<MainPage> {
                                   ...snapshot.data!.map((e) => ListTile(
                                         title: Text(basename(e.path)),
                                         onTap: () {
+                                          setState(() {
+                                            activeAirport = basename(e.path);
+                                          });
                                           Navigator.pop(context);
                                         },
                                       )),
