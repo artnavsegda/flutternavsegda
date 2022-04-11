@@ -68,7 +68,7 @@ class MainPage extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: SfPdfViewer.file(File("C:\\LH01.pdf")),
+              child: SfPdfViewer.file(File("C:\\L01.pdf")),
             ),
           ],
         ));
