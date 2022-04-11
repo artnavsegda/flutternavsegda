@@ -30,45 +30,56 @@ class MainPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          leadingWidth: 200.0,
-          leading: TextButton(
-            child: Text(
-              'Choose',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => Dialog(
-                      child: Container(
-                        width: 300,
-                        height: 300,
-                        child: FutureBuilder<List<FileSystemEntity>>(
-                          future: Directory('/EFF_charts_2202').list().toList(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView(
-                                children: [
-                                  ...snapshot.data!.map((e) => ListTile(
-                                        title: Text(basename(e.path)),
-                                        onTap: () {
-                                          Navigator.pop(context);
-                                        },
-                                      )),
-                                ],
-                              );
-                            } else
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                          },
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: 200.0,
+            leading: TextButton(
+              child: Text(
+                'Choose',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          child: FutureBuilder<List<FileSystemEntity>>(
+                            future:
+                                Directory('/EFF_charts_2202').list().toList(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView(
+                                  children: [
+                                    ...snapshot.data!.map((e) => ListTile(
+                                          title: Text(basename(e.path)),
+                                          onTap: () {
+                                            Navigator.pop(context);
+                                          },
+                                        )),
+                                  ],
+                                );
+                              } else
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                            },
+                          ),
                         ),
-                      ),
-                    )),
+                      )),
+            ),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'aaa'),
+                Tab(text: 'aaa'),
+                Tab(text: 'aaa'),
+              ],
+            ),
           ),
-        ),
-        body: AlmanacPage());
+          body: AlmanacPage()),
+    );
   }
 }
 
