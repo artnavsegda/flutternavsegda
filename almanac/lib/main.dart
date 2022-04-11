@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
+import 'package:path/path.dart';
 
 void main() {
   runApp(const MyApp());
@@ -44,12 +45,13 @@ class MainPage extends StatelessWidget {
                         width: 300,
                         height: 300,
                         child: FutureBuilder<List<FileSystemEntity>>(
-                          future: Directory('/').list().toList(),
+                          future: Directory('/EFF_charts_2202').list().toList(),
                           builder: (context, snapshot) {
                             if (snapshot.hasData) {
                               return ListView(
                                 children: [
-                                  ...snapshot.data!.map((e) => Text(e.path)),
+                                  ...snapshot.data!
+                                      .map((e) => Text(basename(e.path))),
                                 ],
                               );
                             } else
