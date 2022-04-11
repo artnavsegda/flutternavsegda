@@ -62,30 +62,41 @@ class MainPage extends StatelessWidget {
                     )),
           ),
         ),
-        body: Row(
-          children: [
-            SizedBox(
-              width: 300,
-              child: FutureBuilder<List<FileSystemEntity>>(
-                future: Directory('/').list().toList(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    return ListView(
-                      children: [
-                        ...snapshot.data!.map((e) => Text(e.path)),
-                      ],
-                    );
-                  } else
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                },
-              ),
-            ),
-            Expanded(
-              child: SfPdfViewer.file(File("C:\\L01.pdf")),
-            ),
-          ],
-        ));
+        body: AlmanacPage());
+  }
+}
+
+class AlmanacPage extends StatelessWidget {
+  const AlmanacPage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 300,
+          child: FutureBuilder<List<FileSystemEntity>>(
+            future: Directory('/').list().toList(),
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView(
+                  children: [
+                    ...snapshot.data!.map((e) => Text(e.path)),
+                  ],
+                );
+              } else
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+            },
+          ),
+        ),
+        Expanded(
+          child: SfPdfViewer.file(File("C:\\L01.pdf")),
+        ),
+      ],
+    );
   }
 }
