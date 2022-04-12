@@ -658,7 +658,10 @@ class _ProductPageState extends State<ProductPage> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text('Добавить в корзину'),
-                                    Text('256 P')
+                                    Text(productInfo.prices[0].price
+                                            .toInt()
+                                            .toString() +
+                                        ' Р')
                                   ]),
                             );
                           },
