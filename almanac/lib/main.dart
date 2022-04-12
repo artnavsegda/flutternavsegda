@@ -90,6 +90,18 @@ class _MainPageState extends State<MainPage> {
               Tab(text: 'GEN'),
             ],
           ),
+          actions: [
+            IconButton(
+              icon: Icon(Icons.ac_unit),
+              onPressed: () async {
+                String? result = await FilePicker.platform.getDirectoryPath();
+                if (result != null)
+                  setState(() {
+                    activeDir = result ?? '/';
+                  });
+              },
+            ),
+          ],
         ),
         body: TabBarView(
           children: [
@@ -99,14 +111,6 @@ class _MainPageState extends State<MainPage> {
             AlmanacPage(path: activeDir + '/' + activeAirport + '/APP'),
             AlmanacPage(path: activeDir + '/' + activeAirport + '/GEN'),
           ],
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () async {
-            String? result = await FilePicker.platform.getDirectoryPath();
-            setState(() {
-              activeDir = result ?? '/';
-            });
-          },
         ),
       ),
     );
