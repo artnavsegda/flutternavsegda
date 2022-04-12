@@ -126,45 +126,45 @@ class AlmanacPage extends StatefulWidget {
 }
 
 class _AlmanacPageState extends State<AlmanacPage> {
-  String? selected;
+  int? selected;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      children: [
-        SizedBox(
-          width: 300,
-          child: FutureBuilder<List<FileSystemEntity>>(
-            future: Directory(widget.path).list().toList(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return ListView(
+    return FutureBuilder<List<FileSystemEntity>>(
+      future: Directory(widget.path).list().toList(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return Row(
+            children: [
+              SizedBox(
+                width: 300,
+                child: ListView(
                   children: [
                     ...snapshot.data!.map(
                       (e) => ListTile(
                         onTap: () {
                           setState(() {
-                            selected = e.path;
+                            selected = snapshot.data!.indexOf(e);
                           });
                         },
                         title: Text(basename(e.path)),
                       ),
                     ),
                   ],
-                );
-              } else
-                return Center(
-                  child: CircularProgressIndicator(),
-                );
-            },
-          ),
-        ),
-        Expanded(
-          child: selected != null
-              ? SfPdfViewer.file(File(selected ?? ''))
-              : SizedBox.expand(),
-        ),
-      ],
+                ),
+              ),
+              Expanded(
+                child: selected != null
+                    ? SfPdfViewer.file(File(snapshot.data![selected!].path))
+                    : SizedBox.expand(),
+              ),
+            ],
+          );
+        } else
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+      },
     );
   }
 }
