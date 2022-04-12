@@ -96,10 +96,11 @@ class _MainPageState extends State<MainPage> {
                 icon: Icon(Icons.ac_unit),
                 onPressed: () async {
                   String? result = await FilePicker.platform.getDirectoryPath();
-                  if (result != null)
+                  if (result != null) {
                     setState(() {
-                      activeDir = result ?? '/';
+                      activeDir = result;
                     });
+                  }
                 },
               ),
             ],
@@ -115,21 +116,23 @@ class _MainPageState extends State<MainPage> {
           ),
         ),
       );
-    } else
+    } else {
       return Scaffold(
         body: Center(
           child: TextButton(
             child: Text('Select DB dir'),
             onPressed: () async {
               String? result = await FilePicker.platform.getDirectoryPath();
-              if (result != null)
+              if (result != null) {
                 setState(() {
-                  activeDir = result ?? '/';
+                  activeDir = result;
                 });
+              }
             },
           ),
         ),
       );
+    }
   }
 }
 
