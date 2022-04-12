@@ -34,86 +34,102 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  String activeDir = '/EFF_charts_2202';
+  String? activeDir;
   String activeAirport = 'BIAR_AKUREYRI';
 
   @override
   Widget build(BuildContext context) {
-    return DefaultTabController(
-      length: 5,
-      child: Scaffold(
-        appBar: AppBar(
-          leadingWidth: 200.0,
-          leading: TextButton(
-            child: Text(
-              'Choose $activeAirport',
-              style: TextStyle(color: Colors.white),
-            ),
-            onPressed: () => showDialog(
-                context: context,
-                builder: (context) => Dialog(
-                      child: Container(
-                        width: 300,
-                        height: 300,
-                        child: FutureBuilder<List<FileSystemEntity>>(
-                          future: Directory(activeDir).list().toList(),
-                          builder: (context, snapshot) {
-                            if (snapshot.hasData) {
-                              return ListView(
-                                children: [
-                                  ...snapshot.data!.map((e) => ListTile(
-                                        title: Text(basename(e.path)),
-                                        onTap: () {
-                                          setState(() {
-                                            activeAirport = basename(e.path);
-                                          });
-                                          Navigator.pop(context);
-                                        },
-                                      )),
-                                ],
-                              );
-                            } else
-                              return Center(
-                                child: CircularProgressIndicator(),
-                              );
-                          },
+    if (activeDir != null) {
+      return DefaultTabController(
+        length: 5,
+        child: Scaffold(
+          appBar: AppBar(
+            leadingWidth: 200.0,
+            leading: TextButton(
+              child: Text(
+                'Choose $activeAirport',
+                style: TextStyle(color: Colors.white),
+              ),
+              onPressed: () => showDialog(
+                  context: context,
+                  builder: (context) => Dialog(
+                        child: Container(
+                          width: 300,
+                          height: 300,
+                          child: FutureBuilder<List<FileSystemEntity>>(
+                            future: Directory(activeDir!).list().toList(),
+                            builder: (context, snapshot) {
+                              if (snapshot.hasData) {
+                                return ListView(
+                                  children: [
+                                    ...snapshot.data!.map((e) => ListTile(
+                                          title: Text(basename(e.path)),
+                                          onTap: () {
+                                            setState(() {
+                                              activeAirport = basename(e.path);
+                                            });
+                                            Navigator.pop(context);
+                                          },
+                                        )),
+                                  ],
+                                );
+                              } else
+                                return Center(
+                                  child: CircularProgressIndicator(),
+                                );
+                            },
+                          ),
                         ),
-                      ),
-                    )),
-          ),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: 'TAXI'),
-              Tab(text: 'SID'),
-              Tab(text: 'STAR'),
-              Tab(text: 'APP'),
-              Tab(text: 'GEN'),
+                      )),
+            ),
+            bottom: TabBar(
+              tabs: [
+                Tab(text: 'TAXI'),
+                Tab(text: 'SID'),
+                Tab(text: 'STAR'),
+                Tab(text: 'APP'),
+                Tab(text: 'GEN'),
+              ],
+            ),
+            actions: [
+              IconButton(
+                icon: Icon(Icons.ac_unit),
+                onPressed: () async {
+                  String? result = await FilePicker.platform.getDirectoryPath();
+                  if (result != null)
+                    setState(() {
+                      activeDir = result ?? '/';
+                    });
+                },
+              ),
             ],
           ),
-          actions: [
-            IconButton(
-              icon: Icon(Icons.ac_unit),
-              onPressed: () async {
-                String? result = await FilePicker.platform.getDirectoryPath();
-                if (result != null)
-                  setState(() {
-                    activeDir = result ?? '/';
-                  });
-              },
-            ),
-          ],
+          body: TabBarView(
+            children: [
+              AlmanacPage(path: activeDir! + '/' + activeAirport + '/TAXI'),
+              AlmanacPage(path: activeDir! + '/' + activeAirport + '/SID'),
+              AlmanacPage(path: activeDir! + '/' + activeAirport + '/STAR'),
+              AlmanacPage(path: activeDir! + '/' + activeAirport + '/APP'),
+              AlmanacPage(path: activeDir! + '/' + activeAirport + '/GEN'),
+            ],
+          ),
         ),
-        body: TabBarView(
-          children: [
-            AlmanacPage(path: activeDir + '/' + activeAirport + '/TAXI'),
-            AlmanacPage(path: activeDir + '/' + activeAirport + '/SID'),
-            AlmanacPage(path: activeDir + '/' + activeAirport + '/STAR'),
-            AlmanacPage(path: activeDir + '/' + activeAirport + '/APP'),
-            AlmanacPage(path: activeDir + '/' + activeAirport + '/GEN'),
-          ],
+      );
+    } else
+      return Scaffold(
+        body: Center(
+          child: TextButton(
+            child: Text('Select DB dir'),
+            onPressed: () async {
+              String? result = await FilePicker.platform.getDirectoryPath();
+              if (result != null)
+                setState(() {
+                  activeDir = result ?? '/';
+                });
+            },
+          ),
         ),
-      ),
-    );
+      );
   }
 }
 
