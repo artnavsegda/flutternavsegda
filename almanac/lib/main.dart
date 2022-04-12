@@ -126,7 +126,7 @@ class AlmanacPage extends StatefulWidget {
 }
 
 class _AlmanacPageState extends State<AlmanacPage> {
-  String selected = '';
+  String? selected;
 
   @override
   Widget build(BuildContext context) {
@@ -160,7 +160,9 @@ class _AlmanacPageState extends State<AlmanacPage> {
           ),
         ),
         Expanded(
-          child: SfPdfViewer.file(File(selected)),
+          child: selected != null
+              ? SfPdfViewer.file(File(selected ?? ''))
+              : SizedBox.expand(),
         ),
       ],
     );
