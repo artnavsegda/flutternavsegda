@@ -86,8 +86,8 @@ class LoginPage extends StatelessWidget {
                               GraphClientResult.fromJson(
                                   resultData['loginClient']);
                           if (nordClientResult.result == 0) {
-                            Provider.of<LoginState>(context, listen: false)
-                                .token = nordClientResult.token ?? '';
+                            context.read<LoginState>().token =
+                                nordClientResult.token ?? '';
 
                             if (nordClientResult.nextStep == 'PASSWORD')
                               context.push('/password');

@@ -176,11 +176,8 @@ class SupportPage extends StatelessWidget {
                                 onTap: () async {
                                   final pickedFile = await _picker.pickImage(
                                       source: ImageSource.camera);
-                                  await sendImage(
-                                      pickedFile,
-                                      Provider.of<LoginState>(context,
-                                              listen: false)
-                                          .token);
+                                  await sendImage(pickedFile,
+                                      context.read<LoginState>().token);
                                   Navigator.pop(context);
                                   refetch!();
                                 },
@@ -194,11 +191,8 @@ class SupportPage extends StatelessWidget {
                                 onTap: () async {
                                   final pickedFile = await _picker.pickImage(
                                       source: ImageSource.gallery);
-                                  await sendImage(
-                                      pickedFile,
-                                      Provider.of<LoginState>(context,
-                                              listen: false)
-                                          .token);
+                                  await sendImage(pickedFile,
+                                      context.read<LoginState>().token);
                                   Navigator.pop(context);
                                   refetch!();
                                 },

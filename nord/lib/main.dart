@@ -110,7 +110,7 @@ class NordApp extends StatelessWidget {
       ],
       child: Consumer<LoginState>(
         builder: (BuildContext context, model, child) {
-          final router = Provider.of<NordRouter>(context, listen: false).router;
+          final router = context.read<NordRouter>().router;
           return GraphQLProvider(
             client: ValueNotifier(
               GraphQLClient(

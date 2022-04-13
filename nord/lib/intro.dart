@@ -25,8 +25,7 @@ class IntroPage extends StatelessWidget {
             onCompleted: (dynamic resultData) {
               GraphAuthResult nordAuthResult =
                   GraphAuthResult.fromJson(resultData['authenticate']);
-              Provider.of<LoginState>(context, listen: false).token =
-                  nordAuthResult.token;
+              context.read<LoginState>().token = nordAuthResult.token;
               context.go('/welcome');
             },
           ),

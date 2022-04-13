@@ -61,10 +61,9 @@ class SmsPage extends StatelessWidget {
                     GraphClientResult nordClientResult =
                         GraphClientResult.fromJson(resultData['checkClient']);
                     if (nordClientResult.result == 0) {
-                      Provider.of<LoginState>(context, listen: false).token =
+                      context.read<LoginState>().token =
                           nordClientResult.token ?? '';
-                      Provider.of<LoginState>(context, listen: false).loggedIn =
-                          true;
+                      context.read<LoginState>().loggedIn = true;
                       context.go('/main');
                     } else {
                       showDialog(

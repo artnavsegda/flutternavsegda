@@ -244,16 +244,14 @@ class UserPage extends StatelessWidget {
                 options: MutationOptions(
                   document: gql(logoffClient),
                   onCompleted: (result) {
-                    Provider.of<LoginState>(context, listen: false).loggedIn =
-                        false;
+                    context.read<LoginState>().loggedIn = false;
                     context.push('/login');
                   },
                 ),
                 builder: (runMutation, result) {
                   return ListTile(
                     onTap: () async {
-                      Provider.of<CartState>(context, listen: false)
-                          .cartAmount = 0;
+                      context.read<CartState>().cartAmount = 0;
                       runMutation({});
                     },
                     title: const Text("Выход из приложения"),

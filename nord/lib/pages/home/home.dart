@@ -208,7 +208,7 @@ class HomePage extends StatelessWidget {
       body: ListView(
         children: [
           const AddressTile2(),
-          Provider.of<LoginState>(context, listen: false).loggedIn
+          context.read<LoginState>().loggedIn
               ? CardLoggedIn()
               : CardNotLoggedIn(),
           Padding(

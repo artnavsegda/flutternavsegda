@@ -58,12 +58,10 @@ class _MainPageState extends State<MainPage>
           children: [
             HomePage(),
             CatalogPage(),
-            Provider.of<LoginState>(context, listen: false).loggedIn
+            context.read<LoginState>().loggedIn
                 ? ShoppingPage()
                 : Unregistered(),
-            Provider.of<LoginState>(context, listen: false).loggedIn
-                ? UserPage()
-                : Unregistered(),
+            context.read<LoginState>().loggedIn ? UserPage() : Unregistered(),
             MorePage(),
           ],
         ),

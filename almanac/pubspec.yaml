@@ -37,6 +37,7 @@ dependencies:
   syncfusion_flutter_pdfviewer: ^20.1.47-beta
   file_picker: ^4.5.1
   shared_preferences: ^2.0.13
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:

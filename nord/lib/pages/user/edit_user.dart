@@ -139,8 +139,8 @@ class _EditUserState extends State<EditUser> {
                       Uri.parse(
                           'https://demo.cyberiasoft.com/severmetropolservice/api/client/setavatar'),
                     );
-                    request.headers['Authorization'] = 'Bearer ' +
-                        Provider.of<LoginState>(context, listen: false).token;
+                    request.headers['Authorization'] =
+                        'Bearer ' + context.read<LoginState>().token;
                     request.files.add(await MultipartFile.fromPath(
                       'image',
                       _imageFile!.path,
