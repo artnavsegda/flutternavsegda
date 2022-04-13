@@ -137,35 +137,39 @@ class MainPage extends StatelessWidget {
                   ),
                 ],
               ),
-              body: TabBarView(
-                children: [
-                  AlmanacPage(
-                      path: model.activeDir! +
-                          '/' +
-                          model.activeAirport! +
-                          '/TAXI'),
-                  AlmanacPage(
-                      path: model.activeDir! +
-                          '/' +
-                          model.activeAirport! +
-                          '/SID'),
-                  AlmanacPage(
-                      path: model.activeDir! +
-                          '/' +
-                          model.activeAirport! +
-                          '/STAR'),
-                  AlmanacPage(
-                      path: model.activeDir! +
-                          '/' +
-                          model.activeAirport! +
-                          '/APP'),
-                  AlmanacPage(
-                      path: model.activeDir! +
-                          '/' +
-                          model.activeAirport! +
-                          '/GEN'),
-                ],
-              ),
+              body: model.activeAirport == null
+                  ? Center(
+                      child: Text('Select airport'),
+                    )
+                  : TabBarView(
+                      children: [
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/TAXI'),
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/SID'),
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/STAR'),
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/APP'),
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/GEN'),
+                      ],
+                    ),
             ),
           );
         } else {
