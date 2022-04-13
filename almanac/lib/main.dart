@@ -4,11 +4,12 @@ import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  runApp(MyApp(prefs: prefs));
+  runApp(MyApp(almanacState: AlmanacState(prefs)));
 }
 
 class AlmanacState extends ChangeNotifier {
@@ -20,20 +21,24 @@ class AlmanacState extends ChangeNotifier {
 class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
-    required this.prefs,
+    required this.almanacState,
   }) : super(key: key);
 
-  final SharedPreferences prefs;
+  final AlmanacState almanacState;
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Almanac',
-      theme: ThemeData(
-        primarySwatch: Colors.indigo,
+    return ChangeNotifierProvider<AlmanacState>(
+      lazy: false,
+      create: (context) => almanacState,
+      child: MaterialApp(
+        title: 'Almanac',
+        theme: ThemeData(
+          primarySwatch: Colors.indigo,
+        ),
+        home: MainPage(),
       ),
-      home: MainPage(),
     );
   }
 }
