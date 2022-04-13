@@ -16,9 +16,11 @@ class AlmanacState extends ChangeNotifier {
   final SharedPreferences prefs;
   String? _activeDir;
   String? _activeAirport;
+  ThemeMode themeMode = ThemeMode.light;
 
   AlmanacState(this.prefs) {
     activeDir = prefs.getString('activeDir');
+    activeAirport = prefs.getString('activeAirport');
   }
 
   String? get activeDir => _activeDir;
@@ -55,9 +57,14 @@ class MyApp extends StatelessWidget {
       lazy: false,
       create: (context) => almanacState,
       child: MaterialApp(
+        themeMode: almanacState.themeMode,
         title: 'Almanac',
-        theme: ThemeData(
+/*         theme: ThemeData(
           primarySwatch: Colors.indigo,
+        ), */
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          /* dark theme settings */
         ),
         home: MainPage(),
       ),
@@ -125,6 +132,10 @@ class MainPage extends StatelessWidget {
                   ],
                 ),
                 actions: [
+                  IconButton(
+                    icon: Icon(Icons.access_time_filled),
+                    onPressed: () async {},
+                  ),
                   IconButton(
                     icon: Icon(Icons.ac_unit),
                     onPressed: () async {
