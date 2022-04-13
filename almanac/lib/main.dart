@@ -11,6 +11,12 @@ Future<void> main() async {
   runApp(MyApp(prefs: prefs));
 }
 
+class AlmanacState extends ChangeNotifier {
+  final SharedPreferences prefs;
+
+  AlmanacState(this.prefs) {}
+}
+
 class MyApp extends StatelessWidget {
   const MyApp({
     Key? key,
@@ -23,7 +29,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Almanac',
       theme: ThemeData(
         primarySwatch: Colors.indigo,
       ),
