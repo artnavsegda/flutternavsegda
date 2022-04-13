@@ -14,6 +14,8 @@ Future<void> main() async {
 
 class AlmanacState extends ChangeNotifier {
   final SharedPreferences prefs;
+  String? activeDir;
+  String activeAirport = 'BIAR_AKUREYRI';
 
   AlmanacState(this.prefs) {}
 }
@@ -43,115 +45,126 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MainPage extends StatefulWidget {
-  const MainPage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<MainPage> createState() => _MainPageState();
-}
-
-class _MainPageState extends State<MainPage> {
-  String? activeDir;
-  String activeAirport = 'BIAR_AKUREYRI';
+class MainPage extends StatelessWidget {
+  const MainPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (activeDir != null) {
-      return DefaultTabController(
-        length: 5,
-        child: Scaffold(
-          appBar: AppBar(
-            leadingWidth: 200.0,
-            leading: TextButton(
-              child: Text(
-                'Choose $activeAirport',
-                style: TextStyle(color: Colors.white),
+    return Consumer<AlmanacState>(
+      builder: (context, model, child) {
+        if (model.activeDir != null) {
+          return DefaultTabController(
+            length: 5,
+            child: Scaffold(
+              appBar: AppBar(
+                leadingWidth: 200.0,
+                leading: TextButton(
+                  child: Text(
+                    'Choose ${model.activeAirport}',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () => showDialog(
+                      context: context,
+                      builder: (context) => Dialog(
+                            child: Container(
+                              width: 300,
+                              height: 300,
+                              child: FutureBuilder<List<FileSystemEntity>>(
+                                future:
+                                    Directory(model.activeDir!).list().toList(),
+                                builder: (context, snapshot) {
+                                  if (snapshot.hasData) {
+                                    return ListView(
+                                      children: [
+                                        ...snapshot.data!.map((e) => ListTile(
+                                              title: Text(basename(e.path)),
+                                              onTap: () {
+                                                model.activeAirport =
+                                                    basename(e.path);
+                                                Navigator.pop(context);
+                                              },
+                                            )),
+                                      ],
+                                    );
+                                  } else
+                                    return Center(
+                                      child: CircularProgressIndicator(),
+                                    );
+                                },
+                              ),
+                            ),
+                          )),
+                ),
+                bottom: TabBar(
+                  tabs: [
+                    Tab(text: 'TAXI'),
+                    Tab(text: 'SID'),
+                    Tab(text: 'STAR'),
+                    Tab(text: 'APP'),
+                    Tab(text: 'GEN'),
+                  ],
+                ),
+                actions: [
+                  IconButton(
+                    icon: Icon(Icons.ac_unit),
+                    onPressed: () async {
+                      String? result =
+                          await FilePicker.platform.getDirectoryPath();
+                      if (result != null) {
+                        model.activeDir = result;
+                      }
+                    },
+                  ),
+                ],
               ),
-              onPressed: () => showDialog(
-                  context: context,
-                  builder: (context) => Dialog(
-                        child: Container(
-                          width: 300,
-                          height: 300,
-                          child: FutureBuilder<List<FileSystemEntity>>(
-                            future: Directory(activeDir!).list().toList(),
-                            builder: (context, snapshot) {
-                              if (snapshot.hasData) {
-                                return ListView(
-                                  children: [
-                                    ...snapshot.data!.map((e) => ListTile(
-                                          title: Text(basename(e.path)),
-                                          onTap: () {
-                                            setState(() {
-                                              activeAirport = basename(e.path);
-                                            });
-                                            Navigator.pop(context);
-                                          },
-                                        )),
-                                  ],
-                                );
-                              } else
-                                return Center(
-                                  child: CircularProgressIndicator(),
-                                );
-                            },
-                          ),
-                        ),
-                      )),
+              body: TabBarView(
+                children: [
+                  AlmanacPage(
+                      path: model.activeDir! +
+                          '/' +
+                          model.activeAirport +
+                          '/TAXI'),
+                  AlmanacPage(
+                      path: model.activeDir! +
+                          '/' +
+                          model.activeAirport +
+                          '/SID'),
+                  AlmanacPage(
+                      path: model.activeDir! +
+                          '/' +
+                          model.activeAirport +
+                          '/STAR'),
+                  AlmanacPage(
+                      path: model.activeDir! +
+                          '/' +
+                          model.activeAirport +
+                          '/APP'),
+                  AlmanacPage(
+                      path: model.activeDir! +
+                          '/' +
+                          model.activeAirport +
+                          '/GEN'),
+                ],
+              ),
             ),
-            bottom: TabBar(
-              tabs: [
-                Tab(text: 'TAXI'),
-                Tab(text: 'SID'),
-                Tab(text: 'STAR'),
-                Tab(text: 'APP'),
-                Tab(text: 'GEN'),
-              ],
-            ),
-            actions: [
-              IconButton(
-                icon: Icon(Icons.ac_unit),
+          );
+        } else {
+          return Scaffold(
+            body: Center(
+              child: TextButton(
+                child: Text('Select DB dir'),
                 onPressed: () async {
                   String? result = await FilePicker.platform.getDirectoryPath();
                   if (result != null) {
-                    setState(() {
-                      activeDir = result;
-                    });
+                    model.activeDir = result;
                   }
                 },
               ),
-            ],
-          ),
-          body: TabBarView(
-            children: [
-              AlmanacPage(path: activeDir! + '/' + activeAirport + '/TAXI'),
-              AlmanacPage(path: activeDir! + '/' + activeAirport + '/SID'),
-              AlmanacPage(path: activeDir! + '/' + activeAirport + '/STAR'),
-              AlmanacPage(path: activeDir! + '/' + activeAirport + '/APP'),
-              AlmanacPage(path: activeDir! + '/' + activeAirport + '/GEN'),
-            ],
-          ),
-        ),
-      );
-    } else {
-      return Scaffold(
-        body: Center(
-          child: TextButton(
-            child: Text('Select DB dir'),
-            onPressed: () async {
-              String? result = await FilePicker.platform.getDirectoryPath();
-              if (result != null) {
-                setState(() {
-                  activeDir = result;
-                });
-              }
-            },
-          ),
-        ),
-      );
-    }
+            ),
+          );
+        }
+      },
+    );
   }
 }
 
