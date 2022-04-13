@@ -95,7 +95,7 @@ class MainPage extends StatelessWidget {
             child: Scaffold(
               appBar: AppBar(
                 title: model.activeAirport != null
-                    ? Text('${model.activeAirport}')
+                    ? Text('${model.activeAirport!.replaceAll('_', ' ')}')
                     : null,
                 //leadingWidth: 200.0,
                 leading: IconButton(
@@ -104,8 +104,8 @@ class MainPage extends StatelessWidget {
                       context: context,
                       builder: (context) => Dialog(
                             child: Container(
-                              width: 300,
-                              height: 300,
+                              width: 400,
+                              height: 600,
                               child: FutureBuilder<List<FileSystemEntity>>(
                                 future:
                                     Directory(model.activeDir!).list().toList(),
@@ -114,7 +114,8 @@ class MainPage extends StatelessWidget {
                                     return ListView(
                                       children: [
                                         ...snapshot.data!.map((e) => ListTile(
-                                              title: Text(basename(e.path)),
+                                              title: Text(basename(
+                                                  e.path.replaceAll('_', ' '))),
                                               onTap: () {
                                                 model.activeAirport =
                                                     basename(e.path);
@@ -257,6 +258,7 @@ class _AlmanacPageState extends State<AlmanacPage> {
                   children: [
                     ...docList.map(
                       (e) => ListTile(
+                        selected: docList.indexOf(e) == selected,
                         onTap: () {
                           setState(() {
                             selected = docList.indexOf(e);
