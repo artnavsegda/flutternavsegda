@@ -14,10 +14,24 @@ Future<void> main() async {
 
 class AlmanacState extends ChangeNotifier {
   final SharedPreferences prefs;
-  String? activeDir;
-  String activeAirport = 'BIAR_AKUREYRI';
+  String? _activeDir;
+  String _activeAirport = 'BIAR_AKUREYRI';
 
   AlmanacState(this.prefs) {}
+
+  String? get activeDir => _activeDir;
+  set activeDir(String? newDir) {
+    _activeDir = newDir;
+    prefs.setString('activeDir', newDir!);
+    notifyListeners();
+  }
+
+  String get activeAirport => _activeAirport;
+  set activeAirport(String newAirport) {
+    _activeAirport = newAirport;
+    prefs.setString('activeAirport', newAirport);
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatelessWidget {
