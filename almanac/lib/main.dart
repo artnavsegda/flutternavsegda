@@ -40,6 +40,14 @@ class AlmanacState extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  void flipMode() {
+    if (themeMode == ThemeMode.light)
+      themeMode = ThemeMode.dark;
+    else
+      themeMode = ThemeMode.light;
+    notifyListeners();
+  }
 }
 
 class MyApp extends StatelessWidget {
@@ -56,18 +64,20 @@ class MyApp extends StatelessWidget {
     return ChangeNotifierProvider<AlmanacState>(
       lazy: false,
       create: (context) => almanacState,
-      child: MaterialApp(
-        themeMode: almanacState.themeMode,
-        title: 'Almanac',
+      child: Consumer<AlmanacState>(builder: (context, model, child) {
+        return MaterialApp(
+          themeMode: model.themeMode,
+          title: 'Almanac',
 /*         theme: ThemeData(
-          primarySwatch: Colors.indigo,
-        ), */
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          /* dark theme settings */
-        ),
-        home: MainPage(),
-      ),
+              primarySwatch: Colors.indigo,
+            ), */
+          darkTheme: ThemeData(
+            brightness: Brightness.dark,
+            /* dark theme settings */
+          ),
+          home: MainPage(),
+        );
+      }),
     );
   }
 }
@@ -134,7 +144,9 @@ class MainPage extends StatelessWidget {
                 actions: [
                   IconButton(
                     icon: Icon(Icons.access_time_filled),
-                    onPressed: () async {},
+                    onPressed: () async {
+                      model.flipMode();
+                    },
                   ),
                   IconButton(
                     icon: Icon(Icons.ac_unit),
