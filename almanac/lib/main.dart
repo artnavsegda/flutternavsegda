@@ -91,7 +91,7 @@ class MainPage extends StatelessWidget {
       builder: (context, model, child) {
         if (model.activeDir != null) {
           return DefaultTabController(
-            length: 5,
+            length: 6,
             child: Scaffold(
               appBar: AppBar(
                 title: model.activeAirport != null
@@ -140,17 +140,18 @@ class MainPage extends StatelessWidget {
                     Tab(text: 'STAR'),
                     Tab(text: 'APP'),
                     Tab(text: 'GEN'),
+                    Tab(text: 'MINIMA'),
                   ],
                 ),
                 actions: [
                   IconButton(
-                    icon: Icon(Icons.access_time_filled),
+                    icon: Icon(Icons.brightness_medium),
                     onPressed: () async {
                       model.flipMode();
                     },
                   ),
                   IconButton(
-                    icon: Icon(Icons.ac_unit),
+                    icon: Icon(Icons.folder),
                     onPressed: () async {
                       String? result =
                           await FilePicker.platform.getDirectoryPath();
@@ -192,6 +193,11 @@ class MainPage extends StatelessWidget {
                                 '/' +
                                 model.activeAirport! +
                                 '/GEN'),
+                        AlmanacPage(
+                            path: model.activeDir! +
+                                '/' +
+                                model.activeAirport! +
+                                '/MINIMA'),
                       ],
                     ),
             ),
