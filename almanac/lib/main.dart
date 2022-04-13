@@ -17,7 +17,9 @@ class AlmanacState extends ChangeNotifier {
   String? _activeDir;
   String _activeAirport = 'BIAR_AKUREYRI';
 
-  AlmanacState(this.prefs) {}
+  AlmanacState(this.prefs) {
+    activeDir = prefs.getString('activeDir');
+  }
 
   String? get activeDir => _activeDir;
   set activeDir(String? newDir) {
@@ -195,7 +197,7 @@ class AlmanacPage extends StatefulWidget {
 }
 
 class _AlmanacPageState extends State<AlmanacPage> {
-  int? selected;
+  int selected = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -224,7 +226,7 @@ class _AlmanacPageState extends State<AlmanacPage> {
               ),
               Expanded(
                 child: selected != null
-                    ? SfPdfViewer.file(File(snapshot.data![selected!].path))
+                    ? SfPdfViewer.file(File(snapshot.data![selected].path))
                     : SizedBox.expand(),
               ),
             ],
