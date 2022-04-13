@@ -67,7 +67,7 @@ class MyApp extends StatelessWidget {
       child: Consumer<AlmanacState>(builder: (context, model, child) {
         return MaterialApp(
           themeMode: model.themeMode,
-          title: 'Almanac',
+          title: 'Charts',
 /*         theme: ThemeData(
               primarySwatch: Colors.indigo,
             ), */
