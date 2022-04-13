@@ -236,20 +236,33 @@ class _AlmanacPageState extends State<AlmanacPage> {
       future: Directory(widget.path).list().toList(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          List<String> docList = snapshot.data!
+              .map(
+                (e) {
+                  return e.path.split('.')[0];
+                },
+              )
+              .toSet()
+              .toList();
+
+          String suffix = '.pdf';
+          if (context.read<AlmanacState>().themeMode == ThemeMode.dark)
+            suffix = '.night.pdf';
+
           return Row(
             children: [
               SizedBox(
                 width: 300,
                 child: ListView(
                   children: [
-                    ...snapshot.data!.map(
+                    ...docList.map(
                       (e) => ListTile(
                         onTap: () {
                           setState(() {
-                            selected = snapshot.data!.indexOf(e);
+                            selected = docList.indexOf(e);
                           });
                         },
-                        title: Text(basename(e.path)),
+                        title: Text(basename(e)),
                       ),
                     ),
                   ],
@@ -257,7 +270,7 @@ class _AlmanacPageState extends State<AlmanacPage> {
               ),
               Expanded(
                 child: selected != null
-                    ? SfPdfViewer.file(File(snapshot.data![selected].path))
+                    ? SfPdfViewer.file(File(docList[selected] + suffix))
                     : SizedBox.expand(),
               ),
             ],
