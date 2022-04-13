@@ -15,7 +15,7 @@ Future<void> main() async {
 class AlmanacState extends ChangeNotifier {
   final SharedPreferences prefs;
   String? _activeDir;
-  String _activeAirport = 'BIAR_AKUREYRI';
+  String? _activeAirport;
 
   AlmanacState(this.prefs) {
     activeDir = prefs.getString('activeDir');
@@ -23,16 +23,20 @@ class AlmanacState extends ChangeNotifier {
 
   String? get activeDir => _activeDir;
   set activeDir(String? newDir) {
-    _activeDir = newDir;
-    prefs.setString('activeDir', newDir!);
-    notifyListeners();
+    if (newDir != null) {
+      _activeDir = newDir;
+      prefs.setString('activeDir', newDir);
+      notifyListeners();
+    }
   }
 
-  String get activeAirport => _activeAirport;
-  set activeAirport(String newAirport) {
-    _activeAirport = newAirport;
-    prefs.setString('activeAirport', newAirport);
-    notifyListeners();
+  String? get activeAirport => _activeAirport;
+  set activeAirport(String? newAirport) {
+    if (newAirport != null) {
+      _activeAirport = newAirport;
+      prefs.setString('activeAirport', newAirport);
+      notifyListeners();
+    }
   }
 }
 
@@ -138,27 +142,27 @@ class MainPage extends StatelessWidget {
                   AlmanacPage(
                       path: model.activeDir! +
                           '/' +
-                          model.activeAirport +
+                          model.activeAirport! +
                           '/TAXI'),
                   AlmanacPage(
                       path: model.activeDir! +
                           '/' +
-                          model.activeAirport +
+                          model.activeAirport! +
                           '/SID'),
                   AlmanacPage(
                       path: model.activeDir! +
                           '/' +
-                          model.activeAirport +
+                          model.activeAirport! +
                           '/STAR'),
                   AlmanacPage(
                       path: model.activeDir! +
                           '/' +
-                          model.activeAirport +
+                          model.activeAirport! +
                           '/APP'),
                   AlmanacPage(
                       path: model.activeDir! +
                           '/' +
-                          model.activeAirport +
+                          model.activeAirport! +
                           '/GEN'),
                 ],
               ),
