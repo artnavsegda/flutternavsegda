@@ -77,12 +77,12 @@ class MainPage extends StatelessWidget {
             length: 5,
             child: Scaffold(
               appBar: AppBar(
-                leadingWidth: 200.0,
-                leading: TextButton(
-                  child: Text(
-                    'Choose ${model.activeAirport}',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                title: model.activeAirport != null
+                    ? Text('${model.activeAirport}')
+                    : null,
+                //leadingWidth: 200.0,
+                leading: IconButton(
+                  icon: Icon(Icons.airplanemode_active),
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => Dialog(
