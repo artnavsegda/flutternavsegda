@@ -108,34 +108,7 @@ class MainPage extends StatelessWidget {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => Dialog(
-                            child: Container(
-                              width: 400,
-                              height: 600,
-                              child: FutureBuilder<List<FileSystemEntity>>(
-                                future:
-                                    Directory(model.activeDir!).list().toList(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return ListView(
-                                      children: [
-                                        ...snapshot.data!.map((e) => ListTile(
-                                              title: Text(basename(
-                                                  e.path.replaceAll('_', ' '))),
-                                              onTap: () {
-                                                model.activeAirport =
-                                                    basename(e.path);
-                                                Navigator.pop(context);
-                                              },
-                                            )),
-                                      ],
-                                    );
-                                  } else
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                },
-                              ),
-                            ),
+                            child: SelectAirportDialog(),
                           )),
                 ),
                 bottom: TabBar(
@@ -170,7 +143,7 @@ class MainPage extends StatelessWidget {
                         if (await WindowManager.instance.isFullScreen())
                           WindowManager.instance.setFullScreen(false);
                         else
-                          WindowManager.instance.setFullScreen(true);
+                          WindowManager.instance.setFullScreen(false);
                       },
                       icon: Icon(Icons.fullscreen)),
                   IconButton(
@@ -237,6 +210,43 @@ class MainPage extends StatelessWidget {
         }
       },
     );
+  }
+}
+
+class SelectAirportDialog extends StatelessWidget {
+  const SelectAirportDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AlmanacState>(builder: (context, model, child) {
+      return Container(
+        width: 400,
+        height: 700,
+        child: FutureBuilder<List<FileSystemEntity>>(
+          future: Directory(model.activeDir!).list().toList(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              return ListView(
+                children: [
+                  ...snapshot.data!.map((e) => ListTile(
+                        title: Text(basename(e.path.replaceAll('_', ' '))),
+                        onTap: () {
+                          model.activeAirport = basename(e.path);
+                          Navigator.pop(context);
+                        },
+                      )),
+                ],
+              );
+            } else
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          },
+        ),
+      );
+    });
   }
 }
 
