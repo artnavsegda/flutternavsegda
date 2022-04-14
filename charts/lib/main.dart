@@ -228,17 +228,43 @@ class SelectAirportDialog extends StatelessWidget {
           future: Directory(model.activeDir!).list().toList(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return ListView(
-                children: [
-                  ...snapshot.data!.map((e) => ListTile(
-                        title: Text(basename(e.path.replaceAll('_', ' '))),
-                        onTap: () {
-                          model.activeAirport = basename(e.path);
-                          Navigator.pop(context);
+              String textFilter = '';
+              return StatefulBuilder(builder: (context, setState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(26.0),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() => textFilter = value);
                         },
-                      )),
-                ],
-              );
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Search for a code',
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ...snapshot.data!
+                              .where((element) => element.path
+                                  .toLowerCase()
+                                  .contains(textFilter))
+                              .map((e) => ListTile(
+                                    title: Text(
+                                        basename(e.path.replaceAll('_', ' '))),
+                                    onTap: () {
+                                      model.activeAirport = basename(e.path);
+                                      Navigator.pop(context);
+                                    },
+                                  )),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              });
             } else
               return Center(
                 child: CircularProgressIndicator(),
