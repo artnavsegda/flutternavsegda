@@ -4,6 +4,7 @@
 
 list(APPEND FLUTTER_PLUGIN_LIST
   pdfx
+  syncfusion_pdfviewer_windows
   window_manager
 )
 
