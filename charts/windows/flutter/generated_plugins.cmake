@@ -3,7 +3,7 @@
 #
 
 list(APPEND FLUTTER_PLUGIN_LIST
-  syncfusion_pdfviewer_windows
+  pdfx
   window_manager
 )
 

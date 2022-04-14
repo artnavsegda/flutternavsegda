@@ -6,12 +6,12 @@
 
 #include "generated_plugin_registrant.h"
 
-#include <syncfusion_pdfviewer_windows/syncfusion_pdfviewer_windows_plugin.h>
+#include <pdfx/pdfx_plugin.h>
 #include <window_manager/window_manager_plugin.h>
 
 void RegisterPlugins(flutter::PluginRegistry* registry) {
-  SyncfusionPdfviewerWindowsPluginRegisterWithRegistrar(
-      registry->GetRegistrarForPlugin("SyncfusionPdfviewerWindowsPlugin"));
+  PdfxPluginRegisterWithRegistrar(
+      registry->GetRegistrarForPlugin("PdfxPlugin"));
   WindowManagerPluginRegisterWithRegistrar(
       registry->GetRegistrarForPlugin("WindowManagerPlugin"));
 }

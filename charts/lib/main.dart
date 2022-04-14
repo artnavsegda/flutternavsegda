@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
+import 'package:pdfx/pdfx.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
@@ -288,7 +288,16 @@ class _AlmanacPageState extends State<AlmanacPage> {
               ),
               Expanded(
                 child: selected != null
-                    ? SfPdfViewer.file(File(docList[selected] + suffix))
+                    ? PdfView(
+                        renderer: (PdfPage page) => page.render(
+                          width: page.width * 5,
+                          height: page.height * 5,
+                        ),
+                        controller: PdfController(
+                          document:
+                              PdfDocument.openFile(docList[selected] + suffix),
+                        ),
+                      )
                     : SizedBox.expand(),
               ),
             ],
