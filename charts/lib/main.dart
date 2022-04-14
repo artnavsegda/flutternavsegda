@@ -166,6 +166,14 @@ class MainPage extends StatelessWidget {
                     },
                   ),
                   IconButton(
+                      onPressed: () async {
+                        if (await WindowManager.instance.isFullScreen())
+                          WindowManager.instance.setFullScreen(false);
+                        else
+                          WindowManager.instance.setFullScreen(true);
+                      },
+                      icon: Icon(Icons.fullscreen)),
+                  IconButton(
                       onPressed: () {
                         exit(0);
                       },
