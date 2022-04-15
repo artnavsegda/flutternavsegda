@@ -5,15 +5,10 @@ import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:window_manager/window_manager.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  await windowManager.ensureInitialized();
-  windowManager.waitUntilReadyToShow().then((_) async {
-    await WindowManager.instance.setFullScreen(true);
-  });
   runApp(MyApp(almanacState: AlmanacState(prefs)));
 }
 
@@ -165,11 +160,6 @@ class MainPage extends StatelessWidget {
                       }
                     },
                   ),
-                  IconButton(
-                      onPressed: () {
-                        exit(0);
-                      },
-                      icon: Icon(Icons.close))
                 ],
               ),
               body: model.activeAirport == null
