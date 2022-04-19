@@ -66,19 +66,8 @@ class SmsPage extends StatelessWidget {
                       context.read<LoginState>().loggedIn = true;
                       context.go('/main');
                     } else {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) => AlertDialog(
-                          title: const Text('Ошибка'),
-                          content: Text('${nordClientResult.errorMessage}'),
-                          actions: [
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      );
+                      showErrorAlert(
+                          context, nordClientResult.errorMessage ?? '');
                     }
                   },
                 ),

@@ -13,6 +13,7 @@ import 'package:nord/login_state.dart';
 
 import '../../components/gradient_button.dart';
 import '../../gql.dart';
+import '../../utils.dart';
 
 enum WhyFarther { harder, smarter, selfStarter, tradingCharter }
 
@@ -112,19 +113,7 @@ class _EditUserState extends State<EditUser> {
               if (nordClientResult.result == 0) {
                 Navigator.pop(context);
               } else {
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) => AlertDialog(
-                    title: const Text('Ошибка'),
-                    content: Text(nordClientResult.errorMessage ?? ''),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
+                showErrorAlert(context, nordClientResult.errorMessage ?? '');
               }
             }
           },
