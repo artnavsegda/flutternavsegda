@@ -21,13 +21,16 @@ class IntroPage extends StatelessWidget {
           options: MutationOptions(
             document: gql(authenticate),
             onError: (error) {
+              print('error: $error');
               showErrorAlert(context, '$error');
             },
             onCompleted: (dynamic resultData) {
-              GraphAuthResult nordAuthResult =
-                  GraphAuthResult.fromJson(resultData['authenticate']);
-              context.read<LoginState>().token = nordAuthResult.token;
-              context.go('/welcome');
+              if (resultData != null) {
+                GraphAuthResult nordAuthResult =
+                    GraphAuthResult.fromJson(resultData['authenticate']);
+                context.read<LoginState>().token = nordAuthResult.token;
+                context.go('/welcome');
+              }
             },
           ),
           builder: (runMutation, result) {
@@ -36,7 +39,6 @@ class IntroPage extends StatelessWidget {
               //String? fcmToken = await FirebaseMessaging.instance.getToken();
 
               if (kIsWeb) {
-                var data = await deviceInfo.iosInfo;
                 GraphDevice nordGraphDevice = GraphDevice(
                   bundleID: "ru.premiumbonus.severmetropol",
                   gUID: "test",
