@@ -16,8 +16,8 @@ class NordRouter {
   final LoginState loginState;
   NordRouter(this.loginState);
   late final router = GoRouter(
-    refreshListenable: loginState,
-    debugLogDiagnostics: false,
+    //refreshListenable: loginState,
+    //debugLogDiagnostics: true,
     urlPathStrategy: UrlPathStrategy.path,
     routes: [
       GoRoute(
