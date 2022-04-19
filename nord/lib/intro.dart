@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rive/rive.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:go_router/go_router.dart';
@@ -34,7 +35,16 @@ class IntroPage extends StatelessWidget {
               DeviceInfoPlugin deviceInfo = DeviceInfoPlugin();
               //String? fcmToken = await FirebaseMessaging.instance.getToken();
 
-              if (Platform.isAndroid) {
+              if (kIsWeb) {
+                var data = await deviceInfo.iosInfo;
+                GraphDevice nordGraphDevice = GraphDevice(
+                  bundleID: "ru.premiumbonus.severmetropol",
+                  gUID: "test",
+                  oSType: "IOS",
+                  //pushNotificationToken: fcmToken,
+                );
+                runMutation(nordGraphDevice.toJson());
+              } else if (Platform.isAndroid) {
                 var build = await deviceInfo.androidInfo;
                 GraphDevice levranaGraphDevice = GraphDevice(
                   bundleID: "com.severmetropol",
