@@ -1,5 +1,5 @@
 import 'dart:io';
-import 'package:pdfx/pdfx.dart';
+import 'package:syncfusion_flutter_pdfviewer/pdfviewer.dart';
 import 'package:flutter/material.dart';
 import 'package:path/path.dart';
 import 'package:file_picker/file_picker.dart';
@@ -108,34 +108,7 @@ class MainPage extends StatelessWidget {
                   onPressed: () => showDialog(
                       context: context,
                       builder: (context) => Dialog(
-                            child: Container(
-                              width: 400,
-                              height: 600,
-                              child: FutureBuilder<List<FileSystemEntity>>(
-                                future:
-                                    Directory(model.activeDir!).list().toList(),
-                                builder: (context, snapshot) {
-                                  if (snapshot.hasData) {
-                                    return ListView(
-                                      children: [
-                                        ...snapshot.data!.map((e) => ListTile(
-                                              title: Text(basename(
-                                                  e.path.replaceAll('_', ' '))),
-                                              onTap: () {
-                                                model.activeAirport =
-                                                    basename(e.path);
-                                                Navigator.pop(context);
-                                              },
-                                            )),
-                                      ],
-                                    );
-                                  } else
-                                    return Center(
-                                      child: CircularProgressIndicator(),
-                                    );
-                                },
-                              ),
-                            ),
+                            child: SelectAirportDialog(),
                           )),
                 ),
                 bottom: TabBar(
@@ -165,6 +138,14 @@ class MainPage extends StatelessWidget {
                       }
                     },
                   ),
+                  IconButton(
+                      onPressed: () async {
+                        if (await WindowManager.instance.isFullScreen())
+                          WindowManager.instance.setFullScreen(false);
+                        else
+                          WindowManager.instance.setFullScreen(false);
+                      },
+                      icon: Icon(Icons.fullscreen)),
                   IconButton(
                       onPressed: () {
                         exit(0);
@@ -232,6 +213,69 @@ class MainPage extends StatelessWidget {
   }
 }
 
+class SelectAirportDialog extends StatelessWidget {
+  const SelectAirportDialog({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Consumer<AlmanacState>(builder: (context, model, child) {
+      return Container(
+        width: 400,
+        height: 700,
+        child: FutureBuilder<List<FileSystemEntity>>(
+          future: Directory(model.activeDir!).list().toList(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              String textFilter = '';
+              return StatefulBuilder(builder: (context, setState) {
+                return Column(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(26.0),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() => textFilter = value);
+                        },
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(),
+                          hintText: 'Search for a code',
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: ListView(
+                        children: [
+                          ...snapshot.data!
+                              .where((element) => element.path
+                                  .toLowerCase()
+                                  .contains(textFilter))
+                              .map((e) => ListTile(
+                                    title: Text(
+                                        basename(e.path.replaceAll('_', ' '))),
+                                    onTap: () {
+                                      model.activeAirport = basename(e.path);
+                                      Navigator.pop(context);
+                                    },
+                                  )),
+                        ],
+                      ),
+                    ),
+                  ],
+                );
+              });
+            } else
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+          },
+        ),
+      );
+    });
+  }
+}
+
 class AlmanacPage extends StatefulWidget {
   const AlmanacPage({
     Key? key,
@@ -288,16 +332,7 @@ class _AlmanacPageState extends State<AlmanacPage> {
               ),
               Expanded(
                 child: selected != null
-                    ? PdfView(
-                        renderer: (PdfPage page) => page.render(
-                          width: page.width * 5,
-                          height: page.height * 5,
-                        ),
-                        controller: PdfController(
-                          document:
-                              PdfDocument.openFile(docList[selected] + suffix),
-                        ),
-                      )
+                    ? SfPdfViewer.file(File(docList[selected] + suffix))
                     : SizedBox.expand(),
               ),
             ],
