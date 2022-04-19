@@ -19,7 +19,7 @@ class Onboarding extends StatefulWidget {
 class _OnboardingState extends State<Onboarding> {
   bool finalScreen = false;
   int pageNumber = 0;
-  final PageController _controller = PageController(viewportFraction: 0.8);
+  final PageController _controller = PageController(viewportFraction: 0.75);
 
   final imageList = [
     'assets/3.0x/Illustration-Welcome.png',
@@ -53,7 +53,7 @@ class _OnboardingState extends State<Onboarding> {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
                 child: PageView(
                   //physics: const NeverScrollableScrollPhysics(),
                   padEnds: false,
