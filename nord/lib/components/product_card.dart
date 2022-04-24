@@ -109,37 +109,41 @@ class ProductCard extends StatelessWidget {
                 Positioned(
                   right: 8,
                   top: 0,
-                  child: StatefulBuilder(builder: (context, setState) {
-                    return ElevatedButton.icon(
-                      style: ElevatedButton.styleFrom(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        primary: Colors.white38,
-                        minimumSize: const Size(45, 24),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
+                  child: Mutation(
+                      options: MutationOptions(
+                        document: gql(setFavoritesProduct),
+                        onCompleted: (resultData) {},
                       ),
-                      onPressed: () => setState(
-                        () {
-                          flip = !flip;
-                          increment = product.isFavorite
-                              ? (flip ? 0 : -1)
-                              : (flip ? 1 : 0);
-                        },
-                      ),
-                      icon: Icon(
-                        flip
-                            ? SeverMetropol.Icon_Favorite
-                            : SeverMetropol.Icon_Favorite_Outlined,
-                        color: Theme.of(context).colorScheme.primary,
-                        size: 12,
-                      ),
-                      label: Text(
-                        '${product.favorites + increment}',
-                        style: TextStyle(color: Colors.black),
-                      ),
-                    );
-                  }),
+                      builder: (runMutation, result) {
+                        return ElevatedButton.icon(
+                          style: ElevatedButton.styleFrom(
+                            padding: const EdgeInsets.symmetric(horizontal: 5),
+                            primary: Colors.white38,
+                            minimumSize: const Size(45, 24),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                          ),
+                          onPressed: () {
+                            flip = !flip;
+                            increment = product.isFavorite
+                                ? (flip ? 0 : -1)
+                                : (flip ? 1 : 0);
+                            runMutation({'productID': product.iD});
+                          },
+                          icon: Icon(
+                            flip
+                                ? SeverMetropol.Icon_Favorite
+                                : SeverMetropol.Icon_Favorite_Outlined,
+                            color: Theme.of(context).colorScheme.primary,
+                            size: 12,
+                          ),
+                          label: Text(
+                            '${product.favorites + increment}',
+                            style: TextStyle(color: Colors.black),
+                          ),
+                        );
+                      }),
                 ),
                 Positioned(
                   left: 8,
