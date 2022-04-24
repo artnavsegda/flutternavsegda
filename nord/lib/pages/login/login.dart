@@ -157,6 +157,7 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           ListTile(
+            onTap: (() {}),
             title: Text(
               'Правила бонусной программы',
               style: TextStyle(color: Theme.of(context).colorScheme.primary),
