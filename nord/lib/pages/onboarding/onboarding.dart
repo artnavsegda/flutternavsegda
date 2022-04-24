@@ -174,8 +174,8 @@ class Push extends StatelessWidget {
       children: [
         Text('Уведомления', style: Theme.of(context).textTheme.headlineSmall),
         const SizedBox(height: 20),
-        const Text(
-            '''Хотите быть в курсе вкусных акций и предложений? Позвольте присылать уведомления.''',
+        const Text('''Хотите быть в курсе вкусных акций и предложений?
+Нажимая кнопку «Далее», вы соглашаетесь на получение информационно-рекламных сообщений''',
             style: TextStyle(fontSize: 14.0)),
         const SizedBox(height: 20),
         OutlinedButton(
