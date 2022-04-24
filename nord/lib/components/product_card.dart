@@ -172,23 +172,55 @@ class ProductCard extends StatelessWidget {
           SizedBox(
               width: MediaQuery.of(context).size.width / 2.25,
               child: Text(product.name)),
-          RichText(
-            text: TextSpan(
-              style: DefaultTextStyle.of(context).style,
-              children: <TextSpan>[
-                TextSpan(
-                    text: product.prices.length > 0
-                        ? product.prices[0].price.toInt().toString()
-                        : '0',
-                    style: Theme.of(context).textTheme.headlineSmall),
-                TextSpan(
-                    text: ' ₽',
-                    style: TextStyle(
-                        fontFamily: 'Noto Sans',
-                        fontSize: 16,
-                        fontFamilyFallback: ['Roboto'])),
-              ],
-            ),
+          Row(
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
+                  children: <TextSpan>[
+                    TextSpan(
+                        text: product.prices.length > 0
+                            ? product.prices[0].price.toInt().toString()
+                            : '0',
+                        style: Theme.of(context).textTheme.headlineSmall),
+                    TextSpan(
+                        text: ' ₽ ',
+                        style: TextStyle(
+                            fontFamily: 'Noto Sans',
+                            fontSize: 16,
+                            fontFamilyFallback: ['Roboto'])),
+                  ],
+                ),
+              ),
+              if (product.prices[0].oldPrice != null)
+                CustomPaint(
+                  painter: RedLine(),
+                  child: RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: <TextSpan>[
+                        TextSpan(
+                            text: product.prices.length > 0
+                                ? product.prices[0].oldPrice!.toInt().toString()
+                                : '0',
+                            style: TextStyle(
+                              color: Color(0xFF9CA4AC),
+                              fontSize: 24.0,
+                              fontFamily: 'Forum',
+                              fontFamilyFallback: ['Roboto'],
+                            )),
+                        TextSpan(
+                            text: ' ₽',
+                            style: TextStyle(
+                                color: Color(0xFF9CA4AC),
+                                fontFamily: 'Noto Sans',
+                                fontSize: 16,
+                                fontFamilyFallback: ['Roboto'])),
+                      ],
+                    ),
+                  ),
+                ),
+            ],
           ),
         ],
       ),
