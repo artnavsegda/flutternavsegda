@@ -10,6 +10,7 @@ class LoginState extends ChangeNotifier {
   String _token = '';
 
   late Link gqlLink;
+  late GraphQLClient gqlClient;
 
   LoginState(this.prefs) {
     loggedIn = prefs.getBool('LoggedIn') ?? false;
@@ -18,6 +19,10 @@ class LoginState extends ChangeNotifier {
       HttpLink(
         'https://demo.cyberiasoft.com/severmetropolservice/graphql',
       ),
+    );
+    gqlClient = GraphQLClient(
+      link: gqlLink,
+      cache: GraphQLCache(store: HiveStore()),
     );
   }
 

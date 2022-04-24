@@ -114,12 +114,7 @@ class NordApp extends StatelessWidget {
         builder: (BuildContext context, model, child) {
           final router = context.read<NordRouter>().router;
           return GraphQLProvider(
-            client: ValueNotifier(
-              GraphQLClient(
-                link: model.gqlLink,
-                cache: GraphQLCache(store: HiveStore()),
-              ),
-            ),
+            client: ValueNotifier(model.gqlClient),
             child: MaterialApp.router(
               routeInformationParser: router.routeInformationParser,
               routerDelegate: router.routerDelegate,

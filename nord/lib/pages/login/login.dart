@@ -20,14 +20,13 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isAgreed = false;
   bool isFamiliarized = false;
+  MaskTextInputFormatter maskFormatter = MaskTextInputFormatter(
+      mask: '+7 (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
 
   @override
   Widget build(BuildContext context) {
-    var maskFormatter = MaskTextInputFormatter(
-        mask: '+7 (###) ###-##-##',
-        filter: {"#": RegExp(r'[0-9]')},
-        type: MaskAutoCompletionType.lazy);
-
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -122,6 +121,8 @@ class _LoginPageState extends State<LoginPage> {
                       return ElevatedButton(
                           onPressed: isAgreed && isFamiliarized
                               ? () {
+                                  print('phone: ' +
+                                      maskFormatter.getUnmaskedText());
                                   runMutation({
                                     'clientPhone': int.parse(
                                         '7' + maskFormatter.getUnmaskedText())
