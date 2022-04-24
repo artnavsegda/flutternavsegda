@@ -8,7 +8,7 @@ class LoginState extends ChangeNotifier {
   final SharedPreferences prefs;
   bool _loggedIn = false;
   String _token = '';
-
+  GraphSettingsResult? settings;
   late Link gqlLink;
   late GraphQLClient gqlClient;
 
@@ -24,6 +24,14 @@ class LoginState extends ChangeNotifier {
       link: gqlLink,
       cache: GraphQLCache(store: HiveStore()),
     );
+  }
+
+  void recieveSettings() async {
+    QueryResult result =
+        await gqlClient.query(QueryOptions(document: gql(getSettings)));
+    if (result.data != null) {
+      settings = GraphSettingsResult.fromJson(result.data!['getSettings']);
+    }
   }
 
   bool get loggedIn => _loggedIn;
