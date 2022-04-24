@@ -32,9 +32,11 @@ class UserPage extends StatelessWidget {
           }
 
           if (result.hasException) {
-            return ErrorPage(reload: () {
-              refetch!();
-            });
+            return ErrorPage(
+                reload: () {
+                  refetch!();
+                },
+                errorText: result.exception.toString());
             return SingleChildScrollView(
               child: Text(result.exception.toString()),
             );
