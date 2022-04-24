@@ -173,6 +173,7 @@ class ProductCard extends StatelessWidget {
               width: MediaQuery.of(context).size.width / 2.25,
               child: Text(product.name)),
           Row(
+            mainAxisSize: MainAxisSize.min,
             children: [
               RichText(
                 text: TextSpan(
