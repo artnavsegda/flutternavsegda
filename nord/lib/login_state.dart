@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'gql.dart';
 
 class LoginState extends ChangeNotifier {
@@ -8,9 +9,16 @@ class LoginState extends ChangeNotifier {
   bool _loggedIn = false;
   String _token = '';
 
+  late Link gqlLink;
+
   LoginState(this.prefs) {
     loggedIn = prefs.getBool('LoggedIn') ?? false;
     token = prefs.getString('token') ?? "";
+    gqlLink = AuthLink(getToken: () => 'Bearer ' + token).concat(
+      HttpLink(
+        'https://demo.cyberiasoft.com/severmetropolservice/graphql',
+      ),
+    );
   }
 
   bool get loggedIn => _loggedIn;

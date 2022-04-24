@@ -193,7 +193,8 @@ class ProductCard extends StatelessWidget {
                   ],
                 ),
               ),
-              if (product.prices[0].oldPrice != null)
+              if (product.prices.isNotEmpty &&
+                  product.prices[0].oldPrice != null)
                 CustomPaint(
                   painter: RedLine(),
                   child: RichText(

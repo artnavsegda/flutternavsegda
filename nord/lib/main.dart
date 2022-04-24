@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -13,6 +14,7 @@ import 'utils.dart';
 import 'login_state.dart';
 
 Future<void> main() async {
+  //debugRepaintRainbowEnabled = true;
   await initHiveForFlutter();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations(
@@ -114,11 +116,7 @@ class NordApp extends StatelessWidget {
           return GraphQLProvider(
             client: ValueNotifier(
               GraphQLClient(
-                link: AuthLink(getToken: () => 'Bearer ' + model.token).concat(
-                  HttpLink(
-                    'https://demo.cyberiasoft.com/severmetropolservice/graphql',
-                  ),
-                ),
+                link: model.gqlLink,
                 cache: GraphQLCache(store: HiveStore()),
               ),
             ),
