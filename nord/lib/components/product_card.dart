@@ -77,7 +77,7 @@ class ProductCard extends StatelessWidget {
                       document: gql(cartAdd),
                       onCompleted: (resultData) {
                         //print(resultData);
-                        context.read<CartState>().cartAmount++;
+                        context.read<CartState>().addToCart(id: product.iD);
 
                         fToast.showToast(
                             child: NordToast("Товар добавлен в корзину"),

@@ -101,7 +101,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               .map((model) => GraphCartRow.fromJson(model)));
 
           WidgetsBinding.instance!.addPostFrameCallback((_) {
-            context.read<CartState>().cartAmount = cart.length;
+            context.read<CartState>().cart = cart;
           });
 
           if (cart.isEmpty) {

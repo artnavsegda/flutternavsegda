@@ -110,11 +110,11 @@ class _MainPageState extends State<MainPage>
                 icon: Consumer<CartState>(builder: (context, model, child) {
                   return Badge(
                     position: BadgePosition.topEnd(top: -12, end: -8),
-                    showBadge: model.cartAmount != 0,
+                    showBadge: model.cart.isNotEmpty,
                     child: const Icon(SeverMetropol.Icon_Shopping_Bag),
                     badgeColor: Theme.of(context).colorScheme.primary,
                     badgeContent: Text(
-                      '${model.cartAmount}',
+                      '${model.cart.length}',
                       style: const TextStyle(color: Colors.white, fontSize: 10),
                     ),
                   );

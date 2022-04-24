@@ -642,7 +642,9 @@ class _ProductPageState extends State<ProductPage> {
                             return GradientButton(
                               onPressed: () {
                                 runMutation({'productID': widget.id});
-                                context.read<CartState>().cartAmount++;
+                                context
+                                    .read<CartState>()
+                                    .addToCart(id: widget.id);
 
                                 /* showModalBottomSheet(
                                   isScrollControlled: true,

@@ -35,25 +35,9 @@ class LoginState extends ChangeNotifier {
 
 class CartState with ChangeNotifier {
   final SharedPreferences prefs;
-  int _cartAmount = 0;
-
-  CartState(this.prefs) {
-    _cartAmount = prefs.getInt('cart') ?? 0;
-  }
-
-  int get cartAmount => _cartAmount;
-  set cartAmount(int newAmount) {
-    _cartAmount = newAmount;
-    prefs.setInt('cart', newAmount);
-    notifyListeners();
-  }
-}
-
-class CartModel with ChangeNotifier {
-  final SharedPreferences prefs;
   List<GraphCartRow> _cart = [];
 
-  CartModel(this.prefs) {
+  CartState(this.prefs) {
     _cart = (jsonDecode(prefs.getString('cartcontent') ?? "[]") as List)
         .map((model) => GraphCartRow.fromJson(model))
         .toList();
