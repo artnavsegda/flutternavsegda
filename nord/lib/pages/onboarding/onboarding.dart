@@ -73,7 +73,10 @@ class _OnboardingState extends State<Onboarding> {
                         child: const Welcome(),
                         opacity: pageNumber == 0 ? 1 : 0.2),
                     Opacity(
-                        child: const Push(),
+                        child: Push(
+                            onSkip: () => _controller.nextPage(
+                                duration: const Duration(milliseconds: 400),
+                                curve: Curves.easeInOut)),
                         opacity: pageNumber == 1 ? 1 : 0.2),
                     Opacity(
                         child: const GeoData(),
@@ -123,11 +126,9 @@ class _OnboardingState extends State<Onboarding> {
                 },
               ),
               secondChild: GradientButton.icon(
-                onPressed: () {
-                  _controller.nextPage(
-                      duration: const Duration(milliseconds: 400),
-                      curve: Curves.easeInOut);
-                },
+                onPressed: () => _controller.nextPage(
+                    duration: const Duration(milliseconds: 400),
+                    curve: Curves.easeInOut),
                 label: const Icon(SeverMetropol.Icon_East),
                 icon: const Text("Далее"),
               ),
@@ -165,7 +166,9 @@ class Welcome extends StatelessWidget {
 }
 
 class Push extends StatelessWidget {
-  const Push({Key? key}) : super(key: key);
+  const Push({Key? key, this.onSkip}) : super(key: key);
+
+  final void Function()? onSkip;
 
   @override
   Widget build(BuildContext context) {
@@ -180,6 +183,7 @@ class Push extends StatelessWidget {
         const SizedBox(height: 20),
         OutlinedButton(
             onPressed: () async {
+              onSkip!();
 /*               FirebaseMessaging messaging = FirebaseMessaging.instance;
 
               NotificationSettings settings = await messaging.requestPermission(

@@ -11,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
+import 'package:nord/components/gradient_button.dart';
 
 class SupportPage extends StatelessWidget {
   const SupportPage({Key? key}) : super(key: key);
@@ -36,6 +37,41 @@ class SupportPage extends StatelessWidget {
     }
   }
 
+  _buildLoginToEnter(context) {
+    return ListView(
+      //crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Image.asset('assets/Illustration-Login.png'),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Расплачивайтесь баллами, покупайе с удовольствием',
+              style: Theme.of(context).textTheme.headlineSmall),
+        ),
+        ListTile(
+          title: const Text("5% от каждой покупки на бонусный счёт"),
+          leading: Image.asset('assets/Illustration-Colored-Bonuses.png'),
+        ),
+        ListTile(
+          title: const Text("Оплачивайте до 20% от покупок бонуса"),
+          leading: Image.asset('assets/Illustration-Colored-Discount.png'),
+        ),
+        ListTile(
+          title: const Text("Специальные предложения, подарки и акции"),
+          leading: Image.asset('assets/Illustration-Colored-Gift.png'),
+        ),
+        //Spacer(),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: GradientButton(
+              onPressed: () {
+                context.push('/login');
+              },
+              child: const Text('Войти или зарегистрироваться')),
+        )
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,177 +86,184 @@ class SupportPage extends StatelessWidget {
             )),
         title: const Text('Чат'),
       ),
-      body: Query(
-          options: QueryOptions(
-            document: gql(getSupport),
-          ),
-          builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-            //print(result);
+      body: context.read<LoginState>().loggedIn
+          ? Query(
+              options: QueryOptions(
+                document: gql(getSupport),
+              ),
+              builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
+                //print(result);
 
-            if (result.hasException) {
-              return const Center(
-                child: Text(
-                    "Чат с поддержкой доступен для зарегистрированных пользователей"),
-              );
-            }
+                if (result.hasException) {
+                  return _buildLoginToEnter(context);
+                }
 
-            if (result.isLoading && result.data == null) {
-              return const Center(
-                child: CircularProgressIndicator(),
-              );
-            }
+                if (result.isLoading && result.data == null) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
 
-            List<GraphSupport> messages = List<GraphSupport>.from(result
-                .data!['getSupport']
-                .map((model) => GraphSupport.fromJson(model)));
+                List<GraphSupport> messages = List<GraphSupport>.from(result
+                    .data!['getSupport']
+                    .map((model) => GraphSupport.fromJson(model)));
 
-            List<types.Message> _messages2 = messages
-                .map(
-                  (message) {
-                    if (message.isPhoto) {
-                      return types.ImageMessage(
-                        size: 10000000,
-                        name: "image",
-                        uri:
-                            "https://demo.cyberiasoft.com/severmetropolservice/api/tools/picture/${message.iD}?type=support",
-                        author: message.managerID == null ? _user : _consultant,
-                        createdAt: message.date,
-                        id: message.iD.toString(),
-                      );
-                    } else {
-                      return types.TextMessage(
-                        author: message.managerID == null ? _user : _consultant,
-                        createdAt: message.date,
-                        id: message.iD.toString(),
-                        text: message.text ?? "photo",
-                      );
-                    }
-                  },
-                )
-                .toList()
-                .cast<types.Message>();
+                List<types.Message> _messages2 = messages
+                    .map(
+                      (message) {
+                        if (message.isPhoto) {
+                          return types.ImageMessage(
+                            size: 10000000,
+                            name: "image",
+                            uri:
+                                "https://demo.cyberiasoft.com/severmetropolservice/api/tools/picture/${message.iD}?type=support",
+                            author:
+                                message.managerID == null ? _user : _consultant,
+                            createdAt: message.date,
+                            id: message.iD.toString(),
+                          );
+                        } else {
+                          return types.TextMessage(
+                            author:
+                                message.managerID == null ? _user : _consultant,
+                            createdAt: message.date,
+                            id: message.iD.toString(),
+                            text: message.text ?? "photo",
+                          );
+                        }
+                      },
+                    )
+                    .toList()
+                    .cast<types.Message>();
 
-            return Mutation(
-                options: MutationOptions(
-                  document: gql(addSupport),
-                  onError: (error) {
-                    showErrorAlert(context, '$error');
-                  },
-                  onCompleted: (dynamic resultData) async {
-                    //print(resultData);
-                    refetch!();
-                  },
-                ),
-                builder: (
-                  RunMutation runMutation,
-                  QueryResult? mutationResult,
-                ) {
-                  return Chat(
-                    theme: DefaultChatTheme(
-                      inputBorderRadius: BorderRadius.zero,
-                      inputBackgroundColor: Colors.white,
-                      inputTextColor: Colors.black,
-                      messageBorderRadius: 0,
-                      primaryColor: Colors.black12,
-                      sentMessageBodyTextStyle: TextStyle(
-                          color: Colors.black,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w500,
-                          height: 1.5),
-                      //primaryColor: Theme.of(context).colorScheme.primary,
-                      sendButtonIcon: Icon(
-                        SeverMetropol.Icon_North,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      attachmentButtonIcon: Icon(
-                        SeverMetropol.Icon_Attach_File,
-                        color: Theme.of(context).colorScheme.primary,
-                      ),
-                      inputTextDecoration: InputDecoration(
-                        labelText: "Сообщение",
-                        isDense: true,
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(2.0),
-                        ),
-                      ),
+                return Mutation(
+                    options: MutationOptions(
+                      document: gql(addSupport),
+                      onError: (error) {
+                        showErrorAlert(context, '$error');
+                      },
+                      onCompleted: (dynamic resultData) async {
+                        //print(resultData);
+                        refetch!();
+                      },
                     ),
-                    messages: _messages2,
-                    l10n: const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
-                    onAttachmentPressed: () {
-                      ImagePicker _picker = ImagePicker();
-                      showModalBottomSheet(
-                        backgroundColor: Colors.white,
-                        isScrollControlled: true,
-                        context: context,
-                        builder: (context) {
-                          return Column(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              ListTile(
-                                title: const Center(
-                                    child: Text(
-                                  'Прикрепить фото',
-                                )),
-                                trailing: Icon(
-                                  SeverMetropol.Icon_Close,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                onTap: () => Navigator.pop(context),
-                              ),
-                              ListTile(
-                                leading: Icon(
-                                  SeverMetropol.Icon_Photo_Camers,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                title: const Text('Запустить камеру'),
-                                onTap: () async {
-                                  final pickedFile = await _picker.pickImage(
-                                      source: ImageSource.camera);
-                                  await sendImage(pickedFile,
-                                      context.read<LoginState>().token);
-                                  Navigator.pop(context);
-                                  refetch!();
-                                },
-                              ),
-                              ListTile(
-                                leading: Icon(
-                                  SeverMetropol.Icon_List,
-                                  color: Theme.of(context).colorScheme.primary,
-                                ),
-                                title: const Text('Выбрать из галереи'),
-                                onTap: () async {
-                                  final pickedFile = await _picker.pickImage(
-                                      source: ImageSource.gallery);
-                                  await sendImage(pickedFile,
-                                      context.read<LoginState>().token);
-                                  Navigator.pop(context);
-                                  refetch!();
-                                },
-                              ),
-                            ],
+                    builder: (
+                      RunMutation runMutation,
+                      QueryResult? mutationResult,
+                    ) {
+                      return Chat(
+                        theme: DefaultChatTheme(
+                          inputBorderRadius: BorderRadius.zero,
+                          inputBackgroundColor: Colors.white,
+                          inputTextColor: Colors.black,
+                          messageBorderRadius: 0,
+                          primaryColor: Colors.black12,
+                          sentMessageBodyTextStyle: TextStyle(
+                              color: Colors.black,
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              height: 1.5),
+                          //primaryColor: Theme.of(context).colorScheme.primary,
+                          sendButtonIcon: Icon(
+                            SeverMetropol.Icon_North,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          attachmentButtonIcon: Icon(
+                            SeverMetropol.Icon_Attach_File,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          inputTextDecoration: InputDecoration(
+                            labelText: "Сообщение",
+                            isDense: true,
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(2.0),
+                            ),
+                          ),
+                        ),
+                        messages: _messages2,
+                        l10n:
+                            const ChatL10nRu(inputPlaceholder: "В чем дело ?"),
+                        onAttachmentPressed: () {
+                          ImagePicker _picker = ImagePicker();
+                          showModalBottomSheet(
+                            backgroundColor: Colors.white,
+                            isScrollControlled: true,
+                            context: context,
+                            builder: (context) {
+                              return Column(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  ListTile(
+                                    title: const Center(
+                                        child: Text(
+                                      'Прикрепить фото',
+                                    )),
+                                    trailing: Icon(
+                                      SeverMetropol.Icon_Close,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    onTap: () => Navigator.pop(context),
+                                  ),
+                                  ListTile(
+                                    leading: Icon(
+                                      SeverMetropol.Icon_Photo_Camers,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    title: const Text('Запустить камеру'),
+                                    onTap: () async {
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.camera);
+                                      await sendImage(pickedFile,
+                                          context.read<LoginState>().token);
+                                      Navigator.pop(context);
+                                      refetch!();
+                                    },
+                                  ),
+                                  ListTile(
+                                    leading: Icon(
+                                      SeverMetropol.Icon_List,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    title: const Text('Выбрать из галереи'),
+                                    onTap: () async {
+                                      final pickedFile =
+                                          await _picker.pickImage(
+                                              source: ImageSource.gallery);
+                                      await sendImage(pickedFile,
+                                          context.read<LoginState>().token);
+                                      Navigator.pop(context);
+                                      refetch!();
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
                           );
                         },
-                      );
-                    },
-                    //onMessageTap: _handleMessageTap,
-                    //onPreviewDataFetched: _handlePreviewDataFetched,
-                    onSendPressed: (types.PartialText message) {
-                      /*                       final textMessage = types.TextMessage(
+                        //onMessageTap: _handleMessageTap,
+                        //onPreviewDataFetched: _handlePreviewDataFetched,
+                        onSendPressed: (types.PartialText message) {
+                          /*                       final textMessage = types.TextMessage(
                             author: _user,
                             createdAt: DateTime.now().millisecondsSinceEpoch,
                             id: const Uuid().v4(),
                             text: message.text,
                           ); */
 
-                      //_addMessage(textMessage);
-                      runMutation({
-                        'message': message.text,
-                      });
-                    },
-                    user: _user,
-                  );
-                });
-          }),
+                          //_addMessage(textMessage);
+                          runMutation({
+                            'message': message.text,
+                          });
+                        },
+                        user: _user,
+                      );
+                    });
+              })
+          : _buildLoginToEnter(context),
     );
   }
 }
