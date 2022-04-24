@@ -37,23 +37,32 @@ class NordToast extends StatelessWidget {
 class NordCheckboxTile extends StatelessWidget {
   const NordCheckboxTile({
     Key? key,
+    required this.value,
+    required this.onChanged,
     required this.title,
   }) : super(key: key);
 
   final Widget title;
+  final bool value;
+  final ValueChanged<bool?>? onChanged;
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Icon(
-          SeverMetropol.Icon_Checkbox_Checked,
-          color: Theme.of(context).colorScheme.primary,
-        ),
-        const SizedBox(width: 38),
-        Flexible(child: title)
-      ],
+    return InkWell(
+      onTap: () => onChanged!(!value),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Icon(
+            value
+                ? SeverMetropol.Icon_Checkbox_Checked
+                : SeverMetropol.Icon_Checkbox_Unchecked,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+          const SizedBox(width: 38),
+          Flexible(child: title)
+        ],
+      ),
     );
   }
 }
