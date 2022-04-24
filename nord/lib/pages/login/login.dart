@@ -10,8 +10,16 @@ import '../../gql.dart';
 import '../../login_state.dart';
 import '../../utils.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
+
+  @override
+  State<LoginPage> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  bool isAgreed = false;
+  bool isFamiliarized = false;
 
   @override
   Widget build(BuildContext context) {
@@ -62,13 +70,21 @@ class LoginPage extends StatelessWidget {
                       hintText: '+7 (___) ___-__-__'),
                 ),
                 const SizedBox(height: 32),
-                const NordCheckboxTile(
+                NordCheckboxTile(
+                    value: isFamiliarized,
+                    onChanged: (newValue) => setState(() {
+                          isFamiliarized = newValue!;
+                        }),
                     title: Text(
-                  'Ознакомлен с условиями положения о защите персональных данных',
-                  style: TextStyle(fontSize: 16),
-                )),
+                      'Ознакомлен с условиями положения о защите персональных данных',
+                      style: TextStyle(fontSize: 16),
+                    )),
                 const SizedBox(height: 32),
-                const NordCheckboxTile(
+                NordCheckboxTile(
+                    value: isAgreed,
+                    onChanged: (newValue) => setState(() {
+                          isAgreed = newValue!;
+                        }),
                     title: Text(
                         'Даю свое согласие на обработку персональных данных',
                         style: TextStyle(fontSize: 16))),
@@ -104,12 +120,14 @@ class LoginPage extends StatelessWidget {
                     ),
                     builder: (runMutation, result) {
                       return ElevatedButton(
-                          onPressed: () {
-                            runMutation({
-                              'clientPhone': int.parse(
-                                  '7' + maskFormatter.getUnmaskedText())
-                            });
-                          },
+                          onPressed: isAgreed && isFamiliarized
+                              ? () {
+                                  runMutation({
+                                    'clientPhone': int.parse(
+                                        '7' + maskFormatter.getUnmaskedText())
+                                  });
+                                }
+                              : null,
                           child: Text('Далее'));
                     }),
               ],
