@@ -278,7 +278,25 @@ class GraphTokenResult {
 
 class GraphBasisResult {}
 
-class GraphPromocodeResult {}
+class GraphPromocodeResult {
+  GraphPromocodeResult({
+    required this.result,
+    this.errorMessage,
+    this.type,
+    this.productID,
+  });
+
+  int result;
+  String? errorMessage;
+  String? type;
+  int? productID;
+
+  GraphPromocodeResult.fromJson(Map<String, dynamic> json)
+      : result = json['result'],
+        errorMessage = json['errorMessage'],
+        type = json['type'],
+        productID = json['productID'];
+}
 
 class GraphPollResult {}
 

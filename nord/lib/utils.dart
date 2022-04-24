@@ -50,7 +50,7 @@ void showErrorAlert(BuildContext context, String error) {
       content: SingleChildScrollView(
           child: Text(
         '$error',
-        style: TextStyle(fontSize: 10),
+        //style: TextStyle(fontSize: 10),
       )),
       actions: [
         TextButton(

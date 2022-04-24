@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
-import '../../gql.dart';
+import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 
 class Promocode extends StatefulWidget {
   const Promocode({
@@ -40,9 +41,22 @@ class _PromocodeState extends State<Promocode> {
             Mutation(
                 options: MutationOptions(
                   document: gql(promocodeActivation),
+                  onError: (error) {
+                    showErrorAlert(context, error!.graphqlErrors[0].message);
+                  },
                   onCompleted: (resultData) {
-                    //print(resultData);
-                    Navigator.pop(context);
+                    if (resultData != null) {
+                      print(resultData);
+                      GraphPromocodeResult nordPromocodeResult =
+                          GraphPromocodeResult.fromJson(
+                              resultData['promocodeActivation']);
+                      if (nordPromocodeResult.result == 0) {
+                        Navigator.pop(context);
+                      } else {
+                        showErrorAlert(
+                            context, nordPromocodeResult.errorMessage ?? '');
+                      }
+                    }
                   },
                 ),
                 builder: (runMutation, result) {
