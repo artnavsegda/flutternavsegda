@@ -51,7 +51,6 @@ class LoginState extends ChangeNotifier {
   String get token => _token;
   set token(String newToken) {
     _token = newToken;
-    print('recieved settings');
     print(newToken);
     prefs.setString('token', newToken);
     notifyListeners();
