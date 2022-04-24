@@ -126,17 +126,17 @@ class _SmsPageState extends State<SmsPage> {
                     },
                     onCompleted: (dynamic resultData) {
                       if (resultData != null) {
-                        GraphBasisResult levranaBasisResult =
+                        GraphBasisResult nordBasisResult =
                             GraphBasisResult.fromJson(resultData['newCodeSMS']);
 
-                        if (levranaBasisResult.result == 0) {
+                        if (nordBasisResult.result == 0) {
                           setState(() {
                             smsTimeout = 30;
                           });
                           startTickingClock();
                         } else {
                           showErrorAlert(
-                              context, levranaBasisResult.errorMessage ?? '');
+                              context, nordBasisResult.errorMessage ?? '');
                         }
                       }
                     }),

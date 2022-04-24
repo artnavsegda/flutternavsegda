@@ -48,13 +48,13 @@ class IntroPage extends StatelessWidget {
                 runMutation(nordGraphDevice.toJson());
               } else if (Platform.isAndroid) {
                 var build = await deviceInfo.androidInfo;
-                GraphDevice levranaGraphDevice = GraphDevice(
+                GraphDevice nordGraphDevice = GraphDevice(
                   bundleID: "com.severmetropol",
                   gUID: build.androidId ?? "",
                   oSType: "ANDROID",
                   //pushNotificationToken: fcmToken,
                 );
-                runMutation(levranaGraphDevice.toJson());
+                runMutation(nordGraphDevice.toJson());
               } else if (Platform.isIOS) {
                 var data = await deviceInfo.iosInfo;
                 GraphDevice nordGraphDevice = GraphDevice(
