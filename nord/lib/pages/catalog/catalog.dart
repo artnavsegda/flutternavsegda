@@ -222,6 +222,7 @@ class _CatalogPageState extends State<CatalogPage>
                             children: nordCatalog[index]
                                 .products
                                 .map((product) => ProductCard(
+                                      onReload: () => refetch!(),
                                       product: product,
                                       onTap: () async {
                                         await Navigator.push(

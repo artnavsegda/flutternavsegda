@@ -180,6 +180,7 @@ class HomePage extends StatelessWidget {
                                   ),
                                   ...section.products
                                       .map((product) => ProductCard(
+                                            onReload: () => refetch!(),
                                             product: product,
                                             onTap: () async {
                                               await Navigator.push(

@@ -15,17 +15,17 @@ class ProductCard extends StatelessWidget {
     Key? key,
     required this.product,
     required this.onTap,
+    this.onReload,
   }) : super(key: key);
 
   final GraphProduct product;
   final void Function()? onTap;
+  final void Function()? onReload;
 
   @override
   Widget build(BuildContext context) {
     FToast fToast = FToast();
     fToast.init(context);
-    bool flip = product.isFavorite;
-    int increment = 0;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 4.0),
@@ -112,7 +112,9 @@ class ProductCard extends StatelessWidget {
                   child: Mutation(
                       options: MutationOptions(
                         document: gql(setFavoritesProduct),
-                        onCompleted: (resultData) {},
+                        onCompleted: (resultData) {
+                          onReload!();
+                        },
                       ),
                       builder: (runMutation, result) {
                         return ElevatedButton.icon(
@@ -124,22 +126,17 @@ class ProductCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(2.0),
                             ),
                           ),
-                          onPressed: () {
-                            flip = !flip;
-                            increment = product.isFavorite
-                                ? (flip ? 0 : -1)
-                                : (flip ? 1 : 0);
-                            runMutation({'productID': product.iD});
-                          },
+                          onPressed: () =>
+                              runMutation({'productID': product.iD}),
                           icon: Icon(
-                            flip
+                            product.isFavorite
                                 ? SeverMetropol.Icon_Favorite
                                 : SeverMetropol.Icon_Favorite_Outlined,
                             color: Theme.of(context).colorScheme.primary,
                             size: 12,
                           ),
                           label: Text(
-                            '${product.favorites + increment}',
+                            '${product.favorites}',
                             style: TextStyle(color: Colors.black),
                           ),
                         );

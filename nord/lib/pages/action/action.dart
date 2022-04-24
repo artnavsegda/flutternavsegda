@@ -198,6 +198,7 @@ class _ActionPageState extends State<ActionPage> {
                             ),
                             ...action.products.map((product) {
                               return ProductCard(
+                                onReload: () => refetch!(),
                                 product: product,
                                 onTap: () async {
                                   await Navigator.push(
