@@ -13,8 +13,8 @@ class LoginState extends ChangeNotifier {
   late GraphQLClient gqlClient;
 
   LoginState(this.prefs) {
-    loggedIn = prefs.getBool('LoggedIn') ?? false;
-    token = prefs.getString('token') ?? "";
+    _loggedIn = prefs.getBool('LoggedIn') ?? false;
+    _token = prefs.getString('token') ?? "";
     gqlLink = AuthLink(getToken: () => 'Bearer ' + token).concat(
       HttpLink(
         'https://demo.cyberiasoft.com/severmetropolservice/graphql',
@@ -24,13 +24,19 @@ class LoginState extends ChangeNotifier {
       link: gqlLink,
       cache: GraphQLCache(store: HiveStore()),
     );
+    print(_token);
+    //if (_token.isNotEmpty) recieveSettings();
   }
 
   void recieveSettings() async {
     QueryResult result =
         await gqlClient.query(QueryOptions(document: gql(getSettings)));
-    if (result.data != null) {
+    if (result.hasException) {
+      print(result.exception.toString());
+    } else if (result.data != null) {
       settings = GraphSettingsResult.fromJson(result.data!['getSettings']);
+      print('recieved settings');
+      print(result.data);
     }
   }
 

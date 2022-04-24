@@ -20,7 +20,6 @@ class GraphSettingsResult {
     this.socialNetwork_Telegram,
     required this.appleGooglePay,
     required this.bonusPay,
-    required this.configuratorPicture,
     required this.startType,
   });
 
@@ -44,7 +43,6 @@ class GraphSettingsResult {
   String? socialNetwork_Telegram;
   bool appleGooglePay;
   bool bonusPay;
-  String configuratorPicture;
   String startType;
 
   GraphSettingsResult.fromJson(Map<String, dynamic> json)
@@ -68,7 +66,6 @@ class GraphSettingsResult {
         socialNetwork_Telegram = json['socialNetwork_Telegram'],
         appleGooglePay = json['appleGooglePay'],
         bonusPay = json['bonusPay'],
-        configuratorPicture = json['configuratorPicture'],
         startType = json['startType'];
 }
 
@@ -2256,7 +2253,6 @@ query getSettings {
     socialNetwork_Telegram
     appleGooglePay
     bonusPay
-    configuratorPicture
     startType
   }
 }
