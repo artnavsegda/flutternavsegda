@@ -202,7 +202,7 @@ class Push extends StatelessWidget {
                 print('User declined or has not accepted permission');
               } */
             },
-            child: const Text('Разрешить уведомления'))
+            child: const Text('Разрешить позже'))
       ],
     );
   }
