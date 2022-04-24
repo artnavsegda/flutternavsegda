@@ -72,8 +72,11 @@ class _ActionPageState extends State<ActionPage> {
           }
 
           if (result.isLoading) {
-            return const Center(
-              child: CircularProgressIndicator(),
+            return Scaffold(
+              appBar: AppBar(),
+              body: Center(
+                child: CircularProgressIndicator(),
+              ),
             );
           }
 
