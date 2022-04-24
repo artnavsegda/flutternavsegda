@@ -11,6 +11,7 @@ import '../../gql.dart';
 import '../../login_state.dart';
 import '../../utils.dart';
 import '../../login_state.dart';
+import '../../pages/help/help.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -157,7 +158,19 @@ class _LoginPageState extends State<LoginPage> {
             },
           ),
           ListTile(
-            onTap: (() {}),
+            onTap: (() {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => HelpTopicID(
+                      topicID: context
+                              .read<LoginState>()
+                              .settings
+                              ?.rulesHelpGroupID ??
+                          0),
+                ),
+              );
+            }),
             title: Text(
               'Правила бонусной программы',
               style: TextStyle(color: Theme.of(context).colorScheme.primary),
