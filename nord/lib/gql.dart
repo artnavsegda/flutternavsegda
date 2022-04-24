@@ -1,3 +1,77 @@
+class GraphSettingsResult {
+  GraphSettingsResult({
+    this.senderID,
+    required this.privacyPolicy,
+    required this.sMSTimer,
+    required this.rulesHelpGroupID,
+    required this.pointInviteFriend,
+    required this.ordersFriends,
+    this.yandexApiKey,
+    this.phone,
+    this.language,
+    this.iOSApplication,
+    this.androidApplication,
+    this.eMail,
+    this.eMailOrder,
+    this.socialNetwork_Instagram,
+    this.socialNetwork_Facebook,
+    this.socialNetwork_VK,
+    this.socialNetwork_OK,
+    this.socialNetwork_Telegram,
+    required this.appleGooglePay,
+    required this.bonusPay,
+    required this.configuratorPicture,
+    required this.startType,
+  });
+
+  String? senderID;
+  String privacyPolicy;
+  int sMSTimer;
+  int rulesHelpGroupID;
+  int pointInviteFriend;
+  int ordersFriends;
+  String? yandexApiKey;
+  int? phone;
+  String? language;
+  String? iOSApplication;
+  String? androidApplication;
+  String? eMail;
+  String? eMailOrder;
+  String? socialNetwork_Instagram;
+  String? socialNetwork_Facebook;
+  String? socialNetwork_VK;
+  String? socialNetwork_OK;
+  String? socialNetwork_Telegram;
+  bool appleGooglePay;
+  bool bonusPay;
+  String configuratorPicture;
+  String startType;
+
+  GraphSettingsResult.fromJson(Map<String, dynamic> json)
+      : senderID = json['senderID'],
+        privacyPolicy = json['privacyPolicy'],
+        sMSTimer = json['sMSTimer'],
+        rulesHelpGroupID = json['rulesHelpGroupID'],
+        pointInviteFriend = json['pointInviteFriend'],
+        ordersFriends = json['ordersFriends'],
+        yandexApiKey = json['yandexApiKey'],
+        phone = json['phone'],
+        language = json['language'],
+        iOSApplication = json['iOSApplication'],
+        androidApplication = json['androidApplication'],
+        eMail = json['queseMailtion'],
+        eMailOrder = json['eMailOrder'],
+        socialNetwork_Instagram = json['socialNetwork_Instagram'],
+        socialNetwork_Facebook = json['socialNetwork_Facebook'],
+        socialNetwork_VK = json['socialNetwork_VK'],
+        socialNetwork_OK = json['socialNetwork_OK'],
+        socialNetwork_Telegram = json['socialNetwork_Telegram'],
+        appleGooglePay = json['appleGooglePay'],
+        bonusPay = json['bonusPay'],
+        configuratorPicture = json['configuratorPicture'],
+        startType = json['startType'];
+}
+
 class GraphLoyaltyTier {
   GraphLoyaltyTier({
     required this.iD,
@@ -2155,6 +2229,35 @@ mutation newCodeSMS {
   newCodeSMS {
     result
     errorMessage
+  }
+}
+''';
+
+const String getSettings = r'''
+query getSettings {
+  getSettings {
+    senderID
+    privacyPolicy
+    sMSTimer
+    rulesHelpGroupID
+    pointInviteFriend
+    ordersFriends
+    yandexApiKey
+    phone
+    language
+    iOSApplication
+    androidApplication
+    eMail
+    eMailOrder
+    socialNetwork_Instagram
+    socialNetwork_Facebook
+    socialNetwork_VK
+    socialNetwork_OK
+    socialNetwork_Telegram
+    appleGooglePay
+    bonusPay
+    configuratorPicture
+    startType
   }
 }
 ''';
