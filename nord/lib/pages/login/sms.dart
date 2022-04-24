@@ -1,20 +1,63 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
-import '../../login_state.dart';
-import '../../utils.dart';
+
+import 'package:nord/login_state.dart';
+import 'package:nord/utils.dart';
 import 'package:nord/gql.dart';
 
-class SmsPage extends StatelessWidget {
+class SmsPage extends StatefulWidget {
   const SmsPage({Key? key, this.phone}) : super(key: key);
 
   final String? phone;
 
   @override
+  State<SmsPage> createState() => _SmsPageState();
+}
+
+class _SmsPageState extends State<SmsPage> {
+  int smsTimeout = 30;
+  Timer? _timeDilationTimer;
+  final TextEditingController smsCodeController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Clean up the controller when the widget is disposed.
+    smsCodeController.dispose();
+    _timeDilationTimer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  void initState() {
+    startTickingClock();
+    super.initState();
+  }
+
+  void startTickingClock() {
+    _timeDilationTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (smsTimeout == 0) {
+        timer.cancel();
+      } else {
+        setState(() {
+          smsTimeout--;
+        });
+      }
+    });
+  }
+
+  void repeatSMS() {
+    setState(() {
+      smsTimeout = 30;
+    });
+    startTickingClock();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    TextEditingController smsCodeController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -33,7 +76,7 @@ class SmsPage extends StatelessWidget {
             Text('Введите\nкод подтверждения',
                 style: Theme.of(context).textTheme.headlineSmall),
             const SizedBox(height: 9),
-            Text('Код подтверждения был отправлен на номер:\n$phone'),
+            Text('Код подтверждения был отправлен на номер:\n${widget.phone}'),
             const SizedBox(height: 24),
             TextField(
               controller: smsCodeController,
@@ -83,7 +126,11 @@ class SmsPage extends StatelessWidget {
                 }),
             const SizedBox(height: 8),
             TextButton(
-                onPressed: () {}, child: const Text('Запросить новый код')),
+                onPressed: smsTimeout == 0 ? repeatSMS : null,
+                child: smsTimeout == 0
+                    ? Text('Запросить новый код')
+                    : Text(
+                        'Запросить новый код через 00:${smsTimeout.toString().padLeft(2, '0')}')),
           ],
         ),
       ),
