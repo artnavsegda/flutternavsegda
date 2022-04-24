@@ -78,7 +78,6 @@ class ProductCard extends StatelessWidget {
                     options: MutationOptions(
                       document: gql(cartAdd),
                       onCompleted: (resultData) {
-                        //print(resultData);
                         context.read<CartState>().addToCart(id: product.iD);
 
                         fToast.showToast(

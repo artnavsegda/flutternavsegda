@@ -46,7 +46,6 @@ class _PromocodeState extends State<Promocode> {
                   },
                   onCompleted: (resultData) {
                     if (resultData != null) {
-                      print(resultData);
                       GraphPromocodeResult nordPromocodeResult =
                           GraphPromocodeResult.fromJson(
                               resultData['promocodeActivation']);

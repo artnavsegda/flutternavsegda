@@ -152,7 +152,6 @@ class NordRouter {
       ), */
     ],
     redirect: (state) {
-      //print('device token ' + loginState.token);
       final splashLoc = state.namedLocation('splash');
       final splashIn = state.subloc == splashLoc;
 

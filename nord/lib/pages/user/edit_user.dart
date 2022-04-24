@@ -137,7 +137,6 @@ class _EditUserState extends State<EditUser> {
                     ));
                     var streamedResponse = await request.send();
                     await streamedResponse.stream.bytesToString();
-                    //print(res);
                   }
                   runMutation(clientInfo.toJson());
                 }

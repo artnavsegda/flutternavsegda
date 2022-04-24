@@ -615,8 +615,6 @@ class _ProductPageState extends State<ProductPage> {
                           options: MutationOptions(
                             document: gql(cartAdd),
                             onCompleted: (resultData) {
-                              //print(resultData);
-
                               fToast.showToast(
                                   child: NordToast("Товар добавлен в корзину"),
                                   gravity: ToastGravity.TOP,

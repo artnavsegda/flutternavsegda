@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:url_launcher/url_launcher.dart';
 
+import 'package:nord/sever_metropol_icons.dart';
 import '../../components/components.dart';
 import '../../gql.dart';
 import '../../login_state.dart';
 import '../../utils.dart';
+import '../../login_state.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -95,7 +97,6 @@ class _LoginPageState extends State<LoginPage> {
                         showErrorAlert(context, '$error');
                       },
                       onCompleted: (resultData) {
-                        print(resultData);
                         if (resultData != null) {
                           GraphClientResult nordClientResult =
                               GraphClientResult.fromJson(
@@ -143,6 +144,17 @@ class _LoginPageState extends State<LoginPage> {
               SeverMetropol.Icon_Navigate_Next,
               color: Theme.of(context).colorScheme.primary,
             ),
+            onTap: () async {
+              String privacyPolicyUrl =
+                  context.read<LoginState>().settings?.privacyPolicy ??
+                      'https://natribu.org';
+              if (await canLaunch(privacyPolicyUrl)) {
+                await launch(privacyPolicyUrl);
+              } else {
+                showErrorAlert(
+                    context, 'Не знаю как открыть $privacyPolicyUrl');
+              }
+            },
           ),
           ListTile(
             title: Text(

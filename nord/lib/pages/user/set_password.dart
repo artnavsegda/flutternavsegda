@@ -71,7 +71,6 @@ class _SetPasswordPageState extends State<SetPasswordPage> {
                 options: MutationOptions(
                   document: gql(setPassword),
                   onCompleted: (resultData) {
-                    //print(resultData);
                     Navigator.pop(context);
                   },
                 ),

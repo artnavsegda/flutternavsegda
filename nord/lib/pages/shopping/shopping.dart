@@ -76,8 +76,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
           fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (result, {refetch, fetchMore}) {
-          //print(result);
-
           if (result.hasException) {
             return ErrorPage(reload: () {
               refetch!();
@@ -434,7 +432,6 @@ class _CartTileState extends State<CartTile> {
                                             showErrorAlert(context, '$error');
                                           },
                                           onCompleted: (resultData) {
-                                            print('ok');
                                             widget.reload();
                                           }),
                                       builder: (runMutation, result) {
@@ -551,7 +548,6 @@ class _CartTileState extends State<CartTile> {
                 SlidableAction(
                   autoClose: false,
                   onPressed: (context) {
-                    print(Slidable.of(context));
                     Slidable.of(context)!
                         .dismiss(ResizeRequest(Duration(milliseconds: 300), () {
                       setState(() {

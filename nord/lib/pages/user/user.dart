@@ -45,8 +45,6 @@ class UserPage extends StatelessWidget {
           GraphClientFullInfo userInfo =
               GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 
-          print(userInfo.picture);
-
           return ListView(
             children: [
               ListTile(

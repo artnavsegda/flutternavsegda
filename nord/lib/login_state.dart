@@ -24,8 +24,9 @@ class LoginState extends ChangeNotifier {
       link: gqlLink,
       cache: GraphQLCache(store: HiveStore()),
     );
+    print('init');
     print(_token);
-    //if (_token.isNotEmpty) recieveSettings();
+    if (_token.isNotEmpty) recieveSettings();
   }
 
   void recieveSettings() async {
@@ -50,6 +51,7 @@ class LoginState extends ChangeNotifier {
   String get token => _token;
   set token(String newToken) {
     _token = newToken;
+    print('recieved settings');
     print(newToken);
     prefs.setString('token', newToken);
     notifyListeners();

@@ -34,7 +34,6 @@ class SupportPage extends StatelessWidget {
       ));
       var streamedResponse = await request.send();
       await streamedResponse.stream.bytesToString();
-      //print(res);
     }
   }
 
@@ -85,8 +84,6 @@ class SupportPage extends StatelessWidget {
                 document: gql(getSupport),
               ),
               builder: (QueryResult result, {refetch, FetchMore? fetchMore}) {
-                //print(result);
-
                 if (result.hasException) {
                   return _buildLoginToEnter(context);
                 }
@@ -136,7 +133,6 @@ class SupportPage extends StatelessWidget {
                         showErrorAlert(context, '$error');
                       },
                       onCompleted: (dynamic resultData) async {
-                        //print(resultData);
                         refetch!();
                       },
                     ),
