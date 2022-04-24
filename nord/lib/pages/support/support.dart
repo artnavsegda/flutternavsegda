@@ -7,6 +7,7 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_chat_ui/flutter_chat_ui.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:nord/login_state.dart';
 import 'package:nord/gql.dart';
@@ -37,29 +38,21 @@ class SupportPage extends StatelessWidget {
     }
   }
 
-  _buildLoginToEnter(context) {
+  _buildLoginToEnter(BuildContext context) {
     return ListView(
       //crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        Image.asset('assets/Illustration-Login.png'),
+        Image.asset('assets/Illustration-No-Chat.png'),
         Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Text('Расплачивайтесь баллами, покупайе с удовольствием',
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          child: Text('Добро пожаловать в чат службы поддержки',
               style: Theme.of(context).textTheme.headlineSmall),
         ),
-        ListTile(
-          title: const Text("5% от каждой покупки на бонусный счёт"),
-          leading: Image.asset('assets/Illustration-Colored-Bonuses.png'),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+          child: Text(
+              'Здесь вы можете задать вопросы о товарах, работе магазинов, оформлении заказов, доставке и прочем. Для работы нужно войти в аккаунт или зарегистрироваться.'),
         ),
-        ListTile(
-          title: const Text("Оплачивайте до 20% от покупок бонуса"),
-          leading: Image.asset('assets/Illustration-Colored-Discount.png'),
-        ),
-        ListTile(
-          title: const Text("Специальные предложения, подарки и акции"),
-          leading: Image.asset('assets/Illustration-Colored-Gift.png'),
-        ),
-        //Spacer(),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: GradientButton(
@@ -86,7 +79,7 @@ class SupportPage extends StatelessWidget {
             )),
         title: const Text('Чат'),
       ),
-      body: context.read<LoginState>().loggedIn
+      body: context.watch<LoginState>().loggedIn
           ? Query(
               options: QueryOptions(
                 document: gql(getSupport),

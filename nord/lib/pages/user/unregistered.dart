@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../components/gradient_button.dart';
+import 'package:nord/components/gradient_button.dart';
 
 class Unregistered extends StatelessWidget {
   const Unregistered({Key? key}) : super(key: key);
