@@ -49,13 +49,6 @@ class _SmsPageState extends State<SmsPage> {
     });
   }
 
-  void repeatSMS() {
-    setState(() {
-      smsTimeout = 30;
-    });
-    startTickingClock();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -125,12 +118,36 @@ class _SmsPageState extends State<SmsPage> {
                       child: const Text('Подтвердить'));
                 }),
             const SizedBox(height: 8),
-            TextButton(
-                onPressed: smsTimeout == 0 ? repeatSMS : null,
-                child: smsTimeout == 0
-                    ? Text('Запросить новый код')
-                    : Text(
-                        'Запросить новый код через 00:${smsTimeout.toString().padLeft(2, '0')}')),
+            Mutation(
+                options: MutationOptions(
+                    document: gql(newCodeSMS),
+                    onError: (error) {
+                      showErrorAlert(context, error!.graphqlErrors[0].message);
+                    },
+                    onCompleted: (dynamic resultData) {
+                      if (resultData != null) {
+                        GraphBasisResult levranaBasisResult =
+                            GraphBasisResult.fromJson(resultData['newCodeSMS']);
+
+                        if (levranaBasisResult.result == 0) {
+                          setState(() {
+                            smsTimeout = 30;
+                          });
+                          startTickingClock();
+                        } else {
+                          showErrorAlert(
+                              context, levranaBasisResult.errorMessage ?? '');
+                        }
+                      }
+                    }),
+                builder: (runMutation, result) {
+                  return TextButton(
+                      onPressed: smsTimeout == 0 ? () => runMutation({}) : null,
+                      child: smsTimeout == 0
+                          ? Text('Запросить новый код')
+                          : Text(
+                              'Запросить новый код через 00:${smsTimeout.toString().padLeft(2, '0')}'));
+                }),
           ],
         ),
       ),

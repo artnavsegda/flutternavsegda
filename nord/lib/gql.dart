@@ -276,7 +276,19 @@ class GraphTokenResult {
         token = json['token'];
 }
 
-class GraphBasisResult {}
+class GraphBasisResult {
+  GraphBasisResult({
+    required this.result,
+    this.errorMessage,
+  });
+
+  int result;
+  String? errorMessage;
+
+  GraphBasisResult.fromJson(Map<String, dynamic> json)
+      : result = json['result'],
+        errorMessage = json['errorMessage'];
+}
 
 class GraphPromocodeResult {
   GraphPromocodeResult({
@@ -2134,6 +2146,15 @@ query getShops {
       start
       finish
     }
+  }
+}
+''';
+
+const String newCodeSMS = r'''
+mutation newCodeSMS {
+  newCodeSMS {
+    result
+    errorMessage
   }
 }
 ''';
