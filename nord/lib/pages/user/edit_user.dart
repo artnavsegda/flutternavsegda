@@ -159,13 +159,18 @@ class _EditUserState extends State<EditUser> {
         });
   }
 
-  void _showDatePicker() {
+  void _showDatePicker() async {
     if (Platform.isAndroid) {
-      showDatePicker(
+      var newDate = await showDatePicker(
           context: context,
           initialDate: DateTime(2016, 8),
           firstDate: DateTime(2015, 8),
           lastDate: DateTime(2101));
+      if (newDate != null) {
+        setState(() {
+          clientInfo.dateOfBirth = newDate.toIso8601String();
+        });
+      }
     } else if (Platform.isIOS) {
       showCupertinoModalPopup(
           context: context,
@@ -180,7 +185,11 @@ class _EditUserState extends State<EditUser> {
                     child: CupertinoDatePicker(
                       initialDateTime: DateTime(2016, 8),
                       mode: CupertinoDatePickerMode.date,
-                      onDateTimeChanged: (value) {},
+                      onDateTimeChanged: (value) {
+                        setState(() {
+                          clientInfo.dateOfBirth = value.toIso8601String();
+                        });
+                      },
                     ),
                   ),
                   CupertinoButton(
