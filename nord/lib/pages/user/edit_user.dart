@@ -30,6 +30,13 @@ class _EditUserState extends State<EditUser> {
   final _formKey = GlobalKey<FormState>();
   XFile? _imageFile;
   late GraphClientInfo clientInfo;
+  var maskFormatter = MaskTextInputFormatter(
+      mask: '+# (###) ###-##-##',
+      filter: {"#": RegExp(r'[0-9]')},
+      type: MaskAutoCompletionType.lazy);
+  final GlobalKey _menuKey = GlobalKey();
+  late TextEditingController userNameController;
+  late TextEditingController eMailController;
 
   @override
   void initState() {
@@ -43,6 +50,8 @@ class _EditUserState extends State<EditUser> {
       eMail: widget.userInfo.eMail,
       greenMode: widget.userInfo.greenMode,
     );
+    userNameController = TextEditingController(text: widget.userInfo.name);
+    eMailController = TextEditingController(text: widget.userInfo.eMail);
   }
 
   void _showCameraModal(BuildContext context) {
@@ -183,13 +192,6 @@ class _EditUserState extends State<EditUser> {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalKey _menuKey = GlobalKey();
-    TextEditingController userNameController = TextEditingController();
-    TextEditingController eMailController = TextEditingController();
-    var maskFormatter = MaskTextInputFormatter(
-        mask: '+# (###) ###-##-##',
-        filter: {"#": RegExp(r'[0-9]')},
-        type: MaskAutoCompletionType.lazy);
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
@@ -245,7 +247,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 24),
                     TextFormField(
-                      initialValue: clientInfo.name,
+                      controller: userNameController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Введите имя';
@@ -289,7 +291,7 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      initialValue: clientInfo.eMail,
+                      controller: eMailController,
                       validator: (value) {
                         if (value == null || value.isEmpty) {
                           return 'Введите e-Mail';
