@@ -23,6 +23,7 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   bool isAgreed = false;
   bool isFamiliarized = false;
+  TextEditingController _controller = TextEditingController();
   MaskTextInputFormatter maskFormatter = MaskTextInputFormatter(
       mask: '+7 (###) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
@@ -56,12 +57,13 @@ class _LoginPageState extends State<LoginPage> {
                     'Мы отправим на номер SMS-сообщение с кодом потверждения'),
                 const SizedBox(height: 24),
                 TextField(
+                  controller: _controller,
                   keyboardType: TextInputType.number,
                   inputFormatters: [maskFormatter],
                   decoration: InputDecoration(
                       suffixIcon: IconButton(
                         onPressed: () {
-                          maskFormatter.clear();
+                          _controller.clear();
                         },
                         icon: Icon(
                           SeverMetropol.Icon_Clear,
