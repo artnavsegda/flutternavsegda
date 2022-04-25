@@ -1,4 +1,5 @@
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter/rendering.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   ); */
 
-  initializeDateFormatting();
+  //initializeDateFormatting();
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(NordApp(
@@ -121,6 +122,14 @@ class NordApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               title: 'Север Метрополь',
               theme: nordTheme,
+              supportedLocales: [
+                Locale('ru', 'RU'),
+              ],
+              localizationsDelegates: [
+                GlobalMaterialLocalizations.delegate,
+                GlobalWidgetsLocalizations.delegate,
+                GlobalCupertinoLocalizations.delegate,
+              ],
             ),
           );
         },
