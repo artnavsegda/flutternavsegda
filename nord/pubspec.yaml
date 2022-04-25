@@ -59,6 +59,7 @@ dependencies:
   flutter_chat_ui: ^1.5.5
   expandable: ^5.0.1
   geolocator: ^8.2.0
+  flutter_native_splash: ^2.1.6
 
 dev_dependencies:
   flutter_test:
@@ -70,6 +71,10 @@ flutter_icons:
   android: true
   ios: true
   image_path: "assets/icon.png"
+
+flutter_native_splash:
+  color: "#ffffff"
+  image: assets/splash.png
 
 flutter:
 
