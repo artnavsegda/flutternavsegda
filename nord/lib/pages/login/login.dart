@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
@@ -28,6 +29,17 @@ class _LoginPageState extends State<LoginPage> {
       mask: '+7 (###) ###-##-##',
       filter: {"#": RegExp(r'[0-9]')},
       type: MaskAutoCompletionType.lazy);
+
+  _openPrivacyPage() async {
+    String privacyPolicyUrl =
+        context.read<LoginState>().settings?.privacyPolicy ??
+            'https://natribu.org';
+    if (await canLaunch(privacyPolicyUrl)) {
+      await launch(privacyPolicyUrl);
+    } else {
+      showErrorAlert(context, 'Не знаю как открыть $privacyPolicyUrl');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -75,14 +87,29 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 const SizedBox(height: 32),
                 NordCheckboxTile(
-                    value: isFamiliarized,
-                    onChanged: (newValue) => setState(() {
-                          isFamiliarized = newValue!;
-                        }),
-                    title: Text(
-                      'Ознакомлен с условиями положения о защите персональных данных',
-                      style: TextStyle(fontSize: 16),
-                    )),
+                  value: isFamiliarized,
+                  onChanged: (newValue) => setState(() {
+                    isFamiliarized = newValue!;
+                  }),
+                  title: RichText(
+                    text: TextSpan(
+                        text: 'Ознакомлен с условиями положения о защите ',
+                        style: TextStyle(
+                            fontFamily: 'Noto Sans',
+                            fontSize: 16,
+                            color: Color(0xFF1D242C)),
+                        children: [
+                          TextSpan(
+                              text: 'персональных данных',
+                              style: TextStyle(color: Color(0xFFCD0643)),
+                              recognizer: TapGestureRecognizer()
+                                ..onTap = _openPrivacyPage),
+                          TextSpan(
+                            text: ' ',
+                          )
+                        ]),
+                  ),
+                ),
                 const SizedBox(height: 32),
                 NordCheckboxTile(
                     value: isAgreed,
@@ -147,17 +174,7 @@ class _LoginPageState extends State<LoginPage> {
               SeverMetropol.Icon_Navigate_Next,
               color: Theme.of(context).colorScheme.primary,
             ),
-            onTap: () async {
-              String privacyPolicyUrl =
-                  context.read<LoginState>().settings?.privacyPolicy ??
-                      'https://natribu.org';
-              if (await canLaunch(privacyPolicyUrl)) {
-                await launch(privacyPolicyUrl);
-              } else {
-                showErrorAlert(
-                    context, 'Не знаю как открыть $privacyPolicyUrl');
-              }
-            },
+            onTap: _openPrivacyPage,
           ),
           ListTile(
             onTap: (() {
