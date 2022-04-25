@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'package:flutter/gestures.dart';
 import 'package:http/http.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:provider/provider.dart';
@@ -318,7 +319,23 @@ class _EditUserState extends State<EditUser> {
                           )),
                     ),
                     if (widget.userInfo.confirmedEMail == false)
-                      Text('Неподтвержденный адрес Email. Подтвердить'),
+                      RichText(
+                        text: TextSpan(
+                            text: 'Неподтвержденный адрес Email.',
+                            style: TextStyle(
+                                fontFamily: 'Noto Sans',
+                                color: Color(0xFF1D242C)),
+                            children: [
+                              TextSpan(
+                                  text: ' Подтвердить',
+                                  style: TextStyle(color: Color(0xFFCD0643)),
+                                  recognizer: TapGestureRecognizer()
+                                    ..onTap = () {}),
+                              TextSpan(
+                                text: ' ',
+                              )
+                            ]),
+                      ),
                     const SizedBox(height: 16),
                     TextFormField(
                       onTap: _showDatePicker,
