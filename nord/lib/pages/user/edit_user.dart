@@ -36,6 +36,7 @@ class _EditUserState extends State<EditUser> {
       type: MaskAutoCompletionType.lazy);
   final GlobalKey _menuKey = GlobalKey();
   late TextEditingController userNameController;
+  late TextEditingController phoneController;
   late TextEditingController eMailController;
 
   @override
@@ -51,6 +52,8 @@ class _EditUserState extends State<EditUser> {
       greenMode: widget.userInfo.greenMode,
     );
     userNameController = TextEditingController(text: widget.userInfo.name);
+    phoneController = TextEditingController(
+        text: maskFormatter.maskText(clientInfo.phone.toString()));
     eMailController = TextEditingController(text: widget.userInfo.eMail);
   }
 
@@ -275,13 +278,14 @@ class _EditUserState extends State<EditUser> {
                     TextFormField(
                       keyboardType: TextInputType.number,
                       inputFormatters: [maskFormatter],
-                      initialValue:
-                          maskFormatter.maskText(clientInfo.phone.toString()),
+                      controller: phoneController,
                       decoration: InputDecoration(
                         labelText: "Номер телефона",
                         hintText: '+7 (___) ___-__-__',
                         suffixIcon: IconButton(
-                          onPressed: () {},
+                          onPressed: () {
+                            phoneController.clear();
+                          },
                           icon: Icon(
                             SeverMetropol.Icon_Clear,
                             size: 24.0,
