@@ -136,7 +136,8 @@ class _EditUserState extends State<EditUser> {
                       contentType: MediaType('image', 'jpg'),
                     ));
                     var streamedResponse = await request.send();
-                    await streamedResponse.stream.bytesToString();
+                    String res = await streamedResponse.stream.bytesToString();
+                    print(res);
                   }
                   runMutation(clientInfo.toJson());
                 }
@@ -223,8 +224,11 @@ class _EditUserState extends State<EditUser> {
                               radius: 48,
                               foregroundImage: _imageFile != null
                                   ? FileImage(File(_imageFile?.path ?? ""))
-                                  : AssetImage('assets/treska.jpg')
-                                      as ImageProvider,
+                                  : widget.userInfo.picture != ""
+                                      ? NetworkImage(
+                                          widget.userInfo.picture ?? "")
+                                      : AssetImage('assets/treska.jpg')
+                                          as ImageProvider,
                             ),
                             Image.asset(
                               'assets/Icon-Photo-Camers.png',
