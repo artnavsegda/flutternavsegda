@@ -194,6 +194,69 @@ class _EditUserState extends State<EditUser> {
     }
   }
 
+  void _showEmailConfirmModal(BuildContext context) {
+    if (Platform.isAndroid) {
+      showDialog(
+        context: context,
+        builder: (context) => AlertDialog(
+          content: Text('Выслать повторно код подтверждения?'),
+          actions: [
+            TextButton(
+              onPressed: () => {},
+              child: const Text('Нет'),
+            ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(eMailConfirmRepeat),
+                  onCompleted: (resultData) {
+                    Navigator.pop(context);
+                  },
+                ),
+                builder: (runMutation, result) {
+                  return TextButton(
+                    onPressed: () {
+                      runMutation({});
+                    },
+                    child: const Text('Да'),
+                  );
+                })
+          ],
+        ),
+      );
+    } else if (Platform.isIOS) {
+      showCupertinoDialog<void>(
+        context: context,
+        builder: (context) => CupertinoAlertDialog(
+          content: const Text('Выслать повторно код подтверждения?'),
+          actions: [
+            CupertinoDialogAction(
+              isDefaultAction: true,
+              child: const Text('Нет'),
+              onPressed: () {
+                Navigator.pop(context);
+              },
+            ),
+            Mutation(
+                options: MutationOptions(
+                  document: gql(eMailConfirmRepeat),
+                  onCompleted: (resultData) {
+                    Navigator.pop(context);
+                  },
+                ),
+                builder: (runMutation, result) {
+                  return CupertinoDialogAction(
+                    child: const Text('Да'),
+                    onPressed: () {
+                      runMutation({});
+                    },
+                  );
+                })
+          ],
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -330,7 +393,8 @@ class _EditUserState extends State<EditUser> {
                                   text: ' Подтвердить',
                                   style: TextStyle(color: Color(0xFFCD0643)),
                                   recognizer: TapGestureRecognizer()
-                                    ..onTap = () {}),
+                                    ..onTap =
+                                        () => _showEmailConfirmModal(context)),
                               TextSpan(
                                 text: ' ',
                               )
