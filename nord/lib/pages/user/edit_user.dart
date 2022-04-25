@@ -317,7 +317,8 @@ class _EditUserState extends State<EditUser> {
                             ),
                           )),
                     ),
-                    Text('Неподтвержденный адрес Email. Подтвердить'),
+                    if (widget.userInfo.confirmedEMail == false)
+                      Text('Неподтвержденный адрес Email. Подтвердить'),
                     const SizedBox(height: 16),
                     TextFormField(
                       onTap: _showDatePicker,
