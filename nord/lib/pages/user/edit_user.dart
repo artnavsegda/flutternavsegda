@@ -163,8 +163,10 @@ class _EditUserState extends State<EditUser> {
     if (Platform.isAndroid) {
       var newDate = await showDatePicker(
           context: context,
-          initialDate: DateTime(2016, 8),
-          firstDate: DateTime(2015, 8),
+          initialDate: clientInfo.dateOfBirth != null
+              ? DateTime.parse(clientInfo.dateOfBirth ?? '')
+              : DateTime.now(),
+          firstDate: DateTime(1901),
           lastDate: DateTime(2101));
       if (newDate != null) {
         setState(() {
@@ -183,7 +185,9 @@ class _EditUserState extends State<EditUser> {
                   SizedBox(
                     height: 240,
                     child: CupertinoDatePicker(
-                      initialDateTime: DateTime(2016, 8),
+                      initialDateTime: clientInfo.dateOfBirth != null
+                          ? DateTime.parse(clientInfo.dateOfBirth ?? '')
+                          : DateTime.now(),
                       mode: CupertinoDatePickerMode.date,
                       onDateTimeChanged: (value) {
                         setState(() {
