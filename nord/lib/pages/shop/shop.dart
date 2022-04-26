@@ -1,6 +1,8 @@
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
@@ -27,12 +29,25 @@ class ShopPage extends StatelessWidget {
     return Scaffold(
       body: Stack(
         children: [
-          FractionallySizedBox(
-            heightFactor: 0.55,
+          AspectRatio(
+            aspectRatio: 1.34,
             child: PageView(
               children: [
-                ...shop.pictures
-                    .map((picture) => Image.network(picture, fit: BoxFit.cover))
+                ...shop.pictures.map((picture) => CachedNetworkImage(
+                    fit: BoxFit.fitWidth,
+                    imageUrl: picture,
+                    placeholder: (context, url) => Shimmer.fromColors(
+                          baseColor: Colors.white,
+                          highlightColor: const Color(0xFFECECEC),
+                          child: Container(
+                            color: Colors.white,
+                          ),
+                        ),
+                    errorWidget: (context, url, error) => Container(
+                          color: const Color(0xFFECECEC),
+                          child:
+                              Center(child: const Icon(Icons.no_photography)),
+                        )))
               ],
             ),
           ),
@@ -56,7 +71,8 @@ class ShopPage extends StatelessWidget {
           ),
           SafeArea(
             child: DraggableScrollableSheet(
-                minChildSize: 0.5,
+                initialChildSize: 0.7,
+                minChildSize: 0.7,
                 maxChildSize: 0.9,
                 builder: (context, scrollController) {
                   return Container(
