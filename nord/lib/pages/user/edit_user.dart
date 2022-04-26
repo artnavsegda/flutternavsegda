@@ -159,7 +159,7 @@ class _EditUserState extends State<EditUser> {
         });
   }
 
-  void _showDatePicker() async {
+  void _showDatePicker(BuildContext context) async {
     if (Platform.isAndroid) {
       var newDate = await showDatePicker(
           context: context,
@@ -411,7 +411,7 @@ class _EditUserState extends State<EditUser> {
                       ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      onTap: _showDatePicker,
+                      onTap: () => _showDatePicker(context),
                       readOnly: true,
                       decoration: InputDecoration(
                         labelText: "Дата рождения",
