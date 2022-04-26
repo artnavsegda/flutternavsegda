@@ -432,7 +432,20 @@ class _CartTileState extends State<CartTile> {
                                             showErrorAlert(context, '$error');
                                           },
                                           onCompleted: (resultData) {
-                                            widget.reload();
+                                            if (resultData != null) {
+                                              GraphBasisResult nordBasisResult =
+                                                  GraphBasisResult.fromJson(
+                                                      resultData['cartEdit']);
+                                              if (nordBasisResult.result == 0) {
+                                                widget.reload();
+                                              } else {
+                                                showErrorAlert(
+                                                    context,
+                                                    nordBasisResult
+                                                            .errorMessage ??
+                                                        '');
+                                              }
+                                            }
                                           }),
                                       builder: (runMutation, result) {
                                         return Row(
