@@ -74,9 +74,11 @@ class CartState with ChangeNotifier {
 
   List<GraphCartRow> get cart => _cart;
   set cart(List<GraphCartRow> value) {
-    _cart = value;
-    prefs.setString('cartcontent', jsonEncode(_cart));
-    notifyListeners();
+    if (value != _cart) {
+      _cart = value;
+      prefs.setString('cartcontent', jsonEncode(_cart));
+      notifyListeners();
+    }
   }
 
   addToCart({required int id}) {
