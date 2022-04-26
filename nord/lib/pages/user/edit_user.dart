@@ -8,6 +8,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:intl/date_symbol_data_local.dart';
+import 'package:intl/intl.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/login_state.dart';
@@ -415,6 +417,11 @@ class _EditUserState extends State<EditUser> {
                       ),
                     const SizedBox(height: 16),
                     TextFormField(
+                      key: Key(clientInfo.dateOfBirth ?? "dateOfBirth"),
+                      initialValue: clientInfo.dateOfBirth != null
+                          ? DateFormat.yMMMMd('ru_RU').format(
+                              DateTime.parse(clientInfo.dateOfBirth ?? ''))
+                          : null,
                       onTap: () => _showDatePicker(context),
                       readOnly: true,
                       decoration: InputDecoration(
