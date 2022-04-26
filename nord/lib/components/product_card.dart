@@ -107,20 +107,6 @@ class ProductCard extends StatelessWidget {
                                 context, nordBasisResult.errorMessage ?? '');
                           }
                         }
-                        context.read<CartState>().addToCart(id: product.iD);
-
-                        fToast.showToast(
-                            child: NordToast("Товар добавлен в корзину"),
-                            gravity: ToastGravity.TOP,
-                            toastDuration: Duration(seconds: 1),
-                            positionedToastBuilder: (context, child) {
-                              return Positioned(
-                                child: child,
-                                right: 16.0,
-                                left: 16.0,
-                                top: MediaQuery.of(context).padding.top + 4,
-                              );
-                            });
                       },
                     ),
                     builder: (runMutation, result) {
