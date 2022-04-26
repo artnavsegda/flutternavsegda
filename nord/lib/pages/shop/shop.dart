@@ -31,7 +31,6 @@ class ShopPage extends StatelessWidget {
             heightFactor: 0.55,
             child: PageView(
               children: [
-                Image.asset('assets/placeholder/shop.png', fit: BoxFit.cover),
                 ...shop.pictures
                     .map((picture) => Image.network(picture, fit: BoxFit.cover))
               ],

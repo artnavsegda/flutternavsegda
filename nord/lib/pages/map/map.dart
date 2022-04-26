@@ -13,6 +13,7 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String textFilter = '';
     return Scaffold(
       appBar: AppBar(
         title: const Text('Кондитерские и кафе'),
@@ -94,7 +95,6 @@ class MapPage extends StatelessWidget {
                   DraggableScrollableSheet(
                     minChildSize: 0.15,
                     builder: (context, scrollController) {
-                      String textFilter = '';
                       return Container(
                         decoration: BoxDecoration(
                           color: Colors.white,
