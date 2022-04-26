@@ -9,6 +9,7 @@ import 'package:nord/login_state.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
+import 'package:nord/utils.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -77,7 +78,35 @@ class ProductCard extends StatelessWidget {
                   child: Mutation(
                     options: MutationOptions(
                       document: gql(cartAdd),
+                      onError: (error) {
+                        print('error: $error');
+                        showErrorAlert(context, '$error');
+                      },
                       onCompleted: (resultData) {
+                        if (resultData != null) {
+                          GraphBasisResult nordBasisResult =
+                              GraphBasisResult.fromJson(resultData['cartAdd']);
+
+                          if (nordBasisResult.result == 0) {
+                            context.read<CartState>().addToCart(id: product.iD);
+
+                            fToast.showToast(
+                                child: NordToast("Товар добавлен в корзину"),
+                                gravity: ToastGravity.TOP,
+                                toastDuration: Duration(seconds: 1),
+                                positionedToastBuilder: (context, child) {
+                                  return Positioned(
+                                    child: child,
+                                    right: 16.0,
+                                    left: 16.0,
+                                    top: MediaQuery.of(context).padding.top + 4,
+                                  );
+                                });
+                          } else {
+                            showErrorAlert(
+                                context, nordBasisResult.errorMessage ?? '');
+                          }
+                        }
                         context.read<CartState>().addToCart(id: product.iD);
 
                         fToast.showToast(

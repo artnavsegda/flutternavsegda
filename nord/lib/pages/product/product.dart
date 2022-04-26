@@ -9,6 +9,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
 import 'package:nord/components/components.dart';
+import 'package:nord/utils.dart';
 
 import 'review.dart';
 import 'package:nord/gql.dart';
@@ -614,43 +615,48 @@ class _ProductPageState extends State<ProductPage> {
                         child: Mutation(
                           options: MutationOptions(
                             document: gql(cartAdd),
+                            onError: (error) {
+                              print('error: $error');
+                              showErrorAlert(context, '$error');
+                            },
                             onCompleted: (resultData) {
-                              fToast.showToast(
-                                  child: NordToast("Товар добавлен в корзину"),
-                                  gravity: ToastGravity.TOP,
-                                  toastDuration: Duration(seconds: 1),
-                                  positionedToastBuilder: (context, child) {
-                                    return Positioned(
-                                      child: child,
-                                      right: 16.0,
-                                      left: 16.0,
-                                      top: MediaQuery.of(context).padding.top +
-                                          4,
-                                    );
-                                  });
+                              if (resultData != null) {
+                                GraphBasisResult nordBasisResult =
+                                    GraphBasisResult.fromJson(
+                                        resultData['cartAdd']);
 
-                              /*                               Fluttertoast.showToast(
-                                  msg: "Товар добавлен в корзину",
-                                  toastLength: Toast.LENGTH_SHORT,
-                                  gravity: ToastGravity.TOP,
-                                  timeInSecForIosWeb: 1); */
+                                if (nordBasisResult.result == 0) {
+                                  context
+                                      .read<CartState>()
+                                      .addToCart(id: widget.id);
+
+                                  fToast.showToast(
+                                      child:
+                                          NordToast("Товар добавлен в корзину"),
+                                      gravity: ToastGravity.TOP,
+                                      toastDuration: Duration(seconds: 1),
+                                      positionedToastBuilder: (context, child) {
+                                        return Positioned(
+                                          child: child,
+                                          right: 16.0,
+                                          left: 16.0,
+                                          top: MediaQuery.of(context)
+                                                  .padding
+                                                  .top +
+                                              4,
+                                        );
+                                      });
+                                } else {
+                                  showErrorAlert(context,
+                                      nordBasisResult.errorMessage ?? '');
+                                }
+                              }
                             },
                           ),
                           builder: (runMutation, result) {
                             return GradientButton(
                               onPressed: () {
                                 runMutation({'productID': widget.id});
-                                context
-                                    .read<CartState>()
-                                    .addToCart(id: widget.id);
-
-                                /* showModalBottomSheet(
-                                  isScrollControlled: true,
-                                  context: context,
-                                  builder: (context) {
-                                    return ExtraIngredientBottomSheet();
-                                  },
-                                ); */
                               },
                               child: Row(
                                   mainAxisAlignment:

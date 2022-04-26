@@ -998,7 +998,7 @@ class GraphBankCard {
     required this.mask,
     this.picture,
   });
-  int iD;
+  String iD;
   String mask;
   String? picture;
   GraphBankCard.fromJson(Map<String, dynamic> json)
