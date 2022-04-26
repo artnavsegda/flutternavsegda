@@ -135,16 +135,18 @@ class _SearchPageState extends State<SearchPage> {
                                 (element) => FractionallySizedBox(
                                   widthFactor: 0.43,
                                   child: ProductCard(
-                                    onReload: () => refetch!(),
-                                    product: element,
-                                    onTap: () => Navigator.of(context,
-                                            rootNavigator: true)
-                                        .push(
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              ProductPage(id: element.iD)),
-                                    ),
-                                  ),
+                                      onReload: () => refetch!(),
+                                      product: element,
+                                      onTap: () {
+                                        Navigator.of(context,
+                                                rootNavigator: true)
+                                            .push(
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  ProductPage(id: element.iD)),
+                                        );
+                                        refetch!();
+                                      }),
                                 ),
                               )
                               .toList()
