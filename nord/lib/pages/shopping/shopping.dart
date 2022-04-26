@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
@@ -98,7 +99,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               .data!['getCart']
               .map((model) => GraphCartRow.fromJson(model)));
 
-          WidgetsBinding.instance!.addPostFrameCallback((_) {
+          WidgetsBinding.instance?.addPostFrameCallback((_) {
             context.read<CartState>().cart = cart;
           });
 
@@ -432,6 +433,7 @@ class _CartTileState extends State<CartTile> {
                                             showErrorAlert(context, '$error');
                                           },
                                           onCompleted: (resultData) {
+                                            print(resultData);
                                             if (resultData != null) {
                                               GraphBasisResult nordBasisResult =
                                                   GraphBasisResult.fromJson(

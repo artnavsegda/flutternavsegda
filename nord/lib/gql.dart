@@ -395,6 +395,12 @@ class GraphCartCharacteristic {
   String name;
   String value;
 
+  Map<String, dynamic> toJson() => {
+        'type': type,
+        'name': name,
+        'value': value,
+      };
+
   GraphCartCharacteristic.fromJson(Map<String, dynamic> json)
       : type = json['type'],
         name = json['name'],
@@ -428,6 +434,21 @@ class GraphCartRow {
   String? message;
   String? typeMessage;
   List<GraphCartCharacteristic> characteristics;
+
+  Map<String, dynamic> toJson() => {
+        'rowID': rowID,
+        'productID': productID,
+        'productName': productName,
+        'quantity': quantity,
+        'amount': amount,
+        'oldAmount': oldAmount,
+        'modifiers': modifiers,
+        'comment': comment,
+        'picture': picture,
+        'message': message,
+        'typeMessage': typeMessage,
+        'characteristics': characteristics,
+      };
 
   GraphCartRow.fromJson(Map<String, dynamic> json)
       : rowID = json['rowID'],
