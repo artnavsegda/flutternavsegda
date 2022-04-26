@@ -42,6 +42,12 @@ class _EditUserState extends State<EditUser> {
   late TextEditingController phoneController;
   late TextEditingController eMailController;
 
+  static const genders = {
+    'UNDETERMINED': '',
+    'MALE': 'Мужской',
+    'FEMALE': 'Женский',
+  };
+
   @override
   void initState() {
     super.initState();
@@ -272,6 +278,34 @@ class _EditUserState extends State<EditUser> {
     }
   }
 
+  void _showGenderSelectModal(BuildContext context) {
+    showCupertinoModalPopup(
+      context: context,
+      builder: (context) => CupertinoActionSheet(
+        actions: <CupertinoActionSheetAction>[
+          CupertinoActionSheetAction(
+            child: const Text('Мужской'),
+            onPressed: () async {
+              setState(() {
+                clientInfo.gender = 'MALE';
+              });
+              Navigator.pop(context);
+            },
+          ),
+          CupertinoActionSheetAction(
+            child: const Text('Женский'),
+            onPressed: () async {
+              setState(() {
+                clientInfo.gender = 'FEMALE';
+              });
+              Navigator.pop(context);
+            },
+          )
+        ],
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -311,7 +345,7 @@ class _EditUserState extends State<EditUser> {
                                   : widget.userInfo.picture != ""
                                       ? NetworkImage(
                                           widget.userInfo.picture ?? "")
-                                      : AssetImage('assets/treska.jpg')
+                                      : AssetImage('assets/Round-Metropol.png')
                                           as ImageProvider,
                             ),
                             Image.asset(
@@ -434,39 +468,23 @@ class _EditUserState extends State<EditUser> {
                     ),
                     const SizedBox(height: 16),
                     TextFormField(
-                      onTap: (() {
-                        dynamic state = _menuKey.currentState;
-                        state.showButtonMenu();
-                      }),
+                      key: Key(clientInfo.gender ?? "gender"),
+                      initialValue: genders[clientInfo.gender],
+                      onTap: () => _showGenderSelectModal(context),
                       readOnly: true,
                       decoration: InputDecoration(
                           labelText: "Пол",
-                          suffixIcon: PopupMenuButton<WhyFarther>(
-                            key: _menuKey,
-                            icon: Icon(
-                              SeverMetropol.Icon_Expand_More,
-                              size: 24.0,
-                              color: Theme.of(context).colorScheme.primary,
-                            ),
-                            onSelected: (WhyFarther result) {},
-                            itemBuilder: (BuildContext context) =>
-                                <PopupMenuEntry<WhyFarther>>[
-                              const PopupMenuItem<WhyFarther>(
-                                value: WhyFarther.harder,
-                                child: Text('Мужской'),
-                              ),
-                              const PopupMenuItem<WhyFarther>(
-                                value: WhyFarther.smarter,
-                                child: Text('Женский'),
-                              ),
-                            ],
+                          suffixIcon: Icon(
+                            SeverMetropol.Icon_Expand_More,
+                            size: 24.0,
+                            color: Theme.of(context).colorScheme.primary,
                           )),
                     ),
-                    const SizedBox(height: 24),
+/*                     const SizedBox(height: 24),
                     Text(
                       "Другие настройки",
                       style: Theme.of(context).textTheme.headlineSmall,
-                    ),
+                    ), */
                   ],
                 ),
               ),

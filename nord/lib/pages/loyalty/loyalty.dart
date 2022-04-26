@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:expandable/expandable.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
+import 'package:nord/login_state.dart';
+import 'package:nord/pages/help/help.dart';
 
 class LoyaltyPage extends StatelessWidget {
   const LoyaltyPage({Key? key}) : super(key: key);
@@ -249,7 +252,19 @@ class LoyaltyPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     alignment: Alignment.centerLeft,
                     child: TextButton.icon(
-                        onPressed: () {},
+                        onPressed: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => HelpTopicID(
+                                  topicID: context
+                                          .read<LoginState>()
+                                          .settings
+                                          ?.rulesHelpGroupID ??
+                                      0),
+                            ),
+                          );
+                        },
                         label: Icon(SeverMetropol.Icon_East),
                         icon: Text('Подробнее о бонусной программе')),
                   )
