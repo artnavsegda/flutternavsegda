@@ -491,8 +491,12 @@ class _EditUserState extends State<EditUser> {
             ),
             SwitchListTile(
               title: const Text('Отказаться от бумажных чеков'),
-              value: false,
-              onChanged: (newVal) {},
+              value: clientInfo.greenMode ?? false,
+              onChanged: (newVal) {
+                setState(() {
+                  clientInfo.greenMode = newVal;
+                });
+              },
             ),
             SwitchListTile(
               title: const Text('Получать push-уведомления'),
