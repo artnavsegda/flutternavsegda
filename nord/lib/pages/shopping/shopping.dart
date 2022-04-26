@@ -452,30 +452,20 @@ class _CartTileState extends State<CartTile> {
                                       builder: (runMutation, result) {
                                         return Row(
                                           children: [
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  runMutation({
-                                                    'rowIDs': [
-                                                      widget.item.rowID
-                                                    ],
-                                                    'quantity':
-                                                        widget.item.quantity -
-                                                            1,
-                                                  });
-                                                },
-                                                child: Icon(
+                                            IconButton(
+                                              padding: EdgeInsets.zero,
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              onPressed: () {
+                                                runMutation({
+                                                  'rowID': widget.item.rowID,
+                                                  'quantity':
+                                                      widget.item.quantity - 1,
+                                                });
+                                              },
+                                              icon: Icon(
                                                   SeverMetropol.Icon_Remove,
-                                                ),
-                                                style: TextButton.styleFrom(
-                                                    minimumSize:
-                                                        const Size(24.0, 24.0),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            0.0)),
-                                              ),
+                                                  color: Colors.red[900]),
                                             ),
                                             Container(
                                               alignment: Alignment.center,
@@ -484,30 +474,19 @@ class _CartTileState extends State<CartTile> {
                                               child: Text(
                                                   '${widget.item.quantity.round()}'),
                                             ),
-                                            SizedBox(
-                                              width: 24,
-                                              height: 24,
-                                              child: TextButton(
-                                                onPressed: () {
-                                                  runMutation({
-                                                    'rowIDs': [
-                                                      widget.item.rowID
-                                                    ],
-                                                    'quantity':
-                                                        widget.item.quantity +
-                                                            1,
-                                                  });
-                                                },
-                                                child: Icon(
-                                                  SeverMetropol.Icon_Add,
-                                                ),
-                                                style: TextButton.styleFrom(
-                                                    minimumSize:
-                                                        const Size(24.0, 24.0),
-                                                    padding:
-                                                        const EdgeInsets.all(
-                                                            0.0)),
-                                              ),
+                                            IconButton(
+                                              padding: EdgeInsets.zero,
+                                              visualDensity:
+                                                  VisualDensity.compact,
+                                              onPressed: () {
+                                                runMutation({
+                                                  'rowID': widget.item.rowID,
+                                                  'quantity':
+                                                      widget.item.quantity + 1,
+                                                });
+                                              },
+                                              icon: Icon(SeverMetropol.Icon_Add,
+                                                  color: Colors.red[900]),
                                             ),
                                           ],
                                         );
@@ -538,7 +517,6 @@ class _CartTileState extends State<CartTile> {
                             ),
                           ],
                         ),
-                        const SizedBox(height: 13),
                         const Divider(
                           height: 1,
                         ),
