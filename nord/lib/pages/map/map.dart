@@ -13,61 +13,61 @@ class MapPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Query(
-      options: QueryOptions(
-        document: gql(getShops),
-      ),
-      builder: (result, {fetchMore, refetch}) {
-        if (result.hasException) {
-          return ErrorPage(
-            reload: () {
-              refetch!();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Кондитерские и кафе'),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
             },
-            errorText: result.exception?.graphqlErrors[0].message ?? '',
-          );
-        }
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+      ),
+      body: Query(
+        options: QueryOptions(
+          document: gql(getShops),
+        ),
+        builder: (result, {fetchMore, refetch}) {
+          if (result.hasException) {
+            return ErrorPage(
+              reload: () {
+                refetch!();
+              },
+              errorText: result.exception?.graphqlErrors[0].message ?? '',
+            );
+          }
 
-        if (result.isLoading) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        }
+          if (result.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          }
 
-        List<GraphShop> shops = List<GraphShop>.from(
-            result.data!['getShops'].map((model) => GraphShop.fromJson(model)));
+          List<GraphShop> shops = List<GraphShop>.from(result.data!['getShops']
+              .map((model) => GraphShop.fromJson(model)));
 
-        return FutureBuilder<Position>(
-          future: Geolocator.getCurrentPosition(),
-          builder: (context, snapshot) {
-            LatLng myLocation = LatLng(59.9311, 30.3609);
-            if (snapshot.hasData) {
-              myLocation =
-                  LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
-              shops.sort((a, b) => Geolocator.distanceBetween(
-                      a.latitude ?? 0,
-                      a.longitude ?? 0,
-                      myLocation.latitude,
-                      myLocation.longitude)
-                  .compareTo(Geolocator.distanceBetween(
-                      b.latitude ?? 0,
-                      b.longitude ?? 0,
-                      myLocation.latitude,
-                      myLocation.longitude)));
-            }
+          return FutureBuilder<Position>(
+            future: Geolocator.getCurrentPosition(),
+            builder: (context, snapshot) {
+              LatLng myLocation = LatLng(59.9311, 30.3609);
+              if (snapshot.hasData) {
+                myLocation =
+                    LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
+                shops.sort((a, b) => Geolocator.distanceBetween(
+                        a.latitude ?? 0,
+                        a.longitude ?? 0,
+                        myLocation.latitude,
+                        myLocation.longitude)
+                    .compareTo(Geolocator.distanceBetween(
+                        b.latitude ?? 0,
+                        b.longitude ?? 0,
+                        myLocation.latitude,
+                        myLocation.longitude)));
+              }
 
-            return Scaffold(
-              appBar: AppBar(
-                title: const Text('Кондитерские и кафе'),
-                leading: IconButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    icon: Icon(
-                      SeverMetropol.Icon_West,
-                      color: Theme.of(context).colorScheme.primary,
-                    )),
-              ),
-              body: Stack(
+              return Stack(
                 children: [
                   GoogleMap(
                     myLocationEnabled: true,
@@ -142,11 +142,11 @@ class MapPage extends StatelessWidget {
                     },
                   ),
                 ],
-              ),
-            );
-          },
-        );
-      },
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
