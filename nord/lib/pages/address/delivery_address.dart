@@ -45,6 +45,16 @@ class DeliveryAddressPage extends StatelessWidget {
 
             return ListView(
               children: [
+                ...userInfo.deliveryAddresses.map(
+                  (e) => ListTile(
+                    title: Text('Домашний адрес'),
+                    subtitle: Text('Дачный проспект, 36к3, квартира 410'),
+                    trailing: Icon(
+                      SeverMetropol.Icon_Edit,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
+                  ),
+                ),
                 ListTile(
                   title: Text('Домашний адрес'),
                   subtitle: Text('Дачный проспект, 36к3, квартира 410'),
