@@ -7,8 +7,8 @@ import '../../login_state.dart';
 import '../../sever_metropol_icons.dart';
 import '../orders/orders.dart';
 import '../address/delivery_address.dart';
-import '../../gql.dart';
-import '../error/error.dart';
+import 'package:nord/gql.dart';
+import 'package:nord/pages/error/error.dart';
 import '../loyalty/loyalty.dart';
 
 import 'edit_user.dart';

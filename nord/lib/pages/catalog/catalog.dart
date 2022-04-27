@@ -118,7 +118,7 @@ class _CatalogPageState extends State<CatalogPage>
               flexibleSpace: SafeArea(
                   child: Column(
                 children: [
-                  AddressTile2(),
+                  AddressTile(),
                   Row(
                     children: [
                       const SizedBox(width: 16.0),

@@ -208,7 +208,7 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       body: ListView(
         children: [
-          const AddressTile2(),
+          const AddressTile(),
           context.read<LoginState>().loggedIn
               ? CardLoggedIn()
               : CardNotLoggedIn(),
