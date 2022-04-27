@@ -45,24 +45,34 @@ class DeliveryAddressPage extends StatelessWidget {
 
             return ListView(
               children: [
-                ...userInfo.deliveryAddresses.map(
-                  (e) => ListTile(
-                    title: Text('Домашний адрес'),
-                    subtitle: Text('Дачный проспект, 36к3, квартира 410'),
-                    trailing: Icon(
-                      SeverMetropol.Icon_Edit,
-                      color: Theme.of(context).colorScheme.primary,
+                if (userInfo.deliveryAddresses.isEmpty) ...[
+                  Image.asset(
+                    'assets/Illustration-New-Address.png',
+                    fit: BoxFit.fitWidth,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                      'Избранные адреса',
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
-                ),
-                ListTile(
-                  title: Text('Домашний адрес'),
-                  subtitle: Text('Дачный проспект, 36к3, квартира 410'),
-                  trailing: Icon(
-                    SeverMetropol.Icon_Edit,
-                    color: Theme.of(context).colorScheme.primary,
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Text(
+                        'Домашний, рабочий или ближайшего кафе ― сохраните основные адреса, чтобы каждый раз не заполнять их снова'),
                   ),
-                ),
+                ] else
+                  ...userInfo.deliveryAddresses.map(
+                    (e) => ListTile(
+                      title: Text('Домашний адрес'),
+                      subtitle: Text('Дачный проспект, 36к3, квартира 410'),
+                      trailing: Icon(
+                        SeverMetropol.Icon_Edit,
+                        color: Theme.of(context).colorScheme.primary,
+                      ),
+                    ),
+                  ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: GradientButton(
