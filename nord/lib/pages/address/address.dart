@@ -10,7 +10,7 @@ class AddressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<LoginState>(builder: (context, model, child) {
+    return Consumer<FilterState>(builder: (context, model, child) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -44,7 +44,9 @@ class AddressPage extends StatelessWidget {
                       style: OutlinedButton.styleFrom(
                           side: BorderSide(color: Colors.grey),
                           padding: EdgeInsets.only(right: 16)),
-                      onPressed: () {},
+                      onPressed: () {
+                        model.filter = 'DELIVERY';
+                      },
                       label: const Text('Доставка'),
                       icon: Stack(
                         children: [
@@ -56,7 +58,9 @@ class AddressPage extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Icon(
-                                SeverMetropol.Icon_Checkbox_Checked,
+                                model.filter == 'DELIVERY'
+                                    ? SeverMetropol.Icon_Checkbox_Checked
+                                    : SeverMetropol.Icon_Checkbox_Unchecked,
                                 color: Theme.of(context).colorScheme.primary,
                               )),
                         ],
@@ -65,7 +69,9 @@ class AddressPage extends StatelessWidget {
                   OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.only(right: 16)),
-                      onPressed: () {},
+                      onPressed: () {
+                        model.filter = 'PICK_UP';
+                      },
                       label: const Text('Самовывоз'),
                       icon: Stack(
                         children: [
@@ -77,7 +83,9 @@ class AddressPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Icon(
-                              SeverMetropol.Icon_Checkbox_Unchecked,
+                              model.filter == 'PICK_UP'
+                                  ? SeverMetropol.Icon_Checkbox_Checked
+                                  : SeverMetropol.Icon_Checkbox_Unchecked,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
@@ -87,7 +95,9 @@ class AddressPage extends StatelessWidget {
                   OutlinedButton.icon(
                       style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.only(right: 16)),
-                      onPressed: () {},
+                      onPressed: () {
+                        model.filter = 'ALL';
+                      },
                       label: const Text('Все товары'),
                       icon: Stack(
                         children: [
@@ -99,7 +109,9 @@ class AddressPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Icon(
-                              SeverMetropol.Icon_Checkbox_Unchecked,
+                              model.filter == 'ALL'
+                                  ? SeverMetropol.Icon_Checkbox_Checked
+                                  : SeverMetropol.Icon_Checkbox_Unchecked,
                               color: Theme.of(context).colorScheme.primary,
                             ),
                           ),
