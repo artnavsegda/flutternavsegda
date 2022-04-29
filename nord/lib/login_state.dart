@@ -94,3 +94,5 @@ class CartState with ChangeNotifier {
     notifyListeners();
   }
 }
+
+class FilterState with ChangeNotifier {}
