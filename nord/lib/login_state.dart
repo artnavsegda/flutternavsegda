@@ -95,4 +95,13 @@ class CartState with ChangeNotifier {
   }
 }
 
-class FilterState with ChangeNotifier {}
+class FilterState with ChangeNotifier {
+  String _filter = 'ALL';
+  String get filter => _filter;
+  set filter(String value) {
+    if (value != _filter) {
+      _filter = value;
+      notifyListeners();
+    }
+  }
+}
