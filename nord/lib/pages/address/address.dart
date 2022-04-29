@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
+import 'package:nord/components/components.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -78,7 +79,30 @@ class AddressPage extends StatelessWidget {
                           ),
                         ),
                       ],
-                    ))
+                    )),
+                SizedBox(width: 8),
+                OutlinedButton.icon(
+                    style: OutlinedButton.styleFrom(
+                        padding: EdgeInsets.only(right: 16)),
+                    onPressed: () {},
+                    label: const Text('Все товары'),
+                    icon: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Image.asset(
+                              'assets/Illustration-Colored-Delivery-Options.png'),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(4.0),
+                          child: Icon(
+                            SeverMetropol.Icon_Checkbox_Unchecked,
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ),
+                      ],
+                    )),
+                SizedBox(width: 16),
               ],
             ),
           ),
@@ -92,7 +116,7 @@ class AddressPage extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child:
-                ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
+                GradientButton(onPressed: () {}, child: const Text('Выбрать')),
           ),
         ],
       ),
