@@ -102,9 +102,13 @@ class NordApp extends StatelessWidget {
           lazy: false,
           create: (context) => loginState,
         ),
-        ChangeNotifierProvider(
+        ChangeNotifierProvider<CartState>(
           lazy: false,
           create: (context) => cartState,
+        ),
+        ChangeNotifierProvider<FilterState>(
+          lazy: false,
+          create: (context) => FilterState(),
         ),
         Provider<NordRouter>(
           lazy: false,
@@ -112,7 +116,7 @@ class NordApp extends StatelessWidget {
         ),
       ],
       child: Consumer<LoginState>(
-        builder: (BuildContext context, model, child) {
+        builder: (context, model, child) {
           final router = context.read<NordRouter>().router;
           return GraphQLProvider(
             client: ValueNotifier(model.gqlClient),
