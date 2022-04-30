@@ -10,7 +10,8 @@ class AddressPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Consumer<FilterState>(builder: (context, model, child) {
+    var copyState = FilterState.from(context.read<FilterState>());
+    return StatefulBuilder(builder: (context, setState) {
       return Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -45,7 +46,7 @@ class AddressPage extends StatelessWidget {
                           side: BorderSide(color: Colors.grey),
                           padding: EdgeInsets.only(right: 16)),
                       onPressed: () {
-                        model.filter = 'DELIVERY';
+                        setState(() => copyState.filter = 'DELIVERY');
                       },
                       label: const Text('Доставка'),
                       icon: Stack(
@@ -58,7 +59,7 @@ class AddressPage extends StatelessWidget {
                           Padding(
                               padding: const EdgeInsets.all(4.0),
                               child: Icon(
-                                model.filter == 'DELIVERY'
+                                copyState.filter == 'DELIVERY'
                                     ? SeverMetropol.Icon_Checkbox_Checked
                                     : SeverMetropol.Icon_Checkbox_Unchecked,
                                 color: Theme.of(context).colorScheme.primary,
@@ -70,7 +71,7 @@ class AddressPage extends StatelessWidget {
                       style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.only(right: 16)),
                       onPressed: () {
-                        model.filter = 'PICK_UP';
+                        setState(() => copyState.filter = 'PICK_UP');
                       },
                       label: const Text('Самовывоз'),
                       icon: Stack(
@@ -83,7 +84,7 @@ class AddressPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Icon(
-                              model.filter == 'PICK_UP'
+                              copyState.filter == 'PICK_UP'
                                   ? SeverMetropol.Icon_Checkbox_Checked
                                   : SeverMetropol.Icon_Checkbox_Unchecked,
                               color: Theme.of(context).colorScheme.primary,
@@ -96,7 +97,7 @@ class AddressPage extends StatelessWidget {
                       style: OutlinedButton.styleFrom(
                           padding: EdgeInsets.only(right: 16)),
                       onPressed: () {
-                        model.filter = 'ALL';
+                        setState(() => copyState.filter = 'ALL');
                       },
                       label: const Text('Все товары'),
                       icon: Stack(
@@ -109,7 +110,7 @@ class AddressPage extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.all(4.0),
                             child: Icon(
-                              model.filter == 'ALL'
+                              copyState.filter == 'ALL'
                                   ? SeverMetropol.Icon_Checkbox_Checked
                                   : SeverMetropol.Icon_Checkbox_Unchecked,
                               color: Theme.of(context).colorScheme.primary,
@@ -122,7 +123,10 @@ class AddressPage extends StatelessWidget {
               ),
             ),
             ListTile(
-              title: const Text('Адмиралтейская набережная, 10а'),
+              enabled: copyState.filter != 'ALL',
+              title: Text(copyState.filter == 'ALL'
+                  ? 'Не выбрано'
+                  : 'Адмиралтейская набережная, 10а'),
               trailing: Icon(
                 SeverMetropol.Icon_Edit,
                 color: Theme.of(context).colorScheme.primary,
@@ -131,7 +135,11 @@ class AddressPage extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: GradientButton(
-                  onPressed: () {}, child: const Text('Выбрать')),
+                  onPressed: () {
+                    context.read<FilterState>().filter = copyState.filter;
+                    Navigator.pop(context);
+                  },
+                  child: const Text('Выбрать')),
             ),
           ],
         ),

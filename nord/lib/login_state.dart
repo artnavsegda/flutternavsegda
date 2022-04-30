@@ -97,6 +97,9 @@ class CartState with ChangeNotifier {
 
 class FilterState with ChangeNotifier {
   String _filter = 'ALL';
+  FilterState();
+  FilterState.from(FilterState original) : _filter = original.filter;
+
   String get filter => _filter;
   set filter(String value) {
     if (value != _filter) {
