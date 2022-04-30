@@ -5,6 +5,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/login_state.dart';
 import 'package:nord/pages/map/map.dart';
+import 'delivery_address.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -136,6 +137,11 @@ class AddressPage extends StatelessWidget {
                 if (copyState.filter == 'PICK_UP')
                   Navigator.push(context,
                       MaterialPageRoute(builder: (context) => const MapPage()));
+                else if (copyState.filter == 'DELIVERY')
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const DeliveryAddressPage()));
               },
             ),
             Padding(
