@@ -131,6 +131,9 @@ class AddressPage extends StatelessWidget {
                 SeverMetropol.Icon_Edit,
                 color: Theme.of(context).colorScheme.primary,
               ),
+              onTap: () {
+                if (copyState.filter == 'PICK_UP') ;
+              },
             ),
             Padding(
               padding: const EdgeInsets.all(16.0),
