@@ -9,7 +9,9 @@ import 'package:nord/pages/error/error.dart';
 import '../shop/shop.dart';
 
 class MapPage extends StatelessWidget {
-  const MapPage({Key? key}) : super(key: key);
+  const MapPage({Key? key, this.onSelect}) : super(key: key);
+
+  final Function(GraphShop selectedShop)? onSelect;
 
   @override
   Widget build(BuildContext context) {
@@ -129,11 +131,16 @@ class MapPage extends StatelessWidget {
                                   .map((shop) => ShopTile(
                                         shop: shop,
                                         onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ShopPage(shop: shop)));
+                                          if (onSelect == null) {
+                                            Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        ShopPage(shop: shop)));
+                                          } else {
+                                            Navigator.pop(context);
+                                            onSelect!(shop);
+                                          }
                                         },
                                       ))
                                   .where((element) {

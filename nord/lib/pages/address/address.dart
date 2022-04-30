@@ -139,7 +139,11 @@ class AddressPage extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const MapPage(),
+                        builder: (context) => MapPage(
+                          onSelect: (selectedShop) {
+                            setState(() => copyState.activeShop = selectedShop);
+                          },
+                        ),
                       ),
                     );
                   else if (copyState.filter == 'DELIVERY')
