@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
+import 'package:provider/provider.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
+import 'package:nord/login_state.dart';
+import '../pages/address/address.dart';
 import 'select_address_bottom_sheet.dart';
 export 'gradient_button.dart';
 
@@ -76,13 +79,18 @@ class AddressTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       onTap: () {
-        showModalBottomSheet(
-          isScrollControlled: true,
-          context: context,
-          builder: (context) {
-            return const SelectAddressBottomSheet();
-          },
-        );
+        if (context.read<FilterState>().filter == 'ALL')
+          showModalBottomSheet(
+            backgroundColor: Colors.white,
+            isScrollControlled: true,
+            context: context,
+            builder: (context) {
+              return const SelectAddressBottomSheet();
+            },
+          );
+        else
+          Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddressPage()));
       },
       leading: Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
       title: const Text("Адрес доставки или кафе"),

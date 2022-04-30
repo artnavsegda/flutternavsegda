@@ -32,7 +32,7 @@ class SelectAddressBottomSheet extends StatelessWidget {
               const SizedBox(height: 24),
               GradientButton(
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(
                             builder: (context) => const AddressPage()));
