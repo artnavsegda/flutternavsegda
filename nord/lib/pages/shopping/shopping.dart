@@ -127,7 +127,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               ],
               bottom: PreferredSize(
                 preferredSize: Size.fromHeight(50.0),
-                child: AddressTile2(),
+                child: AddressTile(),
               ),
               shadowColor: Colors.white,
               elevation: headerUp ? 2 : null,

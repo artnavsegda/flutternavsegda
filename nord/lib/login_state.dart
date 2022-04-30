@@ -97,6 +97,9 @@ class CartState with ChangeNotifier {
 
 class FilterState with ChangeNotifier {
   String _filter = 'ALL';
+  GraphShop? activeShop;
+  GraphDeliveryAddress? activeAddress;
+
   FilterState();
   FilterState.from(FilterState original) : _filter = original.filter;
 
