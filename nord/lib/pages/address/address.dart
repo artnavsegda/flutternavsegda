@@ -159,12 +159,16 @@ class AddressPage extends StatelessWidget {
               ),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: GradientButton(
-                    onPressed: () {
-                      context.read<FilterState>().assign(copyState);
-                      Navigator.pop(context);
-                    },
-                    child: const Text('Выбрать')),
+                child: ElevatedButton(
+                  onPressed: (copyState.filter == 'PICK_UP' &&
+                          copyState.activeShop == null)
+                      ? null
+                      : () {
+                          context.read<FilterState>().assign(copyState);
+                          Navigator.pop(context);
+                        },
+                  child: const Text('Выбрать'),
+                ),
               ),
             ],
           ),
