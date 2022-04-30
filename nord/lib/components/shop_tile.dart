@@ -8,10 +8,12 @@ import '../pages/shop/shop.dart';
 class ShopTile extends StatelessWidget {
   const ShopTile({
     Key? key,
+    this.onTap,
     required this.shop,
   }) : super(key: key);
 
   final GraphShop shop;
+  final Function()? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +24,7 @@ class ShopTile extends StatelessWidget {
             MaterialPageRoute(builder: (context) => ShopPage(shop: shop)));
       },
       title: Text(
-        shop.address ?? 'Невский, 6',
+        shop.address ?? 'Нет адреса',
         style: TextStyle(color: Colors.red[900]),
       ),
       subtitle: Column(

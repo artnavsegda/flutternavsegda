@@ -126,7 +126,16 @@ class MapPage extends StatelessWidget {
                                 ),
                               ),
                               ...shops
-                                  .map((shop) => ShopTile(shop: shop))
+                                  .map((shop) => ShopTile(
+                                        shop: shop,
+                                        onTap: () {
+                                          Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      ShopPage(shop: shop)));
+                                        },
+                                      ))
                                   .where((element) {
                                 return element.shop.address!
                                         .toLowerCase()

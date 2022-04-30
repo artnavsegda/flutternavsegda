@@ -7,9 +7,10 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/shop_tile.dart';
 import 'package:nord/utils.dart';
 import 'package:nord/components/product_card.dart';
-import '../../components/components.dart';
-import '../product/product.dart';
-import '../../gql.dart';
+import 'package:nord/components/components.dart';
+import 'package:nord/pages/product/product.dart';
+import 'package:nord/gql.dart';
+import 'package:nord/pages/shop/shop.dart';
 
 class ActionPage extends StatefulWidget {
   const ActionPage({Key? key, required this.id}) : super(key: key);
@@ -215,7 +216,16 @@ class _ActionPageState extends State<ActionPage> {
                       ),
                     ],
                     if (action.type == 'SHOP') ...[
-                      ...action.shops.map((shop) => ShopTile(shop: shop)),
+                      ...action.shops.map((shop) => ShopTile(
+                            shop: shop,
+                            onTap: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ShopPage(shop: shop)));
+                            },
+                          )),
                     ]
                   ],
                 ),
