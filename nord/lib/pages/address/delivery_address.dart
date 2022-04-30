@@ -4,7 +4,7 @@ import 'package:nord/components/gradient_button.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/pages/error/error.dart';
 import 'package:nord/gql.dart';
-import 'address.dart';
+import 'enter_address.dart';
 
 class DeliveryAddressPage extends StatelessWidget {
   const DeliveryAddressPage({Key? key}) : super(key: key);
@@ -81,7 +81,7 @@ class DeliveryAddressPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const AddressPage()));
+                              builder: (context) => const EnterAddress()));
                     },
                   ),
                 ),
