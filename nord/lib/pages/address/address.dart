@@ -4,6 +4,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/login_state.dart';
+import 'package:nord/pages/map/map.dart';
 
 class AddressPage extends StatelessWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -132,7 +133,9 @@ class AddressPage extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
               onTap: () {
-                if (copyState.filter == 'PICK_UP') ;
+                if (copyState.filter == 'PICK_UP')
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => const MapPage()));
               },
             ),
             Padding(

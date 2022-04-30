@@ -11,7 +11,7 @@ import '../../gql.dart';
 import '../../components/product_card.dart';
 import 'action_card.dart';
 import 'discount_card.dart';
-import '../map/map.dart';
+import 'package:nord/pages/map/map.dart';
 import '../../components/components.dart';
 import '../../components/gradient_button.dart';
 import '../../login_state.dart';
