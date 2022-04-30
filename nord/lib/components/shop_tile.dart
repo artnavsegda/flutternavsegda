@@ -19,10 +19,7 @@ class ShopTile extends StatelessWidget {
   Widget build(BuildContext context) {
     return ListTile(
       isThreeLine: true,
-      onTap: () {
-        Navigator.push(context,
-            MaterialPageRoute(builder: (context) => ShopPage(shop: shop)));
-      },
+      onTap: onTap,
       title: Text(
         shop.address ?? 'Нет адреса',
         style: TextStyle(color: Colors.red[900]),
