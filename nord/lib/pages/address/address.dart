@@ -161,7 +161,7 @@ class AddressPage extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: GradientButton(
                     onPressed: () {
-                      context.read<FilterState>().filter = copyState.filter;
+                      context.read<FilterState>().assign(copyState);
                       Navigator.pop(context);
                     },
                     child: const Text('Выбрать')),

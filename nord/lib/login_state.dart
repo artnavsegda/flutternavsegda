@@ -96,18 +96,20 @@ class CartState with ChangeNotifier {
 }
 
 class FilterState with ChangeNotifier {
-  String _filter = 'ALL';
+  String filter = 'ALL';
   GraphShop? activeShop;
   GraphDeliveryAddress? activeAddress;
 
   FilterState();
-  FilterState.from(FilterState original) : _filter = original.filter;
+  FilterState.from(FilterState original)
+      : filter = original.filter,
+        activeShop = original.activeShop,
+        activeAddress = original.activeAddress;
 
-  String get filter => _filter;
-  set filter(String value) {
-    if (value != _filter) {
-      _filter = value;
-      notifyListeners();
-    }
+  void assign(FilterState newState) {
+    filter = newState.filter;
+    activeShop = newState.activeShop;
+    activeAddress = newState.activeAddress;
+    notifyListeners();
   }
 }

@@ -109,7 +109,9 @@ class AddressTile extends StatelessWidget {
         subtitle: model.filter == 'ALL'
             ? null
             : Text(
-                "5-я Советская, 15-17/12",
+                model.filter == 'PICK_UP'
+                    ? model.activeShop?.address ?? 'Не выбрано'
+                    : "5-я Советская, 15-17/12",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 16,
