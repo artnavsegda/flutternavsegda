@@ -129,7 +129,9 @@ class AddressPage extends StatelessWidget {
                 enabled: copyState.filter != 'ALL',
                 title: Text(copyState.filter == 'ALL'
                     ? 'Не выбрано'
-                    : 'Адмиралтейская набережная, 10а'),
+                    : copyState.filter == 'PICK_UP'
+                        ? copyState.activeShop?.address ?? 'Не выбрано'
+                        : 'Адмиралтейская набережная, 10а'),
                 trailing: Icon(
                   SeverMetropol.Icon_Edit,
                   color: Theme.of(context).colorScheme.primary,
