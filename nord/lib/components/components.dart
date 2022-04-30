@@ -77,28 +77,50 @@ class AddressTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      onTap: () {
-        if (context.read<FilterState>().filter == 'ALL')
-          showModalBottomSheet(
-            backgroundColor: Colors.white,
-            isScrollControlled: true,
-            context: context,
-            builder: (context) {
-              return const SelectAddressBottomSheet();
-            },
-          );
-        else
-          Navigator.push(context,
-              MaterialPageRoute(builder: (context) => const AddressPage()));
-      },
-      leading: Image.asset('assets/Illustration-Colored-Delivery-Options.png'),
-      title: const Text("Адрес доставки или кафе"),
-      trailing: Icon(
-        SeverMetropol.Icon_Expand_More,
-        color: Theme.of(context).colorScheme.primary,
-      ),
-    );
+    return Consumer<FilterState>(builder: (context, model, child) {
+      return ListTile(
+        onTap: () {
+          if (model.filter == 'ALL')
+            showModalBottomSheet(
+              backgroundColor: Colors.white,
+              isScrollControlled: true,
+              context: context,
+              builder: (context) {
+                return const SelectAddressBottomSheet();
+              },
+            );
+          else
+            Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const AddressPage()));
+        },
+        leading: Image.asset(model.filter == 'PICK_UP'
+            ? 'assets/Illustration-Colored-Cafe.png'
+            : 'assets/Illustration-Colored-Delivery-Options.png'),
+        title: Text(
+            model.filter == 'PICK_UP'
+                ? "Увидимся в кафе"
+                : "Адрес доставки или кафе",
+            style: model.filter == 'ALL'
+                ? null
+                : TextStyle(
+                    color: Colors.grey,
+                    fontSize: 10,
+                  )),
+        subtitle: model.filter == 'ALL'
+            ? null
+            : Text(
+                "5-я Советская, 15-17/12",
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontSize: 16,
+                ),
+              ),
+        trailing: Icon(
+          SeverMetropol.Icon_Expand_More,
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      );
+    });
   }
 }
 
