@@ -137,7 +137,7 @@ class AddressPage extends StatelessWidget {
                   color: Theme.of(context).colorScheme.primary,
                 ),
                 onTap: () {
-                  if (copyState.filter == 'PICK_UP')
+                  if (copyState.filter == 'PICK_UP') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
@@ -148,13 +148,14 @@ class AddressPage extends StatelessWidget {
                         ),
                       ),
                     );
-                  else if (copyState.filter == 'DELIVERY')
+                  } else if (copyState.filter == 'DELIVERY') {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
                         builder: (context) => const DeliveryAddressPage(),
                       ),
                     );
+                  }
                 },
               ),
               Padding(
