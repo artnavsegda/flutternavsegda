@@ -53,8 +53,9 @@ class _PromocodeState extends State<Promocode> {
                       if (nordPromocodeResult.result == 0) {
                         Navigator.pop(context);
                       }
-                      showErrorAlert(
-                          context, nordPromocodeResult.errorMessage ?? '');
+                      if (nordPromocodeResult.errorMessage?.isNotEmpty ?? false)
+                        showErrorAlert(
+                            context, nordPromocodeResult.errorMessage ?? '');
                     }
                   },
                 ),
