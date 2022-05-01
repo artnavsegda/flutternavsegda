@@ -1,8 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:nord/gql.dart';
 
-class EnterAddress extends StatelessWidget {
-  const EnterAddress({Key? key}) : super(key: key);
+class EnterAddress extends StatefulWidget {
+  const EnterAddress({Key? key, required this.addressToEdit}) : super(key: key);
+  final GraphDeliveryAddress addressToEdit;
+
+  @override
+  State<EnterAddress> createState() => _EnterAddressState();
+}
+
+class _EnterAddressState extends State<EnterAddress> {
+  late GraphDeliveryAddress addressToEdit;
+
+  @override
+  void initState() {
+    super.initState();
+    addressToEdit = widget.addressToEdit;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +30,13 @@ class EnterAddress extends StatelessWidget {
                 Navigator.pop(context);
               },
               child: Text('Сохранить')),
-          TextField(),
-          TextField(),
+          TextFormField(initialValue: addressToEdit.description),
+          TextFormField(initialValue: addressToEdit.address),
           Expanded(
             child: GoogleMap(
               myLocationEnabled: true,
               initialCameraPosition: CameraPosition(
-                target: LatLng(37.42796133580664, -122.085749655962),
+                target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
                 zoom: 14.4746,
               ),
             ),

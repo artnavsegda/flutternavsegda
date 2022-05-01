@@ -81,7 +81,14 @@ class DeliveryAddressPage extends StatelessWidget {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => const EnterAddress()));
+                              builder: (context) => EnterAddress(
+                                    addressToEdit: GraphDeliveryAddress(
+                                        address: '',
+                                        description: '',
+                                        latitude: 0,
+                                        longitude: 0,
+                                        iD: 0),
+                                  )));
                     },
                   ),
                 ),
