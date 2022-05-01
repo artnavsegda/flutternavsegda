@@ -45,16 +45,16 @@ class _PromocodeState extends State<Promocode> {
                     showErrorAlert(context, error!.graphqlErrors[0].message);
                   },
                   onCompleted: (resultData) {
+                    print(resultData);
                     if (resultData != null) {
                       GraphPromocodeResult nordPromocodeResult =
                           GraphPromocodeResult.fromJson(
                               resultData['promocodeActivation']);
                       if (nordPromocodeResult.result == 0) {
                         Navigator.pop(context);
-                      } else {
-                        showErrorAlert(
-                            context, nordPromocodeResult.errorMessage ?? '');
                       }
+                      showErrorAlert(
+                          context, nordPromocodeResult.errorMessage ?? '');
                     }
                   },
                 ),

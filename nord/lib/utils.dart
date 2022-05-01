@@ -46,7 +46,7 @@ void showErrorAlert(BuildContext context, String error) {
   showDialog(
     context: context,
     builder: (BuildContext context) => AlertDialog(
-      title: const Text('Ошибка'),
+      //title: const Text('Ошибка'),
       content: SingleChildScrollView(
           child: Text(
         '$error',
