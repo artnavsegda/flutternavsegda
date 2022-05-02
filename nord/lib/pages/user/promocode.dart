@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-
+import 'package:nord/pages/product/product.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
 
@@ -52,6 +52,14 @@ class _PromocodeState extends State<Promocode> {
                               resultData['promocodeActivation']);
                       if (nordPromocodeResult.result == 0) {
                         Navigator.pop(context);
+                        if (nordPromocodeResult.productID != null) {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ProductPage(
+                                      id: nordPromocodeResult.productID ??
+                                          123)));
+                        }
                       }
                       if (nordPromocodeResult.errorMessage?.isNotEmpty ?? false)
                         showErrorAlert(

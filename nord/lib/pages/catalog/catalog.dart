@@ -7,7 +7,7 @@ import 'package:nord/pages/error/error.dart';
 import '../../components/components.dart';
 import '../../components/product_card.dart';
 import '../../gql.dart';
-import '../product/product.dart';
+import 'package:nord/pages/product/product.dart';
 import 'search.dart';
 
 class CatalogPage extends StatefulWidget {

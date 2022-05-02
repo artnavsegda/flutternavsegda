@@ -2036,6 +2036,8 @@ mutation promocodeActivation($promoCode: String)
   promocodeActivation(promoCode: $promoCode) {
     result
     errorMessage
+    type,
+    productID
   }
 }
 ''';
