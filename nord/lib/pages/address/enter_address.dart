@@ -23,7 +23,15 @@ class _EnterAddressState extends State<EnterAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Введите адрес')),
-      body: Column(
+      body: GoogleMap(
+        myLocationEnabled: true,
+        initialCameraPosition: CameraPosition(
+          target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
+          zoom: 14.4746,
+        ),
+      ),
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           ElevatedButton(
               onPressed: () {
@@ -32,15 +40,6 @@ class _EnterAddressState extends State<EnterAddress> {
               child: Text('Сохранить')),
           TextFormField(initialValue: addressToEdit.description),
           TextFormField(initialValue: addressToEdit.address),
-          Expanded(
-            child: GoogleMap(
-              myLocationEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
-                zoom: 14.4746,
-              ),
-            ),
-          ),
         ],
       ),
     );
