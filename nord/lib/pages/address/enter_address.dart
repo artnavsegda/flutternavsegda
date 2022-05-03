@@ -23,12 +23,17 @@ class _EnterAddressState extends State<EnterAddress> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
-      body: GoogleMap(
-        myLocationEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
-          zoom: 14.4746,
-        ),
+      body: Stack(
+        children: [
+          GoogleMap(
+            myLocationEnabled: true,
+            initialCameraPosition: CameraPosition(
+              target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
+              zoom: 14.4746,
+            ),
+          ),
+          Center(child: Icon(Icons.abc_outlined)),
+        ],
       ),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
