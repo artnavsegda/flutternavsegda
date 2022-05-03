@@ -22,7 +22,7 @@ class _EnterAddressState extends State<EnterAddress> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Введите адрес')),
+      appBar: AppBar(title: Text('Адрес доставки')),
       body: GoogleMap(
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
