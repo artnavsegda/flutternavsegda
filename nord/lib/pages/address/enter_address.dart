@@ -30,17 +30,37 @@ class _EnterAddressState extends State<EnterAddress> {
           zoom: 14.4746,
         ),
       ),
-      bottomSheet: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text('Сохранить')),
-          TextFormField(initialValue: addressToEdit.description),
-          TextFormField(initialValue: addressToEdit.address),
-        ],
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            TextFormField(
+              initialValue: addressToEdit.address,
+              decoration: InputDecoration(
+                  hintText: 'Поиск по адресу',
+                  isDense: true,
+                  contentPadding:
+                      EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  border: OutlineInputBorder(
+                    borderSide: BorderSide.none,
+                    borderRadius: BorderRadius.all(
+                      Radius.circular(2.0),
+                    ),
+                  ),
+                  filled: true),
+            ),
+            SizedBox(
+              height: 16,
+            ),
+            ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text('Доставить сюда')),
+          ],
+        ),
       ),
     );
   }
