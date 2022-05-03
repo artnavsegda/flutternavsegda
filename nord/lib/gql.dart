@@ -2280,3 +2280,56 @@ query getSettings {
   }
 }
 ''';
+
+const String getBasket = r'''
+query getBasket {
+  getBasket {
+    payment
+    amount
+    discount
+    availablePoints
+    bankCards {
+      iD
+      mask
+      picture
+    }
+    wishes {
+      iD
+      name
+    }
+    rows {
+      rowID
+      productID
+      productName
+      quantity
+      amount
+      oldAmount
+      modifiers
+      comment
+      picture
+      message
+      typeMessage
+      characteristics {
+        type
+        name
+        value
+      }
+    }
+    slots {
+      dates {
+        date
+        disabled
+      }
+      times {
+        iD
+        name
+        todayDisabled
+      }
+      expressTimes {
+        iD
+        todayDisabled
+      }
+    }
+  }
+}
+''';
