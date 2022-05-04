@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:yandex_geocoder/yandex_geocoder.dart';
 import 'package:nord/gql.dart';
 
 class EnterAddress extends StatefulWidget {
@@ -21,7 +22,11 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
-    late GoogleMapController _controller;
+    final YandexGeocoder geocoder =
+        YandexGeocoder(apiKey: '82e091fb-f1a8-49dd-bbdf-2c48a409ece0');
+    late GoogleMapController _mapController;
+    TextEditingController _textController =
+        TextEditingController(text: addressToEdit.address);
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
       body: Stack(
@@ -34,7 +39,7 @@ class _EnterAddressState extends State<EnterAddress> {
               ),
               onCameraIdle: () async {
                 LatLngBounds visibleRegion =
-                    await _controller.getVisibleRegion();
+                    await _mapController.getVisibleRegion();
                 LatLng centerLatLng = LatLng(
                   (visibleRegion.northeast.latitude +
                           visibleRegion.southwest.latitude) /
@@ -44,9 +49,19 @@ class _EnterAddressState extends State<EnterAddress> {
                       2,
                 );
                 print(centerLatLng);
+                final GeocodeResponse geocodeFromPoint =
+                    await geocoder.getGeocode(GeocodeRequest(
+                  geocode: PointGeocode(
+                      latitude: centerLatLng.latitude,
+                      longitude: centerLatLng.longitude),
+                  lang: Lang.ru,
+                ));
+                print(geocodeFromPoint.firstAddress?.formatted ?? 'wtf');
+                _textController.text =
+                    geocodeFromPoint.firstAddress?.formatted ?? 'wtf';
               },
               onMapCreated: (controller) {
-                _controller = controller;
+                _mapController = controller;
               }),
           Center(child: Icon(Icons.abc_outlined)),
         ],
@@ -58,7 +73,7 @@ class _EnterAddressState extends State<EnterAddress> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             TextFormField(
-              initialValue: addressToEdit.address,
+              controller: _textController,
               decoration: InputDecoration(
                   hintText: 'Поиск по адресу',
                   isDense: true,
