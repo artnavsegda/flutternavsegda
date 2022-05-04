@@ -21,17 +21,33 @@ class _EnterAddressState extends State<EnterAddress> {
 
   @override
   Widget build(BuildContext context) {
+    late GoogleMapController _controller;
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
       body: Stack(
         children: [
           GoogleMap(
-            myLocationEnabled: true,
-            initialCameraPosition: CameraPosition(
-              target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
-              zoom: 14.4746,
-            ),
-          ),
+              myLocationEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: LatLng(addressToEdit.latitude, addressToEdit.longitude),
+                zoom: 14.4746,
+              ),
+              onCameraIdle: () async {
+                LatLngBounds visibleRegion =
+                    await _controller.getVisibleRegion();
+                LatLng centerLatLng = LatLng(
+                  (visibleRegion.northeast.latitude +
+                          visibleRegion.southwest.latitude) /
+                      2,
+                  (visibleRegion.northeast.longitude +
+                          visibleRegion.southwest.longitude) /
+                      2,
+                );
+                print(centerLatLng);
+              },
+              onMapCreated: (controller) {
+                _controller = controller;
+              }),
           Center(child: Icon(Icons.abc_outlined)),
         ],
       ),
