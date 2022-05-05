@@ -12,7 +12,6 @@ class HelpPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
-          fetchPolicy: FetchPolicy.cacheFirst,
           document: gql(getFAQGroups),
         ),
         builder: (result, {fetchMore, refetch}) {
