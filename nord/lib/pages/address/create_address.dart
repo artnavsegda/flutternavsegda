@@ -3,7 +3,9 @@ import 'package:nord/gql.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 
 class CreateAddress extends StatelessWidget {
-  const CreateAddress({Key? key}) : super(key: key);
+  const CreateAddress({Key? key, required this.addressToCreate})
+      : super(key: key);
+  final GraphDeliveryAddress addressToCreate;
 
   @override
   Widget build(BuildContext context) {
