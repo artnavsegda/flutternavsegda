@@ -2333,3 +2333,12 @@ query getBasket {
   }
 }
 ''';
+
+const String addDeliveryAddress = r'''
+mutation addDeliveryAddress($newAddress: graphNewDeliveryAddress) {
+  addDeliveryAddress(newAddress: $newAddress) {
+    result
+    errorMessage
+  }
+}
+''';
