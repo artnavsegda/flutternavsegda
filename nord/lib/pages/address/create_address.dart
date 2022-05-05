@@ -44,7 +44,7 @@ class CreateAddress extends StatelessWidget {
                   print(resultData);
                   if (resultData != null) {
                     GraphBasisResult nordResult = GraphBasisResult.fromJson(
-                        resultData['promocodeActivation']);
+                        resultData['addDeliveryAddress']);
                     if (nordResult.result == 0) {
                       Navigator.pop(context);
                     }
