@@ -9,7 +9,7 @@ class CreateAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
-      body: Column(
+      body: ListView(
         children: [
           TextField(),
           Row(
@@ -19,7 +19,22 @@ class CreateAddress extends StatelessWidget {
               Expanded(child: TextField()),
             ],
           ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Expanded(child: TextField()),
+              Expanded(child: TextField()),
+            ],
+          ),
+          TextField(),
         ],
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: ElevatedButton(
+          onPressed: () {},
+          child: Text('Сохранить адрес'),
+        ),
       ),
     );
   }
