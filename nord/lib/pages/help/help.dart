@@ -59,28 +59,6 @@ class HelpPage extends StatelessWidget {
                         )
                       },
                     )),
-/*                 ListTile(
-                  title: Text('Бонусная программа'),
-                  trailing: Icon(
-                    SeverMetropol.Icon_East,
-                    color: Theme.of(context).colorScheme.primary,
-                  ),
-                  onTap: () => {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const HelpTopicPage(),
-                      ),
-                    )
-                  },
-                ), */
-                Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Text(
-                      '''Для улучшения работы приложения компания может использовать статистические и иные технические данные о действих пользователя при работе с приложением (перемещение между экранами, нажатие кнопок и т.д.). Персональная данные или любая финансовая информация не используется для данных целей.
-
-Основные положения сбора и хранения информации вы можете найти в Положении об Обработке и защите персональных данных.'''),
-                )
               ],
             ),
           );
