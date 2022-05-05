@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yandex_geocoder/yandex_geocoder.dart';
 import 'package:nord/gql.dart';
+import 'create_address.dart';
 
 class EnterAddress extends StatefulWidget {
   const EnterAddress({Key? key, required this.addressToEdit}) : super(key: key);
@@ -92,7 +93,8 @@ class _EnterAddressState extends State<EnterAddress> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => CreateAddress()));
                 },
                 child: Text('Доставить сюда')),
           ],

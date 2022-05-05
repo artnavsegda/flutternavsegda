@@ -13,9 +13,10 @@ class CreateAddress extends StatelessWidget {
         children: [
           TextField(),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              TextField(),
-              TextField(),
+              Expanded(child: TextField()),
+              Expanded(child: TextField()),
             ],
           ),
         ],
