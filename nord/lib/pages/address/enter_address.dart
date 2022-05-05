@@ -93,8 +93,16 @@ class _EnterAddressState extends State<EnterAddress> {
             ),
             ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => CreateAddress()));
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => CreateAddress(
+                              addressToCreate: GraphDeliveryAddress(
+                                  address: '',
+                                  description: '',
+                                  latitude: 0,
+                                  longitude: 0,
+                                  iD: 0))));
                 },
                 child: Text('Доставить сюда')),
           ],
