@@ -1013,6 +1013,24 @@ class GraphDeliveryAddress {
         description = json['description'];
 }
 
+class GraphNewDeliveryAddress {
+  GraphNewDeliveryAddress({
+    required this.address,
+    required this.longitude,
+    required this.latitude,
+    required this.description,
+  });
+  String address;
+  double longitude;
+  double latitude;
+  String? description;
+  GraphNewDeliveryAddress.fromJson(Map<String, dynamic> json)
+      : address = json['address'],
+        longitude = json['longitude'],
+        latitude = json['latitude'],
+        description = json['description'];
+}
+
 class GraphBankCard {
   GraphBankCard({
     required this.iD,
