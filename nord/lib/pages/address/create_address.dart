@@ -62,7 +62,15 @@ class CreateAddress extends StatelessWidget {
                 return ElevatedButton(
                   child: const Text('Сохранить адрес'),
                   onPressed: () {
-                    runMutation(addressToCreate.toJson());
+                    var newAddressToCreate = GraphNewDeliveryAddress(
+                      address: addressController.text,
+                      longitude: addressToCreate.longitude,
+                      latitude: addressToCreate.latitude,
+                      description: descriptionController.text,
+                    );
+                    runMutation({
+                      'newAddress': newAddressToCreate.toJson(),
+                    });
                   },
                 );
               })),
