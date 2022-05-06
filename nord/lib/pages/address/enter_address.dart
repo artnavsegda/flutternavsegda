@@ -65,7 +65,7 @@ class _EnterAddressState extends State<EnterAddress> {
           Center(child: Icon(Icons.abc_outlined)),
         ],
       ),
-      bottomNavigationBar: Padding(
+      bottomSheet: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,

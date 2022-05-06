@@ -36,7 +36,8 @@ class CreateAddress extends StatelessWidget {
           TextField(controller: descriptionController),
         ],
       ),
-      bottomNavigationBar: Padding(
+      bottomSheet: Container(
+          width: double.infinity,
           padding: const EdgeInsets.all(16.0),
           child: Mutation(
               options: MutationOptions(
