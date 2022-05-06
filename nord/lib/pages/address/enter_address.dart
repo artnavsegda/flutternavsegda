@@ -97,12 +97,12 @@ class _EnterAddressState extends State<EnterAddress> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => CreateAddress(
-                              addressToCreate: GraphDeliveryAddress(
-                                  address: '',
-                                  description: '',
-                                  latitude: 0,
-                                  longitude: 0,
-                                  iD: 0))));
+                                  addressToCreate: GraphNewDeliveryAddress(
+                                address: '',
+                                description: '',
+                                latitude: 0,
+                                longitude: 0,
+                              ))));
                 },
                 child: Text('Доставить сюда')),
           ],

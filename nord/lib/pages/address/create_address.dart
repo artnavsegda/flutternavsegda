@@ -6,7 +6,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 class CreateAddress extends StatelessWidget {
   const CreateAddress({Key? key, required this.addressToCreate})
       : super(key: key);
-  final GraphDeliveryAddress addressToCreate;
+  final GraphNewDeliveryAddress addressToCreate;
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +57,7 @@ class CreateAddress extends StatelessWidget {
                 return ElevatedButton(
                   child: const Text('Сохранить адрес'),
                   onPressed: () {
-                    runMutation({});
+                    runMutation(addressToCreate.toJson());
                   },
                 );
               })),
