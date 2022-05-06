@@ -12,6 +12,8 @@ class CreateAddress extends StatelessWidget {
   Widget build(BuildContext context) {
     TextEditingController addressController =
         TextEditingController(text: addressToCreate.address);
+    TextEditingController descriptionController =
+        TextEditingController(text: addressToCreate.description);
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
       body: ListView(
@@ -31,7 +33,7 @@ class CreateAddress extends StatelessWidget {
               Expanded(child: TextField()),
             ],
           ),
-          TextField(),
+          TextField(controller: descriptionController),
         ],
       ),
       bottomNavigationBar: Padding(
