@@ -65,8 +65,8 @@ class DeliveryAddressPage extends StatelessWidget {
                 ] else
                   ...userInfo.deliveryAddresses.map(
                     (e) => ListTile(
-                      title: Text('Домашний адрес'),
-                      subtitle: Text('Дачный проспект, 36к3, квартира 410'),
+                      title: Text(e.description ?? 'WTF'),
+                      subtitle: Text(e.address),
                       trailing: Icon(
                         SeverMetropol.Icon_Edit,
                         color: Theme.of(context).colorScheme.primary,
