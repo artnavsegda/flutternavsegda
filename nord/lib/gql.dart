@@ -1029,6 +1029,13 @@ class GraphNewDeliveryAddress {
         longitude = json['longitude'],
         latitude = json['latitude'],
         description = json['description'];
+
+  Map<String, dynamic> toJson() => {
+        'address': address,
+        'longitude': longitude,
+        'latitude': latitude,
+        'description': description,
+      };
 }
 
 class GraphBankCard {
