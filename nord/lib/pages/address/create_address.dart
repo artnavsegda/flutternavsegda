@@ -10,11 +10,13 @@ class CreateAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController addressController =
+        TextEditingController(text: addressToCreate.address);
     return Scaffold(
       appBar: AppBar(title: Text('Адрес доставки')),
       body: ListView(
         children: [
-          TextField(),
+          TextField(controller: addressController),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
