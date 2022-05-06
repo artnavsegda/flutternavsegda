@@ -49,7 +49,6 @@ class _EnterAddressState extends State<EnterAddress> {
                           visibleRegion.southwest.longitude) /
                       2,
                 );
-                print(centerLatLng);
                 final GeocodeResponse geocodeFromPoint =
                     await geocoder.getGeocode(GeocodeRequest(
                   geocode: PointGeocode(
@@ -57,7 +56,6 @@ class _EnterAddressState extends State<EnterAddress> {
                       longitude: centerLatLng.longitude),
                   lang: Lang.ru,
                 ));
-                print(geocodeFromPoint.firstAddress?.formatted ?? 'wtf');
                 _textController.text =
                     geocodeFromPoint.firstAddress?.formatted ?? 'wtf';
               },
@@ -92,16 +90,22 @@ class _EnterAddressState extends State<EnterAddress> {
               height: 16,
             ),
             ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
+                  LatLngBounds visibleRegion =
+                      await _mapController.getVisibleRegion();
                   Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CreateAddress(
                                   addressToCreate: GraphNewDeliveryAddress(
-                                address: '',
+                                address: _textController.text,
                                 description: '',
-                                latitude: 0,
-                                longitude: 0,
+                                latitude: (visibleRegion.northeast.latitude +
+                                        visibleRegion.southwest.latitude) /
+                                    2,
+                                longitude: (visibleRegion.northeast.longitude +
+                                        visibleRegion.southwest.longitude) /
+                                    2,
                               ))));
                 },
                 child: Text('Доставить сюда')),
