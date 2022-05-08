@@ -1,5 +1,7 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
@@ -7,6 +9,7 @@ import 'package:nord/login_state.dart';
 import 'package:nord/pages/map/map.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 import 'delivery_address.dart';
 
 class AddressPage extends StatefulWidget {
@@ -18,6 +21,8 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   late FilterState copyState;
+
+  Set<Marker> markers = <Marker>{};
 
   @override
   void initState() {
@@ -41,6 +46,7 @@ class _AddressPageState extends State<AddressPage> {
       ),
       body: Stack(children: [
         GoogleMap(
+          markers: markers,
           myLocationEnabled: true,
           initialCameraPosition: CameraPosition(
             target: LatLng(37.42796133580664, -122.085749655962),
@@ -124,7 +130,10 @@ class _AddressPageState extends State<AddressPage> {
                             style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.only(right: 16)),
                             onPressed: () {
-                              setState(() => copyState.filter = 'ALL');
+                              setState(() {
+                                copyState.filter = 'ALL';
+                                markers = {};
+                              });
                             },
                             label: const Text('Все товары'),
                             icon: Stack(
@@ -170,6 +179,24 @@ class _AddressPageState extends State<AddressPage> {
                               GraphClientFullInfo.fromJson(
                                   result.data!['getClientInfo']);
 
+                          Set<Marker> newMarkers =
+                              userInfo.deliveryAddresses.map(
+                            (deliveryAddress) {
+                              return Marker(
+                                  markerId:
+                                      MarkerId(deliveryAddress.iD.toString()),
+                                  position: LatLng(deliveryAddress.latitude,
+                                      deliveryAddress.longitude));
+                            },
+                          ).toSet();
+
+                          if (!setEquals(newMarkers, markers))
+                            WidgetsBinding.instance!.addPostFrameCallback((_) {
+                              setState(() {
+                                markers = newMarkers;
+                              });
+                            });
+
                           return Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -181,13 +208,122 @@ class _AddressPageState extends State<AddressPage> {
                               ),
                             ],
                           );
-                        }),
+                        })
+                  else if (copyState.filter == 'PICK_UP')
+                    Query(
+                      options: QueryOptions(
+                        document: gql(getShops),
+                      ),
+                      builder: (result, {fetchMore, refetch}) {
+                        if (result.hasException) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        if (result.isLoading) {
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+                        }
+
+                        List<GraphShop> shops = List<GraphShop>.from(result
+                            .data!['getShops']
+                            .map((model) => GraphShop.fromJson(model)));
+
+                        return FutureBuilder<Position>(
+                          future: Geolocator.getCurrentPosition(),
+                          builder: (context, snapshot) {
+                            LatLng myLocation = LatLng(59.9311, 30.3609);
+                            if (snapshot.hasData) {
+                              myLocation = LatLng(snapshot.data!.latitude,
+                                  snapshot.data!.longitude);
+                              shops.sort((a, b) => Geolocator.distanceBetween(
+                                      a.latitude ?? 0,
+                                      a.longitude ?? 0,
+                                      myLocation.latitude,
+                                      myLocation.longitude)
+                                  .compareTo(Geolocator.distanceBetween(
+                                      b.latitude ?? 0,
+                                      b.longitude ?? 0,
+                                      myLocation.latitude,
+                                      myLocation.longitude)));
+                            }
+
+                            return Column(
+                              children: [
+                                ...shops.map((shop) => ShopTile(
+                                      shop: shop,
+                                      onTap: () {},
+                                    ))
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                 ],
               ),
             );
           },
         ),
       ]),
+    );
+  }
+}
+
+class ShopTile extends StatelessWidget {
+  const ShopTile({
+    Key? key,
+    this.onTap,
+    required this.shop,
+  }) : super(key: key);
+
+  final GraphShop shop;
+  final Function()? onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      isThreeLine: true,
+      onTap: onTap,
+      title: Text(
+        shop.address ?? 'Нет адреса',
+        style: TextStyle(color: Colors.red[900]),
+      ),
+      subtitle: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Text('Сегодня открыто до 22:00'),
+          Wrap(
+            children: [
+              ...shop.metroStations
+                  .map((metroStation) => Wrap(
+                        crossAxisAlignment: WrapCrossAlignment.center,
+                        children: [
+                          Container(
+                            width: 8,
+                            height: 8,
+                            decoration: BoxDecoration(
+                              color: hexToColor(metroStation.colorLine),
+                              shape: BoxShape.circle,
+                            ),
+                          ),
+                          SizedBox(width: 4),
+                          Text(metroStation.stationName),
+                          SizedBox(width: 8),
+                        ],
+                      ))
+                  .toList()
+                  .cast<Widget>(),
+            ],
+          ),
+        ],
+      ),
+      trailing: Icon(
+        SeverMetropol.Icon_Direction,
+        color: Theme.of(context).colorScheme.primary,
+      ),
     );
   }
 }
