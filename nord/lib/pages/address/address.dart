@@ -5,6 +5,8 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/login_state.dart';
 import 'package:nord/pages/map/map.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/gql.dart';
 import 'delivery_address.dart';
 
 class AddressPage extends StatefulWidget {
@@ -145,10 +147,41 @@ class _AddressPageState extends State<AddressPage> {
                               ],
                             )),
                         SizedBox(width: 16),
-                        if (copyState.filter == 'DELIVERY') Text('aaa'),
                       ],
                     ),
                   ),
+                  if (copyState.filter == 'DELIVERY')
+                    Query(
+                        options: QueryOptions(document: gql(getClientInfo)),
+                        builder: (result, {fetchMore, refetch}) {
+                          if (result.isLoading && result.data == null) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          if (result.hasException) {
+                            return const Center(
+                              child: CircularProgressIndicator(),
+                            );
+                          }
+
+                          GraphClientFullInfo userInfo =
+                              GraphClientFullInfo.fromJson(
+                                  result.data!['getClientInfo']);
+
+                          return Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              ...userInfo.deliveryAddresses.map(
+                                (e) => ListTile(
+                                  title: Text(e.description ?? 'WTF'),
+                                  subtitle: Text(e.address),
+                                ),
+                              ),
+                            ],
+                          );
+                        }),
                 ],
               ),
             );
