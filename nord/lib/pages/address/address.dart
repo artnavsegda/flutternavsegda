@@ -145,6 +145,7 @@ class _AddressPageState extends State<AddressPage> {
                               ],
                             )),
                         SizedBox(width: 16),
+                        if (copyState.filter == 'DELIVERY') Text('aaa'),
                       ],
                     ),
                   ),
