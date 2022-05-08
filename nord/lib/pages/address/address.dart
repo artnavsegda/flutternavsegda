@@ -15,6 +15,14 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
+  late FilterState copyState;
+
+  @override
+  void initState() {
+    super.initState();
+    copyState = FilterState.from(context.read<FilterState>());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -49,6 +57,7 @@ class _AddressPageState extends State<AddressPage> {
                 controller: scrollController,
                 children: [
                   DragHandle(),
+                  SizedBox(height: 8),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
@@ -58,7 +67,9 @@ class _AddressPageState extends State<AddressPage> {
                             style: OutlinedButton.styleFrom(
                                 side: BorderSide(color: Colors.grey),
                                 padding: EdgeInsets.only(right: 16)),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() => copyState.filter = 'DELIVERY');
+                            },
                             label: const Text('Доставка'),
                             icon: Stack(
                               children: [
@@ -70,7 +81,10 @@ class _AddressPageState extends State<AddressPage> {
                                 Padding(
                                     padding: const EdgeInsets.all(4.0),
                                     child: Icon(
-                                      SeverMetropol.Icon_Checkbox_Unchecked,
+                                      copyState.filter == 'DELIVERY'
+                                          ? SeverMetropol.Icon_Checkbox_Checked
+                                          : SeverMetropol
+                                              .Icon_Checkbox_Unchecked,
                                       color:
                                           Theme.of(context).colorScheme.primary,
                                     )),
@@ -80,7 +94,9 @@ class _AddressPageState extends State<AddressPage> {
                         OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.only(right: 16)),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() => copyState.filter = 'PICK_UP');
+                            },
                             label: const Text('Самовывоз'),
                             icon: Stack(
                               children: [
@@ -92,7 +108,9 @@ class _AddressPageState extends State<AddressPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Icon(
-                                    SeverMetropol.Icon_Checkbox_Unchecked,
+                                    copyState.filter == 'PICK_UP'
+                                        ? SeverMetropol.Icon_Checkbox_Checked
+                                        : SeverMetropol.Icon_Checkbox_Unchecked,
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
@@ -103,7 +121,9 @@ class _AddressPageState extends State<AddressPage> {
                         OutlinedButton.icon(
                             style: OutlinedButton.styleFrom(
                                 padding: EdgeInsets.only(right: 16)),
-                            onPressed: () {},
+                            onPressed: () {
+                              setState(() => copyState.filter = 'ALL');
+                            },
                             label: const Text('Все товары'),
                             icon: Stack(
                               children: [
@@ -115,13 +135,16 @@ class _AddressPageState extends State<AddressPage> {
                                 Padding(
                                   padding: const EdgeInsets.all(4.0),
                                   child: Icon(
-                                    SeverMetropol.Icon_Checkbox_Unchecked,
+                                    copyState.filter == 'ALL'
+                                        ? SeverMetropol.Icon_Checkbox_Checked
+                                        : SeverMetropol.Icon_Checkbox_Unchecked,
                                     color:
                                         Theme.of(context).colorScheme.primary,
                                   ),
                                 ),
                               ],
                             )),
+                        SizedBox(width: 16),
                       ],
                     ),
                   ),
