@@ -37,6 +37,99 @@ class _AddressPageState extends State<AddressPage> {
             zoom: 14.4746,
           ),
         ),
+        DraggableScrollableSheet(
+          minChildSize: 0.15,
+          builder: (context, scrollController) {
+            return Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(4.0),
+              ),
+              child: ListView(
+                controller: scrollController,
+                children: [
+                  DragHandle(),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: [
+                        SizedBox(width: 16),
+                        OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                                side: BorderSide(color: Colors.grey),
+                                padding: EdgeInsets.only(right: 16)),
+                            onPressed: () {},
+                            label: const Text('Доставка'),
+                            icon: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Image.asset(
+                                      'assets/Illustration-Colored-Delivery.png'),
+                                ),
+                                Padding(
+                                    padding: const EdgeInsets.all(4.0),
+                                    child: Icon(
+                                      SeverMetropol.Icon_Checkbox_Unchecked,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    )),
+                              ],
+                            )),
+                        SizedBox(width: 8),
+                        OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.only(right: 16)),
+                            onPressed: () {},
+                            label: const Text('Самовывоз'),
+                            icon: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Image.asset(
+                                      'assets/Illustration-Colored-Cafe.png'),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Icon(
+                                    SeverMetropol.Icon_Checkbox_Unchecked,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ],
+                            )),
+                        SizedBox(width: 8),
+                        OutlinedButton.icon(
+                            style: OutlinedButton.styleFrom(
+                                padding: EdgeInsets.only(right: 16)),
+                            onPressed: () {},
+                            label: const Text('Все товары'),
+                            icon: Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Image.asset(
+                                      'assets/Illustration-Colored-Delivery-Options.png'),
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Icon(
+                                    SeverMetropol.Icon_Checkbox_Unchecked,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  ),
+                                ),
+                              ],
+                            )),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ]),
     );
   }
