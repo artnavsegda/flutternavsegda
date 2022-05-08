@@ -21,6 +21,8 @@ class AddressPage extends StatefulWidget {
 
 class _AddressPageState extends State<AddressPage> {
   late FilterState copyState;
+  GlobalKey _mapKey = new GlobalKey();
+  GlobalKey _globalKey = new GlobalKey();
 
   Set<Marker> markers = <Marker>{};
 
@@ -32,6 +34,7 @@ class _AddressPageState extends State<AddressPage> {
 
   Widget chooser(BuildContext context) {
     return SingleChildScrollView(
+      key: _globalKey,
       scrollDirection: Axis.horizontal,
       child: Row(
         children: [
@@ -127,6 +130,7 @@ class _AddressPageState extends State<AddressPage> {
   }) {
     return Stack(children: [
       GoogleMap(
+        key: _mapKey,
         //markers: markers,
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
