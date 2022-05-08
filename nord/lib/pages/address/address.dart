@@ -24,8 +24,6 @@ class _AddressPageState extends State<AddressPage> {
   GlobalKey _mapKey = new GlobalKey();
   GlobalKey _globalKey = new GlobalKey();
 
-  Set<Marker> markers = <Marker>{};
-
   @override
   void initState() {
     super.initState();
@@ -96,7 +94,6 @@ class _AddressPageState extends State<AddressPage> {
               onPressed: () {
                 setState(() {
                   copyState.filter = 'ALL';
-                  markers = {};
                 });
               },
               label: const Text('Все товары'),
@@ -124,14 +121,14 @@ class _AddressPageState extends State<AddressPage> {
     );
   }
 
-  Widget mapStack({
-    required BuildContext context,
-    List<Widget> children = const <Widget>[],
-  }) {
+  Widget mapStack(
+      {required BuildContext context,
+      List<Widget> children = const <Widget>[],
+      Set<Marker> markers = const <Marker>{}}) {
     return Stack(children: [
       GoogleMap(
         key: _mapKey,
-        //markers: markers,
+        markers: markers,
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962),
@@ -194,23 +191,25 @@ class _AddressPageState extends State<AddressPage> {
                 GraphClientFullInfo userInfo =
                     GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 
-                Set<Marker> newMarkers = userInfo.deliveryAddresses.map(
-                  (deliveryAddress) {
-                    return Marker(
-                        markerId: MarkerId(deliveryAddress.iD.toString()),
-                        position: LatLng(deliveryAddress.latitude,
-                            deliveryAddress.longitude));
-                  },
-                ).toSet();
-
-                return mapStack(context: context, children: [
-                  ...userInfo.deliveryAddresses.map(
-                    (e) => ListTile(
-                      title: Text(e.description ?? 'WTF'),
-                      subtitle: Text(e.address),
+                return mapStack(
+                  context: context,
+                  markers: userInfo.deliveryAddresses.map(
+                    (deliveryAddress) {
+                      return Marker(
+                          markerId: MarkerId(deliveryAddress.iD.toString()),
+                          position: LatLng(deliveryAddress.latitude,
+                              deliveryAddress.longitude));
+                    },
+                  ).toSet(),
+                  children: [
+                    ...userInfo.deliveryAddresses.map(
+                      (e) => ListTile(
+                        title: Text(e.description ?? 'WTF'),
+                        subtitle: Text(e.address),
+                      ),
                     ),
-                  ),
-                ]);
+                  ],
+                );
               })
           : copyState.filter == 'PICK_UP'
               ? Query(
@@ -255,6 +254,15 @@ class _AddressPageState extends State<AddressPage> {
 
                         return mapStack(
                           context: context,
+                          markers: shops.map(
+                            (shop) {
+                              return Marker(
+                                  onTap: () {},
+                                  markerId: MarkerId(shop.iD.toString()),
+                                  position: LatLng(
+                                      shop.latitude ?? 0, shop.longitude ?? 0));
+                            },
+                          ).toSet(),
                           children: [
                             ...shops.map((shop) => ShopTile(
                                   shop: shop,
@@ -318,10 +326,6 @@ class ShopTile extends StatelessWidget {
             ],
           ),
         ],
-      ),
-      trailing: Icon(
-        SeverMetropol.Icon_Direction,
-        color: Theme.of(context).colorScheme.primary,
       ),
     );
   }
