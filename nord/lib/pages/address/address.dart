@@ -121,10 +121,13 @@ class _AddressPageState extends State<AddressPage> {
     );
   }
 
-  Widget mapStack({required BuildContext context}) {
+  Widget mapStack({
+    required BuildContext context,
+    List<Widget> children = const <Widget>[],
+  }) {
     return Stack(children: [
       GoogleMap(
-        markers: markers,
+        //markers: markers,
         myLocationEnabled: true,
         initialCameraPosition: CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962),
@@ -145,108 +148,7 @@ class _AddressPageState extends State<AddressPage> {
                 DragHandle(),
                 SizedBox(height: 8),
                 chooser(context),
-                if (copyState.filter == 'DELIVERY')
-                  Query(
-                      options: QueryOptions(document: gql(getClientInfo)),
-                      builder: (result, {fetchMore, refetch}) {
-                        if (result.isLoading && result.data == null) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        if (result.hasException) {
-                          return const Center(
-                            child: CircularProgressIndicator(),
-                          );
-                        }
-
-                        GraphClientFullInfo userInfo =
-                            GraphClientFullInfo.fromJson(
-                                result.data!['getClientInfo']);
-
-                        Set<Marker> newMarkers = userInfo.deliveryAddresses.map(
-                          (deliveryAddress) {
-                            return Marker(
-                                markerId:
-                                    MarkerId(deliveryAddress.iD.toString()),
-                                position: LatLng(deliveryAddress.latitude,
-                                    deliveryAddress.longitude));
-                          },
-                        ).toSet();
-
-                        if (!setEquals(newMarkers, markers))
-                          WidgetsBinding.instance!.addPostFrameCallback((_) {
-                            setState(() {
-                              markers = newMarkers;
-                            });
-                          });
-
-                        return Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            ...userInfo.deliveryAddresses.map(
-                              (e) => ListTile(
-                                title: Text(e.description ?? 'WTF'),
-                                subtitle: Text(e.address),
-                              ),
-                            ),
-                          ],
-                        );
-                      })
-                else if (copyState.filter == 'PICK_UP')
-                  Query(
-                    options: QueryOptions(
-                      document: gql(getShops),
-                    ),
-                    builder: (result, {fetchMore, refetch}) {
-                      if (result.hasException) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      if (result.isLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(),
-                        );
-                      }
-
-                      List<GraphShop> shops = List<GraphShop>.from(result
-                          .data!['getShops']
-                          .map((model) => GraphShop.fromJson(model)));
-
-                      return FutureBuilder<Position>(
-                        future: Geolocator.getCurrentPosition(),
-                        builder: (context, snapshot) {
-                          LatLng myLocation = LatLng(59.9311, 30.3609);
-                          if (snapshot.hasData) {
-                            myLocation = LatLng(snapshot.data!.latitude,
-                                snapshot.data!.longitude);
-                            shops.sort((a, b) => Geolocator.distanceBetween(
-                                    a.latitude ?? 0,
-                                    a.longitude ?? 0,
-                                    myLocation.latitude,
-                                    myLocation.longitude)
-                                .compareTo(Geolocator.distanceBetween(
-                                    b.latitude ?? 0,
-                                    b.longitude ?? 0,
-                                    myLocation.latitude,
-                                    myLocation.longitude)));
-                          }
-
-                          return Column(
-                            children: [
-                              ...shops.map((shop) => ShopTile(
-                                    shop: shop,
-                                    onTap: () {},
-                                  ))
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
+                ...children,
               ],
             ),
           );
@@ -269,7 +171,98 @@ class _AddressPageState extends State<AddressPage> {
             )),
         title: const Text('Адрес доставки или кафе'),
       ),
-      body: mapStack(context: context),
+      body: copyState.filter == 'DELIVERY'
+          ? Query(
+              options: QueryOptions(document: gql(getClientInfo)),
+              builder: (result, {fetchMore, refetch}) {
+                if (result.isLoading && result.data == null) {
+                  return mapStack(context: context);
+                }
+
+                if (result.hasException) {
+                  return mapStack(context: context);
+                }
+
+                if (result.data!['getClientInfo'] == null) {
+                  return mapStack(context: context);
+                }
+
+                GraphClientFullInfo userInfo =
+                    GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
+
+                Set<Marker> newMarkers = userInfo.deliveryAddresses.map(
+                  (deliveryAddress) {
+                    return Marker(
+                        markerId: MarkerId(deliveryAddress.iD.toString()),
+                        position: LatLng(deliveryAddress.latitude,
+                            deliveryAddress.longitude));
+                  },
+                ).toSet();
+
+                return mapStack(context: context, children: [
+                  ...userInfo.deliveryAddresses.map(
+                    (e) => ListTile(
+                      title: Text(e.description ?? 'WTF'),
+                      subtitle: Text(e.address),
+                    ),
+                  ),
+                ]);
+              })
+          : copyState.filter == 'PICK_UP'
+              ? Query(
+                  options: QueryOptions(
+                    document: gql(getShops),
+                  ),
+                  builder: (result, {fetchMore, refetch}) {
+                    if (result.hasException) {
+                      return mapStack(context: context);
+                    }
+
+                    if (result.isLoading) {
+                      return mapStack(context: context);
+                    }
+
+                    if (result.data!['getShops'] == null) {
+                      return mapStack(context: context);
+                    }
+
+                    List<GraphShop> shops = List<GraphShop>.from(result
+                        .data!['getShops']
+                        .map((model) => GraphShop.fromJson(model)));
+
+                    return FutureBuilder<Position>(
+                      future: Geolocator.getCurrentPosition(),
+                      builder: (context, snapshot) {
+                        LatLng myLocation = LatLng(59.9311, 30.3609);
+                        if (snapshot.hasData) {
+                          myLocation = LatLng(snapshot.data!.latitude,
+                              snapshot.data!.longitude);
+                          shops.sort((a, b) => Geolocator.distanceBetween(
+                                  a.latitude ?? 0,
+                                  a.longitude ?? 0,
+                                  myLocation.latitude,
+                                  myLocation.longitude)
+                              .compareTo(Geolocator.distanceBetween(
+                                  b.latitude ?? 0,
+                                  b.longitude ?? 0,
+                                  myLocation.latitude,
+                                  myLocation.longitude)));
+                        }
+
+                        return mapStack(
+                          context: context,
+                          children: [
+                            ...shops.map((shop) => ShopTile(
+                                  shop: shop,
+                                  onTap: () {},
+                                ))
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
+              : mapStack(context: context),
     );
   }
 }
