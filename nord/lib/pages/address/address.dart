@@ -11,6 +11,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
 import 'delivery_address.dart';
+import 'enter_address.dart';
 
 class AddressPage extends StatefulWidget {
   const AddressPage({Key? key}) : super(key: key);
@@ -208,6 +209,25 @@ class _AddressPageState extends State<AddressPage> {
                         subtitle: Text(e.address),
                       ),
                     ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: GradientButton(
+                        child: Text('Добавить новый адрес'),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EnterAddress(
+                                        addressToEdit: GraphDeliveryAddress(
+                                            address: '',
+                                            description: '',
+                                            latitude: 0,
+                                            longitude: 0,
+                                            iD: 0),
+                                      )));
+                        },
+                      ),
+                    ),
                   ],
                 );
               })
@@ -266,7 +286,13 @@ class _AddressPageState extends State<AddressPage> {
                           children: [
                             ...shops.map((shop) => ShopTile(
                                   shop: shop,
-                                  onTap: () {},
+                                  onTap: () {
+                                    copyState.activeShop = shop;
+                                    context
+                                        .read<FilterState>()
+                                        .assign(copyState);
+                                    Navigator.pop(context);
+                                  },
                                 ))
                           ],
                         );
