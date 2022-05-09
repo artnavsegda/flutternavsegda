@@ -1,3 +1,29 @@
+class GraphBasket {
+  GraphBasket({
+    required this.payment,
+    required this.amount,
+    required this.discount,
+    required this.availablePoints,
+    required this.bankCards,
+    required this.wishes,
+    required this.rows,
+    required this.slots,
+    required this.deliveryInfo,
+    required this.state,
+  });
+
+  double payment;
+  double amount;
+  double discount;
+  int availablePoints;
+  List<GraphBankCard> bankCards;
+  List<GraphWish> wishes;
+  List<GraphCartRow> rows;
+  GraphSlots slots;
+  GraphDeliveryInfo deliveryInfo;
+  String state;
+}
+
 class GraphSettingsResult {
   GraphSettingsResult({
     this.senderID,
