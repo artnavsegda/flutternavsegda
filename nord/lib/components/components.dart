@@ -95,11 +95,11 @@ class AddressTile extends StatelessWidget {
         },
         leading: Image.asset(model.filter == 'PICK_UP'
             ? 'assets/Illustration-Colored-Cafe.png'
-            : 'assets/Illustration-Colored-Delivery-Options.png'),
+            : model.filter == 'DELIVERY'
+                ? 'assets/Illustration-Colored-Delivery.png'
+                : 'assets/Illustration-Colored-Delivery-Options.png'),
         title: Text(
-            model.filter == 'PICK_UP'
-                ? "Увидимся в кафе"
-                : "Адрес доставки или кафе",
+            model.filter == 'PICK_UP' ? "Увидимся в кафе" : "Адрес доставки",
             style: model.filter == 'ALL'
                 ? null
                 : TextStyle(
@@ -111,7 +111,9 @@ class AddressTile extends StatelessWidget {
             : Text(
                 model.filter == 'PICK_UP'
                     ? model.activeShop?.address ?? 'Не выбрано'
-                    : "5-я Советская, 15-17/12",
+                    : model.filter == 'DELIVERY'
+                        ? model.activeAddress?.address ?? 'Не выбрано'
+                        : "5-я Советская, 15-17/12",
                 style: TextStyle(
                   color: Theme.of(context).colorScheme.primary,
                   fontSize: 16,

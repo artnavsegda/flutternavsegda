@@ -204,9 +204,14 @@ class _AddressPageState extends State<AddressPage> {
                   ).toSet(),
                   children: [
                     ...userInfo.deliveryAddresses.map(
-                      (e) => ListTile(
-                        title: Text(e.description ?? 'WTF'),
-                        subtitle: Text(e.address),
+                      (address) => ListTile(
+                        title: Text(address.description ?? 'WTF'),
+                        subtitle: Text(address.address),
+                        onTap: () {
+                          copyState.activeAddress = address;
+                          context.read<FilterState>().assign(copyState);
+                          Navigator.pop(context);
+                        },
                       ),
                     ),
                     Padding(
