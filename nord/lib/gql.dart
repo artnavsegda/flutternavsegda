@@ -14,9 +14,29 @@ class GraphTerm {
 
 class GraphOrderTime {}
 
-class GraphOrderDate {}
+class GraphOrderDate {
+  GraphOrderDate({
+    required this.date,
+    required this.disabled,
+  });
+
+  String date;
+  bool disabled;
+
+  GraphOrderDate.fromJson(Map<String, dynamic> json)
+      : date = json['date'],
+        disabled = json['disabled'];
+}
 
 class GraphDeliveryInfo {
+  GraphDeliveryInfo({
+    required this.express,
+    required this.price,
+    required this.expressPrice,
+    this.message,
+    required this.terms,
+  });
+
   bool express;
   int price;
   int expressPrice;
