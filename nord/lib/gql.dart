@@ -125,6 +125,21 @@ class GraphBasket {
   GraphSlots slots;
   GraphDeliveryInfo deliveryInfo;
   String state;
+
+  GraphBasket.fromJson(Map<String, dynamic> json)
+      : payment = json['payment'],
+        amount = json['amount'],
+        discount = json['discount'],
+        availablePoints = json['availablePoints'],
+        bankCards = List<GraphBankCard>.from(
+            json['bankCards'].map((model) => GraphBankCard.fromJson(model))),
+        wishes = List<GraphWish>.from(
+            json['wishes'].map((model) => GraphWish.fromJson(model))),
+        rows = List<GraphCartRow>.from(
+            json['rows'].map((model) => GraphCartRow.fromJson(model))),
+        slots = json['slots'],
+        deliveryInfo = json['deliveryInfo'],
+        state = json['state'];
 }
 
 class GraphSettingsResult {
