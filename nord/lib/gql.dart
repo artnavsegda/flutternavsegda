@@ -1,6 +1,34 @@
-class GraphDeliveryInfo {}
+class GraphTerm {
+  GraphTerm({
+    required this.left,
+    required this.right,
+  });
 
-class GraphSlots {}
+  String left;
+  String right;
+
+  GraphTerm.fromJson(Map<String, dynamic> json)
+      : left = json['left'],
+        right = json['right'];
+}
+
+class GraphOrderTime {}
+
+class GraphOrderDate {}
+
+class GraphDeliveryInfo {
+  bool express;
+  int price;
+  int expressPrice;
+  String? message;
+  List<GraphTerm> terms;
+}
+
+class GraphSlots {
+  List<GraphOrderDate> dates;
+  List<GraphOrderTime> times;
+  List<GraphOrderTime> expressTimes;
+}
 
 class GraphWish {
   GraphWish({
