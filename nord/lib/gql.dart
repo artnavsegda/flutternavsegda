@@ -12,7 +12,22 @@ class GraphTerm {
         right = json['right'];
 }
 
-class GraphOrderTime {}
+class GraphOrderTime {
+  GraphOrderTime({
+    required this.iD,
+    required this.name,
+    required this.todayDisabled,
+  });
+
+  int iD;
+  String name;
+  bool todayDisabled;
+
+  GraphOrderTime.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'],
+        todayDisabled = json['todayDisabled'];
+}
 
 class GraphOrderDate {
   GraphOrderDate({
