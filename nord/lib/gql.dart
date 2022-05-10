@@ -57,12 +57,34 @@ class GraphDeliveryInfo {
   int expressPrice;
   String? message;
   List<GraphTerm> terms;
+
+  GraphDeliveryInfo.fromJson(Map<String, dynamic> json)
+      : express = json['express'],
+        price = json['price'],
+        expressPrice = json['expressPrice'],
+        message = json['message'],
+        terms = List<GraphTerm>.from(
+            json['terms'].map((model) => GraphTerm.fromJson(model)));
 }
 
 class GraphSlots {
+  GraphSlots({
+    required this.dates,
+    required this.times,
+    required this.expressTimes,
+  });
+
   List<GraphOrderDate> dates;
   List<GraphOrderTime> times;
   List<GraphOrderTime> expressTimes;
+
+  GraphSlots.fromJson(Map<String, dynamic> json)
+      : dates = List<GraphOrderDate>.from(
+            json['dates'].map((model) => GraphOrderDate.fromJson(model))),
+        times = List<GraphOrderTime>.from(
+            json['times'].map((model) => GraphOrderTime.fromJson(model))),
+        expressTimes = List<GraphOrderTime>.from(json['expressTimes']
+            .map((model) => GraphOrderTime.fromJson(model)));
 }
 
 class GraphWish {
