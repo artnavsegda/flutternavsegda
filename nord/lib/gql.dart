@@ -1,3 +1,21 @@
+class GraphDeliveryInfo {}
+
+class GraphSlots {}
+
+class GraphWish {
+  GraphWish({
+    required this.iD,
+    required this.name,
+  });
+
+  int iD;
+  String name;
+
+  GraphWish.fromJson(Map<String, dynamic> json)
+      : iD = json['iD'],
+        name = json['name'];
+}
+
 class GraphBasket {
   GraphBasket({
     required this.payment,
