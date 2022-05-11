@@ -188,7 +188,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                               child: DottedLine(
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
-                            Text('1 435 ₽',
+                            Text('${basket.amount} ₽',
                                 style: TextStyle(
                                     fontFamily: 'Noto Sans',
                                     fontSize: 16,
@@ -257,7 +257,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                               child: DottedLine(
                                   dashColor: Colors.grey, dashLength: 2),
                             )),
-                            Text('1 325 ₽',
+                            Text('${basket.payment} ₽',
                                 style: TextStyle(
                                     fontFamily: 'Noto Sans',
                                     fontSize: 16,
