@@ -18,6 +18,18 @@ class AboutPage extends StatelessWidget {
             )),
         title: const Text('О приложении'),
       ),
+      body: Column(
+        children: [
+          Image.asset('assets/Illustration-Logo.png'),
+          Text('Разработано с любовью в компании CyberiaSoft'),
+          Text(
+              'Пишите нам — будем рады услышать все ваши пожелания и предложения'),
+          ElevatedButton(
+              onPressed: () {}, child: Text('Написать разработчикам')),
+          Spacer(),
+          Text('Версия 2.10.1 (29143)'),
+        ],
+      ),
     );
   }
 }
