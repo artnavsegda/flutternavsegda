@@ -123,7 +123,7 @@ class GraphBasket {
   List<GraphWish> wishes;
   List<GraphCartRow> rows;
   GraphSlots slots;
-  GraphDeliveryInfo deliveryInfo;
+  GraphDeliveryInfo? deliveryInfo;
   String state;
 
   GraphBasket.fromJson(Map<String, dynamic> json)
@@ -137,8 +137,10 @@ class GraphBasket {
             json['wishes'].map((model) => GraphWish.fromJson(model))),
         rows = List<GraphCartRow>.from(
             json['rows'].map((model) => GraphCartRow.fromJson(model))),
-        slots = json['slots'],
-        deliveryInfo = json['deliveryInfo'],
+        slots = GraphSlots.fromJson(json['slots']),
+        deliveryInfo = json['deliveryInfo'] == null
+            ? null
+            : GraphDeliveryInfo.fromJson(json['deliveryInfo']),
         state = json['state'];
 }
 
@@ -2451,7 +2453,8 @@ query getSettings {
 ''';
 
 const String getBasket = r'''
-query getBasket {
+# Write your query or mutation here
+query {
   getBasket {
     payment
     amount
@@ -2499,6 +2502,17 @@ query getBasket {
         todayDisabled
       }
     }
+    deliveryInfo {
+      express
+      price
+      expressPrice
+      message
+      terms {
+        left
+        right
+      }
+    }
+    state
   }
 }
 ''';

@@ -73,7 +73,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
-          document: gql(getCart),
+          document: gql(getBasket),
           fetchPolicy: FetchPolicy.networkOnly,
         ),
         builder: (result, {refetch, fetchMore}) {
@@ -95,15 +95,13 @@ class _ShoppingPageState extends State<ShoppingPage> {
             );
           }
 
-          List<GraphCartRow> cart = List<GraphCartRow>.from(result
-              .data!['getCart']
-              .map((model) => GraphCartRow.fromJson(model)));
+          GraphBasket basket = GraphBasket.fromJson(result.data!['getBasket']);
 
           WidgetsBinding.instance?.addPostFrameCallback((_) {
-            context.read<CartState>().cart = cart;
+            context.read<CartState>().cart = basket.rows;
           });
 
-          if (cart.isEmpty) {
+          if (basket.rows.isEmpty) {
             return CartIsEmpty();
           }
 
@@ -140,7 +138,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
               child: ListView(
                 controller: _scrollController,
                 children: [
-                  ...cart.map(
+                  ...basket.rows.map(
                     (item) {
                       return CartTile(
                         key: ValueKey(item.rowID),
