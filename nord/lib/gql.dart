@@ -1,3 +1,17 @@
+class GraphTypeDeliveryOrder {
+  GraphTypeDeliveryOrder({
+    this.shopID,
+    this.deliveryAddressID,
+  });
+
+  int? shopID;
+  int? deliveryAddressID;
+
+  GraphTypeDeliveryOrder.fromJson(Map<String, dynamic> json)
+      : shopID = json['shopID'],
+        deliveryAddressID = json['deliveryAddressID'];
+}
+
 class GraphTerm {
   GraphTerm({
     required this.left,
