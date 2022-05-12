@@ -38,6 +38,10 @@ class RegistrationPage extends StatelessWidget {
           ListTile(
             onTap: () {
               showModalBottomSheet(
+                shape: const RoundedRectangleBorder(
+                  borderRadius:
+                      BorderRadius.vertical(top: Radius.circular(4.0)),
+                ),
                 backgroundColor: Colors.white,
                 isScrollControlled: true,
                 context: context,
@@ -155,11 +159,6 @@ class SelectDateBottomSheet extends StatelessWidget {
               child: Text(
             'Дата и время доставки',
           )),
-        ),
-        SwitchListTile(
-          title: const Text('Получить поскорее'),
-          value: false,
-          onChanged: (newVal) {},
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
