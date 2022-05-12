@@ -71,10 +71,18 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
   @override
   Widget build(BuildContext context) {
+    var filter = context.watch<FilterState>().filter;
+    var activeShop = context.watch<FilterState>().activeShop;
+    var activeAddress = context.watch<FilterState>().activeAddress;
     return Query(
         options: QueryOptions(
           document: gql(getBasket),
           fetchPolicy: FetchPolicy.networkOnly,
+          variables: {
+            'shopID': filter == 'PICK_UP' ? activeShop!.iD : null,
+            'deliveryAddressID':
+                filter == 'DELIVERY' ? activeAddress!.iD : null,
+          },
         ),
         builder: (result, {refetch, fetchMore}) {
           if (result.hasException) {
@@ -97,9 +105,9 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
           GraphBasket basket = GraphBasket.fromJson(result.data!['getBasket']);
 
-          WidgetsBinding.instance?.addPostFrameCallback((_) {
+/*           WidgetsBinding.instance?.addPostFrameCallback((_) {
             context.read<CartState>().cart = basket.rows;
-          });
+          }); */
 
           if (basket.rows.isEmpty) {
             return CartIsEmpty();
@@ -267,6 +275,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                       ],
                     ),
                   ),
+                  Text(basket.state),
                 ],
               ),
             ),
