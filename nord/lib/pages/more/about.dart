@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:nord/sever_metropol_icons.dart';
 
 class AboutPage extends StatelessWidget {
@@ -28,7 +29,10 @@ class AboutPage extends StatelessWidget {
           Text(
               'Пишите нам — будем рады услышать все ваши пожелания и предложения'),
           ElevatedButton(
-              onPressed: () {}, child: Text('Написать разработчикам')),
+              onPressed: () {
+                launch('mailto:writeme@cyberiasoft.com');
+              },
+              child: Text('Написать разработчикам')),
           Spacer(),
           Text('Версия 2.10.1 (29143)'),
         ],
