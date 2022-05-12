@@ -1720,8 +1720,8 @@ query getCatalog {
 ''';
 
 const String getProducts = r'''
-query getProducts {
-  getProducts(typeDeliveryOrder: {deliveryAddressID: null})
+query getProducts($deliveryAddressID: Int, $shopID: Int) {
+  getProducts(typeDeliveryOrder: {deliveryAddressID: $deliveryAddressID, shopID: $shopID})
   {
     name
     iD
@@ -1872,8 +1872,8 @@ query getActions {
 ''';
 
 const String getTopBlocks = r'''
-query getTopBlocks {
-  getTopBlocks(typeDeliveryOrder: {deliveryAddressID: null})
+query getTopBlocks($deliveryAddressID: Int, $shopID: Int) {
+  getTopBlocks(typeDeliveryOrder: {deliveryAddressID: $deliveryAddressID, shopID: $shopID})
   {
     iD
     name
@@ -2467,9 +2467,8 @@ query getSettings {
 ''';
 
 const String getBasket = r'''
-# Write your query or mutation here
-query {
-  getBasket {
+query getBasket($deliveryAddressID: Int, $shopID: Int) {
+  getBasket(typeDeliveryOrder: {deliveryAddressID: $deliveryAddressID, shopID: $shopID}) {
     payment
     amount
     discount
