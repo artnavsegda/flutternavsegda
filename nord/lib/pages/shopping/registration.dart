@@ -160,6 +160,11 @@ class SelectDateBottomSheet extends StatelessWidget {
             'Дата и время доставки',
           )),
         ),
+        SwitchListTile(
+          title: const Text('Получить поскорее'),
+          value: false,
+          onChanged: (newVal) {},
+        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text('Дата доставки',
