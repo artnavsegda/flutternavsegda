@@ -311,7 +311,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.stretch,
                           mainAxisSize: MainAxisSize.min,
-                          children: const [
+                          children: [
                             Text('Итого',
                                 style: TextStyle(
                                     fontFamily: 'Noto Sans',
@@ -319,7 +319,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     color: Color(0xFF56626C),
                                     fontFamilyFallback: ['Roboto'])),
                             SizedBox(height: 3),
-                            Text('1 325 ₽',
+                            Text('${basket.amount} ₽',
                                 style: TextStyle(
                                     fontFamily: 'Noto Sans',
                                     fontSize: 16,
