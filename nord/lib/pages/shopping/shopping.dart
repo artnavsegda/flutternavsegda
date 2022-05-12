@@ -71,284 +71,284 @@ class _ShoppingPageState extends State<ShoppingPage> {
 
   @override
   Widget build(BuildContext context) {
-    var filter = context.watch<FilterState>().filter;
-    var activeShop = context.watch<FilterState>().activeShop;
-    var activeAddress = context.watch<FilterState>().activeAddress;
-    return Query(
-        options: QueryOptions(
-          document: gql(getBasket),
-          fetchPolicy: FetchPolicy.networkOnly,
-          variables: {
-            'shopID': filter == 'PICK_UP' ? activeShop!.iD : null,
-            'deliveryAddressID':
-                filter == 'DELIVERY' ? activeAddress!.iD : null,
-          },
-        ),
-        builder: (result, {refetch, fetchMore}) {
-          if (result.hasException) {
-            return ErrorPage(reload: () {
-              refetch!();
-            });
-          }
+    return Consumer<FilterState>(builder: (context, model, child) {
+      return Query(
+          options: QueryOptions(
+            document: gql(getBasket),
+            fetchPolicy: FetchPolicy.networkOnly,
+            variables: {
+              'shopID': model.filter == 'PICK_UP' ? model.activeShop!.iD : null,
+              'deliveryAddressID':
+                  model.filter == 'DELIVERY' ? model.activeAddress!.iD : null,
+            },
+          ),
+          builder: (result, {refetch, fetchMore}) {
+            if (result.hasException) {
+              return ErrorPage(reload: () {
+                refetch!();
+              });
+            }
 
-          if (result.isLoading && result.data == null) {
-            return RefreshIndicator(
-              onRefresh: () async {
-                await refetch!();
-                //await Future.delayed(Duration(seconds: 5));
-              },
-              child: const Center(
-                child: CircularProgressIndicator(),
-              ),
-            );
-          }
+            if (result.isLoading && result.data == null) {
+              return RefreshIndicator(
+                onRefresh: () async {
+                  await refetch!();
+                  //await Future.delayed(Duration(seconds: 5));
+                },
+                child: const Center(
+                  child: CircularProgressIndicator(),
+                ),
+              );
+            }
 
-          GraphBasket basket = GraphBasket.fromJson(result.data!['getBasket']);
+            GraphBasket basket =
+                GraphBasket.fromJson(result.data!['getBasket']);
 
 /*           WidgetsBinding.instance?.addPostFrameCallback((_) {
-            context.read<CartState>().cart = basket.rows;
-          }); */
+                context.read<CartState>().cart = basket.rows;
+              }); */
 
-          if (basket.rows.isEmpty) {
-            return CartIsEmpty();
-          }
+            if (basket.rows.isEmpty) {
+              return CartIsEmpty();
+            }
 
-          return Scaffold(
-            appBar: AppBar(
-              title: const Text('Корзина'),
-              actions: [
-                Mutation(
-                    options: MutationOptions(
-                        document: gql(cartClear),
-                        onCompleted: (resultData) {
-                          refetch!();
-                        }),
-                    builder: (runMutation, result) {
-                      return TextButton(
-                          onPressed: () {
-                            runMutation({});
-                          },
-                          child: const Text('Очистить'));
-                    }),
-              ],
-              bottom: PreferredSize(
-                preferredSize: Size.fromHeight(50.0),
-                child: AddressTile(),
-              ),
-              shadowColor: Colors.white,
-              elevation: headerUp ? 2 : null,
-            ),
-            body: RefreshIndicator(
-              onRefresh: () async {
-                await refetch!();
-                await Future.delayed(const Duration(seconds: 1));
-              },
-              child: ListView(
-                controller: _scrollController,
-                children: [
-                  ...basket.rows.map(
-                    (item) {
-                      return CartTile(
-                        key: ValueKey(item.rowID),
-                        item: item,
-                        reload: () => refetch!(),
-                      );
-                    },
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: Text(
-                      'Сумма заказа',
-                      style: Theme.of(context).textTheme.headlineSmall,
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.all(16.0),
-                    child: TextField(
-                      decoration: InputDecoration(
-                          labelText: "Промокод",
-                          suffixIcon: IconButton(
-                            onPressed: () {},
-                            icon: Icon(
-                              SeverMetropol.Icon_East,
-                              size: 24.0,
-                            ),
-                          )),
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          textBaseline: TextBaseline.ideographic,
-                          children: [
-                            Text('Сумма заказа',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: DottedLine(
-                                  dashColor: Colors.grey, dashLength: 2),
-                            )),
-                            Text('${basket.amount} ₽',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                          ],
-                        ),
-                        SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('Скидка',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: DottedLine(
-                                  dashColor: Colors.grey, dashLength: 2),
-                            )),
-                            Text('Бесплатно',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                          ],
-                        ),
-                        SizedBox(height: 24),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('Промокод',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: DottedLine(
-                                  dashColor: Colors.grey, dashLength: 2),
-                            )),
-                            Text('- 110 ₽',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                          ],
-                        ),
-                        Divider(height: 48),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Text('Общая сумма заказа',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                            Expanded(
-                                child: Padding(
-                              padding: const EdgeInsets.all(4.0),
-                              child: DottedLine(
-                                  dashColor: Colors.grey, dashLength: 2),
-                            )),
-                            Text('${basket.payment} ₽',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                  Text(basket.state),
+            return Scaffold(
+              appBar: AppBar(
+                title: const Text('Корзина'),
+                actions: [
+                  Mutation(
+                      options: MutationOptions(
+                          document: gql(cartClear),
+                          onCompleted: (resultData) {
+                            refetch!();
+                          }),
+                      builder: (runMutation, result) {
+                        return TextButton(
+                            onPressed: () {
+                              runMutation({});
+                            },
+                            child: const Text('Очистить'));
+                      }),
                 ],
-              ),
-            ),
-            bottomNavigationBar: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  boxShadow: scrollAtBottom
-                      ? null
-                      : [
-                          BoxShadow(
-                            color: Color(0x33000000),
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                          // BoxShadow(
-                          //   color: Color(0x1F000000),
-                          //   blurRadius: 10,
-                          //   offset: Offset(0, 1),
-                          // ),
-                          BoxShadow(
-                            color: Color(0x24000000),
-                            blurRadius: 5,
-                            offset: Offset(0, 4),
-                          )
-                        ],
+                bottom: PreferredSize(
+                  preferredSize: Size.fromHeight(50.0),
+                  child: AddressTile(),
                 ),
-                padding: const EdgeInsets.all(16.0),
-                child: Stack(
-                  alignment: AlignmentDirectional.centerEnd,
+                shadowColor: Colors.white,
+                elevation: headerUp ? 2 : null,
+              ),
+              body: RefreshIndicator(
+                onRefresh: () async {
+                  await refetch!();
+                  await Future.delayed(const Duration(seconds: 1));
+                },
+                child: ListView(
+                  controller: _scrollController,
                   children: [
-                    AnimatedOpacity(
-                      duration: const Duration(milliseconds: 500),
-                      opacity: scrollAtBottom ? 0 : 1.0,
+                    ...basket.rows.map(
+                      (item) {
+                        return CartTile(
+                          key: ValueKey(item.rowID),
+                          item: item,
+                          reload: () => refetch!(),
+                        );
+                      },
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: Text(
+                        'Сумма заказа',
+                        style: Theme.of(context).textTheme.headlineSmall,
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.all(16.0),
+                      child: TextField(
+                        decoration: InputDecoration(
+                            labelText: "Промокод",
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: Icon(
+                                SeverMetropol.Icon_East,
+                                size: 24.0,
+                              ),
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
                       child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        mainAxisSize: MainAxisSize.min,
-                        children: const [
-                          Text('Итого',
-                              style: TextStyle(
-                                  fontFamily: 'Noto Sans',
-                                  fontSize: 10,
-                                  color: Color(0xFF56626C),
-                                  fontFamilyFallback: ['Roboto'])),
-                          SizedBox(height: 3),
-                          Text('1 325 ₽',
-                              style: TextStyle(
-                                  fontFamily: 'Noto Sans',
-                                  fontSize: 16,
-                                  fontFamilyFallback: ['Roboto'])),
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            textBaseline: TextBaseline.ideographic,
+                            children: [
+                              Text('Сумма заказа',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DottedLine(
+                                    dashColor: Colors.grey, dashLength: 2),
+                              )),
+                              Text('${basket.amount} ₽',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                            ],
+                          ),
+                          SizedBox(height: 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('Скидка',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DottedLine(
+                                    dashColor: Colors.grey, dashLength: 2),
+                              )),
+                              Text('Бесплатно',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                            ],
+                          ),
+                          SizedBox(height: 24),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('Промокод',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DottedLine(
+                                    dashColor: Colors.grey, dashLength: 2),
+                              )),
+                              Text('- 110 ₽',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                            ],
+                          ),
+                          Divider(height: 48),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
+                              Text('Общая сумма заказа',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                              Expanded(
+                                  child: Padding(
+                                padding: const EdgeInsets.all(4.0),
+                                child: DottedLine(
+                                    dashColor: Colors.grey, dashLength: 2),
+                              )),
+                              Text('${basket.payment} ₽',
+                                  style: TextStyle(
+                                      fontFamily: 'Noto Sans',
+                                      fontSize: 16,
+                                      fontFamilyFallback: ['Roboto'])),
+                            ],
+                          ),
                         ],
                       ),
                     ),
-                    AnimatedContainer(
-                      height: 48,
-                      width: scrollAtBottom
-                          ? MediaQuery.of(context).size.width - 32
-                          : 157,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.fastOutSlowIn,
-                      child: GradientButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) =>
-                                        const RegistrationPage()));
-                          },
-                          child: const Text('Оформить заказ')),
-                    ),
+                    Text(basket.state),
                   ],
-                )),
-          );
-        });
+                ),
+              ),
+              bottomNavigationBar: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    boxShadow: scrollAtBottom
+                        ? null
+                        : [
+                            BoxShadow(
+                              color: Color(0x33000000),
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                            // BoxShadow(
+                            //   color: Color(0x1F000000),
+                            //   blurRadius: 10,
+                            //   offset: Offset(0, 1),
+                            // ),
+                            BoxShadow(
+                              color: Color(0x24000000),
+                              blurRadius: 5,
+                              offset: Offset(0, 4),
+                            )
+                          ],
+                  ),
+                  padding: const EdgeInsets.all(16.0),
+                  child: Stack(
+                    alignment: AlignmentDirectional.centerEnd,
+                    children: [
+                      AnimatedOpacity(
+                        duration: const Duration(milliseconds: 500),
+                        opacity: scrollAtBottom ? 0 : 1.0,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.stretch,
+                          mainAxisSize: MainAxisSize.min,
+                          children: const [
+                            Text('Итого',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 10,
+                                    color: Color(0xFF56626C),
+                                    fontFamilyFallback: ['Roboto'])),
+                            SizedBox(height: 3),
+                            Text('1 325 ₽',
+                                style: TextStyle(
+                                    fontFamily: 'Noto Sans',
+                                    fontSize: 16,
+                                    fontFamilyFallback: ['Roboto'])),
+                          ],
+                        ),
+                      ),
+                      AnimatedContainer(
+                        height: 48,
+                        width: scrollAtBottom
+                            ? MediaQuery.of(context).size.width - 32
+                            : 157,
+                        duration: const Duration(seconds: 1),
+                        curve: Curves.fastOutSlowIn,
+                        child: GradientButton(
+                            onPressed: () {
+                              Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          const RegistrationPage()));
+                            },
+                            child: const Text('Оформить заказ')),
+                      ),
+                    ],
+                  )),
+            );
+          });
+    });
   }
 }
 
