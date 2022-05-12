@@ -1,3 +1,25 @@
+class GraphNewOrder {
+  GraphNewOrder({
+    required this.deliveryDate,
+    required this.deliveryTimeID,
+    required this.deliveryExpress,
+    required this.bankCardID,
+    this.paymentData,
+    this.paidPoints = 0,
+    this.clientComment,
+    this.wishes = const [],
+  });
+
+  String deliveryDate;
+  int deliveryTimeID;
+  bool deliveryExpress;
+  String bankCardID;
+  String? paymentData;
+  int paidPoints;
+  String? clientComment;
+  List<int> wishes;
+}
+
 class GraphTypeDeliveryOrder {
   GraphTypeDeliveryOrder({
     this.shopID,
