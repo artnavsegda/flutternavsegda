@@ -165,30 +165,13 @@ class SelectDateBottomSheet extends StatelessWidget {
           child: Text('Дата доставки',
               style: Theme.of(context).textTheme.headlineSmall),
         ),
-        Row(
-          children: [
-            SizedBox(width: 16),
-            SizedBox.square(
-              dimension: 80,
-              child: ElevatedButton(
-                  onPressed: () {},
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'ср',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      Text(
-                        '20.10',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  )),
-            ),
-            SizedBox(width: 8),
-            SizedBox.square(
+        Container(
+          height: 80,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: slots.times.length,
+            itemBuilder: (context, index) => SizedBox.square(
               dimension: 80,
               child: OutlinedButton(
                   onPressed: () {},
@@ -207,7 +190,8 @@ class SelectDateBottomSheet extends StatelessWidget {
                     ],
                   )),
             ),
-          ],
+            separatorBuilder: (context, index) => SizedBox(width: 8),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
