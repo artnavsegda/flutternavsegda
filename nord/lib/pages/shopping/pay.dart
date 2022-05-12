@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
-
+import 'success.dart';
 import '../../components/components.dart';
 
 class PayPage extends StatelessWidget {
@@ -107,8 +108,11 @@ class PayPage extends StatelessWidget {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child:
-                ElevatedButton(onPressed: () {}, child: const Text('Оплатить')),
+            child: ElevatedButton(
+                onPressed: () {
+                  context.push('/success');
+                },
+                child: const Text('Оплатить')),
           ),
         ],
       ),

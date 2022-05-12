@@ -4,8 +4,10 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:nord/pages/error/error.dart';
+import 'package:go_router/go_router.dart';
 import 'package:shimmer/shimmer.dart';
+
+import 'package:nord/pages/error/error.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:provider/provider.dart';
 import 'package:nord/login_state.dart';
@@ -336,11 +338,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         curve: Curves.fastOutSlowIn,
                         child: GradientButton(
                             onPressed: () {
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) =>
-                                          const RegistrationPage()));
+                              context.push('/registration');
                             },
                             child: const Text('Оформить заказ')),
                       ),

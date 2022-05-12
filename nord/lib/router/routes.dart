@@ -11,6 +11,9 @@ import '../pages/main.dart';
 import '../pages/product/product.dart';
 import '../pages/action/action.dart';
 import '../pages/user/edit_user.dart';
+import '../pages/shopping/pay.dart';
+import '../pages/shopping/success.dart';
+import '../pages/shopping/registration.dart';
 
 class NordRouter {
   final LoginState loginState;
@@ -31,6 +34,30 @@ class NordRouter {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: const Onboarding(),
+        ),
+      ),
+      GoRoute(
+        name: 'pay',
+        path: '/pay',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const PayPage(),
+        ),
+      ),
+      GoRoute(
+        name: 'registration',
+        path: '/registration',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const RegistrationPage(),
+        ),
+      ),
+      GoRoute(
+        name: 'success',
+        path: '/success',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const SuccessPage(),
         ),
       ),
       GoRoute(
