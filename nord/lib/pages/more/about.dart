@@ -21,7 +21,10 @@ class AboutPage extends StatelessWidget {
       body: Column(
         children: [
           Image.asset('assets/Illustration-Logo.png'),
-          Text('Разработано с любовью в компании CyberiaSoft'),
+          Text(
+            'Разработано с любовью в компании CyberiaSoft',
+            style: Theme.of(context).textTheme.headlineSmall,
+          ),
           Text(
               'Пишите нам — будем рады услышать все ваши пожелания и предложения'),
           ElevatedButton(
