@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 import '../login_state.dart';
+import '../gql.dart';
 import '../intro.dart';
 import '../pages/login/login.dart';
 import '../pages/login/password.dart';
@@ -49,7 +50,7 @@ class NordRouter {
         path: '/registration',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: const RegistrationPage(),
+          child: RegistrationPage(basket: state.extra! as GraphBasket),
         ),
       ),
       GoRoute(

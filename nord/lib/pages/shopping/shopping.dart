@@ -338,7 +338,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         curve: Curves.fastOutSlowIn,
                         child: GradientButton(
                             onPressed: () {
-                              context.push('/registration');
+                              context.push('/registration', extra: basket);
                             },
                             child: const Text('Оформить заказ')),
                       ),

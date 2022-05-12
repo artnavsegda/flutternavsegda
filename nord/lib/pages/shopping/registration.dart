@@ -1,13 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/gradient_button.dart';
 import '../../components/components.dart';
 import 'pay.dart';
 
 class RegistrationPage extends StatelessWidget {
-  const RegistrationPage({Key? key}) : super(key: key);
+  const RegistrationPage({Key? key, required this.basket}) : super(key: key);
+
+  final GraphBasket basket;
 
   @override
   Widget build(BuildContext context) {
@@ -38,102 +42,7 @@ class RegistrationPage extends StatelessWidget {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return Column(
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      const ListTile(
-                        title: Center(
-                            child: Text(
-                          'Дата и время доставки',
-                        )),
-                      ),
-                      SwitchListTile(
-                        title: const Text('Получить поскорее'),
-                        value: false,
-                        onChanged: (newVal) {},
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text('Дата доставки',
-                            style: Theme.of(context).textTheme.headlineSmall),
-                      ),
-                      Row(
-                        children: [
-                          SizedBox(width: 16),
-                          SizedBox.square(
-                            dimension: 80,
-                            child: ElevatedButton(
-                                onPressed: () {},
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'ср',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                    Text(
-                                      '20.10',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                          SizedBox(width: 8),
-                          SizedBox.square(
-                            dimension: 80,
-                            child: OutlinedButton(
-                                onPressed: () {},
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Text(
-                                      'чт',
-                                      style: TextStyle(fontSize: 10),
-                                    ),
-                                    Text(
-                                      '21.10',
-                                      style: TextStyle(fontSize: 16),
-                                    ),
-                                  ],
-                                )),
-                          ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text('Время доставки',
-                            style: Theme.of(context).textTheme.headlineSmall),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            OutlinedButton(
-                                onPressed: () {},
-                                child: const Text('09:00–14:00')),
-                            ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  minimumSize: Size(111.0, 36.0),
-                                ),
-                                onPressed: () {},
-                                child: const Text('14:00–18:00')),
-                            OutlinedButton(
-                                onPressed: () {},
-                                child: const Text('18:00–21:00')),
-                          ],
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: ElevatedButton(
-                            onPressed: () {}, child: const Text('Выбрать')),
-                      )
-                    ],
-                  );
+                  return SelectDateBottomSheet(slots: basket.slots);
                 },
               );
             },
@@ -223,6 +132,105 @@ class RegistrationPage extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class SelectDateBottomSheet extends StatelessWidget {
+  const SelectDateBottomSheet({
+    Key? key,
+    required this.slots,
+  }) : super(key: key);
+
+  final GraphSlots slots;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        const ListTile(
+          title: Center(
+              child: Text(
+            'Дата и время доставки',
+          )),
+        ),
+        SwitchListTile(
+          title: const Text('Получить поскорее'),
+          value: false,
+          onChanged: (newVal) {},
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Дата доставки',
+              style: Theme.of(context).textTheme.headlineSmall),
+        ),
+        Row(
+          children: [
+            SizedBox(width: 16),
+            SizedBox.square(
+              dimension: 80,
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'ср',
+                        style: TextStyle(fontSize: 10),
+                      ),
+                      Text(
+                        '20.10',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  )),
+            ),
+            SizedBox(width: 8),
+            SizedBox.square(
+              dimension: 80,
+              child: OutlinedButton(
+                  onPressed: () {},
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text(
+                        'чт',
+                        style: TextStyle(fontSize: 10),
+                      ),
+                      Text(
+                        '21.10',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  )),
+            ),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text('Время доставки',
+              style: Theme.of(context).textTheme.headlineSmall),
+        ),
+        Container(
+          height: 32,
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: ListView.separated(
+            scrollDirection: Axis.horizontal,
+            itemCount: slots.times.length,
+            itemBuilder: (context, index) => OutlinedButton(
+                onPressed: () {}, child: Text(slots.times[index].name)),
+            separatorBuilder: (context, index) => SizedBox(width: 8),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
+        )
+      ],
     );
   }
 }
