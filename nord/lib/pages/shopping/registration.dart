@@ -98,33 +98,15 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
           ),
-/*           CheckboxListTile(
-            controlAffinity: ListTileControlAffinity.leading,
-            value: false,
-            onChanged: (value) {},
-            title: Text('Бесконтактная доставка'),
-          ),
-          CheckboxListTile(
-            controlAffinity: ListTileControlAffinity.leading,
-            value: false,
-            onChanged: (value) {},
-            title: Text('Разогреть блюда'),
-          ), */
-          ListTile(
-            onTap: () {},
-            leading: Icon(
-              SeverMetropol.Icon_Checkbox_Checked,
-              color: Colors.red[900],
+          ...basket.wishes.map(
+            (e) => ListTile(
+              onTap: () {},
+              leading: Icon(
+                SeverMetropol.Icon_Checkbox_Checked,
+                color: Colors.red[900],
+              ),
+              title: Text(e.name),
             ),
-            title: Text('Бесконтактная доставка'),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: Icon(
-              SeverMetropol.Icon_Checkbox_Unchecked,
-              color: Colors.red[900],
-            ),
-            title: Text('Разогреть блюда'),
           ),
           Container(
             padding: const EdgeInsets.all(16.0),
