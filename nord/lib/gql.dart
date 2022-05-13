@@ -2534,6 +2534,7 @@ query getBasket($deliveryAddressID: Int, $shopID: Int) {
       }
       expressTimes {
         iD
+        name
         todayDisabled
       }
     }
