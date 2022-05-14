@@ -22,6 +22,18 @@ class GraphOrder {
   int receivePoints;
   String? address;
   String? caption;
+
+  GraphOrder.fromJson(Map<String, dynamic> json)
+      : orderId = json['orderId'],
+        date = json['date'],
+        status = json['status'],
+        statusName = json['statusName'],
+        possibleCancel = json['possibleCancel'],
+        price = json['price'],
+        paidPoints = json['paidPoints'],
+        receivePoints = json['receivePoints'],
+        address = json['address'],
+        caption = json['caption'];
 }
 
 class GraphNewOrder {

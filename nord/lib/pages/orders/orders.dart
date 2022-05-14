@@ -42,6 +42,10 @@ class OrdersPage extends StatelessWidget {
               );
             }
 
+            List<GraphOrder> orders = List<GraphOrder>.from(result
+                .data!['getOrders']
+                .map((model) => GraphOrder.fromJson(model)));
+
             return ListView(
               children: [
                 Center(
@@ -53,40 +57,40 @@ class OrdersPage extends StatelessWidget {
                         .copyWith(color: Color(0xFF9CA4AC)),
                   ),
                 ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const OrderPage(),
-                      ),
-                    );
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Column(
-                      mainAxisSize: MainAxisSize.min,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Доставлен'),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ...orders.map((e) => InkWell(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const OrderPage(),
+                          ),
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Заказ №2564848 от 21:40'),
-                            Text('1020 ₽')
+                            Text('Доставлен'),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Заказ №2564848 от 21:40'),
+                                Text('${e.price} ₽')
+                              ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text('Дачный проспект, 36к3, кв. 218'),
+                                Text('+${e.receivePoints} Б')
+                              ],
+                            )
                           ],
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text('Дачный проспект, 36к3, кв. 218'),
-                            Text('+500 Б')
-                          ],
-                        )
-                      ],
-                    ),
-                  ),
-                )
+                      ),
+                    )),
               ],
             );
           },
