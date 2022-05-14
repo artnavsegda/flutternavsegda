@@ -2598,3 +2598,20 @@ mutation addDeliveryAddress($newAddress: graphNewDeliveryAddress) {
   }
 }
 ''';
+
+const String getOrders = r'''
+query getOrders {
+  getOrders {
+    orderId
+    date
+    status
+    statusName
+    possibleCancel
+    price
+    paidPoints
+    receivePoints
+    address
+    caption
+  }
+}
+''';
