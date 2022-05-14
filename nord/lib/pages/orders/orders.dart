@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
+import 'package:nord/pages/error/error.dart';
 import 'order.dart';
 
 class OrdersPage extends StatelessWidget {
@@ -25,6 +25,23 @@ class OrdersPage extends StatelessWidget {
         body: Query(
           options: QueryOptions(document: gql(getOrders)),
           builder: (result, {fetchMore, refetch}) {
+            if (result.isLoading && result.data == null) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+
+            if (result.hasException) {
+              return ErrorPage(
+                  reload: () {
+                    refetch!();
+                  },
+                  errorText: result.exception.toString());
+              return SingleChildScrollView(
+                child: Text(result.exception.toString()),
+              );
+            }
+
             return ListView(
               children: [
                 Center(
