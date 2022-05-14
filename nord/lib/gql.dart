@@ -1,3 +1,29 @@
+class GraphOrder {
+  GraphOrder({
+    required this.orderId,
+    required this.date,
+    required this.status,
+    this.statusName,
+    required this.possibleCancel,
+    required this.price,
+    required this.paidPoints,
+    required this.receivePoints,
+    this.address,
+    this.caption,
+  });
+
+  int orderId;
+  String date;
+  String status;
+  String? statusName;
+  bool possibleCancel;
+  double price;
+  int paidPoints;
+  int receivePoints;
+  String? address;
+  String? caption;
+}
+
 class GraphNewOrder {
   GraphNewOrder({
     required this.deliveryDate,
@@ -100,8 +126,8 @@ class GraphDeliveryInfo {
   });
 
   bool express;
-  int price;
-  int expressPrice;
+  Float price;
+  Float expressPrice;
   String? message;
   List<GraphTerm> terms;
 
