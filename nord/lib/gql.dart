@@ -126,8 +126,8 @@ class GraphDeliveryInfo {
   });
 
   bool express;
-  Float price;
-  Float expressPrice;
+  double price;
+  double expressPrice;
   String? message;
   List<GraphTerm> terms;
 
