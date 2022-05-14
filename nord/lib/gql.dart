@@ -18,6 +18,17 @@ class GraphNewOrder {
   int paidPoints;
   String? clientComment;
   List<int> wishes;
+
+  Map<String, dynamic> toJson() => {
+        'deliveryDate': deliveryDate,
+        'deliveryTimeID': deliveryTimeID,
+        'deliveryExpress': deliveryExpress,
+        'bankCardID': bankCardID,
+        'paymentData': paymentData,
+        'paidPoints': paidPoints,
+        'clientComment': clientComment,
+        'wishes': wishes,
+      };
 }
 
 class GraphTypeDeliveryOrder {
