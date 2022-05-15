@@ -390,7 +390,7 @@ class _ProductPageState extends State<ProductPage> {
                             page = newPage;
                           });
 
-                          WidgetsBinding.instance!.addPostFrameCallback((_) {
+                          WidgetsBinding.instance.addPostFrameCallback((_) {
                             checkPos();
                           });
                         },

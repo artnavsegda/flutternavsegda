@@ -31,7 +31,7 @@ class _MainPageState extends State<MainPage>
     _tabController = TabController(
         vsync: this, length: 5, initialIndex: int.parse(widget.tab));
     _tabController.addListener(() {
-      WidgetsBinding.instance!.addPostFrameCallback((_) {
+      WidgetsBinding.instance.addPostFrameCallback((_) {
         context.goNamed('home', params: {'tab': '${_tabController.index}'});
       });
     });
