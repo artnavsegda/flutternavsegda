@@ -658,7 +658,7 @@ class _ProductPageState extends State<ProductPage> {
                           builder: (runMutation, result) {
                             return GradientButton(
                               onPressed: () async {
-                                if (productInfo.type == "ADDITION")
+                                if (productInfo.type == "ADDITION") {
                                   //for (final e in productInfo.)
                                   await showModalBottomSheet(
                                     shape: const RoundedRectangleBorder(
@@ -672,6 +672,7 @@ class _ProductPageState extends State<ProductPage> {
                                       return ExtraIngredientBottomSheet();
                                     },
                                   );
+                                }
                                 runMutation({'productID': widget.id});
                               },
                               child: Row(
