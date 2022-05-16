@@ -657,7 +657,20 @@ class _ProductPageState extends State<ProductPage> {
                           ),
                           builder: (runMutation, result) {
                             return GradientButton(
-                              onPressed: () {
+                              onPressed: () async {
+                                if (productInfo.type == "ADDITION")
+                                  await showModalBottomSheet(
+                                    shape: const RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.vertical(
+                                          top: Radius.circular(4.0)),
+                                    ),
+                                    backgroundColor: Colors.white,
+                                    isScrollControlled: true,
+                                    context: context,
+                                    builder: (context) {
+                                      return ExtraIngredientBottomSheet();
+                                    },
+                                  );
                                 runMutation({'productID': widget.id});
                               },
                               child: Row(
@@ -684,7 +697,7 @@ class _ProductPageState extends State<ProductPage> {
                         ),
                         builder: (runMutation, result) {
                           return TextButton.icon(
-                            onPressed: () {
+                            onPressed: () async {
                               runMutation({'productID': widget.id});
                             },
                             icon: Icon(
@@ -754,11 +767,7 @@ class ExtraIngredientBottomSheet extends StatelessWidget {
             ],
           ),
           onTap: () {
-            Fluttertoast.showToast(
-                msg: "Товар добавлен в корзину",
-                toastLength: Toast.LENGTH_SHORT,
-                gravity: ToastGravity.TOP,
-                timeInSecForIosWeb: 1);
+            Navigator.pop(context);
           },
         ),
       ],
