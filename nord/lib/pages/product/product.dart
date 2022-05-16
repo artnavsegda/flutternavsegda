@@ -659,19 +659,22 @@ class _ProductPageState extends State<ProductPage> {
                             return GradientButton(
                               onPressed: () async {
                                 if (productInfo.type == "ADDITION") {
-                                  //for (final e in productInfo.)
-                                  await showModalBottomSheet(
-                                    shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.vertical(
-                                          top: Radius.circular(4.0)),
-                                    ),
-                                    backgroundColor: Colors.white,
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) {
-                                      return ExtraIngredientBottomSheet();
-                                    },
-                                  );
+                                  for (final modifier
+                                      in productInfo.modifiers) {
+                                    await showModalBottomSheet(
+                                      shape: const RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.vertical(
+                                            top: Radius.circular(4.0)),
+                                      ),
+                                      backgroundColor: Colors.white,
+                                      isScrollControlled: true,
+                                      context: context,
+                                      builder: (context) {
+                                        return ExtraIngredientBottomSheet(
+                                            modifier: modifier);
+                                      },
+                                    );
+                                  }
                                 }
                                 runMutation({'productID': widget.id});
                               },
@@ -752,14 +755,17 @@ class _ProductPageState extends State<ProductPage> {
 class ExtraIngredientBottomSheet extends StatelessWidget {
   const ExtraIngredientBottomSheet({
     Key? key,
+    required this.modifier,
   }) : super(key: key);
+
+  final GraphModifier modifier;
 
   @override
   Widget build(BuildContext context) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Дополнительный ингредиент'),
+        Text(modifier.caption ?? 'Дополнительный ингредиент'),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -772,6 +778,18 @@ class ExtraIngredientBottomSheet extends StatelessWidget {
             Navigator.pop(context);
           },
         ),
+        ...modifier.products.map((product) => ListTile(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(product.name),
+                  Text('${product.prices[0].price} Р'),
+                ],
+              ),
+              onTap: () {
+                Navigator.pop(context);
+              },
+            ))
       ],
     );
   }
