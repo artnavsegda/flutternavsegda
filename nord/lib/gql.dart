@@ -1461,8 +1461,8 @@ class GraphProduct {
     this.picture,
     required this.isFavorite,
     required this.favorites,
-    required this.stickerPictures,
-    required this.attributes,
+    this.stickerPictures,
+    this.attributes,
     required this.prices,
   });
   int iD;
@@ -1473,8 +1473,8 @@ class GraphProduct {
   String? picture;
   bool isFavorite;
   int favorites;
-  List<String> stickerPictures;
-  List<GraphProductAttribute> attributes;
+  List<String>? stickerPictures;
+  List<GraphProductAttribute>? attributes;
   List<GraphProductPrice> prices;
 
   GraphProduct.fromJson(Map<String, dynamic> json)
@@ -1486,9 +1486,13 @@ class GraphProduct {
         picture = json['picture'],
         isFavorite = json['isFavorite'],
         favorites = json['favorites'],
-        stickerPictures = List<String>.from(json['stickerPictures']),
-        attributes = List<GraphProductAttribute>.from(json['attributes']
-            .map((model) => GraphProductAttribute.fromJson(model))),
+        stickerPictures = json['stickerPictures'] == null
+            ? null
+            : List<String>.from(json['stickerPictures']),
+        attributes = json['attributes'] == null
+            ? null
+            : List<GraphProductAttribute>.from(json['attributes']
+                .map((model) => GraphProductAttribute.fromJson(model))),
         prices = List<GraphProductPrice>.from(
             json['prices'].map((model) => GraphProductPrice.fromJson(model)));
 }
@@ -1841,32 +1845,6 @@ query getProducts($deliveryAddressID: Int, $shopID: Int) {
         oldPrice
         characteristicValueID
       }
-      modifiers {
-        caption
-        required
-        quantity
-        products {
-          iD
-          type
-          familyID
-          topCatalogID
-          name
-          picture
-          isFavorite
-          favorites
-          stickerPictures
-          attributes {
-            iD
-            name
-            color
-          }
-          prices {
-            price
-            oldPrice
-            characteristicValueID
-          }
-        }
-      }
     }
   }
 }
@@ -2171,6 +2149,29 @@ query getProduct($productID: Int!) {
     }
     modifiers {
       caption
+      required
+      quantity
+      products {
+        iD
+        type
+        familyID
+        topCatalogID
+        name
+        picture
+        isFavorite
+        favorites
+        stickerPictures
+        attributes {
+          iD
+          name
+          color
+        }
+        prices {
+          price
+          oldPrice
+          characteristicValueID
+        }
+      }
     }
     reviews {
       clientName
