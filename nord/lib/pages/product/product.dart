@@ -659,6 +659,7 @@ class _ProductPageState extends State<ProductPage> {
                             return GradientButton(
                               onPressed: () async {
                                 if (productInfo.type == "ADDITION")
+                                  //for (final e in productInfo.)
                                   await showModalBottomSheet(
                                     shape: const RoundedRectangleBorder(
                                       borderRadius: BorderRadius.vertical(

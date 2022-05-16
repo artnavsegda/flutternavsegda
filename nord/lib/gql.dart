@@ -1816,6 +1816,32 @@ query getProducts($deliveryAddressID: Int, $shopID: Int) {
         oldPrice
         characteristicValueID
       }
+      modifiers {
+        caption
+        required
+        quantity
+        products {
+          iD
+          type
+          familyID
+          topCatalogID
+          name
+          picture
+          isFavorite
+          favorites
+          stickerPictures
+          attributes {
+            iD
+            name
+            color
+          }
+          prices {
+            price
+            oldPrice
+            characteristicValueID
+          }
+        }
+      }
     }
   }
 }
