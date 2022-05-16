@@ -1600,6 +1600,7 @@ class GraphProductCard {
     required this.similar,
     required this.reviews,
     required this.awards,
+    required this.modifiers,
   });
   int iD;
   String? type;
@@ -1622,6 +1623,7 @@ class GraphProductCard {
   List<GraphProduct> similar;
   List<GraphProductReview> reviews;
   List<GraphAward> awards;
+  List<GraphModifier> modifiers;
 
   GraphProductCard.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
@@ -1651,10 +1653,12 @@ class GraphProductCard {
             json['link'].map((model) => GraphProduct.fromJson(model))),
         similar = List<GraphProduct>.from(
             json['similar'].map((model) => GraphProduct.fromJson(model))),
+        reviews = List<GraphProductReview>.from(
+            json['reviews'].map((model) => GraphProductReview.fromJson(model))),
         awards = List<GraphAward>.from(
             json['awards'].map((model) => GraphAward.fromJson(model))),
-        reviews = List<GraphProductReview>.from(
-            json['reviews'].map((model) => GraphProductReview.fromJson(model)));
+        modifiers = List<GraphModifier>.from(
+            json['modifiers'].map((model) => GraphModifier.fromJson(model)));
 }
 
 const String getLoyaltyTiers = r'''
