@@ -1,3 +1,24 @@
+class GraphModifier {
+  GraphModifier({
+    this.caption,
+    this.isRequired,
+    this.quantity,
+    required this.products,
+  });
+
+  String? caption;
+  bool? isRequired;
+  int? quantity;
+  List<GraphProduct> products;
+
+  GraphModifier.fromJson(Map<String, dynamic> json)
+      : caption = json['caption'],
+        isRequired = json['required'],
+        quantity = json['quantity'],
+        products = List<GraphProduct>.from(
+            json['products'].map((model) => GraphProduct.fromJson(model)));
+}
+
 class GraphOrder {
   GraphOrder({
     required this.orderId,
