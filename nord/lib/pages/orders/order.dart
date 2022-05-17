@@ -48,6 +48,10 @@ class OrderPage extends StatelessWidget {
                   ),
                 );
               }
+
+              GraphFullOrder orderInfo =
+                  GraphFullOrder.fromJson(result.data!['getOrder']);
+
               return ListView(
                 children: [
                   Container(
