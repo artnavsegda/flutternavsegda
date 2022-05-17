@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
@@ -98,8 +100,7 @@ class OrderPage extends StatelessWidget {
                   ),
                   ListTile(
                     subtitle: Text('Доставка по адресу'),
-                    title: Text(
-                        'Санкт-Петербург, Дачный проспект, 36к3, квартира 410'),
+                    title: Text(orderInfo.address),
                   ),
                   ListTile(
                     subtitle: Text('Дата и время доставки'),
@@ -144,10 +145,9 @@ class OrderPage extends StatelessWidget {
                       style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
-                  OrderCartTile(),
-                  OrderCartTile(),
-                  OrderCartTile(),
-                  OrderCartTile(),
+                  ...orderInfo.purchases.map((purchase) => OrderCartTile(
+                        purchase: purchase,
+                      ))
                 ],
               );
             }));
@@ -157,7 +157,10 @@ class OrderPage extends StatelessWidget {
 class OrderCartTile extends StatelessWidget {
   const OrderCartTile({
     Key? key,
+    required this.purchase,
   }) : super(key: key);
+
+  final GraphCartRow purchase;
 
   @override
   Widget build(BuildContext context) {
@@ -167,7 +170,24 @@ class OrderCartTile extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Image.asset('assets/placeholder/product10/Illustration.png'),
+          CachedNetworkImage(
+            width: 64,
+            height: 64,
+            imageUrl: purchase.picture!,
+            placeholder: (context, url) => Shimmer.fromColors(
+              baseColor: const Color(0xFFECECEC),
+              highlightColor: Colors.white,
+              child: Container(
+                color: const Color(0xFFECECEC),
+              ),
+            ),
+            errorWidget: (context, url, error) => Container(
+              color: const Color(0xFFECECEC),
+              child: Center(
+                child: const Icon(Icons.no_photography),
+              ),
+            ),
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
@@ -179,7 +199,7 @@ class OrderCartTile extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text('Чай каркаде с\nапельсином',
+                        Text(purchase.productName,
                             style: TextStyle(fontSize: 16)),
                         const Text('450 мл',
                             style: TextStyle(color: Colors.grey)),
@@ -188,7 +208,8 @@ class OrderCartTile extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('836 ₽', style: TextStyle(fontSize: 16)),
+                        Text('${purchase.amount} ₽',
+                            style: TextStyle(fontSize: 16)),
                         const Text('X 1', style: TextStyle(color: Colors.grey)),
                       ],
                     ),
