@@ -57,7 +57,7 @@ class OrdersPage extends StatelessWidget {
                         .copyWith(color: Color(0xFF9CA4AC)),
                   ),
                 ),
-                ...orders.map((e) => InkWell(
+                ...orders.map((order) => InkWell(
                       onTap: () {
                         Navigator.push(
                           context,
@@ -72,19 +72,19 @@ class OrdersPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('Доставлен'),
+                            Text(order.statusName ?? 'Статус'),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Заказ №2564848 от 21:40'),
-                                Text('${e.price} ₽')
+                                Text('Заказ №${order.orderId} от 21:40'),
+                                Text('${order.price} ₽')
                               ],
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
-                                Text('Дачный проспект, 36к3, кв. 218'),
-                                Text('+${e.receivePoints} Б')
+                                Text(order.address ?? 'без адреса'),
+                                Text('+${order.receivePoints} Б')
                               ],
                             )
                           ],
