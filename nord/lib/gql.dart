@@ -18,12 +18,12 @@ class GraphFullOrder {
   String status;
   String statusName;
   bool possibleCancel;
-  double price;
+  num price;
   int paidPoints;
   int receivePoints;
   String address;
-  int? latitude;
-  int? longitude;
+  double? latitude;
+  double? longitude;
   String? clientComment;
   String? dispecherComment;
   String? oFDUrl;
@@ -89,7 +89,7 @@ class GraphOrder {
   String status;
   String? statusName;
   bool possibleCancel;
-  double price;
+  num price;
   int paidPoints;
   int receivePoints;
   String? address;
@@ -272,9 +272,9 @@ class GraphBasket {
     required this.state,
   });
 
-  double payment;
-  double amount;
-  double discount;
+  num payment;
+  num amount;
+  num discount;
   int availablePoints;
   List<GraphBankCard> bankCards;
   List<GraphWish> wishes;
@@ -728,9 +728,9 @@ class GraphCartRow {
   int rowID;
   int productID;
   String productName;
-  double quantity;
-  double amount;
-  double? oldAmount;
+  num quantity;
+  num amount;
+  num? oldAmount;
   String? modifiers;
   String? comment;
   String? picture;
@@ -1554,8 +1554,8 @@ class GraphProductPrice {
     this.oldPrice,
     this.characteristicValueID,
   });
-  double price;
-  double? oldPrice;
+  num price;
+  num? oldPrice;
   int? characteristicValueID;
 
   GraphProductPrice.fromJson(Map<String, dynamic> json)
