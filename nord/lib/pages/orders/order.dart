@@ -3,13 +3,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:nord/sever_metropol_icons.dart';
 
 class OrderPage extends StatelessWidget {
-  const OrderPage({Key? key}) : super(key: key);
+  const OrderPage({Key? key, required this.id}) : super(key: key);
+
+  final int id;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text('Заказ №2564848'),
+          title: Text('Заказ №$id'),
           leading: IconButton(
               onPressed: () {
                 Navigator.pop(context);
