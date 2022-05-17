@@ -14,7 +14,7 @@ import 'package:nord/utils.dart';
 import 'review.dart';
 import 'set.dart';
 import 'package:nord/gql.dart';
-import '../error/error.dart';
+import 'package:nord/pages/error/error.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({Key? key, required this.id}) : super(key: key);
@@ -81,7 +81,6 @@ class _ProductPageState extends State<ProductPage> {
   Widget build(BuildContext context) {
     return Query(
         options: QueryOptions(
-//          fetchPolicy: FetchPolicy.cacheFirst,
           document: gql(getProduct),
           variables: {
             'productID': widget.id,
