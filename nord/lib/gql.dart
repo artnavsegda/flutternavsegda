@@ -1,3 +1,54 @@
+class GraphFullOrder {
+  GraphFullOrder({
+    required this.orderId,
+    required this.date,
+    required this.status,
+    required this.statusName,
+    required this.possibleCancel,
+    required this.price,
+    required this.paidPoints,
+    required this.receivePoints,
+    required this.address,
+    this.wishes = const [],
+    this.purchases = const [],
+  });
+
+  int orderId;
+  String date;
+  String status;
+  String statusName;
+  bool possibleCancel;
+  double price;
+  int paidPoints;
+  int receivePoints;
+  String address;
+  int? latitude;
+  int? longitude;
+  String? clientComment;
+  String? dispecherComment;
+  String? oFDUrl;
+  int? reviewID;
+  int? reviewMark;
+  String? reviewText;
+  List<GraphWish> wishes;
+  List<GraphCartRow> purchases;
+
+  GraphFullOrder.fromJson(Map<String, dynamic> json)
+      : orderId = json['orderId'],
+        date = json['date'],
+        status = json['status'],
+        statusName = json['statusName'],
+        possibleCancel = json['possibleCancel'],
+        price = json['price'],
+        paidPoints = json['paidPoints'],
+        receivePoints = json['receivePoints'],
+        address = json['address'],
+        wishes = List<GraphWish>.from(
+            json['wishes'].map((model) => GraphWish.fromJson(model))),
+        purchases = List<GraphCartRow>.from(
+            json['purchases'].map((model) => GraphCartRow.fromJson(model)));
+}
+
 class GraphModifier {
   GraphModifier({
     this.caption,
