@@ -2679,3 +2679,52 @@ query getOrders {
   }
 }
 ''';
+
+const String getOrder = r'''
+query getOrder($orderID: Long) {
+  getOrder(orderID: $orderID) {
+    orderId
+    date
+    status
+    statusName
+    possibleCancel
+    price
+    discount
+    deliveryPrice
+    paidPoints
+    receivePoints
+    address
+    latitude
+    longitude
+    clientComment
+    dispecherComment
+    oFDUrl
+    reviewID
+    reviewMark
+    reviewText
+    wishes {
+      iD
+      name
+    }
+    purchases {
+      rowID
+      productID
+      productName
+      productName
+      quantity
+      amount
+      oldAmount
+      modifiers
+      comment
+      picture
+      message
+      typeMessage 
+      characteristics {
+        type
+        name
+        value
+      }
+    }
+  }
+}
+''';
