@@ -12,6 +12,7 @@ import 'package:nord/components/components.dart';
 import 'package:nord/utils.dart';
 
 import 'review.dart';
+import 'set.dart';
 import 'package:nord/gql.dart';
 import '../error/error.dart';
 
@@ -675,7 +676,14 @@ class _ProductPageState extends State<ProductPage> {
                                       },
                                     );
                                   }
+                                } else if (productInfo.type == "BOX") {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                              const SetPage()));
                                 }
+
                                 runMutation({'productID': widget.id});
                               },
                               child: Row(
