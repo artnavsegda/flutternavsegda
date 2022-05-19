@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
@@ -88,6 +89,9 @@ class OrdersPage extends StatelessWidget {
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        textBaseline: TextBaseline.ideographic,
                                         children: [
                                           Text(
                                             'Заказ №${order.orderId} от ' +
@@ -97,8 +101,15 @@ class OrdersPage extends StatelessWidget {
                                                 fontSize: 16,
                                                 color: Color(0xFFB0063A)),
                                           ),
+                                          Expanded(
+                                              child: Padding(
+                                            padding: const EdgeInsets.all(4.0),
+                                            child: DottedLine(
+                                                dashColor: Colors.grey,
+                                                dashLength: 2),
+                                          )),
                                           Text(
-                                            '${order.price} ₽',
+                                            '${order.price.toInt().toString()} ₽',
                                             style: TextStyle(
                                                 fontSize: 16,
                                                 fontFamilyFallback: ['Roboto']),
@@ -114,7 +125,19 @@ class OrdersPage extends StatelessWidget {
                                             style: TextStyle(
                                                 color: Color(0xFF56626C)),
                                           ),
-                                          Text('+${order.receivePoints} Б')
+                                          Container(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 4),
+                                              decoration: BoxDecoration(
+                                                color: Color(0xFFA4D65E),
+                                                borderRadius:
+                                                    BorderRadius.circular(2.0),
+                                              ),
+                                              child: Text(
+                                                '+${order.receivePoints} Б',
+                                                style: TextStyle(
+                                                    color: Colors.white),
+                                              ))
                                         ],
                                       )
                                     ],
