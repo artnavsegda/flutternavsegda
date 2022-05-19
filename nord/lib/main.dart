@@ -67,7 +67,7 @@ class NordApp extends StatelessWidget {
         titleTextStyle: TextStyle(
           color: Colors.black,
           fontFamily: 'Forum',
-          fontSize: 24.0,
+          fontSize: 20.0,
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
