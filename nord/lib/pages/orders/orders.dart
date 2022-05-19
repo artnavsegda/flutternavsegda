@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:intl/intl.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
@@ -74,6 +75,7 @@ class OrdersPage extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Text(DateFormat.MMMMd('ru_RU').format(order.date)),
                             Text(order.statusName ?? 'Статус'),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -14,7 +14,7 @@ class GraphFullOrder {
   });
 
   int orderId;
-  String date;
+  DateTime date;
   String status;
   String statusName;
   bool possibleCancel;
@@ -35,7 +35,7 @@ class GraphFullOrder {
 
   GraphFullOrder.fromJson(Map<String, dynamic> json)
       : orderId = json['orderId'],
-        date = json['date'],
+        date = DateTime.parse(json['date']),
         status = json['status'],
         statusName = json['statusName'],
         possibleCancel = json['possibleCancel'],
@@ -85,7 +85,7 @@ class GraphOrder {
   });
 
   int orderId;
-  String date;
+  DateTime date;
   String status;
   String? statusName;
   bool possibleCancel;
@@ -97,7 +97,7 @@ class GraphOrder {
 
   GraphOrder.fromJson(Map<String, dynamic> json)
       : orderId = json['orderId'],
-        date = json['date'],
+        date = DateTime.parse(json['date']),
         status = json['status'],
         statusName = json['statusName'],
         possibleCancel = json['possibleCancel'],
@@ -2246,8 +2246,8 @@ mutation addReviewProduct($productID: Int, $mark: Int, $text: String)
 ''';
 
 const String cartAdd = r'''
-mutation cartAdd($productID: Int!, $characteristicValueIds: [Int]) {
-  cartAdd(cartItem: {productID: $productID, quantity: 1, characteristicValueIds: $characteristicValueIds}) {
+mutation cartAdd($productID: Int!, $characteristicValueIds: [Int], $modifiers: [graphCartItemOnly]) {
+  cartAdd(cartItem: {productID: $productID, quantity: 1, characteristicValueIds: $characteristicValueIds, modifiers: $modifiers}) {
     result
   }
 }
