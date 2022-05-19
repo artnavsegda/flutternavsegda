@@ -89,17 +89,31 @@ class OrdersPage extends StatelessWidget {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text('Заказ №${order.orderId} от ' +
-                                              DateFormat.Hm('ru_RU')
-                                                  .format(order.date)),
-                                          Text('${order.price} ₽')
+                                          Text(
+                                            'Заказ №${order.orderId} от ' +
+                                                DateFormat.Hm('ru_RU')
+                                                    .format(order.date),
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                color: Color(0xFFB0063A)),
+                                          ),
+                                          Text(
+                                            '${order.price} ₽',
+                                            style: TextStyle(
+                                                fontSize: 16,
+                                                fontFamilyFallback: ['Roboto']),
+                                          )
                                         ],
                                       ),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(order.address ?? 'без адреса'),
+                                          Text(
+                                            order.address ?? 'без адреса',
+                                            style: TextStyle(
+                                                color: Color(0xFF56626C)),
+                                          ),
                                           Text('+${order.receivePoints} Б')
                                         ],
                                       )
