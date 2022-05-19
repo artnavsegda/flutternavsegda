@@ -134,457 +134,10 @@ class _ProductPageState extends State<ProductPage> {
                   controller: _scrollController,
                   children: [
                     const SizedBox(height: 50),
-                    SizedBox(
-                      height: 270,
-                      child: Stack(
-                        alignment: Alignment.bottomCenter,
-                        children: [
-                          productInfo.pictures.length > 0
-                              ? PageView(
-                                  controller: _controller,
-                                  children: productInfo.pictures
-                                      .map((picture) => CachedNetworkImage(
-                                          fit: BoxFit.cover,
-                                          imageUrl: picture.full,
-                                          placeholder: (context, url) =>
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.white,
-                                                highlightColor:
-                                                    const Color(0xFFECECEC),
-                                                child: Container(
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                          errorWidget: (context, url, error) =>
-                                              Container(
-                                                color: const Color(0xFFECECEC),
-                                                child: Center(
-                                                    child: const Icon(
-                                                        Icons.no_photography)),
-                                              )))
-                                      .toList()
-                                      .cast<Widget>(),
-                                )
-                              : Container(
-                                  color: const Color(0xFFECECEC),
-                                  child: Center(
-                                      child: const Icon(Icons.no_photography)),
-                                ),
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SmoothPageIndicator(
-                                controller: _controller,
-                                count: productInfo.pictures.length,
-                                effect: const ExpandingDotsEffect(
-                                  spacing: 4.0,
-                                  //radius: 4.0,
-                                  dotWidth: 5.0,
-                                  dotHeight: 5.0,
-                                  expansionFactor: 6,
-                                  dotColor: Color.fromRGBO(255, 255, 255, 0.5),
-                                  activeDotColor: Colors.white,
-                                ),
-                                onDotClicked: (index) {}),
-                          ),
-                          Positioned(
-                              child: Padding(
-                            padding: const EdgeInsets.all(14.0),
-                            child: Row(
-                              children: [
-                                BadgeIcon(
-                                  title: 'ЗОЖ',
-                                  color: Color(0xFFA4D65E),
-                                ),
-                                BadgeIcon(
-                                  title: 'От шефа',
-                                  color: Color(0xFFD2AB67),
-                                ),
-                                BadgeIcon(
-                                  title: 'С собой',
-                                  color: Color(0xFFB0063A),
-                                ),
-                                ...productInfo.awards
-                                    .map((e) => Image.network(e.picture))
-                              ],
-                            ),
-                          ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.end,
-                        children: [
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              if (productInfo.prices.isNotEmpty)
-                                Row(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.baseline,
-                                  textBaseline: TextBaseline.ideographic,
-                                  children: [
-                                    Text(
-                                      productInfo.prices[0].price
-                                              .toInt()
-                                              .toString() +
-                                          ' ₽ ',
-                                      style: TextStyle(
-                                          fontFamily: 'Forum',
-                                          fontSize: 34,
-                                          fontFamilyFallback: [
-                                            'Noto Sans',
-                                            'Roboto',
-                                          ]),
-                                    ),
-                                    if (productInfo.prices[0].oldPrice != null)
-                                      CustomPaint(
-                                        painter: RedLine(),
-                                        child: Text('420 ₽',
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headlineSmall!
-                                                .copyWith(color: Colors.grey)),
-                                      ),
-                                  ],
-                                ),
-                              Row(
-                                children: [
-                                  Tooltip(
-                                      preferBelow: false,
-                                      triggerMode: TooltipTriggerMode.tap,
-                                      message:
-                                          'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',
-                                      child: Text(
-                                        'Базовая цена. ',
-                                        style: TextStyle(
-                                            color: Theme.of(context)
-                                                .colorScheme
-                                                .primary),
-                                      )),
-                                  const Text('За 1 шт.'),
-                                ],
-                              ),
-                            ],
-                          ),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Row(
-                                children: [
-                                  Icon(
-                                    SeverMetropol.Icon_Star_Rate,
-                                    color: Color(0xFFD2AB67),
-                                  ),
-                                  Text('4.7'),
-                                ],
-                              ),
-                              Text('13 отзывов'),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text('Вес, гр'),
-                          Row(
-                            children: [
-                              ChoiceChip(
-                                backgroundColor: Colors.transparent,
-                                selectedColor:
-                                    Theme.of(context).colorScheme.primary,
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                                labelStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                label: Text('50'),
-                                selected: false,
-                                onSelected: (value) {},
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              ),
-                              SizedBox(width: 8),
-                              ChoiceChip(
-                                backgroundColor: Colors.transparent,
-                                selectedColor:
-                                    Theme.of(context).colorScheme.primary,
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                                labelStyle: TextStyle(color: Colors.white),
-                                label: Text('100'),
-                                selected: true,
-                                onSelected: (value) {},
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              ),
-                              SizedBox(width: 8),
-                              ChoiceChip(
-                                backgroundColor: Colors.transparent,
-                                selectedColor:
-                                    Theme.of(context).colorScheme.primary,
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                                labelStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                label: Text('250'),
-                                selected: false,
-                                onSelected: (value) {},
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              ),
-                              SizedBox(width: 8),
-                              ChoiceChip(
-                                backgroundColor: Colors.transparent,
-                                selectedColor:
-                                    Theme.of(context).colorScheme.primary,
-                                side: BorderSide(
-                                    width: 1.0,
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(2.0),
-                                ),
-                                labelStyle: TextStyle(
-                                    color:
-                                        Theme.of(context).colorScheme.primary),
-                                label: Text('1000'),
-                                selected: false,
-                                onSelected: (value) {},
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    DefaultTabController(
-                      length: 3,
-                      child: TabBar(
-                        indicatorPadding: EdgeInsets.only(bottom: 8.0),
-                        indicatorSize: TabBarIndicatorSize.label,
-                        /*                   indicator: BoxDecoration(
-                      borderRadius: BorderRadius.circular(50),
-                      color: Colors.redAccent), */
-                        onTap: (newPage) {
-                          setState(() {
-                            page = newPage;
-                          });
-
-                          WidgetsBinding.instance.addPostFrameCallback((_) {
-                            checkPos();
-                          });
-                        },
-                        unselectedLabelColor:
-                            Theme.of(context).colorScheme.primary,
-                        labelColor: Colors.black38,
-                        tabs: const [
-                          Tab(text: "О продукте"),
-                          Tab(text: "Состав"),
-                          Tab(text: "Отзывы"),
-                        ],
-                      ),
-                    ),
-                    [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: [
-                          const Divider(),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Column(
-                                children: const [
-                                  Text('36 часов'),
-                                  Text(
-                                    'Срок хранения',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: const [
-                                  Text('3-25℃ – +25℃'),
-                                  Text(
-                                    'Условия хранения',
-                                    style: TextStyle(
-                                        color: Colors.grey, fontSize: 10),
-                                  ),
-                                ],
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  showModalBottomSheet(
-                                    isScrollControlled: true,
-                                    context: context,
-                                    builder: (context) {
-                                      return Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          ListTile(
-                                            title: Text(
-                                                'Пищевая ценность на 100 г'),
-                                            trailing: IconButton(
-                                                onPressed: () {
-                                                  Navigator.pop(context);
-                                                },
-                                                icon: Icon(
-                                                  SeverMetropol.Icon_Close,
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .primary,
-                                                )),
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                },
-                                child: Column(
-                                  children: [
-                                    Text(
-                                      '490.8 Ккал',
-                                      style: TextStyle(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .primary),
-                                    ),
-                                    const Text(
-                                      'Калорийность',
-                                      style: TextStyle(
-                                          color: Colors.grey, fontSize: 10),
-                                    ),
-                                  ],
-                                ),
-                              )
-                            ],
-                          ),
-                          const Divider(),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: Text(productInfo.description ??
-                                'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
-                          ),
-                          SizedBox(height: 24),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              textBaseline: TextBaseline.ideographic,
-                              children: [
-                                Text('Какая-то причуда'),
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: DottedLine(
-                                      dashColor: Colors.grey, dashLength: 2),
-                                )),
-                                Text('Неизвстное')
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              textBaseline: TextBaseline.ideographic,
-                              children: [
-                                Text('ШxДxВ'),
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: DottedLine(
-                                      dashColor: Colors.grey, dashLength: 2),
-                                )),
-                                Text('10X15X25 см'),
-                              ],
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 16.0, vertical: 8.0),
-                            child: Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              textBaseline: TextBaseline.ideographic,
-                              children: [
-                                Text('Материал'),
-                                Expanded(
-                                    child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: DottedLine(
-                                      dashColor: Colors.grey, dashLength: 2),
-                                )),
-                                Text('Кожа, бархат, кровь')
-                              ],
-                            ),
-                          ),
-                          ...productInfo.characteristics
-                              .where((e) => e.type == 'TEXT')
-                              .map((e) => TextCharacteristic(element: e)),
-                          SizedBox(height: 24),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(productInfo.composition ??
-                            'Мука в/с, сахар, кондитерский жир, яичный желток, сахарная пудра, яичный белок, какао порошок, пищевые красители, ванилин, пищевая сода, лимонная кислота.'),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Отзывов о товаре пока нет',
-                                style:
-                                    Theme.of(context).textTheme.headlineSmall,
-                              ),
-                            ),
-                            const Text(
-                                'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
-                            Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: OutlinedButton(
-                                  onPressed: () {
-                                    Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                            builder: (context) =>
-                                                const ReviewPage()));
-                                  },
-                                  child: const Text('Оставить отзыв')),
-                            )
-                          ],
-                        ),
-                      )
-                    ][page],
+                    _imagePager(productInfo),
+                    _priceBox(productInfo),
+                    _characteristicBox(productInfo),
+                    ..._infoTabs(productInfo),
                   ],
                 ),
                 bottomNavigationBar: Container(
@@ -613,93 +166,7 @@ class _ProductPageState extends State<ProductPage> {
                   padding: const EdgeInsets.all(16.0),
                   child: Row(
                     children: [
-                      Expanded(
-                        child: Mutation(
-                          options: MutationOptions(
-                            document: gql(cartAdd),
-                            onError: (error) {
-                              print('error: $error');
-                              showErrorAlert(context, '$error');
-                            },
-                            onCompleted: (resultData) {
-                              if (resultData != null) {
-                                GraphBasisResult nordBasisResult =
-                                    GraphBasisResult.fromJson(
-                                        resultData['cartAdd']);
-
-                                if (nordBasisResult.result == 0) {
-                                  context
-                                      .read<CartState>()
-                                      .addToCart(id: widget.id);
-
-                                  fToast.showToast(
-                                      child:
-                                          NordToast("Товар добавлен в корзину"),
-                                      gravity: ToastGravity.TOP,
-                                      toastDuration: Duration(seconds: 1),
-                                      positionedToastBuilder: (context, child) {
-                                        return Positioned(
-                                          child: child,
-                                          right: 16.0,
-                                          left: 16.0,
-                                          top: MediaQuery.of(context)
-                                                  .padding
-                                                  .top +
-                                              4,
-                                        );
-                                      });
-                                } else {
-                                  showErrorAlert(context,
-                                      nordBasisResult.errorMessage ?? '');
-                                }
-                              }
-                            },
-                          ),
-                          builder: (runMutation, result) {
-                            return GradientButton(
-                              onPressed: () async {
-                                if (productInfo.type == "ADDITION") {
-                                  for (final modifier
-                                      in productInfo.modifiers) {
-                                    await showModalBottomSheet(
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.vertical(
-                                            top: Radius.circular(4.0)),
-                                      ),
-                                      backgroundColor: Colors.white,
-                                      isScrollControlled: true,
-                                      context: context,
-                                      builder: (context) {
-                                        return ExtraIngredientBottomSheet(
-                                            modifier: modifier);
-                                      },
-                                    );
-                                  }
-                                } else if (productInfo.type == "BOX") {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (context) =>
-                                              const SetPage()));
-                                }
-
-                                runMutation({'productID': widget.id});
-                              },
-                              child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text('Добавить в корзину'),
-                                    if (productInfo.prices.isNotEmpty)
-                                      Text(productInfo.prices[0].price
-                                              .toInt()
-                                              .toString() +
-                                          ' Р')
-                                  ]),
-                            );
-                          },
-                        ),
-                      ),
+                      Expanded(child: _addToCart(productInfo)),
                       Mutation(
                         options: MutationOptions(
                           document: gql(setFavoritesProduct),
@@ -757,6 +224,502 @@ class _ProductPageState extends State<ProductPage> {
           );
         });
   }
+
+  Widget _addToCart(GraphProductCard productInfo) {
+    return Mutation(
+      options: MutationOptions(
+        document: gql(cartAdd),
+        onError: (error) {
+          print('error: $error');
+          showErrorAlert(context, '$error');
+        },
+        onCompleted: (resultData) {
+          if (resultData != null) {
+            GraphBasisResult nordBasisResult =
+                GraphBasisResult.fromJson(resultData['cartAdd']);
+
+            if (nordBasisResult.result == 0) {
+              context.read<CartState>().addToCart(id: widget.id);
+
+              fToast.showToast(
+                  child: NordToast("Товар добавлен в корзину"),
+                  gravity: ToastGravity.TOP,
+                  toastDuration: Duration(seconds: 1),
+                  positionedToastBuilder: (context, child) {
+                    return Positioned(
+                      child: child,
+                      right: 16.0,
+                      left: 16.0,
+                      top: MediaQuery.of(context).padding.top + 4,
+                    );
+                  });
+            } else {
+              showErrorAlert(context, nordBasisResult.errorMessage ?? '');
+            }
+          }
+        },
+      ),
+      builder: (runMutation, result) {
+        return GradientButton(
+          onPressed: () async {
+            if (productInfo.type == "ADDITION") {
+              for (final modifier in productInfo.modifiers) {
+                int? selectedID = await showModalBottomSheet<int?>(
+                  shape: const RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.vertical(top: Radius.circular(4.0)),
+                  ),
+                  backgroundColor: Colors.white,
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) {
+                    return ExtraIngredientBottomSheet(modifier: modifier);
+                  },
+                );
+                print('selected addition ID $selectedID');
+              }
+            } else if (productInfo.type == "BOX") {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const SetPage()));
+            }
+
+            runMutation({'productID': widget.id});
+          },
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Text('Добавить в корзину'),
+            if (productInfo.prices.isNotEmpty)
+              Text(productInfo.prices[0].price.toInt().toString() + ' Р')
+          ]),
+        );
+      },
+    );
+  }
+
+  Widget _priceBox(GraphProductCard productInfo) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (productInfo.prices.isNotEmpty)
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.baseline,
+                  textBaseline: TextBaseline.ideographic,
+                  children: [
+                    Text(
+                      productInfo.prices[0].price.toInt().toString() + ' ₽ ',
+                      style: TextStyle(
+                          fontFamily: 'Forum',
+                          fontSize: 34,
+                          fontFamilyFallback: [
+                            'Noto Sans',
+                            'Roboto',
+                          ]),
+                    ),
+                    if (productInfo.prices[0].oldPrice != null)
+                      CustomPaint(
+                        painter: RedLine(),
+                        child: Text('420 ₽',
+                            style: Theme.of(context)
+                                .textTheme
+                                .headlineSmall!
+                                .copyWith(color: Colors.grey)),
+                      ),
+                  ],
+                ),
+              Row(
+                children: [
+                  Tooltip(
+                      preferBelow: false,
+                      triggerMode: TooltipTriggerMode.tap,
+                      message:
+                          'Стоимость в приложении может отличаться от стоимости в кафе. Для уточнения стоимости товара, выберите способ и место его получения.',
+                      child: Text(
+                        'Базовая цена. ',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      )),
+                  const Text('За 1 шт.'),
+                ],
+              ),
+            ],
+          ),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            children: [
+              Row(
+                children: [
+                  Icon(
+                    SeverMetropol.Icon_Star_Rate,
+                    color: Color(0xFFD2AB67),
+                  ),
+                  Text('4.7'),
+                ],
+              ),
+              Text('13 отзывов'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _infoTabs(GraphProductCard productInfo) {
+    return [
+      DefaultTabController(
+        length: 3,
+        child: TabBar(
+          indicatorPadding: EdgeInsets.only(bottom: 8.0),
+          indicatorSize: TabBarIndicatorSize.label,
+          /*                   indicator: BoxDecoration(
+                      borderRadius: BorderRadius.circular(50),
+                      color: Colors.redAccent), */
+          onTap: (newPage) {
+            setState(() {
+              page = newPage;
+            });
+
+            WidgetsBinding.instance.addPostFrameCallback((_) {
+              checkPos();
+            });
+          },
+          unselectedLabelColor: Theme.of(context).colorScheme.primary,
+          labelColor: Colors.black38,
+          tabs: const [
+            Tab(text: "О продукте"),
+            Tab(text: "Состав"),
+            Tab(text: "Отзывы"),
+          ],
+        ),
+      ),
+      [
+        Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const Divider(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                Column(
+                  children: const [
+                    Text('36 часов'),
+                    Text(
+                      'Срок хранения',
+                      style: TextStyle(color: Colors.grey, fontSize: 10),
+                    ),
+                  ],
+                ),
+                Column(
+                  children: const [
+                    Text('3-25℃ – +25℃'),
+                    Text(
+                      'Условия хранения',
+                      style: TextStyle(color: Colors.grey, fontSize: 10),
+                    ),
+                  ],
+                ),
+                InkWell(
+                  onTap: () {
+                    showModalBottomSheet(
+                      isScrollControlled: true,
+                      context: context,
+                      builder: (context) {
+                        return Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            ListTile(
+                              title: Text('Пищевая ценность на 100 г'),
+                              trailing: IconButton(
+                                  onPressed: () {
+                                    Navigator.pop(context);
+                                  },
+                                  icon: Icon(
+                                    SeverMetropol.Icon_Close,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                  )),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                  child: Column(
+                    children: [
+                      Text(
+                        '490.8 Ккал',
+                        style: TextStyle(
+                            color: Theme.of(context).colorScheme.primary),
+                      ),
+                      const Text(
+                        'Калорийность',
+                        style: TextStyle(color: Colors.grey, fontSize: 10),
+                      ),
+                    ],
+                  ),
+                )
+              ],
+            ),
+            const Divider(),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Text(productInfo.description ??
+                  'Пирожное состоит из воздушного безе, прослоенного натуральным шоколадом и нежным воздушным кремом из белого шоколада и натуральных сливок. Украшено свежими фруктами и ягодами по сезону: клубникой, ежевикой, малиной, физалисом, голубикой, красной смородиной, киви. Присыпано сахарной пудрой, украшено декором и шоколадной глазурью.'),
+            ),
+            SizedBox(height: 24),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                textBaseline: TextBaseline.ideographic,
+                children: [
+                  Text('Какая-то причуда'),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+                  )),
+                  Text('Неизвстное')
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                textBaseline: TextBaseline.ideographic,
+                children: [
+                  Text('ШxДxВ'),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+                  )),
+                  Text('10X15X25 см'),
+                ],
+              ),
+            ),
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                textBaseline: TextBaseline.ideographic,
+                children: [
+                  Text('Материал'),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+                  )),
+                  Text('Кожа, бархат, кровь')
+                ],
+              ),
+            ),
+            ...productInfo.characteristics
+                .where((e) => e.type == 'TEXT')
+                .map((e) => TextCharacteristic(element: e)),
+            SizedBox(height: 24),
+          ],
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Text(productInfo.composition ??
+              'Мука в/с, сахар, кондитерский жир, яичный желток, сахарная пудра, яичный белок, какао порошок, пищевые красители, ванилин, пищевая сода, лимонная кислота.'),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  'Отзывов о товаре пока нет',
+                  style: Theme.of(context).textTheme.headlineSmall,
+                ),
+              ),
+              const Text(
+                  'Будьте первыми. Поделитесь, всё ли понравилось? Мы внимательно изучим Ваше мнение, чтобы знать, как сделать качество продукции лучше.'),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ReviewPage()));
+                    },
+                    child: const Text('Оставить отзыв')),
+              )
+            ],
+          ),
+        )
+      ][page],
+    ];
+  }
+
+  Widget _imagePager(GraphProductCard productInfo) {
+    return SizedBox(
+      height: 270,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          productInfo.pictures.length > 0
+              ? PageView(
+                  controller: _controller,
+                  children: productInfo.pictures
+                      .map((picture) => CachedNetworkImage(
+                          fit: BoxFit.cover,
+                          imageUrl: picture.full,
+                          placeholder: (context, url) => Shimmer.fromColors(
+                                baseColor: Colors.white,
+                                highlightColor: const Color(0xFFECECEC),
+                                child: Container(
+                                  color: Colors.white,
+                                ),
+                              ),
+                          errorWidget: (context, url, error) => Container(
+                                color: const Color(0xFFECECEC),
+                                child: Center(
+                                    child: const Icon(Icons.no_photography)),
+                              )))
+                      .toList()
+                      .cast<Widget>(),
+                )
+              : Container(
+                  color: const Color(0xFFECECEC),
+                  child: Center(child: const Icon(Icons.no_photography)),
+                ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: SmoothPageIndicator(
+                controller: _controller,
+                count: productInfo.pictures.length,
+                effect: const ExpandingDotsEffect(
+                  spacing: 4.0,
+                  //radius: 4.0,
+                  dotWidth: 5.0,
+                  dotHeight: 5.0,
+                  expansionFactor: 6,
+                  dotColor: Color.fromRGBO(255, 255, 255, 0.5),
+                  activeDotColor: Colors.white,
+                ),
+                onDotClicked: (index) {}),
+          ),
+          Positioned(
+              child: Padding(
+            padding: const EdgeInsets.all(14.0),
+            child: Row(
+              children: [
+                BadgeIcon(
+                  title: 'ЗОЖ',
+                  color: Color(0xFFA4D65E),
+                ),
+                BadgeIcon(
+                  title: 'От шефа',
+                  color: Color(0xFFD2AB67),
+                ),
+                BadgeIcon(
+                  title: 'С собой',
+                  color: Color(0xFFB0063A),
+                ),
+                ...productInfo.awards.map((e) => Image.network(e.picture))
+              ],
+            ),
+          ))
+        ],
+      ),
+    );
+  }
+
+  Widget _characteristicBox(GraphProductCard productInfo) {
+    return Padding(
+      padding: const EdgeInsets.all(16.0),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          const Text('Вес, гр'),
+          Row(
+            children: [
+              ChoiceChip(
+                backgroundColor: Colors.transparent,
+                selectedColor: Theme.of(context).colorScheme.primary,
+                side: BorderSide(
+                    width: 1.0, color: Theme.of(context).colorScheme.primary),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                labelStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.primary),
+                label: Text('50'),
+                selected: false,
+                onSelected: (value) {},
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+              SizedBox(width: 8),
+              ChoiceChip(
+                backgroundColor: Colors.transparent,
+                selectedColor: Theme.of(context).colorScheme.primary,
+                side: BorderSide(
+                    width: 1.0, color: Theme.of(context).colorScheme.primary),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                labelStyle: TextStyle(color: Colors.white),
+                label: Text('100'),
+                selected: true,
+                onSelected: (value) {},
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+              SizedBox(width: 8),
+              ChoiceChip(
+                backgroundColor: Colors.transparent,
+                selectedColor: Theme.of(context).colorScheme.primary,
+                side: BorderSide(
+                    width: 1.0, color: Theme.of(context).colorScheme.primary),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                labelStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.primary),
+                label: Text('250'),
+                selected: false,
+                onSelected: (value) {},
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+              SizedBox(width: 8),
+              ChoiceChip(
+                backgroundColor: Colors.transparent,
+                selectedColor: Theme.of(context).colorScheme.primary,
+                side: BorderSide(
+                    width: 1.0, color: Theme.of(context).colorScheme.primary),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(2.0),
+                ),
+                labelStyle:
+                    TextStyle(color: Theme.of(context).colorScheme.primary),
+                label: Text('1000'),
+                selected: false,
+                onSelected: (value) {},
+                padding: EdgeInsets.symmetric(horizontal: 8.0),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 class ExtraIngredientBottomSheet extends StatelessWidget {
@@ -794,7 +757,7 @@ class ExtraIngredientBottomSheet extends StatelessWidget {
                 ],
               ),
               onTap: () {
-                Navigator.pop(context);
+                Navigator.pop(context, product.iD);
               },
             ))
       ],
