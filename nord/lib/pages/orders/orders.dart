@@ -81,13 +81,17 @@ class OrdersPage extends StatelessWidget {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Text(order.statusName ?? 'Статус'),
+                                      Text(order.statusName ?? 'Статус',
+                                          style: TextStyle(
+                                              fontSize: 10,
+                                              color: Color(0xFF56626C))),
                                       Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                              'Заказ №${order.orderId} от 21:40'),
+                                          Text('Заказ №${order.orderId} от ' +
+                                              DateFormat.Hm('ru_RU')
+                                                  .format(order.date)),
                                           Text('${order.price} ₽')
                                         ],
                                       ),
@@ -107,57 +111,6 @@ class OrdersPage extends StatelessWidget {
                       ))
                   .toList(),
             ]);
-
-            return ListView(
-              children: [
-                Center(
-                  child: Text(
-                    '18 апреля',
-                    style: Theme.of(context)
-                        .textTheme
-                        .headlineSmall!
-                        .copyWith(color: Color(0xFF9CA4AC)),
-                  ),
-                ),
-                ...orders.map((order) => InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => OrderPage(
-                              id: order.orderId,
-                            ),
-                          ),
-                        );
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(DateFormat.MMMMd('ru_RU').format(order.date)),
-                            Text(order.statusName ?? 'Статус'),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text('Заказ №${order.orderId} от 21:40'),
-                                Text('${order.price} ₽')
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(order.address ?? 'без адреса'),
-                                Text('+${order.receivePoints} Б')
-                              ],
-                            )
-                          ],
-                        ),
-                      ),
-                    )),
-              ],
-            );
           },
         ));
   }
