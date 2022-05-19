@@ -57,13 +57,19 @@ class OrderPage extends StatelessWidget {
               return ListView(
                 children: [
                   Container(
-                    color: Colors.grey[200],
+                    decoration: BoxDecoration(
+                      color: Color(0xFFEFF3F4),
+                      borderRadius: BorderRadius.circular(2.0),
+                    ),
                     padding: const EdgeInsets.all(16.0),
                     margin: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text('Оценка заказа'),
+                        Text(
+                          'Оценка заказа',
+                          style: TextStyle(fontSize: 16),
+                        ),
                         RatingBar(
                           itemSize: 27,
                           initialRating: 4.0,
@@ -99,16 +105,28 @@ class OrderPage extends StatelessWidget {
                     ),
                   ),
                   ListTile(
-                    subtitle: Text('Доставка по адресу'),
-                    title: Text(orderInfo.address),
+                    title: Text('Доставка по адресу',
+                        style:
+                            TextStyle(fontSize: 10, color: Color(0xFF56626C))),
+                    subtitle: Text(orderInfo.address,
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
                   ),
                   ListTile(
-                    subtitle: Text('Дата и время доставки'),
-                    title: Text('22 сентября, с 11:00 до 13:00'),
+                    title: Text('Дата и время доставки',
+                        style:
+                            TextStyle(fontSize: 10, color: Color(0xFF56626C))),
+                    subtitle: Text('22 сентября, с 11:00 до 13:00',
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
                   ),
                   ListTile(
-                    subtitle: Text('Получатель'),
-                    title: Text('Антон Горький, +7 (999) 102-17-32'),
+                    title: Text('Получатель',
+                        style:
+                            TextStyle(fontSize: 10, color: Color(0xFF56626C))),
+                    subtitle: Text('Антон Горький, +7 (999) 102-17-32',
+                        style:
+                            TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
                   ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
