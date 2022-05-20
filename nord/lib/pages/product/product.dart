@@ -284,8 +284,13 @@ class _ProductPageState extends State<ProductPage> {
                 }
               }
             } else if (productInfo.type == "BOX") {
-              await Navigator.push(context,
+              List<GraphCartItemOnly>? boxSet = await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SetPage()));
+              if (boxSet == null) {
+                return;
+              } else {
+                modifiers = boxSet;
+              }
             }
 
             runMutation({

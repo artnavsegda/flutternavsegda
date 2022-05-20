@@ -17,6 +17,7 @@ class SetPage extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             )),
       ),
+      body: Stepper(steps: []),
     );
   }
 }
