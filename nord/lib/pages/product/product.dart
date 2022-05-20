@@ -262,6 +262,7 @@ class _ProductPageState extends State<ProductPage> {
       builder: (runMutation, result) {
         return GradientButton(
           onPressed: () async {
+            List<GraphCartItemOnly> modifiers = [];
             if (productInfo.type == "ADDITION") {
               for (final modifier in productInfo.modifiers) {
                 int? selectedID = await showModalBottomSheet<int?>(
@@ -277,13 +278,20 @@ class _ProductPageState extends State<ProductPage> {
                   },
                 );
                 print('selected addition ID $selectedID');
+                if (selectedID != null) {
+                  modifiers.add(
+                      GraphCartItemOnly(productID: selectedID, quantity: 1));
+                }
               }
             } else if (productInfo.type == "BOX") {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SetPage()));
             }
 
-            runMutation({'productID': widget.id});
+            runMutation({
+              'productID': widget.id,
+              'modifiers': modifiers,
+            });
           },
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [

@@ -1,3 +1,16 @@
+class GraphCartItemOnly {
+  GraphCartItemOnly({
+    required this.productID,
+    required this.quantity,
+  });
+  int productID;
+  num quantity;
+  Map<String, dynamic> toJson() => {
+        'productID': productID,
+        'quantity': quantity,
+      };
+}
+
 class GraphFullOrder {
   GraphFullOrder({
     required this.orderId,
