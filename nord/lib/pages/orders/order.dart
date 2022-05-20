@@ -271,8 +271,9 @@ class OrderCartTile extends StatelessWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
-                        Text('${purchase.amount} ₽',
-                            style: TextStyle(fontSize: 16)),
+                        Text('${purchase.amount.toInt().toString()} ₽',
+                            style: TextStyle(
+                                fontSize: 16, fontFamilyFallback: ['Roboto'])),
                         const Text('X 1', style: TextStyle(color: Colors.grey)),
                       ],
                     ),
