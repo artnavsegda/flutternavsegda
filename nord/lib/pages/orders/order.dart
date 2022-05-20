@@ -138,19 +138,25 @@ class OrderPage extends StatelessWidget {
                         style: Theme.of(context).textTheme.headlineSmall),
                   ),
                   SizedBox(height: 10),
-                  RowTile(left: 'Оплачено', right: '1 325 ₽'),
+                  RowTile(
+                      left: 'Оплачено',
+                      right: '${orderInfo.price.toInt().toString()} ₽'),
                   Divider(
                     height: 42,
                     indent: 16,
                     endIndent: 16,
                   ),
-                  RowTile(left: 'Сумма заказа', right: '10 325 ₽'),
+                  RowTile(
+                      left: 'Сумма заказа',
+                      right: '${orderInfo.price.toInt().toString()} ₽'),
                   SizedBox(height: 26),
                   RowTile(left: 'Доставка', right: 'Бесплатно'),
                   SizedBox(height: 26),
-                  RowTile(left: 'Скидка', right: '90 ₽'),
+                  RowTile(left: 'Скидка', right: '0 ₽'),
                   SizedBox(height: 26),
-                  RowTile(left: 'Оплачено баллами', right: '10 000 Б'),
+                  RowTile(
+                      left: 'Оплачено баллами',
+                      right: '${orderInfo.paidPoints.toInt().toString()} Б'),
                   SizedBox(height: 10),
                   ListTile(
                     title: Text(
@@ -264,7 +270,7 @@ class OrderCartTile extends StatelessWidget {
                       children: [
                         Text(purchase.productName,
                             style: TextStyle(fontSize: 16)),
-                        const Text('450 мл',
+                        Text(purchase.modifiers ?? '',
                             style: TextStyle(color: Colors.grey)),
                       ],
                     ),
@@ -274,7 +280,8 @@ class OrderCartTile extends StatelessWidget {
                         Text('${purchase.amount.toInt().toString()} ₽',
                             style: TextStyle(
                                 fontSize: 16, fontFamilyFallback: ['Roboto'])),
-                        const Text('X 1', style: TextStyle(color: Colors.grey)),
+                        Text('X ${purchase.quantity.toInt().toString()}',
+                            style: TextStyle(color: Colors.grey)),
                       ],
                     ),
                   ],
