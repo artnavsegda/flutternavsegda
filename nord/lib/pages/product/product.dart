@@ -284,7 +284,7 @@ class _ProductPageState extends State<ProductPage> {
                 }
               }
             } else if (productInfo.type == "BOX") {
-              Navigator.push(context,
+              await Navigator.push(context,
                   MaterialPageRoute(builder: (context) => const SetPage()));
             }
 
