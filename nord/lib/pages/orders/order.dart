@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
+import '../../components/gradient_button.dart';
 
 class OrderPage extends StatelessWidget {
   const OrderPage({Key? key, required this.id}) : super(key: key);
@@ -61,7 +63,8 @@ class OrderPage extends StatelessWidget {
                       color: Color(0xFFEFF3F4),
                       borderRadius: BorderRadius.circular(2.0),
                     ),
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 19, horizontal: 16),
                     margin: const EdgeInsets.all(16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -98,7 +101,8 @@ class OrderPage extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.all(16.0),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 8.0),
                     child: Text(
                       'Детали заказа',
                       style: Theme.of(context).textTheme.headlineSmall,
@@ -133,24 +137,26 @@ class OrderPage extends StatelessWidget {
                     child: Text('Детали оплаты',
                         style: Theme.of(context).textTheme.headlineSmall),
                   ),
-                  Row(
-                    children: [Text('Оплачено'), Text('1 325 ₽')],
+                  SizedBox(height: 10),
+                  RowTile(left: 'Оплачено', right: '1 325 ₽'),
+                  Divider(
+                    height: 42,
+                    indent: 16,
+                    endIndent: 16,
                   ),
-                  Divider(),
-                  Row(
-                    children: [Text('Сумма заказа'), Text('10 325 ₽')],
-                  ),
-                  Row(
-                    children: [Text('Доставка'), Text('Бесплатно')],
-                  ),
-                  Row(
-                    children: [Text('Скидка'), Text('90 ₽')],
-                  ),
-                  Row(
-                    children: [Text('Оплачено баллами'), Text('10 000 Б')],
-                  ),
+                  RowTile(left: 'Сумма заказа', right: '10 325 ₽'),
+                  SizedBox(height: 26),
+                  RowTile(left: 'Доставка', right: 'Бесплатно'),
+                  SizedBox(height: 26),
+                  RowTile(left: 'Скидка', right: '90 ₽'),
+                  SizedBox(height: 26),
+                  RowTile(left: 'Оплачено баллами', right: '10 000 Б'),
+                  SizedBox(height: 10),
                   ListTile(
-                    title: Text('Чек оплаты'),
+                    title: Text(
+                      'Чек оплаты',
+                      style: TextStyle(color: Color(0xFFB0063A)),
+                    ),
                     trailing: Icon(
                       SeverMetropol.Icon_Site,
                       color: Theme.of(context).colorScheme.primary,
@@ -165,10 +171,49 @@ class OrderPage extends StatelessWidget {
                   ),
                   ...orderInfo.purchases.map((purchase) => OrderCartTile(
                         purchase: purchase,
-                      ))
+                      )),
+                  SizedBox(height: 16),
+                  Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: GradientButton(
+                        onPressed: () {}, child: Text('Отменить заказ')),
+                  )
                 ],
               );
             }));
+  }
+}
+
+class RowTile extends StatelessWidget {
+  const RowTile({
+    Key? key,
+    required this.left,
+    required this.right,
+  }) : super(key: key);
+
+  final String left;
+  final String right;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.end,
+        textBaseline: TextBaseline.ideographic,
+        children: [
+          Text(left, style: TextStyle(fontSize: 16)),
+          Expanded(
+              child: Padding(
+            padding: const EdgeInsets.all(4.0),
+            child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+          )),
+          Text(right,
+              style: TextStyle(fontSize: 16, fontFamilyFallback: ['Roboto']))
+        ],
+      ),
+    );
   }
 }
 
