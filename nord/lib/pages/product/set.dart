@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:nord/components/components.dart';
+import 'package:nord/components/product_card.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 
@@ -23,7 +25,12 @@ class SetPage extends StatelessWidget {
       body: Stepper(steps: [
         ...modifiers.map((modifier) => Step(
               title: Text(modifier.caption ?? 'Выберите'),
-              content: Text('Content for Step'),
+              content: Column(children: [
+                ...modifier.products.map((product) => ProductCard(
+                      product: product,
+                      onTap: () {},
+                    ))
+              ]),
             )),
       ]),
     );
