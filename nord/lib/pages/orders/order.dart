@@ -179,11 +179,12 @@ class OrderPage extends StatelessWidget {
                         purchase: purchase,
                       )),
                   SizedBox(height: 16),
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: GradientButton(
-                        onPressed: () {}, child: Text('Отменить заказ')),
-                  )
+                  if (orderInfo.possibleCancel)
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: GradientButton(
+                          onPressed: () {}, child: Text('Отменить заказ')),
+                    )
                 ],
               );
             }));
