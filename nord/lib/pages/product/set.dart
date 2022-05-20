@@ -6,11 +6,17 @@ import 'package:nord/components/product_card.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 
-class SetPage extends StatelessWidget {
+class SetPage extends StatefulWidget {
   const SetPage({Key? key, required this.modifiers}) : super(key: key);
 
   final List<GraphModifier> modifiers;
 
+  @override
+  State<SetPage> createState() => _SetPageState();
+}
+
+class _SetPageState extends State<SetPage> {
+  int _index = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,17 +30,28 @@ class SetPage extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary,
             )),
       ),
-      body: Stepper(type: StepperType.horizontal, steps: [
-        ...modifiers.map((modifier) => Step(
-              title: Text(modifier.caption ?? 'Выберите'),
-              content: Wrap(children: [
-                ...modifier.products.map((product) => ProductMiniCard(
-                      product: product,
-                      onTap: () {},
-                    ))
-              ]),
-            )),
-      ]),
+      body: Stepper(
+        onStepCancel: _index > 0
+            ? () {
+                setState(() {
+                  _index -= 1;
+                });
+              }
+            : null,
+        currentStep: _index,
+        type: StepperType.horizontal,
+        steps: [
+          ...widget.modifiers.map((modifier) => Step(
+                title: Text(modifier.caption ?? 'Выберите'),
+                content: Wrap(children: [
+                  ...modifier.products.map((product) => ListTile(
+                        leading: Image.network(product.picture!),
+                        title: Text(product.name),
+                      ))
+                ]),
+              )),
+        ],
+      ),
     );
   }
 }
