@@ -6,18 +6,18 @@ import 'package:nord/components/product_card.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 
-class SetPage extends StatefulWidget {
-  const SetPage({Key? key, required this.modifiers, required this.title})
+class BoxPage extends StatefulWidget {
+  const BoxPage({Key? key, required this.modifiers, required this.title})
       : super(key: key);
 
   final List<GraphModifier> modifiers;
   final String title;
 
   @override
-  State<SetPage> createState() => _SetPageState();
+  State<BoxPage> createState() => _BoxPageState();
 }
 
-class _SetPageState extends State<SetPage> {
+class _BoxPageState extends State<BoxPage> {
   int _index = 0;
   late List<int?> _steps;
 

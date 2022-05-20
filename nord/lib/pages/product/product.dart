@@ -12,7 +12,7 @@ import 'package:nord/components/components.dart';
 import 'package:nord/utils.dart';
 
 import 'review.dart';
-import 'set.dart';
+import 'box.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
 
@@ -287,7 +287,7 @@ class _ProductPageState extends State<ProductPage> {
               List<GraphCartItemOnly>? boxSet = await Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => SetPage(
+                      builder: (context) => BoxPage(
                             title:
                                 'Собери свой ${productInfo.name.toLowerCase()}',
                             modifiers: productInfo.modifiers,
