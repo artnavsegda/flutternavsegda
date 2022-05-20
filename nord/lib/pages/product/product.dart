@@ -735,13 +735,28 @@ class ExtraIngredientBottomSheet extends StatelessWidget {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(modifier.caption ?? 'Дополнительный ингредиент'),
+        ListTile(
+            title: Center(
+                child: Text(
+          modifier.caption ?? 'Дополнительный ингредиент',
+          style: TextStyle(color: Color(0xFF56626C)),
+        ))),
         ListTile(
           title: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.end,
+            textBaseline: TextBaseline.ideographic,
             children: [
               Text('Без дополнительных'),
-              Text('0 Р'),
+              Expanded(
+                  child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+              )),
+              Text(
+                '0 ₽',
+                style: TextStyle(fontFamilyFallback: ['Roboto']),
+              ),
             ],
           ),
           onTap: () {
@@ -751,9 +766,17 @@ class ExtraIngredientBottomSheet extends StatelessWidget {
         ...modifier.products.map((product) => ListTile(
               title: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                textBaseline: TextBaseline.ideographic,
                 children: [
                   Text(product.name),
-                  Text('${product.prices[0].price} Р'),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(4.0),
+                    child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+                  )),
+                  Text('${product.prices[0].price.toInt().toString()} ₽',
+                      style: TextStyle(fontFamilyFallback: ['Roboto'])),
                 ],
               ),
               onTap: () {

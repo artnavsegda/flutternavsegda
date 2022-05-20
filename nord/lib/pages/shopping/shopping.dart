@@ -429,8 +429,9 @@ class _CartTileState extends State<CartTile> {
                                 children: [
                                   Text(widget.item.productName,
                                       style: TextStyle(fontSize: 16)),
-/*                                   const Text('450 мл',
-                                      style: TextStyle(color: Colors.grey)), */
+                                  if (widget.item.modifiers != null)
+                                    Text(widget.item.modifiers ?? '',
+                                        style: TextStyle(color: Colors.grey)),
                                   Mutation(
                                       options: MutationOptions(
                                           document: gql(cartEdit),
