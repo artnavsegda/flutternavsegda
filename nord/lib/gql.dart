@@ -19,6 +19,8 @@ class GraphFullOrder {
     required this.statusName,
     required this.possibleCancel,
     required this.price,
+    required this.discount,
+    required this.deliveryPrice,
     required this.paidPoints,
     required this.receivePoints,
     required this.address,
@@ -32,6 +34,8 @@ class GraphFullOrder {
   String statusName;
   bool possibleCancel;
   num price;
+  num discount;
+  num deliveryPrice;
   int paidPoints;
   int receivePoints;
   String address;
@@ -53,6 +57,8 @@ class GraphFullOrder {
         statusName = json['statusName'],
         possibleCancel = json['possibleCancel'],
         price = json['price'],
+        discount = json['discount'],
+        deliveryPrice = json['deliveryPrice'],
         paidPoints = json['paidPoints'],
         receivePoints = json['receivePoints'],
         address = json['address'],

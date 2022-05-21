@@ -127,14 +127,24 @@ class OrderPage extends StatelessWidget {
                         style:
                             TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
                   ),
-                  ListTile(
-                    title: Text('Получатель',
-                        style:
-                            TextStyle(fontSize: 10, color: Color(0xFF56626C))),
-                    subtitle: Text('Антон Горький, +7 (999) 102-17-32',
-                        style:
-                            TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
-                  ),
+                  if (orderInfo.clientComment != null)
+                    ListTile(
+                      title: Text('Комментарий клиента',
+                          style: TextStyle(
+                              fontSize: 10, color: Color(0xFF56626C))),
+                      subtitle: Text(orderInfo.clientComment ?? '',
+                          style: TextStyle(
+                              fontSize: 16, color: Color(0xFF1D242C))),
+                    ),
+                  if (orderInfo.dispecherComment != null)
+                    ListTile(
+                      title: Text('Комментарий диспетчера',
+                          style: TextStyle(
+                              fontSize: 10, color: Color(0xFF56626C))),
+                      subtitle: Text(orderInfo.dispecherComment ?? '',
+                          style: TextStyle(
+                              fontSize: 16, color: Color(0xFF1D242C))),
+                    ),
                   Padding(
                     padding: const EdgeInsets.all(16.0),
                     child: Text('Детали оплаты',
@@ -153,9 +163,15 @@ class OrderPage extends StatelessWidget {
                       left: 'Сумма заказа',
                       right: '${orderInfo.price.toInt().toString()} ₽'),
                   SizedBox(height: 26),
-                  RowTile(left: 'Доставка', right: 'Бесплатно'),
+                  RowTile(
+                      left: 'Доставка',
+                      right: orderInfo.deliveryPrice > 0
+                          ? '${orderInfo.deliveryPrice.toInt().toString()} ₽'
+                          : 'Бесплатно'),
                   SizedBox(height: 26),
-                  RowTile(left: 'Скидка', right: '0 ₽'),
+                  RowTile(
+                      left: 'Скидка',
+                      right: '${orderInfo.discount.toInt().toString()} ₽'),
                   SizedBox(height: 26),
                   RowTile(
                       left: 'Оплачено баллами',
