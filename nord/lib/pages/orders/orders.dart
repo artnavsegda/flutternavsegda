@@ -156,12 +156,30 @@ class OrdersPage extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                              : Row(
-                                  children: [
-                                    Text(order.caption ?? 'no data'),
-                                    Spacer(),
-                                    Text('bbbb')
-                                  ],
+                              : Padding(
+                                  padding: const EdgeInsets.all(16.0),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment: CrossAxisAlignment.end,
+                                    textBaseline: TextBaseline.ideographic,
+                                    children: [
+                                      Text(
+                                          toBeginningOfSentenceCase(
+                                                  order.caption) ??
+                                              'no data',
+                                          style: TextStyle(fontSize: 16)),
+                                      Expanded(
+                                          child: Padding(
+                                        padding: const EdgeInsets.all(4.0),
+                                        child: DottedLine(
+                                            dashColor: Colors.grey,
+                                            dashLength: 2),
+                                      )),
+                                      Text('+${order.receivePoints} Б',
+                                          style: TextStyle(fontSize: 16)),
+                                    ],
+                                  ),
                                 )),
                         ],
                       ))
