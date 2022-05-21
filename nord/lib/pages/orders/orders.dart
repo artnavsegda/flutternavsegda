@@ -153,7 +153,13 @@ class OrdersPage extends StatelessWidget {
                                     ),
                                   ),
                                 )
-                              : Text('ssssaaaa')),
+                              : Row(
+                                  children: [
+                                    Text('aaa'),
+                                    Spacer(),
+                                    Text('bbbb')
+                                  ],
+                                )),
                         ],
                       ))
                   .toList(),
