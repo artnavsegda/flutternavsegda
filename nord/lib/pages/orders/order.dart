@@ -3,6 +3,7 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:intl/intl.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
@@ -120,7 +121,9 @@ class OrderPage extends StatelessWidget {
                     title: Text('Дата и время доставки',
                         style:
                             TextStyle(fontSize: 10, color: Color(0xFF56626C))),
-                    subtitle: Text('22 сентября, с 11:00 до 13:00',
+                    subtitle: Text(
+                        DateFormat('d MMMM, hh:mm', 'ru_RU')
+                            .format(orderInfo.date),
                         style:
                             TextStyle(fontSize: 16, color: Color(0xFF1D242C))),
                   ),
