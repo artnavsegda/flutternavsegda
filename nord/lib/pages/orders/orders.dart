@@ -64,86 +64,96 @@ class OrdersPage extends StatelessWidget {
                                 .headlineSmall!
                                 .copyWith(color: Color(0xFF9CA4AC)),
                           ),
-                          ...e.value.map((order) => InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => OrderPage(
-                                        id: order.orderId,
+                          ...e.value.map((order) => order.orderId > 0
+                              ? InkWell(
+                                  onTap: () {
+                                    Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => OrderPage(
+                                          id: order.orderId,
+                                        ),
                                       ),
+                                    );
+                                  },
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                            toBeginningOfSentenceCase(
+                                                    order.statusName) ??
+                                                'Статус',
+                                            style: TextStyle(
+                                                fontSize: 10,
+                                                color: Color(0xFF56626C))),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          textBaseline:
+                                              TextBaseline.ideographic,
+                                          children: [
+                                            Text(
+                                              'Заказ №${order.orderId} от ' +
+                                                  DateFormat.Hm('ru_RU')
+                                                      .format(order.date),
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: Color(0xFFB0063A)),
+                                            ),
+                                            Expanded(
+                                                child: Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: DottedLine(
+                                                  dashColor: Colors.grey,
+                                                  dashLength: 2),
+                                            )),
+                                            Text(
+                                              '${order.price.toInt().toString()} ₽',
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  fontFamilyFallback: [
+                                                    'Roboto'
+                                                  ]),
+                                            )
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
+                                              order.address ?? 'без адреса',
+                                              style: TextStyle(
+                                                  color: Color(0xFF56626C)),
+                                            ),
+                                            Container(
+                                                padding: EdgeInsets.symmetric(
+                                                    horizontal: 4),
+                                                decoration: BoxDecoration(
+                                                  color: Color(0xFFA4D65E),
+                                                  borderRadius:
+                                                      BorderRadius.circular(
+                                                          2.0),
+                                                ),
+                                                child: Text(
+                                                  '+${order.receivePoints} Б',
+                                                  style: TextStyle(
+                                                      color: Colors.white),
+                                                ))
+                                          ],
+                                        )
+                                      ],
                                     ),
-                                  );
-                                },
-                                child: Padding(
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.min,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(order.statusName ?? 'Статус',
-                                          style: TextStyle(
-                                              fontSize: 10,
-                                              color: Color(0xFF56626C))),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.end,
-                                        textBaseline: TextBaseline.ideographic,
-                                        children: [
-                                          Text(
-                                            'Заказ №${order.orderId} от ' +
-                                                DateFormat.Hm('ru_RU')
-                                                    .format(order.date),
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: Color(0xFFB0063A)),
-                                          ),
-                                          Expanded(
-                                              child: Padding(
-                                            padding: const EdgeInsets.all(4.0),
-                                            child: DottedLine(
-                                                dashColor: Colors.grey,
-                                                dashLength: 2),
-                                          )),
-                                          Text(
-                                            '${order.price.toInt().toString()} ₽',
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                fontFamilyFallback: ['Roboto']),
-                                          )
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            order.address ?? 'без адреса',
-                                            style: TextStyle(
-                                                color: Color(0xFF56626C)),
-                                          ),
-                                          Container(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 4),
-                                              decoration: BoxDecoration(
-                                                color: Color(0xFFA4D65E),
-                                                borderRadius:
-                                                    BorderRadius.circular(2.0),
-                                              ),
-                                              child: Text(
-                                                '+${order.receivePoints} Б',
-                                                style: TextStyle(
-                                                    color: Colors.white),
-                                              ))
-                                        ],
-                                      )
-                                    ],
                                   ),
-                                ),
-                              )),
+                                )
+                              : Text('ssssaaaa')),
                         ],
                       ))
                   .toList(),
