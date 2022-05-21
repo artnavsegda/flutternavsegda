@@ -26,7 +26,10 @@ class OrdersPage extends StatelessWidget {
           title: const Text('История заказов'),
         ),
         body: Query(
-          options: QueryOptions(document: gql(getOrders)),
+          options: QueryOptions(
+            fetchPolicy: FetchPolicy.networkOnly,
+            document: gql(getOrders),
+          ),
           builder: (result, {fetchMore, refetch}) {
             if (result.isLoading && result.data == null) {
               return const Center(
@@ -155,7 +158,7 @@ class OrdersPage extends StatelessWidget {
                                 )
                               : Row(
                                   children: [
-                                    Text('aaa'),
+                                    Text(order.caption ?? 'no data'),
                                     Spacer(),
                                     Text('bbbb')
                                   ],
