@@ -11,6 +11,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/utils.dart';
 import 'package:nord/pages/product/product.dart';
+import 'package:nord/pages/product/box.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -123,7 +124,72 @@ class ProductCard extends StatelessWidget {
                               }
                             : product.type == 'SIMPLE'
                                 ? () => runMutation({'productID': product.iD})
-                                : () {},
+                                : () async {
+                                    QueryResult result = await context
+                                        .read<LoginState>()
+                                        .gqlClient
+                                        .query(QueryOptions(
+                                          document: gql(getProduct),
+                                          variables: {
+                                            'productID': product.iD,
+                                          },
+                                        ));
+                                    if (result.hasException) {
+                                      print(result.exception.toString());
+                                    } else if (result.data != null) {
+                                      List<GraphCartItemOnly> modifiers = [];
+                                      GraphProductCard productInfo =
+                                          GraphProductCard.fromJson(
+                                              result.data!['getProduct']);
+                                      if (productInfo.type == "ADDITION") {
+                                        for (final modifier
+                                            in productInfo.modifiers) {
+                                          int? selectedID =
+                                              await showModalBottomSheet<int?>(
+                                            shape: const RoundedRectangleBorder(
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top:
+                                                          Radius.circular(4.0)),
+                                            ),
+                                            backgroundColor: Colors.white,
+                                            isScrollControlled: true,
+                                            context: context,
+                                            builder: (context) {
+                                              return ExtraIngredientBottomSheet(
+                                                  modifier: modifier);
+                                            },
+                                          );
+                                          if (selectedID != null) {
+                                            modifiers.add(GraphCartItemOnly(
+                                                productID: selectedID,
+                                                quantity: 1));
+                                          }
+                                        }
+                                      } else if (productInfo.type == "BOX") {
+                                        List<GraphCartItemOnly>? boxSet =
+                                            await Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) =>
+                                                        BoxPage(
+                                                          title:
+                                                              'Собери свой ${productInfo.name.toLowerCase()}',
+                                                          modifiers: productInfo
+                                                              .modifiers,
+                                                        )));
+                                        if (boxSet == null) {
+                                          return;
+                                        } else {
+                                          modifiers = boxSet;
+                                        }
+                                      }
+                                      runMutation({
+                                        'productID': product.iD,
+                                        'modifiers': modifiers,
+                                      });
+                                    }
+                                  },
                         icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
                             color: Theme.of(context).colorScheme.primary),
                       );
