@@ -273,7 +273,6 @@ class _ProductPageState extends State<ProductPage> {
                   return selQuantity == (modifier.quantity ?? 0);
                 })
                   ? () {
-                      print('tak');
                       List<GraphCartItemOnly> modifiers = setQuantity.entries
                           .map((e) => GraphCartItemOnly(
                               productID: e.key, quantity: e.value))
@@ -300,7 +299,6 @@ class _ProductPageState extends State<ProductPage> {
                           return ExtraIngredientBottomSheet(modifier: modifier);
                         },
                       );
-                      print('selected addition ID $selectedID');
                       if (selectedID != null) {
                         modifiers.add(GraphCartItemOnly(
                             productID: selectedID, quantity: 1));
