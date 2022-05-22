@@ -263,50 +263,70 @@ class _ProductPageState extends State<ProductPage> {
         },
       ),
       builder: (runMutation, result) {
-        return GradientButton(
-          onPressed: () async {
-            List<GraphCartItemOnly> modifiers = [];
-            if (productInfo.type == "ADDITION") {
-              for (final modifier in productInfo.modifiers) {
-                int? selectedID = await showModalBottomSheet<int?>(
-                  shape: const RoundedRectangleBorder(
-                    borderRadius:
-                        BorderRadius.vertical(top: Radius.circular(4.0)),
-                  ),
-                  backgroundColor: Colors.white,
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) {
-                    return ExtraIngredientBottomSheet(modifier: modifier);
-                  },
-                );
-                print('selected addition ID $selectedID');
-                if (selectedID != null) {
-                  modifiers.add(
-                      GraphCartItemOnly(productID: selectedID, quantity: 1));
-                }
-              }
-            } else if (productInfo.type == "BOX") {
-              List<GraphCartItemOnly>? boxSet = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => BoxPage(
-                            title:
-                                'Собери свой ${productInfo.name.toLowerCase()}',
-                            modifiers: productInfo.modifiers,
-                          )));
-              if (boxSet == null) {
-                return;
-              } else {
-                modifiers = boxSet;
-              }
-            }
+        return ElevatedButton(
+          onPressed: productInfo.type == "SET"
+              ? productInfo.modifiers.every((modifier) {
+                  num selQuantity = 0;
+                  for (final product in modifier.products) {
+                    selQuantity += setQuantity[product.iD] ?? 0;
+                  }
+                  return selQuantity == (modifier.quantity ?? 0);
+                })
+                  ? () {
+                      print('tak');
+                      List<GraphCartItemOnly> modifiers = setQuantity.entries
+                          .map((e) => GraphCartItemOnly(
+                              productID: e.key, quantity: e.value))
+                          .toList();
+                      runMutation({
+                        'productID': widget.id,
+                        'modifiers': modifiers,
+                      });
+                    }
+                  : null
+              : () async {
+                  List<GraphCartItemOnly> modifiers = [];
+                  if (productInfo.type == "ADDITION") {
+                    for (final modifier in productInfo.modifiers) {
+                      int? selectedID = await showModalBottomSheet<int?>(
+                        shape: const RoundedRectangleBorder(
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(4.0)),
+                        ),
+                        backgroundColor: Colors.white,
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (context) {
+                          return ExtraIngredientBottomSheet(modifier: modifier);
+                        },
+                      );
+                      print('selected addition ID $selectedID');
+                      if (selectedID != null) {
+                        modifiers.add(GraphCartItemOnly(
+                            productID: selectedID, quantity: 1));
+                      }
+                    }
+                  } else if (productInfo.type == "BOX") {
+                    List<GraphCartItemOnly>? boxSet = await Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => BoxPage(
+                                  title:
+                                      'Собери свой ${productInfo.name.toLowerCase()}',
+                                  modifiers: productInfo.modifiers,
+                                )));
+                    if (boxSet == null) {
+                      return;
+                    } else {
+                      modifiers = boxSet;
+                    }
+                  }
 
-            runMutation({
-              'productID': widget.id,
-              'modifiers': modifiers,
-            });
-          },
+                  runMutation({
+                    'productID': widget.id,
+                    'modifiers': modifiers,
+                  });
+                },
           child:
               Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
             Text('Добавить в корзину'),
