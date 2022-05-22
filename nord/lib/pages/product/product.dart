@@ -13,6 +13,7 @@ import 'package:nord/utils.dart';
 
 import 'review.dart';
 import 'box.dart';
+import 'set.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
 
@@ -288,6 +289,20 @@ class _ProductPageState extends State<ProductPage> {
                   context,
                   MaterialPageRoute(
                       builder: (context) => BoxPage(
+                            title:
+                                'Собери свой ${productInfo.name.toLowerCase()}',
+                            modifiers: productInfo.modifiers,
+                          )));
+              if (boxSet == null) {
+                return;
+              } else {
+                modifiers = boxSet;
+              }
+            } else if (productInfo.type == "SET") {
+              List<GraphCartItemOnly>? boxSet = await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => SetPage(
                             title:
                                 'Собери свой ${productInfo.name.toLowerCase()}',
                             modifiers: productInfo.modifiers,
