@@ -32,6 +32,7 @@ class _ProductPageState extends State<ProductPage> {
   final _controller = PageController();
   final _scrollController = ScrollController();
   late FToast fToast;
+  List<GraphCartItemOnly> setItems = [];
 
   void checkPos() {
     if (_scrollController.offset > 50 && headerUp == false) {
@@ -233,7 +234,6 @@ class _ProductPageState extends State<ProductPage> {
       options: MutationOptions(
         document: gql(cartAdd),
         onError: (error) {
-          print('error: $error');
           showErrorAlert(context, '$error');
         },
         onCompleted: (resultData) {
