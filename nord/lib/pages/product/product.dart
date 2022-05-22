@@ -32,7 +32,7 @@ class _ProductPageState extends State<ProductPage> {
   final _controller = PageController();
   final _scrollController = ScrollController();
   late FToast fToast;
-  List<GraphCartItemOnly> setItems = [];
+  Map<int, num> setQuantity = {};
 
   void checkPos() {
     if (_scrollController.offset > 50 && headerUp == false) {
@@ -393,13 +393,36 @@ class _ProductPageState extends State<ProductPage> {
 
   List<Widget> _setBox(GraphProductCard productInfo) {
     return [
-      ...productInfo.modifiers.map((modifier) => Column(
-            children: [
-              Text(modifier.caption ?? 'Выберите ${modifier.quantity}'),
-              ...modifier.products
-                  .map((product) => ListTile(title: Text(product.name)))
-            ],
-          )),
+      ...productInfo.modifiers.map((modifier) {
+        num selQuantity = 0;
+        for (final product in modifier.products) {
+          selQuantity += setQuantity[product.iD] ?? 0;
+        }
+
+        return Column(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(modifier.caption ?? 'Выберите ${modifier.quantity}'),
+                Text('$selQuantity из ${modifier.quantity}'),
+              ],
+            ),
+            ...modifier.products.map((product) => ListTile(
+                  onTap: () {
+                    if (selQuantity < (modifier.quantity ?? 0))
+                      setState(() {
+                        setQuantity[product.iD] =
+                            (setQuantity[product.iD] ?? 0) + 1;
+                      });
+                  },
+                  title: Text(product.name),
+                  trailing:
+                      Text(setQuantity[product.iD]?.toStringAsFixed(0) ?? '0'),
+                ))
+          ],
+        );
+      }),
     ];
   }
 
