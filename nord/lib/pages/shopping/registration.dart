@@ -99,13 +99,13 @@ class RegistrationPage extends StatelessWidget {
             ),
           ),
           ...basket.wishes.map(
-            (e) => ListTile(
+            (wish) => ListTile(
               onTap: () {},
               leading: Icon(
-                SeverMetropol.Icon_Checkbox_Checked,
+                SeverMetropol.Icon_Checkbox_Unchecked,
                 color: Colors.red[900],
               ),
-              title: Text(e.name),
+              title: Text(wish.name),
             ),
           ),
           Container(

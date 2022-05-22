@@ -10,6 +10,7 @@ import 'package:nord/gql.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/utils.dart';
+import 'package:nord/pages/product/product.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -111,9 +112,16 @@ class ProductCard extends StatelessWidget {
                     ),
                     builder: (runMutation, result) {
                       return IconButton(
-                        onPressed: () {
-                          runMutation({'productID': product.iD});
-                        },
+                        onPressed: product.type == 'SET'
+                            ? () async {
+                                await Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ProductPage(id: product.iD)));
+                                onReload!();
+                              }
+                            : () => runMutation({'productID': product.iD}),
                         icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
                             color: Theme.of(context).colorScheme.primary),
                       );
