@@ -121,7 +121,9 @@ class ProductCard extends StatelessWidget {
                                             ProductPage(id: product.iD)));
                                 onReload!();
                               }
-                            : () => runMutation({'productID': product.iD}),
+                            : product.type == 'SIMPLE'
+                                ? () => runMutation({'productID': product.iD})
+                                : () {},
                         icon: Icon(SeverMetropol.Icon_Add_to_Shopping_Bag,
                             color: Theme.of(context).colorScheme.primary),
                       );
