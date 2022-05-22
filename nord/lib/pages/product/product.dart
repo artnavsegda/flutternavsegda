@@ -13,7 +13,6 @@ import 'package:nord/utils.dart';
 
 import 'review.dart';
 import 'box.dart';
-import 'set.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
 
@@ -138,7 +137,10 @@ class _ProductPageState extends State<ProductPage> {
                     _imagePager(productInfo),
                     _priceBox(productInfo),
                     _characteristicBox(productInfo),
-                    ..._infoTabs(productInfo),
+                    if (productInfo.type == 'SET')
+                      ..._infoTabs(productInfo)
+                    else
+                      ..._infoTabs(productInfo)
                   ],
                 ),
                 bottomNavigationBar: Container(
@@ -298,20 +300,6 @@ class _ProductPageState extends State<ProductPage> {
               } else {
                 modifiers = boxSet;
               }
-            } else if (productInfo.type == "SET") {
-              List<GraphCartItemOnly>? boxSet = await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => SetPage(
-                            title:
-                                'Собери свой ${productInfo.name.toLowerCase()}',
-                            modifiers: productInfo.modifiers,
-                          )));
-              if (boxSet == null) {
-                return;
-              } else {
-                modifiers = boxSet;
-              }
             }
 
             runMutation({
@@ -401,6 +389,10 @@ class _ProductPageState extends State<ProductPage> {
         ],
       ),
     );
+  }
+
+  List<Widget> _setBox(GraphProductCard productInfo) {
+    return [Text('aaaa')];
   }
 
   List<Widget> _infoTabs(GraphProductCard productInfo) {
