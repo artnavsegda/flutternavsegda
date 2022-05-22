@@ -138,7 +138,7 @@ class _ProductPageState extends State<ProductPage> {
                     _priceBox(productInfo),
                     _characteristicBox(productInfo),
                     if (productInfo.type == 'SET')
-                      ..._infoTabs(productInfo)
+                      ..._setBox(productInfo)
                     else
                       ..._infoTabs(productInfo)
                   ],
@@ -392,7 +392,15 @@ class _ProductPageState extends State<ProductPage> {
   }
 
   List<Widget> _setBox(GraphProductCard productInfo) {
-    return [Text('aaaa')];
+    return [
+      ...productInfo.modifiers.map((modifier) => Column(
+            children: [
+              Text(modifier.caption ?? 'Выберите ${modifier.quantity}'),
+              ...modifier.products
+                  .map((product) => ListTile(title: Text(product.name)))
+            ],
+          )),
+    ];
   }
 
   List<Widget> _infoTabs(GraphProductCard productInfo) {
