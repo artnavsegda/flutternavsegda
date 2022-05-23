@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 
 import 'package:nord/gql.dart';
 import 'package:nord/router/routes.dart';
@@ -47,6 +48,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
+    var selectedDate = DateTime.parse(order.deliveryDate);
+
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -105,7 +108,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
                   color: Color(0xFF56626C), fontFamilyFallback: ['Roboto']),
             ),
             title: Text(
-              "20 октября с 14:00 до 18:00",
+              DateFormat('d MMMM', 'ru_RU').format(selectedDate) +
+                  " с 14:00 до 18:00",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
               ),
@@ -221,11 +225,13 @@ class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'чт',
+                      DateFormat.E('ru_RU').format(DateTime.parse(
+                          widget.basket.slots.dates[index].date)),
                       style: TextStyle(fontSize: 10),
                     ),
                     Text(
-                      '21.10',
+                      DateFormat.Md('ru_RU').format(DateTime.parse(
+                          widget.basket.slots.dates[index].date)),
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
