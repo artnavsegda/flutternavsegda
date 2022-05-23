@@ -204,6 +204,8 @@ class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
 
   @override
   Widget build(BuildContext context) {
+    bool isTodaySelected =
+        orderDate.deliveryDate == widget.basket.slots.dates[0].date;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
@@ -306,8 +308,16 @@ class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
               }
 
               return orderDate.deliveryTimeID == time.iD
-                  ? GradientButton(onPressed: onPressed, child: content)
-                  : OutlinedButton(onPressed: onPressed, child: content);
+                  ? ElevatedButton(
+                      onPressed: (isTodaySelected && time.todayDisabled)
+                          ? null
+                          : onPressed,
+                      child: content)
+                  : OutlinedButton(
+                      onPressed: (isTodaySelected && time.todayDisabled)
+                          ? null
+                          : onPressed,
+                      child: content);
             },
             separatorBuilder: (context, index) => SizedBox(width: 8),
           ),
