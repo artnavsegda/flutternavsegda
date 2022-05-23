@@ -175,7 +175,10 @@ class SpecialCondition extends StatelessWidget {
 class SliderCombo extends StatelessWidget {
   const SliderCombo({
     Key? key,
+    required this.max,
   }) : super(key: key);
+
+  final int max;
 
   @override
   Widget build(BuildContext context) {
@@ -211,6 +214,8 @@ class SliderCombo extends StatelessWidget {
             inactiveColor: Colors.grey,
             onChanged: (newVal) {},
             value: 0.2,
+            divisions: max,
+            max: max.toDouble(),
           ),
         ),
       ],

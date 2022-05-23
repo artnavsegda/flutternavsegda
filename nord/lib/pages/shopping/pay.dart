@@ -129,7 +129,9 @@ class _PayPageState extends State<PayPage> {
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: SliderCombo(),
+            child: SliderCombo(
+              max: widget.basket.availablePoints,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
