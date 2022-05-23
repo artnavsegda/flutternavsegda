@@ -48,7 +48,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
 
   @override
   Widget build(BuildContext context) {
-    var selectedDate = DateTime.parse(order.deliveryDate);
+    DateTime selectedDate = DateTime.parse(order.deliveryDate);
+    List<GraphOrderTime> times = order.deliveryExpress
+        ? widget.basket.slots.expressTimes
+        : widget.basket.slots.times;
+    String selectedTime =
+        times.firstWhere((element) => element.iD == order.deliveryTimeID).name;
 
     return Scaffold(
       appBar: AppBar(
@@ -100,16 +105,16 @@ class _RegistrationPageState extends State<RegistrationPage> {
             },
             leading: Image.asset('assets/Illustration-Colored-Clocks.png'),
             subtitle: Text(
-              "Доставка: " +
+              "Доставка" +
                   (order.deliveryExpress
-                      ? 'ко времени: ${widget.basket.deliveryInfo?.expressPrice ?? 300} ₽'
-                      : 'бесплатно'),
+                      ? ' ко времени: ${widget.basket.deliveryInfo?.expressPrice ?? 300} ₽'
+                      : ': бесплатно'),
               style: TextStyle(
                   color: Color(0xFF56626C), fontFamilyFallback: ['Roboto']),
             ),
             title: Text(
               DateFormat('d MMMM', 'ru_RU').format(selectedDate) +
-                  " с 14:00 до 18:00",
+                  " $selectedTime",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
               ),
@@ -220,26 +225,24 @@ class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
               scrollDirection: Axis.horizontal,
               itemCount: widget.basket.slots.dates.length,
               itemBuilder: (context, index) {
+                var date = widget.basket.slots.dates[index];
                 var content = Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      DateFormat.E('ru_RU').format(DateTime.parse(
-                          widget.basket.slots.dates[index].date)),
+                      DateFormat.E('ru_RU').format(DateTime.parse(date.date)),
                       style: TextStyle(fontSize: 10),
                     ),
                     Text(
-                      DateFormat.Md('ru_RU').format(DateTime.parse(
-                          widget.basket.slots.dates[index].date)),
+                      DateFormat.Md('ru_RU').format(DateTime.parse(date.date)),
                       style: TextStyle(fontSize: 16),
                     ),
                   ],
                 );
                 onPressed() {
                   setState(() {
-                    orderDate.deliveryDate =
-                        widget.basket.slots.dates[index].date;
+                    orderDate.deliveryDate = date.date;
                   });
                 }
 
@@ -247,8 +250,12 @@ class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
                     dimension: 80,
                     child: widget.basket.slots.dates[index].date ==
                             orderDate.deliveryDate
-                        ? GradientButton(onPressed: onPressed, child: content)
-                        : OutlinedButton(onPressed: onPressed, child: content));
+                        ? ElevatedButton(
+                            onPressed: date.disabled ? null : onPressed,
+                            child: content)
+                        : OutlinedButton(
+                            onPressed: date.disabled ? null : onPressed,
+                            child: content));
               },
               separatorBuilder: (context, index) => SizedBox(width: 8)),
         ),
