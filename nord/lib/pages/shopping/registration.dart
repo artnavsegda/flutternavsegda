@@ -9,6 +9,18 @@ import 'package:nord/components/gradient_button.dart';
 import '../../components/components.dart';
 import 'pay.dart';
 
+class OrderDate {
+  OrderDate({
+    required this.deliveryDate,
+    required this.deliveryTimeID,
+    required this.deliveryExpress,
+  });
+
+  String deliveryDate;
+  int deliveryTimeID;
+  bool deliveryExpress;
+}
+
 class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key, required this.basket}) : super(key: key);
 
@@ -56,8 +68,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
             ),
           ),
           ListTile(
-            onTap: () {
-              showModalBottomSheet(
+            onTap: () async {
+              OrderDate? newOrderDate = await showModalBottomSheet(
                 shape: const RoundedRectangleBorder(
                   borderRadius:
                       BorderRadius.vertical(top: Radius.circular(4.0)),
@@ -66,9 +78,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return SelectDateBottomSheet(slots: widget.basket.slots);
+                  return SelectDateBottomSheet(
+                      basket: widget.basket,
+                      orderDate: OrderDate(
+                        deliveryDate: order.deliveryDate,
+                        deliveryTimeID: order.deliveryTimeID,
+                        deliveryExpress: order.deliveryExpress,
+                      ));
                 },
               );
+              if (newOrderDate != null) {
+                setState(() {
+                  order.deliveryDate = newOrderDate.deliveryDate;
+                  order.deliveryTimeID = newOrderDate.deliveryTimeID;
+                  order.deliveryExpress = newOrderDate.deliveryExpress;
+                });
+              }
             },
             leading: Image.asset('assets/Illustration-Colored-Clocks.png'),
             title: const Text(
@@ -145,13 +170,28 @@ class _RegistrationPageState extends State<RegistrationPage> {
   }
 }
 
-class SelectDateBottomSheet extends StatelessWidget {
+class SelectDateBottomSheet extends StatefulWidget {
   const SelectDateBottomSheet({
     Key? key,
-    required this.slots,
+    required this.basket,
+    required this.orderDate,
   }) : super(key: key);
 
-  final GraphSlots slots;
+  final GraphBasket basket;
+  final OrderDate orderDate;
+
+  @override
+  State<SelectDateBottomSheet> createState() => _SelectDateBottomSheetState();
+}
+
+class _SelectDateBottomSheetState extends State<SelectDateBottomSheet> {
+  late OrderDate orderDate;
+
+  @override
+  void initState() {
+    super.initState();
+    orderDate = widget.orderDate;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -173,60 +213,99 @@ class SelectDateBottomSheet extends StatelessWidget {
           height: 80,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
-            scrollDirection: Axis.horizontal,
-            itemCount: slots.times.length,
-            itemBuilder: (context, index) => SizedBox.square(
-              dimension: 80,
-              child: OutlinedButton(
-                  onPressed: () {},
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                        'чт',
-                        style: TextStyle(fontSize: 10),
-                      ),
-                      Text(
-                        '21.10',
-                        style: TextStyle(fontSize: 16),
-                      ),
-                    ],
-                  )),
-            ),
-            separatorBuilder: (context, index) => SizedBox(width: 8),
-          ),
+              scrollDirection: Axis.horizontal,
+              itemCount: widget.basket.slots.dates.length,
+              itemBuilder: (context, index) {
+                var content = Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      'чт',
+                      style: TextStyle(fontSize: 10),
+                    ),
+                    Text(
+                      '21.10',
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                );
+                onPressed() {
+                  setState(() {
+                    orderDate.deliveryDate =
+                        widget.basket.slots.dates[index].date;
+                  });
+                }
+
+                return SizedBox.square(
+                    dimension: 80,
+                    child: widget.basket.slots.dates[index].date ==
+                            orderDate.deliveryDate
+                        ? GradientButton(onPressed: onPressed, child: content)
+                        : OutlinedButton(onPressed: onPressed, child: content));
+              },
+              separatorBuilder: (context, index) => SizedBox(width: 8)),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child:
               Text('Время', style: Theme.of(context).textTheme.headlineSmall),
         ),
-        SwitchListTile(
-          value: false,
-          onChanged: (value) {},
-          title: Text('Доставка ко времени'),
-          subtitle: Text(
-            'Стоимость: 299 ₽',
-            style: TextStyle(
-                fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+        if (widget.basket.deliveryInfo?.express ?? false)
+          SwitchListTile(
+            value: orderDate.deliveryExpress,
+            onChanged: (value) {
+              setState(() {
+                orderDate.deliveryExpress = value;
+                value
+                    ? orderDate.deliveryTimeID =
+                        widget.basket.slots.expressTimes[0].iD
+                    : orderDate.deliveryTimeID =
+                        widget.basket.slots.times[0].iD;
+              });
+            },
+            title: Text('Доставка ко времени'),
+            subtitle: Text(
+              'Стоимость: 299 ₽',
+              style: TextStyle(
+                  fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+            ),
+            secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
           ),
-          secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
-        ),
         Container(
           height: 32,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: slots.times.length,
-            itemBuilder: (context, index) => OutlinedButton(
-                onPressed: () {}, child: Text(slots.times[index].name)),
+            itemCount: orderDate.deliveryExpress
+                ? widget.basket.slots.expressTimes.length
+                : widget.basket.slots.times.length,
+            itemBuilder: (context, index) {
+              var time = orderDate.deliveryExpress
+                  ? widget.basket.slots.expressTimes[index]
+                  : widget.basket.slots.times[index];
+
+              var content = Text(time.name);
+              onPressed() {
+                setState(() {
+                  orderDate.deliveryTimeID = time.iD;
+                });
+              }
+
+              return orderDate.deliveryTimeID == time.iD
+                  ? GradientButton(onPressed: onPressed, child: content)
+                  : OutlinedButton(onPressed: onPressed, child: content);
+            },
             separatorBuilder: (context, index) => SizedBox(width: 8),
           ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: ElevatedButton(onPressed: () {}, child: const Text('Выбрать')),
+          child: ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context, orderDate);
+              },
+              child: const Text('Выбрать')),
         )
       ],
     );
