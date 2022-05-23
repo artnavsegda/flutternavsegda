@@ -136,7 +136,7 @@ class GraphNewOrder {
     this.paymentData,
     this.paidPoints = 0,
     this.clientComment,
-    this.wishes = const [],
+    required this.wishes,
   });
 
   String deliveryDate;

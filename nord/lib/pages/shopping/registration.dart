@@ -8,10 +8,29 @@ import 'package:nord/components/gradient_button.dart';
 import '../../components/components.dart';
 import 'pay.dart';
 
-class RegistrationPage extends StatelessWidget {
+class RegistrationPage extends StatefulWidget {
   const RegistrationPage({Key? key, required this.basket}) : super(key: key);
 
   final GraphBasket basket;
+
+  @override
+  State<RegistrationPage> createState() => _RegistrationPageState();
+}
+
+class _RegistrationPageState extends State<RegistrationPage> {
+  late GraphNewOrder order;
+
+  @override
+  void initState() {
+    super.initState();
+    order = GraphNewOrder(
+      deliveryDate: widget.basket.slots.dates[0].date,
+      deliveryTimeID: widget.basket.slots.times[0].iD,
+      deliveryExpress: false,
+      bankCardID: widget.basket.bankCards[0].iD,
+      wishes: [],
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +65,7 @@ class RegistrationPage extends StatelessWidget {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return SelectDateBottomSheet(slots: basket.slots);
+                  return SelectDateBottomSheet(slots: widget.basket.slots);
                 },
               );
             },
@@ -71,8 +90,12 @@ class RegistrationPage extends StatelessWidget {
             ),
           ),
           SwitchListTile(
-            value: false,
-            onChanged: (value) {},
+            value: order.deliveryExpress,
+            onChanged: (value) {
+              setState(() {
+                order.deliveryExpress = value;
+              });
+            },
             title: Text('Экспресс-доставка'),
             subtitle: Text(
               'Курьером в течении 3-х часов\n+ 300 ₽',
@@ -98,11 +121,19 @@ class RegistrationPage extends StatelessWidget {
               ),
             ),
           ),
-          ...basket.wishes.map(
+          ...widget.basket.wishes.map(
             (wish) => ListTile(
-              onTap: () {},
+              onTap: () {
+                setState(() {
+                  order.wishes.contains(wish.iD)
+                      ? order.wishes.remove(wish.iD)
+                      : order.wishes.add(wish.iD);
+                });
+              },
               leading: Icon(
-                SeverMetropol.Icon_Checkbox_Unchecked,
+                order.wishes.contains(wish.iD)
+                    ? SeverMetropol.Icon_Checkbox_Checked
+                    : SeverMetropol.Icon_Checkbox_Unchecked,
                 color: Colors.red[900],
               ),
               title: Text(wish.name),
