@@ -96,18 +96,18 @@ class _RegistrationPageState extends State<RegistrationPage> {
               }
             },
             leading: Image.asset('assets/Illustration-Colored-Clocks.png'),
-            title: const Text(
-              "Заберу",
-              style: TextStyle(
-                color: Colors.grey,
-                fontSize: 10,
-              ),
-            ),
             subtitle: Text(
-              "В ближайшее время",
+              "Доставка: " +
+                  (order.deliveryExpress
+                      ? 'ко времени: ${widget.basket.deliveryInfo?.expressPrice ?? 300} ₽'
+                      : 'бесплатно'),
+              style: TextStyle(
+                  color: Color(0xFF56626C), fontFamilyFallback: ['Roboto']),
+            ),
+            title: Text(
+              "20 октября с 14:00 до 18:00",
               style: TextStyle(
                 color: Theme.of(context).colorScheme.primary,
-                fontSize: 16,
               ),
             ),
             trailing: Icon(
