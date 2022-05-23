@@ -66,7 +66,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return SelectDateBottomSheet(slots: widget.basket.slots);
+                  return SelectDateBottomSheet(
+                    times: order.deliveryExpress
+                        ? widget.basket.slots.expressTimes
+                        : widget.basket.slots.times,
+                    dates: widget.basket.slots.dates,
+                  );
                 },
               );
             },
@@ -90,21 +95,22 @@ class _RegistrationPageState extends State<RegistrationPage> {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          SwitchListTile(
-            value: order.deliveryExpress,
-            onChanged: (value) {
-              setState(() {
-                order.deliveryExpress = value;
-              });
-            },
-            title: Text('Экспресс-доставка'),
-            subtitle: Text(
-              'Курьером в течении 3-х часов\n+ 300 ₽',
-              style: TextStyle(
-                  fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+          if (widget.basket.deliveryInfo?.express ?? false)
+            SwitchListTile(
+              value: order.deliveryExpress,
+              onChanged: (value) {
+                setState(() {
+                  order.deliveryExpress = value;
+                });
+              },
+              title: Text('Экспресс-доставка'),
+              subtitle: Text(
+                'Курьером в течении 3-х часов\n+ 300 ₽',
+                style: TextStyle(
+                    fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+              ),
+              secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
             ),
-            secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
-          ),
           ListTile(
             title: Text(
               'Отдельные пожелания',
@@ -163,10 +169,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
 class SelectDateBottomSheet extends StatelessWidget {
   const SelectDateBottomSheet({
     Key? key,
-    required this.slots,
+    required this.dates,
+    required this.times,
   }) : super(key: key);
 
-  final GraphSlots slots;
+  final List<GraphOrderDate> dates;
+  final List<GraphOrderTime> times;
 
   @override
   Widget build(BuildContext context) {
@@ -195,7 +203,7 @@ class SelectDateBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: slots.times.length,
+            itemCount: times.length,
             itemBuilder: (context, index) => SizedBox.square(
               dimension: 80,
               child: OutlinedButton(
@@ -228,9 +236,9 @@ class SelectDateBottomSheet extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: slots.times.length,
+            itemCount: times.length,
             itemBuilder: (context, index) => OutlinedButton(
-                onPressed: () {}, child: Text(slots.times[index].name)),
+                onPressed: () {}, child: Text(times[index].name)),
             separatorBuilder: (context, index) => SizedBox(width: 8),
           ),
         ),
