@@ -200,7 +200,7 @@ class SliderCombo extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: Text(
-                'Вы можете подарить до 120 бонусов',
+                'Вы можете подарить до $max бонусов',
                 style: TextStyle(fontSize: 12),
               ),
             ),
