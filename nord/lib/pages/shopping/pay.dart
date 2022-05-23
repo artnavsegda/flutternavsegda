@@ -131,6 +131,11 @@ class _PayPageState extends State<PayPage> {
             padding: const EdgeInsets.all(16.0),
             child: SliderCombo(
               max: widget.basket.availablePoints,
+              onChanged: (newVal) {
+                setState(() {
+                  order.paidPoints = newVal;
+                });
+              },
             ),
           ),
           Padding(

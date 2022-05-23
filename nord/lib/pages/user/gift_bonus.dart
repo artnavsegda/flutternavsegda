@@ -37,7 +37,10 @@ class GiftBonusModalSheet extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              SliderCombo(max: maxBonus),
+              SliderCombo(
+                max: maxBonus,
+                onChanged: (newVal) {},
+              ),
               SizedBox(height: 12),
               TextField(
                   keyboardType: TextInputType.number,

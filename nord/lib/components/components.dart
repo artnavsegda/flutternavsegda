@@ -176,9 +176,11 @@ class SliderCombo extends StatelessWidget {
   const SliderCombo({
     Key? key,
     required this.max,
+    required this.onChanged,
   }) : super(key: key);
 
   final int max;
+  final void Function(int) onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -212,7 +214,9 @@ class SliderCombo extends StatelessWidget {
           ),
           child: Slider(
             inactiveColor: Colors.grey,
-            onChanged: (newVal) {},
+            onChanged: (newVal) {
+              onChanged(newVal.toInt());
+            },
             value: 0.2,
             divisions: max,
             max: max.toDouble(),
