@@ -113,6 +113,11 @@ class _RegistrationPageState extends State<RegistrationPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: TextField(
+              onChanged: (value) {
+                setState(() {
+                  order.clientComment = value;
+                });
+              },
               maxLines: 3,
               decoration: InputDecoration(
                 alignLabelWithHint: true,
