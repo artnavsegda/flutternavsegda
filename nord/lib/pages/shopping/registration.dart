@@ -66,12 +66,7 @@ class _RegistrationPageState extends State<RegistrationPage> {
                 isScrollControlled: true,
                 context: context,
                 builder: (context) {
-                  return SelectDateBottomSheet(
-                    times: order.deliveryExpress
-                        ? widget.basket.slots.expressTimes
-                        : widget.basket.slots.times,
-                    dates: widget.basket.slots.dates,
-                  );
+                  return SelectDateBottomSheet(slots: widget.basket.slots);
                 },
               );
             },
@@ -95,22 +90,6 @@ class _RegistrationPageState extends State<RegistrationPage> {
               color: Theme.of(context).colorScheme.primary,
             ),
           ),
-          if (widget.basket.deliveryInfo?.express ?? false)
-            SwitchListTile(
-              value: order.deliveryExpress,
-              onChanged: (value) {
-                setState(() {
-                  order.deliveryExpress = value;
-                });
-              },
-              title: Text('Экспресс-доставка'),
-              subtitle: Text(
-                'Курьером в течении 3-х часов\n+ 300 ₽',
-                style: TextStyle(
-                    fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
-              ),
-              secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
-            ),
           ListTile(
             title: Text(
               'Отдельные пожелания',
@@ -169,12 +148,10 @@ class _RegistrationPageState extends State<RegistrationPage> {
 class SelectDateBottomSheet extends StatelessWidget {
   const SelectDateBottomSheet({
     Key? key,
-    required this.dates,
-    required this.times,
+    required this.slots,
   }) : super(key: key);
 
-  final List<GraphOrderDate> dates;
-  final List<GraphOrderTime> times;
+  final GraphSlots slots;
 
   @override
   Widget build(BuildContext context) {
@@ -188,22 +165,16 @@ class SelectDateBottomSheet extends StatelessWidget {
             'Дата и время доставки',
           )),
         ),
-        SwitchListTile(
-          title: const Text('Получить поскорее'),
-          value: false,
-          onChanged: (newVal) {},
-        ),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('Дата доставки',
-              style: Theme.of(context).textTheme.headlineSmall),
+          child: Text('Дата', style: Theme.of(context).textTheme.headlineSmall),
         ),
         Container(
           height: 80,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: times.length,
+            itemCount: slots.times.length,
             itemBuilder: (context, index) => SizedBox.square(
               dimension: 80,
               child: OutlinedButton(
@@ -228,17 +199,28 @@ class SelectDateBottomSheet extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text('Время доставки',
-              style: Theme.of(context).textTheme.headlineSmall),
+          child:
+              Text('Время', style: Theme.of(context).textTheme.headlineSmall),
+        ),
+        SwitchListTile(
+          value: false,
+          onChanged: (value) {},
+          title: Text('Доставка ко времени'),
+          subtitle: Text(
+            'Стоимость: 299 ₽',
+            style: TextStyle(
+                fontFamily: 'Noto Sans', fontFamilyFallback: ['Roboto']),
+          ),
+          secondary: Image.asset('assets/Illustration-Colored-Moto.png'),
         ),
         Container(
           height: 32,
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
           child: ListView.separated(
             scrollDirection: Axis.horizontal,
-            itemCount: times.length,
+            itemCount: slots.times.length,
             itemBuilder: (context, index) => OutlinedButton(
-                onPressed: () {}, child: Text(times[index].name)),
+                onPressed: () {}, child: Text(slots.times[index].name)),
             separatorBuilder: (context, index) => SizedBox(width: 8),
           ),
         ),
