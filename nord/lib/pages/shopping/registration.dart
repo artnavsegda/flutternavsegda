@@ -3,6 +3,7 @@ import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:nord/gql.dart';
+import 'package:nord/router/routes.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/gradient_button.dart';
 import '../../components/components.dart';
@@ -148,7 +149,8 @@ class _RegistrationPageState extends State<RegistrationPage> {
             padding: const EdgeInsets.all(16.0),
             child: GradientButton(
                 onPressed: () {
-                  context.push('/pay');
+                  context.push('/pay',
+                      extra: PayPageArguments(widget.basket, order));
                 },
                 child: const Text('Перейти к оплате')),
           ),

@@ -16,6 +16,13 @@ import '../pages/shopping/pay.dart';
 import '../pages/shopping/success.dart';
 import '../pages/shopping/registration.dart';
 
+class PayPageArguments {
+  GraphBasket basket;
+  GraphNewOrder order;
+
+  PayPageArguments(this.basket, this.order);
+}
+
 class NordRouter {
   final LoginState loginState;
   NordRouter(this.loginState);
@@ -42,7 +49,9 @@ class NordRouter {
         path: '/pay',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: const PayPage(),
+          child: PayPage(
+              basket: (state.extra! as PayPageArguments).basket,
+              order: (state.extra! as PayPageArguments).order),
         ),
       ),
       GoRoute(

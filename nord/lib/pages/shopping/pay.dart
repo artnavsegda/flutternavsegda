@@ -1,12 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'success.dart';
 import '../../components/components.dart';
+import 'package:nord/gql.dart';
 
-class PayPage extends StatelessWidget {
-  const PayPage({Key? key}) : super(key: key);
+class PayPage extends StatefulWidget {
+  const PayPage({Key? key, required this.basket, required this.order})
+      : super(key: key);
+
+  final GraphBasket basket;
+  final GraphNewOrder order;
+
+  @override
+  State<PayPage> createState() => _PayPageState();
+}
+
+class _PayPageState extends State<PayPage> {
+  late GraphNewOrder order;
+
+  @override
+  void initState() {
+    super.initState();
+    order = widget.order;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -25,74 +44,88 @@ class PayPage extends StatelessWidget {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Row(
-            children: [
-              SizedBox(width: 16),
-              OutlinedButton(
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(72.0, 96.0),
-                    padding: EdgeInsets.zero,
-                  ),
-                  onPressed: () {},
-                  child: SizedBox(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        SizedBox(
-                          width: 72,
-                          height: 96,
-                        ),
-                        Positioned(
-                          bottom: 8,
-                          child: Text(
-                            'Новая\nКарта',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Positioned(
-                          bottom: 53,
-                          child: Icon(
-                            SeverMetropol.Icon_Add,
-                            color: Colors.red[900],
-                          ),
-                        ),
-                      ],
+          SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                SizedBox(width: 12),
+/*                 OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      minimumSize: Size(72.0, 96.0),
+                      padding: EdgeInsets.zero,
                     ),
-                  )),
-              SizedBox(width: 8),
-              ElevatedButton(
-                  style: OutlinedButton.styleFrom(
-                    minimumSize: Size(72.0, 96.0),
-                    padding: EdgeInsets.zero,
-                  ),
-                  onPressed: () {},
-                  child: SizedBox(
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        SizedBox(
-                          width: 72,
-                          height: 96,
-                        ),
-                        Positioned(
-                          bottom: 8,
-                          child: Text(
-                            'На\nместе',
-                            textAlign: TextAlign.center,
+                    onPressed: () {},
+                    child: SizedBox(
+                      child: Stack(
+                        alignment: Alignment.bottomCenter,
+                        children: [
+                          SizedBox(
+                            width: 72,
+                            height: 96,
                           ),
-                        ),
-                        Positioned(
-                          left: 4,
-                          top: 4,
-                          child: Icon(
-                            SeverMetropol.Icon_Checkbox_Unchecked,
-                            color: Colors.white,
+                          Positioned(
+                            bottom: 8,
+                            child: Text(
+                              'Новая\nКарта',
+                              textAlign: TextAlign.center,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                  )),
-            ],
+                          Positioned(
+                            bottom: 53,
+                            child: Icon(
+                              SeverMetropol.Icon_Add,
+                              color: Colors.red[900],
+                            ),
+                          ),
+                        ],
+                      ),
+                    )),
+                SizedBox(width: 8), */
+                ...widget.basket.bankCards.map((bankCard) => Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      child: ElevatedButton(
+                          style: OutlinedButton.styleFrom(
+                            minimumSize: Size(72.0, 96.0),
+                            padding: EdgeInsets.zero,
+                          ),
+                          onPressed: () {
+                            setState(() {
+                              order.bankCardID = bankCard.iD;
+                            });
+                          },
+                          child: SizedBox(
+                            child: Stack(
+                              alignment: Alignment.bottomCenter,
+                              children: [
+                                SizedBox(
+                                  width: 72,
+                                  height: 96,
+                                ),
+                                Positioned(
+                                  left: 0,
+                                  right: 0,
+                                  bottom: 8,
+                                  child: Text(
+                                    bankCard.mask,
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                                Positioned(
+                                  left: 4,
+                                  top: 4,
+                                  child: Icon(
+                                    order.bankCardID == bankCard.iD
+                                        ? SeverMetropol.Icon_Checkbox_Checked
+                                        : SeverMetropol.Icon_Checkbox_Unchecked,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )),
+                    ))
+              ],
+            ),
           ),
           Padding(
             padding: const EdgeInsets.all(16.0),
