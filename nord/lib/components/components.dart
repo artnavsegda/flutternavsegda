@@ -175,24 +175,27 @@ class SpecialCondition extends StatelessWidget {
 class SliderCombo extends StatelessWidget {
   const SliderCombo({
     Key? key,
+    required this.value,
     required this.max,
     required this.onChanged,
   }) : super(key: key);
 
+  final int value;
   final int max;
   final void Function(int) onChanged;
 
   @override
   Widget build(BuildContext context) {
-    TextEditingController _controller = TextEditingController(text: '25');
     return Stack(
       alignment: Alignment.bottomCenter,
       children: [
         Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            TextField(
-                controller: _controller,
+            TextFormField(
+                key: Key(value.toString()),
+                initialValue: value.toString(),
+                readOnly: true,
                 decoration: InputDecoration(
                   labelText: 'Бонусы',
                 )),
@@ -217,7 +220,7 @@ class SliderCombo extends StatelessWidget {
             onChanged: (newVal) {
               onChanged(newVal.toInt());
             },
-            value: 0.2,
+            value: value.toDouble(),
             divisions: max,
             max: max.toDouble(),
           ),

@@ -38,6 +38,7 @@ class GiftBonusModalSheet extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               SliderCombo(
+                value: 0,
                 max: maxBonus,
                 onChanged: (newVal) {},
               ),
