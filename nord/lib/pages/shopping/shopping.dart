@@ -152,7 +152,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         padding: const EdgeInsets.all(16.0),
                         child: SpecialCondition(
                             text: basket.state == 'TYPE_ORDER_ERROR'
-                                ? 'Выберите адрес доставки или кофейни.'
+                                ? 'Выберите адрес доставки или кофейню.'
                                 : 'Ой! Не все товары доступны. Удалите их из корзины, чтобы оформить заказ.'),
                       ),
                     ...basket.rows.map(
@@ -287,7 +287,6 @@ class _ShoppingPageState extends State<ShoppingPage> {
                         ],
                       ),
                     ),
-                    Text(basket.state),
                   ],
                 ),
               ),
@@ -314,47 +313,76 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             )
                           ],
                   ),
-                  padding: const EdgeInsets.all(16.0),
-                  child: Stack(
-                    alignment: AlignmentDirectional.centerEnd,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
-                      AnimatedOpacity(
-                        duration: const Duration(milliseconds: 500),
-                        opacity: scrollAtBottom ? 0 : 1.0,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.stretch,
-                          mainAxisSize: MainAxisSize.min,
+                      context.read<FilterState>().filter == 'DELIVERY'
+                          ? Container(
+                              padding: EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 16),
+                              margin: EdgeInsets.symmetric(vertical: 8),
+                              color: Color(0xFFEFF3F4),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    basket.deliveryInfo?.message ??
+                                        'Так, что за бардак',
+                                    style: TextStyle(
+                                        fontFamilyFallback: ['Roboto']),
+                                  ),
+                                  Icon(SeverMetropol.Icon_Info,
+                                      color: Color(0xFFB0063A))
+                                ],
+                              ),
+                            )
+                          : SizedBox(height: 16),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+                        child: Stack(
+                          alignment: AlignmentDirectional.centerEnd,
                           children: [
-                            Text('Итого',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 10,
-                                    color: Color(0xFF56626C),
-                                    fontFamilyFallback: ['Roboto'])),
-                            SizedBox(height: 3),
-                            Text('${basket.payment.toInt()} ₽',
-                                style: TextStyle(
-                                    fontFamily: 'Noto Sans',
-                                    fontSize: 16,
-                                    fontFamilyFallback: ['Roboto'])),
+                            AnimatedOpacity(
+                              duration: const Duration(milliseconds: 500),
+                              opacity: scrollAtBottom ? 0 : 1.0,
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.stretch,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text('Итого',
+                                      style: TextStyle(
+                                          fontFamily: 'Noto Sans',
+                                          fontSize: 10,
+                                          color: Color(0xFF56626C),
+                                          fontFamilyFallback: ['Roboto'])),
+                                  SizedBox(height: 3),
+                                  Text('${basket.payment.toInt()} ₽',
+                                      style: TextStyle(
+                                          fontFamily: 'Noto Sans',
+                                          fontSize: 16,
+                                          fontFamilyFallback: ['Roboto'])),
+                                ],
+                              ),
+                            ),
+                            AnimatedContainer(
+                              height: 48,
+                              width: scrollAtBottom
+                                  ? MediaQuery.of(context).size.width - 32
+                                  : 157,
+                              duration: const Duration(seconds: 1),
+                              curve: Curves.fastOutSlowIn,
+                              child: ElevatedButton(
+                                  onPressed: basket.state == 'SUCCESS'
+                                      ? () {
+                                          context.push('/registration',
+                                              extra: basket);
+                                        }
+                                      : null,
+                                  child: const Text('Оформить заказ')),
+                            ),
                           ],
                         ),
-                      ),
-                      AnimatedContainer(
-                        height: 48,
-                        width: scrollAtBottom
-                            ? MediaQuery.of(context).size.width - 32
-                            : 157,
-                        duration: const Duration(seconds: 1),
-                        curve: Curves.fastOutSlowIn,
-                        child: ElevatedButton(
-                            onPressed: basket.state == 'SUCCESS'
-                                ? () {
-                                    context.push('/registration',
-                                        extra: basket);
-                                  }
-                                : null,
-                            child: const Text('Оформить заказ')),
                       ),
                     ],
                   )),
