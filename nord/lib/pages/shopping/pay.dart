@@ -164,6 +164,8 @@ class _PayPageState extends State<PayPage> {
                           GraphOrderResult.fromJson(resultData['addOrder']);
 
                       if (nordOrderResult.result == 0) {
+                        context.pushNamed('webview',
+                            params: {'path': nordOrderResult.bankURL ?? ''});
                       } else {
                         showErrorAlert(
                             context, nordOrderResult.errorMessage ?? '');
@@ -174,8 +176,7 @@ class _PayPageState extends State<PayPage> {
                 builder: (runMutation, result) {
                   return ElevatedButton(
                       onPressed: () {
-                        context.pushNamed('webview',
-                            params: {'path': 'https://ya.ru'});
+                        runMutation({'order': order.toJson()});
                         //context.push('/success');
                       },
                       child: const Text('Оплатить'));
