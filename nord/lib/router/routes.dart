@@ -65,10 +65,10 @@ class NordRouter {
       ),
       GoRoute(
         name: 'webview',
-        path: '/webview',
+        path: '/webview:path',
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
-          child: const WebViewPage(),
+          child: WebViewPage(path: state.params['path']),
         ),
       ),
       GoRoute(
