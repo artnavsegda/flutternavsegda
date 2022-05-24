@@ -15,6 +15,7 @@ import '../pages/user/edit_user.dart';
 import '../pages/shopping/pay.dart';
 import '../pages/shopping/success.dart';
 import '../pages/shopping/registration.dart';
+import '../pages/shopping/webview.dart';
 
 class PayPageArguments {
   GraphBasket basket;
@@ -60,6 +61,14 @@ class NordRouter {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: RegistrationPage(basket: state.extra! as GraphBasket),
+        ),
+      ),
+      GoRoute(
+        name: 'webview',
+        path: '/webview',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const WebViewPage(),
         ),
       ),
       GoRoute(
