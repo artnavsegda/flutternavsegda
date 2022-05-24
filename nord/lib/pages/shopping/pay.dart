@@ -159,13 +159,13 @@ class _PayPageState extends State<PayPage> {
                   },
                   onCompleted: (resultData) {
                     if (resultData != null) {
-                      GraphBasisResult nordBasisResult =
-                          GraphBasisResult.fromJson(resultData['cartAdd']);
+                      GraphOrderResult nordOrderResult =
+                          GraphOrderResult.fromJson(resultData['cartAdd']);
 
-                      if (nordBasisResult.result == 0) {
+                      if (nordOrderResult.result == 0) {
                       } else {
                         showErrorAlert(
-                            context, nordBasisResult.errorMessage ?? '');
+                            context, nordOrderResult.errorMessage ?? '');
                       }
                     }
                   },
