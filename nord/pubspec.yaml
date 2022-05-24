@@ -59,6 +59,7 @@ dependencies:
   geolocator: ^8.2.0
   flutter_native_splash: ^2.1.6
   yandex_geocoder: ^2.0.1
+  webview_flutter: ^3.0.4
 
 dev_dependencies:
   flutter_test:
