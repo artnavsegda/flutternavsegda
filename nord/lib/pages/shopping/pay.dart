@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
+import 'package:nord/utils.dart';
 import 'success.dart';
 import '../../components/components.dart';
 import 'package:nord/gql.dart';
@@ -149,11 +151,32 @@ class _PayPageState extends State<PayPage> {
           const Spacer(),
           Padding(
             padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-                onPressed: () {
-                  context.push('/success');
-                },
-                child: const Text('Оплатить')),
+            child: Mutation(
+                options: MutationOptions(
+                  document: gql(cartAdd),
+                  onError: (error) {
+                    showErrorAlert(context, '$error');
+                  },
+                  onCompleted: (resultData) {
+                    if (resultData != null) {
+                      GraphBasisResult nordBasisResult =
+                          GraphBasisResult.fromJson(resultData['cartAdd']);
+
+                      if (nordBasisResult.result == 0) {
+                      } else {
+                        showErrorAlert(
+                            context, nordBasisResult.errorMessage ?? '');
+                      }
+                    }
+                  },
+                ),
+                builder: (runMutation, result) {
+                  return ElevatedButton(
+                      onPressed: () {
+                        context.push('/success');
+                      },
+                      child: const Text('Оплатить'));
+                }),
           ),
         ],
       ),
