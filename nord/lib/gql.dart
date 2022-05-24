@@ -2840,3 +2840,16 @@ mutation addOrder($order: graphNewOrder) {
   }
 }
 ''';
+
+const String cancelOrder = r'''
+mutation cancelOrder($orderID: Int) {
+  cancelOrder(orderID: $orderID)
+  {
+    result
+    errorMessage
+    bankURL
+    orderID
+    gotoCart
+  }
+}
+''';

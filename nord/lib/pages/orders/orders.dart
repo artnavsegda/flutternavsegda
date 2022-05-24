@@ -131,10 +131,12 @@ class OrdersPage extends StatelessWidget {
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Text(
-                                              order.address ?? 'без адреса',
-                                              style: TextStyle(
-                                                  color: Color(0xFF56626C)),
+                                            Flexible(
+                                              child: Text(
+                                                order.address ?? 'без адреса',
+                                                style: TextStyle(
+                                                    color: Color(0xFF56626C)),
+                                              ),
                                             ),
                                             Container(
                                                 padding: EdgeInsets.symmetric(
