@@ -129,18 +129,19 @@ class _PayPageState extends State<PayPage> {
               ],
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: SliderCombo(
-              value: order.paidPoints,
-              max: widget.basket.availablePoints,
-              onChanged: (newVal) {
-                setState(() {
-                  order.paidPoints = newVal;
-                });
-              },
+          if (widget.basket.availablePoints > 0)
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SliderCombo(
+                value: order.paidPoints,
+                max: widget.basket.availablePoints,
+                onChanged: (newVal) {
+                  setState(() {
+                    order.paidPoints = newVal;
+                  });
+                },
+              ),
             ),
-          ),
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: SpecialCondition(
@@ -174,7 +175,7 @@ class _PayPageState extends State<PayPage> {
                   return ElevatedButton(
                       onPressed: () {
                         context.pushNamed('webview',
-                            params: {'path': 'http://ya.ru'});
+                            params: {'path': 'https://ya.ru'});
                         //context.push('/success');
                       },
                       child: const Text('Оплатить'));

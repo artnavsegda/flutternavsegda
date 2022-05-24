@@ -8,8 +8,11 @@ class WebViewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return WebView(
-      initialUrl: path,
+    return Scaffold(
+      appBar: AppBar(),
+      body: WebView(
+        initialUrl: path,
+      ),
     );
   }
 }
