@@ -1,3 +1,26 @@
+class GraphOrderResult {
+  GraphOrderResult({
+    required this.result,
+    this.errorMessage,
+    this.bankURL,
+    required this.orderID,
+    required this.gotoCart,
+  });
+
+  int result;
+  String? errorMessage;
+  String? bankURL;
+  int orderID;
+  bool gotoCart;
+
+  GraphOrderResult.fromJson(Map<String, dynamic> json)
+      : result = json['result'],
+        errorMessage = json['errorMessage'],
+        bankURL = json['bankURL'],
+        orderID = json['orderID'],
+        gotoCart = json['gotoCart'];
+}
+
 class GraphCartItemOnly {
   GraphCartItemOnly({
     required this.productID,
