@@ -159,7 +159,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                     Padding(
                       padding: EdgeInsets.all(16.0),
                       child: Text(
-                        'Сумма заказа',
+                        'Итого',
                         style: Theme.of(context).textTheme.headlineSmall,
                       ),
                     ),
@@ -186,7 +186,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                             crossAxisAlignment: CrossAxisAlignment.end,
                             textBaseline: TextBaseline.ideographic,
                             children: [
-                              Text('Сумма заказа',
+                              Text('Стоимость товара',
                                   style: TextStyle(
                                       fontFamily: 'Noto Sans',
                                       fontSize: 16,
@@ -197,7 +197,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 child: DottedLine(
                                     dashColor: Colors.grey, dashLength: 2),
                               )),
-                              Text('${basket.amount} ₽',
+                              Text('${basket.amount.toInt()} ₽',
                                   style: TextStyle(
                                       fontFamily: 'Noto Sans',
                                       fontSize: 16,
@@ -266,7 +266,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                 child: DottedLine(
                                     dashColor: Colors.grey, dashLength: 2),
                               )),
-                              Text('${basket.payment} ₽',
+                              Text('${basket.payment.toInt()} ₽',
                                   style: TextStyle(
                                       fontFamily: 'Noto Sans',
                                       fontSize: 16,
@@ -321,7 +321,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     color: Color(0xFF56626C),
                                     fontFamilyFallback: ['Roboto'])),
                             SizedBox(height: 3),
-                            Text('${basket.amount} ₽',
+                            Text('${basket.payment.toInt()} ₽',
                                 style: TextStyle(
                                     fontFamily: 'Noto Sans',
                                     fontSize: 16,
