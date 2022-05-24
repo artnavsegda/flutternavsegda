@@ -17,7 +17,7 @@ class WebViewPage extends StatelessWidget {
         onPageStarted: (url) {
           print('page started $url');
           if (url.contains('order-ok')) {
-            context.push('/success');
+            context.go('/success');
           } else if (url.contains('order-error')) {
             context.pop();
           }
