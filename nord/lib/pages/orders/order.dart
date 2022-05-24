@@ -32,6 +32,7 @@ class OrderPage extends StatelessWidget {
         ),
         body: Query(
             options: QueryOptions(
+              fetchPolicy: FetchPolicy.networkOnly,
               document: gql(getOrder),
               variables: {
                 'orderID': id,
@@ -199,7 +200,7 @@ class OrderPage extends StatelessWidget {
                         purchase: purchase,
                       )),
                   SizedBox(height: 16),
-                  if (orderInfo.possibleCancel)
+                  if (orderInfo.possibleCancel == true)
                     Padding(
                       padding: const EdgeInsets.all(16.0),
                       child: Mutation(
