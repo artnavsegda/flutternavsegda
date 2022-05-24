@@ -153,14 +153,14 @@ class _PayPageState extends State<PayPage> {
             padding: const EdgeInsets.all(16.0),
             child: Mutation(
                 options: MutationOptions(
-                  document: gql(cartAdd),
+                  document: gql(addOrder),
                   onError: (error) {
                     showErrorAlert(context, '$error');
                   },
                   onCompleted: (resultData) {
                     if (resultData != null) {
                       GraphOrderResult nordOrderResult =
-                          GraphOrderResult.fromJson(resultData['cartAdd']);
+                          GraphOrderResult.fromJson(resultData['addOrder']);
 
                       if (nordOrderResult.result == 0) {
                       } else {
