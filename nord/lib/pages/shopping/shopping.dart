@@ -147,6 +147,14 @@ class _ShoppingPageState extends State<ShoppingPage> {
                 child: ListView(
                   controller: _scrollController,
                   children: [
+                    if (basket.state != 'SUCCESS')
+                      Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: SpecialCondition(
+                            text: basket.state == 'TYPE_ORDER_ERROR'
+                                ? 'Выберите адрес доставки или кофейни.'
+                                : 'Ой! Не все товары доступны. Удалите их из корзины, чтобы оформить заказ.'),
+                      ),
                     ...basket.rows.map(
                       (item) {
                         return CartTile(
