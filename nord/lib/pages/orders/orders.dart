@@ -69,8 +69,8 @@ class OrdersPage extends StatelessWidget {
                           ),
                           ...e.value.map((order) => order.orderId > 0
                               ? InkWell(
-                                  onTap: () {
-                                    Navigator.push(
+                                  onTap: () async {
+                                    await Navigator.push(
                                       context,
                                       MaterialPageRoute(
                                         builder: (context) => OrderPage(
@@ -78,6 +78,7 @@ class OrdersPage extends StatelessWidget {
                                         ),
                                       ),
                                     );
+                                    refetch!();
                                   },
                                   child: Padding(
                                     padding: const EdgeInsets.all(16.0),

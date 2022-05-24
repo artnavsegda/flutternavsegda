@@ -204,7 +204,7 @@ class OrderPage extends StatelessWidget {
                       padding: const EdgeInsets.all(16.0),
                       child: Mutation(
                         options: MutationOptions(
-                          document: gql(addDeliveryAddress),
+                          document: gql(cancelOrder),
                           onError: (error) {
                             showErrorAlert(
                                 context, error!.graphqlErrors[0].message);
@@ -214,7 +214,7 @@ class OrderPage extends StatelessWidget {
                             if (resultData != null) {
                               GraphBasisResult nordResult =
                                   GraphBasisResult.fromJson(
-                                      resultData['addDeliveryAddress']);
+                                      resultData['cancelOrder']);
                               if (nordResult.result == 0) {
                                 Navigator.pop(context);
                               }
@@ -226,7 +226,10 @@ class OrderPage extends StatelessWidget {
                         ),
                         builder: (runMutation, result) {
                           return GradientButton(
-                              onPressed: () {}, child: Text('Отменить заказ'));
+                              onPressed: () {
+                                runMutation({'orderID': orderInfo.orderId});
+                              },
+                              child: Text('Отменить заказ'));
                         },
                       ),
                     )

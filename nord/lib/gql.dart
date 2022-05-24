@@ -2842,7 +2842,7 @@ mutation addOrder($order: graphNewOrder) {
 ''';
 
 const String cancelOrder = r'''
-mutation cancelOrder($orderID: Int) {
+mutation cancelOrder($orderID: Long) {
   cancelOrder(orderID: $orderID)
   {
     result
