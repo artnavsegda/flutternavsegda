@@ -175,7 +175,7 @@ class _PayPageState extends State<PayPage> {
                       onPressed: () {
                         context.pushNamed('webview',
                             params: {'path': 'http://ya.ru'});
-                        context.push('/success');
+                        //context.push('/success');
                       },
                       child: const Text('Оплатить'));
                 }),
