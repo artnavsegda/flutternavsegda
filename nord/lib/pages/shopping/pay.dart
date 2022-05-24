@@ -173,6 +173,8 @@ class _PayPageState extends State<PayPage> {
                 builder: (runMutation, result) {
                   return ElevatedButton(
                       onPressed: () {
+                        context.pushNamed('webview',
+                            params: {'path': 'http://ya.ru'});
                         context.push('/success');
                       },
                       child: const Text('Оплатить'));
