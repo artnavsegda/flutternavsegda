@@ -204,30 +204,33 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       fontFamilyFallback: ['Roboto'])),
                             ],
                           ),
-                          SizedBox(height: 24),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Text('Скидка',
-                                  style: TextStyle(
-                                      fontFamily: 'Noto Sans',
-                                      fontSize: 16,
-                                      fontFamilyFallback: ['Roboto'])),
-                              Expanded(
-                                  child: Padding(
-                                padding: const EdgeInsets.all(4.0),
-                                child: DottedLine(
-                                    dashColor: Colors.grey, dashLength: 2),
-                              )),
-                              Text('Бесплатно',
-                                  style: TextStyle(
-                                      fontFamily: 'Noto Sans',
-                                      fontSize: 16,
-                                      fontFamilyFallback: ['Roboto'])),
-                            ],
-                          ),
-                          SizedBox(height: 24),
+                          if (basket.discount != 0) ...[
+                            SizedBox(height: 24),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children: [
+                                Text('Скидка',
+                                    style: TextStyle(
+                                        fontFamily: 'Noto Sans',
+                                        fontSize: 16,
+                                        fontFamilyFallback: ['Roboto'])),
+                                Expanded(
+                                    child: Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: DottedLine(
+                                      dashColor: Colors.grey, dashLength: 2),
+                                )),
+                                Text('- ${basket.discount.toInt()} ₽',
+                                    style: TextStyle(
+                                        color: Color(0xFFB0063A),
+                                        fontFamily: 'Noto Sans',
+                                        fontSize: 16,
+                                        fontFamilyFallback: ['Roboto'])),
+                              ],
+                            ),
+                          ],
+/*                           SizedBox(height: 24),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.end,
@@ -249,7 +252,7 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                       fontSize: 16,
                                       fontFamilyFallback: ['Roboto'])),
                             ],
-                          ),
+                          ), */
                           Divider(height: 48),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
