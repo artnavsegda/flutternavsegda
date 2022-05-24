@@ -152,6 +152,8 @@ class GraphOrder {
 
 class GraphNewOrder {
   GraphNewOrder({
+    this.shopID,
+    this.deliveryAddressID,
     required this.deliveryDate,
     required this.deliveryTimeID,
     required this.deliveryExpress,
@@ -162,6 +164,8 @@ class GraphNewOrder {
     required this.wishes,
   });
 
+  int? shopID;
+  int? deliveryAddressID;
   String deliveryDate;
   int deliveryTimeID;
   bool deliveryExpress;
@@ -172,6 +176,8 @@ class GraphNewOrder {
   List<int> wishes;
 
   Map<String, dynamic> toJson() => {
+        'shopID': shopID,
+        'deliveryAddressID': deliveryAddressID,
         'deliveryDate': deliveryDate,
         'deliveryTimeID': deliveryTimeID,
         'deliveryExpress': deliveryExpress,

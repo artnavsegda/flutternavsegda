@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
+import 'package:nord/login_state.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/router/routes.dart';
 import 'package:nord/sever_metropol_icons.dart';
@@ -38,6 +39,12 @@ class _RegistrationPageState extends State<RegistrationPage> {
   void initState() {
     super.initState();
     order = GraphNewOrder(
+      shopID: context.read<FilterState>().filter == 'PICK_UP'
+          ? context.read<FilterState>().activeShop!.iD
+          : null,
+      deliveryAddressID: context.read<FilterState>().filter == 'DELIVERY'
+          ? context.read<FilterState>().activeAddress!.iD
+          : null,
       deliveryDate: widget.basket.slots.dates[0].date,
       deliveryTimeID: widget.basket.slots.times[0].iD,
       deliveryExpress: false,
