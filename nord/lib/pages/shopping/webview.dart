@@ -18,6 +18,8 @@ class WebViewPage extends StatelessWidget {
           print('page started $url');
           if (url.contains('order-ok')) {
             context.push('/success');
+          } else if (url.contains('order-error')) {
+            context.pop();
           }
         },
         onPageFinished: (url) {
