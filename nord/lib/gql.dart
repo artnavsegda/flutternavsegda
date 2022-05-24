@@ -2821,3 +2821,16 @@ query getOrder($orderID: Long) {
   }
 }
 ''';
+
+const String addOrder = r'''
+mutation addOrder($order: graphNewOrder) {
+  addOrder(order: $order)
+  {
+    result
+    errorMessage
+    bankURL
+    orderID
+    gotoCart
+  }
+}
+''';
