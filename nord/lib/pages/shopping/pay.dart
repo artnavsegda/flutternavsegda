@@ -177,7 +177,6 @@ class _PayPageState extends State<PayPage> {
                   return ElevatedButton(
                       onPressed: () {
                         runMutation({'order': order.toJson()});
-                        //context.push('/success');
                       },
                       child: const Text('Оплатить'));
                 }),
