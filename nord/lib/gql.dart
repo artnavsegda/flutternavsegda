@@ -2847,9 +2847,6 @@ mutation cancelOrder($orderID: Int) {
   {
     result
     errorMessage
-    bankURL
-    orderID
-    gotoCart
   }
 }
 ''';

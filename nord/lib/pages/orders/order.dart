@@ -8,6 +8,7 @@ import 'package:shimmer/shimmer.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
+import 'package:nord/utils.dart';
 import '../../components/gradient_button.dart';
 
 class OrderPage extends StatelessWidget {
@@ -201,8 +202,33 @@ class OrderPage extends StatelessWidget {
                   if (orderInfo.possibleCancel)
                     Padding(
                       padding: const EdgeInsets.all(16.0),
-                      child: GradientButton(
-                          onPressed: () {}, child: Text('Отменить заказ')),
+                      child: Mutation(
+                        options: MutationOptions(
+                          document: gql(addDeliveryAddress),
+                          onError: (error) {
+                            showErrorAlert(
+                                context, error!.graphqlErrors[0].message);
+                          },
+                          onCompleted: (resultData) {
+                            print(resultData);
+                            if (resultData != null) {
+                              GraphBasisResult nordResult =
+                                  GraphBasisResult.fromJson(
+                                      resultData['addDeliveryAddress']);
+                              if (nordResult.result == 0) {
+                                Navigator.pop(context);
+                              }
+                              if (nordResult.errorMessage?.isNotEmpty ?? false)
+                                showErrorAlert(
+                                    context, nordResult.errorMessage ?? '');
+                            }
+                          },
+                        ),
+                        builder: (runMutation, result) {
+                          return GradientButton(
+                              onPressed: () {}, child: Text('Отменить заказ'));
+                        },
+                      ),
                     )
                 ],
               );
