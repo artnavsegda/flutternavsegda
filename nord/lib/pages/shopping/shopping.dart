@@ -640,11 +640,39 @@ class DeliveryTermsBottomSheet extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       mainAxisSize: MainAxisSize.min,
       children: [
-        ...terms.map((term) => Row(
-              children: [
-                Text(term.left),
-                Text(term.right),
-              ],
+        ListTile(
+          onTap: () {
+            Navigator.pop(context);
+          },
+          title: Center(child: Text('Условия доставки')),
+          trailing: Icon(
+            SeverMetropol.Icon_Close,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
+        ...terms.map((term) => Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.end,
+                textBaseline: TextBaseline.ideographic,
+                children: [
+                  Text(
+                    term.left,
+                    style:
+                        TextStyle(fontFamilyFallback: ['Roboto'], fontSize: 16),
+                  ),
+                  Expanded(
+                      child: Padding(
+                    padding: const EdgeInsets.all(5.0),
+                    child: DottedLine(dashColor: Colors.grey, dashLength: 2),
+                  )),
+                  Text(
+                    term.right,
+                    style:
+                        TextStyle(fontFamilyFallback: ['Roboto'], fontSize: 16),
+                  ),
+                ],
+              ),
             ))
       ],
     );
