@@ -332,8 +332,26 @@ class _ShoppingPageState extends State<ShoppingPage> {
                                     style: TextStyle(
                                         fontFamilyFallback: ['Roboto']),
                                   ),
-                                  Icon(SeverMetropol.Icon_Info,
-                                      color: Color(0xFFB0063A))
+                                  InkWell(
+                                    onTap: (() {
+                                      showModalBottomSheet(
+                                        shape: const RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.vertical(
+                                              top: Radius.circular(4.0)),
+                                        ),
+                                        backgroundColor: Colors.white,
+                                        isScrollControlled: true,
+                                        context: context,
+                                        builder: (context) {
+                                          return DeliveryTermsBottomSheet(
+                                              terms:
+                                                  basket.deliveryInfo!.terms);
+                                        },
+                                      );
+                                    }),
+                                    child: Icon(SeverMetropol.Icon_Info,
+                                        color: Color(0xFFB0063A)),
+                                  )
                                 ],
                               ),
                             )
@@ -607,5 +625,28 @@ class _CartTileState extends State<CartTile> {
             ),
           );
         });
+  }
+}
+
+class DeliveryTermsBottomSheet extends StatelessWidget {
+  const DeliveryTermsBottomSheet({Key? key, required this.terms})
+      : super(key: key);
+
+  final List<GraphTerm> terms;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        ...terms.map((term) => Row(
+              children: [
+                Text(term.left),
+                Text(term.right),
+              ],
+            ))
+      ],
+    );
   }
 }
