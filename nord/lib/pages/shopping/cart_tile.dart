@@ -91,6 +91,27 @@ class _CartTileState extends State<CartTile> {
                                   if (widget.item.modifiers != null)
                                     Text(widget.item.modifiers ?? '',
                                         style: TextStyle(color: Colors.grey)),
+                                  if (widget.item.message != null)
+                                    Row(
+                                      children: [
+                                        widget.item.typeMessage == 'WARNING'
+                                            ? Icon(
+                                                SeverMetropol.Icon_Info,
+                                                color: Colors.blue[900],
+                                              )
+                                            : Icon(
+                                                SeverMetropol.Icon_Notification,
+                                                color: Colors.red[900],
+                                              ),
+                                        Text(widget.item.message ?? '',
+                                            style: TextStyle(
+                                                color:
+                                                    widget.item.typeMessage ==
+                                                            'WARNING'
+                                                        ? Colors.blue[900]
+                                                        : Colors.red[900])),
+                                      ],
+                                    ),
                                   Mutation(
                                       options: MutationOptions(
                                           document: gql(cartEdit),
