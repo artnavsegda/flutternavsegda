@@ -64,6 +64,15 @@ class IntroPage extends StatelessWidget {
                   //pushNotificationToken: fcmToken,
                 );
                 runMutation(nordGraphDevice.toJson());
+              } else if (Platform.isMacOS) {
+                var data = await deviceInfo.macOsInfo;
+                GraphDevice nordGraphDevice = GraphDevice(
+                  bundleID: "ru.premiumbonus.severmetropol",
+                  gUID: data.systemGUID ?? "",
+                  oSType: "IOS",
+                  //pushNotificationToken: fcmToken,
+                );
+                runMutation(nordGraphDevice.toJson());
               }
             });
             return Stack(
