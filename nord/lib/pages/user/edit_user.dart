@@ -9,6 +9,7 @@ import 'package:image_picker/image_picker.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:intl/intl.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/login_state.dart';
@@ -307,6 +308,7 @@ class _EditUserState extends State<EditUser> {
 
   @override
   Widget build(BuildContext context) {
+    FirebaseMessaging messaging = FirebaseMessaging.instance;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
@@ -497,11 +499,20 @@ class _EditUserState extends State<EditUser> {
                 });
               },
             ),
-            SwitchListTile(
-              title: const Text('Получать push-уведомления'),
-              value: false,
-              onChanged: (newVal) {},
-            ),
+            FutureBuilder<NotificationSettings>(
+                future: messaging.getNotificationSettings(),
+                builder: (context, snapshot) {
+                  bool valueStatus = false;
+                  if (snapshot.hasData) {
+                    valueStatus = snapshot.data!.authorizationStatus ==
+                        AuthorizationStatus.authorized;
+                  }
+                  return SwitchListTile(
+                    title: const Text('Получать push-уведомления'),
+                    value: valueStatus,
+                    onChanged: (newVal) {},
+                  );
+                }),
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: _sendFormButton(context, widget.userInfo),

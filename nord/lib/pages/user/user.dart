@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 
 import '../../login_state.dart';
 import '../../sever_metropol_icons.dart';
@@ -10,7 +11,6 @@ import 'package:nord/pages/address/delivery_address.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/pages/error/error.dart';
 import '../loyalty/loyalty.dart';
-
 import 'edit_user.dart';
 import 'gift_bonus.dart';
 import 'set_password.dart';
