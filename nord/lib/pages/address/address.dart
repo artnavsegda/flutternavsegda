@@ -21,14 +21,18 @@ class AddressPage extends StatefulWidget {
 }
 
 class _AddressPageState extends State<AddressPage> {
-  late FilterState copyState;
+  late String filter = 'ALL';
+  late GraphShop? activeShop;
+  late GraphDeliveryAddress? activeAddress;
   GlobalKey _mapKey = new GlobalKey();
   GlobalKey _globalKey = new GlobalKey();
 
   @override
   void initState() {
     super.initState();
-    copyState = FilterState.from(context.read<FilterState>());
+    filter = context.read<FilterState>().filter;
+    activeShop = context.read<FilterState>().activeShop;
+    activeAddress = context.read<FilterState>().activeAddress;
   }
 
   Widget chooser(BuildContext context) {
@@ -43,7 +47,7 @@ class _AddressPageState extends State<AddressPage> {
                   side: BorderSide(color: Colors.grey),
                   padding: EdgeInsets.only(right: 16)),
               onPressed: () {
-                setState(() => copyState.filter = 'DELIVERY');
+                setState(() => filter = 'DELIVERY');
               },
               label: const Text('Доставка'),
               icon: Stack(
@@ -56,7 +60,7 @@ class _AddressPageState extends State<AddressPage> {
                   Padding(
                       padding: const EdgeInsets.all(4.0),
                       child: Icon(
-                        copyState.filter == 'DELIVERY'
+                        filter == 'DELIVERY'
                             ? SeverMetropol.Icon_Checkbox_Checked
                             : SeverMetropol.Icon_Checkbox_Unchecked,
                         color: Theme.of(context).colorScheme.primary,
@@ -68,7 +72,7 @@ class _AddressPageState extends State<AddressPage> {
               style:
                   OutlinedButton.styleFrom(padding: EdgeInsets.only(right: 16)),
               onPressed: () {
-                setState(() => copyState.filter = 'PICK_UP');
+                setState(() => filter = 'PICK_UP');
               },
               label: const Text('Самовывоз'),
               icon: Stack(
@@ -80,7 +84,7 @@ class _AddressPageState extends State<AddressPage> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
-                      copyState.filter == 'PICK_UP'
+                      filter == 'PICK_UP'
                           ? SeverMetropol.Icon_Checkbox_Checked
                           : SeverMetropol.Icon_Checkbox_Unchecked,
                       color: Theme.of(context).colorScheme.primary,
@@ -94,7 +98,7 @@ class _AddressPageState extends State<AddressPage> {
                   OutlinedButton.styleFrom(padding: EdgeInsets.only(right: 16)),
               onPressed: () {
                 setState(() {
-                  copyState.filter = 'ALL';
+                  filter = 'ALL';
                 });
               },
               label: const Text('Все товары'),
@@ -108,7 +112,7 @@ class _AddressPageState extends State<AddressPage> {
                   Padding(
                     padding: const EdgeInsets.all(4.0),
                     child: Icon(
-                      copyState.filter == 'ALL'
+                      filter == 'ALL'
                           ? SeverMetropol.Icon_Checkbox_Checked
                           : SeverMetropol.Icon_Checkbox_Unchecked,
                       color: Theme.of(context).colorScheme.primary,
@@ -173,7 +177,7 @@ class _AddressPageState extends State<AddressPage> {
             )),
         title: const Text('Адрес доставки или кафе'),
       ),
-      body: copyState.filter == 'DELIVERY'
+      body: filter == 'DELIVERY'
           ? Query(
               options: QueryOptions(document: gql(getClientInfo)),
               builder: (result, {fetchMore, refetch}) {
@@ -208,8 +212,10 @@ class _AddressPageState extends State<AddressPage> {
                         title: Text(address.description ?? 'WTF'),
                         subtitle: Text(address.address),
                         onTap: () {
-                          copyState.activeAddress = address;
-                          context.read<FilterState>().assign(copyState);
+                          activeAddress = address;
+                          context
+                              .read<FilterState>()
+                              .update(newActiveAddress: address);
                           Navigator.pop(context);
                         },
                       ),
@@ -236,7 +242,7 @@ class _AddressPageState extends State<AddressPage> {
                   ],
                 );
               })
-          : copyState.filter == 'PICK_UP'
+          : filter == 'PICK_UP'
               ? Query(
                   options: QueryOptions(
                     document: gql(getShops),
@@ -292,10 +298,10 @@ class _AddressPageState extends State<AddressPage> {
                             ...shops.map((shop) => ShopTile(
                                   shop: shop,
                                   onTap: () {
-                                    copyState.activeShop = shop;
+                                    activeShop = shop;
                                     context
                                         .read<FilterState>()
-                                        .assign(copyState);
+                                        .update(newActiveShop: shop);
                                     Navigator.pop(context);
                                   },
                                 ))

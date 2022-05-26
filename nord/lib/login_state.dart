@@ -102,16 +102,20 @@ class FilterState with ChangeNotifier {
   GraphDeliveryAddress? activeAddress;
 
   FilterState(this.prefs);
-  FilterState.from(FilterState original)
-      : prefs = original.prefs,
-        filter = original.filter,
-        activeShop = original.activeShop,
-        activeAddress = original.activeAddress;
 
-  void assign(FilterState newState) {
-    filter = newState.filter;
-    activeShop = newState.activeShop;
-    activeAddress = newState.activeAddress;
+  update(
+      {String? newFilter,
+      GraphShop? newActiveShop,
+      GraphDeliveryAddress? newActiveAddress}) {
+    if (newFilter != null) {
+      filter = newFilter;
+    }
+    if (newActiveShop != null) {
+      activeShop = newActiveShop;
+    }
+    if (newActiveAddress != null) {
+      activeAddress = newActiveAddress;
+    }
     notifyListeners();
   }
 }
