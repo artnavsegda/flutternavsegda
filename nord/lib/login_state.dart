@@ -96,13 +96,15 @@ class CartState with ChangeNotifier {
 }
 
 class FilterState with ChangeNotifier {
+  final SharedPreferences prefs;
   String filter = 'ALL';
   GraphShop? activeShop;
   GraphDeliveryAddress? activeAddress;
 
-  FilterState();
+  FilterState(this.prefs);
   FilterState.from(FilterState original)
-      : filter = original.filter,
+      : prefs = original.prefs,
+        filter = original.filter,
         activeShop = original.activeShop,
         activeAddress = original.activeAddress;
 

@@ -25,19 +25,16 @@ Future<void> main() async {
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
   runApp(NordApp(
-    loginState: LoginState(prefs),
-    cartState: CartState(prefs),
+    prefs: prefs,
   ));
 }
 
 class NordApp extends StatelessWidget {
-  final LoginState loginState;
-  final CartState cartState;
+  final SharedPreferences prefs;
 
   const NordApp({
     Key? key,
-    required this.loginState,
-    required this.cartState,
+    required this.prefs,
   }) : super(key: key);
 
   // This widget is the root of your application.
@@ -92,6 +89,8 @@ class NordApp extends StatelessWidget {
       ),
     );
 
+    LoginState loginState = LoginState(prefs);
+
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<LoginState>(
@@ -100,11 +99,11 @@ class NordApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<CartState>(
           lazy: false,
-          create: (context) => cartState,
+          create: (context) => CartState(prefs),
         ),
         ChangeNotifierProvider<FilterState>(
           lazy: false,
-          create: (context) => FilterState(),
+          create: (context) => FilterState(prefs),
         ),
         Provider<NordRouter>(
           lazy: false,
