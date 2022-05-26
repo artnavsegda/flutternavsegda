@@ -60,6 +60,7 @@ dependencies:
   flutter_native_splash: ^2.1.6
   yandex_geocoder: ^2.0.1
   webview_flutter: ^3.0.4
+  firebase_core: ^1.17.0
 
 dev_dependencies:
   flutter_test:
