@@ -126,9 +126,35 @@ class _OnboardingState extends State<Onboarding> {
                 },
               ),
               secondChild: GradientButton.icon(
-                onPressed: () => _controller.nextPage(
-                    duration: const Duration(milliseconds: 400),
-                    curve: Curves.easeInOut),
+                onPressed: () async {
+                  if (pageNumber == 1) {
+                    FirebaseMessaging messaging = FirebaseMessaging.instance;
+
+                    NotificationSettings settings =
+                        await messaging.requestPermission(
+                      alert: true,
+                      announcement: false,
+                      badge: true,
+                      carPlay: false,
+                      criticalAlert: false,
+                      provisional: false,
+                      sound: true,
+                    );
+
+                    if (settings.authorizationStatus ==
+                        AuthorizationStatus.authorized) {
+                      print('User granted permission');
+                    } else if (settings.authorizationStatus ==
+                        AuthorizationStatus.provisional) {
+                      print('User granted provisional permission');
+                    } else {
+                      print('User declined or has not accepted permission');
+                    }
+                  }
+                  _controller.nextPage(
+                      duration: const Duration(milliseconds: 400),
+                      curve: Curves.easeInOut);
+                },
                 label: const Icon(SeverMetropol.Icon_East),
                 icon: const Text("Далее"),
               ),
@@ -184,27 +210,6 @@ class Push extends StatelessWidget {
         OutlinedButton(
             onPressed: () async {
               onSkip!();
-/*               FirebaseMessaging messaging = FirebaseMessaging.instance;
-
-              NotificationSettings settings = await messaging.requestPermission(
-                alert: true,
-                announcement: false,
-                badge: true,
-                carPlay: false,
-                criticalAlert: false,
-                provisional: false,
-                sound: true,
-              );
-
-              if (settings.authorizationStatus ==
-                  AuthorizationStatus.authorized) {
-                print('User granted permission');
-              } else if (settings.authorizationStatus ==
-                  AuthorizationStatus.provisional) {
-                print('User granted provisional permission');
-              } else {
-                print('User declined or has not accepted permission');
-              } */
             },
             child: const Text('Разрешить позже'))
       ],
