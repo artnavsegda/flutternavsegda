@@ -48,6 +48,9 @@ class _EditUserState extends State<EditUser> {
     'FEMALE': 'Женский',
   };
 
+  Future<NotificationSettings> settings =
+      FirebaseMessaging.instance.getNotificationSettings();
+
   @override
   void initState() {
     super.initState();
@@ -308,7 +311,6 @@ class _EditUserState extends State<EditUser> {
 
   @override
   Widget build(BuildContext context) {
-    FirebaseMessaging messaging = FirebaseMessaging.instance;
     return Scaffold(
       appBar: AppBar(
         title: const Text("Профиль"),
@@ -500,7 +502,7 @@ class _EditUserState extends State<EditUser> {
               },
             ),
             FutureBuilder<NotificationSettings>(
-                future: messaging.getNotificationSettings(),
+                future: settings,
                 builder: (context, snapshot) {
                   bool valueStatus = false;
                   if (snapshot.hasData) {
@@ -511,26 +513,17 @@ class _EditUserState extends State<EditUser> {
                     title: const Text('Получать push-уведомления'),
                     value: valueStatus,
                     onChanged: (newVal) async {
-                      NotificationSettings settings =
-                          await messaging.requestPermission(
-                        alert: true,
-                        announcement: false,
-                        badge: true,
-                        carPlay: false,
-                        criticalAlert: false,
-                        provisional: false,
-                        sound: true,
-                      );
-
-                      if (settings.authorizationStatus ==
-                          AuthorizationStatus.authorized) {
-                        print('User granted permission');
-                      } else if (settings.authorizationStatus ==
-                          AuthorizationStatus.provisional) {
-                        print('User granted provisional permission');
-                      } else {
-                        print('User declined or has not accepted permission');
-                      }
+                      setState(() {
+                        settings = FirebaseMessaging.instance.requestPermission(
+                          alert: true,
+                          announcement: false,
+                          badge: true,
+                          carPlay: false,
+                          criticalAlert: false,
+                          provisional: false,
+                          sound: true,
+                        );
+                      });
                     },
                   );
                 }),
