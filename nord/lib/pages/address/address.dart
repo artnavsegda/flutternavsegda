@@ -46,9 +46,11 @@ class _AddressPageState extends State<AddressPage> {
               style: OutlinedButton.styleFrom(
                   side: BorderSide(color: Colors.grey),
                   padding: EdgeInsets.only(right: 16)),
-              onPressed: () {
-                setState(() => filter = 'DELIVERY');
-              },
+              onPressed: context.read<LoginState>().loggedIn
+                  ? () {
+                      setState(() => filter = 'DELIVERY');
+                    }
+                  : null,
               label: const Text('Доставка'),
               icon: Stack(
                 children: [
@@ -100,6 +102,7 @@ class _AddressPageState extends State<AddressPage> {
                 setState(() {
                   filter = 'ALL';
                 });
+                context.read<FilterState>().update(newFilter: filter);
               },
               label: const Text('Все товары'),
               icon: Stack(
@@ -213,9 +216,8 @@ class _AddressPageState extends State<AddressPage> {
                         subtitle: Text(address.address),
                         onTap: () {
                           activeAddress = address;
-                          context
-                              .read<FilterState>()
-                              .update(newActiveAddress: address);
+                          context.read<FilterState>().update(
+                              newActiveAddress: address, newFilter: filter);
                           Navigator.pop(context);
                         },
                       ),
@@ -299,9 +301,8 @@ class _AddressPageState extends State<AddressPage> {
                                   shop: shop,
                                   onTap: () {
                                     activeShop = shop;
-                                    context
-                                        .read<FilterState>()
-                                        .update(newActiveShop: shop);
+                                    context.read<FilterState>().update(
+                                        newActiveShop: shop, newFilter: filter);
                                     Navigator.pop(context);
                                   },
                                 ))
