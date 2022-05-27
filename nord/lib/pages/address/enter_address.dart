@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yandex_geocoder/yandex_geocoder.dart';
+
+import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'create_address.dart';
 
@@ -29,7 +31,17 @@ class _EnterAddressState extends State<EnterAddress> {
     TextEditingController _textController =
         TextEditingController(text: addressToEdit.address);
     return Scaffold(
-      appBar: AppBar(title: Text('Адрес доставки')),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        title: Text('Адрес доставки'),
+      ),
       body: Stack(
         children: [
           GoogleMap(
@@ -62,7 +74,11 @@ class _EnterAddressState extends State<EnterAddress> {
               onMapCreated: (controller) {
                 _mapController = controller;
               }),
-          Center(child: Icon(Icons.abc_outlined)),
+          Center(
+              child: Image.asset(
+            'assets/3.0x/Pin.png',
+            scale: 1.5,
+          )),
         ],
       ),
       bottomSheet: Padding(

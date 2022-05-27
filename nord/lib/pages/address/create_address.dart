@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 class CreateAddress extends StatelessWidget {
   const CreateAddress({Key? key, required this.addressToCreate})
@@ -15,7 +17,17 @@ class CreateAddress extends StatelessWidget {
     TextEditingController descriptionController =
         TextEditingController(text: addressToCreate.description);
     return Scaffold(
-      appBar: AppBar(title: Text('Адрес доставки')),
+      appBar: AppBar(
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+        title: Text('Адрес доставки'),
+      ),
       body: ListView(
         children: [
           TextField(controller: addressController),
