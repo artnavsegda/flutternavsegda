@@ -19,13 +19,8 @@ class _EnterAddressState extends State<EnterAddress> {
       address: '', description: '', latitude: 59.9311, longitude: 30.3609);
 
   @override
-  void initState() async {
+  void initState() {
     super.initState();
-    Position myPosition = await Geolocator.getCurrentPosition();
-    setState(() {
-      addressToEdit.latitude = myPosition.latitude;
-      addressToEdit.latitude = myPosition.longitude;
-    });
   }
 
   @override
@@ -86,7 +81,7 @@ class _EnterAddressState extends State<EnterAddress> {
           )),
         ],
       ),
-      bottomSheet: Padding(
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           mainAxisSize: MainAxisSize.min,

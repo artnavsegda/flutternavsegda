@@ -28,25 +28,54 @@ class CreateAddress extends StatelessWidget {
             )),
         title: Text('Адрес доставки'),
       ),
-      body: ListView(
-        children: [
-          TextField(controller: addressController),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(child: TextField()),
-              Expanded(child: TextField()),
-            ],
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              Expanded(child: TextField()),
-              Expanded(child: TextField()),
-            ],
-          ),
-          TextField(controller: descriptionController),
-        ],
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: ListView(
+          children: [
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(
+                controller: addressController,
+                enabled: false,
+                style: TextStyle(color: Color(0xFF9CA4AC)),
+              ),
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(),
+                )),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(),
+                )),
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(),
+                )),
+                Expanded(
+                    child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: TextField(),
+                )),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: TextField(controller: descriptionController),
+            ),
+          ],
+        ),
       ),
       bottomSheet: Container(
           width: double.infinity,
