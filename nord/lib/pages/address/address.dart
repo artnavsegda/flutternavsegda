@@ -136,15 +136,24 @@ class _AddressPageState extends State<AddressPage> {
       List<Widget> children = const <Widget>[],
       Set<Marker> markers = const <Marker>{}}) {
     return Stack(children: [
-      GoogleMap(
-        key: _mapKey,
-        markers: markers,
-        myLocationEnabled: true,
-        initialCameraPosition: CameraPosition(
-          target: LatLng(37.42796133580664, -122.085749655962),
-          zoom: 14.4746,
-        ),
-      ),
+      FutureBuilder<Position>(
+          future: Geolocator.getCurrentPosition(),
+          builder: (context, snapshot) {
+            LatLng myLocation = LatLng(59.9311, 30.3609);
+            if (snapshot.hasData) {
+              myLocation =
+                  LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
+            }
+            return GoogleMap(
+              key: _mapKey,
+              markers: markers,
+              myLocationEnabled: true,
+              initialCameraPosition: CameraPosition(
+                target: myLocation,
+                zoom: 14.4746,
+              ),
+            );
+          }),
       DraggableScrollableSheet(
         minChildSize: 0.15,
         builder: (context, scrollController) {
@@ -182,139 +191,166 @@ class _AddressPageState extends State<AddressPage> {
             )),
         title: const Text('Адрес доставки или кафе'),
       ),
-      body: filter == 'DELIVERY'
-          ? Query(
-              options: QueryOptions(document: gql(getClientInfo)),
-              builder: (result, {fetchMore, refetch}) {
-                if (result.isLoading && result.data == null) {
-                  return mapStack(context: context);
-                }
+      body: FutureBuilder<BitmapDescriptor>(
+          future: BitmapDescriptor.fromAssetImage(
+              ImageConfiguration(), 'assets/3.0x/Pin.png'),
+          builder: (context, assetSnapshot) {
+            return filter == 'DELIVERY'
+                ? Query(
+                    options: QueryOptions(document: gql(getClientInfo)),
+                    builder: (result, {fetchMore, refetch}) {
+                      if (result.isLoading && result.data == null) {
+                        return mapStack(context: context);
+                      }
 
-                if (result.hasException) {
-                  return mapStack(context: context);
-                }
+                      if (result.hasException) {
+                        return mapStack(context: context);
+                      }
 
-                if (result.data!['getClientInfo'] == null) {
-                  return mapStack(context: context);
-                }
+                      if (result.data!['getClientInfo'] == null) {
+                        return mapStack(context: context);
+                      }
 
-                GraphClientFullInfo userInfo =
-                    GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
+                      GraphClientFullInfo userInfo =
+                          GraphClientFullInfo.fromJson(
+                              result.data!['getClientInfo']);
 
-                return mapStack(
-                  context: context,
-                  markers: userInfo.deliveryAddresses.map(
-                    (deliveryAddress) {
-                      return Marker(
-                          markerId: MarkerId(deliveryAddress.iD.toString()),
-                          position: LatLng(deliveryAddress.latitude,
-                              deliveryAddress.longitude));
-                    },
-                  ).toSet(),
-                  children: [
-                    ...userInfo.deliveryAddresses.map(
-                      (address) => ListTile(
-                        title: Text(address.description ?? 'WTF'),
-                        subtitle: Text(address.address),
-                        onTap: () {
-                          activeAddress = address;
-                          context.read<FilterState>().update(
-                              newActiveAddress: address, newFilter: filter);
-                          Navigator.pop(context);
-                        },
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: GradientButton(
-                        child: Text('Добавить новый адрес'),
-                        onPressed: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => EnterAddress(
-                                        addressToEdit: GraphDeliveryAddress(
-                                            address: '',
-                                            description: '',
-                                            latitude: 0,
-                                            longitude: 0,
-                                            iD: 0),
-                                      )));
-                        },
-                      ),
-                    ),
-                  ],
-                );
-              })
-          : filter == 'PICK_UP'
-              ? Query(
-                  options: QueryOptions(
-                    document: gql(getShops),
-                  ),
-                  builder: (result, {fetchMore, refetch}) {
-                    if (result.hasException) {
-                      return mapStack(context: context);
-                    }
+                      return mapStack(
+                        context: context,
+                        markers: userInfo.deliveryAddresses.map(
+                          (deliveryAddress) {
+                            return Marker(
+                                icon: assetSnapshot.data ??
+                                    BitmapDescriptor.defaultMarker,
+                                onTap: () {
+                                  activeAddress = deliveryAddress;
+                                  context.read<FilterState>().update(
+                                      newActiveAddress: deliveryAddress,
+                                      newFilter: filter);
+                                  Navigator.pop(context);
+                                },
+                                markerId:
+                                    MarkerId(deliveryAddress.iD.toString()),
+                                position: LatLng(deliveryAddress.latitude,
+                                    deliveryAddress.longitude));
+                          },
+                        ).toSet(),
+                        children: [
+                          ...userInfo.deliveryAddresses.map(
+                            (deliveryAddress) => ListTile(
+                              title: Text(deliveryAddress.description ?? 'WTF'),
+                              subtitle: Text(deliveryAddress.address),
+                              onTap: () {
+                                activeAddress = deliveryAddress;
+                                context.read<FilterState>().update(
+                                    newActiveAddress: deliveryAddress,
+                                    newFilter: filter);
+                                Navigator.pop(context);
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: GradientButton(
+                              child: Text('Добавить новый адрес'),
+                              onPressed: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => EnterAddress(
+                                              addressToEdit:
+                                                  GraphDeliveryAddress(
+                                                      address: '',
+                                                      description: '',
+                                                      latitude: 0,
+                                                      longitude: 0,
+                                                      iD: 0),
+                                            )));
+                              },
+                            ),
+                          ),
+                        ],
+                      );
+                    })
+                : filter == 'PICK_UP'
+                    ? Query(
+                        options: QueryOptions(
+                          document: gql(getShops),
+                        ),
+                        builder: (result, {fetchMore, refetch}) {
+                          if (result.hasException) {
+                            return mapStack(context: context);
+                          }
 
-                    if (result.isLoading) {
-                      return mapStack(context: context);
-                    }
+                          if (result.isLoading) {
+                            return mapStack(context: context);
+                          }
 
-                    if (result.data!['getShops'] == null) {
-                      return mapStack(context: context);
-                    }
+                          if (result.data!['getShops'] == null) {
+                            return mapStack(context: context);
+                          }
 
-                    List<GraphShop> shops = List<GraphShop>.from(result
-                        .data!['getShops']
-                        .map((model) => GraphShop.fromJson(model)));
+                          List<GraphShop> shops = List<GraphShop>.from(result
+                              .data!['getShops']
+                              .map((model) => GraphShop.fromJson(model)));
 
-                    return FutureBuilder<Position>(
-                      future: Geolocator.getCurrentPosition(),
-                      builder: (context, snapshot) {
-                        LatLng myLocation = LatLng(59.9311, 30.3609);
-                        if (snapshot.hasData) {
-                          myLocation = LatLng(snapshot.data!.latitude,
-                              snapshot.data!.longitude);
-                          shops.sort((a, b) => Geolocator.distanceBetween(
-                                  a.latitude ?? 0,
-                                  a.longitude ?? 0,
-                                  myLocation.latitude,
-                                  myLocation.longitude)
-                              .compareTo(Geolocator.distanceBetween(
-                                  b.latitude ?? 0,
-                                  b.longitude ?? 0,
-                                  myLocation.latitude,
-                                  myLocation.longitude)));
-                        }
+                          return FutureBuilder<Position>(
+                            future: Geolocator.getCurrentPosition(),
+                            builder: (context, snapshot) {
+                              LatLng myLocation = LatLng(59.9311, 30.3609);
+                              if (snapshot.hasData) {
+                                myLocation = LatLng(snapshot.data!.latitude,
+                                    snapshot.data!.longitude);
+                                shops.sort((a, b) => Geolocator.distanceBetween(
+                                        a.latitude ?? 0,
+                                        a.longitude ?? 0,
+                                        myLocation.latitude,
+                                        myLocation.longitude)
+                                    .compareTo(Geolocator.distanceBetween(
+                                        b.latitude ?? 0,
+                                        b.longitude ?? 0,
+                                        myLocation.latitude,
+                                        myLocation.longitude)));
+                              }
 
-                        return mapStack(
-                          context: context,
-                          markers: shops.map(
-                            (shop) {
-                              return Marker(
-                                  onTap: () {},
-                                  markerId: MarkerId(shop.iD.toString()),
-                                  position: LatLng(
-                                      shop.latitude ?? 0, shop.longitude ?? 0));
-                            },
-                          ).toSet(),
-                          children: [
-                            ...shops.map((shop) => ShopTile(
-                                  shop: shop,
-                                  onTap: () {
-                                    activeShop = shop;
-                                    context.read<FilterState>().update(
-                                        newActiveShop: shop, newFilter: filter);
-                                    Navigator.pop(context);
+                              return mapStack(
+                                context: context,
+                                markers: shops.map(
+                                  (shop) {
+                                    return Marker(
+                                        icon: assetSnapshot.data ??
+                                            BitmapDescriptor.defaultMarker,
+                                        onTap: () {
+                                          activeShop = shop;
+                                          context.read<FilterState>().update(
+                                              newActiveShop: shop,
+                                              newFilter: filter);
+                                          Navigator.pop(context);
+                                        },
+                                        markerId: MarkerId(shop.iD.toString()),
+                                        position: LatLng(shop.latitude ?? 0,
+                                            shop.longitude ?? 0));
                                   },
-                                ))
-                          ],
-                        );
-                      },
-                    );
-                  },
-                )
-              : mapStack(context: context),
+                                ).toSet(),
+                                children: [
+                                  ...shops.map((shop) => ShopTile(
+                                        shop: shop,
+                                        onTap: () {
+                                          activeShop = shop;
+                                          context.read<FilterState>().update(
+                                              newActiveShop: shop,
+                                              newFilter: filter);
+                                          Navigator.pop(context);
+                                        },
+                                      ))
+                                ],
+                              );
+                            },
+                          );
+                        },
+                      )
+                    : mapStack(context: context);
+          }),
     );
   }
 }
