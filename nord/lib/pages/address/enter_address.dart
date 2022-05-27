@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:yandex_geocoder/yandex_geocoder.dart';
 
@@ -14,12 +15,17 @@ class EnterAddress extends StatefulWidget {
 }
 
 class _EnterAddressState extends State<EnterAddress> {
-  GraphDeliveryAddress addressToEdit = GraphDeliveryAddress(
-      address: '', description: '', latitude: 0, longitude: 0, iD: 0);
+  GraphNewDeliveryAddress addressToEdit = GraphNewDeliveryAddress(
+      address: '', description: '', latitude: 59.9311, longitude: 30.3609);
 
   @override
-  void initState() {
+  void initState() async {
     super.initState();
+    Position myPosition = await Geolocator.getCurrentPosition();
+    setState(() {
+      addressToEdit.latitude = myPosition.latitude;
+      addressToEdit.latitude = myPosition.longitude;
+    });
   }
 
   @override
