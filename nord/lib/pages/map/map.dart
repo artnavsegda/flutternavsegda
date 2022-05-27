@@ -156,11 +156,12 @@ class MapPage extends StatelessWidget {
                                               },
                                             ))
                                         .where((element) {
-                                      return element.shop.address!
-                                              .toLowerCase()
+                                      return (element.shop.address
+                                                      ?.toLowerCase() ??
+                                                  '')
                                               .contains(textFilter) ||
-                                          element.shop.name!
-                                              .toLowerCase()
+                                          (element.shop.name?.toLowerCase() ??
+                                                  '')
                                               .contains(textFilter);
                                     })
                                   ],
