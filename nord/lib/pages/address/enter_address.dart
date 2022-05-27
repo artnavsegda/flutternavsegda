@@ -7,20 +7,19 @@ import 'package:nord/gql.dart';
 import 'create_address.dart';
 
 class EnterAddress extends StatefulWidget {
-  const EnterAddress({Key? key, required this.addressToEdit}) : super(key: key);
-  final GraphDeliveryAddress addressToEdit;
+  const EnterAddress({Key? key}) : super(key: key);
 
   @override
   State<EnterAddress> createState() => _EnterAddressState();
 }
 
 class _EnterAddressState extends State<EnterAddress> {
-  late GraphDeliveryAddress addressToEdit;
+  GraphDeliveryAddress addressToEdit = GraphDeliveryAddress(
+      address: '', description: '', latitude: 0, longitude: 0, iD: 0);
 
   @override
   void initState() {
     super.initState();
-    addressToEdit = widget.addressToEdit;
   }
 
   @override

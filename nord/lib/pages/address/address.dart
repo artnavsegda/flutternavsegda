@@ -257,15 +257,7 @@ class _AddressPageState extends State<AddressPage> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => EnterAddress(
-                                              addressToEdit:
-                                                  GraphDeliveryAddress(
-                                                      address: '',
-                                                      description: '',
-                                                      latitude: 0,
-                                                      longitude: 0,
-                                                      iD: 0),
-                                            )));
+                                        builder: (context) => EnterAddress()));
                               },
                             ),
                           ),
