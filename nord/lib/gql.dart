@@ -1159,7 +1159,7 @@ class GraphShop {
     required this.openingHours,
   });
   int iD;
-  String name;
+  String? name;
   String? description;
   String? address;
   double? longitude;

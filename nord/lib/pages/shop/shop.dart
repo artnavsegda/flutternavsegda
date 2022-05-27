@@ -84,7 +84,7 @@ class ShopPage extends StatelessWidget {
                         ListTile(
                           subtitle: Text(shop.address ??
                               '194358, Санкт-Петербург, проспект Просвещения, 19'),
-                          title: Text(shop.name),
+                          title: Text(shop.name ?? 'Просвещения, 19 (ТК Норд)'),
                         ),
                         ListTile(
                           title: Text('Метро',

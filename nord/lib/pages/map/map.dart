@@ -159,7 +159,7 @@ class MapPage extends StatelessWidget {
                                       return element.shop.address!
                                               .toLowerCase()
                                               .contains(textFilter) ||
-                                          element.shop.name
+                                          element.shop.name!
                                               .toLowerCase()
                                               .contains(textFilter);
                                     })

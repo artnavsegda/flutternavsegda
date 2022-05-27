@@ -42,34 +42,36 @@ class _AddressPageState extends State<AddressPage> {
       child: Row(
         children: [
           SizedBox(width: 16),
-          OutlinedButton.icon(
-              style: OutlinedButton.styleFrom(
-                  side: BorderSide(color: Colors.grey),
-                  padding: EdgeInsets.only(right: 16)),
-              onPressed: context.read<LoginState>().loggedIn
-                  ? () {
-                      setState(() => filter = 'DELIVERY');
-                    }
-                  : null,
-              label: const Text('Доставка'),
-              icon: Stack(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child:
-                        Image.asset('assets/Illustration-Colored-Delivery.png'),
-                  ),
-                  Padding(
-                      padding: const EdgeInsets.all(4.0),
-                      child: Icon(
-                        filter == 'DELIVERY'
-                            ? SeverMetropol.Icon_Checkbox_Checked
-                            : SeverMetropol.Icon_Checkbox_Unchecked,
-                        color: Theme.of(context).colorScheme.primary,
-                      )),
-                ],
-              )),
-          SizedBox(width: 8),
+          if (context.read<LoginState>().loggedIn) ...[
+            OutlinedButton.icon(
+                style: OutlinedButton.styleFrom(
+                    side: BorderSide(color: Colors.grey),
+                    padding: EdgeInsets.only(right: 16)),
+                onPressed: context.read<LoginState>().loggedIn
+                    ? () {
+                        setState(() => filter = 'DELIVERY');
+                      }
+                    : null,
+                label: const Text('Доставка'),
+                icon: Stack(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Image.asset(
+                          'assets/Illustration-Colored-Delivery.png'),
+                    ),
+                    Padding(
+                        padding: const EdgeInsets.all(4.0),
+                        child: Icon(
+                          filter == 'DELIVERY'
+                              ? SeverMetropol.Icon_Checkbox_Checked
+                              : SeverMetropol.Icon_Checkbox_Unchecked,
+                          color: Theme.of(context).colorScheme.primary,
+                        )),
+                  ],
+                )),
+            SizedBox(width: 8),
+          ],
           OutlinedButton.icon(
               style:
                   OutlinedButton.styleFrom(padding: EdgeInsets.only(right: 16)),
