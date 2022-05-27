@@ -38,6 +38,14 @@ class CreateAddress extends StatelessWidget {
                 controller: addressController,
                 enabled: false,
                 style: TextStyle(color: Color(0xFF9CA4AC)),
+                decoration: InputDecoration(
+                  suffixIcon: Icon(
+                    SeverMetropol.Icon_Lock,
+                    size: 24.0,
+                    color: Colors.red[900],
+                  ),
+                  labelText: "Адрес",
+                ),
               ),
             ),
             Row(
@@ -46,12 +54,20 @@ class CreateAddress extends StatelessWidget {
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "Подъезд",
+                    ),
+                  ),
                 )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "Домофон",
+                    ),
+                  ),
                 )),
               ],
             ),
@@ -61,18 +77,31 @@ class CreateAddress extends StatelessWidget {
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "Этаж",
+                    ),
+                  ),
                 )),
                 Expanded(
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
-                  child: TextField(),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: "Квартира",
+                    ),
+                  ),
                 )),
               ],
             ),
             Padding(
               padding: const EdgeInsets.all(8.0),
-              child: TextField(controller: descriptionController),
+              child: TextField(
+                controller: descriptionController,
+                decoration: InputDecoration(
+                  labelText: "Название адреса",
+                ),
+              ),
             ),
           ],
         ),
