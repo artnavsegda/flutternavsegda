@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:nord/sever_metropol_icons.dart';
 import 'package:share_plus/share_plus.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:nord/components/components.dart';
+import 'package:nord/sever_metropol_icons.dart';
 
 class InvitePage extends StatelessWidget {
   const InvitePage({Key? key, required this.codeInviteFriend})
@@ -11,6 +13,8 @@ class InvitePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FToast fToast = FToast();
+    fToast.init(context);
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Column(
@@ -38,6 +42,18 @@ class InvitePage extends StatelessWidget {
           ListTile(
             onTap: () {
               Clipboard.setData(ClipboardData(text: codeInviteFriend));
+              fToast.showToast(
+                  child: NordToast("Код скопирован"),
+                  gravity: ToastGravity.TOP,
+                  toastDuration: Duration(seconds: 1),
+                  positionedToastBuilder: (context, child) {
+                    return Positioned(
+                      child: child,
+                      right: 16.0,
+                      left: 16.0,
+                      top: MediaQuery.of(context).padding.top + 4,
+                    );
+                  });
             },
             title: Text(codeInviteFriend),
             trailing: Icon(
