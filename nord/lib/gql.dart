@@ -1,3 +1,26 @@
+class GraphNotification {
+  GraphNotification({
+    required this.type,
+    required this.date,
+    this.caption,
+    this.text,
+    this.orderID,
+    this.productID,
+    this.shopID,
+    this.actionID,
+    this.catalogID,
+  });
+  String type;
+  int date;
+  String? caption;
+  String? text;
+  int? orderID;
+  int? productID;
+  int? shopID;
+  int? actionID;
+  int? catalogID;
+}
+
 class GraphOrderResult {
   GraphOrderResult({
     required this.result,
