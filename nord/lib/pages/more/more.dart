@@ -32,6 +32,12 @@ class MorePage extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary),
         ),
         ListTile(
+          onTap: () {},
+          title: const Text("Уведомления"),
+          leading: Icon(SeverMetropol.Icon_Notification,
+              color: Theme.of(context).colorScheme.primary),
+        ),
+        ListTile(
           onTap: () async {
             final InAppReview inAppReview = InAppReview.instance;
 
