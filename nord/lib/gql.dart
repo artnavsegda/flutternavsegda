@@ -2884,3 +2884,19 @@ mutation cancelOrder($orderID: Long) {
   }
 }
 ''';
+
+const String getNotifications = r'''
+query getNotifications {
+  getNotifications {
+    type
+    date
+    caption
+    text
+    orderID
+    productID
+    shopID
+    actionID
+    catalogID
+  }
+}
+''';
