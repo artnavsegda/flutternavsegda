@@ -19,6 +19,17 @@ class GraphNotification {
   int? shopID;
   int? actionID;
   int? catalogID;
+
+  GraphNotification.fromJson(Map<String, dynamic> json)
+      : type = json['type'],
+        date = json['date'],
+        caption = json['caption'],
+        text = json['text'],
+        orderID = json['orderID'],
+        productID = json['productID'],
+        shopID = json['shopID'],
+        actionID = json['actionID'],
+        catalogID = json['catalogID'];
 }
 
 class GraphOrderResult {
