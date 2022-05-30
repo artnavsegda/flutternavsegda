@@ -121,6 +121,10 @@ class UserPage extends StatelessWidget {
                                       ),
                                       onPressed: () {
                                         showModalBottomSheet(
+                                          shape: const RoundedRectangleBorder(
+                                            borderRadius: BorderRadius.vertical(
+                                                top: Radius.circular(4.0)),
+                                          ),
                                           isScrollControlled: true,
                                           context: context,
                                           builder: (context) {

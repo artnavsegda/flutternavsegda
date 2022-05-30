@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:nord/sever_metropol_icons.dart';
-//import 'package:share_plus/share_plus.dart';
+import 'package:share_plus/share_plus.dart';
 
 class InvitePage extends StatelessWidget {
   const InvitePage({Key? key, required this.codeInviteFriend})
@@ -41,7 +41,7 @@ class InvitePage extends StatelessWidget {
             },
             title: Text(codeInviteFriend),
             trailing: Icon(
-              SeverMetropol.Icon_Contact_Support,
+              SeverMetropol.Icon_Copy_Content,
               color: Colors.red[900],
             ),
           ),
@@ -50,7 +50,7 @@ class InvitePage extends StatelessWidget {
             child: ElevatedButton(
               child: const Text("Поделиться кодом"),
               onPressed: () {
-                //Share.share(codeInviteFriend);
+                Share.share(codeInviteFriend);
               },
               style: ElevatedButton.styleFrom(
                 minimumSize: const Size(double.infinity, 48),
