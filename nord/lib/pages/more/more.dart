@@ -4,6 +4,7 @@ import '../../sever_metropol_icons.dart';
 import '../support/support.dart';
 import '../help/help.dart';
 import 'about.dart';
+import 'notifications.dart';
 
 class MorePage extends StatelessWidget {
   const MorePage({Key? key}) : super(key: key);
@@ -32,7 +33,12 @@ class MorePage extends StatelessWidget {
               color: Theme.of(context).colorScheme.primary),
         ),
         ListTile(
-          onTap: () {},
+          onTap: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const NotificationsPage()));
+          },
           title: const Text("Уведомления"),
           leading: Icon(SeverMetropol.Icon_Notification,
               color: Theme.of(context).colorScheme.primary),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/pages/error/error.dart';
+import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 
 class NotificationsPage extends StatelessWidget {
@@ -9,7 +10,17 @@ class NotificationsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Уведомления')),
+      appBar: AppBar(
+        title: Text('Уведомления'),
+        leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              SeverMetropol.Icon_West,
+              color: Theme.of(context).colorScheme.primary,
+            )),
+      ),
       body: Query(
         options: QueryOptions(
           fetchPolicy: FetchPolicy.networkOnly,
