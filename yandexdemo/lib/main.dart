@@ -66,9 +66,18 @@ class _MyHomePageState extends State<MyHomePage> {
       body: YandexMap(
         mapObjects: [
           Placemark(
+              opacity: 1,
+              icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                  image:
+                      BitmapDescriptor.fromAssetImage('assets/3.0x/Pin.png'))),
               mapId: MapObjectId('placemark'),
               point: Point(latitude: 59.945933, longitude: 30.320045)),
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {},
+        tooltip: 'Increment',
+        child: const Icon(Icons.add),
       ),
     );
   }
