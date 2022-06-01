@@ -2,7 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:latlong2/latlong.dart';
+import 'package:flutter_map/flutter_map.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/login_state.dart';
@@ -134,7 +135,7 @@ class _AddressPageState extends State<AddressPage> {
   Widget mapStack(
       {required BuildContext context,
       List<Widget> children = const <Widget>[],
-      Set<Marker> markers = const <Marker>{}}) {
+      List<Marker> markers = const <Marker>[]}) {
     return Stack(children: [
       FutureBuilder<Position>(
           future: Geolocator.getCurrentPosition(),
@@ -144,14 +145,21 @@ class _AddressPageState extends State<AddressPage> {
               myLocation =
                   LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
             }
-            return GoogleMap(
-              key: _mapKey,
-              markers: markers,
-              myLocationEnabled: true,
-              initialCameraPosition: CameraPosition(
-                target: myLocation,
-                zoom: 14.4746,
+            return FlutterMap(
+              options: MapOptions(
+                center: myLocation,
+                zoom: 13.0,
               ),
+              layers: [
+                TileLayerOptions(
+                  urlTemplate:
+                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                  subdomains: ['a', 'b', 'c'],
+                ),
+                MarkerLayerOptions(
+                  markers: markers,
+                ),
+              ],
             );
           }),
       DraggableScrollableSheet(
@@ -191,158 +199,155 @@ class _AddressPageState extends State<AddressPage> {
             )),
         title: const Text('Адрес доставки или кафе'),
       ),
-      body: FutureBuilder<BitmapDescriptor>(
-          future: BitmapDescriptor.fromAssetImage(
-              ImageConfiguration(), 'assets/3.0x/Pin.png'),
-          builder: (context, assetSnapshot) {
-            return filter == 'DELIVERY'
-                ? Query(
-                    options: QueryOptions(document: gql(getClientInfo)),
-                    builder: (result, {fetchMore, refetch}) {
-                      if (result.isLoading && result.data == null) {
-                        return mapStack(context: context);
-                      }
+      body: filter == 'DELIVERY'
+          ? Query(
+              options: QueryOptions(document: gql(getClientInfo)),
+              builder: (result, {fetchMore, refetch}) {
+                if (result.isLoading && result.data == null) {
+                  return mapStack(context: context);
+                }
 
-                      if (result.hasException) {
-                        return mapStack(context: context);
-                      }
+                if (result.hasException) {
+                  return mapStack(context: context);
+                }
 
-                      if (result.data!['getClientInfo'] == null) {
-                        return mapStack(context: context);
-                      }
+                if (result.data!['getClientInfo'] == null) {
+                  return mapStack(context: context);
+                }
 
-                      GraphClientFullInfo userInfo =
-                          GraphClientFullInfo.fromJson(
-                              result.data!['getClientInfo']);
+                GraphClientFullInfo userInfo =
+                    GraphClientFullInfo.fromJson(result.data!['getClientInfo']);
 
-                      return mapStack(
-                        context: context,
-                        markers: userInfo.deliveryAddresses.map(
-                          (deliveryAddress) {
-                            return Marker(
-                                icon: assetSnapshot.data ??
-                                    BitmapDescriptor.defaultMarker,
-                                onTap: () {
-                                  activeAddress = deliveryAddress;
-                                  context.read<FilterState>().update(
-                                      newActiveAddress: deliveryAddress,
-                                      newFilter: filter);
-                                  Navigator.pop(context);
-                                },
-                                markerId:
-                                    MarkerId(deliveryAddress.iD.toString()),
-                                position: LatLng(deliveryAddress.latitude,
-                                    deliveryAddress.longitude));
-                          },
-                        ).toSet(),
-                        children: [
-                          ...userInfo.deliveryAddresses.map(
-                            (deliveryAddress) => ListTile(
-                              title: Text(deliveryAddress.description ?? 'WTF'),
-                              subtitle: Text(deliveryAddress.address),
-                              onTap: () {
-                                activeAddress = deliveryAddress;
-                                context.read<FilterState>().update(
-                                    newActiveAddress: deliveryAddress,
-                                    newFilter: filter);
-                                Navigator.pop(context);
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: GradientButton(
-                              child: Text('Добавить новый адрес'),
-                              onPressed: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => EnterAddress()));
-                              },
-                            ),
-                          ),
-                        ],
-                      );
-                    })
-                : filter == 'PICK_UP'
-                    ? Query(
-                        options: QueryOptions(
-                          document: gql(getShops),
-                        ),
-                        builder: (result, {fetchMore, refetch}) {
-                          if (result.hasException) {
-                            return mapStack(context: context);
-                          }
-
-                          if (result.isLoading) {
-                            return mapStack(context: context);
-                          }
-
-                          if (result.data!['getShops'] == null) {
-                            return mapStack(context: context);
-                          }
-
-                          List<GraphShop> shops = List<GraphShop>.from(result
-                              .data!['getShops']
-                              .map((model) => GraphShop.fromJson(model)));
-
-                          return FutureBuilder<Position>(
-                            future: Geolocator.getCurrentPosition(),
-                            builder: (context, snapshot) {
-                              LatLng myLocation = LatLng(59.9311, 30.3609);
-                              if (snapshot.hasData) {
-                                myLocation = LatLng(snapshot.data!.latitude,
-                                    snapshot.data!.longitude);
-                                shops.sort((a, b) => Geolocator.distanceBetween(
-                                        a.latitude ?? 0,
-                                        a.longitude ?? 0,
-                                        myLocation.latitude,
-                                        myLocation.longitude)
-                                    .compareTo(Geolocator.distanceBetween(
-                                        b.latitude ?? 0,
-                                        b.longitude ?? 0,
-                                        myLocation.latitude,
-                                        myLocation.longitude)));
-                              }
-
-                              return mapStack(
-                                context: context,
-                                markers: shops.map(
-                                  (shop) {
-                                    return Marker(
-                                        icon: assetSnapshot.data ??
-                                            BitmapDescriptor.defaultMarker,
-                                        onTap: () {
-                                          activeShop = shop;
-                                          context.read<FilterState>().update(
-                                              newActiveShop: shop,
-                                              newFilter: filter);
-                                          Navigator.pop(context);
-                                        },
-                                        markerId: MarkerId(shop.iD.toString()),
-                                        position: LatLng(shop.latitude ?? 0,
-                                            shop.longitude ?? 0));
+                return mapStack(
+                  context: context,
+                  markers: [
+                    ...userInfo.deliveryAddresses.map(
+                      (deliveryAddress) {
+                        return Marker(
+                            builder: (ctx) => InkWell(
+                                  onTap: () {
+                                    activeAddress = deliveryAddress;
+                                    context.read<FilterState>().update(
+                                        newActiveAddress: deliveryAddress,
+                                        newFilter: filter);
+                                    Navigator.pop(context);
                                   },
-                                ).toSet(),
-                                children: [
-                                  ...shops.map((shop) => ShopTile(
-                                        shop: shop,
-                                        onTap: () {
-                                          activeShop = shop;
-                                          context.read<FilterState>().update(
-                                              newActiveShop: shop,
-                                              newFilter: filter);
-                                          Navigator.pop(context);
-                                        },
-                                      ))
-                                ],
-                              );
-                            },
-                          );
+                                  child: Image.asset('assets/3.0x/Pin.png'),
+                                ),
+                            point: LatLng(deliveryAddress.latitude,
+                                deliveryAddress.longitude));
+                      },
+                    )
+                  ],
+                  children: [
+                    ...userInfo.deliveryAddresses.map(
+                      (deliveryAddress) => ListTile(
+                        title: Text(deliveryAddress.description ?? 'WTF'),
+                        subtitle: Text(deliveryAddress.address),
+                        onTap: () {
+                          activeAddress = deliveryAddress;
+                          context.read<FilterState>().update(
+                              newActiveAddress: deliveryAddress,
+                              newFilter: filter);
+                          Navigator.pop(context);
                         },
-                      )
-                    : mapStack(context: context);
-          }),
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: GradientButton(
+                        child: Text('Добавить новый адрес'),
+                        onPressed: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => EnterAddress()));
+                        },
+                      ),
+                    ),
+                  ],
+                );
+              })
+          : filter == 'PICK_UP'
+              ? Query(
+                  options: QueryOptions(
+                    document: gql(getShops),
+                  ),
+                  builder: (result, {fetchMore, refetch}) {
+                    if (result.hasException) {
+                      return mapStack(context: context);
+                    }
+
+                    if (result.isLoading) {
+                      return mapStack(context: context);
+                    }
+
+                    if (result.data!['getShops'] == null) {
+                      return mapStack(context: context);
+                    }
+
+                    List<GraphShop> shops = List<GraphShop>.from(result
+                        .data!['getShops']
+                        .map((model) => GraphShop.fromJson(model)));
+
+                    return FutureBuilder<Position>(
+                      future: Geolocator.getCurrentPosition(),
+                      builder: (context, snapshot) {
+                        LatLng myLocation = LatLng(59.9311, 30.3609);
+                        if (snapshot.hasData) {
+                          myLocation = LatLng(snapshot.data!.latitude,
+                              snapshot.data!.longitude);
+                          shops.sort((a, b) => Geolocator.distanceBetween(
+                                  a.latitude ?? 0,
+                                  a.longitude ?? 0,
+                                  myLocation.latitude,
+                                  myLocation.longitude)
+                              .compareTo(Geolocator.distanceBetween(
+                                  b.latitude ?? 0,
+                                  b.longitude ?? 0,
+                                  myLocation.latitude,
+                                  myLocation.longitude)));
+                        }
+
+                        return mapStack(
+                          context: context,
+                          markers: [
+                            ...shops.map(
+                              (shop) {
+                                return Marker(
+                                    builder: (ctx) => InkWell(
+                                          onTap: () {
+                                            activeShop = shop;
+                                            context.read<FilterState>().update(
+                                                newActiveShop: shop,
+                                                newFilter: filter);
+                                            Navigator.pop(context);
+                                          },
+                                          child: Image.asset(
+                                              'assets/3.0x/Pin.png'),
+                                        ),
+                                    point: LatLng(shop.latitude ?? 0.0,
+                                        shop.longitude ?? 0.0));
+                              },
+                            )
+                          ],
+                          children: [
+                            ...shops.map((shop) => ShopTile(
+                                  shop: shop,
+                                  onTap: () {
+                                    activeShop = shop;
+                                    context.read<FilterState>().update(
+                                        newActiveShop: shop, newFilter: filter);
+                                    Navigator.pop(context);
+                                  },
+                                ))
+                          ],
+                        );
+                      },
+                    );
+                  },
+                )
+              : mapStack(context: context),
     );
   }
 }
