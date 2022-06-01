@@ -97,7 +97,8 @@ class MapPage extends StatelessWidget {
                                                   builder: (context) =>
                                                       ShopPage(shop: shop)));
                                         },
-                                        child: Image.asset('assets/Pin.png'),
+                                        child:
+                                            Image.asset('assets/3.0x/Pin.png'),
                                       ),
                                   point: LatLng(
                                       shop.latitude ?? 0, shop.longitude ?? 0));
