@@ -62,6 +62,8 @@ dependencies:
   webview_flutter: ^3.0.4
   firebase_core: ^1.17.0
   share_plus: ^4.0.4
+  latlong2: ^0.8.1
+  flutter_map: ^0.14.0
 
 dev_dependencies:
   flutter_test:
