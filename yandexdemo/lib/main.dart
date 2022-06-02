@@ -49,6 +49,8 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  late YandexMapController _controller;
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -64,6 +66,12 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: YandexMap(
+        onMapCreated: (controller) {
+          _controller = controller;
+          controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
+              target: Point(latitude: 55.755848, longitude: 37.620409),
+              zoom: 17)));
+        },
         mapObjects: [
           Placemark(
               opacity: 1,
