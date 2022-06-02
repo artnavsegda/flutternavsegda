@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:latlong2/latlong.dart';
-import 'package:flutter_map/flutter_map.dart';
+import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/components.dart';
 import 'package:nord/login_state.dart';
@@ -135,7 +135,7 @@ class _AddressPageState extends State<AddressPage> {
   Widget mapStack(
       {required BuildContext context,
       List<Widget> children = const <Widget>[],
-      List<Marker> markers = const <Marker>[]}) {
+      List<Placemark> markers = const <Placemark>[]}) {
     return Stack(children: [
       FutureBuilder<Position>(
           future: Geolocator.getCurrentPosition(),
@@ -145,22 +145,18 @@ class _AddressPageState extends State<AddressPage> {
               myLocation =
                   LatLng(snapshot.data!.latitude, snapshot.data!.longitude);
             }
-            return FlutterMap(
-              options: MapOptions(
-                center: myLocation,
-                zoom: 13.0,
-              ),
-              layers: [
-                TileLayerOptions(
-                  urlTemplate:
-                      "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                  subdomains: ['a', 'b', 'c'],
-                ),
-                MarkerLayerOptions(
-                  markers: markers,
-                ),
-              ],
-            );
+            return YandexMap(
+                //key: _mapKey,
+                onMapCreated: (controller) {
+                  WidgetsBinding.instance.addPostFrameCallback((_) {
+                    controller.moveCamera(CameraUpdate.newCameraPosition(
+                        CameraPosition(
+                            target:
+                                Point(latitude: 59.9311, longitude: 30.3609),
+                            zoom: 13)));
+                  });
+                },
+                mapObjects: [...markers]);
           }),
       DraggableScrollableSheet(
         minChildSize: 0.15,
@@ -223,19 +219,22 @@ class _AddressPageState extends State<AddressPage> {
                   markers: [
                     ...userInfo.deliveryAddresses.map(
                       (deliveryAddress) {
-                        return Marker(
-                            builder: (ctx) => InkWell(
-                                  onTap: () {
-                                    activeAddress = deliveryAddress;
-                                    context.read<FilterState>().update(
-                                        newActiveAddress: deliveryAddress,
-                                        newFilter: filter);
-                                    Navigator.pop(context);
-                                  },
-                                  child: Image.asset('assets/3.0x/Pin.png'),
-                                ),
-                            point: LatLng(deliveryAddress.latitude,
-                                deliveryAddress.longitude));
+                        return Placemark(
+                            onTap: (placemark, point) {
+                              activeAddress = deliveryAddress;
+                              context.read<FilterState>().update(
+                                  newActiveAddress: deliveryAddress,
+                                  newFilter: filter);
+                              Navigator.pop(context);
+                            },
+                            opacity: 1,
+                            icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                                image: BitmapDescriptor.fromAssetImage(
+                                    'assets/3.0x/Pin.png'))),
+                            mapId: MapObjectId(deliveryAddress.iD.toString()),
+                            point: Point(
+                                latitude: deliveryAddress.latitude,
+                                longitude: deliveryAddress.longitude));
                       },
                     )
                   ],
@@ -314,20 +313,24 @@ class _AddressPageState extends State<AddressPage> {
                           markers: [
                             ...shops.map(
                               (shop) {
-                                return Marker(
-                                    builder: (ctx) => InkWell(
-                                          onTap: () {
-                                            activeShop = shop;
-                                            context.read<FilterState>().update(
-                                                newActiveShop: shop,
-                                                newFilter: filter);
-                                            Navigator.pop(context);
-                                          },
-                                          child: Image.asset(
-                                              'assets/3.0x/Pin.png'),
-                                        ),
-                                    point: LatLng(shop.latitude ?? 0.0,
-                                        shop.longitude ?? 0.0));
+                                return Placemark(
+                                    onTap: (placemark, point) {
+                                      activeShop = shop;
+                                      context.read<FilterState>().update(
+                                          newActiveShop: shop,
+                                          newFilter: filter);
+                                      Navigator.pop(context);
+                                    },
+                                    opacity: 1,
+                                    icon: PlacemarkIcon.single(
+                                        PlacemarkIconStyle(
+                                            image:
+                                                BitmapDescriptor.fromAssetImage(
+                                                    'assets/3.0x/Pin.png'))),
+                                    mapId: MapObjectId(shop.iD.toString()),
+                                    point: Point(
+                                        latitude: shop.latitude ?? 0,
+                                        longitude: shop.longitude ?? 0));
                               },
                             )
                           ],

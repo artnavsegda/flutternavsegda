@@ -82,11 +82,6 @@ class MapPage extends StatelessWidget {
                                     latitude: 59.9311, longitude: 30.3609),
                                 zoom: 13)));
                       });
-/*                       controller.moveCamera(CameraUpdate.newCameraPosition(
-                          CameraPosition(
-                              target:
-                                  Point(latitude: 59.9311, longitude: 30.3609),
-                              zoom: 13))); */
                     },
                     mapObjects: [
                       ...shops.map(
