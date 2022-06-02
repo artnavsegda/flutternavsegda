@@ -104,6 +104,10 @@ PODS:
     - Flutter
   - webview_flutter_wkwebview (0.0.1):
     - Flutter
+  - yandex_mapkit (0.0.1):
+    - Flutter
+    - YandexMapsMobile (= 4.0.0-full)
+  - YandexMapsMobile (4.0.0-full)
 
 DEPENDENCIES:
   - connectivity_plus (from `.symlinks/plugins/connectivity_plus/ios`)
@@ -123,6 +127,7 @@ DEPENDENCIES:
   - sqflite (from `.symlinks/plugins/sqflite/ios`)
   - url_launcher_ios (from `.symlinks/plugins/url_launcher_ios/ios`)
   - webview_flutter_wkwebview (from `.symlinks/plugins/webview_flutter_wkwebview/ios`)
+  - yandex_mapkit (from `.symlinks/plugins/yandex_mapkit/ios`)
 
 SPEC REPOS:
   trunk:
@@ -139,6 +144,7 @@ SPEC REPOS:
     - PromisesObjC
     - ReachabilitySwift
     - Toast
+    - YandexMapsMobile
 
 EXTERNAL SOURCES:
   connectivity_plus:
@@ -175,6 +181,8 @@ EXTERNAL SOURCES:
     :path: ".symlinks/plugins/url_launcher_ios/ios"
   webview_flutter_wkwebview:
     :path: ".symlinks/plugins/webview_flutter_wkwebview/ios"
+  yandex_mapkit:
+    :path: ".symlinks/plugins/yandex_mapkit/ios"
 
 SPEC CHECKSUMS:
   connectivity_plus: 413a8857dd5d9f1c399a39130850d02fe0feaf7e
@@ -207,6 +215,8 @@ SPEC CHECKSUMS:
   Toast: 91b396c56ee72a5790816f40d3a94dd357abc196
   url_launcher_ios: 839c58cdb4279282219f5e248c3321761ff3c4de
   webview_flutter_wkwebview: b7e70ef1ddded7e69c796c7390ee74180182971f
+  yandex_mapkit: 2d9da6e13f6f1a03395debbbbb7845eaefa24a8b
+  YandexMapsMobile: 0f3d8c92fad685dc33d07f83eed4eb0166089743
 
 PODFILE CHECKSUM: 4e8f8b2be68aeea4c0d5beb6ff1e79fface1d048
 

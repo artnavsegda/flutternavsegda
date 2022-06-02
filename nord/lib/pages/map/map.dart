@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:latlong2/latlong.dart';
-import 'package:flutter_map/flutter_map.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
@@ -74,39 +73,35 @@ class MapPage extends StatelessWidget {
 
               return Stack(
                 children: [
-                  FlutterMap(
-                    options: MapOptions(
-                      center: myLocation,
-                      zoom: 13.0,
-                    ),
-                    layers: [
-                      TileLayerOptions(
-                        urlTemplate:
-                            "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
-                        subdomains: ['a', 'b', 'c'],
-                      ),
-                      MarkerLayerOptions(
-                        markers: [
-                          ...shops.map(
-                            (shop) {
-                              return Marker(
-                                  builder: (ctx) => InkWell(
-                                        onTap: () {
-                                          Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      ShopPage(shop: shop)));
-                                        },
-                                        child:
-                                            Image.asset('assets/3.0x/Pin.png'),
-                                      ),
-                                  point: LatLng(
-                                      shop.latitude ?? 0, shop.longitude ?? 0));
-                            },
-                          )
-                        ],
-                      ),
+                  YandexMap(
+                    onMapCreated: (controller) {
+                      controller.moveCamera(CameraUpdate.newCameraPosition(
+                          CameraPosition(
+                              target:
+                                  Point(latitude: 59.9311, longitude: 30.3609),
+                              zoom: 13)));
+                    },
+                    mapObjects: [
+                      ...shops.map(
+                        (shop) {
+                          return Placemark(
+                              onTap: (placemark, point) {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            ShopPage(shop: shop)));
+                              },
+                              opacity: 1,
+                              icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                                  image: BitmapDescriptor.fromAssetImage(
+                                      'assets/3.0x/Pin.png'))),
+                              mapId: MapObjectId(shop.iD.toString()),
+                              point: Point(
+                                  latitude: shop.latitude ?? 0,
+                                  longitude: shop.longitude ?? 0));
+                        },
+                      )
                     ],
                   ),
                   DraggableScrollableSheet(
