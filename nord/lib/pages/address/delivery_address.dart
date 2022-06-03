@@ -67,6 +67,7 @@ class DeliveryAddressPage extends StatelessWidget {
                 ] else
                   ...userInfo.deliveryAddresses.map(
                     (e) => Slidable(
+                      key: UniqueKey(),
                       child: ListTile(
                         title: Text(e.description ?? 'WTF'),
                         subtitle: Text(e.address),
@@ -74,6 +75,24 @@ class DeliveryAddressPage extends StatelessWidget {
                           SeverMetropol.Icon_Edit,
                           color: Theme.of(context).colorScheme.primary,
                         ),
+                      ),
+                      endActionPane: ActionPane(
+                        extentRatio: 0.2,
+                        dismissible: DismissiblePane(onDismissed: () {}),
+                        motion: const DrawerMotion(),
+                        children: [
+                          SlidableAction(
+                            autoClose: false,
+                            onPressed: (context) {
+                              Slidable.of(context)!.dismiss(ResizeRequest(
+                                  Duration(milliseconds: 300), () {}));
+                            },
+                            backgroundColor:
+                                Theme.of(context).colorScheme.primary,
+                            foregroundColor: Colors.white,
+                            icon: SeverMetropol.Icon_Delete,
+                          )
+                        ],
                       ),
                     ),
                   ),
