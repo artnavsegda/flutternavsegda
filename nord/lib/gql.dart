@@ -2900,3 +2900,12 @@ query getNotifications {
   }
 }
 ''';
+
+const String delDeliveryAddress = r'''
+mutation delDeliveryAddress($addressID: Int) {
+  delDeliveryAddress(addressID: $addressID) {
+    result
+    errorMessage
+  }
+}
+''';
