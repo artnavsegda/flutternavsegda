@@ -96,6 +96,8 @@ class MapPage extends StatelessWidget {
                               },
                               opacity: 1,
                               icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                                  scale: 1.3,
+                                  anchor: Offset(0.5, 1.0),
                                   image: BitmapDescriptor.fromAssetImage(
                                       'assets/3.0x/Pin.png'))),
                               mapId: MapObjectId(shop.iD.toString()),
