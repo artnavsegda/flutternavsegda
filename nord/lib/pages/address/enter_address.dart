@@ -55,26 +55,28 @@ class _EnterAddressState extends State<EnterAddress> {
                         zoom: 13)));
               });
             },
-            onCameraPositionChanged: (position, reason, isAre) async {
-              VisibleRegion visibleRegion =
-                  await _mapController.getVisibleRegion();
-              LatLng centerLatLng = LatLng(
-                (visibleRegion.topRight.latitude +
-                        visibleRegion.bottomLeft.latitude) /
-                    2,
-                (visibleRegion.topRight.longitude +
-                        visibleRegion.bottomLeft.longitude) /
-                    2,
-              );
-              final Geocoder.GeocodeResponse geocodeFromPoint =
-                  await geocoder.getGeocode(Geocoder.GeocodeRequest(
-                geocode: Geocoder.PointGeocode(
-                    latitude: centerLatLng.latitude,
-                    longitude: centerLatLng.longitude),
-                lang: Geocoder.Lang.ru,
-              ));
-              _textController.text =
-                  geocodeFromPoint.firstAddress?.formatted ?? 'wtf';
+            onCameraPositionChanged: (cameraPosition, reason, finished) async {
+              if (finished) {
+                VisibleRegion visibleRegion =
+                    await _mapController.getVisibleRegion();
+                LatLng centerLatLng = LatLng(
+                  (visibleRegion.topRight.latitude +
+                          visibleRegion.bottomLeft.latitude) /
+                      2,
+                  (visibleRegion.topRight.longitude +
+                          visibleRegion.bottomLeft.longitude) /
+                      2,
+                );
+                final Geocoder.GeocodeResponse geocodeFromPoint =
+                    await geocoder.getGeocode(Geocoder.GeocodeRequest(
+                  geocode: Geocoder.PointGeocode(
+                      latitude: centerLatLng.latitude,
+                      longitude: centerLatLng.longitude),
+                  lang: Geocoder.Lang.ru,
+                ));
+                _textController.text =
+                    geocodeFromPoint.firstAddress?.formatted ?? 'wtf';
+              }
             },
           ),
           Center(
