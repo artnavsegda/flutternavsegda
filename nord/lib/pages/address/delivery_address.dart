@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/gradient_button.dart';
-import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:nord/pages/error/error.dart';
 import 'package:nord/gql.dart';
 import 'enter_address.dart';
@@ -64,12 +66,14 @@ class DeliveryAddressPage extends StatelessWidget {
                   ),
                 ] else
                   ...userInfo.deliveryAddresses.map(
-                    (e) => ListTile(
-                      title: Text(e.description ?? 'WTF'),
-                      subtitle: Text(e.address),
-                      trailing: Icon(
-                        SeverMetropol.Icon_Edit,
-                        color: Theme.of(context).colorScheme.primary,
+                    (e) => Slidable(
+                      child: ListTile(
+                        title: Text(e.description ?? 'WTF'),
+                        subtitle: Text(e.address),
+                        trailing: Icon(
+                          SeverMetropol.Icon_Edit,
+                          color: Theme.of(context).colorScheme.primary,
+                        ),
                       ),
                     ),
                   ),
