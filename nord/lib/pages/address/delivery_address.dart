@@ -27,7 +27,9 @@ class DeliveryAddressPage extends StatelessWidget {
         title: const Text('Адреса доставки'),
       ),
       body: Query(
-          options: QueryOptions(document: gql(getClientInfo)),
+          options: QueryOptions(
+              fetchPolicy: FetchPolicy.networkOnly,
+              document: gql(getClientInfo)),
           builder: (result, {fetchMore, refetch}) {
             if (result.isLoading && result.data == null) {
               return const Center(
@@ -89,16 +91,18 @@ class DeliveryAddressPage extends StatelessWidget {
                                     showErrorAlert(context, '$error');
                                   },
                                   onCompleted: (resultData) {
-                                    //refetch!();
+                                    refetch!();
                                   }),
                               builder: (runMutation, result) {
                                 return SlidableAction(
                                   autoClose: false,
-                                  onPressed: (context) {
+                                  onPressed: (context) async {
+                                    await Slidable.of(context)!.dismiss(
+                                        ResizeRequest(
+                                            Duration(milliseconds: 300),
+                                            () {}));
                                     runMutation(
                                         {'addressID': deliveryAddress.iD});
-                                    Slidable.of(context)!.dismiss(ResizeRequest(
-                                        Duration(milliseconds: 300), () {}));
                                   },
                                   backgroundColor:
                                       Theme.of(context).colorScheme.primary,
@@ -114,11 +118,12 @@ class DeliveryAddressPage extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: GradientButton(
                     child: Text('Добавить новый адрес'),
-                    onPressed: () {
-                      Navigator.push(
+                    onPressed: () async {
+                      await Navigator.push(
                           context,
                           MaterialPageRoute(
                               builder: (context) => EnterAddress()));
+                      refetch!();
                     },
                   ),
                 ),

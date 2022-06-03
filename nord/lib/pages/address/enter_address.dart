@@ -114,7 +114,7 @@ class _EnterAddressState extends State<EnterAddress> {
                 onPressed: () async {
                   VisibleRegion visibleRegion =
                       await _mapController.getVisibleRegion();
-                  Navigator.push(
+                  await Navigator.push(
                       context,
                       MaterialPageRoute(
                           builder: (context) => CreateAddress(
@@ -128,6 +128,7 @@ class _EnterAddressState extends State<EnterAddress> {
                                         visibleRegion.bottomLeft.longitude) /
                                     2,
                               ))));
+                  Navigator.pop(context);
                 },
                 child: Text('Доставить сюда')),
           ],

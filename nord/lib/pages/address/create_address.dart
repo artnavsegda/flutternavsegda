@@ -122,9 +122,9 @@ class CreateAddress extends StatelessWidget {
                         resultData['addDeliveryAddress']);
                     if (nordResult.result == 0) {
                       Navigator.pop(context);
-                    }
-                    if (nordResult.errorMessage?.isNotEmpty ?? false)
-                      showErrorAlert(context, nordResult.errorMessage ?? '');
+                    } else
+                      showErrorAlert(
+                          context, nordResult.errorMessage ?? 'error');
                   }
                 },
               ),
