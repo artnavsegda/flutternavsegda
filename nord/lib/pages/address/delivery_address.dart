@@ -6,6 +6,7 @@ import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/gradient_button.dart';
 import 'package:nord/pages/error/error.dart';
 import 'package:nord/gql.dart';
+import 'package:nord/utils.dart';
 import 'enter_address.dart';
 
 class DeliveryAddressPage extends StatelessWidget {
@@ -66,11 +67,11 @@ class DeliveryAddressPage extends StatelessWidget {
                   ),
                 ] else
                   ...userInfo.deliveryAddresses.map(
-                    (e) => Slidable(
+                    (deliveryAddress) => Slidable(
                       key: UniqueKey(),
                       child: ListTile(
-                        title: Text(e.description ?? 'WTF'),
-                        subtitle: Text(e.address),
+                        title: Text(deliveryAddress.description ?? 'WTF'),
+                        subtitle: Text(deliveryAddress.address),
                         trailing: Icon(
                           SeverMetropol.Icon_Edit,
                           color: Theme.of(context).colorScheme.primary,
@@ -81,17 +82,30 @@ class DeliveryAddressPage extends StatelessWidget {
                         dismissible: DismissiblePane(onDismissed: () {}),
                         motion: const DrawerMotion(),
                         children: [
-                          SlidableAction(
-                            autoClose: false,
-                            onPressed: (context) {
-                              Slidable.of(context)!.dismiss(ResizeRequest(
-                                  Duration(milliseconds: 300), () {}));
-                            },
-                            backgroundColor:
-                                Theme.of(context).colorScheme.primary,
-                            foregroundColor: Colors.white,
-                            icon: SeverMetropol.Icon_Delete,
-                          )
+                          Mutation(
+                              options: MutationOptions(
+                                  document: gql(delDeliveryAddress),
+                                  onError: (error) {
+                                    showErrorAlert(context, '$error');
+                                  },
+                                  onCompleted: (resultData) {
+                                    //refetch!();
+                                  }),
+                              builder: (runMutation, result) {
+                                return SlidableAction(
+                                  autoClose: false,
+                                  onPressed: (context) {
+                                    runMutation(
+                                        {'addressID': deliveryAddress.iD});
+                                    Slidable.of(context)!.dismiss(ResizeRequest(
+                                        Duration(milliseconds: 300), () {}));
+                                  },
+                                  backgroundColor:
+                                      Theme.of(context).colorScheme.primary,
+                                  foregroundColor: Colors.white,
+                                  icon: SeverMetropol.Icon_Delete,
+                                );
+                              })
                         ],
                       ),
                     ),
