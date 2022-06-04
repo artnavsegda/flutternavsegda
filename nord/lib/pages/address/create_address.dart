@@ -59,6 +59,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: entranceController,
                     decoration: InputDecoration(
                       labelText: "Подъезд",
@@ -69,6 +70,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: intercomController,
                     decoration: InputDecoration(
                       labelText: "Домофон",
@@ -84,6 +86,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: floorController,
                     decoration: InputDecoration(
                       labelText: "Этаж",
@@ -94,6 +97,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    keyboardType: TextInputType.number,
                     controller: apartmentController,
                     decoration: InputDecoration(
                       labelText: "Квартира",
