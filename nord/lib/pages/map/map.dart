@@ -98,11 +98,7 @@ class MapPage extends StatelessWidget {
                         (shop) {
                           return Placemark(
                               onTap: (placemark, point) {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            ShopPage(shop: shop)));
+                                context.go('/shop', extra: shop);
                               },
                               opacity: 1,
                               icon: PlacemarkIcon.single(PlacemarkIconStyle(
