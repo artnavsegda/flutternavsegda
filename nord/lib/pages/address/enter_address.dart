@@ -80,10 +80,19 @@ class _EnterAddressState extends State<EnterAddress> {
             },
           ),
           Center(
-              child: Image.asset(
-            'assets/3.0x/Pin.png',
-            scale: 1.5,
-          )),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset(
+                  'assets/3.0x/Pin.png',
+                  scale: 1.5,
+                ),
+                SizedBox(
+                  height: 50,
+                )
+              ],
+            ),
+          ),
         ],
       ),
       bottomNavigationBar: Padding(
