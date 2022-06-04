@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/utils.dart';
@@ -260,6 +261,7 @@ class HomePage extends StatelessWidget {
                       label: Icon(SeverMetropol.Icon_East),
                       icon: const Text('Показать заведения на карте'),
                       onPressed: () {
+                        context.go('/map');
                         Navigator.push(
                             context,
                             MaterialPageRoute(
