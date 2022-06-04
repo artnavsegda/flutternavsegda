@@ -16,6 +16,7 @@ import '../pages/shopping/pay.dart';
 import '../pages/shopping/success.dart';
 import '../pages/shopping/registration.dart';
 import '../pages/shopping/webview.dart';
+import '../pages/map/map.dart';
 
 class PayPageArguments {
   GraphBasket basket;
@@ -43,6 +44,14 @@ class NordRouter {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: const Onboarding(),
+        ),
+      ),
+      GoRoute(
+        name: 'map',
+        path: '/map',
+        pageBuilder: (context, state) => MaterialPage<void>(
+          key: state.pageKey,
+          child: const MapPage(),
         ),
       ),
       GoRoute(
