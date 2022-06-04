@@ -1415,17 +1415,27 @@ class GraphDeliveryAddress {
     required this.latitude,
     required this.description,
   });
+
   int iD;
   String address;
   double longitude;
   double latitude;
   String? description;
+
   GraphDeliveryAddress.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
         address = json['address'],
         longitude = json['longitude'],
         latitude = json['latitude'],
         description = json['description'];
+
+  Map<String, dynamic> toJson() => {
+        'iD': iD,
+        'address': address,
+        'longitude': longitude,
+        'latitude': latitude,
+        'description': description,
+      };
 }
 
 class GraphNewDeliveryAddress {
@@ -1435,10 +1445,12 @@ class GraphNewDeliveryAddress {
     required this.latitude,
     required this.description,
   });
+
   String address;
   double longitude;
   double latitude;
   String? description;
+
   GraphNewDeliveryAddress.fromJson(Map<String, dynamic> json)
       : address = json['address'],
         longitude = json['longitude'],
