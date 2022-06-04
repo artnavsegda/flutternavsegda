@@ -197,7 +197,10 @@ class _AddressPageState extends State<AddressPage> {
       ),
       body: filter == 'DELIVERY'
           ? Query(
-              options: QueryOptions(document: gql(getClientInfo)),
+              options: QueryOptions(
+                fetchPolicy: FetchPolicy.networkOnly,
+                document: gql(getClientInfo),
+              ),
               builder: (result, {fetchMore, refetch}) {
                 if (result.isLoading && result.data == null) {
                   return mapStack(context: context);
@@ -258,11 +261,12 @@ class _AddressPageState extends State<AddressPage> {
                       padding: const EdgeInsets.all(16.0),
                       child: GradientButton(
                         child: Text('Добавить новый адрес'),
-                        onPressed: () {
-                          Navigator.push(
+                        onPressed: () async {
+                          await Navigator.push(
                               context,
                               MaterialPageRoute(
                                   builder: (context) => EnterAddress()));
+                          refetch!();
                         },
                       ),
                     ),
