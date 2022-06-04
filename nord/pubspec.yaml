@@ -65,6 +65,7 @@ dependencies:
   latlong2: ^0.8.1
   flutter_map: ^0.14.0
   yandex_mapkit: ^2.0.6
+  maps_launcher: ^2.0.1
 
 dev_dependencies:
   flutter_test:

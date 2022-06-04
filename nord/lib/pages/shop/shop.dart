@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:provider/provider.dart';
 import 'package:go_router/go_router.dart';
+import 'package:maps_launcher/maps_launcher.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
@@ -198,7 +199,10 @@ class ShopPage extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: ElevatedButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                MapsLauncher.launchCoordinates(
+                                    shop.latitude ?? 0, shop.longitude ?? 0);
+                              },
                               child: const Text('Построить маршрут')),
                         ),
                         TextButton(
