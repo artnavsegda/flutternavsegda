@@ -18,6 +18,7 @@ import '../pages/shopping/registration.dart';
 import '../pages/shopping/webview.dart';
 import '../pages/map/map.dart';
 import '../pages/shop/shop.dart';
+import '../pages/orders/orders.dart';
 
 class PayPageArguments {
   GraphBasket basket;
@@ -45,14 +46,6 @@ class NordRouter {
         pageBuilder: (context, state) => MaterialPage<void>(
           key: state.pageKey,
           child: const Onboarding(),
-        ),
-      ),
-      GoRoute(
-        name: 'map',
-        path: '/map',
-        pageBuilder: (context, state) => MaterialPage<void>(
-          key: state.pageKey,
-          child: const MapPage(),
         ),
       ),
       GoRoute(
@@ -156,6 +149,14 @@ class NordRouter {
                 child: ActionPage(id: int.parse(state.params['id']!)),
               ),
             ),
+            GoRoute(
+              name: 'orders',
+              path: 'orders',
+              pageBuilder: (context, state) => MaterialPage<void>(
+                key: state.pageKey,
+                child: const OrdersPage(),
+              ),
+            ),
 /*             GoRoute(
               name: 'catalog',
               path: 'catalog/:id',
@@ -197,6 +198,13 @@ class NordRouter {
         redirect: (state) => state.namedLocation(
           'product',
           params: {'tab': '0', 'id': state.params['id']!},
+        ),
+      ),
+      GoRoute(
+        path: '/orders',
+        redirect: (state) => state.namedLocation(
+          'orders',
+          params: {'tab': '3'},
         ),
       ),
 /*       GoRoute(

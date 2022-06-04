@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/gestures.dart';
 import 'package:go_router/go_router.dart';
 
 class SuccessPage extends StatelessWidget {
@@ -22,15 +23,31 @@ class SuccessPage extends StatelessWidget {
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Text(
-              'Статус вашего заказа вы можете отследить, перейдя к списку ваших покупок в личном кабинете'),
+          child: RichText(
+            text: TextSpan(
+                text:
+                    'Статус вашего заказа вы можете отследить, перейдя к списку ваших покупок в ',
+                style: TextStyle(
+                    fontFamily: 'Noto Sans',
+                    fontSize: 14,
+                    color: Color(0xFF1D242C)),
+                children: [
+                  TextSpan(
+                      text: 'личном кабинете',
+                      style: TextStyle(color: Color(0xFFCD0643)),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => context.go('/orders')),
+                  TextSpan(
+                    text: ' ',
+                  )
+                ]),
+          ),
         ),
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: ElevatedButton(
             child: Text('Вернуться на главную'),
             onPressed: () {
-              //Navigator.popUntil(context, ModalRoute.withName("/main"));
               context.go('/main');
             },
           ),

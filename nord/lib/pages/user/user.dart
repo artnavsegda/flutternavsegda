@@ -204,6 +204,8 @@ class UserPage extends StatelessWidget {
               ),
               ListTile(
                 onTap: () {
+                  context.go('/orders');
+                  return;
                   Navigator.push(
                       context,
                       MaterialPageRoute(
