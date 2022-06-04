@@ -147,7 +147,7 @@ class _AddressPageState extends State<AddressPage> {
             }
             return YandexMap(
                 //key: _mapKey,
-                onMapCreated: (controller) {
+                onMapCreated: (controller) async {
                   WidgetsBinding.instance.addPostFrameCallback((_) {
                     controller.moveCamera(CameraUpdate.newCameraPosition(
                         CameraPosition(
@@ -155,6 +155,13 @@ class _AddressPageState extends State<AddressPage> {
                                 Point(latitude: 59.9311, longitude: 30.3609),
                             zoom: 13)));
                   });
+                  Position myPosition = await Geolocator.getCurrentPosition();
+                  controller.moveCamera(CameraUpdate.newCameraPosition(
+                      CameraPosition(
+                          target: Point(
+                              latitude: myPosition.latitude,
+                              longitude: myPosition.longitude),
+                          zoom: 13)));
                 },
                 mapObjects: [...markers]);
           }),

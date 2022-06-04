@@ -75,11 +75,19 @@ class MapPage extends StatelessWidget {
                 children: [
                   YandexMap(
                     onMapCreated: (controller) {
-                      WidgetsBinding.instance.addPostFrameCallback((_) {
+                      WidgetsBinding.instance.addPostFrameCallback((_) async {
                         controller.moveCamera(CameraUpdate.newCameraPosition(
                             CameraPosition(
                                 target: Point(
                                     latitude: 59.9311, longitude: 30.3609),
+                                zoom: 13)));
+                        Position myPosition =
+                            await Geolocator.getCurrentPosition();
+                        controller.moveCamera(CameraUpdate.newCameraPosition(
+                            CameraPosition(
+                                target: Point(
+                                    latitude: myPosition.latitude,
+                                    longitude: myPosition.longitude),
                                 zoom: 13)));
                       });
                     },

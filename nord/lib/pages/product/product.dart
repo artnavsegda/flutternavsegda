@@ -697,7 +697,7 @@ class _ProductPageState extends State<ProductPage> {
             padding: const EdgeInsets.all(14.0),
             child: Row(
               children: [
-                BadgeIcon(
+/*                 BadgeIcon(
                   title: 'ЗОЖ',
                   color: Color(0xFFA4D65E),
                 ),
@@ -708,7 +708,7 @@ class _ProductPageState extends State<ProductPage> {
                 BadgeIcon(
                   title: 'С собой',
                   color: Color(0xFFB0063A),
-                ),
+                ), */
                 ...productInfo.awards.map((e) => Image.network(e.picture))
               ],
             ),
