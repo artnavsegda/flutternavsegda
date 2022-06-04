@@ -102,14 +102,14 @@ class FilterState with ChangeNotifier {
   GraphDeliveryAddress? activeAddress;
 
   FilterState(this.prefs) {
-/*     filter = prefs.getString('filter') ?? "ALL";
+    filter = prefs.getString('filter') ?? "ALL";
     activeShop = prefs.getString('activeShop') == null
         ? null
         : GraphShop.fromJson(jsonDecode(prefs.getString('activeShop') ?? "{}"));
-    activeAddress = prefs.getString('activeShop') == null
+    activeAddress = prefs.getString('activeAddress') == null
         ? null
         : GraphDeliveryAddress.fromJson(
-            jsonDecode(prefs.getString('activeShop') ?? "{}")); */
+            jsonDecode(prefs.getString('activeAddress') ?? "{}"));
   }
 
   update(

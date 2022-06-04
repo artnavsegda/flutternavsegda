@@ -1249,6 +1249,7 @@ class GraphShop {
         'finish': finish,
         'regionId': regionId,
         'regionName': regionName,
+        'pictures': pictures,
         'metroStations': metroStations,
         'openingHours': openingHours,
       };

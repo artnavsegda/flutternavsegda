@@ -24,6 +24,7 @@ Future<void> main() async {
   );
 
   SharedPreferences prefs = await SharedPreferences.getInstance();
+
   runApp(NordApp(
     prefs: prefs,
   ));
