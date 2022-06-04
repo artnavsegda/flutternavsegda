@@ -1174,6 +1174,15 @@ class GraphMetroStation {
         stationName = json['stationName'],
         distance = json['distance'],
         regionID = json['regionID'];
+
+  Map<String, dynamic> toJson() => {
+        'iD': iD,
+        'lineName': lineName,
+        'colorLine': colorLine,
+        'stationName': stationName,
+        'distance': distance,
+        'regionID': regionID,
+      };
 }
 
 class GraphShop {
@@ -1222,6 +1231,21 @@ class GraphShop {
             .map((model) => GraphMetroStation.fromJson(model))),
         openingHours = List<GraphOpeningHours>.from(json['openingHours']
             .map((model) => GraphOpeningHours.fromJson(model)));
+
+  Map<String, dynamic> toJson() => {
+        'iD': iD,
+        'name': name,
+        'description': description,
+        'address': address,
+        'longitude': longitude,
+        'latitude': latitude,
+        'start': start,
+        'finish': finish,
+        'regionId': regionId,
+        'regionName': regionName,
+        'metroStations': metroStations,
+        'openingHours': openingHours,
+      };
 }
 
 class GraphAction {
