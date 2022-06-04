@@ -4,6 +4,8 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
 import 'package:provider/provider.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
@@ -203,6 +205,7 @@ class ShopPage extends StatelessWidget {
                             onPressed: () {
                               context.read<FilterState>().update(
                                   newActiveShop: shop, newFilter: 'PICK_UP');
+                              context.go('/main');
                             },
                             child: const Text('Заберу заказ в этом заведении')),
                       ],

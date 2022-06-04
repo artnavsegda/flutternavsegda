@@ -3,6 +3,8 @@ import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:go_router/go_router.dart';
+
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/components/shop_tile.dart';
@@ -153,16 +155,7 @@ class MapPage extends StatelessWidget {
                                   .map((shop) => ShopTile(
                                         shop: shop,
                                         onTap: () {
-                                          if (onSelect == null) {
-                                            Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        ShopPage(shop: shop)));
-                                          } else {
-                                            Navigator.pop(context);
-                                            onSelect!(shop);
-                                          }
+                                          context.go('/shop', extra: shop);
                                         },
                                       ))
                                   .where((element) {
