@@ -1149,6 +1149,12 @@ class GraphOpeningHours {
       : weekDay = json['weekDay'],
         start = json['start'],
         finish = json['finish'];
+
+  Map<String, dynamic> toJson() => {
+        'weekDay': weekDay,
+        'start': start,
+        'finish': finish,
+      };
 }
 
 class GraphMetroStation {
