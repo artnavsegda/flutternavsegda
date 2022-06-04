@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:dotted_line/dotted_line.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:shimmer/shimmer.dart';
+import 'package:provider/provider.dart';
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
+import 'package:nord/login_state.dart';
 
 const List<String> weekNames = [
   'Нульник',
@@ -198,7 +200,10 @@ class ShopPage extends StatelessWidget {
                               child: const Text('Построить маршрут')),
                         ),
                         TextButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              context.read<FilterState>().update(
+                                  newActiveShop: shop, newFilter: 'PICK_UP');
+                            },
                             child: const Text('Заберу заказ в этом заведении')),
                       ],
                     ),
