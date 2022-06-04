@@ -16,6 +16,10 @@ class CreateAddress extends StatelessWidget {
         TextEditingController(text: addressToCreate.address);
     TextEditingController descriptionController =
         TextEditingController(text: addressToCreate.description);
+    TextEditingController entranceController = TextEditingController();
+    TextEditingController intercomController = TextEditingController();
+    TextEditingController floorController = TextEditingController();
+    TextEditingController apartmentController = TextEditingController();
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
@@ -55,6 +59,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: entranceController,
                     decoration: InputDecoration(
                       labelText: "Подъезд",
                     ),
@@ -64,6 +69,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: intercomController,
                     decoration: InputDecoration(
                       labelText: "Домофон",
                     ),
@@ -78,6 +84,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: floorController,
                     decoration: InputDecoration(
                       labelText: "Этаж",
                     ),
@@ -87,6 +94,7 @@ class CreateAddress extends StatelessWidget {
                     child: Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: TextField(
+                    controller: apartmentController,
                     decoration: InputDecoration(
                       labelText: "Квартира",
                     ),
