@@ -24,7 +24,7 @@ class CartIsEmpty extends StatelessWidget {
           const SizedBox(height: 24),
           GradientButton(
               onPressed: () {
-                context.go('/shop');
+                context.go('/catalog');
               },
               child: const Text('Перейти в каталог'))
         ],
