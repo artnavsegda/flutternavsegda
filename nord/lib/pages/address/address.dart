@@ -97,7 +97,7 @@ class _AddressPageState extends State<AddressPage> {
                   ),
                 ],
               )),
-          SizedBox(width: 8),
+/*           SizedBox(width: 8),
           OutlinedButton.icon(
               style:
                   OutlinedButton.styleFrom(padding: EdgeInsets.only(right: 16)),
@@ -125,7 +125,7 @@ class _AddressPageState extends State<AddressPage> {
                     ),
                   ),
                 ],
-              )),
+              )), */
           SizedBox(width: 16),
         ],
       ),

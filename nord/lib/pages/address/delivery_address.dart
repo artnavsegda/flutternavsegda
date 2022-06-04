@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 
 import 'package:nord/sever_metropol_icons.dart';
 import 'package:nord/components/gradient_button.dart';
@@ -8,6 +9,7 @@ import 'package:nord/pages/error/error.dart';
 import 'package:nord/gql.dart';
 import 'package:nord/utils.dart';
 import 'enter_address.dart';
+import 'package:nord/login_state.dart';
 
 class DeliveryAddressPage extends StatelessWidget {
   const DeliveryAddressPage({Key? key}) : super(key: key);
@@ -123,6 +125,10 @@ class _DeliveryAddressTileState extends State<DeliveryAddressTile> {
             },
             onCompleted: (resultData) {
               widget.reload();
+              if (context.read<FilterState>().filter == 'DELIVERY' &&
+                  context.read<FilterState>().activeAddress!.iD ==
+                      widget.deliveryAddress.iD)
+                context.read<FilterState>().update(newFilter: 'ALL');
             }),
         builder: (runMutation, result) {
           return Slidable(
