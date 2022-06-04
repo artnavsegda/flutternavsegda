@@ -161,7 +161,7 @@ class NordRouter {
         redirect: (state) => state.namedLocation('home', params: {'tab': '0'}),
       ),
       GoRoute(
-        path: '/shop',
+        path: '/catalog',
         redirect: (state) => state.namedLocation('home', params: {'tab': '1'}),
       ),
       GoRoute(
