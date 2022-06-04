@@ -109,12 +109,15 @@ class FilterState with ChangeNotifier {
       GraphDeliveryAddress? newActiveAddress}) {
     if (newFilter != null) {
       filter = newFilter;
+      prefs.setString('filter', filter);
     }
     if (newActiveShop != null) {
       activeShop = newActiveShop;
+      prefs.setString('activeShop', jsonEncode(activeShop));
     }
     if (newActiveAddress != null) {
       activeAddress = newActiveAddress;
+      prefs.setString('activeAddress', jsonEncode(activeAddress));
     }
     notifyListeners();
   }
