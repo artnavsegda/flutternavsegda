@@ -130,9 +130,10 @@ class CreateAddress extends StatelessWidget {
                         resultData['addDeliveryAddress']);
                     if (nordResult.result == 0) {
                       Navigator.pop(context);
-                    } else
+                    } else {
                       showErrorAlert(
                           context, nordResult.errorMessage ?? 'error');
+                    }
                   }
                 },
               ),
@@ -140,8 +141,21 @@ class CreateAddress extends StatelessWidget {
                 return ElevatedButton(
                   child: const Text('Сохранить адрес'),
                   onPressed: () {
+                    String addressString = addressController.text;
+                    if (entranceController.text.isNotEmpty) {
+                      addressString += ', подьезд ${entranceController.text}';
+                    }
+                    if (intercomController.text.isNotEmpty) {
+                      addressString += ', домофон ${intercomController.text}';
+                    }
+                    if (floorController.text.isNotEmpty) {
+                      addressString += ', этаж ${entranceController.text}';
+                    }
+                    if (apartmentController.text.isNotEmpty) {
+                      addressString += ', кв. ${apartmentController.text}';
+                    }
                     var newAddressToCreate = GraphNewDeliveryAddress(
-                      address: addressController.text,
+                      address: addressString,
                       longitude: addressToCreate.longitude,
                       latitude: addressToCreate.latitude,
                       description: descriptionController.text,
