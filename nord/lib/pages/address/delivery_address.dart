@@ -69,49 +69,10 @@ class DeliveryAddressPage extends StatelessWidget {
                   ),
                 ] else
                   ...userInfo.deliveryAddresses.map(
-                    (deliveryAddress) => Slidable(
-                      key: UniqueKey(),
-                      child: ListTile(
-                        title: Text(deliveryAddress.description ?? 'WTF'),
-                        subtitle: Text(deliveryAddress.address),
-                        trailing: Icon(
-                          SeverMetropol.Icon_Edit,
-                          color: Theme.of(context).colorScheme.primary,
-                        ),
-                      ),
-                      endActionPane: ActionPane(
-                        extentRatio: 0.2,
-                        dismissible: DismissiblePane(onDismissed: () {}),
-                        motion: const DrawerMotion(),
-                        children: [
-                          Mutation(
-                              options: MutationOptions(
-                                  document: gql(delDeliveryAddress),
-                                  onError: (error) {
-                                    showErrorAlert(context, '$error');
-                                  },
-                                  onCompleted: (resultData) {
-                                    refetch!();
-                                  }),
-                              builder: (runMutation, result) {
-                                return SlidableAction(
-                                  autoClose: false,
-                                  onPressed: (context) async {
-                                    await Slidable.of(context)!.dismiss(
-                                        ResizeRequest(
-                                            Duration(milliseconds: 300),
-                                            () {}));
-                                    runMutation(
-                                        {'addressID': deliveryAddress.iD});
-                                  },
-                                  backgroundColor:
-                                      Theme.of(context).colorScheme.primary,
-                                  foregroundColor: Colors.white,
-                                  icon: SeverMetropol.Icon_Delete,
-                                );
-                              })
-                        ],
-                      ),
+                    (deliveryAddress) => DeliveryAddressTile(
+                      key: ValueKey(deliveryAddress.iD),
+                      deliveryAddress: deliveryAddress,
+                      reload: () => refetch!(),
                     ),
                   ),
                 Padding(
@@ -131,5 +92,77 @@ class DeliveryAddressPage extends StatelessWidget {
             );
           }),
     );
+  }
+}
+
+class DeliveryAddressTile extends StatefulWidget {
+  const DeliveryAddressTile({
+    Key? key,
+    required this.deliveryAddress,
+    required this.reload,
+  }) : super(key: key);
+
+  final GraphDeliveryAddress deliveryAddress;
+  final Function() reload;
+
+  @override
+  State<DeliveryAddressTile> createState() => _DeliveryAddressTileState();
+}
+
+class _DeliveryAddressTileState extends State<DeliveryAddressTile> {
+  bool _visible = true;
+
+  @override
+  Widget build(BuildContext context) {
+    if (!_visible) return const SizedBox.shrink();
+    return Mutation(
+        options: MutationOptions(
+            document: gql(delDeliveryAddress),
+            onError: (error) {
+              showErrorAlert(context, '$error');
+            },
+            onCompleted: (resultData) {
+              widget.reload();
+            }),
+        builder: (runMutation, result) {
+          return Slidable(
+            key: UniqueKey(),
+            child: ListTile(
+              title: Text(widget.deliveryAddress.description ?? 'WTF'),
+              subtitle: Text(widget.deliveryAddress.address),
+              trailing: Icon(
+                SeverMetropol.Icon_Edit,
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+            endActionPane: ActionPane(
+              extentRatio: 0.2,
+              dismissible: DismissiblePane(onDismissed: () {
+                setState(() {
+                  _visible = false;
+                });
+                runMutation({'addressID': widget.deliveryAddress.iD});
+              }),
+              motion: const DrawerMotion(),
+              children: [
+                SlidableAction(
+                  autoClose: false,
+                  onPressed: (context) async {
+                    await Slidable.of(context)!
+                        .dismiss(ResizeRequest(Duration(milliseconds: 300), () {
+                      setState(() {
+                        _visible = false;
+                      });
+                      runMutation({'addressID': widget.deliveryAddress.iD});
+                    }));
+                  },
+                  backgroundColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Colors.white,
+                  icon: SeverMetropol.Icon_Delete,
+                ),
+              ],
+            ),
+          );
+        });
   }
 }
