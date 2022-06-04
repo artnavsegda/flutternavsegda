@@ -109,14 +109,14 @@ class SupportPage extends StatelessWidget {
                                 "https://demo.cyberiasoft.com/severmetropolservice/api/tools/picture/${message.iD}?type=support",
                             author:
                                 message.managerID == null ? _user : _consultant,
-                            createdAt: message.date,
+                            createdAt: message.date.millisecondsSinceEpoch,
                             id: message.iD.toString(),
                           );
                         } else {
                           return types.TextMessage(
                             author:
                                 message.managerID == null ? _user : _consultant,
-                            createdAt: message.date,
+                            createdAt: message.date.millisecondsSinceEpoch,
                             id: message.iD.toString(),
                             text: message.text ?? "photo",
                           );

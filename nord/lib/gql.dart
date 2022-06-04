@@ -600,7 +600,7 @@ class GraphSupport {
   });
 
   int iD;
-  int date;
+  DateTime date;
   String? text;
   int? managerID;
   String? manager;
@@ -608,7 +608,7 @@ class GraphSupport {
 
   GraphSupport.fromJson(Map<String, dynamic> json)
       : iD = json['iD'],
-        date = json['date'],
+        date = DateTime.parse(json['date']),
         text = json['text'],
         managerID = json['managerID'],
         manager = json['manager'],
