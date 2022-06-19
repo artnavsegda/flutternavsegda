@@ -66,14 +66,15 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: YandexMap(
-        onMapCreated: (controller) {
+        onMapCreated: (controller) async {
           _controller = controller;
-          controller.moveCamera(CameraUpdate.newCameraPosition(CameraPosition(
-              target: Point(latitude: 55.755848, longitude: 37.620409),
-              zoom: 17)));
+          await controller.moveCamera(CameraUpdate.newCameraPosition(
+              CameraPosition(
+                  target: Point(latitude: 55.755848, longitude: 37.620409),
+                  zoom: 17)));
         },
         mapObjects: [
-          Placemark(
+          PlacemarkMapObject(
               opacity: 1,
               icon: PlacemarkIcon.single(PlacemarkIconStyle(
                   image:
