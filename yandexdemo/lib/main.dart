@@ -68,10 +68,11 @@ class _MyHomePageState extends State<MyHomePage> {
       body: YandexMap(
         onMapCreated: (controller) async {
           _controller = controller;
+          final cameraPosition = await controller.getCameraPosition();
           await controller.moveCamera(CameraUpdate.newCameraPosition(
               CameraPosition(
-                  target: Point(latitude: 55.755848, longitude: 37.620409),
-                  zoom: 17)));
+                  target: Point(latitude: 59.9311, longitude: 30.3609),
+                  zoom: 10)));
         },
         mapObjects: [
           PlacemarkMapObject(
