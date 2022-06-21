@@ -59,7 +59,8 @@ class _MyHomePageState extends State<MyHomePage> {
       Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
       // Send authorization headers to the backend.
       headers: {
-        HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+        HttpHeaders.authorizationHeader:
+            'AccessToken Yn8h4bGJFQAslJLIhP3cjbyX5OhCeJph',
       },
     );
   }
