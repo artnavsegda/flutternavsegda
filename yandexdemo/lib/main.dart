@@ -113,6 +113,19 @@ class _MyHomePageState extends State<MyHomePage> {
                   zoom: 10)));
         },
         mapObjects: [
+          ...addressResultList.map(
+            (addressResult) {
+              return PlacemarkMapObject(
+                  opacity: 1,
+                  icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage(
+                          'assets/3.0x/Pin.png'))),
+                  mapId: MapObjectId(addressResult.postalCode),
+                  point: Point(
+                      latitude: addressResult.latitude,
+                      longitude: addressResult.longitude));
+            },
+          ),
           PlacemarkMapObject(
               opacity: 1,
               icon: PlacemarkIcon.single(PlacemarkIconStyle(
