@@ -66,6 +66,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late YandexMapController _controller;
+  List<AddressResult> addressResultList = [];
 
   Future updatePlacemarks() async {
     final response = await http.get(
@@ -81,9 +82,11 @@ class _MyHomePageState extends State<MyHomePage> {
               'Basic bGV2cmFuYTg4QGdtYWlsLmNvbTpsZXZyYW5hODg='
         });
     final responseJson = await jsonDecode(response.body);
-    final addressResultList = List<AddressResult>.from(
-        responseJson.map((model) => AddressResult.fromJson(model)));
     print(responseJson);
+    setState(() {
+      addressResultList = List<AddressResult>.from(
+          responseJson.map((model) => AddressResult.fromJson(model)));
+    });
   }
 
   @override
