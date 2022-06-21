@@ -56,11 +56,13 @@ class _MyHomePageState extends State<MyHomePage> {
 
   Future updatePlacemarks() async {
     final response = await http.get(
-      Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
+      Uri.parse(
+          'https://otpravka-api.pochta.ru/postoffice/1.0/nearby?filter=ALL&latitude=59.937500&longitude=30.308611'),
       // Send authorization headers to the backend.
       headers: {
         HttpHeaders.authorizationHeader:
             'AccessToken Yn8h4bGJFQAslJLIhP3cjbyX5OhCeJph',
+        'X-User-Authorization': 'Basic bGV2cmFuYTg4QGdtYWlsLmNvbTpsZXZyYW5hODg='
       },
     );
   }
