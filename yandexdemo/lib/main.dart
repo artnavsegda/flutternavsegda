@@ -81,6 +81,8 @@ class _MyHomePageState extends State<MyHomePage> {
               'Basic bGV2cmFuYTg4QGdtYWlsLmNvbTpsZXZyYW5hODg='
         });
     final responseJson = await jsonDecode(response.body);
+    final addressResultList = List<AddressResult>.from(
+        responseJson.map((model) => AddressResult.fromJson(model)));
     print(responseJson);
   }
 
