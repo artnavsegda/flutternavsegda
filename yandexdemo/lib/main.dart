@@ -105,6 +105,9 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text(widget.title),
       ),
       body: YandexMap(
+        onCameraPositionChanged: (cameraPosition, reason, finished) {
+          if (finished) updatePlacemarks();
+        },
         onMapCreated: (controller) async {
           _controller = controller;
           final cameraPosition = await controller.getCameraPosition();
