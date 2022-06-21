@@ -69,11 +69,12 @@ class _MyHomePageState extends State<MyHomePage> {
   List<AddressResult> addressResultList = [];
 
   Future updatePlacemarks() async {
+    final cameraPosition = await _controller.getCameraPosition();
     final response = await http.get(
         Uri.https('otpravka-api.pochta.ru', 'postoffice/1.0/nearby', {
           'filter': 'ALL',
-          'latitude': '59.937500',
-          'longitude': '30.308611',
+          'latitude': cameraPosition.target.latitude.toString(),
+          'longitude': cameraPosition.target.longitude.toString(),
         }),
         headers: {
           HttpHeaders.authorizationHeader:
