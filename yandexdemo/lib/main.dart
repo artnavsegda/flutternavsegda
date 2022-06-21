@@ -10,6 +10,11 @@ class AddressResult {
   double latitude;
   double longitude;
   String postalCode;
+
+  AddressResult.fromJson(Map<String, dynamic> json)
+      : latitude = json['latitude'],
+        longitude = json['longitude'],
+        postalCode = json['postal-code'];
 }
 
 void main() {
