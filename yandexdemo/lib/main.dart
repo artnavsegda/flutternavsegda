@@ -6,6 +6,12 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:io';
 
+class AddressResult {
+  double latitude;
+  double longitude;
+  String postalCode;
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -107,7 +113,9 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          updatePlacemarks();
+        },
         tooltip: 'Increment',
         child: const Icon(Icons.add),
       ),
