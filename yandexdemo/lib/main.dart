@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:io';
 
 void main() {
   runApp(const MyApp());
@@ -50,6 +53,16 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late YandexMapController _controller;
+
+  Future updatePlacemarks() async {
+    final response = await http.get(
+      Uri.parse('https://jsonplaceholder.typicode.com/albums/1'),
+      // Send authorization headers to the backend.
+      headers: {
+        HttpHeaders.authorizationHeader: 'Basic your_api_token_here',
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
