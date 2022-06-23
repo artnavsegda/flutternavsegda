@@ -41,19 +41,19 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(),
+      home: const MapSearchScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key}) : super(key: key);
+class MapSearchScreen extends StatefulWidget {
+  const MapSearchScreen({Key? key}) : super(key: key);
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<MapSearchScreen> createState() => _MapSearchScreenState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _MapSearchScreenState extends State<MapSearchScreen> {
   late YandexMapController _controller;
   List<AddressResult> addressResultList = [];
 
