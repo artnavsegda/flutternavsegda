@@ -82,7 +82,12 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        title: Row(children: [
+          TextButton(onPressed: () {}, child: Text('Самовывоз')),
+          TextButton(onPressed: () {}, child: Text('Курьером')),
+        ]),
+      ),
       body: YandexMap(
         onCameraPositionChanged: (cameraPosition, reason, finished) {
           if (finished) updatePlacemarks();
