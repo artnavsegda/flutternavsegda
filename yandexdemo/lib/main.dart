@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:http/http.dart' as http;
@@ -56,6 +56,7 @@ class MapSearchScreen extends StatefulWidget {
 class _MapSearchScreenState extends State<MapSearchScreen> {
   late YandexMapController _controller;
   List<AddressResult> addressResultList = [];
+  Future<LocationPermission> geoSettings = Geolocator.checkPermission();
 
   Future updatePlacemarks() async {
     final cameraPosition = await _controller.getCameraPosition();
@@ -123,13 +124,21 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
               point: Point(latitude: 59.945933, longitude: 30.320045)),
         ],
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          updatePlacemarks();
-        },
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton: FutureBuilder<LocationPermission>(
+          future: geoSettings,
+          builder: (context, snapshot) {
+            return (LocationPermission.always == snapshot.data ||
+                    LocationPermission.whileInUse == snapshot.data)
+                ? SizedBox.shrink()
+                : FloatingActionButton(
+                    child: const Icon(Icons.add),
+                    onPressed: () {
+                      setState(() {
+                        geoSettings = Geolocator.requestPermission();
+                      });
+                    },
+                  );
+          }),
     );
   }
 }
