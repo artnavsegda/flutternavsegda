@@ -73,6 +73,27 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                       BitmapDescriptor.fromAssetImage('assets/3.0x/Pin.png'))),
               mapId: MapObjectId('placemark'),
               point: Point(latitude: 59.945933, longitude: 30.320045)),
+          PolygonMapObject(
+            mapId: MapObjectId('polygon'),
+            polygon: Polygon(
+                outerRing: LinearRing(points: [
+                  Point(latitude: 56.34295, longitude: 74.62829),
+                  Point(latitude: 70.12669, longitude: 98.97399),
+                  Point(latitude: 56.04956, longitude: 125.07751),
+                ]),
+                innerRings: [
+                  LinearRing(points: [
+                    Point(latitude: 57.34295, longitude: 78.62829),
+                    Point(latitude: 69.12669, longitude: 98.97399),
+                    Point(latitude: 57.04956, longitude: 121.07751),
+                  ])
+                ]),
+            strokeColor: Colors.orange[700]!,
+            strokeWidth: 3.0,
+            fillColor: Colors.yellow[200]!,
+            onTap: (PolygonMapObject self, Point point) =>
+                print('Tapped me at $point'),
+          ),
         ],
       ),
       floatingActionButton: FutureBuilder<LocationPermission>(
