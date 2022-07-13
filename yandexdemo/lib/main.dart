@@ -101,7 +101,11 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
           builder: (context, snapshot) {
             return (LocationPermission.always == snapshot.data ||
                     LocationPermission.whileInUse == snapshot.data)
-                ? SizedBox.shrink()
+                ? FloatingActionButton(
+                    onPressed: () {
+                      print('wtf');
+                    },
+                  )
                 : FloatingActionButton(
                     child: const Icon(Icons.add),
                     onPressed: () {
