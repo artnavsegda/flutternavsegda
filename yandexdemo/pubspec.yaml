@@ -39,6 +39,7 @@ dependencies:
       url: https://github.com/Unact/yandex_mapkit.git
   http: ^0.13.4
   geolocator: ^9.0.0
+  wkt_parser: ^2.0.0
 
 dev_dependencies:
   flutter_test:

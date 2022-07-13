@@ -4,6 +4,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:flutter/material.dart';
 import 'package:yandex_mapkit/yandex_mapkit.dart';
 import 'package:http/http.dart' as http;
+import 'package:wkt_parser/wkt_parser.dart' as wkt_parser;
 import 'dart:async';
 import 'dart:io';
 
@@ -119,7 +120,8 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                     LocationPermission.whileInUse == snapshot.data)
                 ? FloatingActionButton(
                     onPressed: () {
-                      print('wtf');
+                      var output = wkt_parser.parseWKT(greenPoly);
+                      print(output.toString());
                     },
                   )
                 : FloatingActionButton(
