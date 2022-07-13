@@ -6,6 +6,17 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:io';
 
+class AddressResult {
+  double latitude;
+  double longitude;
+  String postalCode;
+
+  AddressResult.fromJson(Map<String, dynamic> json)
+      : latitude = json['latitude'],
+        longitude = json['longitude'],
+        postalCode = json['postal-code'];
+}
+
 void main() {
   runApp(const MyApp());
 }
@@ -44,7 +55,30 @@ class MapSearchScreen extends StatefulWidget {
 
 class _MapSearchScreenState extends State<MapSearchScreen> {
   late YandexMapController _controller;
+  List<AddressResult> addressResultList = [];
   Future<LocationPermission> geoSettings = Geolocator.checkPermission();
+
+  Future updatePlacemarks() async {
+    final cameraPosition = await _controller.getCameraPosition();
+    final response = await http.get(
+        Uri.https('otpravka-api.pochta.ru', 'postoffice/1.0/nearby', {
+          'filter': 'ALL',
+          'latitude': cameraPosition.target.latitude.toString(),
+          'longitude': cameraPosition.target.longitude.toString(),
+        }),
+        headers: {
+          HttpHeaders.authorizationHeader:
+              'AccessToken Yn8h4bGJFQAslJLIhP3cjbyX5OhCeJph',
+          'X-User-Authorization':
+              'Basic bGV2cmFuYTg4QGdtYWlsLmNvbTpsZXZyYW5hODg='
+        });
+    final responseJson = await jsonDecode(response.body);
+    print(responseJson);
+    setState(() {
+      addressResultList = List<AddressResult>.from(
+          responseJson.map((model) => AddressResult.fromJson(model)));
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +90,9 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
         ]),
       ),
       body: YandexMap(
-        onCameraPositionChanged: (cameraPosition, reason, finished) {},
+        onCameraPositionChanged: (cameraPosition, reason, finished) {
+          if (finished) updatePlacemarks();
+        },
         onMapCreated: (controller) async {
           _controller = controller;
           final cameraPosition = await controller.getCameraPosition();
@@ -66,6 +102,19 @@ class _MapSearchScreenState extends State<MapSearchScreen> {
                   zoom: 10)));
         },
         mapObjects: [
+          ...addressResultList.map(
+            (addressResult) {
+              return PlacemarkMapObject(
+                  opacity: 1,
+                  icon: PlacemarkIcon.single(PlacemarkIconStyle(
+                      image: BitmapDescriptor.fromAssetImage(
+                          'assets/3.0x/Pin.png'))),
+                  mapId: MapObjectId(addressResult.postalCode),
+                  point: Point(
+                      latitude: addressResult.latitude,
+                      longitude: addressResult.longitude));
+            },
+          ),
           PlacemarkMapObject(
               opacity: 1,
               icon: PlacemarkIcon.single(PlacemarkIconStyle(
