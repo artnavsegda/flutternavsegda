@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -103,6 +104,13 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            FutureBuilder(
+              future: FirebaseMessaging.instance.getToken(),
+              builder: (context, snapshot) {
+                print(snapshot.data);
+                return Text(snapshot.data ?? 'no data');
+              },
+            ),
             const Text(
               'You have pushed the button this many times:',
             ),
