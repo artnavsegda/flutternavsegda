@@ -142,9 +142,44 @@ class AuthGate extends StatelessWidget {
       builder: (context, snapshot) {
         // User is not signed in
         if (!snapshot.hasData) {
-          return SignInScreen(providerConfigs: [
-            EmailProviderConfiguration(),
-          ]);
+          return SignInScreen(
+            headerBuilder: (context, constraints, _) {
+              return Padding(
+                padding: const EdgeInsets.all(20),
+                child: AspectRatio(
+                  aspectRatio: 1,
+                  child: Image.network(
+                      'https://firebase.flutter.dev/img/flutterfire_300x.png'),
+                ),
+              );
+            },
+            subtitleBuilder: (context, action) {
+              return Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: Text(
+                  action == AuthAction.signIn
+                      ? 'Welcome to FlutterFire UI! Please sign in to continue.'
+                      : 'Welcome to FlutterFire UI! Please create an account to continue',
+                ),
+              );
+            },
+            footerBuilder: (context, _) {
+              return const Padding(
+                padding: EdgeInsets.only(top: 16),
+                child: Text(
+                  'By signing in, you agree to our terms and conditions.',
+                  style: TextStyle(color: Colors.grey),
+                ),
+              );
+            },
+            providerConfigs: [
+              EmailProviderConfiguration(),
+              GoogleProviderConfiguration(
+                clientId:
+                    '1030265242658-ld77e67ci1gj5hlnv94haj4hnrp6c9a4.apps.googleusercontent.com',
+              ),
+            ],
+          );
         }
 
         // Render your application if authenticated
