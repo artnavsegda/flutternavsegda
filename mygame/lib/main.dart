@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text("Game")),
         body: BonfireWidget(
+          showCollisionArea: true,
+          collisionAreaColor: Colors.blue,
+          cameraConfig: CameraConfig(zoom: 2.0),
           joystick: Joystick(
             directional: JoystickDirectional(),
           ),
