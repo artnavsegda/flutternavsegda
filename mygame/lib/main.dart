@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
             directional: JoystickDirectional(),
           ),
           map: WorldMapByTiled('tile/map.json'),
-          player: Girl(),
+          player: Girl(Vector2(40, 40)),
         ),
       ),
     );
@@ -31,5 +31,13 @@ class MyApp extends StatelessWidget {
 }
 
 class Girl extends SimplePlayer {
-  Girl(Vector2 position) : super(position: position);
+  Girl(Vector2 position)
+      : super(
+          position: position,
+          size: Vector2(24, 24),
+          animation: SimpleDirectionAnimation(
+            idleRight: SpriteAnimation.fromAsepriteData(image, jsonData),
+            runRight: SpriteAnimation.fromAsepriteData(image, jsonData),
+          ),
+        );
 }
