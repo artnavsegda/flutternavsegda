@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           ),
           map: WorldMapByTiled('tile/map.json'),
           //map: WorldMapByTiled('tile/mapa2.json'),
-          player: Girl(Vector2(40, 40)),
+          player: Girl(Vector2(100, 100)),
         ),
       ),
     );
@@ -45,7 +45,7 @@ class Girl extends SimplePlayer with ObjectCollision {
                   SpriteAnimationData.sequenced(
                       texturePosition: Vector2(192, 0),
                       amount: 4,
-                      stepTime: 0.1,
+                      stepTime: 0.3,
                       textureSize: Vector2(24, 24))),
               runRight: SpriteAnimation.load(
                 'girl/girl.png',

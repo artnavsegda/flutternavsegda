@@ -1,8 +1,9 @@
 {
-    "activeFile": "map.json",
+    "activeFile": "tree.json",
     "expandedProjectPaths": [
         "."
     ],
+    "file.lastUsedOpenFilter": "All Files (*)",
     "fileStates": {
         "/Users/artnavsegda/Desktop/R+DMXH.tsj": {
             "scaleInDock": 1,
@@ -18,11 +19,27 @@
         },
         "map.json": {
             "scale": 2.18,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 148.16513761467888,
+                "y": 70.41284403669724
+            }
+        },
+        "mapa2.json": {
+            "scale": 2,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 152.5229357798165,
-                "y": 64.90825688073394
+                "x": 178,
+                "y": 200.25
             }
+        },
+        "tileset/0x72_DungeonTilesetII_v1.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
+        },
+        "tree.json": {
+            "scaleInDock": 1,
+            "scaleInEditor": 4
         },
         "water_tileset.json": {
             "scaleInDock": 3,
@@ -31,17 +48,19 @@
     },
     "last.imagePath": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile",
     "openFiles": [
-        "ground_tileset.json",
-        "water_tileset.json",
+        "tree.json",
         "map.json",
-        "cliff.json"
+        "tileset/0x72_DungeonTilesetII_v1.json"
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
+        "tileset/0x72_DungeonTilesetII_v1.json",
+        "map.json",
+        "tree.json",
+        "mapa2.json",
         "ground_tileset.json",
         "water_tileset.json",
         "cliff.json",
-        "map.json",
         "/Users/artnavsegda/Desktop/R+DMXH.tsj"
     ],
     "tileset.lastUsedFormat": "json",
