@@ -39,11 +39,17 @@ class Girl extends SimplePlayer {
               idleRight: SpriteAnimation.load(
                   'girl/girl.png',
                   SpriteAnimationData.sequenced(
-                      amount: 6, stepTime: 0.1, textureSize: Vector2(24, 24))),
+                      texturePosition: Vector2(192, 0),
+                      amount: 4,
+                      stepTime: 0.1,
+                      textureSize: Vector2(24, 24))),
               runRight: SpriteAnimation.load(
                 'girl/girl.png',
                 SpriteAnimationData.sequenced(
-                    amount: 6, stepTime: 0.1, textureSize: Vector2(24, 24)),
+                    texturePosition: Vector2(672, 0),
+                    amount: 5,
+                    stepTime: 0.1,
+                    textureSize: Vector2(24, 24)),
               ),
             ));
 }
