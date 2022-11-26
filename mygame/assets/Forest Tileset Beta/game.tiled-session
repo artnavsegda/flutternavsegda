@@ -3,7 +3,7 @@
         "height": 4300,
         "width": 2
     },
-    "activeFile": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile/ground_tileset.json",
+    "activeFile": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile/map.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -43,8 +43,8 @@
     ],
     "project": "game.tiled-project",
     "recentFiles": [
-        "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile/map.json",
         "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile/ground_tileset.json",
+        "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile/map.json",
         "Ground Tileset.tsj",
         "map.tmj"
     ]
