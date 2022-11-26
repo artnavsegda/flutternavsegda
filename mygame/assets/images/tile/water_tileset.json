@@ -194,6 +194,42 @@
          "animation":[
                 {
                  "duration":100,
+                 "tileid":3
+                }, 
+                {
+                 "duration":100,
+                 "tileid":14
+                }, 
+                {
+                 "duration":100,
+                 "tileid":25
+                }, 
+                {
+                 "duration":100,
+                 "tileid":36
+                }, 
+                {
+                 "duration":100,
+                 "tileid":47
+                }, 
+                {
+                 "duration":100,
+                 "tileid":58
+                }, 
+                {
+                 "duration":100,
+                 "tileid":69
+                }, 
+                {
+                 "duration":100,
+                 "tileid":80
+                }],
+         "id":3
+        }, 
+        {
+         "animation":[
+                {
+                 "duration":100,
                  "tileid":88
                 }, 
                 {
