@@ -1,5 +1,5 @@
 {
-    "activeFile": "/Users/artnavsegda/Desktop/R+DMXH.tsj",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -17,7 +17,7 @@
             "selectedLayer": 0,
             "viewCenter": {
                 "x": 169.95412844036696,
-                "y": 158.25688073394494
+                "y": 157.33944954128438
             }
         },
         "water_tileset.json": {
@@ -29,8 +29,7 @@
     "openFiles": [
         "ground_tileset.json",
         "water_tileset.json",
-        "map.json",
-        "/Users/artnavsegda/Desktop/R+DMXH.tsj"
+        "map.json"
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
