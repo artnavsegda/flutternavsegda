@@ -23,8 +23,13 @@ class MyApp extends StatelessWidget {
             directional: JoystickDirectional(),
           ),
           map: WorldMapByTiled('tile/map.json'),
+          player: Girl(),
         ),
       ),
     );
   }
+}
+
+class Girl extends SimplePlayer {
+  Girl(Vector2 position) : super(position: position);
 }
