@@ -19,13 +19,14 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text("Game")),
         body: BonfireWidget(
-          showCollisionArea: true,
+          //showCollisionArea: true,
           collisionAreaColor: Colors.blue,
           cameraConfig: CameraConfig(zoom: 2.0),
           joystick: Joystick(
             directional: JoystickDirectional(),
           ),
           map: WorldMapByTiled('tile/map.json'),
+          //map: WorldMapByTiled('tile/mapa2.json'),
           player: Girl(Vector2(40, 40)),
         ),
       ),
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Girl extends SimplePlayer {
+class Girl extends SimplePlayer with ObjectCollision {
   Girl(Vector2 position)
       : super(
             position: position,
@@ -54,5 +55,13 @@ class Girl extends SimplePlayer {
                     stepTime: 0.1,
                     textureSize: Vector2(24, 24)),
               ),
-            ));
+            )) {
+    setupCollision(
+      CollisionConfig(
+        collisions: [
+          CollisionArea.rectangle(size: Vector2.all(24)),
+        ],
+      ),
+    );
+  }
 }

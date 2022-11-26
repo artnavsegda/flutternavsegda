@@ -62,15 +62,9 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/tile/map.json
-    - assets/images/tile/cliff.json
-    - assets/images/tile/cliff.png
-    - assets/images/tile/ground_tileset.json
-    - assets/images/tile/ground_tileset.png
-    - assets/images/tile/water_tileset.json
-    - assets/images/tile/water_tileset.png
-    - assets/images/girl/girl.json
-    - assets/images/girl/girl.png
+    - assets/images/tile/
+    - assets/images/tile/tileset/
+    - assets/images/girl/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

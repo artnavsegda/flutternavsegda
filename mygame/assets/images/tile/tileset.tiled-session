@@ -18,10 +18,10 @@
         },
         "map.json": {
             "scale": 2.18,
-            "selectedLayer": 1,
+            "selectedLayer": 0,
             "viewCenter": {
-                "x": 152.06422018348624,
-                "y": 64.4495412844037
+                "x": 152.5229357798165,
+                "y": 64.90825688073394
             }
         },
         "water_tileset.json": {
