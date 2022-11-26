@@ -8,9 +8,13 @@
             "scaleInDock": 1,
             "scaleInEditor": 1
         },
+        "cliff.json": {
+            "scaleInDock": 3,
+            "scaleInEditor": 4
+        },
         "ground_tileset.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 1
+            "scaleInEditor": 4
         },
         "map.json": {
             "scale": 2.18,
@@ -22,25 +26,27 @@
         },
         "water_tileset.json": {
             "scaleInDock": 3,
-            "scaleInEditor": 3
+            "scaleInEditor": 4
         }
     },
-    "last.imagePath": "/Users/artnavsegda/Desktop",
+    "last.imagePath": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile",
     "openFiles": [
         "ground_tileset.json",
         "water_tileset.json",
-        "map.json"
+        "map.json",
+        "cliff.json"
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
         "ground_tileset.json",
         "water_tileset.json",
+        "cliff.json",
         "map.json",
         "/Users/artnavsegda/Desktop/R+DMXH.tsj"
     ],
     "tileset.lastUsedFormat": "json",
     "tileset.tileSize": {
-        "height": 64,
-        "width": 64
+        "height": 16,
+        "width": 16
     }
 }
