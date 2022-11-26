@@ -19,6 +19,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(title: Text("Game")),
         body: BonfireWidget(
+          joystick: Joystick(
+            directional: JoystickDirectional(),
+          ),
           map: WorldMapByTiled('tile/map.json'),
         ),
       ),
