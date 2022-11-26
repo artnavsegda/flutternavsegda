@@ -4,9 +4,15 @@
     ],
     "fileStates": {
     },
+    "last.imagePath": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile",
     "openFiles": [
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
-    ]
+    ],
+    "tileset.lastUsedFormat": "json",
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
 }

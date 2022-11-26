@@ -1,0 +1,14 @@
+{ "columns":88,
+ "image":"water_tileset.png",
+ "imageheight":160,
+ "imagewidth":1408,
+ "margin":0,
+ "name":"water_tileset",
+ "spacing":0,
+ "tilecount":880,
+ "tiledversion":"1.9.2",
+ "tileheight":16,
+ "tilewidth":16,
+ "type":"tileset",
+ "version":"1.9"
+}
