@@ -33,11 +33,17 @@ class MyApp extends StatelessWidget {
 class Girl extends SimplePlayer {
   Girl(Vector2 position)
       : super(
-          position: position,
-          size: Vector2(24, 24),
-          animation: SimpleDirectionAnimation(
-            idleRight: SpriteAnimation.fromAsepriteData(image, jsonData),
-            runRight: SpriteAnimation.fromAsepriteData(image, jsonData),
-          ),
-        );
+            position: position,
+            size: Vector2(24, 24),
+            animation: SimpleDirectionAnimation(
+              idleRight: SpriteAnimation.load(
+                  'girl/girl.png',
+                  SpriteAnimationData.sequenced(
+                      amount: 6, stepTime: 0.1, textureSize: Vector2(24, 24))),
+              runRight: SpriteAnimation.load(
+                'girl/girl.png',
+                SpriteAnimationData.sequenced(
+                    amount: 6, stepTime: 0.1, textureSize: Vector2(24, 24)),
+              ),
+            ));
 }

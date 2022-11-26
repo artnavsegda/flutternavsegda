@@ -65,6 +65,8 @@ flutter:
     - assets/images/tile/map.json
     - assets/images/tile/ground_tileset.json
     - assets/images/tile/ground_tileset.png
+    - assets/images/girl/girl.json
+    - assets/images/girl/girl.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
