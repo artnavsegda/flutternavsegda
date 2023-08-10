@@ -24,8 +24,8 @@
             "scale": 2.18,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 114.44954128440365,
-                "y": 70.41284403669724
+                "x": 239.67889908256882,
+                "y": 157.56880733944953
             }
         },
         "mapa2.json": {
@@ -52,7 +52,9 @@
             "scaleInEditor": 4
         }
     },
+    "last.exportedFilePath": "/Users/artnavsegda/Documents/GitHub/gdnavsegda/hello",
     "last.imagePath": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile",
+    "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
     "openFiles": [
         "map.json",
         "cliff.json"

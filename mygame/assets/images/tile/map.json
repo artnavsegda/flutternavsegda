@@ -70,11 +70,11 @@
          "name":"Object Layer 1",
          "objects":[
                 {
-                 "class":"",
                  "height":12,
                  "id":7,
                  "name":"chicken",
                  "rotation":0,
+                 "type":"",
                  "visible":true,
                  "width":12,
                  "x":39.9082568807339,
@@ -90,7 +90,7 @@
  "nextobjectid":8,
  "orientation":"orthogonal",
  "renderorder":"right-down",
- "tiledversion":"1.9.2",
+ "tiledversion":"1.10.1",
  "tileheight":16,
  "tilesets":[
         {
@@ -111,6 +111,6 @@
         }],
  "tilewidth":16,
  "type":"map",
- "version":"1.9",
+ "version":"1.10",
  "width":30
 }
