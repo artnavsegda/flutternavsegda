@@ -17,13 +17,13 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        appBar: AppBar(title: Text("Game")),
         body: BonfireWidget(
           //showCollisionArea: true,
           collisionAreaColor: Colors.blue,
           cameraConfig: CameraConfig(zoom: 2.0),
-          joystick: Joystick(
-            directional: JoystickDirectional(),
+          joystick: JoystickMoveToPosition(
+            enabledMoveCameraWithClick: false,
+            mouseButtonUsedToMoveToPosition: MouseButton.left,
           ),
           map: WorldMapByTiled(
             'tile/map.json',
