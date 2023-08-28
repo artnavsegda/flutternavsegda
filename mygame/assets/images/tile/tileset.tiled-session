@@ -1,5 +1,5 @@
 {
-    "activeFile": "cliff.json",
+    "activeFile": "map.json",
     "expandedProjectPaths": [
         "."
     ],
@@ -24,8 +24,8 @@
             "scale": 2.18,
             "selectedLayer": 0,
             "viewCenter": {
-                "x": 239.67889908256882,
-                "y": 157.56880733944953
+                "x": 247.24770642201833,
+                "y": 118.57798165137612
             }
         },
         "mapa2.json": {
@@ -61,8 +61,8 @@
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
-        "map.json",
         "cliff.json",
+        "map.json",
         "tree.json",
         "mapa2.json",
         "tileset/0x72_DungeonTilesetII_v1.json",
