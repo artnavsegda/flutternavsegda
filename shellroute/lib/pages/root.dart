@@ -19,18 +19,27 @@ class MainPage extends StatelessWidget {
     return Scaffold(
       body: child,
       bottomNavigationBar: BottomNavigationBar(
+        type: BottomNavigationBarType.fixed,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
+            icon: Icon(Icons.map),
+            label: 'Map',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.list),
+            label: 'Catalog',
+          ),
+          BottomNavigationBarItem(
             icon: Icon(Icons.home),
-            label: 'A Screen',
+            label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.business),
-            label: 'B Screen',
+            icon: Icon(Icons.shopping_cart),
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.notification_important_rounded),
-            label: 'C Screen',
+            icon: Icon(Icons.person),
+            label: 'User',
           ),
         ],
         currentIndex: _calculateSelectedIndex(context),
@@ -41,7 +50,7 @@ class MainPage extends StatelessWidget {
 
   static int _calculateSelectedIndex(BuildContext context) {
     final String location = GoRouterState.of(context).uri.toString();
-    if (location.startsWith('/a')) {
+    if (location.startsWith('/map')) {
       return 0;
     }
     if (location.startsWith('/b')) {
@@ -56,7 +65,7 @@ class MainPage extends StatelessWidget {
   void _onItemTapped(int index, BuildContext context) {
     switch (index) {
       case 0:
-        GoRouter.of(context).go('/a');
+        GoRouter.of(context).go('/map');
         break;
       case 1:
         GoRouter.of(context).go('/b');

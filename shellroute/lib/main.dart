@@ -28,7 +28,7 @@ class ShellRouteExampleApp extends StatelessWidget {
 
   final GoRouter _router = GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: '/a',
+    initialLocation: '/map',
     debugLogDiagnostics: true,
     routes: <RouteBase>[
       /// Application shell
@@ -40,7 +40,7 @@ class ShellRouteExampleApp extends StatelessWidget {
         routes: <RouteBase>[
           /// The first screen to display in the bottom navigation bar.
           GoRoute(
-            path: '/a',
+            path: '/map',
             builder: (BuildContext context, GoRouterState state) {
               return const ScreenA();
             },
@@ -50,7 +50,7 @@ class ShellRouteExampleApp extends StatelessWidget {
               GoRoute(
                 path: 'details',
                 builder: (BuildContext context, GoRouterState state) {
-                  return const DetailsScreen(label: 'A');
+                  return const DetailsScreen(label: 'Map');
                 },
               ),
             ],
@@ -104,6 +104,7 @@ class ShellRouteExampleApp extends StatelessWidget {
     return MaterialApp.router(
       title: 'Flutter Demo',
       theme: ThemeData(
+        useMaterial3: true,
         primarySwatch: Colors.blue,
       ),
       routerConfig: _router,
@@ -124,12 +125,12 @@ class ScreenA extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text('Screen A'),
+            const Text('Map screen'),
             TextButton(
               onPressed: () {
-                GoRouter.of(context).go('/a/details');
+                GoRouter.of(context).go('/map/details');
               },
-              child: const Text('View A details'),
+              child: const Text('View map details'),
             ),
           ],
         ),
