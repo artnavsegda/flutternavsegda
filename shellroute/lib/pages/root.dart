@@ -53,7 +53,7 @@ class MainPage extends StatelessWidget {
     if (location.startsWith('/map')) {
       return 0;
     }
-    if (location.startsWith('/b')) {
+    if (location.startsWith('/catalog')) {
       return 1;
     }
     if (location.startsWith('/c')) {
@@ -68,7 +68,7 @@ class MainPage extends StatelessWidget {
         GoRouter.of(context).go('/map');
         break;
       case 1:
-        GoRouter.of(context).go('/b');
+        GoRouter.of(context).go('/catalog');
         break;
       case 2:
         GoRouter.of(context).go('/c');

@@ -42,7 +42,7 @@ class ShellRouteExampleApp extends StatelessWidget {
           GoRoute(
             path: '/map',
             builder: (BuildContext context, GoRouterState state) {
-              return const ScreenA();
+              return const MapPage();
             },
             routes: <RouteBase>[
               // The details screen to display stacked on the inner Navigator.
@@ -59,9 +59,9 @@ class ShellRouteExampleApp extends StatelessWidget {
           /// Displayed when the second item in the the bottom navigation bar is
           /// selected.
           GoRoute(
-            path: '/b',
+            path: '/catalog',
             builder: (BuildContext context, GoRouterState state) {
-              return const ScreenB();
+              return const CatalogPage();
             },
             routes: <RouteBase>[
               /// Same as "/a/details", but displayed on the root Navigator by
@@ -71,7 +71,7 @@ class ShellRouteExampleApp extends StatelessWidget {
                 path: 'details',
                 parentNavigatorKey: _rootNavigatorKey,
                 builder: (BuildContext context, GoRouterState state) {
-                  return const DetailsScreen(label: 'B');
+                  return const DetailsScreen(label: 'Catalog');
                 },
               ),
             ],
@@ -113,9 +113,9 @@ class ShellRouteExampleApp extends StatelessWidget {
 }
 
 /// The first screen in the bottom navigation bar.
-class ScreenA extends StatelessWidget {
-  /// Constructs a [ScreenA] widget.
-  const ScreenA({super.key});
+class MapPage extends StatelessWidget {
+  /// Constructs a [MapPage] widget.
+  const MapPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -140,9 +140,9 @@ class ScreenA extends StatelessWidget {
 }
 
 /// The second screen in the bottom navigation bar.
-class ScreenB extends StatelessWidget {
-  /// Constructs a [ScreenB] widget.
-  const ScreenB({super.key});
+class CatalogPage extends StatelessWidget {
+  /// Constructs a [CatalogPage] widget.
+  const CatalogPage({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -152,12 +152,12 @@ class ScreenB extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: <Widget>[
-            const Text('Screen B'),
+            const Text('Screen Catalog'),
             TextButton(
               onPressed: () {
-                GoRouter.of(context).go('/b/details');
+                GoRouter.of(context).go('/catalog/details');
               },
-              child: const Text('View B details'),
+              child: const Text('View catalog details'),
             ),
           ],
         ),
