@@ -56,8 +56,14 @@ class MainPage extends StatelessWidget {
     if (location.startsWith('/catalog')) {
       return 1;
     }
-    if (location.startsWith('/c')) {
+    if (location.startsWith('/home')) {
       return 2;
+    }
+    if (location.startsWith('/cart')) {
+      return 3;
+    }
+    if (location.startsWith('/user')) {
+      return 4;
     }
     return 0;
   }
@@ -71,7 +77,13 @@ class MainPage extends StatelessWidget {
         GoRouter.of(context).go('/catalog');
         break;
       case 2:
-        GoRouter.of(context).go('/c');
+        GoRouter.of(context).go('/home');
+        break;
+      case 3:
+        GoRouter.of(context).go('/cart');
+        break;
+      case 4:
+        GoRouter.of(context).go('/user');
         break;
     }
   }
