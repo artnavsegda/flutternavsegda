@@ -21,12 +21,11 @@ class MyApp extends StatelessWidget {
           //showCollisionArea: true,
           collisionAreaColor: Colors.blue,
           cameraConfig: CameraConfig(zoom: 2.0),
-          joystick: JoystickMoveToPosition(
-            enabledMoveCameraWithClick: false,
-            mouseButtonUsedToMoveToPosition: MouseButton.left,
+          joystick: Joystick(
+            directional: JoystickDirectional(),
           ),
           map: WorldMapByTiled(
-            'tile/map.json',
+            TiledReader.asset('tile/map.json'),
             objectsBuilder: {
               'chicken': (properties) => Chicken(properties.position),
               'cat': (properties) => Cat(properties.position),
@@ -40,7 +39,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Girl extends SimplePlayer with ObjectCollision {
+class Girl extends SimplePlayer {
   Girl(Vector2 position)
       : super(
             position: position,
@@ -61,18 +60,10 @@ class Girl extends SimplePlayer with ObjectCollision {
                     stepTime: 0.1,
                     textureSize: Vector2(24, 24)),
               ),
-            )) {
-    setupCollision(
-      CollisionConfig(
-        collisions: [
-          CollisionArea.rectangle(size: Vector2.all(24)),
-        ],
-      ),
-    );
-  }
+            ));
 }
 
-class Chicken extends SimpleEnemy with ObjectCollision {
+class Chicken extends SimpleEnemy {
   Chicken(Vector2 position)
       : super(
             position: position,
@@ -87,18 +78,10 @@ class Chicken extends SimpleEnemy with ObjectCollision {
                 SpriteAnimationData.sequenced(
                     amount: 2, stepTime: 0.1, textureSize: Vector2(12, 12)),
               ),
-            )) {
-    setupCollision(
-      CollisionConfig(
-        collisions: [
-          CollisionArea.rectangle(size: Vector2.all(12)),
-        ],
-      ),
-    );
-  }
+            ));
 }
 
-class Cat extends SimpleEnemy with ObjectCollision {
+class Cat extends SimpleEnemy {
   Cat(Vector2 position)
       : super(
             position: position,
@@ -113,13 +96,5 @@ class Cat extends SimpleEnemy with ObjectCollision {
                 SpriteAnimationData.sequenced(
                     amount: 15, stepTime: 0.1, textureSize: Vector2(32, 32)),
               ),
-            )) {
-    setupCollision(
-      CollisionConfig(
-        collisions: [
-          CollisionArea.rectangle(size: Vector2.all(24)),
-        ],
-      ),
-    );
-  }
+            ));
 }
