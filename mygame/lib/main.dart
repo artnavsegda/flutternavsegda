@@ -23,7 +23,7 @@ class MyApp extends StatelessWidget {
           cameraConfig: CameraConfig(zoom: 2.0),
           joystick: Joystick(
             directional: JoystickDirectional(),
-          ),
+          ), //
           map: WorldMapByTiled(
             TiledReader.asset('tile/map.json'),
             objectsBuilder: {
@@ -39,7 +39,7 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Girl extends SimplePlayer {
+class Girl extends SimplePlayer with BlockMovementCollision {
   Girl(Vector2 position)
       : super(
             position: position,
@@ -61,9 +61,14 @@ class Girl extends SimplePlayer {
                     textureSize: Vector2(24, 24)),
               ),
             ));
+  @override
+  Future<void> onLoad() {
+    add(RectangleHitbox(size: size));
+    return super.onLoad();
+  }
 }
 
-class Chicken extends SimpleEnemy {
+class Chicken extends SimpleEnemy with BlockMovementCollision {
   Chicken(Vector2 position)
       : super(
             position: position,
@@ -79,9 +84,15 @@ class Chicken extends SimpleEnemy {
                     amount: 2, stepTime: 0.1, textureSize: Vector2(12, 12)),
               ),
             ));
+
+  @override
+  Future<void> onLoad() {
+    add(RectangleHitbox(size: size));
+    return super.onLoad();
+  }
 }
 
-class Cat extends SimpleEnemy {
+class Cat extends SimpleEnemy with BlockMovementCollision {
   Cat(Vector2 position)
       : super(
             position: position,
@@ -97,4 +108,10 @@ class Cat extends SimpleEnemy {
                     amount: 15, stepTime: 0.1, textureSize: Vector2(32, 32)),
               ),
             ));
+
+  @override
+  Future<void> onLoad() {
+    add(RectangleHitbox(size: size));
+    return super.onLoad();
+  }
 }
