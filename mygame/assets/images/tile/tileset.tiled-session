@@ -1,5 +1,5 @@
 {
-    "activeFile": "map.json",
+    "activeFile": "",
     "expandedProjectPaths": [
         "."
     ],
@@ -56,8 +56,6 @@
     "last.imagePath": "/Users/artnavsegda/Documents/GitHub/flutternavsegda/mygame/assets/images/tile",
     "map.lastUsedExportFilter": "Godot 4 Scene files (*.tscn)",
     "openFiles": [
-        "map.json",
-        "cliff.json"
     ],
     "project": "tileset.tiled-project",
     "recentFiles": [
