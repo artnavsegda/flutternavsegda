@@ -62,6 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
   bool launchExe() {
+    final exitCode = calloc<DWORD>();
     final shExecInfo = calloc<SHELLEXECUTEINFO>()
       ..ref.cbSize = sizeOf<SHELLEXECUTEINFO>()
       ..ref.lpFile = TEXT('notepad.exe')
@@ -71,6 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
 /*       ShellExecute(0, TEXT('open'), TEXT('notepad.exe'), nullptr, nullptr,
           SHOW_WINDOW_CMD.SW_SHOW); */
       ShellExecuteEx(shExecInfo);
+      WaitForSingleObject(shExecInfo.ref.hProcess, INFINITE);
+      GetExitCodeProcess(shExecInfo.ref.hProcess, exitCode);
+      print("${exitCode.value}");
       return true;
     } catch (_) {
       return false;
