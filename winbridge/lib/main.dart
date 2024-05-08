@@ -61,19 +61,57 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
 
-  bool launchExe() {
+  launchExe() async {
+    final exitCode = calloc<DWORD>();
+    final si = calloc<STARTUPINFO>();
+    ZeroMemory(si, sizeOf<STARTUPINFO>());
+    final pi = calloc<PROCESS_INFORMATION>();
+    ZeroMemory(pi, sizeOf<PROCESS_INFORMATION>());
+
+    try {
+/*       ShellExecute(0, TEXT('open'), TEXT('notepad.exe'), nullptr, nullptr,
+          SHOW_WINDOW_CMD.SW_SHOW); */
+      final retval = CreateProcess(
+        nullptr,
+        TEXT('C:\\test\\testApp.exe'),
+        nullptr,
+        nullptr,
+        FALSE,
+        0,
+        nullptr,
+        nullptr,
+        si,
+        pi,
+      );
+      print("retVal $retval");
+      print("handle ${pi.ref.hProcess}");
+      WaitForSingleObject(pi.ref.hProcess, INFINITE);
+      GetExitCodeProcess(pi.ref.hProcess, exitCode);
+      //await Future.delayed(const Duration(milliseconds: 5000));
+      print("${exitCode.value}");
+      return true;
+    } catch (_) {
+      return false;
+    }
+  }
+
+  launchExe2() async {
     final exitCode = calloc<DWORD>();
     final shExecInfo = calloc<SHELLEXECUTEINFO>()
       ..ref.cbSize = sizeOf<SHELLEXECUTEINFO>()
-      ..ref.lpFile = TEXT('notepad.exe')
+      ..ref.lpFile = TEXT('C:\\test\\testApp.exe')
+      ..ref.hProcess = 123
       ..ref.nShow = SHOW_WINDOW_CMD.SW_SHOW;
 
     try {
 /*       ShellExecute(0, TEXT('open'), TEXT('notepad.exe'), nullptr, nullptr,
           SHOW_WINDOW_CMD.SW_SHOW); */
-      ShellExecuteEx(shExecInfo);
+      final retval = ShellExecuteEx(shExecInfo);
+      print("retVal $retval");
+      print("handle ${shExecInfo.ref.hProcess}");
       WaitForSingleObject(shExecInfo.ref.hProcess, INFINITE);
       GetExitCodeProcess(shExecInfo.ref.hProcess, exitCode);
+      await Future.delayed(const Duration(milliseconds: 5000));
       print("${exitCode.value}");
       return true;
     } catch (_) {
