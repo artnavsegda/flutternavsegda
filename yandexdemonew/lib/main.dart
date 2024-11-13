@@ -1,12 +1,15 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:yandex_maps_mapkit/init.dart';
 import 'package:yandex_maps_mapkit/mapkit.dart';
 import 'package:yandex_maps_mapkit/mapkit_factory.dart';
 import 'package:yandex_maps_mapkit/yandex_map.dart';
+import 'package:yandex_maps_mapkit/image.dart' as image_provider;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await initMapkit(apiKey: "0ea7608d-c007-4bf7-87ac-39877f4e108e");
   runApp(const MyApp());
 }
 
@@ -25,12 +28,35 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
         home: Scaffold(body: FlutterMapWidget(onMapCreated: (mapWindow) {
       _mapWindow = mapWindow;
-      return;
+      print('start');
+
       mapWindow.map.move(CameraPosition(
           Point(latitude: 55.751225, longitude: 37.62954),
           zoom: 17.0,
           azimuth: 150.0,
           tilt: 30.0));
+
+      final imageProvider = image_provider.ImageProvider.fromImageProvider(
+          const AssetImage("assets/place.png"));
+      final placemarkTapListener =
+          MapObjectTapListenerImpl(onMapObjectTapped: (mapObject, point) {
+        print('tap');
+        showSnackBar(
+          context,
+          "Tapped the placemark",
+        );
+        return true;
+      });
+      final placemark = mapWindow.map.mapObjects.addPlacemark()
+        ..geometry = const Point(latitude: 55.751225, longitude: 37.62954)
+        ..setIcon(imageProvider)
+        ..setIconStyle(
+          const IconStyle(
+            anchor: math.Point(0.5, 1.0),
+            scale: 1.0,
+          ),
+        )
+        ..addTapListener(placemarkTapListener);
     })));
   }
 }
@@ -128,4 +154,38 @@ final class FlutterMapWidgetState extends State<FlutterMapWidget> {
 
 extension LetExtension<T> on T {
   R let<R>(R Function(T it) block) => block(this);
+}
+
+final class MapObjectTapListenerImpl implements MapObjectTapListener {
+  final bool Function(MapObject, Point) onMapObjectTapped;
+
+  const MapObjectTapListenerImpl({required this.onMapObjectTapped});
+
+  @override
+  bool onMapObjectTap(MapObject mapObject, Point point) {
+    return onMapObjectTapped(mapObject, point);
+  }
+}
+
+bool showSnackBar(BuildContext? context, String text) {
+  final isShown = context?.let((it) {
+    final snackBar = _getSnackBar(it, text);
+    ScaffoldMessenger.of(it).showSnackBar(snackBar);
+    return true;
+  });
+  return isShown ?? false;
+}
+
+SnackBar _getSnackBar(BuildContext context, String text) {
+  return SnackBar(
+    showCloseIcon: true,
+    backgroundColor: Theme.of(context).colorScheme.surface,
+    closeIconColor: Theme.of(context).colorScheme.secondary,
+    duration: const Duration(milliseconds: 1000),
+    behavior: SnackBarBehavior.floating,
+    content: Text(
+      text,
+      style: Theme.of(context).textTheme.labelLarge,
+    ),
+  );
 }
