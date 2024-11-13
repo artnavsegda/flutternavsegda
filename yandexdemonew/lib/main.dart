@@ -1,125 +1,131 @@
 import 'package:flutter/material.dart';
+import 'package:yandex_maps_mapkit/init.dart';
+import 'package:yandex_maps_mapkit/mapkit.dart';
+import 'package:yandex_maps_mapkit/mapkit_factory.dart';
+import 'package:yandex_maps_mapkit/yandex_map.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  MapWindow? _mapWindow;
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
-    );
+        home: Scaffold(body: FlutterMapWidget(onMapCreated: (mapWindow) {
+      _mapWindow = mapWindow;
+      return;
+      mapWindow.map.move(CameraPosition(
+          Point(latitude: 55.751225, longitude: 37.62954),
+          zoom: 17.0,
+          azimuth: 150.0,
+          tilt: 30.0));
+    })));
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+final class FlutterMapWidget extends StatefulWidget {
+  final void Function(MapWindow) onMapCreated;
+  final VoidCallback? onMapDispose;
 
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
-
-  final String title;
+  const FlutterMapWidget({
+    super.key,
+    required this.onMapCreated,
+    this.onMapDispose,
+  });
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<FlutterMapWidget> createState() => FlutterMapWidgetState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+final class FlutterMapWidgetState extends State<FlutterMapWidget> {
+  late final AppLifecycleListener _lifecycleListener;
 
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
+  MapWindow? _mapWindow;
+  bool _isMapkitActive = false;
 
   @override
   Widget build(BuildContext context) {
-    // This method is rerun every time setState is called, for instance as done
-    // by the _incrementCounter method above.
-    //
-    // The Flutter framework has been optimized to make rerunning build methods
-    // fast, so that you can just rebuild anything that needs updating rather
-    // than having to individually change instances of widgets.
-    return Scaffold(
-      appBar: AppBar(
-        // TRY THIS: Try changing the color here to a specific color (to
-        // Colors.amber, perhaps?) and trigger a hot reload to see the AppBar
-        // change color while the other colors stay the same.
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title),
+    return SafeArea(
+      top: false,
+      child: YandexMap(
+        onMapCreated: _onMapCreated,
+        platformViewType: PlatformViewType.Hybrid,
       ),
-      body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: Column(
-          // Column is also a layout widget. It takes a list of children and
-          // arranges them vertically. By default, it sizes itself to fit its
-          // children horizontally, and tries to be as tall as its parent.
-          //
-          // Column has various properties to control how it sizes itself and
-          // how it positions its children. Here we use mainAxisAlignment to
-          // center the children vertically; the main axis here is the vertical
-          // axis because Columns are vertical (the cross axis would be
-          // horizontal).
-          //
-          // TRY THIS: Invoke "debug painting" (choose the "Toggle Debug Paint"
-          // action in the IDE, or press "p" in the console), to see the
-          // wireframe for each widget.
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
     );
   }
+
+  @override
+  void initState() {
+    super.initState();
+    _startMapkit();
+
+    _lifecycleListener = AppLifecycleListener(
+      onResume: () {
+        _startMapkit();
+        _setMapTheme();
+      },
+      onInactive: () {
+        _stopMapkit();
+      },
+    );
+  }
+
+  @override
+  void dispose() {
+    _stopMapkit();
+    _lifecycleListener.dispose();
+    widget.onMapDispose?.call();
+    super.dispose();
+  }
+
+  void _startMapkit() {
+    if (!_isMapkitActive) {
+      _isMapkitActive = true;
+      mapkit.onStart();
+    }
+  }
+
+  void _stopMapkit() {
+    if (_isMapkitActive) {
+      _isMapkitActive = false;
+      mapkit.onStop();
+    }
+  }
+
+  void _onMapCreated(MapWindow window) {
+    window.let((it) {
+      widget.onMapCreated(window);
+      _mapWindow = it;
+
+      it.map.logo.setAlignment(
+        const LogoAlignment(
+          LogoHorizontalAlignment.Left,
+          LogoVerticalAlignment.Bottom,
+        ),
+      );
+    });
+
+    _setMapTheme();
+  }
+
+  void _setMapTheme() {
+    _mapWindow?.map.nightModeEnabled =
+        Theme.of(context).brightness == Brightness.dark;
+  }
+}
+
+extension LetExtension<T> on T {
+  R let<R>(R Function(T it) block) => block(this);
 }
