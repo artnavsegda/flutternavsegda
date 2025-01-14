@@ -69,12 +69,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  WebSocketChannel channel = WebSocketChannel.connect(
+    Uri.parse('wss://echo.websocket.events'),
+  );
+
   @override
   void initState() {
     super.initState();
-    final channel = WebSocketChannel.connect(
-      Uri.parse('wss://echo.websocket.events'),
-    );
   }
 
   @override
