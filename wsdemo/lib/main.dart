@@ -70,13 +70,16 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   WebSocketChannel channel = WebSocketChannel.connect(
-    Uri.parse('wss://echo.websocket.events'),
+    Uri.parse('wss://demo.cyberiasoft.com/LoyaltyService/graphql'),
   );
 
   @override
   void initState() {
     super.initState();
-    channel.sink.add('Hello!');
+    channel.sink.add(
+        '{"type":"connection_init","payload":{"Authorization":"Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MzMyNDkwZi0xZGNiLTRlMmMtYTVhOC0zYmEwYjY4ZTFjNDkiLCJkZXZpY2VJZCI6Ijg4OEVFNzhCLTA2MTItNDhBQS05QUY1LTdGQkM0RTI4ODk5OCIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2MTk4NDIyOCwiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.YwF3XVpJ9sKJUSGMOjPKs6xRlsF_Ryn36LIKVOtidAY"}}');
+    channel.sink.add(
+        '{"id":"1","type":"start","payload":{"variables":{},"extensions":{},"operationName":null,"query":"subscription {\n  supportMessageAdded {\n    iD\n    date\n    text\n    managerID\n    manager\n  }\n}\n"}}');
   }
 
   @override
@@ -129,6 +132,22 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headlineMedium,
             ),
+            StreamBuilder(
+              stream: channel.stream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  final error = snapshot.error;
+                  if (error is WebSocketChannelException) {
+                    if (error.inner != null) {
+                      final err = error.inner as dynamic;
+                      print('Websocket inner error: ${err.message.toString()}');
+                      return Text('${err.message.toString()}');
+                    }
+                  }
+                }
+                return Text(snapshot.hasData ? '${snapshot.data}' : '');
+              },
+            )
           ],
         ),
       ),
