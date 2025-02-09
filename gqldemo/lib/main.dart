@@ -60,12 +60,15 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _doWork() {
     final _httpLink = HttpLink(
-      'https://api.github.com/graphql',
+      'https://demo.cyberiasoft.com/LoyaltyService/graphql',
     );
     final GraphQLClient client = GraphQLClient(
       cache: GraphQLCache(),
       link: _httpLink,
     );
+    var subscription = client
+        .subscribe(SubscriptionOptions(document: gql(supportMessageAdded)));
+    subscription.listen((result) {});
   }
 
   @override
@@ -123,3 +126,15 @@ class _MyHomePageState extends State<MyHomePage> {
     );
   }
 }
+
+const String supportMessageAdded = r'''
+subscription supportMessageAdded($authorization: String!) {
+  supportMessageAdded(authorization: $authorization) {
+    iD
+    date
+    text
+    managerID
+    manager
+  }
+}
+''';
