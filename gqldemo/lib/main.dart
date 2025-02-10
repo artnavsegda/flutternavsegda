@@ -59,12 +59,12 @@ class _MyHomePageState extends State<MyHomePage> {
   int _result = 0;
 
   void _doWork() {
-    final _httpLink = HttpLink(
-      'https://demo.cyberiasoft.com/LoyaltyService/graphql',
+    final _wsLink = WebSocketLink(
+      'wss://demo.cyberiasoft.com/LoyaltyService/graphql',
     );
     final GraphQLClient client = GraphQLClient(
       cache: GraphQLCache(),
-      link: _httpLink,
+      link: _wsLink,
     );
     var subscription = client
         .subscribe(SubscriptionOptions(document: gql(supportMessageAdded)));
