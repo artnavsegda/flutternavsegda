@@ -59,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
   int _result = 0;
 
   void _doWork() {
+    print('start work');
     final _wsLink = WebSocketLink(
       'wss://demo.cyberiasoft.com/LoyaltyService/graphql',
     );
@@ -66,9 +67,18 @@ class _MyHomePageState extends State<MyHomePage> {
       cache: GraphQLCache(),
       link: _wsLink,
     );
-    var subscription = client
-        .subscribe(SubscriptionOptions(document: gql(supportMessageAdded)));
-    subscription.listen((result) {});
+    var subscription = client.subscribe(SubscriptionOptions(
+      document: gql(supportMessageAdded),
+      variables: {
+        "authorization":
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MzMyNDkwZi0xZGNiLTRlMmMtYTVhOC0zYmEwYjY4ZTFjNDkiLCJkZXZpY2VJZCI6Ijg4OEVFNzhCLTA2MTItNDhBQS05QUY1LTdGQkM0RTI4ODk5OCIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2MTk4NDIyOCwiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.YwF3XVpJ9sKJUSGMOjPKs6xRlsF_Ryn36LIKVOtidAY"
+      },
+    ));
+    subscription.listen(
+      (result) {
+        print(result);
+      },
+    );
   }
 
   @override
