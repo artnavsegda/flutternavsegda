@@ -60,9 +60,16 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _doWork() {
     print('start work');
-    final _wsLink = WebSocketLink(
-      'wss://demo.cyberiasoft.com/LoyaltyService/graphql',
-    );
+    final _wsLink =
+        WebSocketLink('wss://demo.cyberiasoft.com/LoyaltyService/graphql',
+            config: SocketClientConfig(initialPayload: {
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw',
+            }, headers: {
+              "Authorization":
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw"
+            }),
+            subProtocol: GraphQLProtocol.graphqlWs);
     final GraphQLClient client = GraphQLClient(
       cache: GraphQLCache(),
       link: _wsLink,
@@ -71,12 +78,20 @@ class _MyHomePageState extends State<MyHomePage> {
       document: gql(supportMessageAdded),
       variables: {
         "authorization":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2MzMyNDkwZi0xZGNiLTRlMmMtYTVhOC0zYmEwYjY4ZTFjNDkiLCJkZXZpY2VJZCI6Ijg4OEVFNzhCLTA2MTItNDhBQS05QUY1LTdGQkM0RTI4ODk5OCIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2MTk4NDIyOCwiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.YwF3XVpJ9sKJUSGMOjPKs6xRlsF_Ryn36LIKVOtidAY"
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw"
       },
     ));
     subscription.listen(
       (result) {
+        print('recieved some kind of data');
         print(result);
+      },
+      onError: (error) {
+        print("error");
+        print(error);
+      },
+      onDone: () {
+        print("done");
       },
     );
   }
