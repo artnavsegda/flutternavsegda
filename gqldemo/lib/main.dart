@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final _wsLink =
+    final wsLink =
         WebSocketLink('wss://demo.cyberiasoft.com/LoyaltyService/graphql',
             config: SocketClientConfig(initialPayload: {
               'Authorization':
@@ -24,7 +24,7 @@ class MyApp extends StatelessWidget {
             subProtocol: GraphQLProtocol.graphqlWs);
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
-        link: _wsLink,
+        link: wsLink,
         // The default store is the InMemoryStore, which does NOT persist to disk
         cache: GraphQLCache(),
       ),
