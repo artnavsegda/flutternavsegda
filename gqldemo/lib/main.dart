@@ -12,6 +12,9 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final HttpLink httpLink = HttpLink(
+      'https://demo.cyberiasoft.com/LoyaltyService/graphql',
+    );
     final wsLink =
         WebSocketLink('wss://demo.cyberiasoft.com/LoyaltyService/graphql',
             config: SocketClientConfig(initialPayload: {
@@ -22,9 +25,12 @@ class MyApp extends StatelessWidget {
                   "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw"
             }),
             subProtocol: GraphQLProtocol.graphqlWs);
+
+    //final Link link = httpLink.concat(wsLink);
+    final Link link = wsLink.concat(httpLink);
     ValueNotifier<GraphQLClient> client = ValueNotifier(
       GraphQLClient(
-        link: wsLink,
+        link: link,
         // The default store is the InMemoryStore, which does NOT persist to disk
         cache: GraphQLCache(),
       ),
@@ -154,6 +160,26 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Query(
+              options: QueryOptions(
+                document:
+                    gql(getFamily), // this is the query string you just created
+              ),
+              builder: (QueryResult result,
+                  {VoidCallback? refetch, FetchMore? fetchMore}) {
+                if (result.hasException) {
+                  return Text(result.exception.toString());
+                }
+
+                if (result.isLoading) {
+                  return Center(
+                    child: const CircularProgressIndicator(),
+                  );
+                }
+
+                return Text('${result.data?['getFamily'].first}');
+              },
+            ),
             Subscription(
                 options: SubscriptionOptions(
                   document: gql(supportMessageAdded),
@@ -206,6 +232,17 @@ subscription supportMessageAdded($authorization: String!) {
     text
     managerID
     manager
+  }
+}
+''';
+
+const String getFamily = r'''
+query getFamily {
+  getFamily {
+    iD
+    name
+    description
+    picture
   }
 }
 ''';
