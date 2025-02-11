@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:graphql/client.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,28 +12,48 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    final _wsLink =
+        WebSocketLink('wss://demo.cyberiasoft.com/LoyaltyService/graphql',
+            config: SocketClientConfig(initialPayload: {
+              'Authorization':
+                  'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw',
+            }, headers: {
+              "Authorization":
+                  "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw"
+            }),
+            subProtocol: GraphQLProtocol.graphqlWs);
+    ValueNotifier<GraphQLClient> client = ValueNotifier(
+      GraphQLClient(
+        link: _wsLink,
+        // The default store is the InMemoryStore, which does NOT persist to disk
+        cache: GraphQLCache(),
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+    );
+    return GraphQLProvider(
+      client: client,
+      child: MaterialApp(
+        title: 'Flutter Demo',
+        theme: ThemeData(
+          // This is the theme of your application.
+          //
+          // TRY THIS: Try running your application with "flutter run". You'll see
+          // the application has a purple toolbar. Then, without quitting the app,
+          // try changing the seedColor in the colorScheme below to Colors.green
+          // and then invoke "hot reload" (save your changes or press the "hot
+          // reload" button in a Flutter-supported IDE, or press "r" if you used
+          // the command line to start the app).
+          //
+          // Notice that the counter didn't reset back to zero; the application
+          // state is not lost during the reload. To reset the state, use hot
+          // restart instead.
+          //
+          // This works for code too, not just values: Most code changes can be
+          // tested with just a hot reload.
+          colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+          useMaterial3: true,
+        ),
+        home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      ),
     );
   }
 }
@@ -133,6 +154,31 @@ class _MyHomePageState extends State<MyHomePage> {
           // wireframe for each widget.
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Subscription(
+                options: SubscriptionOptions(
+                  document: gql(supportMessageAdded),
+                  variables: {
+                    "authorization":
+                        "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJqdGkiOiI2OTdkODJiOC04NTU1LTQ3NTctYjU4OS1hODM0ZDBhMWIxODgiLCJkZXZpY2VJZCI6IjQzODEzRjlBLTUwODktNEU0Ni1BRTBBLURCRTA1NjUxMTEwRSIsIm9TVHlwZSI6IjEiLCJjbGllbnRJZCI6IjQzNTM1MyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJEZXZpY2UiLCJDbGllbnQiXSwiZXhwIjozMzI2NDUxOTc3MywiaXNzIjoiTG95YWx0eSIsImF1ZCI6IkN5YmVyaWFTb2Z0In0.q_yLPpzNyJ2Ky2YFcMX_8stbW_7zEwlnBES6oV9n6iw"
+                  },
+                ),
+                builder: (result) {
+                  if (result.hasException) {
+                    return Text(result.exception.toString());
+                  }
+
+                  if (result.isLoading) {
+                    return Center(
+                      child: const CircularProgressIndicator(),
+                    );
+                  }
+                  // ResultAccumulator is a provided helper widget for collating subscription results.
+                  // careful though! It is stateful and will discard your results if the state is disposed
+                  return ResultAccumulator.appendUniqueEntries(
+                    latest: result.data,
+                    builder: (context, {results}) => Text('123'),
+                  );
+                }),
             const Text(
               'Result is:',
             ),
