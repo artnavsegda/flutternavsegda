@@ -85,7 +85,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   int _result = 0;
 
-  void _doWork() {
+  void _doQueWork() {
+    
+  }
+
+  void _doSubWork() {
     print('start work');
     final _wsLink =
         WebSocketLink('wss://demo.cyberiasoft.com/LoyaltyService/graphql',
@@ -216,7 +220,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: _doWork,
+        onPressed: _doSubWork,
         tooltip: 'Increment',
         child: const Icon(Icons.run_circle),
       ), // This trailing comma makes auto-formatting nicer for build methods.
