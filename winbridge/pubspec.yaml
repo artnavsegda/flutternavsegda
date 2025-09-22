@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.6
   win32: ^5.5.0
   ffi: ^2.1.2
+  windows_single_instance: ^1.0.1
+  window_manager: ^0.5.1
 
 dev_dependencies:
   flutter_test:

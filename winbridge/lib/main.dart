@@ -3,8 +3,22 @@ import 'dart:ffi';
 import 'package:flutter/material.dart';
 import 'package:win32/win32.dart';
 import 'package:ffi/ffi.dart';
+import 'package:window_manager/window_manager.dart';
+import 'package:windows_single_instance/windows_single_instance.dart';
 
-void main() {
+void main(List<String> args) async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await WindowsSingleInstance.ensureSingleInstance(args, "custom_identifier",
+      onSecondWindow: (args) {
+    print(args);
+  }, bringWindowToFront: true);
+
+  await windowManager.ensureInitialized();
+
+  windowManager.waitUntilReadyToShow().then((_) async {
+    await windowManager.setPreventClose(true);
+  });
+
   runApp(const MyApp());
 }
 
