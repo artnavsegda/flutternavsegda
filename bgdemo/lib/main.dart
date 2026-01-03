@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:workmanager/workmanager.dart';
 
 @pragma('vm:entry-point')
@@ -16,8 +18,66 @@ void main() {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    super.initState();
+    setupInteractedMessage();
+  }
+
+  Future<void> setupInteractedMessage() async {
+    void onDidReceiveNotificationResponse(
+      NotificationResponse notificationResponse,
+    ) async {
+      final String? payload = notificationResponse.payload;
+      if (notificationResponse.payload != null) {
+        debugPrint('notification payload: $payload');
+      }
+      /*     await Navigator.push(
+      context,
+      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
+    ); */
+    }
+
+    const AndroidNotificationChannel channel = AndroidNotificationChannel(
+      'high_importance_channel', // id
+      'High Importance Notifications', // title
+      description: 'This channel is used for important notifications.',
+      importance: Importance.max,
+    );
+    FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+        FlutterLocalNotificationsPlugin();
+    // initialise the plugin. app_icon needs to be a added as a drawable resource to the Android head project
+    const AndroidInitializationSettings initializationSettingsAndroid =
+        AndroidInitializationSettings("@mipmap/ic_launcher");
+    final DarwinInitializationSettings initializationSettingsDarwin =
+        DarwinInitializationSettings(
+          requestSoundPermission: false,
+          requestAlertPermission: false,
+        );
+    final InitializationSettings initializationSettings =
+        InitializationSettings(
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsDarwin,
+        );
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onDidReceiveNotificationResponse,
+    );
+
+    await flutterLocalNotificationsPlugin
+        .resolvePlatformSpecificImplementation<
+          AndroidFlutterLocalNotificationsPlugin
+        >()
+        ?.createNotificationChannel(channel);
+  }
 
   // This widget is the root of your application.
   @override
@@ -65,14 +125,26 @@ class _MyHomePageState extends State<MyHomePage> {
               child: Text('Regular'),
             ),
             ElevatedButton(
-              onPressed: () {
-                //
+              onPressed: () async {
+                LocationPermission permission;
+                permission = await Geolocator.requestPermission();
+                print(permission);
               },
               child: Text('Request location permission'),
             ),
             ElevatedButton(
               onPressed: () {
-                //
+                FlutterLocalNotificationsPlugin().show(
+                  0,
+                  "Test",
+                  null,
+                  NotificationDetails(
+                    android: AndroidNotificationDetails(
+                      'high_importance_channel', // id
+                      'High Importance Notifications', // title
+                    ),
+                  ),
+                );
               },
               child: Text('Show notification'),
             ),
