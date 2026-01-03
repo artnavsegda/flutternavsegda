@@ -40,10 +40,6 @@ class _MyAppState extends State<MyApp> {
       if (notificationResponse.payload != null) {
         debugPrint('notification payload: $payload');
       }
-      /*     await Navigator.push(
-      context,
-      MaterialPageRoute<void>(builder: (context) => SecondScreen(payload)),
-    ); */
     }
 
     const AndroidNotificationChannel channel = AndroidNotificationChannel(
@@ -131,6 +127,19 @@ class _MyHomePageState extends State<MyHomePage> {
                 print(permission);
               },
               child: Text('Request location permission'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                FlutterLocalNotificationsPlugin
+                flutterLocalNotificationsPlugin =
+                    FlutterLocalNotificationsPlugin();
+                flutterLocalNotificationsPlugin
+                    .resolvePlatformSpecificImplementation<
+                      AndroidFlutterLocalNotificationsPlugin
+                    >()
+                    ?.requestNotificationsPermission();
+              },
+              child: Text('Request notification permission'),
             ),
             ElevatedButton(
               onPressed: () {
