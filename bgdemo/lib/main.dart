@@ -51,23 +51,35 @@ Future<void> setupInteractedMessage() async {
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     print("Background task: $task");
+    if (task.isEmpty) return Future.value(true);
+
     DartPluginRegistrant.ensureInitialized();
+    await setupInteractedMessage();
+
     var position = await Geolocator.getCurrentPosition();
     print('${position.latitude} ${position.longitude} coord');
 
     // Your background work here
-    /*     await setupInteractedMessage();
+    /*     final FlutterLocalNotificationsPlugin localNotifications =
+        FlutterLocalNotificationsPlugin();
+    const AndroidInitializationSettings androidSettings =
+        AndroidInitializationSettings('@mipmap/ic_launcher');
+    await localNotifications.initialize(
+      const InitializationSettings(android: androidSettings),
+    ); */
+
     FlutterLocalNotificationsPlugin().show(
       0,
-      "Test Background task: $task",
-      null,
+      "$task ${position.latitude} ${position.longitude}",
+      "$task ${position.latitude} ${position.longitude}",
       NotificationDetails(
         android: AndroidNotificationDetails(
           'high_importance_channel', // id
           'High Importance Notifications', // title
         ),
       ),
-    ); */
+    );
+    print("notification shown");
     return Future.value(true);
   });
 }
