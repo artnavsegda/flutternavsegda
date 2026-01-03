@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:geolocator/geolocator.dart';
@@ -49,8 +51,12 @@ Future<void> setupInteractedMessage() async {
 void callbackDispatcher() {
   Workmanager().executeTask((task, inputData) async {
     print("Background task: $task");
+    DartPluginRegistrant.ensureInitialized();
+    var position = await Geolocator.getCurrentPosition();
+    print('${position.latitude} ${position.longitude} coord');
+
     // Your background work here
-    await setupInteractedMessage();
+    /*     await setupInteractedMessage();
     FlutterLocalNotificationsPlugin().show(
       0,
       "Test Background task: $task",
@@ -61,7 +67,7 @@ void callbackDispatcher() {
           'High Importance Notifications', // title
         ),
       ),
-    );
+    ); */
     return Future.value(true);
   });
 }
