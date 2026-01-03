@@ -53,7 +53,7 @@ void callbackDispatcher() {
     await setupInteractedMessage();
     FlutterLocalNotificationsPlugin().show(
       0,
-      "Test",
+      "Test Background task: $task",
       null,
       NotificationDetails(
         android: AndroidNotificationDetails(
@@ -167,6 +167,21 @@ class _MyHomePageState extends State<MyHomePage> {
                 );
               },
               child: Text('Show notification'),
+            ),
+            ElevatedButton(
+              onPressed: () async {
+                var position = await Geolocator.getCurrentPosition();
+                var snackBar = SnackBar(
+                  content: Text(
+                    '${position.latitude} ${position.longitude} Yay! A SnackBar!',
+                  ),
+                );
+
+                // Find the ScaffoldMessenger in the widget tree
+                // and use it to show a SnackBar.
+                ScaffoldMessenger.of(context).showSnackBar(snackBar);
+              },
+              child: Text('Show location'),
             ),
           ],
         ),
